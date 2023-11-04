@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<bean id="abstractDao" abstract="true">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- 서비스운영-->																  	
+	<bean id="blbdDAO" class="com.nh.escm.pt.blbd.dao.BlbdDAO" parent="abstractDao" />
+	<bean id="nacfOfancDAO" class="com.nh.escm.pt.blbd.dao.NacfOfancDAO" parent="abstractDao" />
+	
+	<!-- 계약상담 -->
+	<bean id="csltRqDAO" class="com.nh.escm.bt.rq.dao.CsltRqDAO" parent="abstractDao" />
+	<bean id="csltRqHstDAO" class="com.nh.escm.bt.rq.dao.CsltRqHstDAO" parent="abstractDao" />
+	<bean id="csltRqSendDAO" class="com.nh.escm.bt.rq.dao.CsltRqSendDAO" parent="abstractDao" />
+	<bean id="rqBrkDAO" class="com.nh.escm.bt.rqBrk.dao.RqBrkDAO" parent="abstractDao" />
+	
+	<!-- 전자 계약-->																  	
+	<bean id="anwEltCtrwDrupDAO" class="com.nh.escm.ct.eltctrw.dao.AnwEltCtrwDrupDAO" parent="abstractDao" />
+	<bean id="eltctrwDAO"        class="com.nh.escm.ct.eltctrw.dao.EltCtrwDAO" parent="abstractDao" />
+	<bean id="ctrwChgHstDscDAO"  class="com.nh.escm.ct.eltctrw.dao.CtrwChgHstDscDAO" parent="abstractDao" />
+	<bean id="ctrwChgObjDAO"  class="com.nh.escm.ct.eltctrw.dao.CtrwChgObjDAO" parent="abstractDao" />
+	<bean id="ctrwStylDAO"  class="com.nh.escm.ct.eltctrwamn.dao.CtrwStylDAO" parent="abstractDao" />
+	<bean id="essDcmAmnDAO"  class="com.nh.escm.ct.eltctrwamn.dao.EssDcmAmnDAO" parent="abstractDao" />
+	<bean id="ctrwBatChgDAO"  class="com.nh.escm.ct.eltctrwchg.dao.CtrwBatChgDAO" parent="abstractDao" />
+	<bean id="eltAuthDAO"        class="com.nh.escm.ct.eltctrw.dao.EltAuthDAO" parent="abstractDao" />
+	
+	<!-- 공통 팝업-->
+	<bean id="adrInqDAO"  class="com.nh.escm.pt.comn.dao.AdrInqDAO" parent="abstractDao" />
+	<bean id="buyerInqDAO"  class="com.nh.escm.pt.comn.dao.BuyerInqDAO" parent="abstractDao" />
+	<bean id="eltChrrInqDAO"  class="com.nh.escm.pt.comn.dao.EltChrrInqDAO" parent="abstractDao" />
+	<bean id="ctrRqCptInqDAO"  class="com.nh.escm.pt.comn.dao.CtrRqCptInqDAO" parent="abstractDao" />
+	<bean id="trplCInqDAO"  class="com.nh.escm.pt.comn.dao.TrplCInqDAO" parent="abstractDao" />
+		
+
+	
+	<!-- 메뉴관리-->
+	<bean id="menuDAO" class="com.nh.escm.mg.menuamn.dao.MenuDAO" parent="abstractDao" />
+	<!-- 로그인/로그아웃-->
+	<bean id="lginLgotDAO" class="com.nh.escm.pt.usrinf.dao.LginLgotDAO" parent="abstractDao" />
+	<!-- ID/PW찾기-->
+	<bean id="idPwInqDAO" class="com.nh.escm.pt.usrinf.dao.IdPwInqDAO" parent="abstractDao" />
+	<!-- 내메뉴-->
+	<bean id="myMenuDAO" class="com.nh.escm.pt.mymnu.dao.MymnuDAO" parent="abstractDao" />
+	<!-- 회원가입-->
+	<bean id="mbEntDAO" class="com.nh.escm.pt.usrinf.dao.MbEntDAO" parent="abstractDao" />
+	<!-- 회원정보변경-->
+	<bean id="mbInfChgDAO" class="com.nh.escm.pt.usrinf.dao.MbInfChgDAO" parent="abstractDao" />
+	<!-- 이용요금명세서-->
+	<bean id="usAmScfwDAO" class="com.nh.escm.pt.myinf.dao.UsAmScfwDAO" parent="abstractDao" />
+	<!-- 월청구내역-->
+	<bean id="mmRqsBrkDAO" class="com.nh.escm.pt.myinf.dao.MmRqsBrkDAO" parent="abstractDao" />
+	<!-- 부가정보일별내역-->
+	<bean id="adinfDtpBrkDAO" class="com.nh.escm.pt.myinf.dao.AdinfDtpBrkDAO" parent="abstractDao" />
+	<!-- EDI일별내역-->	
+	<bean id="ediSvcDtpBrkDAO" class="com.nh.escm.pt.myinf.dao.EdiSvcDtpBrkDAO" parent="abstractDao" />
+	<!-- 사용자 관리 -->
+	<bean id="usrAmnDAO" class="com.nh.escm.pt.msgamn.dao.UsrAmnDAO" parent="abstractDao" />
+	<!-- 정보분석-->	
+	<bean id="infAnssDAO" class="com.nh.escm.pt.myinf.dao.InfAnssDAO" parent="abstractDao" />
+		
+	<!-- 전자세금계산서 -->
+	<bean id="slTxbilDscDAO" class="com.nh.escm.tx.doccstd.dao.SlTxbilDscDAO" parent="abstractDao" />
+	<bean id="slTttblDAO" class="com.nh.escm.tx.byngsltttbl.dao.SlTttblDAO" parent="abstractDao" />
+	<bean id="rptPsttDAO" class="com.nh.escm.tx.nts.dao.RptPsttDAO" parent="abstractDao" />
+	<bean id="ctfcDAO"  class="com.nh.escm.tx.ctfc.dao.CtfcDAO" parent="abstractDao" />
+	<bean id="simplifyDAO"  class="com.nh.escm.tx.doccstd.dao.ClosingSimplifyDAO" parent="abstractDao" />
+	
+	<!-- 회원권한관리 -->
+	<bean id="mbAuthDAO" class="com.nh.escm.pt.member.dao.MbAuthDAO" parent="abstractDao" />	
+</beans>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ediSvcDtpBrkDAO">
+	
+	<!-- 이용료명세서 > EDI서비스일별내역 목록 조회 -->
+	<select id="retrieveEdiSvcDtpBrkList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveEdiSvcDtpBrkList */
+		       RMS_DT,
+		       ORDERS,
+		       ORDRES,
+		       DESADV,
+		       DESRSP,
+		       CONADV,
+		       CONRET,
+		       SILRPT,
+		       SISRPT,
+		       (ORDERS + ORDRES + DESADV + DESRSP + CONADV + CONRET + SILRPT + SISRPT) AS DLY_SUM,
+		       (BL_ORDERS + BL_ORDRES + BL_DESADV + BL_DESRSP + BL_CONADV + BL_CONRET + BL_SILRPT + BL_SISRPT) AS BL_DLY_SUM
+		  FROM (
+		           SELECT B.RMS_DT,
+		                  SUM(CASE WHEN B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDERS,     /* 주문서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'ORDRES'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDRES,     /* 주문예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESADV,     /* 배송예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESRSP'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESRSP,     /* 배송예정응답서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONADV,     /* 검수확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONRET'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONRET,     /* 반품확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SILRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SILRPT,     /* 마트별매입실적 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SISRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SISRPT,     /* 물류센터출고실적 */
+		                  SUM(CASE WHEN B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_ORDERS,  /* 주문서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'ORDRES'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_ORDRES,  /* 주문예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESADV'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_DESADV,  /* 배송예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESRSP'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_DESRSP,  /* 배송예정응답서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONADV'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_CONADV,  /* 검수확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONRET'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_CONRET,  /* 반품확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SILRPT'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_SILRPT,  /* 마트별매입실적 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SISRPT'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_SISRPT   /* 물류센터출고실적 */
+		             FROM BL_MM_RQS_AM A
+		                  INNER JOIN BL_DLY_SCM_UGQT B
+		                          ON A.RMS_TRPL_C = B.RMS_TRPL_C
+	<![CDATA[
+		            WHERE A.RMS_MM < TO_CHAR(SYSDATE - 1, 'YYYYMM')  /* 지난 이용월만 조회 가능. ex) 5월 이용요금은 6월 2일부터 조회됨 */
+	]]>
+		              AND A.RMS_MM = #{RMS_MM}
+		              AND B.RMS_DT LIKE #{RMS_MM} || '%'
+		          <choose>
+		          <when test="RMS_TRPL_C == 'A'.toString()">
+		              AND (
+		                      A.RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		                      OR
+		                      A.PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		                  )
+		          </when>
+		          <otherwise>
+		              AND A.RMS_TRPL_C = #{TRPL_C}
+		          </otherwise>
+		          </choose>
+		            GROUP BY B.RMS_DT
+		       )
+		 ORDER BY RMS_DT
+	</select>
+	
+	<!-- 이용료명세서 > 거래처별 EDI서비스일별내역 목록 조회 (엑셀다운) -->
+	<select id="downloadEdiSvcDtpBrkList"  parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT /* downloadEdiSvcDtpBrkList */
+		       RMS_DT,
+		       '[' || RMS_TRPL_C || '] ' || CLNTNM AS CLNTNM,
+		       ORDERS,
+		       ORDRES,
+		       DESADV,
+		       DESRSP,
+		       CONADV,
+		       CONRET,
+		       SILRPT,
+		       SISRPT,
+		       (ORDERS + ORDRES + DESADV + DESRSP + CONADV + CONRET + SILRPT + SISRPT) AS DLY_SUM,
+		       (BL_ORDERS + BL_ORDRES + BL_DESADV + BL_DESRSP + BL_CONADV + BL_CONRET + BL_SILRPT + BL_SISRPT) AS BL_DLY_SUM,
+		       ROUND((BL_ORDERS + BL_ORDRES + BL_DESADV + BL_DESRSP + BL_CONADV + BL_CONRET + BL_SILRPT + BL_SISRPT) / 1024) AS BL_DLY_SUM_KB
+		  FROM (
+		           SELECT B.RMS_DT,
+		                  A.RMS_TRPL_C,
+		                  A.CLNTNM,
+		                  SUM(CASE WHEN B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDERS,     /* 주문서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'ORDRES'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDRES,     /* 주문예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESADV,     /* 배송예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESRSP'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESRSP,     /* 배송예정응답서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONADV,     /* 검수확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONRET'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONRET,     /* 반품확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SILRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SILRPT,     /* 마트별매입실적 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SISRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SISRPT,     /* 물류센터출고실적 */
+		                  SUM(CASE WHEN B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_ORDERS,  /* 주문서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'ORDRES'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_ORDRES,  /* 주문예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESADV'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_DESADV,  /* 배송예정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'DESRSP'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_DESRSP,  /* 배송예정응답서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONADV'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_CONADV,  /* 검수확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'CONRET'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_CONRET,  /* 반품확정서 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SILRPT'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_SILRPT,  /* 마트별매입실적 */
+		                  SUM(CASE WHEN B.DOC_NAME = 'SISRPT'              THEN NVL(B.BL_DLY_UGQT, 0) ELSE 0 END) AS BL_SISRPT   /* 물류센터출고실적 */
+		             FROM BL_MM_RQS_AM A
+		                  INNER JOIN BL_DLY_SCM_UGQT B
+		                          ON A.RMS_TRPL_C = B.RMS_TRPL_C
+	<![CDATA[
+		            WHERE A.RMS_MM < TO_CHAR(SYSDATE - 1, 'YYYYMM')  /* 지난 이용월만 조회 가능. ex) 5월 이용요금은 6월 2일부터 조회됨 */
+	]]>
+		              AND A.RMS_MM = #{RMS_MM}
+		              AND B.RMS_DT LIKE #{RMS_MM} || '%'
+		          <choose>
+		          <when test="RMS_TRPL_C == 'A'.toString()">
+		              AND (
+		                      A.RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		                      OR
+		                      A.PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		                  )
+		          </when>
+		          <otherwise>
+		              AND A.RMS_TRPL_C = #{TRPL_C}
+		          </otherwise>
+		          </choose>
+		            GROUP BY A.RMS_TRPL_C, A.CLNTNM, B.RMS_DT
+		       )
+		 ORDER BY RMS_TRPL_C, RMS_DT
+	</select>
+	
+	<!-- 이용료명세서 > EDI서비스일별내역(WEB/EDI) 목록 조회 -->
+	<select id="retrieveEdiSvcDtpBrkList_LOC"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveEdiSvcDtpBrkList_LOC */
+		       RMS_DT,
+		       ORDERS_WEB, ORDERS_EDI,
+		       ORDRES_WEB, ORDRES_EDI,
+		       DESADV_WEB, DESADV_EDI,
+		       DESRSP_WEB, DESRSP_EDI,
+		       CONADV_WEB, CONADV_EDI,
+		       CONRET_WEB, CONRET_EDI,
+		       SILRPT_WEB, SILRPT_EDI,
+		       SISRPT_WEB, SISRPT_EDI,
+		       (ORDERS_WEB + ORDRES_WEB + DESADV_WEB + DESRSP_WEB + CONADV_WEB + CONRET_WEB + SILRPT_WEB + SISRPT_WEB) AS DLY_SUM_WEB,
+		       (ORDERS_EDI + ORDRES_EDI + DESADV_EDI + DESRSP_EDI + CONADV_EDI + CONRET_EDI + SILRPT_EDI + SISRPT_EDI) AS DLY_SUM_EDI
+		  FROM (
+		           SELECT B.RMS_DT,
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDERS_WEB,  /* 주문서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDERS_EDI,  /* 주문서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'ORDRES'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDRES_WEB,  /* 주문예정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'ORDRES'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDRES_EDI,  /* 주문예정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'DESADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESADV_WEB,  /* 배송예정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'DESADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESADV_EDI,  /* 배송예정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'DESRSP'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESRSP_WEB,  /* 배송예정응답서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'DESRSP'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESRSP_EDI,  /* 배송예정응답서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'CONADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONADV_WEB,  /* 검수확정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'CONADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONADV_EDI,  /* 검수확정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'CONRET'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONRET_WEB,  /* 반품확정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'CONRET'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONRET_EDI,  /* 반품확정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'SILRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SILRPT_WEB,  /* 마트별매입실적(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'SILRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SILRPT_EDI,  /* 마트별매입실적(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'SISRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SISRPT_WEB,  /* 물류센터출고실적(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'SISRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SISRPT_EDI   /* 물류센터출고실적(EDI) */
+		             FROM BL_MM_RQS_AM A
+		                  INNER JOIN BL_DLY_XML_UGQT B
+		                          ON A.RMS_TRPL_C = B.RMS_TRPL_C
+	<![CDATA[
+		            WHERE A.RMS_MM < TO_CHAR(SYSDATE - 1, 'YYYYMM')  /* 지난 이용월만 조회 가능. ex) 5월 이용요금은 6월 2일부터 조회됨 */
+	]]>
+		              AND A.RMS_MM = #{RMS_MM}
+		              AND B.RMS_DT LIKE #{RMS_MM} || '%'
+		          <choose>
+		          <when test="RMS_TRPL_C == 'A'.toString()">
+		              AND (
+		                      A.RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		                      OR
+		                      A.PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		                  )
+		          </when>
+		          <otherwise>
+		              AND A.RMS_TRPL_C = #{TRPL_C}
+		          </otherwise>
+		          </choose>
+		            GROUP BY B.RMS_DT
+		       )
+		 ORDER BY RMS_DT
+	</select>
+	
+	<!-- 이용료명세서 > 거래처별 EDI서비스일별내역(WEB/EDI) 목록 조회 (엑셀다운) -->
+	<select id="downloadEdiSvcDtpBrkList_LOC"  parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT /* downloadEdiSvcDtpBrkList_LOC */
+		       RMS_DT,
+		       '[' || RMS_TRPL_C || '] ' || CLNTNM AS CLNTNM,
+		       ORDERS_WEB, ORDERS_EDI,
+		       ORDRES_WEB, ORDRES_EDI,
+		       DESADV_WEB, DESADV_EDI,
+		       DESRSP_WEB, DESRSP_EDI,
+		       CONADV_WEB, CONADV_EDI,
+		       CONRET_WEB, CONRET_EDI,
+		       SILRPT_WEB, SILRPT_EDI,
+		       SISRPT_WEB, SISRPT_EDI,
+		       (ORDERS_WEB + ORDRES_WEB + DESADV_WEB + DESRSP_WEB + CONADV_WEB + CONRET_WEB + SILRPT_WEB + SISRPT_WEB) AS DLY_SUM_WEB,
+		       (ORDERS_EDI + ORDRES_EDI + DESADV_EDI + DESRSP_EDI + CONADV_EDI + CONRET_EDI + SILRPT_EDI + SISRPT_EDI) AS DLY_SUM_EDI,
+		       ROUND((ORDERS_WEB + ORDRES_WEB + DESADV_WEB + DESRSP_WEB + CONADV_WEB + CONRET_WEB + SILRPT_WEB + SISRPT_WEB) / 1024) AS DLY_SUM_WEB_KB,
+		       ROUND((ORDERS_EDI + ORDRES_EDI + DESADV_EDI + DESRSP_EDI + CONADV_EDI + CONRET_EDI + SILRPT_EDI + SISRPT_EDI) / 1024) AS DLY_SUM_EDI_KB
+		  FROM (
+		           SELECT B.RMS_DT,
+		                  A.RMS_TRPL_C,
+		                  A.CLNTNM,
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDERS_WEB,  /* 주문서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME IN ('ORDERS', 'ORDCHG') THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDERS_EDI,  /* 주문서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'ORDRES'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDRES_WEB,  /* 주문예정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'ORDRES'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS ORDRES_EDI,  /* 주문예정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'DESADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESADV_WEB,  /* 배송예정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'DESADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESADV_EDI,  /* 배송예정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'DESRSP'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESRSP_WEB,  /* 배송예정응답서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'DESRSP'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS DESRSP_EDI,  /* 배송예정응답서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'CONADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONADV_WEB,  /* 검수확정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'CONADV'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONADV_EDI,  /* 검수확정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'CONRET'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONRET_WEB,  /* 반품확정서(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'CONRET'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS CONRET_EDI,  /* 반품확정서(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'SILRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SILRPT_WEB,  /* 마트별매입실적(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'SILRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SILRPT_EDI,  /* 마트별매입실적(EDI) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'WEB' AND B.DOC_NAME = 'SISRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SISRPT_WEB,  /* 물류센터출고실적(WEB) */
+		                  SUM(CASE WHEN B.DOC_RMS_LOC_DSC = 'EDI' AND B.DOC_NAME = 'SISRPT'              THEN NVL(B.DLY_UGQT, 0)    ELSE 0 END) AS SISRPT_EDI   /* 물류센터출고실적(EDI) */
+		             FROM BL_MM_RQS_AM A
+		                  INNER JOIN BL_DLY_XML_UGQT B
+		                          ON A.RMS_TRPL_C = B.RMS_TRPL_C
+	<![CDATA[
+		            WHERE A.RMS_MM < TO_CHAR(SYSDATE - 1, 'YYYYMM')  /* 지난 이용월만 조회 가능. ex) 5월 이용요금은 6월 2일부터 조회됨 */
+	]]>
+		              AND A.RMS_MM = #{RMS_MM}
+		              AND B.RMS_DT LIKE #{RMS_MM} || '%'
+		          <choose>
+		          <when test="RMS_TRPL_C == 'A'.toString()">
+		              AND (
+		                      A.RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		                      OR
+		                      A.PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		                  )
+		          </when>
+		          <otherwise>
+		              AND A.RMS_TRPL_C = #{TRPL_C}
+		          </otherwise>
+		          </choose>
+		            GROUP BY A.RMS_TRPL_C, A.CLNTNM, B.RMS_DT
+		       )
+		 ORDER BY RMS_TRPL_C, RMS_DT
+	</select>
+	
+</mapper>

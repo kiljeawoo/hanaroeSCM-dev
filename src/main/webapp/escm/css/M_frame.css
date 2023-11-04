@@ -1,0 +1,496 @@
+﻿/******************************************************************************************************/
+/***** PROJECT NAME		: NEXACRO DEFAULT THEME	********/
+/***** CREATION DATES		: 2015.05.04		********/
+/***** DRAFTER 			: TOBESOFT DESIGN TEAM	********/
+/***** DISTRIBUTION DATE 	: 2015.05.04		********/
+/******************************************************************************************************/
+/****************************************** TopFarme Area ********************************************/
+/**** back BTN ****/
+Button.btn_TF_Return, Button.btn_TF_Return:focused, Button.btn_TF_Return:selected, Button.btn_TF_Return:disabled, Button.btn_TF_Return:mouseover
+{
+	background			: URL('M_img::btn_TF_Return.png') center middle;
+	border				: 0 none;
+}
+Button.btn_TF_Return:pushed
+{
+	background			: URL('M_img::btn_TF_Return_P.png') center middle;
+	border				: 0 none;
+}
+/**** menu BTN ****/
+Button.btn_TF_Menu, Button.btn_TF_Menu:focused, Button.btn_TF_Menu:selected, Button.btn_TF_Menu:disabled, Button.btn_TF_Menu:mouseover
+{
+	background			: URL('M_img::btn_TF_Menu.png') center middle;
+	border				: 0 none;
+}
+Button.btn_TF_Menu:pushed
+{
+	background			: URL('M_img::btn_TF_Menu_P.png') center middle;
+	border				: 0 none;
+}
+/***** topMenu BTN ******/
+Button.btn_WF_Topmenu, Button.btn_WF_Topmenu:focused, Button.btn_WF_Topmenu:mouseover
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	font				: bold 15 Helvetica;
+	color				: #ffffff;
+}
+Button.btn_WF_Topmenu:pushed, Button.btn_WF_Topmenu:selected
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	font				: underline bold 15 Helvetica;
+	color				: #fff228;
+}
+Button.btn_WF_Topmenu:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	font				: bold 15 Helvetica;
+	color				: #6c8e96;
+}
+/***** topMenu BTN 선택스타일 ******/
+Button.btn_WF_TopmenuS, Button.btn_WF_TopmenuS:focused, Button.btn_WF_TopmenuS:mouseover,
+Button.btn_WF_TopmenuS:pushed, Button.btn_WF_TopmenuS:selected, Button.btn_WF_TopmenuS:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	font				: underline bold 15 Helvetica;
+	color				: #fff228;	
+}
+/******* top prev/next BTN *******/
+Button.btn_WF_MenuPrev, Button.btn_WF_MenuPrev:focused, Button.btn_WF_MenuPrev:selected, Button.btn_WF_MenuPrev:mouseover
+{
+	background			: URL('M_img::btn_WF_MenuPrev.png') left middle;
+	border				: 0 none;
+	font				: 13 Helvetica;
+	color				: #768549;
+	padding				: 0 0 0 17;
+	align				: left middle;
+}
+Button.btn_WF_MenuPrev:pushed
+{
+	background			: URL('M_img::btn_WF_MenuPrev_P.png') left middle;
+	border				: 0 none;
+	font				: 13 Helvetica;
+	color				: #05343c;
+	padding				: 0 0 0 17;	
+	align				: left middle;	
+}
+Button.btn_WF_MenuPrev:disabled
+{
+	background			: URL('M_img::btn_WF_MenuPrev_D.png') left middle;
+	border				: 0 none;
+	font				: 13 Helvetica;
+	color				: #c2c148;
+	padding				: 0 0 0 17;
+	align				: left middle;		
+}
+/*********/
+Button.btn_WF_MenuNext, Button.btn_WF_MenuNext:focused, Button.btn_WF_MenuNext:selected, Button.btn_WF_MenuNext:mouseover
+{
+	background			: URL('M_img::btn_WF_MenuNext.png') right middle;
+	border				: 0 none;
+	font				: 13 Helvetica;
+	color				: #768549;
+	padding				: 0 17 0 0;	
+	align				: right middle;
+}
+Button.btn_WF_MenuNext:pushed
+{
+	background			: URL('M_img::btn_WF_MenuNext_P.png') right middle;
+	border				: 0 none;
+	font				: 13 Helvetica;
+	color				: #05343c;
+	padding				: 0 17 0 0;	
+	align				: right middle;	
+}
+Button.btn_WF_MenuNext:disabled
+{
+	background			: URL('M_img::btn_WF_MenuNext_D.png') right middle;
+	border				: 0 none;
+	font				: 13 Helvetica;
+	color				: #c2c148;
+	padding				: 0 17 0 0;	
+	align				: right middle;		
+}
+/****** main BTN ******/
+Button.btn_MAIN_TodoListTitle, Button.btn_MAIN_TodoListTitle:focused, Button.btn_MAIN_TodoListTitle:mouseover
+{
+	background			: URL('M_img::btn_MAIN_TodoListTitle.png') stretch 8,0;
+	border				: 0 none;
+	font				: bold 16 Helvetica;
+	color				: #333333;
+	padding				: 0 0 8 0;	
+}
+Button.btn_MAIN_TodoListTitle:pushed, Button.btn_MAIN_TodoListTitle:selected
+{
+	background			: URL('M_img::btn_MAIN_TodoListTitle_P.png') ;
+	border				: 0 none;
+	font				: bold 16 Helvetica;
+	color				: #003a44;
+	padding				: 0 0 8 0;	
+}
+Button.btn_MAIN_TodoListTitle:disabled
+{
+	background			: URL('M_img::btn_MAIN_TodoListTitle_D.png') stretch 8,0;
+	border				: 0 none;
+	font				: bold 16 Helvetica;
+	color				: #b9b9b9;
+	padding				: 0 0 8 0;
+}
+/********/
+Button.btn_MAIN_TodoListTitleS, Button.btn_MAIN_TodoListTitleS:focused, Button.btn_MAIN_TodoListTitleS:mouseover,
+Button.btn_MAIN_TodoListTitleS:pushed, Button.btn_MAIN_TodoListTitleS:selected, Button.btn_MAIN_TodoListTitleS:disabled
+{
+	background			: URL('M_img::btn_MAIN_TodoListTitle_P.png') ;
+	border				: 0 none;
+	font				: bold 16 Helvetica;
+	color				: #003a44;
+	padding				: 0 0 8 0;
+}
+/*******/
+Button.btn_MAIN_TodoListCount, Button.btn_MAIN_TodoListCount:focused, Button.btn_MAIN_TodoListCount:mouseover
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	font				: bold 14 Helvetica;
+	color				: #546b6f;
+	padding				: 79 0 0 0;	
+	align				: center middle;	
+}
+Button.btn_MAIN_TodoListCount:pushed, Button.btn_MAIN_TodoListCount:selected
+{
+	background			: URL('M_img::btn_MAIN_TodoListCount.png') stretch 18,40;
+	border				: 0 none;
+	font				: bold 14 Helvetica;
+	color				: #4b5d61;
+	padding				: 79 0 0 0;	
+	align				: center middle;	
+}
+Button.btn_MAIN_TodoListCount:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	font				: bold 14 Helvetica;
+	color				: #76898c;
+	padding				: 79 0 0 0;	
+	align				: center middle;
+}
+/*******/
+Button.btn_WF_Onsettoglbtn, Button.btn_WF_Onsettoglbtn:focused, Button.btn_WF_Onsettoglbtn:selected, Button.btn_WF_Onsettoglbtn:mouseover
+{
+	background			: #34c6d8;
+	border				: 1 solid #25a0bd;
+	color				: #ffffff;
+}
+Button.btn_WF_Onsettoglbtn:pushed
+{
+	background			: #1b91b1;
+	border				: 1 solid #25a0bd;
+	color				: #ffffff;
+}
+Button.btn_WF_Onsettoglbtn:disabled
+{
+		
+}
+/***** 공지사항 탭버튼 *****/
+Button.btn_WF_Notice, Button.btn_WF_Notice:focused, Button.btn_WF_Notice:selected, Button.btn_WF_Notice:mouseover, Button.btn_WF_Notice:pushed, Button.btn_WF_Notice:disabled
+{
+	background			: URL('M_img::btn_WF_Notice.png') stretch 7,7;
+	border				: 0 none;
+	color				: #003a44;
+	font				: bold 17 Helvetica;
+}
+/*****/
+Button.btn_WF_NoticeS, Button.btn_WF_NoticeS:focused, Button.btn_WF_NoticeS:selected, Button.btn_WF_NoticeS:mouseover, Button.btn_WF_NoticeS:pushed, Button.btn_WF_NoticeS:disabled
+{
+	background			: URL('M_img::btn_WF_NoticeS.png') stretch 7,7;
+	border				: 0 none;
+	color				: #444444;
+	font				: bold 17 Helvetica;
+}
+/****** main div01 ******/
+Div.div_MAIN_TodoListBg
+{
+	background			: #1db4ce;	
+}
+/***** top BG *****/
+Static.sta_TF_Bg, Static.sta_TF_Bg:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #ffffff 0,100 #e5e5e5;	
+	border				: 0 none, 0 none, 1 solid #003d48, 0 none;
+	color				: #0e627c;
+	font				: bold 22 Helvetica;
+	align				: center middle;	
+}
+/*** top title ***/
+Static.sta_TF_Title, Static.sta_TF_Title:mouseover
+{
+	background			: URL('M_img::sta_TF_Title.png') center middle;
+}
+/****** topMenu *******/
+Static.sta_MAIN_User, Static.sta_MAIN_User:mouseover
+{
+	background			: URL('M_img::sta_MAIN_User.png') repeat-x;
+	color				: #fff228;
+	font				: bold 15 Helvetica;	
+	padding				: 0 0 0 26;
+}
+/*****/
+Static.sta_WF_Toptitle, Static.sta_WF_Toptitle:mouseover
+{
+	background			: URL('M_img::sta_MAIN_User.png') repeat-x;
+	color				: #ffffff;
+	font				: bold 20 Helvetica;	
+	align				: center middle;
+}
+/*****/
+Static.sta_WF_Sattgtlbg, Static.sta_WF_Sattgtlbg:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #cdcdcd 0,100 #c1c1c1;
+	border				: 1 solid #b8b8b8, 0 none;	
+	color				: #141414;
+	font				: bold 16 Helvetica;	
+	align				: center middle;
+}
+/****** topMenu title *******/
+Static.sta_WF_Titlebg, Static.sta_WF_Titlebg:mouseover
+{
+	background			: URL('M_img::sta_WF_Titlebg.png') repeat-x;
+	font				: bold 18 Helvetica;
+	color				: #08404a;
+	align				: center middle;	
+}
+/******/
+Static.sta_MAIN_TodoListCountBg, Static.sta_MAIN_TodoListCountBg:mouseover
+{
+	background			: URL('M_img::sta_MAIN_TodoListCountBg.png') stretch 18,40 ;	
+	color				: #007f95;
+	font				: bold 45 Helvetica;
+	padding				: 16 0 0 0;
+	align				: center top;		
+}
+Static.sta_MAIN_TodoListCountBg:disabled
+{
+	background			: URL('M_img::sta_MAIN_TodoListCountBg_D.png') stretch 18,40 ;	
+	color				: #546b6f;
+	font				: bold 45 Helvetica;
+	padding				: 16 0 0 0;
+	align				: center top;
+}
+/******/
+Static.sta_WF_Noticeshrchbg, Static.sta_WF_Noticeshrchbg:mouseover
+{
+	background			: URL('M_img::sta_WF_Noticeshrchbg.png') repeat-x ;	
+}
+/******/
+Static.sta_WF_Noticetitle, Static.sta_WF_Noticetitle:mouseover
+{
+	background			: #e3e3e3;
+	border				: 0 none;
+	font				: 15 Helvetica;
+	padding				: 5 0 0 100;	
+	linespace			: 8;
+}
+/**** 공지사항 디테일 타이틀 아이콘? ****/
+Static.sta_WF_Noticeico01, Static.sta_WF_Noticeico01:mouseover
+{
+	background			: URL('M_img::sta_WF_Noticeico01.png');
+}
+Static.sta_WF_Noticeico02, Static.sta_WF_Noticeico02:mouseover
+{
+	background			: URL('M_img::sta_WF_Noticeico02.png');
+}
+/***** 공지사항 디테일 TextArea ******/
+TextArea.txt_WF_Notice, TextArea.txt_WF_Notice:mouseover, TextArea.txt_WF_Notice:focused
+{
+	border				: 0 none;
+	linespace			: 20;	
+}
+TextArea.txt_WF_Notice:disabled
+{
+	border				: 0 none;
+}
+/****************************************** RightFarme Area ********************************************/
+/**** close BTN ****/
+Button.btn_RF_CloseBtn, Button.btn_RF_CloseBtn:focused, Button.btn_RF_CloseBtn:selected, Button.btn_RF_CloseBtn:mouseover
+{
+	background			: URL('M_img::btn_RF_CloseBtn.png') ;
+	border				: 0 none;
+}
+Button.btn_RF_CloseBtn:pushed
+{
+	background			: URL('M_img::btn_RF_CloseBtn_P.png') ;
+	border				: 0 none;
+}
+Button.btn_RF_CloseBtn:disabled
+{
+	background			: URL('M_img::btn_RF_CloseBtn_D.png') ;
+	border				: 0 none;
+}
+/**** Logout BTN ****/
+Button.btn_RF_LogoutBtn, Button.btn_RF_LogoutBtn:focused, Button.btn_RF_LogoutBtn:selected, Button.btn_RF_LogoutBtn:mouseover
+{
+	background			: URL('M_img::btn_RF_LogoutBtn.png') center middle;
+	border				: 0 none;
+}
+Button.btn_RF_LogoutBtn:pushed
+{
+	background			: URL('M_img::btn_RF_LogoutBtn_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_RF_LogoutBtn:disabled
+{
+	background			: URL('M_img::btn_RF_LogoutBtn_D.png') center middle;
+	border				: 0 none;
+}
+/**** Setting BTN ****/
+Button.btn_RF_SettingBtn, Button.btn_RF_SettingBtn:focused, Button.btn_RF_SettingBtn:selected, Button.btn_RF_SettingBtn:mouseover
+{
+	background			: URL('M_img::btn_RF_SettingBtn.png') center middle;
+	border				: 0 none;
+}
+Button.btn_RF_SettingBtn:pushed
+{
+	background			: URL('M_img::btn_RF_SettingBtn_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_RF_SettingBtn:disabled
+{
+	background			: URL('M_img::btn_RF_SettingBtn_D.png') center middle;
+	border				: 0 none;
+}
+/******* right menu grd ********/
+Grid.grd_RF_RightMenu
+{
+	align				: center middle;
+	background			: #d6dbde;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #4c5358;
+	font				: 18 Helvetica;
+	treeclosebuttonimage		: URL('M_img::ico_treeclose.png');
+	treecollapseimage		: URL('M_img::ico_treecollapse.png');
+	treeexpandimage			: URL('M_img::ico_treeexpand.png');
+	treeitemimage			: URL('M_img::ico_treeitem.png');
+	treeitemmargin			: 0 0 0 0;
+	treelinetype			: 1 dotted #a5b6b6;
+	treeopenbuttonimage		: URL('M_img::ico_treeopen.png');	
+}
+Grid.grd_RF_RightMenu>#body, Grid.grd_RF_RightMenu>#body:focused, Grid.grd_RF_RightMenu>#body:mouseover
+{
+	background			: #d6dbde;
+	border				: 0 none;
+	bordertype			: normal;
+	cellalign			: center middle;
+	cellbackground			: URL('M_img::grd_RF_menuBg.png') stretch 42,0;
+	cellbackground2			: URL('M_img::grd_RF_menuBg.png') stretch 42,0;
+	cellcolor			: #4c5358;
+	cellcolor2			: #4c5358;
+	cellline			: 0 none;
+	celllinetype			: exhor;
+	cellpadding			: 0 0 0 0;
+	selectbackground		: URL('M_img::grd_RF_menuBg_S.png') stretch 42,0;
+	selectborder			: 0 none;
+	selectbordrertype		: normal;	
+	selectcolor			: #4c5358;
+	selectfont			: 18 Helvetica;
+	selectline			: 0 none;
+}
+/****** title *******/
+Static.sta_RF_User, Static.sta_RF_User:mouseover
+{
+	background		: #0e5a67 URL('M_img::sta_RF_User.png') left middle;
+	padding			: 0 0 0 30;
+	font			: bold 15 Helvetica;
+	color			: #fff228;		
+}
+/*******/
+Static.sta_RF_MenuBtmBg, Static.sta_RF_MenuBtmBg:mouseover
+{
+	background		: @gradation;
+	gradation		: linear 0,0 #f9fafa 0,100 #f5f7f7;
+	border			: 2 double #e7e9e9 #ffffff, 0 none, 0 none, 0 none;		
+}
+/**************************** Login *****************************/
+Button.btn_LOGIN_Login, Button.btn_LOGIN_Login:focused, Button.btn_LOGIN_Login:selected, Button.btn_LOGIN_Login:mouseover
+{
+	background			: URL('M_img::btn_LOGIN_Login.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LOGIN_Login:pushed
+{
+	background			: URL('M_img::btn_LOGIN_Login_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LOGIN_Login:disabled
+{
+	background			: URL('M_img::btn_LOGIN_Login_D.png') center middle;
+	border				: 0 none;
+}
+/*****/
+CheckBox.chk_LOGIN_IDPW, CheckBox.chk_LOGIN_IDPW:mouseover, CheckBox.chk_LOGIN_IDPW:focused, CheckBox.chk_LOGIN_IDPW:pushed
+{
+	align				: left middle;
+	background			: transparent;
+	border				: 0 none;
+	bordertype			: normal;
+	buttonalign			: left middle;
+	buttonbackground		: URL('M_img::chk_LOGIN_IDPWBg.png');
+	buttonborder			: 0 none;
+	buttonimage			: URL('M_img::chk_LOGIN_IDPWImg.png');
+	buttonsize			: 34;
+	color				: #444444;
+	cursor				: auto;
+	font				: 20 Helvetica;
+	padding				: 0 0 0 0;
+	textpadding			: 0 0 0 13;
+}
+CheckBox.chk_LOGIN_IDPW:disabled
+{
+	color				: #999999;
+	buttonbackground		: URL('M_img::chk_LOGIN_IDPWBg_D.png');	
+	buttonimage			: ;
+	buttonborder			: 0 none;
+	font				: 20 Helvetica;	
+}
+/*********/
+Edit.edt_LOGIN_IDPW, Edit.edt_LOGIN_IDPW:mouseover
+{
+	align				: left middle;
+	background			: URL('M_img::edt_LOGIN_IDPW.png') stretch 12,12;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #777777;
+	font				: 20 Helvetica;
+	padding				: 2 20 0 20;
+}
+Edit.edt_LOGIN_IDPW:focused
+{
+	background			: URL('M_img::edt_LOGIN_IDPW_F.png') stretch 12,12;
+	border				: 0 none;	
+	font				: 20 Helvetica;	
+	padding				: 2 20 0 20;	
+	color				: #777777;		
+}
+Edit.edt_LOGIN_IDPW:disabled
+{
+	background			: URL('M_img::edt_LOGIN_IDPW_D.png') stretch 12,12;
+	border				: 0 none;
+	color				: #c1c0c0;
+	font				: 20 Helvetica;	
+	padding				: 2 20 0 20;
+}
+/*****/
+Static.sta_LOGIN_Image, Static.sta_LOGIN_Image:mouseover
+{
+	background			: URL('M_img::sta_LOGIN_Image.png') ;	
+}
+
+
+
+
+

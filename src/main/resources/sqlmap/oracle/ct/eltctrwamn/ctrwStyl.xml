@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ctrwStylDAO">
+	
+
+	<select id="retrieveCtrwStylList" parameterType="java.util.Map" resultType="java.util.Map">
+	<choose>
+		<when test="CTRW_KDC != null and CTRW_KDC.length() > 0">
+		SELECT /* retrieveCtrwStylList */ 
+			  '0' AS ISCHECKED
+			  ,S.CTRW_KDC
+			  ,C.SIMP_CNM AS CTRW_KDC_NM
+			  ,S.CTRW_STY_VER
+			  ,S.SQNO
+			  ,NVL(S.UYN,'N') AS UYN
+			  ,DECODE(S.UYN , 'Y' ,'사용' , '사용안함'  )AS UYN_NM
+			  ,S.FSRG_DTM
+		  FROM CT_ETC_ELT_STYL_AMM S ,MG_COMN_C_AMN C
+		 WHERE SQNO = '01'
+		   AND S.CTRW_KDC  =  C.SIMP_C(+)
+			<if test="CTRW_KDC != null and CTRW_KDC.length() > 0">
+				AND S.CTRW_KDC  =#{CTRW_KDC}
+			</if>
+			<if test="CTRW_STY_VER != null and CTRW_STY_VER.length() > 0">
+				AND S.CTRW_STY_VER  =#{CTRW_STY_VER}
+			</if>
+		ORDER BY S.CTRW_KDC ASC ,S.CTRW_STY_VER DESC
+		</when>
+		<otherwise>
+	SELECT ISCHECKED
+		      ,CTRW_KDC
+		      ,CTRW_KDC_NM
+		      ,MAX(CTRW_STY_VER) CTRW_STY_VER
+		      ,SQNO
+		      ,UYN
+		      ,UYN_NM
+		      ,MAX(FSRG_DTM) FSRG_DTM
+		  FROM (
+			    SELECT
+			      /* retrieveCtrwStylList */
+			      '0' AS ISCHECKED ,
+			      S.CTRW_KDC ,
+			      C.SIMP_CNM AS CTRW_KDC_NM ,
+			      S.CTRW_STY_VER ,
+			      S.SQNO ,
+			      NVL(S.UYN,'N')                     AS UYN ,
+			      DECODE(S.UYN , 'Y' ,'사용' , '사용안함' )AS UYN_NM ,
+			      S.FSRG_DTM
+			    FROM CT_ETC_ELT_STYL_AMM S ,
+			     MG_COMN_C_AMN C ,
+		      (
+             	select 
+             		CD_M ,
+             		CD_TYPE ,
+             		CD_D ,
+             		DECODE(LENGTH(CD_D), '2','1'||CD_D, DECODE(LENGTH(CD_D), '1','10'||CD_D, CD_D)) AS CD_D2 
+               	from TB_CD_MAP
+               ) M
+			    WHERE SQNO       = '01'
+			      AND S.CTRW_KDC = M.CD_D2
+			      AND S.UYN 	 = 'Y'
+				  AND C.UYN      = 'Y'
+           AND M.CD_M = #{BUYER_DSC}
+	          AND C.SIMP_C = M.CD_D
+	          AND C.SIMP_TPC = M.CD_TYPE
+            
+			    ORDER BY S.CTRW_KDC ASC ,
+			      S.CTRW_STY_VER DESC )		  GROUP BY ISCHECKED
+		      ,CTRW_KDC
+		      ,CTRW_KDC_NM
+		      ,SQNO
+		      ,UYN
+		      ,UYN_NM
+		   ORDER BY CTRW_KDC
+       
+		</otherwise>
+	</choose>
+		 
+ 	</select>
+			 
+	<select id="retrieveCtrwStylDscList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveCtrwStylDscList */ 
+		'0' AS ISCHECKED
+		,S.CTRW_KDC
+		,C.SIMP_CNM AS CTRW_KDC_NM
+		,LPAD( S.CTRW_STY_VER, '4','0' ) AS CTRW_STY_VER
+		,S.SQNO
+		,S.UYN
+		,S.CTRW_CNTN
+		,S.CTRW_MOD_CNTN
+		,S.FS_RGM
+		,S.FSRG_DTM
+	    
+			FROM   CT_ETC_ELT_STYL_AMM S ,MG_COMN_C_AMN C
+				WHERE S.CTRW_KDC  =  C.SIMP_C(+)
+			<if test="CTRW_KDC != null and CTRW_KDC.length() > 0">
+									AND S.CTRW_KDC  =#{CTRW_KDC}
+			</if>
+			<if test="CTRW_STY_VER != null and CTRW_STY_VER.length() > 0">
+							AND S.CTRW_STY_VER  = LPAD( #{CTRW_STY_VER}, '4','0' )  
+			</if>
+			ORDER BY S.CTRW_KDC ASC ,S.CTRW_STY_VER ASC,S.SQNO ASC 
+	 </select>
+ 		
+	<select id="retrieveCodelList" parameterType="java.util.Map" resultType="java.util.Map">
+ 		SELECT /*retrieveCodelList   */  * 
+ 		  FROM ( 
+		 		SELECT 
+		 				A.CTRW_KDC
+		 			  , MAX(A.CTRW_STY_VER) AS CTRW_STY_VER 
+		 			  ,  C.SIMP_CNM    
+				  FROM CT_ETC_ELT_STYL_AMM A ,
+						(SELECT SIMP_C,SIMP_CNM,SIMP_C_EXPL 
+							FROM MG_COMN_C_AMN 
+									WHERE SIMP_TPC IN('MN_CTRW_KDC','ADD_CTRW_KDC','PMIW_KDC','SCTRW_KDC','ETC_CTRW_KDC')
+									AND UYN = 'Y'
+									)C
+					WHERE A.CTRW_KDC = C.SIMP_C(+)
+					GROUP BY A.CTRW_KDC ,C.SIMP_CNM
+			UNION ALL                    
+					SELECT SIMP_C, '0001' AS CTRW_STY_VER   ,SIMP_CNM
+							FROM MG_COMN_C_AMN 
+						WHERE SIMP_TPC IN('MN_CTRW_KDC','ADD_CTRW_KDC','PMIW_KDC','SCTRW_KDC','ETC_CTRW_KDC')                 
+								AND  SIMP_C NOT IN( SELECT DISTINCT(CTRW_KDC) FROM CT_ETC_ELT_STYL_AMM  )
+								and UYN = 'Y'
+						)
+			WHERE SIMP_CNM IS NOT NULL
+			ORDER BY CTRW_KDC				
+ 		</select>
+ 		<insert id="insertCtrwStyl" parameterType="com.nh.escm.ct.eltctrwamn.vo.EtcEltStylAmnVO">
+		INSERT INTO CT_ETC_ELT_STYL_AMM (			
+				CTRW_KDC,
+				CTRW_STY_VER,
+				SQNO,
+				UYN,
+				CTRW_CNTN,
+				CTRW_MOD_CNTN,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM
+		) VALUES (			
+			#{CTRW_KDC},                   
+			LPAD( #{CTRW_STY_VER}, '4','0' ),                     
+			LPAD( #{SQNO}, '2','0' )   ,
+			#{UYN},
+			#{CTRW_CNTN},
+			#{CTRW_MOD_CNTN},
+			<if test="FSRG_DTM != null and FSRG_DTM.length() > 0">
+			 TO_DATE( #{FSRG_DTM} , 'yyyymmddhh24:mi:ss') , 
+			</if>
+			<if test="FSRG_DTM == null">
+			SYSDATE,	  
+			</if>
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM}
+		)
+	</insert>
+ 			<update id="updateCtrwStyl"  parameterType="java.util.Map" >
+		 	UPDATE /*  updateCtrwStyl  */	CT_ETC_ELT_STYL_AMM 
+					SET UYN = #{UYN}
+				WHERE  	CTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	 	</update>	
+		<delete id="deleteCtrwStyl"  parameterType="java.util.Map" >
+		 	DELETE /*  deleteCtrwStylA  */FROM CT_ETC_ELT_STYL_AMM 
+				WHERE  	CTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	 	</delete>	
+</mapper>

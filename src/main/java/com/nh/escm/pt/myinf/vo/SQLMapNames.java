@@ -1,0 +1,47 @@
+package com.nh.escm.pt.myinf.vo;
+
+public interface SQLMapNames {
+	
+	public enum UsAmScfwBasicNames {
+		CLNTNM, NA_TRPL_C, REPMNM, BZNO, USR_NM, USR_MPNO, ZIPCODE, ADDRESS, ACNO_INF
+	}
+	public enum UsOverAm {
+		OVR_PAY_AMT
+	}
+	public enum UsAmScfwListNames {
+		RMS_MM, CLOSING_DT, CONFIRM_YN, LS_RQS_AM, PAY_AM, RQS_BAC, RV_AM, RF_AM, LATE_AM
+	}
+	
+	public enum MmRqsBrkBasicNames {
+		TRPL_C, CLNTNM, SUP_CNT, LS_RQS_AM_SUM, DC_BF_UG_AM_SUM, SPPR_SUM, DC_AM_SUM, VAT_AM_SUM,
+		EDI_UGQT_SUM, ADINF_UGQT_SUM, BASIC_RATE_SUM, EDI_UG_AM_SUM, ADINF_UG_AM_SUM,
+		IA_BI_UG_AM_SUM, IA_PG_UG_AM_SUM, IA_MA_UG_AM_SUM, IA_CTGR_UG_AM_SUM, IA_BLBD_UG_AM_SUM,
+		TXBIL_RPBC_CNT, SMS_UG_AM_SUM, LATE_AM_SUM, CTGR_SL_UGQT_SUM, CTGR_SL_UG_AM_SUM, XMLEDI_BASIC_RATE_SUM
+	}
+	
+	public enum NaTrplcNames {
+		SIMP_C, SIMP_CNM, SIMP_C_EXPL, PAY_COMP_NM
+	}
+	
+	public enum MmRqsBrkDetailNames {
+		RMS_MM, RMS_TRPL_C, EDI_UGQT, ADINF_UGQT, EDI_UG_AM, ADINF_UG_AM, IA_UG_AM, CTGR_UG_AM, BLBD_UG_AM
+	}	
+	
+	public enum AdinfDtpBrkListNames {
+		RMS_DT, DLY_UGQT, BL_DLY_UGQT, CLNTNM
+	}
+	
+	public enum EdiSvcDtpBrkListNames {
+		RMS_DT, ORDERS, ORDRES, DESADV, DESRSP, CONADV, CONRET, SILRPT, SISRPT, DLY_SUM, BL_DLY_SUM
+	}
+	
+	public enum EdiSvcDtpBrkNames {
+		RMS_DM, ORDERS, ORDRES, DESRSP, CONADV, CONRET, SILRPT, DLY_SUM, BL_DLY_SUM,
+		ORDERS_K, ORDRES_K, DESRSP_K, CONADV_K, CONRET_K, SILRPT_K, DLY_SUM_K, BL_DLY_SUM_K
+	}
+	
+	public enum InfAnssListNames {
+		RMS_MM, IA_SVC, IA_SVC_NM, UGQT, CLNTNM, AMOUNT
+	}
+	
+}

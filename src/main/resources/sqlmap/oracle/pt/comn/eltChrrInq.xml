@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eltChrrInqDAO">
+	
+	<resultMap id="EltChrrInqMap" type="com.nh.escm.pt.comn.vo.EltChrrInqVO">
+			<result column="ISCHECKED"                      	property="ISCHECKED" />
+	    <result column="CTR_CHRR"                      	property="CTR_CHRR" />
+	    <result column="MPNO"                      	    property="MPNO" />
+		<result column="EMAIL"                            property="EMAIL" />
+		<result column="STS_NM"                           property="STS_NM" />
+		<result column="NA_TRPL_C"                        property="NA_TRPL_C" />
+		
+	</resultMap>
+	
+	<select id="retrieveEltChrrInq" parameterType="java.util.Map" resultMap="EltChrrInqMap">
+		    
+		    SELECT DISTINCT /* retrieveEltChrrInq */ 
+		  '' AS ISCHECKED,
+		    
+				    UI.USR_NM AS CTR_CHRR ,ecl_decrypt(UI.USR_MPNO) AS MPNO ,UI.USR_EMAIL AS EMAIL  ,C.SIMP_CNM AS STS_NM /*회원 상태*/
+			    FROM PT_USR_INF UI ,PT_USR_AUTH UA , MG_COMN_C_AMN C
+        WHERE UI.MB_ID = UA.MB_ID
+        AND C.SIMP_TPC  = 'ENT_PRG_STSC'
+        AND UI.ENT_PRG_STSC  = C.SIMP_C(+)
+        AND UI.USR_TPC  IN ('01', '03', '05')
+				AND UA.USR_AUTH_DSC IN ('2', '6')  /* 2 전자계약  */
+				AND UI.NA_TRPL_C = #{NA_TRPL_C}
+				
+				
+		    
+	 </select>
+	
+	
+	
+</mapper>

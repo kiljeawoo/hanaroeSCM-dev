@@ -1,0 +1,7 @@
+#log_img ul {
+  text-align:center;
+  padding-top:50px;
+}
+#log_img ul li {
+  display:inline;
+}

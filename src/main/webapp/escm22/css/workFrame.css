@@ -1,0 +1,1356 @@
+﻿/******************************************************************************************************/
+/***** PROJECT NAME		: NEXACRO DEFAULT THEME	********/
+/***** CREATION DATES		: 2015.04.13		********/
+/***** DRAFTER 			: TOBESOFT DESIGN TEAM	********/
+/***** DISTRIBUTION DATE 	: 2015.00.00		********/
+/******************************************************************************************************/
+/****************************************** Work Farme Area *******************************************/
+/***** search BTN ******/
+Button.btn_WFSA_Searchbtn, Button.btn_WFSA_Searchbtn:focused, Button.btn_WFSA_Searchbtn:selected
+{
+	background			: URL('theme://images/btn_WFSA_Searchbtn.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WFSA_Searchbtn:mouseover
+{
+	background			: URL('theme://images/btn_WFSA_Searchbtn_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WFSA_Searchbtn:pushed
+{
+	background			: URL('theme://images/btn_WFSA_Searchbtn_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WFSA_Searchbtn:disabled
+{
+	background			: URL('theme://images/btn_WFSA_Searchbtn_D.png') center middle;
+	border				: 0 none;	
+}
+/***** search BTN 2 (edit st.)******/
+Button.btn_WF_Searchbtn, Button.btn_WF_Searchbtn:focused, Button.btn_WF_Searchbtn:selected
+{
+	image				: URL('theme://images/btn_WF_Searchbtn.png') ;
+	imagealign			: center middle;
+}
+Button.btn_WF_Searchbtn:mouseover
+{
+	image				: URL('theme://images/btn_WF_Searchbtn_O.png') ;
+	imagealign			: center middle;
+}
+Button.btn_WF_Searchbtn:pushed
+{
+	image				: URL('theme://images/btn_WF_Searchbtn_P.png') ;
+	imagealign			: center middle;	
+}
+Button.btn_WF_Searchbtn:disabled
+{
+	image				: URL('theme://images/btn_WF_Searchbtn_D.png') ;
+	imagealign			: center middle;
+}
+/****** search Area open/close BTN ******/
+Button.btn_WFSA_SearchOpen, Button.btn_WFSA_SearchOpen:focused, Button.btn_WFSA_SearchOpen:selected, Button.btn_WFSA_SearchOpen:disabled
+{
+	background			: URL('theme://images/btn_WFSA_SearchOpen.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WFSA_SearchOpen:mouseover
+{
+	background			: URL('theme://images/btn_WFSA_SearchOpen_O.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WFSA_SearchOpen:pushed
+{
+	background			: URL('theme://images/btn_WFSA_SearchOpen_P.png') center middle;
+	border				: 0 none;	
+}
+/*******/
+Button.btn_WFSA_SearchClose, Button.btn_WFSA_SearchClose:focused, Button.btn_WFSA_SearchClose:selected, Button.btn_WFSA_SearchClose:disabled
+{
+	background			: URL('theme://images/btn_WFSA_SearchClose.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WFSA_SearchClose:mouseover
+{
+	background			: URL('theme://images/btn_WFSA_SearchClose_O.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WFSA_SearchClose:pushed
+{
+	background			: URL('theme://images/btn_WFSA_SearchClose_P.png') center middle;
+	border				: 0 none;	
+}
+
+/****** crud BTN ******/
+Button.btn_WF_CRUD, Button.btn_WF_CRUD:focused, Button.btn_WF_CRUD:selected
+{
+	align				: center middle;
+	background			: URL('theme://images/btn_WF_CRUD.png') stretch 7,7;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #ffffff;
+	font				: 9 Gulim;
+}
+Button.btn_WF_CRUD:mouseover
+{
+	background			: URL('theme://images/btn_WF_CRUD_O.png') stretch 7,7;
+	border				: 0 none;	
+}
+Button.btn_WF_CRUD:pushed
+{
+	background			: URL('theme://images/btn_WF_CRUD_P.png') stretch 7,7;
+	border				: 0 none;	
+}
+Button.btn_WF_CRUD:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+}
+/****** group BTN ******/
+Button.btn_WF_Group, Button.btn_WF_Group:focused, Button.btn_WF_Group:selected
+{
+	align				: left middle;
+	background			: URL('theme://images/btn_WF_Group.png') stretch 13,0;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #ffffff;
+	font				: 9 Gulim;
+	padding				: 0 0 0 12;	
+}
+Button.btn_WF_Group:mouseover
+{
+	background			: URL('theme://images/btn_WF_Group_O.png') stretch 13,0;
+	border				: 0 none;	
+}
+Button.btn_WF_Group:pushed
+{
+	background			: URL('theme://images/btn_WF_Group_P.png') stretch 13,0;
+	border				: 0 none;	
+}
+Button.btn_WF_Group:disabled
+{
+	background			: URL('theme://images/btn_WF_Group_D.png') stretch 13,0;
+	border				: 0 none;	
+	color				: #999999;	
+}
+/***** shuttle BTN ******/
+/**** < ****/
+Button.btn_WF_ShuttleL, Button.btn_WF_ShuttleL:focused, Button.btn_WF_ShuttleL:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleL.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleL:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleL_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleL:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleL.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_ShuttleL:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	image				: URL('theme://images/btn_WF_ShuttleL_D.png');
+	imagealign			: center middle;		
+}
+/**** < ****/
+Button.btn_WF_ShuttleR, Button.btn_WF_ShuttleR:focused, Button.btn_WF_ShuttleR:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleR.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleR:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleR_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleR:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleR.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_ShuttleR:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	image				: URL('theme://images/btn_WF_ShuttleR_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_ShuttleU, Button.btn_WF_ShuttleU:focused, Button.btn_WF_ShuttleU:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleU.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleU:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleU_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleU:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleU.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_ShuttleU:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	image				: URL('theme://images/btn_WF_ShuttleU_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_ShuttleD, Button.btn_WF_ShuttleD:focused, Button.btn_WF_ShuttleD:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleD.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleD:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleD_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_ShuttleD:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_ShuttleD.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_ShuttleD:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	image				: URL('theme://images/btn_WF_ShuttleD_D.png');
+	imagealign			: center middle;		
+}
+/***** paging BTN ******/
+Button.btn_WF_PagePreviousP, Button.btn_WF_PagePreviousP:focused, Button.btn_WF_PagePreviousP:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PagePreviousP.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePreviousP:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePreviousP_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePreviousP:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePreviousP_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PagePreviousP:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PagePreviousP_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_PageNextP, Button.btn_WF_PageNextP:focused, Button.btn_WF_PageNextP:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PageNextP.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNextP:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNextP_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNextP:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNextP_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PageNextP:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PageNextP_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_PagePrevious, Button.btn_WF_PagePrevious:focused, Button.btn_WF_PagePrevious:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PagePrevious.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePrevious:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePrevious_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePrevious:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePrevious_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PagePrevious:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PagePrevious_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_PageNext, Button.btn_WF_PageNext:focused, Button.btn_WF_PageNext:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PageNext.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNext:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNext_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNext:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNext_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PageNext:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PageNext_D.png');
+	imagealign			: center middle;		
+}
+/******* 그리드 row cell 확장/감소 버튼 *******/
+Button.btn_WF_Grdexpand, Button.btn_WF_Grdexpand:focused, Button.btn_WF_Grdexpand:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_Grdexpand.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_Grdexpand:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_Grdexpand.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_Grdexpand:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_Grdexpand_P.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_Grdexpand:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	image				: URL('theme://images/btn_WF_Grdexpand_D.png');
+	imagealign			: center middle;		
+}
+/*******/
+Button.btn_WF_Grdreduce, Button.btn_WF_Grdreduce:focused, Button.btn_WF_Grdreduce:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_Grdreduce.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_Grdreduce:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_Grdreduce.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_Grdreduce:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	image				: URL('theme://images/btn_WF_Grdreduce_P.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_Grdreduce:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	image				: URL('theme://images/btn_WF_Grdreduce_D.png');
+	imagealign			: center middle;		
+}
+/***** popup BTN ******/
+Button.btn_WF_Popup, Button.btn_WF_Popup:focused, Button.btn_WF_Popup:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f1f1f1;	
+	border				: 1 solid #aeaeae;
+	bordertype			: normal 0 0;
+	font				: bold 9 Gulim;
+}
+Button.btn_WF_Popup:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fcfcfc 0,100 #dbdbdb;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	font				: bold 9 Gulim;	
+}
+Button.btn_WF_Popup:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dbdbdb 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	bordertype			: normal 0 0;
+	font				: bold 9 Gulim;			
+}
+Button.btn_WF_Popup:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	color				: #999999;	
+	font				: bold 9 Gulim;		
+}
+/**** common popup close BTN *****/
+Button.btn_WF_PopupClose, Button.btn_WF_PopupClose:focused, Button.btn_WF_PopupClose:selected,
+Button.btn_WF_PopupClose:mouseover, Button.btn_WF_PopupClose:pushed, Button.btn_WF_PopupClose:disabled
+{
+	background			: URL('theme://images/btn_WF_PopupClose.png') center middle;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+}
+Button.btn_WF_PopupClose:pushed
+{
+	background			: URL('theme://images/btn_WF_PopupCloseP.png') center middle;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+}
+/****** bookmark BTN (로케이션 앞에 위치) ******/
+Button.btn_WF_Bookmark, Button.btn_WF_Bookmark:mouseover, Button.btn_WF_Bookmark:focused, Button.btn_WF_Bookmark:selected 
+{
+	background			: URL('theme://images/btn_WF_Bookmark.png') center middle;
+	border				: 0 none;
+	padding				: 0 0 2 0;	
+}
+Button.btn_WF_Bookmark:pushed
+{
+	background			: URL('theme://images/btn_WF_Bookmark_P.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WF_Bookmark:disabled
+{
+	background			: URL('theme://images/btn_WF_Bookmark_D.png') center middle;
+	border				: 0 none;		
+}
+/****** bookmark BTN (로케이션 앞에 위치) 선택스타일 ******/
+Button.btn_WF_BookmarkS, Button.btn_WF_BookmarkS:mouseover, Button.btn_WF_BookmarkS:focused, Button.btn_WF_BookmarkS:selected, Button.btn_WF_BookmarkS:pushed, Button.btn_WF_BookmarkS:disabled 
+{
+	background			: URL('theme://images/btn_WF_Bookmark_P.png') center middle;
+	border				: 0 none;
+	padding				: 0 0 2 0;	
+}
+/******* 월력버튼 *******/
+Button.btn_WF_Calendarmm, Button.btn_WF_Calendarmm:disabled
+{
+	background			: #ffffff;
+	border				: 1 solid #a9b0b4;
+	font				: 11 Verdana;
+	color				: #555555;	
+}
+
+Button.btn_WF_Calendarmm:mouseover 
+{
+	background			: URL('theme://images/btn_WF_Calendarmm.png') stretch 3,3;
+	border				: 0 none;	
+	font				: 11 Verdana;
+	color				: #ffffff;
+}
+Button.btn_WF_Calendarmm:pushed, Button.btn_WF_Calendarmm:focused, Button.btn_WF_Calendarmm:selected
+{
+	background			: #ffffff;
+	border				: 1 solid #a9b0b4;
+	font				: 11 Verdana;
+	color				: #555555;
+}
+/*
+Button.btn_WF_Calendarmm:mouseover 
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+	font				: 11 Verdana;
+	color				: #555555;	
+}
+Button.btn_WF_Calendarmm:pushed, Button.btn_WF_Calendarmm:focused, Button.btn_WF_Calendarmm:selected
+{
+	background			: URL('theme://images/btn_WF_Calendarmm.png') stretch 3,3;
+	border				: 0 none;	
+	font				: 11 Verdana;
+	color				: #ffffff;	
+}
+*/
+/******* 월력버튼 선택스타일 *******/
+Button.btn_WF_Calendarmm_S, Button.btn_WF_Calendarmm_S:disabled, Button.btn_WF_Calendarmm_S:mouseover, 
+Button.btn_WF_Calendarmm_S:pushed, Button.btn_WF_Calendarmm_S:focused, Button.btn_WF_Calendarmm_S:selected
+{
+	background			: URL('theme://images/btn_WF_Calendarmm.png') stretch 3,3;
+	border				: 0 none;	
+	font				: 11 Verdana;
+	color				: #ffffff;	
+}
+/******* 월력 이전/다음 버튼 *******/
+Button.btn_WF_CalendarPrev, Button.btn_WF_CalendarPrev:focused, Button.btn_WF_CalendarPrev:selected
+{
+	background			: transparent;
+	border				: 0 none;
+	bordertype			: normal;
+	image				: URL('theme://images/btn_prev_N.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_CalendarPrev:mouseover , Button.btn_WF_CalendarPrev:pushed
+{
+	image				: URL('theme://images/btn_prev_O.png');	
+	border				: 0 none;	
+}
+Button.btn_WF_CalendarPrev:disabled
+{
+	image				: URL('theme://images/btn_prev_D.png');
+	border				: 0 none;	
+}
+/******/
+Button.btn_WF_CalendarNext, Button.btn_WF_CalendarNext:focused, Button.btn_WF_CalendarNext:selected
+{
+	background			: transparent;
+	border				: 0 none;
+	bordertype			: normal;
+	image				: URL('theme://images/btn_next_N.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_CalendarNext:mouseover , Button.btn_WF_CalendarNext:pushed
+{
+	image				: URL('theme://images/btn_next_O.png');	
+	border				: 0 none;	
+}
+Button.btn_WF_CalendarNext:disabled
+{
+	image				: URL('theme://images/btn_next_D.png');
+	border				: 0 none;	
+}
+/**** 콤보 스타일 버튼(컴퍼넌트조합) *****/
+Button.btn_WF_cmb, Button.btn_WF_cmb:focused, Button.btn_WF_cmb:selected
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	image				: URL('theme://images/btn_drop_N.png');
+	imagealign			: center middle;
+}	
+Button.btn_WF_cmb:mouseover, Button.btn_WF_cmb:pushed
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	image				: URL('theme://images/btn_drop_O.png');
+	imagealign			: center middle;
+}	
+Button.btn_WF_cmb:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	image				: URL('theme://images/btn_drop_D.png');
+	imagealign			: center middle;
+}
+/***** 브라우저 공지사항 팝업 btn *****/
+Button.btn_POP_Brwsbtn, Button.btn_POP_Brwsbtn:focused, Button.btn_POP_Brwsbtn:selected
+{
+	background			: URL('theme://images/btn_POP_Brwsbtn.png') stretch 7,7;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #ffffff;
+	font				: bold 9 Gulim;
+}
+Button.btn_POP_Brwsbtn:mouseover
+{
+	background			: URL('theme://images/btn_POP_Brwsbtn_O.png') stretch 7,7;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #ffffff;
+	font				: bold 9 Gulim;
+}
+Button.btn_POP_Brwsbtn:pushed
+{
+	background			: URL('theme://images/btn_POP_Brwsbtn_P.png') stretch 7,7;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #ffffff;
+	font				: bold 9 Gulim;
+}
+Button.btn_POP_Brwsbtn:disabled
+{
+	background			: URL('theme://images/btn_POP_Brwsbtn_D.png') stretch 7,7;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #e0e0e0;
+	font				: bold 9 Gulim;
+}
+/***** 업무화면 전체선택용 체크박스 *****/
+CheckBox.chk_WF_allSlct, CheckBox.chk_WF_allSlct:mouseover, CheckBox.chk_WF_allSlct:focused, CheckBox.chk_WF_allSlct:pushed, CheckBox.chk_WF_allSlct:disabled
+{
+	buttonbackground		: URL('theme://images/chk_WF_allSlct.png');
+	buttonimage			: URL('theme://images/img_chk_WF_allSlct.png');
+	buttonsize			: 15;
+}
+/****** 조회영역박스 ********/
+Div.div_WFSA_Searchbg
+{
+	background			: #f6f6f6;
+	border				: 1 solid #d2d2d2;
+	bordertype			: normal 0 0;
+}
+/****** 월력 bg *******/
+Div.div_WF_Calendar
+{
+	background			: #ffffff;
+	border				: 1 solid #6e7a82;	
+}
+/****** WorkFrame Scroll Width ******/
+
+Div.div_WF_ScrollWidth>#vscrollbar, Div.div_WF_ScrollWidth>#vscrollbar:disabled,
+Div.div_WF_ScrollWidth>#hscrollbar, Div.div_WF_ScrollWidth>#hscrollbar:disabled
+{
+	background			: transparent;
+	border				: 0 none;
+	decbtnsize			: 0;
+	incbtnsize			: 0;
+	scrollbarsize			: 10;	
+}
+
+/****** 월력 bg *******/
+PopupDiv.pdiv_WF_Calendar
+{
+	background			: #ffffff;
+	border				: 1 solid #6e7a82;	
+}
+
+/***** popup div st.01 ******/
+Div.div_WF_MenuList
+{
+	background			: #ffffff;
+	border				: 1 solid #067394;	
+}
+/**** common popup bg *****/
+Form.frm_WF_PopupBg
+{
+	background			: URL('theme://images/frm_WF_PopupBg.png') stretch 6,37;
+}
+
+Div.div_WF_PopupBg
+{
+	background			: URL('theme://images/frm_WF_PopupBg.png') stretch 6,37;
+}
+
+/*****/ 
+Grid.grd_WF_pdiv
+{
+	align				: center middle;
+	background			: #ffffff00;
+	border				: 1 solid #d6d6d6;
+	bordertype			: normal 0 0;
+}
+Grid.grd_WF_pdiv>#body, Grid.grd_WF_pdiv>#body:focused
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	bordertype			: normal;
+	cellalign			: center middle;
+	cellbackground			: #ffffff00;
+	cellbackground2			: #ffffff00;
+	cellcolor			: #333333;
+	cellcolor2			: #333333;
+	cellline			: 0 none;
+	cellpadding			: 3 3 3 3;
+	selectbackground		: #e3f2f7;
+	selectborder			: 0 none;
+	selectcolor			: #333333;
+	selectfont			: 9 Gulim;
+	selectline			: 0 none;
+}
+Grid.grd_WF_pdiv>#body:mouseover
+{
+
+}
+Grid.grd_suppress>#body:mouseover
+{
+	cellbackground			: inherit;
+	cellbackground2			: inherit;
+	
+}
+/***** popup div st.02 ******/
+PopupDiv.pdiv_WF_MenuList
+{
+	background			: #ffffff;
+	border				: 1 solid #067394;	
+}
+/************************* 필수입력 스타일 ***************************/
+Edit.edt_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Edit.edt_WF_Essential:mouseover, Edit.edt_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+/******/
+MaskEdit.msk_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+MaskEdit.msk_WF_Essential:mouseover, MaskEdit.msk_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+/******/
+TextArea.txt_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+TextArea.txt_WF_Essential:mouseover, TextArea.txt_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+/******/
+Calendar.cal_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Calendar.cal_WF_Essential:mouseover, Calendar.cal_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+Calendar.cal_WF_Essential>#dropbutton
+{
+	image				: URL('theme://images/cal_WF_Essential.png');
+}
+/******/
+Spin.spn_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Spin.spn_WF_Essential:mouseover, Spin.spn_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+Spin.spn_WF_Essential>#spinupbutton
+{
+	image				: URL('theme://images/btn_spinup_O.png');
+}
+Spin.spn_WF_Essential>#spindownbutton
+{
+	image				: URL('theme://images/btn_spindown_O.png');
+}
+/******/
+Combo.cmb_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Combo.cmb_WF_Essential:mouseover, Combo.cmb_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+Combo.cmb_WF_Essential>#dropbutton
+{
+	image				: URL('theme://images/btn_drop_O.png');
+}
+Combo.cmb_WF_Essential>#combolist
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+	itembackground			: #f0fafc;
+}
+Combo.cmb_WF_Essential>#combolist:selected
+{
+	itembackground			: #4197aa;
+}
+/*****/
+ListBox.lst_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+	itembackground			: #f0fafc;	
+}
+ListBox.lst_WF_Essential:mouseover
+{
+	border				: 1 solid #4197aa;
+	itembackground			: #e4e4e4;
+}
+ListBox.lst_WF_Essential:selected
+{
+	itembackground			: #4197aa;
+}
+/*****/
+CheckBox.chk_WF_Essential
+{
+	buttonbackground		: URL('theme://images/chk_WF_Essential.png');
+}
+CheckBox.chk_WF_Essential:mouseover, CheckBox.chk_WF_Essential:focused, CheckBox.chk_WF_Essential:pushed
+{
+
+}
+CheckBox.chk_WF_Essential:disabled
+{
+
+}
+/*****/
+Radio.rdo_WF_Essential
+{
+	align				: left middle;
+	background			: transparent;
+	border				: 0 none;
+	bordertype			: normal;
+	buttonalign			: left middle;
+	buttonbackground		: URL('theme://images/rdo_WF_Essential.png');
+	buttonimage			: URL('theme://images/btn_radio.png') ;	
+	buttonborder			: 0 none;
+
+}
+Radio.rdo_WF_Essential:mouseover
+{
+
+}
+Radio.rdo_WF_Essential:disabled
+{
+
+}
+/************************* readonly 스타일 ***************************/
+Edit.edt_WF_Readonly, Edit.edt_WF_Readonly:mouseover, Edit.edt_WF_Readonly:pushed, Edit.edt_WF_Readonly:focused, Edit.edt_WF_Readonly:selected, Edit.edt_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+/******/
+MaskEdit.msk_WF_Readonly, MaskEdit.msk_WF_Readonly:mouseover, MaskEdit.msk_WF_Readonly:pushed, MaskEdit.msk_WF_Readonly:focused, MaskEdit.msk_WF_Readonly:selected, Edit.msk_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+/******/
+TextArea.txt_WF_Readonly, TextArea.txt_WF_Readonly:mouseover, TextArea.txt_WF_Readonly:pushed, TextArea.txt_WF_Readonly:focused, TextArea.txt_WF_Readonly:selected, TextArea.txt_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+/******/
+Combo.cmb_WF_Readonly, Combo.cmb_WF_Readonly:mouseover, Combo.cmb_WF_Readonly:pushed, Combo.cmb_WF_Readonly:focused, Combo.cmb_WF_Readonly:selected, Combo.cmb_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+Combo.cmb_WF_Readonly>#dropbutton, Combo.cmb_WF_Readonly>#dropbutton:mouseover, Combo.cmb_WF_Readonly>#dropbutton:pushed
+{
+	image				: URL('theme://images/btn_drop_N.png');
+}
+/******/
+Calendar.cal_WF_Readonly, Calendar.cal_WF_Readonly:mouseover, Calendar.cal_WF_Readonly:pushed, Calendar.cal_WF_Readonly:focused, Calendar.cal_WF_Readonly:selected, Calendar.cal_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+Calendar.cal_WF_Readonly>#dropbutton, Calendar.cal_WF_Readonly>#dropbutton:mouseover, Calendar.cal_WF_Readonly>#dropbutton:pushed
+{
+	image				: URL('theme://images/btn_CalDrop_D.png');
+}
+/******/
+Spin.spn_WF_Readonly, Spin.spn_WF_Readonly:mouseover, Spin.spn_WF_Readonly:pushed, Spin.spn_WF_Readonly:focused, Spin.spn_WF_Readonly:selected, Spin.spn_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+Spin.spn_WF_Readonly>#spinupbutton, Spin.spn_WF_Readonly>#spinupbutton:mouseover, Spin.spn_WF_Readonly>#spinupbutton:pushed 
+{
+	image				: URL('theme://images/btn_spinup_D.png');
+}
+Spin.spn_WF_Readonly>#spindownbutton, Spin.spn_WF_Readonly>#spindownbutton:mouseover, Spin.spn_WF_Readonly>#spindownbutton:pushed
+{
+	image				: URL('theme://images/btn_spindown_D.png');
+}
+/******/
+ListBox.lst_WF_Readonly, ListBox.lst_WF_Readonly:mouseover, ListBox.lst_WF_Readonly:pushed, ListBox.lst_WF_Readonly:focused, ListBox.lst_WF_Readonly:selected, ListBox.lst_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+	color				: #333333;	
+	itembackground			: #ececec;
+}
+/************************* 에러 스타일 ***************************/
+Edit.edt_WF_Error
+{
+	background			: URL('theme://images/WF_Error.png') stretch 17,0;
+	border				: 0 none;
+	padding				: 2 0 0 18;
+}
+Edit.edt_WF_Error:mouseover, Edit.edt_WF_Error:focused
+{
+	background			: URL('theme://images/WF_Error_O.png') stretch 17,0;
+	border				: 0 none;
+}
+/*****/
+MaskEdit.msk_WF_Error
+{
+	background			: URL('theme://images/WF_Error.png') stretch 17,0;
+	border				: 0 none;
+	padding				: 2 5 0 0;
+}
+MaskEdit.msk_WF_Error:mouseover, MaskEdit.msk_WF_Error:focused
+{
+	background			: URL('theme://images/WF_Error_O.png') stretch 17,0;
+	border				: 0 none;
+}
+/*****/
+Combo.cmb_WF_Error
+{
+	background			: URL('theme://images/WF_Error.png') stretch 17,0;
+	border				: 0 none;
+	padding				: 2 0 0 18;
+}
+Combo.cmb_WF_Error:mouseover, Combo.cmb_WF_Error:focused
+{
+	background			: URL('theme://images/WF_Error_O.png') stretch 17,0;
+	border				: 0 none;
+}
+Combo.cmb_WF_Error>#comboedit
+{
+	background			: URL('theme://images/WF_Error.png') stretch 17,0;
+	border				: 0 none;
+	padding				: 2 0 0 0;
+}
+Combo.cmb_WF_Error>#dropbutton, Combo.cmb_WF_Error>#dropbutton:mouseover, Combo.cmb_WF_Error>#dropbutton:pushed
+{
+	image				: URL('theme://images/cmb_WF_Error.png');
+}
+Combo.cmb_WF_Error>#combolist
+{
+	background			: #ffffff;
+	border				: 1 solid #cb5475;
+	itembackground			: #ffffff;
+}
+Combo.cmb_WF_Error>#combolist:selected
+{
+	itembackground			: #cb5475;
+}
+/***** 그리드 헤드 필수입력 스타일 *****/
+.Cellgrd_WF_HeadEssential
+{
+	background			: URL('theme://images/grd_WF_HeadEssential.png') left top:	
+}
+/****** 그리스 셀 링크데이터(head/body) ******/
+.Cellgrd_WF_HeadLink
+{
+	color				: #666666;
+	color2				: #666666;	
+	font 				: underline bold 9 Gulim;	
+	font2 				: underline bold 9 Gulim;	
+	selectcolor			: #004db7;
+	selectfont			: underline bold 9 Gulim;
+}
+.Cellgrd_WF_BodyLink
+{
+	color				: #004db7;
+	color2				: #004db7;	
+	font 				: underline 9 Gulim;	
+	font2 				: underline 9 Gulim;	
+	selectcolor			: #004db7;
+	selectfont			: underline 9 Gulim;
+}
+/****** 그리드 셀 정렬클래스(좌/우) ******/
+.Cellgrd_WF_AlignRight
+{
+	align				: right middle;
+	padding 			: 0 10 0 0;	
+}
+.Cellgrd_WF_AlignLeft
+{
+	align				: left middle;
+	padding 			: 0 0 0 10;	
+}
+/********** 그리드 소계 ***********/
+.Cellgrd_WF_sum01
+{
+	background			: #ffefd8;
+	align				: right middle;
+	padding 			: 0 10 0 10;
+	font				: 9 Gulim; 	
+}
+.Cellgrd_WF_sum02
+{
+	background			: #f1f9ff;
+	align				: right middle;
+	padding 			: 0 10 0 10;
+	font				: 9 Gulim; 		
+}
+.Cellgrd_WF_sum03
+{
+	background			: #faf1ff;
+	align				: right middle;
+	padding 			: 0 10 0 10;
+	font				: 9 Gulim; 		
+}
+
+/***** 조회 라벨 *****/
+Static.sta_WFSA_Label, Static.sta_WFSA_Label:mouseover
+{
+	background 			: URL('theme://images/sta_WFSA_Label.png') left middle;
+	padding 			: 0 15 0 11;
+}
+/****** 서브타이틀/팝업타이틀 ******/
+Static.sta_WF_Subtitle, Static.sta_WF_Subtitle:mouseover
+{
+	background			: URL('theme://images/sta_WF_Subtitle.png') left middle;
+	color				: #222222;
+	font				: bold 9 Gulim;	
+	padding				: 0 0 1 14;		
+}
+/**** output/input 라벨 ****/
+Static.sta_WF_Label, Static.sta_WF_Label:mouseover
+{
+	background			: #f2f8fa;
+	border				: 1 solid #ccd3d5;	
+	color				: #353e41;
+	padding				: 2 7 0 11;		
+}
+/**** output/input 라벨 center 정렬 ****/
+Static.sta_WF_Label_c, Static.sta_WF_Label_c:mouseover
+{
+	background			: #f2f8fa;
+	border				: 1 solid #ccd3d5;	
+	color				: #353e41;
+	align				: center middle;
+}
+/**** output 라벨 bg ****/
+Static.sta_WF_Labelbg, Static.sta_WF_Labelbg:mouseover
+{
+	background			: #ffffff;
+	border				: 1 solid #ccd3d5;	
+	padding				: 2 7 0 7;		
+}
+/**** output 라벨 bg(우측정렬) ****/
+Static.sta_WF_Labelbg_R, Static.sta_WF_Labelbg_R:mouseover
+{
+	background			: #ffffff;
+	border				: 1 solid #ccd3d5;	
+	padding				: 2 7 0 7;
+	align				: right middle;		
+}
+/***** 로케이션 *****/
+Static.sta_WF_Location, Static.sta_WF_Location:mouseover
+{
+	font				: bold 9 Gulim;
+	color				: #4e4d47;
+}
+/***** paging number *****/
+Static.sta_WF_Page, Static.sta_WF_Page:mouseover
+{
+	align				: center middle;	
+}
+Static.sta_WF_PageS, Static.sta_WF_PageS:mouseover
+{
+	font				: bold underline 10 arial;
+	color				: #29a5c0;	
+	align				: center middle;
+	padding				: 2 0 0 0;
+}
+/********/
+Static.sta_WF_MiniTitle, Static.sta_WF_MiniTitle:mouseover
+{
+	background			: #83c5d1;
+	border				: 1 solid #6dafbd;
+	color				: #ffffff;
+	align				: center middle;
+	padding				: 1 0 0 0;	
+}
+/**** 구분선(WF-상단)***/
+Static.sta_WF_Vdash, Static.sta_WF_Vdash:mouseover
+
+{
+	background			: URL('theme://images/sta_WF_Vdash.png') repeat-y;	
+}
+/************ 디스크립션 *************/
+/****** 아이콘O st. *****/
+Static.sta_WF_DescriptionB01, Static.sta_WF_DescriptionB01:mouseover
+{
+	background			: URL('theme://images/sta_WF_DescriptionB01.png') left middle;
+	color				: #777777;
+	font				: 9 Gulim;	
+	padding				: 0 0 0 15;
+}
+Static.sta_WF_DescriptionE01, Static.sta_WF_DescriptionE01:mouseover
+{
+	background			: URL('theme://images/sta_WF_DescriptionE01.png') left middle;
+	color				: #ac131a;
+	font				: 9 Gulim;	
+	padding				: 0 0 0 15;
+}
+/****** 아이콘x st. *****/
+Static.sta_WF_DescriptionB02, Static.sta_WF_DescriptionB02:mouseover
+{
+	color				: #777777;
+	font				: 9 Gulim;	
+}
+Static.sta_WF_DescriptionE02, Static.sta_WF_DescriptionE02:mouseover
+{
+	color				: #ac131a;
+	font				: 9 Gulim;	
+}
+
+/******* 그리드 건수 txt *******/
+Static.sta_WF_GridCount, Static.sta_WF_GridCount:mouseover
+{
+	color				: #555555;
+	align				: right middle;
+}
+/******* 월력 년 Static *******/
+Static.sta_WF_Calendaryy, Static.sta_WF_Calendaryy:mouseover
+{
+	background			: #6e7a82;
+	color				: #ffffff;
+	font				: 11 Tahoma;
+	align				: center middle;
+	padding				: 0 0 1 0;
+}
+/****** leftMenu popup title *****/
+Static.sta_WF_Menulist, Static.sta_WF_Menulist:mouseover
+{
+	background			: #067394;
+	color				: #ffffff;
+	font				: 10 Gulim;
+	align				: left middle;
+	padding				: 0 0 0 18;
+}
+
+/**** common popup title *****/
+Static.sta_WF_PopupTitle, Static.sta_WF_PopupTitle:mouseover
+{
+	color				: #f9ff61;
+	font				: bold 10 Gulim;
+	padding				: 0 0 0 18;
+}
+/***** 브라우저 공지사항 팝업 bg *****/
+Static.sta_POP_Brwsbg, Static.sta_POP_Brwsbg:mouseover
+{
+	background			: URL('theme://images/sta_POP_Brwsbg.png') stretch 5,5;
+}
+/***** 브라우저 공지사항 팝업 타이틀 *****/
+Static.sta_POP_Brwstitle, Static.sta_POP_Brwstitle:mouseover
+{
+	background			: URL('theme://images/sta_POP_Brwstitle.png') ;
+}
+/***** 브라우저 공지사항 팝업 메세지 *****/
+Static.sta_POP_Brwsmsg, Static.sta_POP_Brwsmsg:mouseover
+{
+	background			: URL('theme://images/sta_POP_Brwsmsg.png') stretch 10,10;
+	color				: #333333;
+	font				: 9 Gulim;
+	align				: center middle;
+}
+/*****/
+Static.sta_POP_Brwstxt01, Static.sta_POP_Brwstxt01:mouseover
+{
+	background			: URL('theme://images/sta_POP_Brwstxt01.png');
+}
+/*****/
+Static.sta_POP_Brwstxt02, Static.sta_POP_Brwstxt02:mouseover
+{
+	background			: URL('theme://images/sta_POP_Brwstxt02.png');
+}
+/*** 자료실 output스타일 TextArea ******/
+TextArea.txt_WF_file, TextArea.txt_WF_file:mouseover, TextArea.txt_WF_file:pushed, 
+TextArea.txt_WF_file:focused, TextArea.txt_WF_file:selected, TextArea.txt_WF_file:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	linespace			: 8;
+}
+/**************************** 가이드 ******************************/
+Static.sta_GID_Title, Static.sta_GID_Title:mouseover
+{
+	align        			: center middle;
+	background     			: #edeee6;
+	border         			: 1 solid #c6c6c5;
+	color         			: #444444;
+	font         			: bold antialias 9 Tahoma;  
+}
+Static.sta_GID_txt, Static.sta_GID_txt:mouseover
+{
+	color         			: #00779b;
+	font				: 8 Gulim;
+}
+Static.sta_GID_txt02, Static.sta_GID_txt02:mouseover
+{
+	color         			: #999999;
+	font				: 8 Gulim;	
+}
+Static.sta_GID_line, Static.sta_GID_line:mouseover
+{
+	background     			: #c6c6c5;		
+}
+/** 배송예정서작성화면용 (사용하고 싶은 화면에 css스타일 적용) **/
+Edit.edt_delivery:disabled
+{
+	color				: #444444;
+}
+MaskEdit.mae_delivery:disabled
+{
+	color				: #444444;
+}
+Combo.cbo_delivery>#comboedit:disabled
+{
+	color				: #444444;
+}
+Calendar.cal_delivery:disabled
+{
+	color				: #444444;
+}
+
+/* 신규서비스 안내 페이지(181130) */
+Static.sta_INFO_title, Static.sta_INFO_title:mouseover
+{
+	background			: transparent URL('theme://images/new/icon_title.png') left middle;
+	color				: #0e78c4ff;
+	font					: bold 12 '맑은 고딕', Gulim;
+	padding				: 0 0 0 12;
+}
+Static.sta_INFO_txt1list, Static.sta_INFO_txt1list:mouseover
+{
+	background 			: transparent URL('theme://images/new/icon_list.png') 2 middle;
+	color				: #4d4d4dff;
+	font					: 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 27;	
+}
+Static.sta_INFO_txt1, Static.sta_INFO_txt1:mouseover
+{
+	background 			: transparent;
+	color				: #4d4d4dff;
+	font					: 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 27;	
+}
+Static.sta_INFO_txt2list, Static.sta_INFO_txt2list:mouseover
+{
+	background			: transparent URL('theme://images/new/blet_arr01.png') 4 middle;
+	color				: #4d4d4eff;
+	font					: 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 40;	
+}
+Static.sta_INFO_txt2, Static.sta_INFO_txt2:mouseover
+{
+	background			: transparent;
+	color				: #4d4d4eff;
+	font					: 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 40;	
+}

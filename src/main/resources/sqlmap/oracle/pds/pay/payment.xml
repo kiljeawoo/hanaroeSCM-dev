@@ -1,0 +1,1678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="paymentDAO">
+
+	<resultMap id="paymentAffSsdyMasterMap" type="com.nh.escm.pds.pay.vo.PaymentAffSsdyMasterVO">
+		<result column="RN" property="RN" />
+		<result column="PHD_NA_BZPLC" property="PHD_NA_BZPLC" />
+		<result column="NA_TR_DSC" property="NA_TR_DSC" />
+		<result column="NA_BLB_DFC_DSC" property="NA_BLB_DFC_DSC" />
+		<result column="TR_DT" property="TR_DT" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="SLPL_NA_TRPL_C" property="SLPL_NA_TRPL_C" />
+		<result column="SLPL_NA_TEAM_C" property="SLPL_NA_TEAM_C" />
+		<result column="BUYPL_NA_TRPL_C" property="BUYPL_NA_TRPL_C" />
+		<result column="BUYPL_NA_TEAM_C" property="BUYPL_NA_TEAM_C" />
+		<result column="NA_ADJPL_C" property="NA_ADJPL_C" />
+		<result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		<result column="PY_PLA_DT" property="PY_PLA_DT" />
+		<result column="NA_CRC_CAN_DSC" property="NA_CRC_CAN_DSC" />
+		<result column="SPY_QT" property="SPY_QT" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="VAT" property="VAT" />
+		<result column="AFF_SSDY" property="AFF_SSDY" />
+		<result column="PHD_AFF_FEERT" property="PHD_AFF_FEERT" />
+		<result column="PHD_SEL_AM" property="PHD_SEL_AM" />
+		<result column="CNR_DS_AM" property="CNR_DS_AM" />
+		<result column="AFF_SSDY_SUM" property="AFF_SSDY_SUM" />		
+		<result column="PHD_NA_BZPLC_NM" property="PHD_NA_BZPLC_NM" />
+		<result column="NA_TR_DSC_NM" property="NA_TR_DSC_NM" />
+		<result column="SLPL_NA_TRPL_C_NM" property="SLPL_NA_TRPL_C_NM" />
+		<result column="BUYPL_NA_TRPL_C_NM" property="BUYPL_NA_TRPL_C_NM" />		
+		<result column="NA_ADJPL_C_NM" property="NA_ADJPL_C_NM" />
+		<result column="NA_CRC_CAN_DSC_NM" property="NA_CRC_CAN_DSC_NM" />
+		<result column="BUYPL_NA_TEAM_C_NM" property="BUYPL_NA_TEAM_C_NM" />			
+	</resultMap>
+	
+	<resultMap id="paymentAffSsdyDetailMap" type="com.nh.escm.pds.pay.vo.PaymentAffSsdyDetailVO">		
+		<result column="PHD_NA_BZPLC" property="PHD_NA_BZPLC" />
+		<result column="PHD_SLP_DT" property="PHD_SLP_DT" />
+		<result column="NA_TR_DSC" property="NA_TR_DSC" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="NA_BLB_DFC_DSC" property="NA_BLB_DFC_DSC" />
+		<result column="SLP_SQNO" property="SLP_SQNO" />
+		<result column="TR_DT" property="TR_DT" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRS_SBJC" property="WRS_SBJC" />
+		<result column="NA_LLED_C" property="NA_LLED_C" />
+		<result column="NA_MLED_C" property="NA_MLED_C" />
+		<result column="SLPL_NA_TRPL_C" property="SLPL_NA_TRPL_C" />
+		<result column="SLPL_NA_TEAM_C" property="SLPL_NA_TEAM_C" />
+		<result column="BUYPL_NA_TRPL_C" property="BUYPL_NA_TRPL_C" />
+		<result column="BUYPL_NA_TEAM_C" property="BUYPL_NA_TEAM_C" />
+		<result column="NA_ADJPL_C" property="NA_ADJPL_C" />
+		<result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		<result column="NAAC_DSC" property="NAAC_DSC" />
+		<result column="PY_PLA_DT" property="PY_PLA_DT" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="NA_CRC_CAN_DSC" property="NA_CRC_CAN_DSC" />
+		<result column="OSLIP_DT" property="OSLIP_DT" />
+		<result column="OGN_NA_SLPNO" property="OGN_NA_SLPNO" />
+		<result column="SPY_QT" property="SPY_QT" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="VAT" property="VAT" />
+		<result column="AFF_SSDY" property="AFF_SSDY" />
+		<result column="PHD_AFF_FEERT" property="PHD_AFF_FEERT" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="PHD_SEL_AM" property="PHD_SEL_AM" />
+		<result column="TMS_YN" property="TMS_YN" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="CNR_DS_AM" property="CNR_DS_AM" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="PHD_NA_BZPLC_NM" property="PHD_NA_BZPLC_NM" />
+		<result column="NA_TR_DSC_NM" property="NA_TR_DSC_NM" />
+		<result column="NA_WRS_C_NM" property="NA_WRS_C_NM" />
+		<result column="SLPL_NA_TRPL_C_NM" property="SLPL_NA_TRPL_C_NM" />
+		<result column="BUYPL_NA_TRPL_C_NM" property="BUYPL_NA_TRPL_C_NM" />		
+		<result column="NA_ADJPL_C_NM" property="NA_ADJPL_C_NM" />		
+		<result column="BUYPL_NA_TEAM_C_NM" property="BUYPL_NA_TEAM_C_NM" />	
+	</resultMap>	
+	
+	<resultMap id="paymentEtcCaAsetMasterMap" type="com.nh.escm.pds.pay.vo.PaymentEtcCaAsetMasterVO">
+		<result column="RN" property="RN" />	
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />	
+		<result column="SLP_DT" property="SLP_DT" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="NA_TR_DSC" property="NA_TR_DSC" />
+		<result column="NA_CRC_CAN_DSC" property="NA_CRC_CAN_DSC" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="SHRT_CLNTNM" property="SHRT_CLNTNM" />
+		<result column="ETC_CA_ASET_RTU_QT" property="ETC_CA_ASET_RTU_QT" />
+		<result column="RTU_AM" property="RTU_AM" />
+		<result column="RTU_FEE" property="RTU_FEE" />
+		<result column="RTU_FEE_VAT" property="RTU_FEE_VAT" />
+		<result column="OSLIP_DT" property="OSLIP_DT" />
+		<result column="OSLIP_NA_SLPNO" property="OSLIP_NA_SLPNO" />
+		<result column="WDR_PLA_DT" property="WDR_PLA_DT" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="VHC_TYPE" property="VHC_TYPE" />
+		<result column="VHC_NO" property="VHC_NO" />
+		<result column="UPYAM_OCU_YN" property="UPYAM_OCU_YN" />
+	</resultMap>
+	
+	<resultMap id="paymentEtcCaAsetDetailMap" type="com.nh.escm.pds.pay.vo.PaymentEtcCaAsetDetailVO">
+	</resultMap>
+
+	<sql id="sql_retrieveAffSsdyMasterList">
+		SELECT		
+			'['||A.PHD_NA_BZPLC||'] '||FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM    /*물류경제통합사업장코드,명       */
+			, '['||SUBSTR(A.NA_TR_DSC,1,2)||'] '||DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) AS NA_TR_DSC_NM /*02경제통합거래구분코드,명         */
+			, '['||A.SLPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM    /*매출처거래처코드,명       */
+			, '['||A.BUYPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM    /*매입처거래처코드,명       */
+			, '['||A.NA_ADJPL_C||'] '||FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM    	                            /*정산처코드,명           */
+			, '['||A.NA_CRC_CAN_DSC||'] '||FN_CM_SIMP_CNM('NA_CRC_CAN_DSC',A.NA_CRC_CAN_DSC) AS NA_CRC_CAN_DSC_NM       /*24경제통합정정취소구분코드,명     */
+			, '['||A.BUYPL_NA_TEAM_C||'] '||FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) BUYPL_NA_TEAM_C_NM /*매입처 팀코드*/
+			,
+			A.PHD_NA_BZPLC,
+			A.NA_TR_DSC,
+			A.NA_BLB_DFC_DSC,
+			A.TR_DT,
+			A.NA_TEAM_C,
+			A.SLPL_NA_TRPL_C,
+			A.SLPL_NA_TEAM_C,
+			A.BUYPL_NA_TRPL_C,						
+			A.BUYPL_NA_TEAM_C,			
+			A.NA_ADJPL_C,
+			A.ADJPL_NA_TEAM_C,
+			A.PY_PLA_DT,
+			A.NA_CRC_CAN_DSC,
+			SUM(A.SPY_QT) AS SPY_QT,
+			SUM(A.SPY_AM) AS SPY_AM,
+			SUM(A.VAT) AS VAT,
+			SUM(A.AFF_SSDY) AS AFF_SSDY,
+			ROUND(AVG(A.PHD_AFF_FEERT),2) AS PHD_AFF_FEERT,
+			SUM(A.PHD_SEL_AM) AS PHD_SEL_AM,
+			<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1   
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END )]]> AS CNR_DS_AM, 
+			SUM(AFF_SSDY*<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END ))]]> AS AFF_SSDY_SUM
+		FROM TB_LG_WA_OH_ICT A
+		<where>			
+			AND AFF_SSDY   != 0		
+			AND A.SLPL_NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+		<choose>			
+			<when test="SEARCH_DATE_TYPE == '1'.toString()">
+				AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</when>
+			<when test="SEARCH_DATE_TYPE == '2'.toString()">
+				AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</when>
+		</choose>
+			<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+				AND SUBSTR(NA_TR_DSC,1,2) = #{NA_TR_DSC}
+			</if>
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+				AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			</if>
+		</where>
+		GROUP BY
+					'['||A.PHD_NA_BZPLC||'] '||FN_TRPL_CIF_NM(A.PHD_NA_BZPLC)    /*물류경제통합사업장코드,명       */
+					, '['||SUBSTR(A.NA_TR_DSC,1,2)||'] '||DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) /*02경제통합거래구분코드,명         */
+					, '['||A.SLPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C)    /*매출처거래처코드,명       */
+					, '['||A.BUYPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C)    /*매입처거래처코드,명       */
+					, '['||A.NA_ADJPL_C||'] '||FN_TRPL_CIF_NM(A.NA_ADJPL_C)    	                            /*정산처코드,명           */
+					, '['||A.NA_CRC_CAN_DSC||'] '||FN_CM_SIMP_CNM('NA_CRC_CAN_DSC',A.NA_CRC_CAN_DSC)       /*24경제통합정정취소구분코드,명     */
+					, '['||A.BUYPL_NA_TEAM_C||'] '||FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) /*매입처 팀코드*/
+					,
+					A.PHD_NA_BZPLC,
+					A.NA_TR_DSC,
+					A.NA_BLB_DFC_DSC,
+					A.TR_DT,
+					A.NA_TEAM_C,
+					A.SLPL_NA_TRPL_C,
+					A.SLPL_NA_TEAM_C,
+					A.BUYPL_NA_TRPL_C,
+					A.BUYPL_NA_TEAM_C,
+					A.NA_ADJPL_C,
+					A.ADJPL_NA_TEAM_C,
+					A.PY_PLA_DT,
+					A.NA_CRC_CAN_DSC
+	</sql>
+	
+	<!-- 사후장려금 페이지 추가 쿼리 -->
+	<select id="retrieveAffSsdyMasterList" parameterType="java.util.Map" resultMap="paymentAffSsdyMasterMap">
+		<bind name="sortName" value="'PHD_NA_BZPLC, TR_DT'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveAffSsdyMasterList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 사후장려금  총 카운트 -->
+	<select id="getAffSsdyCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveAffSsdyMasterList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 사후장려금 마스터 합계 -->
+	<select id="getAffSsdyMasterTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.SPY_QT), 0) AS SPY_QT
+		  , NVL(SUM(LIST.SPY_AM), 0) AS SPY_AM
+		  , NVL(SUM(LIST.VAT), 0) AS VAT
+		  , NVL(SUM(LIST.AFF_SSDY), 0) AS AFF_SSDY
+		  , NVL(SUM(LIST.PHD_SEL_AM), 0) AS PHD_SEL_AM
+		  , NVL(SUM(LIST.AFF_SSDY_SUM), 0) AS AFF_SSDY_SUM
+		FROM
+		(
+		<include refid="sql_retrieveAffSsdyMasterList" />
+		) LIST
+	</select>
+	
+	<!-- 사후장려금 마스터 엑셀 -->
+	<select id="downloadExcelAffSsdyMM" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			A.PHD_NA_BZPLC AS PHD_NA_BZPLC /*물류경제통합사업장코드 */
+			, SUBSTR(A.NA_TR_DSC,1,2) AS NA_TR_DSC /*경제통합거래구분코드 */
+			, A.NA_BLB_DFC_DSC /*경제통합흑자적자구분코드 */
+			, A.TR_DT /*거래일자 */
+			, A.NA_TEAM_C /*경제통합팀코드*/
+			, A.SLPL_NA_TRPL_C AS SLPL_NA_TRPL_C /*매출처거래처코드 */
+			, A.SLPL_NA_TEAM_C /*매출팀코드 */
+			, A.BUYPL_NA_TRPL_C AS BUYPL_NA_TRPL_C /*매입처거래처코드 */
+			, A.BUYPL_NA_TEAM_C /*매입처 팀코드*/
+			, A.NA_ADJPL_C AS NA_ADJPL_C /*정산처코드 */
+			, A.ADJPL_NA_TEAM_C /*정산처팀코드 */
+			, A.PY_PLA_DT /*지급예정일자 */
+			, A.NA_CRC_CAN_DSC AS NA_CRC_CAN_DSC /*경제통합정정취소구분코드 */
+			, SUM(A.SPY_QT) AS SPY_QT /*공급수량 */
+			, SUM(A.SPY_AM) AS SPY_AM /*공급금액 */
+			, SUM(A.VAT) AS VAT /*부가세 */
+			, SUM(A.AFF_SSDY) AS AFF_SSDY /*사후장려금 */ 
+			, ROUND(AVG(A.PHD_AFF_FEERT),2) AS PHD_AFF_FEERT /*물류사후수수료율 */ 
+			, SUM(A.PHD_SEL_AM) AS PHD_SEL_AM /*물류판매금액 */
+			, FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM /*물류경제통합사업장명 */
+			, ' ' AS NA_TR_DSC_NM /*02거래구분약어명 */
+			, FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM /*매출처거래처명 */
+			, FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM /*매입처거래처명 */
+			, FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM /*정산처명 */
+			, FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) BUYPL_NA_TEAM_C_NM /*매입처 팀코드명*/
+			, FN_CM_SIMP_CNM('NA_CRC_CAN_DSC',A.NA_CRC_CAN_DSC) AS NA_CRC_CAN_DSC_NM /*24경제통합정정취소구분명 */										
+			, <![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1   
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END )]]> AS CNR_DS_AM /*검수구분금액*/
+			, SUM(AFF_SSDY*<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+												WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+												WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END ))]]> AS AFF_SSDY_SUM /*사후장려금(계산)*/
+		FROM TB_LG_WA_OH_ICT A
+		<where>			
+			AND AFF_SSDY   != 0		
+			AND A.SLPL_NA_TRPL_C IN
+		      <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+		  		#{item}
+		</foreach>
+		<choose>			
+			<when test="SEARCH_DATE_TYPE == '1'.toString()">
+				AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</when>
+			<when test="SEARCH_DATE_TYPE == '2'.toString()">
+				AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</when>
+		</choose>
+			<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+				AND SUBSTR(NA_TR_DSC,1,2) = #{NA_TR_DSC}
+			</if>
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+				AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			</if>
+		</where>
+		GROUP BY
+			A.PHD_NA_BZPLC 
+			, A.NA_TR_DSC
+			, A.NA_BLB_DFC_DSC 
+			, A.TR_DT
+			, A.NA_TEAM_C
+			, A.SLPL_NA_TRPL_C
+			, A.SLPL_NA_TEAM_C
+			, A.BUYPL_NA_TRPL_C
+			, A.BUYPL_NA_TEAM_C
+			, A.NA_ADJPL_C
+			, A.ADJPL_NA_TEAM_C
+			, A.PY_PLA_DT
+			, A.NA_CRC_CAN_DSC
+		ORDER BY A.PHD_NA_BZPLC, A.TR_DT
+	</select>	
+
+	<!-- 사후장려금 디테일 조회 -->
+	<select id="retrieveAffSsdyDetailList" parameterType="java.util.Map" resultMap="paymentAffSsdyDetailMap">
+		SELECT
+			'['||A.PHD_NA_BZPLC||'] '||FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM    /*물류경제통합사업장코드,명       */
+			, '['||A.NA_TR_DSC||'] '||DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) AS NA_TR_DSC_NM /*02경제통합거래구분코드,명         */
+			, '['||A.NA_WRS_C||'] '||WRS.WRS_ABR_NM AS NA_WRS_C_NM    /*상품처코드,명       */
+			, '['||A.SLPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM    /*매출처거래처코드,명       */
+			, '['||A.BUYPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM    /*매입처거래처코드,명       */
+			, '['||A.NA_ADJPL_C||'] '||FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM    	                            /*정산처코드,명           */			
+			, '['||A.BUYPL_NA_TEAM_C||'] '||FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) BUYPL_NA_TEAM_C_NM /*매입처 팀코드*/
+			,
+			
+			A.PHD_NA_BZPLC,
+			A.PHD_SLP_DT,
+			A.NA_TR_DSC,
+			A.NA_SLPNO,
+			A.NA_BLB_DFC_DSC,
+			A.SLP_SQNO,
+			A.TR_DT,
+			A.NA_TEAM_C,
+			A.NA_WRS_C,
+			A.WRS_SBJC,
+			A.NA_LLED_C,
+			A.NA_MLED_C,
+			A.SLPL_NA_TRPL_C,
+			A.SLPL_NA_TEAM_C,
+			A.BUYPL_NA_TRPL_C,
+			A.BUYPL_NA_TEAM_C,
+			A.NA_ADJPL_C,
+			A.ADJPL_NA_TEAM_C,
+			A.NAAC_DSC,
+			A.PY_PLA_DT,
+			A.NA_WRS_LCLC,
+			A.NA_WRS_MCLC,
+			A.NA_WRS_SCLC,
+			A.NA_WRS_DTCF_C,
+			A.NA_CRC_CAN_DSC,
+			A.OSLIP_DT,
+			A.OGN_NA_SLPNO,
+			A.SPY_QT,
+			A.SPY_AM,
+			A.VAT,
+			A.AFF_SSDY,
+			A.PHD_AFF_FEERT,
+			A.RMK_CNTN,
+			A.PHD_SEL_AM,
+			A.TMS_YN,
+			A.LSCHG_DTM,
+			A.LS_CMENO,
+			<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END)]]> AS CNR_DS_AM,
+			B.NA_DVY_PLASH_SLPNO
+			FROM
+			TB_LG_WA_OH_ICT A,
+			TB_GD_WRS WRS,			
+			TB_BY_BYNG_M B
+		WHERE 1=1
+			AND A.NA_WRS_C = WRS.NA_WRS_C
+			AND A.PHD_NA_BZPLC = B.NA_BZPLC(+)
+			AND A.NA_TEAM_C = B.NA_TEAM_C(+)
+			AND A.PHD_SLP_DT = B.SLP_DT(+)
+			AND A.NA_SLPNO = B.NA_SLPNO(+)
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() >  0">
+				AND A.PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			</if>
+			<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+				AND A.NA_TR_DSC = #{NA_TR_DSC}
+			</if>
+			<if test="NA_BLB_DFC_DSC != null and NA_BLB_DFC_DSC.length() >  0">
+				AND A.NA_BLB_DFC_DSC = #{NA_BLB_DFC_DSC}
+			</if>
+			<if test="TR_DT != null and TR_DT.length() >  0">
+				AND A.TR_DT = #{TR_DT}
+			</if>
+			
+			<if test="NA_TEAM_C != null and NA_TEAM_C.length() >  0">
+				AND A.NA_TEAM_C = #{NA_TEAM_C}
+			</if>
+			<if test="SLPL_NA_TRPL_C != null and SLPL_NA_TRPL_C.length() >  0">
+				AND A.SLPL_NA_TRPL_C = #{SLPL_NA_TRPL_C}
+			</if>
+			<if test="SLPL_NA_TEAM_C != null and SLPL_NA_TEAM_C.length() >  0">
+				AND A.SLPL_NA_TEAM_C = #{SLPL_NA_TEAM_C}
+			</if>
+			<if test="BUYPL_NA_TRPL_C != null and BUYPL_NA_TRPL_C.length() >  0">
+				AND A.BUYPL_NA_TRPL_C = #{BUYPL_NA_TRPL_C}
+			</if>
+			<if test="BUYPL_NA_TEAM_C != null and BUYPL_NA_TEAM_C.length() >  0">
+				AND A.BUYPL_NA_TEAM_C = #{BUYPL_NA_TEAM_C}
+			</if>
+			<if test="NA_ADJPL_C != null and NA_ADJPL_C.length() >  0">
+				AND A.NA_ADJPL_C = #{NA_ADJPL_C}
+			</if>
+			<if test="ADJPL_NA_TEAM_C != null and ADJPL_NA_TEAM_C.length() >  0">
+				AND A.ADJPL_NA_TEAM_C = #{ADJPL_NA_TEAM_C}
+			</if>
+			
+			<if test="PY_PLA_DT != null and PY_PLA_DT.length() >  0">
+				AND A.PY_PLA_DT = #{PY_PLA_DT}
+			</if>
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0">
+				AND A.NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>
+			ORDER BY SLP_SQNO
+	</select>
+	
+	<!-- 사후장려금 엑셀 마스터 다운로드 -->
+	<select id="downloadExcelAffSsdyMaster" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		with temp_tab as (
+				SELECT A.*
+				FROM nhvaninf.TB_LG_WA_OH_ICT A 
+				        WHERE 1 = 1
+				        AND A.SLPL_NA_TRPL_C IN
+				        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+				    		#{item}
+						</foreach>
+						<choose>			
+							<when test="SEARCH_DATE_TYPE == '1'.toString()">
+								AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+							</when>
+							<when test="SEARCH_DATE_TYPE == '2'.toString()">
+								AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+							</when>
+						</choose>
+						<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+							AND SUBSTR(NA_TR_DSC,1,2) = #{NA_TR_DSC}
+						</if>
+						<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+							AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+						</if>
+						<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+							AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+						</if>			        
+				)
+			SELECT 
+					FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM    /*물류경제통합사업장코드,명       */
+					,DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) AS NA_TR_DSC_NM /*02경제통합거래구분코드,명         */
+					,WRS.WRS_ABR_NM AS NA_WRS_C_NM    /*상품처코드,명       */
+					,FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM    /*매출처거래처코드,명       */
+					,FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM    /*매입처거래처코드,명       */
+					,FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM    	                            /*정산처코드,명           */			
+					,FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) BUYPL_NA_TEAM_C_NM /*매입처 팀코드*/
+					,
+					A.PHD_NA_BZPLC AS PHD_NA_BZPLC_D,
+					A.PHD_SLP_DT PHD_SLP_DT_D,
+					A.NA_TR_DSC AS NA_TR_DSC_D,
+					A.NA_SLPNO NA_SLPNO_D,
+					A.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC_D,
+					A.SLP_SQNO SLP_SQNO_D,
+					A.TR_DT AS TR_DT_D,
+					A.NA_TEAM_C AS NA_TEAM_C_D,
+					A.NA_WRS_C NA_WRS_C_D,
+					A.WRS_SBJC WRS_SBJC_D,
+					A.NA_LLED_C NA_LLED_C_D,
+					A.NA_MLED_C NA_MLED_C_D,
+					A.SLPL_NA_TRPL_C AS SLPL_NA_TRPL_C_D,
+					A.SLPL_NA_TEAM_C AS SLPL_NA_TEAM_C_D,
+					A.BUYPL_NA_TRPL_C AS BUYPL_NA_TRPL_C_D,
+					A.BUYPL_NA_TEAM_C AS BUYPL_NA_TEAM_C_D,
+					A.NA_ADJPL_C AS NA_ADJPL_C_D,
+					A.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C_D,
+					A.NAAC_DSC NAAC_DSC_D,
+					A.PY_PLA_DT AS PY_PLA_DT_D,
+					A.NA_WRS_LCLC NA_WRS_LCLC_D,
+					A.NA_WRS_MCLC NA_WRS_MCLC_D,
+					A.NA_WRS_SCLC NA_WRS_SCLC_D,
+					A.NA_WRS_DTCF_C NA_WRS_DTCF_C_D,						 
+					A.NA_CRC_CAN_DSC AS NA_CRC_CAN_DSC_D,
+					A.OSLIP_DT OSLIP_DT_D,
+					A.OGN_NA_SLPNO OGN_NA_SLPNO_D,
+					A.SPY_QT AS SPY_QT_D,
+					A.SPY_AM AS SPY_AM_D,
+					A.VAT AS VAT_D,
+					A.AFF_SSDY AS AFF_SSDY_D,
+					A.PHD_AFF_FEERT AS PHD_AFF_FEERT_D,
+					A.RMK_CNTN RMK_CNTN_D,
+					A.PHD_SEL_AM AS PHD_SEL_AM_D,
+					A.TMS_YN TMS_YN_D,
+					A.LSCHG_DTM LSCHG_DTM_D,
+					A.LS_CMENO LS_CMENO_D,
+					<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+											WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1
+											WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1
+											WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+											WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1
+											WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+											WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END)]]> AS CNR_DS_AM_D,
+					A.AFF_SSDY*<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+														WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+														WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+														WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+														WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+														WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+														WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END )]]> AS AFF_SSDY_SUM_D,
+					B.NA_DVY_PLASH_SLPNO NA_DVY_PLASH_SLPNO_D
+					FROM temp_tab A,						
+					nhvaninf.TB_BY_BYNG_M B,
+					nhvaninf.TB_GD_WRS WRS
+				WHERE 1=1
+					AND A.NA_WRS_C = WRS.NA_WRS_C
+					AND A.PHD_NA_BZPLC = B.NA_BZPLC(+)
+					AND A.NA_TEAM_C = B.NA_TEAM_C(+)
+					AND A.PHD_SLP_DT = B.SLP_DT(+)
+					AND A.NA_SLPNO = B.NA_SLPNO(+)
+				ORDER BY A.PHD_NA_BZPLC,A.PHD_SLP_DT,A.NA_SLPNO,A.SLP_SQNO
+	</select>
+	
+	<select id="downloadExcelAffSsdyMaster_Join" parameterType="java.util.Map" resultType="java.util.Map">
+			with temp_tab as (
+			SELECT A.*
+			FROM nhvaninf.TB_LG_WA_OH_ICT A 
+			        WHERE 1 = 1
+			        AND A.SLPL_NA_TRPL_C IN
+			        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					<choose>			
+						<when test="SEARCH_DATE_TYPE == '1'.toString()">
+							AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+						</when>
+						<when test="SEARCH_DATE_TYPE == '2'.toString()">
+							AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+						</when>
+					</choose>
+					<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+						AND SUBSTR(NA_TR_DSC,1,2) = #{NA_TR_DSC}
+					</if>
+					<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+						AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+					</if>
+					<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+						AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+					</if>			        
+			)
+			SELECT /*+ no_merge(grdd) */
+				GRDM.*, GRDD.*
+			FROM 
+			(SELECT
+			A.PHD_NA_BZPLC,
+			A.NA_TR_DSC,
+			A.NA_BLB_DFC_DSC,
+			A.TR_DT,
+			A.NA_TEAM_C,
+			A.SLPL_NA_TRPL_C,
+			A.SLPL_NA_TEAM_C,
+			A.BUYPL_NA_TRPL_C,
+			A.BUYPL_NA_TEAM_C,
+			A.NA_ADJPL_C,
+			A.ADJPL_NA_TEAM_C,
+			A.PY_PLA_DT,
+			A.NA_CRC_CAN_DSC,
+			SUM(A.SPY_QT) AS SPY_QT,
+			SUM(A.SPY_AM) AS SPY_AM,
+			SUM(A.VAT) AS VAT,
+			SUM(A.AFF_SSDY) AS AFF_SSDY,			
+			TRUNC(AVG(A.PHD_AFF_FEERT),2) AS PHD_AFF_FEERT,
+			SUM(A.PHD_SEL_AM) AS PHD_SEL_AM,
+			<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1   
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END )]]> AS CNR_DS_AM, 
+			SUM(AFF_SSDY*<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END ))]]> AS AFF_SSDY_SUM		
+		FROM temp_tab A
+		<where>			
+			AND AFF_SSDY   != 0			
+		</where>
+		GROUP BY A.PHD_NA_BZPLC,
+					A.NA_TR_DSC,
+					A.NA_BLB_DFC_DSC,
+					A.TR_DT,
+					A.NA_TEAM_C,
+					A.SLPL_NA_TRPL_C,
+					A.SLPL_NA_TEAM_C,
+					A.BUYPL_NA_TRPL_C,
+					A.BUYPL_NA_TEAM_C,
+					A.NA_ADJPL_C,
+					A.ADJPL_NA_TEAM_C,
+					A.PY_PLA_DT,
+					A.NA_CRC_CAN_DSC
+			) GRDM, (
+						SELECT /*+  index_ss(b)  */
+						FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM    /*물류경제통합사업장코드,명       */
+						,DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) AS NA_TR_DSC_NM /*02경제통합거래구분코드,명         */
+						,WRS.WRS_ABR_NM AS NA_WRS_C_NM    /*상품처코드,명       */
+						,FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM    /*매출처거래처코드,명       */
+						,FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM    /*매입처거래처코드,명       */
+						,FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM    	                            /*정산처코드,명           */			
+						,FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) BUYPL_NA_TEAM_C_NM /*매입처 팀코드*/
+						,
+						A.PHD_NA_BZPLC AS PHD_NA_BZPLC_D,
+						A.PHD_SLP_DT,
+						A.NA_TR_DSC AS NA_TR_DSC_D,
+						A.NA_SLPNO,
+						A.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC_D,
+						A.SLP_SQNO,
+						A.TR_DT AS TR_DT_D,
+						A.NA_TEAM_C AS NA_TEAM_C_D,
+						A.NA_WRS_C,
+						A.WRS_SBJC,
+						A.NA_LLED_C,
+						A.NA_MLED_C,
+						A.SLPL_NA_TRPL_C AS SLPL_NA_TRPL_C_D,
+						A.SLPL_NA_TEAM_C AS SLPL_NA_TEAM_C_D,
+						A.BUYPL_NA_TRPL_C AS BUYPL_NA_TRPL_C_D,
+						A.BUYPL_NA_TEAM_C AS BUYPL_NA_TEAM_C_D,
+						A.NA_ADJPL_C AS NA_ADJPL_C_D,
+						A.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C_D,
+						A.NAAC_DSC,
+						A.PY_PLA_DT AS PY_PLA_DT_D,
+						A.NA_WRS_LCLC,
+						A.NA_WRS_MCLC,
+						A.NA_WRS_SCLC,
+						A.NA_WRS_DTCF_C,						 
+						A.NA_CRC_CAN_DSC AS NA_CRC_CAN_DSC_D,
+						A.OSLIP_DT,
+						A.OGN_NA_SLPNO,
+						A.SPY_QT AS SPY_QT_D,
+						A.SPY_AM AS SPY_AM_D,
+						A.VAT AS VAT_D,
+						A.AFF_SSDY AS AFF_SSDY_D,
+						A.PHD_AFF_FEERT AS PHD_AFF_FEERT_D,
+						A.RMK_CNTN,
+						A.PHD_SEL_AM AS PHD_SEL_AM_D,
+						A.TMS_YN,
+						A.LSCHG_DTM,
+						A.LS_CMENO,
+						<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+												WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1
+												WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END)]]> AS CNR_DS_AM_D,
+						A.AFF_SSDY*<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END )]]> AS AFF_SSDY_SUM_D,
+						B.NA_DVY_PLASH_SLPNO
+						FROM temp_tab A,						
+						nhvaninf.TB_BY_BYNG_M B,
+						nhvaninf.TB_GD_WRS WRS
+					WHERE 1=1
+						AND A.NA_WRS_C = WRS.NA_WRS_C
+						AND A.PHD_NA_BZPLC = B.NA_BZPLC(+)
+						AND A.NA_TEAM_C = B.NA_TEAM_C(+)
+						AND A.PHD_SLP_DT = B.SLP_DT(+)
+						AND A.NA_SLPNO = B.NA_SLPNO(+)) GRDD
+		WHERE 1=1
+			AND GRDM.PHD_NA_BZPLC = GRDD.PHD_NA_BZPLC_D
+			AND GRDM.NA_TR_DSC = GRDD.NA_TR_DSC_D
+			AND GRDM.NA_BLB_DFC_DSC = GRDD.NA_BLB_DFC_DSC_D 
+			AND GRDM.TR_DT = GRDD.TR_DT_D
+			AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C_D 
+			AND GRDM.SLPL_NA_TRPL_C = GRDD.SLPL_NA_TRPL_C_D 
+			AND GRDM.SLPL_NA_TEAM_C = GRDD.SLPL_NA_TEAM_C_D 
+			AND GRDM.BUYPL_NA_TRPL_C = GRDD.BUYPL_NA_TRPL_C_D 
+			AND GRDM.BUYPL_NA_TEAM_C = GRDD.BUYPL_NA_TEAM_C_D 
+			AND GRDM.NA_ADJPL_C = GRDD.NA_ADJPL_C_D
+			AND GRDM.ADJPL_NA_TEAM_C = GRDD.ADJPL_NA_TEAM_C_D 
+			AND GRDM.PY_PLA_DT = GRDD.PY_PLA_DT_D
+			AND GRDM.NA_CRC_CAN_DSC = GRDD.NA_CRC_CAN_DSC_D
+		ORDER BY GRDM.PHD_NA_BZPLC, GRDM.TR_DT
+	</select>
+	
+	<!-- 사후장려금 엑셀 디테일 다운로드 -->
+	<select id="downloadExcelAffSsdyDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT GRDM.*, GRDD.*
+			FROM 
+			(SELECT
+			A.PHD_NA_BZPLC,
+			A.NA_TR_DSC,
+			A.NA_BLB_DFC_DSC,
+			A.TR_DT,
+			A.NA_TEAM_C,
+			A.SLPL_NA_TRPL_C,
+			A.SLPL_NA_TEAM_C,
+			A.BUYPL_NA_TRPL_C,
+			A.BUYPL_NA_TEAM_C,
+			A.NA_ADJPL_C,
+			A.ADJPL_NA_TEAM_C,
+			A.PY_PLA_DT,
+			A.NA_CRC_CAN_DSC,
+			SUM(A.SPY_QT) AS SPY_QT,
+			SUM(A.SPY_AM) AS SPY_AM,
+			SUM(A.VAT) AS VAT,
+			SUM(A.AFF_SSDY) AS AFF_SSDY,
+			AVG(A.PHD_AFF_FEERT) AS PHD_AFF_FEERT,
+			SUM(A.PHD_SEL_AM) AS PHD_SEL_AM,
+			<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1   
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+									WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+									WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END )]]> AS CNR_DS_AM, 
+			SUM(AFF_SSDY*<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1  
+															WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1  
+															WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END ))]]> AS AFF_SSDY_SUM
+		FROM TB_LG_WA_OH_ICT A
+		<where>			
+			AND AFF_SSDY   != 0		
+			AND A.SLPL_NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+		<choose>			
+			<when test="SEARCH_DATE_TYPE == '1'.toString()">
+				AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</when>
+			<when test="SEARCH_DATE_TYPE == '2'.toString()">
+				AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</when>
+		</choose>
+			<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+				AND NA_TR_DSC = #{NA_TR_DSC}
+			</if>
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+				AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			</if>
+		</where>
+		GROUP BY A.PHD_NA_BZPLC,
+					A.NA_TR_DSC,
+					A.NA_BLB_DFC_DSC,
+					A.TR_DT,
+					A.NA_TEAM_C,
+					A.SLPL_NA_TRPL_C,
+					A.SLPL_NA_TEAM_C,
+					A.BUYPL_NA_TRPL_C,
+					A.BUYPL_NA_TEAM_C,
+					A.NA_ADJPL_C,
+					A.ADJPL_NA_TEAM_C,
+					A.PY_PLA_DT,
+					A.NA_CRC_CAN_DSC
+			) GRDM, (
+						SELECT
+						'['||A.PHD_NA_BZPLC||'] '||FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM    /*물류경제통합사업장코드,명       */
+						, '['||A.NA_TR_DSC||'] '||DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) AS NA_TR_DSC_NM /*02경제통합거래구분코드,명         */
+						, '['||A.NA_WRS_C||'] '||WRS.WRS_ABR_NM AS NA_WRS_C_NM    /*상품처코드,명       */
+						, '['||A.SLPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM    /*매출처거래처코드,명       */
+						, '['||A.BUYPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM    /*매입처거래처코드,명       */
+						, '['||A.NA_ADJPL_C||'] '||FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM    	                            /*정산처코드,명           */			
+						, '['||A.BUYPL_NA_TEAM_C||'] '||FN_CM_TEAM_NM(A.BUYPL_NA_TRPL_C,A.BUYPL_NA_TEAM_C) BUYPL_NA_TEAM_C_NM /*매입처 팀코드*/
+						,
+						A.PHD_NA_BZPLC AS PHD_NA_BZPLC_D,
+						A.PHD_SLP_DT,
+						A.NA_TR_DSC AS NA_TR_DSC_D,
+						A.NA_SLPNO,
+						A.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC_D,
+						A.SLP_SQNO,
+						A.TR_DT AS TR_DT_D,
+						A.NA_TEAM_C AS NA_TEAM_C_D,
+						A.NA_WRS_C,
+						A.WRS_SBJC,
+						A.NA_LLED_C,
+						A.NA_MLED_C,
+						A.SLPL_NA_TRPL_C AS SLPL_NA_TRPL_C_D,
+						A.SLPL_NA_TEAM_C AS SLPL_NA_TEAM_C_D,
+						A.BUYPL_NA_TRPL_C AS BUYPL_NA_TRPL_C_D,
+						A.BUYPL_NA_TEAM_C AS BUYPL_NA_TEAM_C_D,
+						A.NA_ADJPL_C AS NA_ADJPL_C_D,
+						A.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C_D,
+						A.NAAC_DSC,
+						A.PY_PLA_DT AS PY_PLA_DT_D,
+						A.NA_WRS_LCLC,
+						A.NA_WRS_MCLC,
+						A.NA_WRS_SCLC,
+						A.NA_WRS_DTCF_C,						 
+						A.NA_CRC_CAN_DSC AS NA_CRC_CAN_DSC_D,
+						A.OSLIP_DT,
+						A.OGN_NA_SLPNO,
+						A.SPY_QT AS SPY_QT_D,
+						A.SPY_AM AS SPY_AM_D,
+						A.VAT AS VAT_D,
+						A.AFF_SSDY AS AFF_SSDY_D,
+						A.PHD_AFF_FEERT AS PHD_AFF_FEERT_D,
+						A.RMK_CNTN,
+						A.PHD_SEL_AM AS PHD_SEL_AM_D,
+						A.TMS_YN,
+						A.LSCHG_DTM,
+						A.LS_CMENO,
+						<![CDATA[(CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1
+												WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1
+												WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+												WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END)]]> AS CNR_DS_AM_D,
+						B.NA_DVY_PLASH_SLPNO
+						FROM
+						TB_LG_WA_OH_ICT A,
+						TB_BY_BYNG_M B,
+						TB_GD_WRS WRS
+					WHERE 1=1
+						AND A.NA_WRS_C = WRS.NA_WRS_C
+						AND A.PHD_NA_BZPLC = B.NA_BZPLC(+)
+						AND A.NA_TEAM_C = B.NA_TEAM_C(+)
+						AND A.PHD_SLP_DT = B.SLP_DT(+)
+						AND A.NA_SLPNO = B.NA_SLPNO(+)) GRDD
+		WHERE 1=1
+			AND GRDM.PHD_NA_BZPLC = GRDD.PHD_NA_BZPLC_D 
+			AND GRDM.NA_TR_DSC = GRDD.NA_TR_DSC_D
+			AND GRDM.NA_BLB_DFC_DSC = GRDD.NA_BLB_DFC_DSC_D 
+			AND GRDM.TR_DT = GRDD.TR_DT_D
+			AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C_D 
+			AND GRDM.SLPL_NA_TRPL_C = GRDD.SLPL_NA_TRPL_C_D 
+			AND GRDM.SLPL_NA_TEAM_C = GRDD.SLPL_NA_TEAM_C_D 
+			AND GRDM.BUYPL_NA_TRPL_C = GRDD.BUYPL_NA_TRPL_C_D 
+			AND GRDM.BUYPL_NA_TEAM_C = GRDD.BUYPL_NA_TEAM_C_D 
+			AND GRDM.NA_ADJPL_C = GRDD.NA_ADJPL_C_D
+			AND GRDM.ADJPL_NA_TEAM_C = GRDD.ADJPL_NA_TEAM_C_D 
+			AND GRDM.PY_PLA_DT = GRDD.PY_PLA_DT_D
+			AND GRDM.NA_CRC_CAN_DSC = GRDD.NA_CRC_CAN_DSC_D
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() >  0">
+				AND GRDD.PHD_NA_BZPLC_D = #{PHD_NA_BZPLC}
+			</if>
+			<if test="NA_TR_DSC != null and NA_TR_DSC.length() >  0">
+				AND  GRDD.NA_TR_DSC_D = #{NA_TR_DSC}
+			</if>
+			<if test="NA_BLB_DFC_DSC != null and NA_BLB_DFC_DSC.length() >  0">
+				AND GRDD.NA_BLB_DFC_DSC_D = #{NA_BLB_DFC_DSC}
+			</if>
+			<if test="TR_DT != null and TR_DT.length() >  0">
+				AND GRDD.TR_DT_D = #{TR_DT}
+			</if>
+			
+			<if test="NA_TEAM_C != null and NA_TEAM_C.length() >  0">
+				AND GRDD.NA_TEAM_C_D = #{NA_TEAM_C}
+			</if>
+			<if test="SLPL_NA_TRPL_C != null and SLPL_NA_TRPL_C.length() >  0">
+				AND GRDD.SLPL_NA_TRPL_C_D = #{SLPL_NA_TRPL_C}
+			</if>
+			<if test="SLPL_NA_TEAM_C != null and SLPL_NA_TEAM_C.length() >  0">
+				AND GRDD.SLPL_NA_TEAM_C_D = #{SLPL_NA_TEAM_C}
+			</if>
+			<if test="BUYPL_NA_TRPL_C != null and BUYPL_NA_TRPL_C.length() >  0">
+				AND GRDD.BUYPL_NA_TRPL_C_D = #{BUYPL_NA_TRPL_C}
+			</if>
+			<if test="BUYPL_NA_TEAM_C != null and BUYPL_NA_TEAM_C.length() >  0">
+				AND GRDD.BUYPL_NA_TEAM_C_D = #{BUYPL_NA_TEAM_C}
+			</if>
+			<if test="NA_ADJPL_C != null and NA_ADJPL_C.length() >  0">
+				AND GRDD.NA_ADJPL_C_D = #{NA_ADJPL_C}
+			</if>
+			<if test="ADJPL_NA_TEAM_C != null and ADJPL_NA_TEAM_C.length() >  0">
+				AND GRDD.ADJPL_NA_TEAM_C_D = #{ADJPL_NA_TEAM_C}
+			</if>
+			
+			<if test="PY_PLA_DT != null and PY_PLA_DT.length() >  0">
+				AND GRDD.PY_PLA_DT_D = #{PY_PLA_DT}
+			</if>
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0">
+				AND GRDD.NA_CRC_CAN_DSC_D = #{NA_CRC_CAN_DSC}
+			</if>
+			ORDER BY GRDD.SLP_SQNO
+	</select>
+	
+	<!-- 사후장려금 전표 상품 합계 엑셀 다운로드 -->
+	<select id="downloadExcelAffSsdyWrsSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT * FROM TB_LG_OUT_M
+		WHERE 1=1
+		AND  PHD_SLP_DSC = '0'
+	</select>
+
+	<!-- 사후장려금조회 합계 -->
+	<sql id="sql_retrieveAffSsdySum">	
+		SELECT
+			'['||A.PHD_NA_BZPLC||'] '||FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS PHD_NA_BZPLC_NM    /*물류경제통합사업장코드,명       */
+			, '['||SUBSTR(A.NA_TR_DSC,1,2)||'] '||DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OB','출고',DECODE(SUBSTR(A.NA_TR_DSC,1,2),'OS','매출',SUBSTR(A.NA_TR_DSC,1,2))) AS NA_TR_DSC_NM /*02경제통합거래구분코드,명         */
+			, '['||A.SLPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.SLPL_NA_TRPL_C) AS SLPL_NA_TRPL_C_NM    /*매출처거래처코드,명       */
+			, '['||A.BUYPL_NA_TRPL_C||'] '||FN_TRPL_CIF_NM(A.BUYPL_NA_TRPL_C) AS BUYPL_NA_TRPL_C_NM    /*매입처거래처코드,명       */
+			, '['||A.NA_ADJPL_C||'] '||FN_TRPL_CIF_NM(A.NA_ADJPL_C) AS NA_ADJPL_C_NM    	                            /*정산처코드,명           */
+			, '['||A.NA_CRC_CAN_DSC||'] '||FN_CM_SIMP_CNM('NA_CRC_CAN_DSC',A.NA_CRC_CAN_DSC) AS NA_CRC_CAN_DSC_NM       /*24경제통합정정취소구분코드,명     */
+			
+			, A.PHD_NA_BZPLC   	                            /*00물류경제통합사업장코드       */
+			, SUBSTR(A.NA_TR_DSC,1,2) AS NA_TR_DSC                      /*02경제통합거래구분코드         */
+			, A.NA_BLB_DFC_DSC 	                            /*04경제통합흑자적자구분코드     */
+			, A.TR_DT          	                            /*06거래일자                     */
+			, A.NA_TEAM_C      	                            /*07경제통합팀코드               */
+			, A.SLPL_NA_TRPL_C 	                            /*12매출처경제통합거래처코드     */
+			, A.SLPL_NA_TEAM_C 	                            /*13매출처경제통합팀코드         */
+			, '' BUYPL_NA_TRPL_C	                            /*14매입처경제통합거래처코드     */
+			, '' BUYPL_NA_TEAM_C	                            /*15매입처경제통합팀코드         */
+			, A.NA_ADJPL_C     	                            /*16경제통합정산처코드           */
+			, A.ADJPL_NA_TEAM_C	                            /*17정산처경제통합팀코드         */
+			, '' PY_PLA_DT      	                            /*19지급예정일자                 */
+			, A.NA_CRC_CAN_DSC 	                            /*24경제통합정정취소구분코드     */
+			, A.SPY_QT         	                            /*27공급수량                     */
+			, A.SPY_AM         	                            /*28공급금액                     */
+			, A.VAT            	                            /*29부가세                       */
+			, A.AFF_SSDY       	                            /*30사후장려금                   */
+			, A.PHD_AFF_FEERT  	                            /*31물류사후수수료율             */
+			, A.PHD_SEL_AM     	                            /*33물류판매금액                 */
+			, ' ' TR_DS_ABR_NM                               /* 거래구분약어명         */
+			<![CDATA[, ( CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1   /* 검수구분금액   */
+			WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1
+			WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END ) AS CNR_DS_AM
+			, A.AFF_SSDY * ( CASE WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' THEN  1   /* 사후장려금 계산   */
+			WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='-' THEN  1
+			WHEN A.TR_DT <= '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_BLB_DFC_DSC ='+' THEN -1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OB' AND A.NA_CRC_CAN_DSC !='1' THEN -1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC ='1'  THEN  1
+			WHEN A.TR_DT >  '20081024' AND SUBSTR(A.NA_TR_DSC,1,2) = 'OS' AND A.NA_CRC_CAN_DSC !='1' THEN -1  END ) AS AFF_SSDY_SUM
+			]]>
+		FROM (
+			
+			SELECT
+			A.PHD_NA_BZPLC   	                            /*00물류경제통합사업장코드       */
+			, SUBSTR(A.NA_TR_DSC,1,2) NA_TR_DSC             /*02경제통합거래구분코드         */
+			, A.NA_BLB_DFC_DSC 	                            /*04경제통합흑자적자구분코드     */
+			, A.TR_DT          	                            /*06거래일자                     */
+			, A.NA_TEAM_C      	                            /*07경제통합팀코드               */
+			, A.SLPL_NA_TRPL_C 	                            /*12매출처경제통합거래처코드     */
+			, A.SLPL_NA_TEAM_C 	                            /*13매출처경제통합팀코드         */
+			, '' BUYPL_NA_TRPL_C	                            /*14매입처경제통합거래처코드     */
+			, '' BUYPL_NA_TEAM_C	                            /*15매입처경제통합팀코드         */
+			, A.NA_ADJPL_C     	                            /*16경제통합정산처코드           */
+			, A.ADJPL_NA_TEAM_C	                            /*17정산처경제통합팀코드         */
+			, '' PY_PLA_DT      	                            /*19지급예정일자                 */
+			, A.NA_CRC_CAN_DSC 	                            /*24경제통합정정취소구분코드     */
+			, SUM(A.SPY_QT       )  SPY_QT       	                            /*27공급수량                     */
+			, SUM(A.SPY_AM       )  SPY_AM       	                            /*28공급금액                     */
+			, SUM(A.VAT          )  VAT          	                            /*29부가세                       */
+			, SUM(A.AFF_SSDY     )  AFF_SSDY     	                            /*30사후장려금                   */
+			, ROUND(AVG(A.PHD_AFF_FEERT),2)  PHD_AFF_FEERT	                            /*31물류사후수수료율             */
+			, SUM(A.PHD_SEL_AM   )	PHD_SEL_AM                            /*33물류판매금액                 */
+			FROM TB_LG_WA_OH_ICT  A
+			WHERE 1=1
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+			AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			</if>
+			AND A.PHD_NA_BZPLC IN (SELECT NA_BZPLC FROM TB_CM_BZPL WHERE NA_BZ_TPC = '12')
+			<choose>			
+			  <when test="SEARCH_DATE_TYPE == '1'.toString()">
+			    AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			  </when>
+			  <when test="SEARCH_DATE_TYPE == '2'.toString()">
+			    AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			  </when>
+			</choose>
+			AND A.SLPL_NA_TRPL_C IN
+			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			  #{item}
+			</foreach>
+			AND A.AFF_SSDY   != 0
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+			  AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>
+			GROUP BY A.PHD_NA_BZPLC   	                            /*00물류경제통합사업장코드       */
+			, SUBSTR(A.NA_TR_DSC,1,2)                       /*02경제통합거래구분코드         */
+			, A.NA_BLB_DFC_DSC 	                            /*04경제통합흑자적자구분코드     */
+			, A.TR_DT          	                            /*06거래일자                     */
+			, A.NA_TEAM_C      	                            /*07경제통합팀코드               */
+			, A.SLPL_NA_TRPL_C 	                            /*12매출처경제통합거래처코드     */
+			, A.SLPL_NA_TEAM_C 	                            /*13매출처경제통합팀코드         */
+			, A.NA_ADJPL_C     	                            /*16경제통합정산처코드           */
+			, A.ADJPL_NA_TEAM_C	                            /*17정산처경제통합팀코드         */
+			, A.NA_CRC_CAN_DSC 	                            /*24경제통합정정취소구분코드     */
+			<!--  
+			UNION ALL
+			SELECT
+			A.PHD_NA_BZPLC   	                            /*00물류경제통합사업장코드       */
+			, SUBSTR(A.NA_TR_DSC,1,2) NA_TR_DSC             /*02경제통합거래구분코드         */
+			, A.NA_BLB_DFC_DSC 	                            /*04경제통합흑자적자구분코드     */
+			, A.TR_DT          	                            /*06거래일자                     */
+			, A.NA_TEAM_C      	                            /*07경제통합팀코드               */
+			, A.SLPL_NA_TRPL_C 	                            /*12매출처경제통합거래처코드     */
+			, A.SLPL_NA_TEAM_C 	                            /*13매출처경제통합팀코드         */
+			, '' BUYPL_NA_TRPL_C	                            /*14매입처경제통합거래처코드     */
+			, '' BUYPL_NA_TEAM_C	                            /*15매입처경제통합팀코드         */
+			, A.NA_ADJPL_C     	                            /*16경제통합정산처코드           */
+			, A.ADJPL_NA_TEAM_C	                            /*17정산처경제통합팀코드         */
+			, '' PY_PLA_DT      	                            /*19지급예정일자                 */
+			, A.NA_CRC_CAN_DSC 	                            /*24경제통합정정취소구분코드     */
+			, SUM(A.SPY_QT       )  SPY_QT       	                            /*27공급수량                     */
+			, SUM(A.SPY_AM       )  SPY_AM       	                            /*28공급금액                     */
+			, SUM(A.VAT          )  VAT          	                            /*29부가세                       */
+			, SUM(A.AFF_SSDY     )  AFF_SSDY     	                            /*30사후장려금                   */
+			, AVG(A.PHD_AFF_FEERT)  PHD_AFF_FEERT	                            /*31물류사후수수료율             */
+			, SUM(A.PHD_SEL_AM   )	PHD_SEL_AM                            /*33물류판매금액                 */
+			FROM TB_LG_WA_OH_ICT  A
+			WHERE 1=1
+			<if test="PHD_NA_BZPLC != null and PHD_NA_BZPLC.length() > 0">
+			AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			</if>
+			AND A.PHD_NA_BZPLC IN (SELECT NA_BZPLC FROM TB_CM_BZPL WHERE NA_BZ_TPC = '12')
+			<choose>			
+			  <when test="SEARCH_DATE_TYPE == '1'.toString()">
+			    AND TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			  </when>
+			  <when test="SEARCH_DATE_TYPE == '2'.toString()">
+			    AND PY_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			  </when>
+			</choose>
+			AND A.SLPL_NA_TRPL_C IN
+			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			  #{item}
+			</foreach>
+			AND A.AFF_SSDY   != 0
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'">
+			  AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>
+			GROUP BY A.PHD_NA_BZPLC   	                            /*00물류경제통합사업장코드       */
+			, SUBSTR(A.NA_TR_DSC,1,2)                       /*02경제통합거래구분코드         */
+			, A.NA_BLB_DFC_DSC 	                            /*04경제통합흑자적자구분코드     */
+			, A.TR_DT          	                            /*06거래일자                     */
+			, A.NA_TEAM_C      	                            /*07경제통합팀코드               */
+			, A.SLPL_NA_TRPL_C 	                            /*12매출처경제통합거래처코드     */
+			, A.SLPL_NA_TEAM_C 	                            /*13매출처경제통합팀코드         */
+			, A.NA_ADJPL_C     	                            /*16경제통합정산처코드           */
+			, A.ADJPL_NA_TEAM_C	                            /*17정산처경제통합팀코드         */
+			, A.NA_CRC_CAN_DSC 	                            /*24경제통합정정취소구분코드     */
+			-->
+			) A
+		ORDER BY  A.PHD_NA_BZPLC   	                            /*00물류경제통합사업장코드       */
+			, A.TR_DT          	                            /*06거래일자                     */
+			, A.NA_TR_DSC      	                            /*02경제통합거래구분코드         */
+			, A.NA_BLB_DFC_DSC 	                            /*04경제통합흑자적자구분코드     */
+			, A.NA_CRC_CAN_DSC 	                            /*24경제통합정정취소구분코드     */
+			, A.NA_TEAM_C      	                            /*07경제통합팀코드               */
+			, A.SLPL_NA_TRPL_C 	                            /*12매출처경제통합거래처코드     */
+			, A.SLPL_NA_TEAM_C 	                            /*13매출처경제통합팀코드         */
+			, A.NA_ADJPL_C     	                            /*16경제통합정산처코드           */
+			, A.ADJPL_NA_TEAM_C	                            /*17정산처경제통합팀코드         */
+	</sql>
+	
+	<!-- 사후장려금 합계 쿼리 -->	
+	<select id="retrieveAffSsdySum" parameterType="java.util.Map" resultMap="paymentAffSsdyMasterMap">		
+		<include refid="sql_retrieveAffSsdySum" />		
+	</select>
+	
+	<!-- 사후장려금 합계에 합계 -->
+	<select id="getAffSsdySumTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.SPY_QT), 0) AS SPY_QT
+		  , NVL(SUM(LIST.SPY_AM), 0) AS SPY_AM
+		  , NVL(SUM(LIST.VAT), 0) AS VAT			
+		  , NVL(SUM(LIST.AFF_SSDY), 0) AS AFF_SSDY
+		  , NVL(SUM(LIST.PHD_SEL_AM), 0) AS PHD_SEL_AM
+		  , NVL(SUM(LIST.AFF_SSDY_SUM), 0) AS AFF_SSDY_SUM
+		FROM
+		(
+		<include refid="sql_retrieveAffSsdySum" />
+		) LIST
+		WHERE 1=1
+			AND LIST.NA_CRC_CAN_DSC = '1'
+	</select>
+		
+	<sql id="sql_retrieveEtcCaAsetMasterList">
+		SELECT
+			A. NA_BZPLC
+			, A. NA_TEAM_C
+			, A.SLP_DT AS SLP_DT
+			, A.NA_SLPNO AS NA_SLPNO
+			, A.NA_TR_DSC || DECODE(A.NA_TR_DSC, 'OR01', ' 반환', ' 회수') AS NA_TR_DSC
+			, A.NA_CRC_CAN_DSC || DECODE(A.NA_CRC_CAN_DSC, '1', ' 정상', '2', ' 정정', '3', ' 취소', '4', ' 정정됨', ' 취소됨') AS NA_CRC_CAN_DSC
+			, A.NA_TRPL_C AS NA_TRPL_C
+			, B.CLNTNM AS SHRT_CLNTNM
+			, A.ETC_CA_ASET_RTU_QT 
+			, A.RTU_AM 
+			, A.RTU_FEE 
+			, A.RTU_FEE_VAT
+			, A.OSLIP_DT AS OSLIP_DT
+			, A.OSLIP_NA_SLPNO AS OSLIP_NA_SLPNO
+			, (A.WDR_PLA_DT) AS WDR_PLA_DT
+			, (A.RMK_CNTN) AS RMK_CNTN
+			, A.VHC_TYPE AS VHC_TYPE
+			, A.VHC_NO AS VHC_NO 
+<!-- 			, (CASE WHEN A.UPYAM_OCU_YN  = 0 THEN '외상매입금상계'
+						WHEN A.UPYAM_OCU_YN = 1 THEN '미수금계정'
+						ELSE '' END) AS UPYAM_OCU_YN -->
+			FROM TB_LG_ETCCAASET_M  A, TB_TR_TRPL_CIF B
+			WHERE A.NA_TRPL_C = B.NA_TRPL_C
+			<!-- AND A.DEL_YN = '0' -->
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+			<choose>			
+				<when test="SEARCH_DATE_TYPE == '0'.toString()">
+					AND SLP_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+				<when test="SEARCH_DATE_TYPE == '1'.toString()">
+					AND WDR_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+			</choose>			
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'.toString()">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>			
+			<choose>
+				<when test="NA_TR_DSC == '1'.toString()">
+					AND A.NA_TR_DSC = 'OR01'
+				</when>
+				<when test="NA_TR_DSC == '2'.toString()">
+					AND A.NA_TR_DSC = 'IR02'
+				</when>
+			</choose>
+			<choose>
+				<when test="SEARCH_TYPE == '3'.toString()">
+					<!-- AND A.NA_TRPL_C = #{srhTrplC} -->
+				</when>
+			</choose>
+			<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND NA_BZPLC = #{NA_BZPLC}
+			</if>				
+			<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+				AND NA_SLPNO = #{NA_SLPNO}				
+			</if>
+<!-- 			<if test="UPYAM_OCU_YN != null and UPYAM_OCU_YN.length() > 0">
+				AND UPYAM_OCU_YN = #{UPYAM_OCU_YN}
+			</if> -->			
+			ORDER BY
+				A.SLP_DT
+				, A.NA_SLPNO
+	</sql>
+	
+	<sql id="sql_retrieveEtcCaAsetMasterList_back">
+		SELECT
+			A. NA_BZPLC
+			, A. NA_TEAM_C
+			, A.SLP_DT AS SLP_DT
+			, A.NA_SLPNO AS NA_SLPNO
+			, A.NA_TR_DSC || DECODE(A.NA_TR_DSC, 'OR01', ' 반환', ' 회수') AS NA_TR_DSC
+			, A.NA_CRC_CAN_DSC || DECODE(A.NA_CRC_CAN_DSC, '1', ' 정상', '2', ' 정정', '3', ' 취소', '4', ' 정정됨', ' 취소됨') AS NA_CRC_CAN_DSC
+			, A.NA_TRPL_C AS NA_TRPL_C
+			, B.CLNTNM AS SHRT_CLNTNM
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.ETC_CA_ASET_RTU_QT
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.ETC_CA_ASET_RTU_QT*-1
+			ELSE 0 END) AS ETC_CA_ASET_RTU_QT
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_AM
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_AM*-1
+			ELSE 0 END) AS RTU_AM
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE*-1
+			ELSE 0 END) AS RTU_FEE
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE_VAT
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE_VAT*-1
+			ELSE 0 END) AS RTU_FEE_VAT
+			, A.OSLIP_DT AS OSLIP_DT
+			, A.OSLIP_NA_SLPNO AS OSLIP_NA_SLPNO
+			, MAX(A.WDR_PLA_DT) AS WDR_PLA_DT
+			, MAX(A.RMK_CNTN) AS RMK_CNTN
+			, A.VHC_TYPE AS VHC_TYPE
+			, A.VHC_NO AS VHC_NO 
+<!-- 			, (CASE WHEN A.UPYAM_OCU_YN  = 0 THEN '외상매입금상계'
+						WHEN A.UPYAM_OCU_YN = 1 THEN '미수금계정'
+						ELSE '' END) AS UPYAM_OCU_YN -->
+			FROM TB_LG_ETCCAASET_M  A, TB_TR_TRPL_CIF B
+			WHERE A.NA_TRPL_C = B.NA_TRPL_C
+			AND A.DEL_YN = '0'
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+			<choose>			
+				<when test="SEARCH_DATE_TYPE == '0'.toString()">
+					AND SLP_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+				<when test="SEARCH_DATE_TYPE == '1'.toString()">
+					AND WDR_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+			</choose>			
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'.toString()">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>			
+			<choose>
+				<when test="NA_TR_DSC == '1'.toString()">
+					AND A.NA_TR_DSC = 'OR01'
+				</when>
+				<when test="NA_TR_DSC == '2'.toString()">
+					AND A.NA_TR_DSC = 'IR02'
+				</when>
+			</choose>
+			<choose>
+				<when test="SEARCH_TYPE == '3'.toString()">
+					<!-- AND A.NA_TRPL_C = #{srhTrplC} -->
+				</when>
+			</choose>
+			<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND NA_BZPLC = #{NA_BZPLC}
+			</if>				
+			<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+				AND NA_SLPNO = #{NA_SLPNO}				
+			</if>
+<!-- 			<if test="UPYAM_OCU_YN != null and UPYAM_OCU_YN.length() > 0">
+				AND UPYAM_OCU_YN = #{UPYAM_OCU_YN}
+			</if> -->
+			GROUP BY
+				A. NA_BZPLC
+				, A. NA_TEAM_C
+				, A.SLP_DT
+				, A.NA_SLPNO
+				, A.NA_TR_DSC
+				, A.NA_CRC_CAN_DSC
+				, A.NA_TRPL_C
+				, B.CLNTNM
+				, A.OSLIP_DT
+				, A.OSLIP_NA_SLPNO
+				, A.VHC_TYPE
+				, A.VHC_NO
+				<!-- , A.UPYAM_OCU_YN -->
+			ORDER BY
+				A.SLP_DT
+				, A.NA_SLPNO
+	</sql>
+	
+	<!-- 기타당좌자산 페이지 추가 쿼리 -->
+	<select id="retrieveEtcCaAsetMasterList" parameterType="java.util.Map" resultMap="paymentEtcCaAsetMasterMap">
+		<bind name="sortName" value="'SLP_DT, NA_SLPNO'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveEtcCaAsetMasterList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 기타당좌자산  총 카운트 -->
+	<select id="getEtcCaAsetCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveEtcCaAsetMasterList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 기타당좌자산 합계 -->
+	<select id="getEtcCaAsetTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.ETC_CA_ASET_RTU_QT), 0) AS ETC_CA_ASET_RTU_QT
+		  , NVL(SUM(LIST.RTU_AM), 0) AS RTU_AM
+		  , NVL(SUM(LIST.RTU_FEE), 0) AS RTU_FEE
+		  , NVL(SUM(LIST.RTU_FEE_VAT), 0) AS RTU_FEE_VAT
+		FROM
+		(
+		<include refid="sql_retrieveEtcCaAsetMasterList" />
+		) LIST
+	</select>	
+	
+
+	<!-- 기타당좌자산 디테일 추가 쿼리 -->
+	<select id="retrieveEtcCaAsetDetailList" parameterType="java.util.Map" resultMap="paymentEtcCaAsetDetailMap">
+		SELECT 
+			B.NA_WRS_C
+			, B.WRSNM
+			, A.VCBT_RTU_QT
+			, A.VCBT_UPR
+			, A.RTU_AM
+			, A.RTU_FEE
+			, A.RTU_FEE_VAT
+		FROM TB_LG_ETCCAASET_D A, TB_GD_WRS B
+		WHERE 1=1			
+			AND A.VCBT_NA_WRS_C = B.NA_WRS_C
+			AND A.DEL_YN = '0'
+		<if test="SLP_DT != null and SLP_DT.length() > 0">
+			AND A.SLP_DT = #{SLP_DT}
+		</if>				
+		<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+			AND A.NA_SLPNO = #{NA_SLPNO}
+		</if>
+		<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+			AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>				
+		<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+			AND A.NA_TEAM_C = #{NA_TEAM_C}
+		</if>
+		ORDER BY A.SLP_DT, A.NA_SLPNO
+	</select>
+	
+	<!-- 기타당좌자산 엑셀 마스터 다운로드 -->
+	<select id="downloadExcelEtcCaAsetMaster" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT GRDM.*, GRDD.*
+		FROM
+		(SELECT
+			A. NA_BZPLC
+			, FN_CM_BZPL_NM(A.NA_BZPLC) AS NA_BZPLC_NM
+			, A. NA_TEAM_C
+			, A.SLP_DT AS SLP_DT
+			, A.NA_SLPNO AS NA_SLPNO
+			, A.NA_TR_DSC || DECODE(A.NA_TR_DSC, 'OR01', ' 반환', ' 회수') AS NA_TR_DSC
+			, A.NA_CRC_CAN_DSC || DECODE(A.NA_CRC_CAN_DSC, '1', ' 정상', '2', ' 정정', '3', ' 취소', '4', ' 정정됨', ' 취소됨') AS NA_CRC_CAN_DSC
+			, A.NA_TRPL_C AS NA_TRPL_C
+			, B.CLNTNM AS SHRT_CLNTNM			
+			, A.ETC_CA_ASET_RTU_QT 
+			, A.RTU_AM 
+			, A.RTU_FEE 
+			, A.RTU_FEE_VAT
+			, A.OSLIP_DT AS OSLIP_DT
+			, A.OSLIP_NA_SLPNO AS OSLIP_NA_SLPNO
+			, (A.WDR_PLA_DT) AS WDR_PLA_DT
+			, (A.RMK_CNTN) AS RMK_CNTN
+			, A.VHC_TYPE AS VHC_TYPE
+			, A.VHC_NO AS VHC_NO 
+<!-- 			, (CASE WHEN A.UPYAM_OCU_YN  = 0 THEN '외상매입금상계'
+						WHEN A.UPYAM_OCU_YN = 1 THEN '미수금계정'
+						ELSE '' END) AS UPYAM_OCU_YN -->
+			FROM TB_LG_ETCCAASET_M  A, TB_TR_TRPL_CIF B
+			WHERE A.NA_TRPL_C = B.NA_TRPL_C
+			<!-- AND A.DEL_YN = '0' -->
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+			<choose>			
+				<when test="SEARCH_DATE_TYPE == '0'.toString()">
+					AND SLP_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+				<when test="SEARCH_DATE_TYPE == '1'.toString()">
+					AND WDR_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+			</choose>			
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'.toString()">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>			
+			<choose>
+				<when test="NA_TR_DSC == '1'.toString()">
+					AND A.NA_TR_DSC = 'OR01'
+				</when>
+				<when test="NA_TR_DSC == '2'.toString()">
+					AND A.NA_TR_DSC = 'IR02'
+				</when>
+			</choose>
+			<choose>
+				<when test="SEARCH_TYPE == '3'.toString()">
+					<!-- AND A.NA_TRPL_C = #{srhTrplC} -->
+				</when>
+			</choose>
+			<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND NA_BZPLC = #{NA_BZPLC}
+			</if>				
+			<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+				AND NA_SLPNO = #{NA_SLPNO}				
+			</if>
+<!-- 			<if test="UPYAM_OCU_YN != null and UPYAM_OCU_YN.length() > 0">
+				AND UPYAM_OCU_YN = #{UPYAM_OCU_YN}
+			</if> -->			
+			ORDER BY
+				A.SLP_DT
+				, A.NA_SLPNO) GRDM
+		, (SELECT 
+			B.NA_WRS_C D1
+			, B.WRSNM D2						
+			, TO_CHAR(A.VCBT_UPR,'fm999,999,999,999,999,999.00') D4
+			, SUM(CASE WHEN M.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.VCBT_RTU_QT
+			WHEN M.NA_CRC_CAN_DSC IN ('2', '3') THEN A.VCBT_RTU_QT*-1
+			ELSE 0 END) AS D3
+			, SUM(CASE WHEN M.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_AM
+			WHEN M.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_AM*-1
+			ELSE 0 END) AS D5
+			, SUM(CASE WHEN M.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE
+			WHEN M.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE*-1
+			ELSE 0 END) AS D6
+			, SUM(CASE WHEN M.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE_VAT
+			WHEN M.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE_VAT*-1
+			ELSE 0 END) AS D7			
+			, A.NA_BZPLC
+			, A.NA_TEAM_C
+			, A.SLP_DT
+			, A.NA_SLPNO
+		FROM TB_LG_ETCCAASET_D A,TB_LG_ETCCAASET_M M, TB_GD_WRS B
+		WHERE 1=1			
+			AND A.NA_BZPLC = M.NA_BZPLC
+			AND A.NA_TEAM_C = M.NA_TEAM_C
+			AND A.SLP_DT = M.SLP_DT
+			AND A.NA_SLPNO = M.NA_SLPNO
+			AND A.VCBT_NA_WRS_C = B.NA_WRS_C
+			AND A.DEL_YN = '0'
+		GROUP BY
+			B.NA_WRS_C
+			, B.WRSNM
+			, A.VCBT_UPR
+			, A.NA_BZPLC 
+			, A.NA_TEAM_C 
+			, A.SLP_DT 
+			, A.NA_SLPNO
+			) GRDD
+		WHERE 1=1		
+		AND GRDM.NA_BZPLC = GRDD.NA_BZPLC(+)
+		AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C(+)
+		AND GRDM.SLP_DT = GRDD.SLP_DT(+)
+		AND GRDM.NA_SLPNO = GRDD.NA_SLPNO(+)
+	</select>
+	
+	<!-- 기타당좌자산 엑셀 마스터 다운로드 -->
+	<select id="downloadExcelEtcCaAsetMaster_back" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT GRDM.*, GRDD.*
+		FROM
+		(SELECT
+			A. NA_BZPLC
+			, FN_CM_BZPL_NM(A.NA_BZPLC) AS NA_BZPLC_NM
+			, A. NA_TEAM_C
+			, A.SLP_DT AS SLP_DT
+			, A.NA_SLPNO AS NA_SLPNO
+			, A.NA_TR_DSC || DECODE(A.NA_TR_DSC, 'OR01', ' 반환', ' 회수') AS NA_TR_DSC
+			, A.NA_CRC_CAN_DSC || DECODE(A.NA_CRC_CAN_DSC, '1', ' 정상', '2', ' 정정', '3', ' 취소', '4', ' 정정됨', ' 취소됨') AS NA_CRC_CAN_DSC
+			, A.NA_TRPL_C AS NA_TRPL_C
+			, B.CLNTNM AS SHRT_CLNTNM
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.ETC_CA_ASET_RTU_QT
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.ETC_CA_ASET_RTU_QT*-1
+			ELSE 0 END) AS ETC_CA_ASET_RTU_QT
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_AM
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_AM*-1
+			ELSE 0 END) AS RTU_AM
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE*-1
+			ELSE 0 END) AS RTU_FEE
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE_VAT
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE_VAT*-1
+			ELSE 0 END) AS RTU_FEE_VAT
+			, A.OSLIP_DT AS OSLIP_DT
+			, A.OSLIP_NA_SLPNO AS OSLIP_NA_SLPNO
+			, MAX(A.WDR_PLA_DT) AS WDR_PLA_DT
+			, MAX(A.RMK_CNTN) AS RMK_CNTN
+			, A.VHC_TYPE AS VHC_TYPE
+			, A.VHC_NO AS VHC_NO 
+<!-- 			, (CASE WHEN A.UPYAM_OCU_YN  = 0 THEN '외상매입금상계'
+						WHEN A.UPYAM_OCU_YN = 1 THEN '미수금계정'
+						ELSE '' END) AS UPYAM_OCU_YN -->
+			FROM TB_LG_ETCCAASET_M  A, TB_TR_TRPL_CIF B
+			WHERE A.NA_TRPL_C = B.NA_TRPL_C
+			AND A.DEL_YN = '0'
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+			<choose>			
+				<when test="SEARCH_DATE_TYPE == '0'.toString()">
+					AND SLP_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+				<when test="SEARCH_DATE_TYPE == '1'.toString()">
+					AND WDR_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+			</choose>			
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'.toString()">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>			
+			<choose>
+				<when test="NA_TR_DSC == '1'.toString()">
+					AND A.NA_TR_DSC = 'OR01'
+				</when>
+				<when test="NA_TR_DSC == '2'.toString()">
+					AND A.NA_TR_DSC = 'IR02'
+				</when>
+			</choose>
+			<choose>
+				<when test="SEARCH_TYPE == '3'.toString()">
+					<!-- AND A.NA_TRPL_C = #{srhTrplC} -->
+				</when>
+			</choose>
+			<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND NA_BZPLC = #{NA_BZPLC}
+			</if>				
+			<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+				AND NA_SLPNO = #{NA_SLPNO}				
+			</if>
+<!-- 			<if test="UPYAM_OCU_YN != null and UPYAM_OCU_YN.length() > 0">
+				AND UPYAM_OCU_YN = #{UPYAM_OCU_YN}
+			</if> -->
+			GROUP BY
+				A. NA_BZPLC
+				, A. NA_TEAM_C
+				, A.SLP_DT
+				, A.NA_SLPNO
+				, A.NA_TR_DSC
+				, A.NA_CRC_CAN_DSC
+				, A.NA_TRPL_C
+				, B.CLNTNM
+				, A.OSLIP_DT
+				, A.OSLIP_NA_SLPNO
+				, A.VHC_TYPE
+				, A.VHC_NO
+<!-- 				, A.UPYAM_OCU_YN -->
+			ORDER BY
+				A.SLP_DT
+				, A.NA_SLPNO) GRDM
+		, (SELECT 
+			B.NA_WRS_C D1
+			, B.WRSNM D2
+			, A.VCBT_RTU_QT D3			
+			, TO_CHAR(A.VCBT_UPR,'fm999,999,999,999,999,999.00') D4
+			, A.RTU_AM D5
+			, A.RTU_FEE D6
+			, A.RTU_FEE_VAT D7
+			, A.NA_BZPLC
+			, A.NA_TEAM_C
+			, A.SLP_DT
+			, A.NA_SLPNO
+		FROM TB_LG_ETCCAASET_D A, TB_GD_WRS B
+		WHERE 1=1	
+			AND A.VCBT_NA_WRS_C = B.NA_WRS_C
+			AND A.DEL_YN = '0') GRDD
+		WHERE 1=1		
+		AND GRDM.NA_BZPLC = GRDD.NA_BZPLC(+)
+		AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C(+)
+		AND GRDM.SLP_DT = GRDD.SLP_DT(+)
+		AND GRDM.NA_SLPNO = GRDD.NA_SLPNO(+)
+	</select>
+	
+	<!-- 기타당좌자산 엑셀 디테일 다운로드 -->
+	<select id="downloadExcelEtcCaAsetDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT GRDM.*, GRDD.*
+		FROM
+		(SELECT
+			A. NA_BZPLC
+			, A. NA_TEAM_C
+			, A.SLP_DT AS SLP_DT
+			, A.NA_SLPNO AS NA_SLPNO
+			, A.NA_TR_DSC || DECODE(A.NA_TR_DSC, 'OR01', ' 반환', ' 회수') AS NA_TR_DSC
+			, A.NA_CRC_CAN_DSC || DECODE(A.NA_CRC_CAN_DSC, '1', ' 정상', '2', ' 정정', '3', ' 취소', '4', ' 정정됨', ' 취소됨') AS NA_CRC_CAN_DSC
+			, A.NA_TRPL_C AS NA_TRPL_C
+			, B.CLNTNM AS SHRT_CLNTNM
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.ETC_CA_ASET_RTU_QT
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.ETC_CA_ASET_RTU_QT*-1
+			ELSE 0 END) AS ETC_CA_ASET_RTU_QT
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_AM
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_AM*-1
+			ELSE 0 END) AS RTU_AM
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE*-1
+			ELSE 0 END) AS RTU_FEE
+			, SUM(CASE WHEN A.NA_CRC_CAN_DSC IN ('1', '4', '5') THEN A.RTU_FEE_VAT
+			WHEN A.NA_CRC_CAN_DSC IN ('2', '3') THEN A.RTU_FEE_VAT*-1
+			ELSE 0 END) AS RTU_FEE_VAT
+			, A.OSLIP_DT AS OSLIP_DT
+			, A.OSLIP_NA_SLPNO AS OSLIP_NA_SLPNO
+			, MAX(A.WDR_PLA_DT) AS WDR_PLA_DT
+			, MAX(A.RMK_CNTN) AS RMK_CNTN
+			, A.VHC_TYPE AS VHC_TYPE
+			, A.VHC_NO AS VHC_NO 
+<!-- 			, (CASE WHEN A.UPYAM_OCU_YN  = 0 THEN '외상매입금상계'
+						WHEN A.UPYAM_OCU_YN = 1 THEN '미수금계정'
+						ELSE '' END) AS UPYAM_OCU_YN -->
+			FROM TB_LG_ETCCAASET_M  A, TB_TR_TRPL_CIF B
+			WHERE A.NA_TRPL_C = B.NA_TRPL_C
+			<!-- AND A.DEL_YN = '0' -->
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+			<choose>			
+				<when test="SEARCH_DATE_TYPE == '0'.toString()">
+					AND SLP_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+				<when test="SEARCH_DATE_TYPE == '1'.toString()">
+					AND WDR_PLA_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+				</when>
+			</choose>			
+			<if test="NA_CRC_CAN_DSC != null and NA_CRC_CAN_DSC.length() >  0 and NA_CRC_CAN_DSC != 'all'.toString()">
+				AND NA_CRC_CAN_DSC = #{NA_CRC_CAN_DSC}
+			</if>			
+			<choose>
+				<when test="NA_TR_DSC == '1'.toString()">
+					AND A.NA_TR_DSC = 'OR01'
+				</when>
+				<when test="NA_TR_DSC == '2'.toString()">
+					AND A.NA_TR_DSC = 'IR02'
+				</when>
+			</choose>
+			<choose>
+				<when test="SEARCH_TYPE == '3'.toString()">
+					<!-- AND A.NA_TRPL_C = #{srhTrplC} -->
+				</when>
+			</choose>
+			<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND NA_BZPLC = #{NA_BZPLC}
+			</if>				
+			<if test="EDTSLPNO != null and EDTSLPNO.length() > 0">
+				AND NA_SLPNO = #{EDTSLPNO}				
+			</if>
+<!-- 			<if test="UPYAM_OCU_YN != null and UPYAM_OCU_YN.length() > 0">
+				AND UPYAM_OCU_YN = #{UPYAM_OCU_YN}
+			</if> -->
+			GROUP BY
+				A. NA_BZPLC
+				, A. NA_TEAM_C
+				, A.SLP_DT
+				, A.NA_SLPNO
+				, A.NA_TR_DSC
+				, A.NA_CRC_CAN_DSC
+				, A.NA_TRPL_C
+				, B.CLNTNM
+				, A.OSLIP_DT
+				, A.OSLIP_NA_SLPNO
+				, A.VHC_TYPE
+				, A.VHC_NO
+<!-- 				, A.UPYAM_OCU_YN -->
+			ORDER BY
+				A.SLP_DT
+				, A.NA_SLPNO) GRDM
+		, (SELECT 
+			B.NA_WRS_C AS D1
+			, B.WRSNM AS D2
+			, A.VCBT_RTU_QT AS D3
+			, A.VCBT_UPR AS D4
+			, A.RTU_AM AS D5
+			, A.RTU_FEE AS D6
+			, A.RTU_FEE_VAT AS D7
+			, A.NA_BZPLC
+			, A.NA_TEAM_C
+			, A.SLP_DT
+			, A.NA_SLPNO
+		FROM TB_LG_ETCCAASET_D A, TB_GD_WRS B
+		WHERE 1=1
+			AND A.VCBT_NA_WRS_C = B.NA_WRS_C
+			AND A.DEL_YN = '0') GRDD
+		WHERE 1=1		
+		AND GRDM.NA_BZPLC = GRDD.NA_BZPLC
+		AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C
+		AND GRDM.SLP_DT = GRDD.SLP_DT
+		AND GRDM.NA_SLPNO = GRDD.NA_SLPNO
+		<if test="SLP_DT != null and SLP_DT.length() > 0">
+			AND GRDD.SLP_DT = #{SLP_DT}
+		</if>				
+		<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+			AND GRDD.NA_SLPNO = #{NA_SLPNO}
+		</if>
+		<if test="NABBZPLC != null and NABBZPLC.length() > 0">
+			AND GRDD.NA_BZPLC = #{NABBZPLC}
+		</if>				
+		<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+			AND GRDD.NA_TEAM_C = #{NA_TEAM_C}
+		</if>
+	</select>
+	
+	<!-- 기타당좌자산 전표 상품 합계 엑셀 다운로드 -->
+	<select id="downloadExcelEtcCaAsetD" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT * FROM TB_LG_OUT_M
+		WHERE 1=1
+		AND  PHD_SLP_DSC = '0'
+	</select>
+
+</mapper>

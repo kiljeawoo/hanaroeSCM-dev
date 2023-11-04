@@ -1,0 +1,3874 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="anwEltCtrwDrupDAO">
+	<resultMap id="rcMap"         type="com.nh.escm.ct.eltctrw.vo.AnwEltCtrwDrupVO">
+		<result column="ELT_CTRW_NO"                    property="ELT_CTRW_NO" />
+		<result column="CHG_SQNO"                       property="CHG_SQNO" />
+		<result column="NA_TRPL_C"                      property="NA_TRPL_C" />
+		<result column="MN_CTRW_KD"                     property="MN_CTRW_KD" />
+		<result column="ADD_CTRW_YN"                    property="ADD_CTRW_YN" />
+		<result column="PMIW_YN"                        property="PMIW_YN" />
+		<result column="SCTRW_YN"                       property="SCTRW_YN" />
+		<result column="ETC_CTRW_YN"                    property="ETC_CTRW_YN" />
+		<result column="BZNO"                           property="BZNO" />
+		<result column="BUYER_NA_TRPL_C"                property="BUYER_NA_TRPL_C" />
+		<result column="TELNO"                          property="TELNO" />
+		<result column="MPNO"                           property="MPNO" />
+		<result column="EMAIL"                          property="EMAIL" />
+		<result column="CTRW_STY_CHG_VER_YN"            property="CTRW_STY_CHG_VER_YN" />
+		<result column="CTR_ST_DT"                      property="CTR_ST_DT" />
+		<result column="CTR_ED_DT"                      property="CTR_ED_DT" />
+		<result column="CTRW_DRUP_DT"                   property="CTRW_DRUP_DT" />
+		<result column="CEO"                            property="CEO" />
+		<result column="MTALNM"                         property="MTALNM" />
+		<result column="FZIP"                           property="FZIP" />
+		<result column="RZIP"                           property="RZIP" />
+		<result column="ZIP_SQNO"                       property="ZIP_SQNO" />
+		<result column="DONGUP"                         property="DONGUP" />
+		<result column="DONGBW"                         property="DONGBW" />
+		<result column="BUYER_ENO"                      property="BUYER_ENO" />
+		<result column="BUYER_BLG"                      property="BUYER_BLG" />
+		<result column="BUYER_NM"                       property="BUYER_NM" />
+		<result column="BUYER_TELNO"                    property="BUYER_TELNO" />
+		<result column="BUYER_MPNO"                     property="BUYER_MPNO" />
+		<result column="BUYER_EMAIL"                    property="BUYER_EMAIL" />
+		<result column="CTR_CHRR_MTALNM"                property="CTR_CHRR_MTALNM" />
+		<result column="CTR_CHRR_REPMN"                 property="CTR_CHRR_REPMN" />
+		<result column="CTR_CHRR_REP_DTYNM"                 property="CTR_CHRR_REP_DTYNM" />
+		<result column="CTR_CHRR"                 			property="CTR_CHRR" />
+		<result column="LA_AGNT"                        property="LA_AGNT" />
+		<result column="CTR_CHRR_FZIP"                  property="CTR_CHRR_FZIP" />
+		<result column="CTR_CHRR_RZIP"                  property="CTR_CHRR_RZIP" />
+		<result column="CTR_CHRR_ZIP_SQNO"              property="CTR_CHRR_ZIP_SQNO" />
+		<result column="CTR_CHRR_DONGUP"                property="CTR_CHRR_DONGUP" />
+		<result column="CTR_CHRR_DONGBW"                property="CTR_CHRR_DONGBW" />
+		<result column="RMK"                            property="RMK" />
+		<result column="STS"                            property="STS" />
+		<result column="COLB_COMP_SGNT"                 property="COLB_COMP_SGNT" />
+		<result column="COLB_COMP_SGNT_DTM"             property="COLB_COMP_SGNT_DTM" />
+		<result column="BUYER_APV_STS"                  property="BUYER_APV_STS" />
+		<result column="BUYER_APV_DTM"                  property="BUYER_APV_DTM" />
+		<result column="CTR_PRD_AUT_XTN_YN"             property="CTR_PRD_AUT_XTN_YN" />
+		<result column="FGAT_PRVT_C"                    property="FGAT_PRVT_C" />
+		<result column="BF_CTR_NO"                      property="BF_CTR_NO" />
+		<result column="BF_CTR_SQNO"                      property="BF_CTR_SQNO" />
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />
+		<result column="FS_RGM"                         property="FS_RGM" />
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />
+		<result column="LS_CHGM"                        property="LS_CHGM" />
+		<result column="CTR_DT"             							property="CTR_DT" />
+		<result column="ADDR"               							property="ADDR" />
+		<result column="BUYER_ADDR"         							property="BUYER_ADDR" />
+		<result column="COLB_COMP_SEAL_APDFLNM"     			property="COLB_COMP_SEAL_APDFLNM" />
+		<result column="COLB_COMP_SEAL_SYS_FLNM"      		property="COLB_COMP_SEAL_SYS_FLNM" />
+		<result column="BUYER_SEAL_APDFLNM"     				  property="BUYER_SEAL_APDFLNM" />
+		<result column="BUYER_SEAL_SYS_FLNM"      				property="BUYER_SEAL_SYS_FLNM" />
+		<result column="COPNO"      											property="COPNO" />
+		<result column="RRNO"     												property="RRNO" />
+		<result column="LA_AGNT_DTYNM"      							property="LA_AGNT_DTYNM" />
+		<result column="MN_CTRW_KDNM"      							  property="MN_CTRW_KDNM" />
+		<result column="CT_ELT_CTRW_AMN"      						property="CT_ELT_CTRW_AMN" />
+		<result column="BUYER_SGNT"			    		 property="BUYER_SGNT" />
+		<result column="BUYER_DT"			    		 property="BUYER_DT" />
+		<result column="SCTR_SJT"                		 property="SCTR_SJT" />
+		<result column="ATCH_CTR_CNT"                		 property="ATCH_CTR_CNT" />
+		<result column="CLEAN_YN"                		 property="CLEAN_YN" />
+		<result column="SEAL_OMIT_YN"                		 property="SEAL_OMIT_YN" />
+	</resultMap>
+
+	<resultMap id="EltCtrwDcmApdMap" type="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		<result column="ELT_CTRW_NO"                    property="ELT_CTRW_NO" />
+		<result column="MN_CTRW_KDC"                    property="MN_CTRW_KDC" />
+		<result column="SQNO"                           property="SQNO" />
+		<result column="BUYER_ENO"                      property="BUYER_ENO" />
+		<result column="DCM_C"                          property="DCM_C" />
+		<result column="DCM_NM"                         property="DCM_NM" />
+		<result column="ESS_YN"                         property="ESS_YN" />
+		<result column="APDFLNM"                        property="APDFLNM" />
+		<result column="APDFL_PATHNM"                   property="APDFL_PATHNM" />
+		<result column="APDFL_SZE"                      property="APDFL_SZE" />
+		<result column="SYS_FLNM"                       property="SYS_FLNM" />
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />
+		<result column="FS_RGM"                         property="FS_RGM" />
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />
+		<result column="LS_CHGM"                        property="LS_CHGM" />
+	</resultMap>
+
+	<resultMap id="selectEtcEltStylAmnMap" type="com.nh.escm.ct.eltctrwamn.vo.EtcEltStylAmnVO">
+		<result column="CTRW_KDC"                       property="CTRW_KDC" />
+		<result column="CTRW_STY_VER"                   property="CTRW_STY_VER" />
+		<result column="SQNO"                           property="SQNO" />
+		<result column="UYN"                            property="UYN" />
+		<result column="CTRW_CNTN"                      property="CTRW_CNTN" />
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />
+		<result column="FS_RGM"                         property="FS_RGM" />
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />
+		<result column="LS_CHGM"                        property="LS_CHGM" />
+		<result column="CTRW_MOD_CNTN"                  property="CTRW_MOD_CNTN" />
+	</resultMap>
+
+	<resultMap id="EltCtrwDtlMap" type="com.nh.escm.ct.eltctrw.vo.EltCtrwDtlVO">
+		<result column="CNR_DT"                         property="CNR_DT" />
+		<result column="PSG_MM"                         property="PSG_MM" />
+		<result column="PSG_DD"                         property="PSG_DD" />
+		<result column="ETR_FEE"                        property="ETR_FEE" />
+		<result column="PHD_FEERT"                      property="PHD_FEERT" />
+		<result column="LIG_PLTPE"                      property="LIG_PLTPE" />
+		<result column="MEXP_DD"                        property="MEXP_DD" />
+		<result column="WRS_PRM_PY"                     property="WRS_PRM_PY" />
+		<result column="GRMY"                    	   		property="GRMY" />
+		<result column="BLM_GRMY"                       property="BLM_GRMY" />
+		<result column="RT"                       			property="RT" />
+		<result column="WRS_SPYAM"                      property="WRS_SPYAM" />
+		<result column="CTR_CLO"                       	property="CTR_CLO" />
+		<result column="SCTR_SJT"                       property="SCTR_SJT" />
+		<result column="CTRW_TINM"                       property="CTRW_TINM" />
+	</resultMap>
+
+	<resultMap id="AddEltCtrwDtlMap" type="com.nh.escm.ct.eltctrw.vo.AddEltCtrwDtlVO">
+		<result column="ADD_CTRW_KDC"	property="ADD_CTRW_KDC" />
+		<result column="PB_CTRW_TINM"	property="PB_CTRW_TINM" />
+		<result column="CNR_DT"	property="CNR_DT" />
+		<result column="PSG_MM"	property="PSG_MM" />
+		<result column="PSG_DD"	property="PSG_DD" />
+	</resultMap>
+
+	<resultMap id="PmiwDtlMap" type="com.nh.escm.ct.eltctrw.vo.PmiwDtlVO">
+		<result column="PMIW_KDC"	property="PMIW_KDC" />
+		<result column="BUY_AM"	property="BUY_AM" />
+		<result column="EVT_TINM"	property="EVT_TINM" />
+		<result column="EVT_PRD_ST_DT"	property="EVT_PRD_ST_DT" />
+		<result column="EVT_PRD_ED_DT"	property="EVT_PRD_ED_DT" />
+	</resultMap>
+	
+	<resultMap id="EvtAmPmiwMap" type="com.nh.escm.ct.eltctrw.vo.EvtAmPmiwVO">
+		<result column="PMIW_KDC"        		property="PMIW_KDC" />
+		<result column="CHG_SQNO"        		property="CHG_SQNO" />
+		<result column="EVT_NM"        		property="EVT_NM" />
+		<result column="EVT_CNTN"        		property="EVT_CNTN" />
+		<result column="EVT_PLCNM"        	property="EVT_PLCNM" />
+		<result column="EVT_WRS_NM"        	property="EVT_WRS_NM" />
+		<result column="EVT_RTO_CNTN"       property="EVT_RTO_CNTN" />
+		<result column="CTR_PATN_AM"        property="CTR_PATN_AM" />
+		<result column="CTR_CHRR_AM"        property="CTR_CHRR_AM" />
+		<result column="AM_SS"        			property="AM_SS" />
+		<result column="CTR_PATN_RTO"       property="CTR_PATN_RTO" />
+		<result column="CTR_CHRR_RTO"       property="CTR_CHRR_RTO" />
+		<result column="RTO_SS"        			property="RTO_SS" />
+		<result column="CTR_PATN_ALOT_RTO"  property="CTR_PATN_ALOT_RTO" />
+		<result column="CTR_CHRR_ALOT_RTO"  property="CTR_CHRR_ALOT_RTO" />
+		<result column="ALOT_RTO_SS"        property="ALOT_RTO_SS" />
+		<result column="ALL_XPC_PMTN_CST"   property="ALL_XPC_PMTN_CST" />
+		<result column="CLCN_BASS"          property="CLCN_BASS" />
+	</resultMap>
+
+	<resultMap id="LgqtTrFeePmiwMap" type="com.nh.escm.ct.eltctrw.vo.LgqtTrFeePmiwVO">
+		<result column="PMIW_KDC"                       property="PMIW_KDC" />
+		<result column="FEERT_HMW_UNDR"                 property="FEERT_HMW_UNDR" />
+		<result column="FEERT_HMW1_HMW2"                property="FEERT_HMW1_HMW2" />
+		<result column="FEERT_HMW2_HMW3"                property="FEERT_HMW2_HMW3" />
+		<result column="FEERT_HMW3_HMW5"                property="FEERT_HMW3_HMW5" />
+		<result column="FEERT_HMW5_HMW10"               property="FEERT_HMW5_HMW10" />
+		<result column="FEERT_HMW10_OVR"                property="FEERT_HMW10_OVR" />
+	</resultMap>
+	
+	<resultMap id="SctrwDtlMap" type="com.nh.escm.ct.eltctrw.vo.SctrwDtlVO">
+		<result column="SCTRW_KDC"                      property="SCTRW_KDC" />
+		<result column="VLD_PRD_ST_DT"                  property="VLD_PRD_ST_DT" />
+		<result column="VLD_PRD_ED_DT"                  property="VLD_PRD_ED_DT" />
+		<result column="DSPC_PRD_ST_DT"                 property="DSPC_PRD_ST_DT" />
+		<result column="DSPC_PRD_ED_DT"                 property="DSPC_PRD_ED_DT" />
+		<result column="WRK_ST_HR"                      property="WRK_ST_HR" />
+		<result column="WRK_ED_HR"                      property="WRK_ED_HR" />
+		<result column="EVT_PRD_ST_DT"                  property="EVT_PRD_ST_DT" />
+		<result column="EVT_PRD_ED_DT"                  property="EVT_PRD_ED_DT" />
+		<result column="PY_NT"                  				property="PY_NT" />
+		<result column="SEL_SSDY_RTO"                  	property="SEL_SSDY_RTO" />
+		<result column="WRS_SPYAM"                  		property="WRS_SPYAM" />
+	</resultMap>
+	
+	<resultMap id="SctrwNmlMrgnRtMap" type="com.nh.escm.ct.eltctrw.vo.SctrwNmlMrgnRtVO">
+		<result column="SCTRW_KDC"                      property="SCTRW_KDC" />
+		<result column="SQNO"                           property="SQNO" />
+		<result column="STORNM1"                        property="STORNM1" />
+		<result column="NML_MRGN_RT"                    property="NML_MRGN_RT" />
+		<result column="EVT_MRGN_RT"                    property="EVT_MRGN_RT" />
+		<result column="RMK"                            property="RMK" />
+	</resultMap>
+
+	<resultMap id="SctrwCtrMrgnRtMap" type="com.nh.escm.ct.eltctrw.vo.SctrwCtrMrgnRtVO">
+		<result column="SCTRW_KDC"                      property="SCTRW_KDC" />
+		<result column="SQNO"                           property="SQNO" />
+		<result column="STORNM1"                        property="STORNM1" />
+		<result column="DC_SEL_MRGN_RT10"               property="DC_SEL_MRGN_RT10" />
+		<result column="DC_SEL_MRGN_RT20"               property="DC_SEL_MRGN_RT20" />
+		<result column="DC_SEL_MRGN_RT30"               property="DC_SEL_MRGN_RT30" />
+		<result column="DC_SEL_MRGN_RT40"               property="DC_SEL_MRGN_RT40" />
+		<result column="DC_SEL_MRGN_RT50"               property="DC_SEL_MRGN_RT50" />
+		<result column="RMK"                            property="RMK" />
+	</resultMap>
+
+	<resultMap id="SctrwAllXpcPmtnCstMap" type="com.nh.escm.ct.eltctrw.vo.SctrwAllXpcPmtnCstVO">
+		<result column="SCTRW_KDC"                      property="SCTRW_KDC" />
+		<result column="SQNO"                           property="SQNO" />
+		<result column="STORNM1"                        property="STORNM1" />
+		<result column="STOR_LY1"                       property="STOR_LY1" />
+		<result column="SELA_AREA_M1"                   property="SELA_AREA_M1" />
+		<result column="SELA_AREA_PCN1"                 property="SELA_AREA_PCN1" />
+		<result column="STORNM2"                        property="STORNM2" />
+		<result column="STOR_LY2"                       property="STOR_LY2" />
+		<result column="SELA_AREA_M2"                   property="SELA_AREA_M2" />
+		<result column="SELA_AREA_PCN2"                 property="SELA_AREA_PCN2" />
+	</resultMap>
+
+	<resultMap id="EtcEltCtrwMap" type="com.nh.escm.ct.eltctrw.vo.EtcEltCtrwVO">
+		<result column="CTRW_STY_VER"                   property="CTRW_STY_VER" />
+		<result column="CHG_SQNO"                   		property="CHG_SQNO" />
+		<result column="LBRCS"                   				property="LBRCS" />
+		<result column="LBRCS_CLCN_BASS"                property="LBRCS_CLCN_BASS" />
+		<result column="ETC"                   					property="ETC" />
+		<result column="ETC_CLCN_BASS"                  property="ETC_CLCN_BASS" />
+		<result column="NED_SS"                   			property="NED_SS" />
+		<result column="NED_BASS"                   		property="NED_BASS" />
+		<result column="MSLAM"                   				property="MSLAM" />
+		<result column="MSLAM_PFT"                   		property="MSLAM_PFT" />
+		<result column="RLZ_XPC_PFT"                   	property="RLZ_XPC_PFT" />
+	</resultMap>
+
+	<resultMap id="DlvgCompEmpDspcPmiwMap" type="com.nh.escm.ct.eltctrw.vo.DlvgCompEmpDspcPmiwVO">
+		<result column="PMIW_KDC"                   property="PMIW_KDC" />
+		<result column="CHG_SQNO"                   property="CHG_SQNO" />
+		<result column="DSPC_BASS"                  property="DSPC_BASS" />
+		<result column="LBRCS_DRTCS_CNTN1"          property="LBRCS_DRTCS_CNTN1" />
+		<result column="LBRCS_DRTCS_CNTN2"          property="LBRCS_DRTCS_CNTN2" />
+		<result column="LBRCS_DRTCS_AM1"            property="LBRCS_DRTCS_AM1" />
+		<result column="LBRCS_DRTCS_AM2"            property="LBRCS_DRTCS_AM2" />
+		<result column="LBRCS_DRTCS_RMK1"           property="LBRCS_DRTCS_RMK1" />
+		<result column="LBRCS_DRTCS_RMK2"           property="LBRCS_DRTCS_RMK2" />
+		<result column="LBRCS_OHCS_CNTN1"           property="LBRCS_OHCS_CNTN1" />
+		<result column="LBRCS_OHCS_CNTN2"           property="LBRCS_OHCS_CNTN2" />
+		<result column="LBRCS_OHCS_CNTN3"           property="LBRCS_OHCS_CNTN3" />
+		<result column="LBRCS_OHCS_AM1"             property="LBRCS_OHCS_AM1" />
+		<result column="LBRCS_OHCS_AM2"             property="LBRCS_OHCS_AM2" />
+		<result column="LBRCS_OHCS_AM3"             property="LBRCS_OHCS_AM3" />
+		<result column="LBRCS_OHCS_RMK1"            property="LBRCS_OHCS_RMK1" />
+		<result column="LBRCS_OHCS_RMK2"            property="LBRCS_OHCS_RMK2" />
+		<result column="LBRCS_OHCS_RMK3"            property="LBRCS_OHCS_RMK3" />
+		<result column="FI_BNF_CNTN1"               property="FI_BNF_CNTN1" />
+		<result column="FI_BNF_CNTN2"               property="FI_BNF_CNTN2" />
+		<result column="FI_BNF_CNTN3"               property="FI_BNF_CNTN3" />
+		<result column="FI_BNF_AM1"                 property="FI_BNF_AM1" />
+		<result column="FI_BNF_AM2"                 property="FI_BNF_AM2" />
+		<result column="FI_BNF_AM3"                 property="FI_BNF_AM3" />
+		<result column="FI_BNF_RMK1"                property="FI_BNF_RMK1" />
+		<result column="FI_BNF_RMK2"                property="FI_BNF_RMK2" />
+		<result column="FI_BNF_RMK3"                property="FI_BNF_RMK3" />
+		<result column="ETC_TXPN_CNTN"              property="ETC_TXPN_CNTN" />
+		<result column="ETC_TXPN_AM"                property="ETC_TXPN_AM" />
+		<result column="ETC_TXPN_RMK"               property="ETC_TXPN_RMK" />
+		<result column="CTR_CHRR_RTO "              property="CTR_CHRR_RTO " />
+		<result column="CTR_PATN_RTO"               property="CTR_PATN_RTO" />
+	</resultMap>
+
+	<resultMap id="DspcPerWrkPrdPmiwMap" type="com.nh.escm.ct.eltctrw.vo.DspcPerWrkPrdPmiwVO">
+		<result column="PMIW_KDC"                   property="PMIW_KDC" />
+		<result column="CHG_SQNO"                   property="CHG_SQNO" />
+		<result column="SQNO"                   		property="SQNO" />
+		<result column="STORNM"                   	property="STORNM" />
+		<result column="DSPC_PER"                   property="DSPC_PER" />
+		<result column="WRK_ST_DT"                  property="WRK_ST_DT" />
+		<result column="WRK_ED_DT"                  property="WRK_ED_DT" />
+		<result column="WRK_ST_HR"                  property="WRK_ST_HR" />
+		<result column="WRK_ED_HR"                  property="WRK_ED_HR" />
+		<result column="RCS_ST_HR"                  property="RCS_ST_HR" />
+		<result column="RCS_ED_HR"                  property="RCS_ED_HR" />
+	</resultMap>
+
+	<!-- 메인 계약서 -->
+	<insert id="insertAnwEltCtrwDrup" parameterType="com.nh.escm.ct.eltctrw.vo.AnwEltCtrwDrupVO">
+		INSERT INTO  /*anwEltCtrwDrupDAO insertAnwEltCtrwDrup */ CT_ELT_CTRW_AMN (
+				ELT_CTRW_NO,
+				CHG_SQNO,
+				NA_TRPL_C,
+				MN_CTRW_KD,
+				ADD_CTRW_YN,
+				PMIW_YN,
+				SCTRW_YN,
+				ETC_CTRW_YN,
+				BZNO,
+				RRNO,
+				COPNO,
+				BUYER_NA_TRPL_C,
+				TELNO,
+				MPNO,
+				EMAIL,
+				CTRW_STY_CHG_VER_YN,
+				CTR_ST_DT,
+				CTR_ED_DT,
+				CTRW_DRUP_DT,
+				CEO,
+				MTALNM,
+				FZIP,
+				RZIP,
+				ZIP_SQNO,
+				DONGUP,
+				DONGBW,
+				BUYER_ENO,
+				BUYER_BLG,
+				BUYER_NM,
+				BUYER_TELNO,
+				BUYER_MPNO,
+				BUYER_EMAIL,
+				CTR_CHRR_MTALNM,
+				CTR_CHRR_REPMN,
+				CTR_CHRR,
+				LA_AGNT,
+				LA_AGNT_DTYNM,
+				CTR_CHRR_REP_DTYNM,
+				CTR_CHRR_FZIP,
+				CTR_CHRR_RZIP,
+				CTR_CHRR_ZIP_SQNO,
+				CTR_CHRR_DONGUP,
+				CTR_CHRR_DONGBW,
+				RMK,
+				STS,
+				COLB_COMP_SGNT,
+				BUYER_APV_STS,
+				CTR_PRD_AUT_XTN_YN,
+				FGAT_PRVT_C,
+				BF_CTR_NO,
+				BF_CTR_SQNO,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				TEMP_YN,
+				CLEAN_YN,
+				SEAL_OMIT_YN
+		) VALUES (
+			#{ELT_CTRW_NO},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{NA_TRPL_C},
+			#{MN_CTRW_KD},
+			#{ADD_CTRW_YN},
+			#{PMIW_YN},
+			#{SCTRW_YN},
+			#{ETC_CTRW_YN},
+			#{BZNO},
+			ecl_encrypt(#{RRNO}),
+			ecl_encrypt(#{COPNO}),
+			#{BUYER_NA_TRPL_C},
+			#{TELNO},
+			ecl_encrypt(#{MPNO}),
+			#{EMAIL},
+			#{CTRW_STY_CHG_VER_YN},
+			#{CTR_ST_DT},
+			#{CTR_ED_DT},
+			#{CTRW_DRUP_DT},
+			#{CEO},
+			#{MTALNM},
+			#{FZIP},
+			#{RZIP},
+			#{ZIP_SQNO},
+			#{DONGUP},
+			#{DONGBW},
+			#{BUYER_ENO},
+			#{BUYER_BLG},
+			#{BUYER_NM},
+			#{BUYER_TELNO},
+			ecl_encrypt(#{BUYER_MPNO}),
+			#{BUYER_EMAIL},
+			#{CTR_CHRR_MTALNM},
+			#{CTR_CHRR_REPMN},
+			#{CTR_CHRR},
+			#{LA_AGNT},
+			#{LA_AGNT_DTYNM},
+			#{CTR_CHRR_REP_DTYNM},
+			#{CTR_CHRR_FZIP},
+			#{CTR_CHRR_RZIP},
+			#{CTR_CHRR_ZIP_SQNO},
+			#{CTR_CHRR_DONGUP},
+			#{CTR_CHRR_DONGBW},
+			#{RMK},
+			#{STS},
+			#{COLB_COMP_SGNT},
+			#{BUYER_APV_STS},
+			#{CTR_PRD_AUT_XTN_YN},
+			#{FGAT_PRVT_C},
+			#{BF_CTR_NO},
+			#{BF_CTR_SQNO},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{TEMP_YN},
+			#{CLEAN_YN},
+			#{SEAL_OMIT_YN}
+		)
+	</insert>
+	<!--  메인계약서  backup-->
+	<insert id="insertAnwEltCtrwDrupNew" parameterType="com.nh.escm.ct.eltctrw.vo.AnwEltCtrwDrupVO">
+		INSERT INTO /*anwEltCtrwDrupDAO insertAnwEltCtrwDrupNew */ CT_ELT_CTRW_AMN (
+				ELT_CTRW_NO,
+				CHG_SQNO,
+				NA_TRPL_C,
+				MN_CTRW_KD,
+				ADD_CTRW_YN,
+				PMIW_YN,
+				SCTRW_YN,
+				ETC_CTRW_YN,
+				BZNO,
+				RRNO,
+				COPNO,
+				BUYER_NA_TRPL_C,
+				TELNO,
+				MPNO,
+				EMAIL,
+				CTRW_STY_CHG_VER_YN,
+				CTR_ST_DT,
+				CTR_ED_DT,
+				CTRW_DRUP_DT,
+				CEO,
+				MTALNM,
+				FZIP,
+				RZIP,
+				ZIP_SQNO,
+				DONGUP,
+				DONGBW,
+				BUYER_ENO,
+				BUYER_BLG,
+				BUYER_NM,
+				BUYER_TELNO,
+				BUYER_MPNO,
+				BUYER_EMAIL,
+				BUYER_SEAL_SYS_FLNM,
+				BUYER_SEAL_APDFLNM,
+				CTR_CHRR_MTALNM,
+				CTR_CHRR_REPMN,
+				CTR_CHRR,
+				LA_AGNT,
+				LA_AGNT_DTYNM,
+				CTR_CHRR_REP_DTYNM,
+				CTR_CHRR_FZIP,
+				CTR_CHRR_RZIP,
+				CTR_CHRR_ZIP_SQNO,
+				CTR_CHRR_DONGUP,
+				CTR_CHRR_DONGBW,
+				RMK,
+				STS,
+				BUYER_APV_STS,
+				BUYER_APV_DTM,
+				CTR_PRD_AUT_XTN_YN,
+				FGAT_PRVT_C,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM
+		) VALUES (
+			#{ELT_CTRW_NO},
+			LPAD( #{CHG_SQNO_TEMP}, '3','0' ),
+			#{NA_TRPL_C},
+			#{MN_CTRW_KD},
+			#{ADD_CTRW_YN},
+			#{PMIW_YN},
+			#{SCTRW_YN},
+			#{ETC_CTRW_YN},
+			#{BZNO},
+			ecl_encrypt(#{RRNO}),
+			ecl_encrypt(#{COPNO}),
+			#{BUYER_NA_TRPL_C},
+			#{TELNO},
+			ecl_encrypt(#{MPNO}),
+			#{EMAIL},
+			#{CTRW_STY_CHG_VER_YN},
+			#{CTR_ST_DT},
+			#{CTR_ED_DT},
+			#{CTRW_DRUP_DT},
+			#{CEO},
+			#{MTALNM},
+			#{FZIP},
+			#{RZIP},
+			#{ZIP_SQNO},
+			#{DONGUP},
+			#{DONGBW},
+			#{BUYER_ENO},
+			#{BUYER_BLG},
+			#{BUYER_NM},
+			#{BUYER_TELNO},
+			ecl_encrypt(#{BUYER_MPNO}),
+			#{BUYER_EMAIL},
+			#{BUYER_SEAL_SYS_FLNM},
+			#{BUYER_SEAL_APDFLNM},
+			#{CTR_CHRR_MTALNM},
+			#{CTR_CHRR_REPMN},
+			#{CTR_CHRR},
+			#{LA_AGNT},
+			#{LA_AGNT_DTYNM},
+			#{CTR_CHRR_REP_DTYNM},
+			#{CTR_CHRR_FZIP},
+			#{CTR_CHRR_RZIP},
+			#{CTR_CHRR_ZIP_SQNO},
+			#{CTR_CHRR_DONGUP},
+			#{CTR_CHRR_DONGBW},
+			#{RMK},
+			#{STS},
+			#{BUYER_APV_STS},
+			SYSDATE,
+			#{CTR_PRD_AUT_XTN_YN},
+			#{FGAT_PRVT_C},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM}
+		)
+	</insert>
+
+	<!-- 메인 계약서 -->
+	<update id="updateEltCtrwDrup" parameterType="com.nh.escm.ct.eltctrw.vo.AnwEltCtrwDrupVO">
+			UPDATE CT_ELT_CTRW_AMN
+			/* anwEltCtrwDrupDAO updateEltCtrwDrup  */
+			<set>
+				<if test="MN_CTRW_KD != null and MN_CTRW_KD.length() > 0 ">
+					MN_CTRW_KD= #{MN_CTRW_KD}, /*메인계약서종류*/
+				</if>
+				<if test="ADD_CTRW_YN != null and ADD_CTRW_YN.length() > 0 ">
+					ADD_CTRW_YN= #{ADD_CTRW_YN}, /*부가계약서여부*/
+				</if>
+				<if test="PMIW_YN != null and PMIW_YN.length() > 0 ">
+					PMIW_YN= #{PMIW_YN}, /*약정서여부*/
+				</if>
+				<if test="SCTRW_YN != null and SCTRW_YN.length() > 0 ">
+					SCTRW_YN= #{SCTRW_YN}, /*특약서여부*/
+				</if>
+				<if test="ETC_CTRW_YN != null and ETC_CTRW_YN.length() > 0 ">
+					ETC_CTRW_YN= #{ETC_CTRW_YN}, /*기타계약서여부*/
+				</if>
+				<if test="BZNO != null and BZNO.length() > 0 ">
+					BZNO= #{BZNO}, /*사업자등록번호*/
+				</if>
+				<if test="RRNO != null and RRNO.length() > 0 ">
+					RRNO= ecl_encrypt(#{RRNO}), /*주민등록번호*/
+				</if>
+				<if test="COPNO != null and COPNO.length() > 0 ">
+					COPNO= ecl_encrypt(#{COPNO}), /*법인등록번호*/
+				</if>
+				<if test="TELNO != null and TELNO.length() > 0 ">
+					TELNO= #{TELNO}, /*전화번호*/
+				</if>
+				<if test="MPNO != null and MPNO.length() > 0 ">
+					MPNO= ecl_encrypt(#{MPNO}), /*휴대전화번호*/
+				</if>
+				<if test="EMAIL != null and EMAIL.length() > 0 ">
+					EMAIL= #{EMAIL}, /*이메일*/
+				</if>
+				<if test="CTRW_STY_CHG_VER_YN != null and CTRW_STY_CHG_VER_YN.length() > 0 ">
+					CTRW_STY_CHG_VER_YN= #{CTRW_STY_CHG_VER_YN}, /*계약서양식버전*/
+				</if>
+				<if test="CTR_ST_DT != null and CTR_ST_DT.length() > 0 ">
+					CTR_ST_DT= #{CTR_ST_DT}, /*계약시작일자*/
+				</if>
+				<if test="CTR_ED_DT != null and CTR_ED_DT.length() > 0 ">
+					CTR_ED_DT= #{CTR_ED_DT}, /*계약종료일자*/
+				</if>
+				<if test="CTRW_DRUP_DT != null and CTRW_DRUP_DT.length() > 0 ">
+					CTRW_DRUP_DT= #{CTRW_DRUP_DT}, /*계약서작성일자*/
+				</if>
+				<if test="CEO != null and CEO.length() > 0 ">
+					CEO= #{CEO}, /*대표이사*/
+				</if>
+				<if test="MTALNM != null and MTALNM.length() > 0 ">
+					MTALNM= #{MTALNM}, /*상호*/
+				</if>
+				<if test="FZIP != null and FZIP.length() > 0 ">
+					FZIP= #{FZIP}, /*앞자리우편번호*/
+				</if>
+				<if test="RZIP != null and RZIP.length() > 0 ">
+					RZIP= #{RZIP}, /*뒷자리우편번호*/
+				</if>
+				<if test="ZIP_SQNO != null and ZIP_SQNO.length() > 0 ">
+					ZIP_SQNO= #{ZIP_SQNO}, /*우편번호일련번호*/
+				</if>
+				<if test="DONGUP != null and DONGUP.length() > 0 ">
+					DONGUP= #{DONGUP}, /*동이상주소*/
+				</if>
+<!-- 				<if test="DONGBW != null and DONGBW.length() > 0 "> -->
+					DONGBW= #{DONGBW}, /*동이하주소*/
+<!-- 				</if> -->
+				<if test="BUYER_ENO != null and BUYER_ENO.length() > 0 ">
+					BUYER_ENO= #{BUYER_ENO}, /*바이어개인번호*/
+				</if>
+				<if test="BUYER_BLG != null and BUYER_BLG.length() > 0 ">
+					BUYER_BLG= #{BUYER_BLG}, /*바이어소속*/
+				</if>
+				<if test="BUYER_NM != null and BUYER_NM.length() > 0 ">
+					BUYER_NM= #{BUYER_NM}, /*바이어성명*/
+				</if>
+				<if test="BUYER_TELNO != null and BUYER_TELNO.length() > 0 ">
+					BUYER_TELNO= #{BUYER_TELNO}, /*바이어전화번호*/
+				</if>
+				<if test="BUYER_MPNO != null and BUYER_MPNO.length() > 0 ">
+					BUYER_MPNO= ecl_encrypt(#{BUYER_MPNO}), /*바이어휴대전화번호*/
+				</if>
+				<if test="BUYER_EMAIL != null and BUYER_EMAIL.length() > 0 ">
+					BUYER_EMAIL= #{BUYER_EMAIL}, /*바이어이메일*/
+				</if>
+				<if test="CTR_CHRR_MTALNM != null and CTR_CHRR_MTALNM.length() > 0 ">
+					CTR_CHRR_MTALNM= #{CTR_CHRR_MTALNM}, /*계약담당자상호*/
+				</if>
+				<if test="CTR_CHRR_REPMN != null and CTR_CHRR_REPMN.length() > 0 ">
+					CTR_CHRR_REPMN= #{CTR_CHRR_REPMN}, /*계약담당자대표자*/
+				</if>
+				<if test="LA_AGNT != null and LA_AGNT.length() > 0 ">
+					LA_AGNT= #{LA_AGNT}, /*법률상대리인*/
+				</if>
+				<if test="LA_AGNT_DTYNM != null and LA_AGNT_DTYNM.length() > 0 ">
+					LA_AGNT_DTYNM= #{LA_AGNT_DTYNM}, /*법률상대리직책명*/
+				</if>
+				<if test="CTR_CHRR_REP_DTYNM != null and CTR_CHRR_REP_DTYNM.length() > 0 ">
+					CTR_CHRR_REP_DTYNM= #{CTR_CHRR_REP_DTYNM}, /*법률상대리직책명*/
+				</if>
+				<if test="CTR_CHRR_FZIP != null and CTR_CHRR_FZIP.length() > 0 ">
+					CTR_CHRR_FZIP= #{CTR_CHRR_FZIP}, /*계약담당자앞자리우편번호*/
+				</if>
+				<if test="CTR_CHRR_RZIP != null and CTR_CHRR_RZIP.length() > 0 ">
+					CTR_CHRR_RZIP= #{CTR_CHRR_RZIP}, /*계약담당자뒷자리우편번호*/
+				</if>
+				<if test="CTR_CHRR_ZIP_SQNO != null and CTR_CHRR_ZIP_SQNO.length() > 0 ">
+					CTR_CHRR_ZIP_SQNO= #{CTR_CHRR_ZIP_SQNO}, /*계약담당자우편번호일련번호*/
+				</if>
+				<if test="CTR_CHRR_DONGUP != null and CTR_CHRR_DONGUP.length() > 0 ">
+					CTR_CHRR_DONGUP= #{CTR_CHRR_DONGUP}, /*계약담당자동이상주소*/
+				</if>
+				<if test="CTR_CHRR_DONGBW != null and CTR_CHRR_DONGBW.length() > 0 ">
+					CTR_CHRR_DONGBW= #{CTR_CHRR_DONGBW}, /*계약담당자동이하주소*/
+				</if>
+				<if test="RMK != null and RMK.length() > 0 ">
+					RMK= #{RMK}, /*비고*/
+				</if>
+				<if test="STS != null and STS.length() > 0 ">
+					STS= #{STS}, /*상태*/
+				</if>
+				<if test="COLB_COMP_SGNT != null and COLB_COMP_SGNT.length() > 0 ">
+					COLB_COMP_SGNT= #{COLB_COMP_SGNT}, /*협력업체서명상태*/
+				</if>
+				<if test="BUYER_APV_STS != null and BUYER_APV_STS.length() > 0 ">
+					BUYER_APV_STS= #{BUYER_APV_STS}, /*바이어승인상태*/
+				</if>
+				<if test="CTR_PRD_AUT_XTN_YN != null and CTR_PRD_AUT_XTN_YN.length() > 0 ">
+					CTR_PRD_AUT_XTN_YN= #{CTR_PRD_AUT_XTN_YN}, /*계약기간자동연장여부*/
+				</if>
+				<if test="FGAT_PRVT_C != null and FGAT_PRVT_C.length() > 0 ">
+					FGAT_PRVT_C= #{FGAT_PRVT_C}, /*위변조방지코드*/
+				</if>
+				<if test="BF_CTR_NO != null and BF_CTR_NO.length() > 0 ">
+					BF_CTR_NO= #{BF_CTR_NO}, /*이전계약번호*/
+				</if>
+				<if test="BF_CTR_SQNO != null and BF_CTR_SQNO.length() > 0 ">
+					BF_CTR_SQNO= #{BF_CTR_SQNO}, /*이전계약일련번호*/
+				</if>
+					LSCHG_DTM= SYSDATE, /*최종변경일시*/
+					LS_CHGM= #{LS_CHGM} /*최종변경자*/
+			</set>
+			WHERE 1=1
+				AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+				AND NA_TRPL_C = #{NA_TRPL_C}
+				AND CHG_SQNO = #{CHG_SQNO}
+				AND BUYER_NA_TRPL_C = #{BUYER_NA_TRPL_C}
+	</update>
+	
+	<!--메인 계약서   backup-->
+	<update id="updateEltCtrwDrupNew" parameterType="com.nh.escm.ct.eltctrw.vo.AnwEltCtrwDrupVO">
+			UPDATE CT_ELT_CTRW_AMN
+			/* anwEltCtrwDrupDAO updateEltCtrwDrupNew  */
+			<set>
+				<if test="CTRW_IDVD_CHG_CHK != null and CTRW_IDVD_CHG_CHK.length() > 0 ">
+					CTRW_IDVD_CHG_CHK= #{CTRW_IDVD_CHG_CHK}, /*이전계약번호*/
+				</if>
+					LSCHG_DTM= SYSDATE, /*최종변경일시*/
+					LS_CHGM= #{LS_CHGM} /*최종변경자*/
+			</set>
+			WHERE 1=1
+				AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+				AND NA_TRPL_C = #{NA_TRPL_C}
+				AND CHG_SQNO = #{CHG_SQNO}
+				AND BUYER_NA_TRPL_C = #{BUYER_NA_TRPL_C}
+	</update>
+
+	<!-- 메인 계약서 상세 -->
+	<insert id="insertEltCtrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDtlVO">
+		INSERT INTO CT_ELT_CTRW_DTL (
+		/* anwEltCtrwDrupDAO insertEltCtrwDtl  */
+				ELT_CTRW_NO,
+				MN_CTRW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				CNR_DT,
+				PSG_MM,
+				PSG_DD,
+				ETR_FEE,
+				PHD_FEERT,
+				PHD_FEERT1,
+				PHD_FEERT2,
+				LIG_PLTPE,
+				MEXP_DD,
+				WRS_PRM_PY,
+				GRMY,
+				BLM_GRMY,
+				RT,
+				WRS_SPYAM,
+				CTR_CLO,
+				SCTR_SJT,
+				CTRW_TINM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				BRAND_N,
+				RETURN_DATE,
+				ETC1,
+				ETC2,
+				ETC3,
+				ETC4,
+				ETC5,
+				ETC6,
+				ETC7,
+				ETC8,
+				ETC9,
+				ETCA,
+				ETC10,
+				ETC11,
+				ETC12,
+				ETC13,
+				ETC14,
+				ETC15,
+				ETC16,
+				ETC17,
+				ETC18,
+				ETC19,
+				ETC20,
+				ETC21,
+				ETC22,
+				ETC23,
+				ETC24,
+				ETC25,
+				ETC26,
+				ETC27,
+				ETC28,
+				ETC29,
+				ETC30,
+				ETC31,
+				ETC32,
+				ETC33,
+				ETC34,
+				ETC35,
+				ETC36,
+				ETC37,
+				ETC38,
+				ETC39,
+				ETC40,
+				ETC41,
+				ETC42,
+				ETC43,
+				ETC44,
+				ETC45,
+				ETC46,
+				ETC47,
+				ETC48,
+				ETC49,
+				ETC50,
+				ETC51,
+				ETC52
+
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{MN_CTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{CNR_DT},
+			#{PSG_MM},
+			#{PSG_DD},
+			#{ETR_FEE},
+			#{PHD_FEERT},
+			#{PHD_FEERT1},
+			#{PHD_FEERT2},
+			#{LIG_PLTPE},
+			#{MEXP_DD},
+			#{WRS_PRM_PY},
+			#{GRMY},
+			#{BLM_GRMY},
+			#{RT},
+			#{WRS_SPYAM},
+			#{CTR_CLO},
+			#{SCTR_SJT},
+			#{CTRW_TINM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{BRAND_N},
+			#{RETURN_DATE},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5},
+			#{ETC6},
+			#{ETC7},
+			#{ETC8},
+			#{ETC9},
+			#{ETCA},
+			#{ETC10},
+			#{ETC11},
+			#{ETC12},
+			#{ETC13},
+			#{ETC14},
+			#{ETC15},
+			#{ETC16},
+			#{ETC17},
+			#{ETC18},
+			#{ETC19},
+			#{ETC20},
+			#{ETC21},
+			#{ETC22},
+			#{ETC23},
+			#{ETC24},
+			#{ETC25},
+			#{ETC26},
+			#{ETC27},
+			#{ETC28},
+			#{ETC29},
+			#{ETC30},
+			#{ETC31},
+			#{ETC32},
+			#{ETC33},
+			#{ETC34},
+			#{ETC35},
+			#{ETC36},
+			#{ETC37},
+			#{ETC38},
+			#{ETC39},
+			#{ETC40},
+			#{ETC41},
+			#{ETC42},
+			#{ETC43},
+			#{ETC44},
+			#{ETC45},
+			#{ETC46},
+			#{ETC47},
+			#{ETC48},
+			#{ETC49},
+			#{ETC50},
+			#{ETC51},
+			#{ETC52}
+		)
+	</insert>
+
+	<!-- 메인 계약서 상세  backup-->
+	<insert id="insertEltCtrwDtlNew" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDtlVO">
+		INSERT INTO CT_ELT_CTRW_DTL (
+		/* anwEltCtrwDrupDAO insertEltCtrwDtlNew  */
+				ELT_CTRW_NO,
+				MN_CTRW_KDC,
+				CTRW_STY_VER,
+				CHG_SQNO,
+				CNR_DT,
+				PSG_MM,
+				PSG_DD,
+				ETR_FEE,
+				PHD_FEERT,
+				LIG_PLTPE,
+				MEXP_DD,
+				WRS_PRM_PY,
+				GRMY,
+				BLM_GRMY,
+				RT,
+				WRS_SPYAM,
+				CTR_CLO,
+				SCTR_SJT,
+				CTRW_TINM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				BRAND_N,
+				RETURN_DATE,
+				ETC1,
+				ETC2,
+				ETC3,
+				ETC4,
+				ETC5,
+				ETC6,
+				ETC7,
+				ETC8,
+				ETC9,
+				ETCA
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{MN_CTRW_KDC},
+			#{CTRW_STY_VER},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CNR_DT},
+			#{PSG_MM},
+			#{PSG_DD},
+			#{ETR_FEE},
+			#{PHD_FEERT},
+			#{LIG_PLTPE},
+			#{MEXP_DD},
+			#{WRS_PRM_PY},
+			#{GRMY},
+			#{BLM_GRMY},
+			#{RT},
+			#{WRS_SPYAM},
+			#{CTR_CLO},
+			#{SCTR_SJT},
+			#{CTRW_TINM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{BRAND_N},
+			#{RETURN_DATE},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5},
+			#{ETC6},
+			#{ETC7},
+			#{ETC8},
+			#{ETC9},
+			#{ETCA}
+		)
+	</insert>
+
+
+	<update id="updateEltCtrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDtlVO">
+			UPDATE CT_ELT_CTRW_DTL
+			/* anwEltCtrwDrupDAO updateEltCtrwDtl  */
+			<set>
+					<if test="MN_CTRW_KDC != null and MN_CTRW_KDC.length() > 0 ">
+						MN_CTRW_KDC= #{MN_CTRW_KDC}, /*메인계약서종류코드*/
+					</if>
+					<if test="CTRW_STY_VER != null and CTRW_STY_VER.length() > 0 ">
+						CTRW_STY_VER= #{CTRW_STY_VER}, /*계약서양식버전*/
+					</if>
+					<if test="CNR_DT != null and CNR_DT.length() > 0 ">
+						CNR_DT= #{CNR_DT}, /*검수일자*/
+					</if>
+					<if test="PSG_MM != null and PSG_MM.length() > 0 ">
+						PSG_MM= #{PSG_MM}, /*경과분월*/
+					</if>
+					<if test="PSG_DD != null and PSG_DD.length() > 0 ">
+						PSG_DD= #{PSG_DD}, /*경과분일*/
+					</if>
+					<if test="ETR_FEE != null and ETR_FEE.length() > 0 ">
+						ETR_FEE= #{ETR_FEE}, /*수탁수수료*/
+					</if>
+					<if test="PHD_FEERT != null and PHD_FEERT.length() > 0 ">
+						PHD_FEERT= #{PHD_FEERT}, /*물류수수료율*/
+					</if>
+					<if test="LIG_PLTPE != null and LIG_PLTPE.length() > 0 ">
+						LIG_PLTPE= #{LIG_PLTPE}, /*주류파렛트당*/
+					</if>
+					<if test="MEXP_DD != null and MEXP_DD.length() > 0 ">
+						MEXP_DD= #{MEXP_DD}, /*관리비일*/
+					</if>
+					<if test="WRS_PRM_PY != null and WRS_PRM_PY.length() > 0 ">
+						WRS_PRM_PY = #{WRS_PRM_PY},
+					</if>
+					<if test="GRMY != null and GRMY.length() > 0 ">
+						GRMY= #{GRMY},
+					</if>
+					<if test="BLM_GRMY != null and BLM_GRMY.length() > 0 ">
+						BLM_GRMY= #{BLM_GRMY},
+					</if>
+					<if test="RT != null and RT.length() > 0 ">
+						RT= #{RT},
+					</if>
+					<if test="WRS_SPYAM != null and WRS_SPYAM.length() > 0 ">
+						WRS_SPYAM= #{WRS_SPYAM},
+					</if>
+					<if test="CTR_CLO != null and CTR_CLO.length() > 0 ">
+						CTR_CLO= #{CTR_CLO},
+					</if>
+
+					<if test="SCTR_SJT != null and SCTR_SJT.length() > 0 ">
+						SCTR_SJT= #{SCTR_SJT}, /*특약사항*/
+					</if>
+					<if test="CTRW_TINM != null and CTRW_TINM.length() > 0 ">
+						CTRW_TINM= #{CTRW_TINM}, /*특약사항*/
+					</if>
+					<if test="BRAND_N != null and BRAND_N.length() > 0 ">
+						BRAND_N= #{BRAND_N}, /*브랜드명*/
+					</if>
+					<if test="RETURN_DATE != null and RETURN_DATE.length() > 0 ">
+						RETURN_DATE= #{RETURN_DATE}, /*브랜드명*/
+					</if>
+					<if test="ETC1 != null and ETC1.length() > 0 ">
+						ETC1= #{ETC1},
+					</if>
+					<if test="ETC2 != null and ETC2.length() > 0 ">
+						ETC2= #{ETC2},
+					</if>
+					<if test="ETC3 != null and ETC3.length() > 0 ">
+						ETC3= #{ETC3},
+					</if>
+					<if test="ETC4 != null and ETC4.length() > 0 ">
+						ETC4= #{ETC4},
+					</if>
+					<if test="ETC5 != null and ETC5.length() > 0 ">
+						ETC5= #{ETC5},
+					</if>
+					<if test="ETC6 != null and ETC6.length() > 0 ">
+						ETC6= #{ETC6},
+					</if>
+					<if test="ETC7 != null and ETC7.length() > 0 ">
+						ETC7= #{ETC7},
+					</if>
+					<if test="ETC8 != null and ETC8.length() > 0 ">
+						ETC8= #{ETC8},
+					</if>
+					<if test="ETC9 != null and ETC9.length() > 0 ">
+						ETC9= #{ETC9},
+					</if>
+					<if test="ETCA != null and ETCA.length() > 0 ">
+						ETCA= #{ETCA},
+					</if>
+					<if test="ETC10 != null and ETC10.length() > 0 ">
+						ETC10= #{ETC10},
+					</if>
+					<if test="ETC11 != null and ETC11.length() > 0 ">
+						ETC11= #{ETC11},
+					</if>
+					<if test="ETC12 != null and ETC12.length() > 0 ">
+						ETC12= #{ETC12},
+					</if>
+					<if test="ETC13 != null and ETC13.length() > 0 ">
+						ETC13= #{ETC13},
+					</if>
+					<if test="ETC14 != null and ETC14.length() > 0 ">
+						ETC14= #{ETC14},
+					</if>
+					<if test="ETC15 != null and ETC15.length() > 0 ">
+						ETC15= #{ETC15},
+					</if>
+					<if test="ETC16 != null and ETC16.length() > 0 ">
+						ETC16= #{ETC16},
+					</if>
+					<if test="ETC17 != null and ETC17.length() > 0 ">
+						ETC17= #{ETC17},
+					</if>
+					<if test="ETC18 != null and ETC18.length() > 0 ">
+						ETC18= #{ETC18},
+					</if>
+					<if test="ETC19 != null and ETC19.length() > 0 ">
+						ETC19= #{ETC19},
+					</if>
+					<if test="ETC20 != null and ETC20.length() > 0 ">
+						ETC20= #{ETC20},
+					</if>
+					<if test="ETC21 != null and ETC21.length() > 0 ">
+						ETC21= #{ETC21},
+					</if>
+					<if test="ETC22 != null and ETC22.length() > 0 ">
+						ETC22= #{ETC22},
+					</if>
+					<if test="ETC23 != null and ETC23.length() > 0 ">
+						ETC23= #{ETC23},
+					</if>
+					<if test="ETC24 != null and ETC24.length() > 0 ">
+						ETC24= #{ETC24},
+					</if>
+					<if test="ETC25 != null and ETC25.length() > 0 ">
+						ETC25= #{ETC25},
+					</if>
+					<if test="ETC26 != null and ETC26.length() > 0 ">
+						ETC26= #{ETC26},
+					</if>
+					<if test="ETC27 != null and ETC27.length() > 0 ">
+						ETC27= #{ETC27},
+					</if>
+					<if test="ETC28 != null and ETC28.length() > 0 ">
+						ETC28= #{ETC28},
+					</if>
+					<if test="ETC29 != null and ETC29.length() > 0 ">
+						ETC29= #{ETC29},
+					</if>
+					<if test="ETC30 != null and ETC30.length() > 0 ">
+						ETC30= #{ETC30},
+					</if>
+					<if test="ETC31 != null and ETC31.length() > 0 ">
+						ETC31= #{ETC31},
+					</if>
+					<if test="ETC32 != null and ETC32.length() > 0 ">
+						ETC32= #{ETC32},
+					</if>
+					<if test="ETC33 != null and ETC33.length() > 0 ">
+						ETC33= #{ETC33},
+					</if>
+					<if test="ETC34 != null and ETC34.length() > 0 ">
+						ETC34= #{ETC34},
+					</if>
+					<if test="ETC35 != null and ETC35.length() > 0 ">
+						ETC35= #{ETC35},
+					</if>
+					<if test="ETC36 != null and ETC36.length() > 0 ">
+						ETC36= #{ETC36},
+					</if>
+					<if test="ETC37 != null and ETC37.length() > 0 ">
+						ETC37= #{ETC37},
+					</if>
+					<if test="ETC38 != null and ETC38.length() > 0 ">
+						ETC38= #{ETC38},
+					</if>
+					<if test="ETC39 != null and ETC39.length() > 0 ">
+						ETC39= #{ETC39},
+					</if>
+					<if test="ETC40 != null and ETC40.length() > 0 ">
+						ETC40= #{ETC40},
+					</if>
+					<if test="ETC41 != null and ETC41.length() > 0 ">
+						ETC41= #{ETC41},
+					</if>
+					<if test="ETC42 != null and ETC42.length() > 0 ">
+						ETC42= #{ETC42},
+					</if>
+					<if test="ETC43 != null and ETC43.length() > 0 ">
+						ETC43= #{ETC43},
+					</if>
+					<if test="ETC44 != null and ETC44.length() > 0 ">
+						ETC44= #{ETC44},
+					</if>
+					<if test="ETC45 != null and ETC45.length() > 0 ">
+						ETC45= #{ETC45},
+					</if>
+					<if test="ETC46 != null and ETC46.length() > 0 ">
+						ETC46= #{ETC46},
+					</if>
+					<if test="ETC47 != null and ETC47.length() > 0 ">
+						ETC47= #{ETC47},
+					</if>
+					<if test="ETC48 != null and ETC48.length() > 0 ">
+						ETC48= #{ETC48},
+					</if>
+					<if test="ETC49 != null and ETC49.length() > 0 ">
+						ETC49= #{ETC49},
+					</if>
+					<if test="ETC50 != null and ETC50.length() > 0 ">
+						ETC50= #{ETC50},
+					</if>
+					<if test="ETC51 != null and ETC51.length() > 0 ">
+						ETC51= #{ETC51},
+					</if>
+					<if test="ETC52 != null and ETC52.length() > 0 ">
+						ETC52= #{ETC52},
+					</if>
+					<if test="ETC53 != null and ETC53.length() > 0 ">
+						ETC53= #{ETC53},
+					</if>
+					<if test="ETC54 != null and ETC54.length() > 0 ">
+						ETC54= #{ETC54},
+					</if>
+					<if test="ETC55 != null and ETC55.length() > 0 ">
+						ETC55= #{ETC55},
+					</if>
+					<if test="ETC56 != null and ETC56.length() > 0 ">
+						ETC56= #{ETC56},
+					</if>
+					<if test="ETC57 != null and ETC57.length() > 0 ">
+						ETC57= #{ETC57},
+					</if>
+					<if test="ETC58 != null and ETC58.length() > 0 ">
+						ETC58= #{ETC58},
+					</if>
+					<if test="ETC59 != null and ETC59.length() > 0 ">
+						ETC59= #{ETC59},
+					</if>
+					<if test="ETC60 != null and ETC60.length() > 0 ">
+						ETC60= #{ETC60},
+					</if>
+					LSCHG_DTM= SYSDATE, /*최종변경일시*/
+					LS_CHGM= #{LS_CHGM} /*최종변경자*/
+			</set>
+			WHERE 1=1
+				AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+				AND CHG_SQNO = #{CHG_SQNO}
+
+	</update>
+
+	<delete id="deleteEltCtrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDtlVO">
+		DELETE	FROM CT_ELT_CTRW_DTL
+		/* anwEltCtrwDrupDAO deleteEltCtrwDtl  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO = #{CHG_SQNO}
+
+
+	</delete>
+
+
+	<!-- 전자계약_첨부파일  -->
+	<insert id="insertEltCtrwDcmApd" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		INSERT INTO CT_ELT_CTRW_DCM_APD (
+		/* anwEltCtrwDrupDAO insertEltCtrwDcmApd  */
+				ELT_CTRW_NO,
+				MN_CTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				BUYER_ENO,
+				DCM_C,
+				DCM_NM,
+				ESS_YN,
+				APDFLNM,
+				APDFL_PATHNM,
+				APDFL_SZE,
+				SYS_FLNM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+				#{ELT_CTRW_NO},
+				#{MN_CTRW_KDC},
+				LPAD( #{CHG_SQNO}, '3','0' ),
+				LPAD( #{SQNO}, '4','0' ),
+				#{BUYER_ENO},
+				#{DCM_C},
+				#{DCM_NM},
+				#{ESS_YN},
+				#{APDFLNM},
+				#{APDFL_PATHNM},
+				#{APDFL_SZE},
+				#{SYS_FLNM},
+				#{FSRG_DTM},
+				SYSDATE,
+				#{FS_RGM},
+				SYSDATE,
+				#{LS_CHGM},
+				#{SCTR_SJT}
+		)
+	</insert>
+
+	<!-- 전자계약_첨부파일  -->
+	<insert id="insertCtEltCtrwDcmApd" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		INSERT INTO CT_ELT_CTRW_DCM_APD (
+		/* anwEltCtrwDrupDAO insertCtEltCtrwDcmApd */
+				ELT_CTRW_NO,
+				MN_CTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				BUYER_ENO,
+				DCM_C,
+				DCM_NM,
+				ESS_YN,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM
+				)
+			SELECT
+			 		#{ELT_CTRW_NO},
+					#{MN_CTRW_KDC},
+					LPAD( #{CHG_SQNO}, '3','0' ),
+					LPAD(SQNO, '4','0' ),
+					BUYER_ENO,
+					DCM_C,
+					DCM_NM,
+					ESS_YN,
+					SYSDATE,
+					#{FS_RGM},
+					SYSDATE,
+					#{LS_CHGM}
+					 FROM CT_DCM_STYL_AMN
+					 WHERE MN_CTRW_KDC = #{MN_CTRW_KDC}
+
+	</insert>
+
+	<!-- 전자계약_첨부파일  backup-->
+	<insert id="insertCtEltCtrwDcmApdNew"  parameterType="java.util.Map" >
+		INSERT /* anwEltCtrwDrupDAO insertCtEltCtrwDcmApdNew */  INTO CT_ELT_CTRW_DCM_APD (
+			ELT_CTRW_NO
+			,MN_CTRW_KDC
+			,CHG_SQNO
+			,SQNO
+			,BUYER_ENO
+			,DCM_C
+			,DCM_NM
+			,ESS_YN
+			,APDFLNM
+			,APDFL_PATHNM
+			,APDFL_SZE
+			,SYS_FLNM
+			,FSRG_DTM
+			,FS_RGM
+			,LSCHG_DTM
+			,LS_CHGM )
+		SELECT
+			 ELT_CTRW_NO
+			,MN_CTRW_KDC
+			,LPAD( #{CHG_SQNO_TEMP}, '3','0' )
+			,SQNO
+			,BUYER_ENO
+			,DCM_C
+			,DCM_NM
+			,ESS_YN
+			,APDFLNM
+			,APDFL_PATHNM
+			,APDFL_SZE
+			,SYS_FLNM
+			,SYSDATE
+			,#{LS_CHGM}
+			,SYSDATE
+			,#{LS_CHGM}
+		from   CT_ELT_CTRW_DCM_APD
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+		AND SQNO = #{SQNO}
+	</insert>
+
+	<update id="updateEltCtrwDcmApd" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		UPDATE CT_ELT_CTRW_DCM_APD
+		/* anwEltCtrwDrupDAO updateEltCtrwDcmApd  */
+		<set>
+				<if test="MN_CTRW_KDC != null and MN_CTRW_KDC.length() > 0 ">
+					MN_CTRW_KDC= #{MN_CTRW_KDC}, /*메인계약서종류코드*/
+				</if>
+				<if test="BUYER_ENO != null and BUYER_ENO.length() > 0 ">
+					BUYER_ENO= #{BUYER_ENO}, /*바이어개인번호*/
+				</if>
+				<if test="DCM_C != null and DCM_C.length() > 0 ">
+					DCM_C= #{DCM_C}, /*서류코드*/
+				</if>
+				<if test="DCM_NM != null and DCM_NM.length() > 0 ">
+					DCM_NM= #{DCM_NM}, /*서류명*/
+				</if>
+				<if test="ESS_YN != null and ESS_YN.length() > 0 ">
+					ESS_YN= #{ESS_YN}, /*필수여부*/
+				</if>
+				<if test="APDFLNM != null and APDFLNM.length() > 0 ">
+					APDFLNM= #{APDFLNM}, /*첨부파일명*/
+				</if>
+				<if test="APDFL_PATHNM != null and APDFL_PATHNM.length() > 0 ">
+					APDFL_PATHNM= #{APDFL_PATHNM}, /*첨부파일경로명*/
+				</if>
+				<if test="APDFL_SZE != null and APDFL_SZE.length() > 0 ">
+					APDFL_SZE= #{APDFL_SZE}, /*첨부파일크기*/
+				</if>
+				<if test="SYS_FLNM != null and SYS_FLNM.length() > 0 ">
+					SYS_FLNM= #{SYS_FLNM}, /*시스템파일명*/
+				</if>
+				LSCHG_DTM= SYSDATE, /*최종변경일시*/
+				LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND MN_CTRW_KDC = #{MN_CTRW_KDC}
+			AND CHG_SQNO = #{CHG_SQNO}
+			AND SQNO = #{SQNO}
+			AND BUYER_ENO = #{BUYER_ENO}
+	</update>
+
+	<delete id="deleteEltCtrwDcmApd" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		DELETE	FROM CT_ELT_CTRW_DCM_APD
+		/* anwEltCtrwDrupDAO deleteEltCtrwDcmApd  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+				AND MN_CTRW_KDC = #{MN_CTRW_KDC}
+				AND SQNO = #{SQNO}
+				AND CHG_SQNO = #{CHG_SQNO}
+				AND BUYER_ENO = #{BUYER_ENO}
+	</delete>
+
+	<!--부가 전자계약  -->
+	<insert id="insertAddEltCtrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.AddEltCtrwDtlVO">
+		INSERT INTO CT_ADD_ELT_CTRW_DTL (
+		/* anwEltCtrwDrupDAO insertAddEltCtrwDtl  */
+				ELT_CTRW_NO,
+				ADD_CTRW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				PB_CTRW_TINM,
+				CNR_DT,
+				PSG_MM,
+				PSG_DD,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT,
+				ETC1,
+				ETC2,
+				ETC3,
+				ETC4,
+				ETC5,
+				ETC6,
+				ETC7,
+				ETC8,
+				ETC9,
+				ETCA
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{ADD_CTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{PB_CTRW_TINM},
+			#{CNR_DT},
+			#{PSG_MM},
+			#{PSG_DD},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5},
+			#{ETC6},
+			#{ETC7},
+			#{ETC8},
+			#{ETC9},
+			#{ETCA}
+		)
+	</insert>
+
+	<!--부가 전자계약 backup  -->
+	<insert id="insertAddEltCtrwDtlNew" parameterType="com.nh.escm.ct.eltctrw.vo.AddEltCtrwDtlVO">
+		INSERT INTO CT_ADD_ELT_CTRW_DTL (
+		/* anwEltCtrwDrupDAO insertAddEltCtrwDtlNew  */
+				ELT_CTRW_NO,
+				ADD_CTRW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				PB_CTRW_TINM,
+				CNR_DT,
+				PSG_MM,
+				PSG_DD,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT,
+				ETC1,
+				ETC2,
+				ETC3,
+				ETC4,
+				ETC5,
+				ETC6,
+				ETC7,
+				ETC8,
+				ETC9,
+				ETCA
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{ADD_CTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{PB_CTRW_TINM},
+			#{CNR_DT},
+			#{PSG_MM},
+			#{PSG_DD},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5},
+			#{ETC6},
+			#{ETC7},
+			#{ETC8},
+			#{ETC9},
+			#{ETCA}
+		)
+	</insert>
+
+	<update id="updateAddEltCtrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.AddEltCtrwDtlVO">
+			UPDATE CT_ADD_ELT_CTRW_DTL
+			/* anwEltCtrwDrupDAO updateAddEltCtrwDtl  */
+			<set>
+					<if test="ADD_CTRW_KDC != null and ADD_CTRW_KDC.length() > 0 ">
+						ADD_CTRW_KDC= #{ADD_CTRW_KDC}, /*부가계약서종류코드*/
+					</if>
+					<if test="CTRW_STY_VER != null and CTRW_STY_VER.length() > 0 ">
+						CTRW_STY_VER= #{CTRW_STY_VER}, /*계약서양식버전*/
+					</if>
+					<if test="PB_CTRW_TINM != null and PB_CTRW_TINM.length() > 0 ">
+						PB_CTRW_TINM= #{PB_CTRW_TINM}, /*부가계약서제목*/
+					</if>
+					<if test="CNR_DT != null and CNR_DT.length() > 0 ">
+						CNR_DT= #{CNR_DT}, /*검수일자*/
+					</if>
+					<if test="PSG_MM != null and PSG_MM.length() > 0 ">
+						PSG_MM= #{PSG_MM}, /*경과분월*/
+					</if>
+					<if test="PSG_DD != null and PSG_DD.length() > 0 ">
+						PSG_DD= #{PSG_DD}, /*경과분일*/
+					</if>
+					<if test="ETC1 != null and ETC1.length() > 0 ">
+						ETC1= #{ETC1}, /*비율1(약정 시작일)*/
+					</if>
+					<if test="ETC2 != null and ETC2.length() > 0 ">
+						ETC2= #{ETC2}, /*비율2(약정 종료일)*/
+					</if>
+					<if test="ETC3 != null and ETC3.length() > 0 ">
+						ETC3= #{ETC3}, /*비율3*/
+					</if>
+					<if test="ETC4 != null and ETC4.length() > 0 ">
+						ETC4= #{ETC4}, /*예비4*/
+					</if>
+					<if test="ETC5 != null and ETC5.length() > 0 ">
+						ETC5= #{ETC5}, /*예비5*/
+					</if>
+					<if test="ETC6 != null and ETC6.length() > 0 ">
+						ETC6= #{ETC6}, /*예비6*/
+					</if>
+					<if test="ETC7 != null and ETC7.length() > 0 ">
+						ETC7= #{ETC7}, /*예비7*/
+					</if>
+					<if test="ETC8 != null and ETC8.length() > 0 ">
+						ETC8= #{ETC8}, /*예비8*/
+					</if>
+					<if test="ETC9 != null and ETC9.length() > 0 ">
+						ETC9= #{ETC9}, /*예비9*/
+					</if>
+					<if test="ETCA != null and ETCA.length() > 0 ">
+						ETCA= #{ETCA}, /*예비10*/
+					</if>
+
+					<if test="SCTR_SJT != null and SCTR_SJT.length() > 0 ">
+						SCTR_SJT= #{SCTR_SJT}, /*특약사항*/
+					</if>
+					LSCHG_DTM= SYSDATE, /*최종변경일시*/
+					LS_CHGM= #{LS_CHGM} /*최종변경자*/
+			</set>
+			WHERE 1=1
+				AND ELT_CTRW_NO  = #{ELT_CTRW_NO}
+				AND ADD_CTRW_KDC = #{ADD_CTRW_KDC}
+				AND CHG_SQNO     = #{CHG_SQNO}
+				AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>
+
+	<delete id="deleteAddEltCtrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.AddEltCtrwDtlVO">
+		DELETE	FROM CT_ADD_ELT_CTRW_DTL
+		/* anwEltCtrwDrupDAO deleteAddEltCtrwDtl  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			<if test="ADD_CTRW_KDC != null and ADD_CTRW_KDC.length() > 0 ">
+				AND ADD_CTRW_KDC = #{ADD_CTRW_KDC}
+				AND CHG_SQNO     = #{CHG_SQNO}
+			</if>
+
+	</delete>
+
+	<!--대량거래수수료약정서 -->
+	<insert id="insertLgqtTrFeePmiw" parameterType="com.nh.escm.ct.eltctrw.vo.LgqtTrFeePmiwVO">
+		INSERT INTO CT_LGQT_TR_FEE_PMIW (
+		/* anwEltCtrwDrupDAO insertLgqtTrFeePmiw  */
+				ELT_CTRW_NO,
+				PMIW_KDC,
+				CHG_SQNO,
+				FEERT_HMW_UNDR,
+				FEERT_HMW1_HMW2,
+				FEERT_HMW2_HMW3,
+				FEERT_HMW3_HMW5,
+				FEERT_HMW5_HMW10,
+				FEERT_HMW10_OVR,
+				FEERT_HMW_UNDR_TINM,
+				FEERT_HMW1_HMW2_TINM,
+				FEERT_HMW2_HMW3_TINM,
+				FEERT_HMW3_HMW5_TINM,
+				FEERT_HMW5_HMW10_TINM,
+				FEERT_HMW10_OVR_TINM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{PMIW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{FEERT_HMW_UNDR},
+			#{FEERT_HMW1_HMW2},
+			#{FEERT_HMW2_HMW3},
+			#{FEERT_HMW3_HMW5},
+			#{FEERT_HMW5_HMW10},
+			#{FEERT_HMW10_OVR},
+			#{FEERT_HMW_UNDR_TINM},
+			#{FEERT_HMW1_HMW2_TINM},
+			#{FEERT_HMW2_HMW3_TINM},
+			#{FEERT_HMW3_HMW5_TINM},
+			#{FEERT_HMW5_HMW10_TINM},
+			#{FEERT_HMW10_OVR_TINM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!--대량거래수수료약정서 backup  -->
+	<insert id="insertLgqtTrFeePmiwNew" parameterType="com.nh.escm.ct.eltctrw.vo.LgqtTrFeePmiwVO">
+		INSERT /* anwEltCtrwDrupDAO insertLgqtTrFeePmiwNew  */  INTO CT_LGQT_TR_FEE_PMIW (
+				ELT_CTRW_NO,
+				PMIW_KDC,
+				CHG_SQNO,
+				FEERT_HMW_UNDR,
+				FEERT_HMW1_HMW2,
+				FEERT_HMW2_HMW3,
+				FEERT_HMW3_HMW5,
+				FEERT_HMW5_HMW10,
+				FEERT_HMW10_OVR,
+				FEERT_HMW_UNDR_TINM,
+				FEERT_HMW1_HMW2_TINM,
+				FEERT_HMW2_HMW3_TINM,
+				FEERT_HMW3_HMW5_TINM,
+				FEERT_HMW5_HMW10_TINM,
+				FEERT_HMW10_OVR_TINM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{PMIW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{FEERT_HMW_UNDR},
+			#{FEERT_HMW1_HMW2},
+			#{FEERT_HMW2_HMW3},
+			#{FEERT_HMW3_HMW5},
+			#{FEERT_HMW5_HMW10},
+			#{FEERT_HMW10_OVR},
+			#{FEERT_HMW_UNDR_TINM},
+			#{FEERT_HMW1_HMW2_TINM},
+			#{FEERT_HMW2_HMW3_TINM},
+			#{FEERT_HMW3_HMW5_TINM},
+			#{FEERT_HMW5_HMW10_TINM},
+			#{FEERT_HMW10_OVR_TINM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<update id="updateLgqtTrFeePmiw" parameterType="com.nh.escm.ct.eltctrw.vo.LgqtTrFeePmiwVO">
+		UPDATE CT_LGQT_TR_FEE_PMIW
+		/* anwEltCtrwDrupDAO updateLgqtTrFeePmiw  */
+		<set>
+				 <if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+					PMIW_KDC= #{PMIW_KDC}, /*약정서종류*/
+				</if>
+				<if test="FEERT_HMW_UNDR != null and FEERT_HMW_UNDR.length() > 0 ">
+					FEERT_HMW_UNDR= #{FEERT_HMW_UNDR}, /*수수료율1억미만*/
+				</if>
+				<if test="FEERT_HMW1_HMW2 != null and FEERT_HMW1_HMW2.length() > 0 ">
+					FEERT_HMW1_HMW2= #{FEERT_HMW1_HMW2}, /*수수료율1_2억*/
+				</if>
+				<if test="FEERT_HMW2_HMW3 != null and FEERT_HMW2_HMW3.length() > 0 ">
+					FEERT_HMW2_HMW3= #{FEERT_HMW2_HMW3}, /*수수료율2_3억*/
+				</if>
+				<if test="FEERT_HMW3_HMW5 != null and FEERT_HMW3_HMW5.length() > 0 ">
+					FEERT_HMW3_HMW5= #{FEERT_HMW3_HMW5}, /*수수료율3_5억*/
+				</if>
+				<if test="FEERT_HMW5_HMW10 != null and FEERT_HMW5_HMW10.length() > 0 ">
+					FEERT_HMW5_HMW10= #{FEERT_HMW5_HMW10}, /*수수료율5_10억*/
+				</if>
+				<if test="FEERT_HMW10_OVR != null and FEERT_HMW10_OVR.length() > 0 ">
+					FEERT_HMW10_OVR= #{FEERT_HMW10_OVR}, /*수수료율10억이상*/
+				</if>
+				<if test="FEERT_HMW_UNDR_TINM != null and FEERT_HMW_UNDR_TINM.length() > 0 ">
+					FEERT_HMW_UNDR_TINM= #{FEERT_HMW_UNDR_TINM}, /*수수료율1억미만*/
+				</if>
+				<if test="FEERT_HMW1_HMW2_TINM != null and FEERT_HMW1_HMW2_TINM.length() > 0 ">
+					FEERT_HMW1_HMW2_TINM= #{FEERT_HMW1_HMW2_TINM}, /*수수료율1_2억*/
+				</if>
+				<if test="FEERT_HMW2_HMW3_TINM != null and FEERT_HMW2_HMW3_TINM.length() > 0 ">
+					FEERT_HMW2_HMW3_TINM = #{FEERT_HMW2_HMW3_TINM}, /*수수료율2_3억*/
+				</if>
+				<if test="FEERT_HMW3_HMW5_TINM != null and FEERT_HMW3_HMW5_TINM.length() > 0 ">
+					FEERT_HMW3_HMW5_TINM= #{FEERT_HMW3_HMW5_TINM}, /*수수료율3_5억*/
+				</if>
+				<if test="FEERT_HMW5_HMW10_TINM != null and FEERT_HMW5_HMW10_TINM.length() > 0 ">
+					FEERT_HMW5_HMW10_TINM= #{FEERT_HMW5_HMW10_TINM}, /*수수료율5_10억*/
+				</if>
+				<if test="FEERT_HMW10_OVR_TINM != null and FEERT_HMW10_OVR_TINM.length() > 0 ">
+					FEERT_HMW10_OVR_TINM= #{FEERT_HMW10_OVR_TINM}, /*수수료율10억이상*/
+				</if>
+				LSCHG_DTM= SYSDATE, /*최종변경일시*/
+				LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND PMIW_KDC = #{PMIW_KDC}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteLgqtTrFeePmiw" parameterType="com.nh.escm.ct.eltctrw.vo.LgqtTrFeePmiwVO">
+		DELETE	FROM CT_LGQT_TR_FEE_PMIW
+		/* anwEltCtrwDrupDAO deleteLgqtTrFeePmiw  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			<if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+				AND PMIW_KDC = #{PMIW_KDC}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0 ">
+				AND CHG_SQNO = #{CHG_SQNO}
+			</if>
+	</delete>
+
+	<!--약정서 상세-->
+	<insert id="insertPmiwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.PmiwDtlVO">
+		INSERT INTO CT_PMIW_DTL (
+		/* anwEltCtrwDrupDAO insertPmiwDtl  */
+				ELT_CTRW_NO,
+				PMIW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				BUY_AM,
+				EVT_TINM,
+				EVT_PRD_ST_DT,
+				EVT_PRD_ED_DT,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				ETC1,
+				ETC2,
+				ETC3,
+				ETC4,
+				ETC5,
+				ETC6,
+				ETC7,
+				ETC8,
+				ETC9,
+				ETCA,
+				ETCB,
+				ETCC,
+				ETCD,
+				ETCE,
+				ETCF,
+				ETCG,
+				ETCH,
+				ETCI,
+				ETCJ,
+				ETCK,
+				ETCL,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{PMIW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{BUY_AM},
+			#{EVT_TINM},
+			#{EVT_PRD_ST_DT},
+			#{EVT_PRD_ED_DT},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5},
+			#{ETC6},
+			#{ETC7},
+			#{ETC8},
+			#{ETC9},
+			#{ETCA},
+			#{ETCB},
+			#{ETCC},
+			#{ETCD},
+			#{ETCE},
+			#{ETCF},
+			#{ETCG},
+			#{ETCH},
+			#{ETCI},
+			#{ETCJ},
+			#{ETCK},
+			#{ETCL},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!--약정서 상세 backup  -->
+	<insert id="insertPmiwDtlNew" parameterType="com.nh.escm.ct.eltctrw.vo.PmiwDtlVO">
+		INSERT INTO CT_PMIW_DTL (
+		/* anwEltCtrwDrupDAO insertPmiwDtlNew  */
+				ELT_CTRW_NO,
+				PMIW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				BUY_AM,
+				EVT_TINM,
+				EVT_PRD_ST_DT,
+				EVT_PRD_ED_DT,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				ETC1,
+				ETC2,
+				ETC3,
+				ETC4,
+				ETC5,
+				ETC6,
+				ETC7,
+				ETC8,
+				ETC9,
+				ETCA,
+				ETCB,
+				ETCC,
+				ETCD,
+				ETCE,
+				ETCF,
+				ETCG,
+				ETCH,
+				ETCI,
+				ETCJ,
+				ETCK,
+				ETCL,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{PMIW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{BUY_AM},
+			#{EVT_TINM},
+			#{EVT_PRD_ST_DT},
+			#{EVT_PRD_ED_DT},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5},
+			#{ETC6},
+			#{ETC7},
+			#{ETC8},
+			#{ETC9},
+			#{ETCA},
+			#{ETCB},
+			#{ETCC},
+			#{ETCD},
+			#{ETCE},
+			#{ETCF},
+			#{ETCG},
+			#{ETCH},
+			#{ETCI},
+			#{ETCJ},
+			#{ETCK},
+			#{ETCL},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+
+	<update id="updatePmiwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.PmiwDtlVO">
+		UPDATE CT_PMIW_DTL
+		/* anwEltCtrwDrupDAO updatePmiwDtl  */
+		<set>
+			<if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+				PMIW_KDC= #{PMIW_KDC}, /*약정서종류코드*/
+			</if>
+			<if test="CTRW_STY_VER != null and CTRW_STY_VER.length() > 0 ">
+				CTRW_STY_VER= #{CTRW_STY_VER}, /*계약서양식버전*/
+			</if>
+			<if test="BUY_AM != null and BUY_AM.length() > 0 ">
+				BUY_AM= #{BUY_AM}, /*구매금액*/
+			</if>
+			<if test="EVT_TINM != null and EVT_TINM.length() > 0 ">
+				EVT_TINM= #{EVT_TINM}, /*행사제목*/
+			</if>
+			<if test="EVT_PRD_ST_DT != null and EVT_PRD_ST_DT.length() > 0 ">
+				EVT_PRD_ST_DT= #{EVT_PRD_ST_DT}, /*행사기간시작일자*/
+			</if>
+			<if test="EVT_PRD_ED_DT != null and EVT_PRD_ED_DT.length() > 0 ">
+				EVT_PRD_ED_DT= #{EVT_PRD_ED_DT}, /*행사기간종료일자*/
+			</if>
+			/*수정 할지도 몰라서 넣음*/
+			<if test="ETC1 != null and ETC1.length() > 0 ">
+				ETC1= #{ETC1}, /*예비1*/
+			</if>
+			<if test="ETC2 != null and ETC2.length() > 0 ">
+				ETC2= #{ETC2}, /*예비2*/
+			</if>
+			<if test="ETC3 != null and ETC3.length() > 0 ">
+				ETC3= #{ETC3}, /*예비3*/
+			</if>
+			<if test="ETC4 != null and ETC4.length() > 0 ">
+				ETC4= #{ETC4}, /*예비4*/
+			</if>
+			<if test="ETC5 != null and ETC5.length() > 0 ">
+				ETC5= #{ETC5}, /*예비5*/
+			</if>
+			<if test="ETC6 != null and ETC6.length() > 0 ">
+				ETC6= #{ETC6}, /*예비6*/
+			</if>
+			<if test="ETC7 != null and ETC7.length() > 0 ">
+				ETC7= #{ETC7}, /*예비7*/
+			</if>
+			<if test="ETC8 != null and ETC8.length() > 0 ">
+				ETC8= #{ETC8}, /*예비8*/
+			</if>
+			<if test="ETC9 != null and ETC9.length() > 0 ">
+				ETC9= #{ETC9}, /*예비9*/
+			</if>
+			<if test="ETCA != null and ETCA.length() > 0 ">
+				ETCA= #{ETCA}, /*예비10*/
+			</if>
+			<if test="ETCB != null and ETCB.length() > 0 ">
+				ETCB= #{ETCB}, /*예비10*/
+			</if>
+			<if test="ETCC != null and ETCC.length() > 0 ">
+				ETCC= #{ETCC}, /*예비6*/
+			</if>
+			<if test="ETCD != null and ETCD.length() > 0 ">
+				ETCD= #{ETCD}, /*예비7*/
+			</if>
+			<if test="ETCE != null and ETCE.length() > 0 ">
+				ETCE= #{ETCE}, /*예비8*/
+			</if>
+			<if test="ETCF != null and ETCF.length() > 0 ">
+				ETCF= #{ETCF}, /*예비9*/
+			</if>
+			<if test="ETCG != null and ETCG.length() > 0 ">
+				ETCG= #{ETCG}, /*예비10*/
+			</if>
+			<if test="ETCH != null and ETCH.length() > 0 ">
+				ETCH= #{ETCH}, /*예비10*/
+			</if>
+			<if test="ETCI != null and ETCI.length() > 0 ">
+				ETCI= #{ETCH}, /*예비11*/
+			</if>
+			<if test="ETCJ != null and ETCJ.length() > 0 ">
+				ETCJ= #{ETCJ}, /*예비12*/
+			</if>
+			<if test="ETCK != null and ETCK.length() > 0 ">
+				ETCK= #{ETCK}, /*예비13*/
+			</if>
+			<if test="ETCL != null and ETCL.length() > 0 ">
+				ETCL= #{ETCL}, /*예비14*/
+			</if>
+			<if test="SCTR_SJT != null and SCTR_SJT.length() > 0 ">
+				SCTR_SJT= #{SCTR_SJT}, /*예비10*/
+			</if>
+
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND PMIW_KDC = #{PMIW_KDC}
+			AND CTRW_STY_VER = #{CTRW_STY_VER}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<delete id="deletePmiwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.PmiwDtlVO">
+		DELETE	FROM CT_PMIW_DTL
+		/* anwEltCtrwDrupDAO deletePmiwDtl  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO = #{CHG_SQNO}
+			<if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+				AND PMIW_KDC = #{PMIW_KDC}
+			</if>
+
+	</delete>
+
+	<!--행사료약정서 backup  -->
+	<insert id="insertEvtAmPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.EvtAmPmiwVO">
+		INSERT INTO CT_EVT_AM_PMIW (
+		/* anwEltCtrwDrupDAO insertEvtAmPmiw  */
+				ELT_CTRW_NO,
+				PMIW_KDC,
+				CHG_SQNO,
+				EVT_NM,
+				EVT_CNTN,
+				EVT_PLCNM,
+				EVT_WRS_NM,
+				EVT_RTO_CNTN,
+				CTR_PATN_AM,
+				CTR_CHRR_AM,
+				AM_SS,
+				CTR_PATN_RTO,
+				CTR_CHRR_RTO,
+				RTO_SS,
+				CTR_PATN_ALOT_RTO,
+				CTR_CHRR_ALOT_RTO,
+				ALOT_RTO_SS,
+				ALL_XPC_PMTN_CST,
+				CLCN_BASS,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{PMIW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{EVT_NM},
+			#{EVT_CNTN},
+			#{EVT_PLCNM},
+			#{EVT_WRS_NM},
+			#{EVT_RTO_CNTN},
+			#{CTR_PATN_AM},
+			#{CTR_CHRR_AM},
+			#{AM_SS},
+			#{CTR_PATN_RTO},
+			#{CTR_CHRR_RTO},
+			#{RTO_SS},
+			#{CTR_PATN_ALOT_RTO},
+			#{CTR_CHRR_ALOT_RTO},
+			#{ALOT_RTO_SS},
+			#{ALL_XPC_PMTN_CST},
+			#{CLCN_BASS},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!--행사료약정서 backup  -->
+	<insert id="insertEvtAmPmiwNew" parameterType="com.nh.escm.ct.eltctrw.vo.EvtAmPmiwVO">
+		INSERT INTO CT_EVT_AM_PMIW (
+		/* anwEltCtrwDrupDAO insertEvtAmPmiwNew  */
+				ELT_CTRW_NO,
+				PMIW_KDC,
+				CHG_SQNO,
+				EVT_NM,
+				EVT_CNTN,
+				EVT_PLCNM,
+				EVT_WRS_NM,
+				EVT_RTO_CNTN,
+				CTR_PATN_AM,
+				CTR_CHRR_AM,
+				AM_SS,
+				CTR_PATN_RTO,
+				CTR_CHRR_RTO,
+				RTO_SS,
+				CTR_PATN_ALOT_RTO,
+				CTR_CHRR_ALOT_RTO,
+				ALOT_RTO_SS,
+				ALL_XPC_PMTN_CST,
+				CLCN_BASS,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{PMIW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{EVT_NM},
+			#{EVT_CNTN},
+			#{EVT_PLCNM},
+			#{EVT_WRS_NM},
+			#{EVT_RTO_CNTN},
+			#{CTR_PATN_AM},
+			#{CTR_CHRR_AM},
+			#{AM_SS},
+			#{CTR_PATN_RTO},
+			#{CTR_CHRR_RTO},
+			#{RTO_SS},
+			#{CTR_PATN_ALOT_RTO},
+			#{CTR_CHRR_ALOT_RTO},
+			#{ALOT_RTO_SS},
+			#{ALL_XPC_PMTN_CST},
+			#{CLCN_BASS},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<update id="updateEvtAmPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.EvtAmPmiwVO">
+		UPDATE CT_EVT_AM_PMIW
+		/* anwEltCtrwDrupDAO updateEvtAmPmiw  */
+		<set>
+			<if test="EVT_NM != null and EVT_NM.length() > 0 ">
+				EVT_NM= #{EVT_NM}, /*행사내용*/
+			</if>
+			<if test="EVT_CNTN != null and EVT_CNTN.length() > 0 ">
+				EVT_CNTN= #{EVT_CNTN}, /*행사내용*/
+			</if>
+			<if test="EVT_PLCNM != null and EVT_PLCNM.length() > 0 ">
+				EVT_PLCNM= #{EVT_PLCNM}, /*행사장소*/
+			</if>
+			<if test="EVT_WRS_NM != null and EVT_WRS_NM.length() > 0 ">
+				EVT_WRS_NM= #{EVT_WRS_NM}, /*행사상품명*/
+			</if>
+			<if test="EVT_RTO_CNTN != null and EVT_RTO_CNTN.length() > 0 ">
+				EVT_RTO_CNTN= #{EVT_RTO_CNTN}, /*행사행사상품및행사율내용*/
+			</if>
+			<if test="CTR_PATN_AM != null and CTR_PATN_AM.length() > 0 ">
+				CTR_PATN_AM= #{CTR_PATN_AM}, /*계약상대자금액*/
+			</if>
+			<if test="CTR_CHRR_AM != null and CTR_CHRR_AM.length() > 0 ">
+				CTR_CHRR_AM= #{CTR_CHRR_AM}, /*계약담당자금액*/
+			</if>
+			<if test="AM_SS != null and AM_SS.length() > 0 ">
+				AM_SS= #{AM_SS}, /*금액계*/
+			</if>
+			<if test="CTR_PATN_RTO != null and CTR_PATN_RTO.length() > 0 ">
+				CTR_PATN_RTO= #{CTR_PATN_RTO}, /*계약상대자비율*/
+			</if>
+			<if test="CTR_CHRR_RTO != null and CTR_CHRR_RTO.length() > 0 ">
+				CTR_CHRR_RTO= #{CTR_CHRR_RTO}, /*계약담당자비율*/
+			</if>
+			<if test="RTO_SS != null and RTO_SS.length() > 0 ">
+				RTO_SS= #{RTO_SS}, /*비율계*/
+			</if>
+			<if test="CTR_PATN_ALOT_RTO != null and CTR_PATN_ALOT_RTO.length() > 0 ">
+				CTR_PATN_ALOT_RTO= #{CTR_PATN_ALOT_RTO}, /*계약상대자비율*/
+			</if>
+			<if test="CTR_CHRR_ALOT_RTO != null and CTR_CHRR_ALOT_RTO.length() > 0 ">
+				CTR_CHRR_ALOT_RTO= #{CTR_CHRR_ALOT_RTO}, /*계약담당자비율*/
+			</if>
+			<if test="ALOT_RTO_SS != null and ALOT_RTO_SS.length() > 0 ">
+				ALOT_RTO_SS= #{ALOT_RTO_SS}, /*비율(액수)계*/
+			</if>
+
+			<if test="ALL_XPC_PMTN_CST != null and ALL_XPC_PMTN_CST.length() > 0 ">
+				ALL_XPC_PMTN_CST= #{ALL_XPC_PMTN_CST}, /*전체 예상판촉비용*/
+			</if>
+			<if test="CLCN_BASS != null and CLCN_BASS.length() > 0 ">
+				CLCN_BASS= #{CLCN_BASS}, /*산출근거*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND PMIW_KDC = #{PMIW_KDC}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteEvtAmPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.EvtAmPmiwVO">
+		DELETE	FROM CT_EVT_AM_PMIW
+		/* anwEltCtrwDrupDAO deleteEvtAmPmiw  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO = #{CHG_SQNO}
+			<if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+				AND PMIW_KDC = #{PMIW_KDC}
+			</if>
+	</delete>
+
+	<!-- 납품 업체 종업원 파견 약정서 -->
+	<insert id="insertDlvgCompEmpDspcPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.DlvgCompEmpDspcPmiwVO">
+		INSERT INTO /*anwEltCtrwDrupDAO insertDlvgCompEmpDspcPmiw */ CT_DLVG_COMP_EMP_DSPC_PMIW (
+				ELT_CTRW_NO,
+				CHG_SQNO,
+				PMIW_KDC,
+				DSPC_BASS,
+				LBRCS_DRTCS_CNTN1,
+				LBRCS_DRTCS_CNTN2,
+				LBRCS_DRTCS_AM1,
+				LBRCS_DRTCS_AM2,
+				LBRCS_DRTCS_RMK1,
+				LBRCS_DRTCS_RMK2,
+				LBRCS_OHCS_CNTN1,
+				LBRCS_OHCS_CNTN2,
+				LBRCS_OHCS_CNTN3,
+				LBRCS_OHCS_AM1,
+				LBRCS_OHCS_AM2,
+				LBRCS_OHCS_AM3,
+				LBRCS_OHCS_RMK1,
+				LBRCS_OHCS_RMK2,
+				LBRCS_OHCS_RMK3,
+				FI_BNF_CNTN1,
+				FI_BNF_CNTN2,
+				FI_BNF_CNTN3,
+				FI_BNF_AM1,
+				FI_BNF_AM2,
+				FI_BNF_AM3,
+				FI_BNF_RMK1,
+				FI_BNF_RMK2,
+				FI_BNF_RMK3,
+				ETC_TXPN_CNTN,
+				ETC_TXPN_AM,
+				ETC_TXPN_RMK,
+				CTR_PATN_RTO,
+				CTR_CHRR_RTO,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{PMIW_KDC},
+			#{DSPC_BASS},
+			#{LBRCS_DRTCS_CNTN1},
+			#{LBRCS_DRTCS_CNTN2},
+			#{LBRCS_DRTCS_AM1},
+			#{LBRCS_DRTCS_AM2},
+			#{LBRCS_DRTCS_RMK1},
+			#{LBRCS_DRTCS_RMK2},
+			#{LBRCS_OHCS_CNTN1},
+			#{LBRCS_OHCS_CNTN2},
+			#{LBRCS_OHCS_CNTN3},
+			#{LBRCS_OHCS_AM1},
+			#{LBRCS_OHCS_AM2},
+			#{LBRCS_OHCS_AM3},
+			#{LBRCS_OHCS_RMK1},
+			#{LBRCS_OHCS_RMK2},
+			#{LBRCS_OHCS_RMK3},
+			#{FI_BNF_CNTN1},
+			#{FI_BNF_CNTN2},
+			#{FI_BNF_CNTN3},
+			#{FI_BNF_AM1},
+			#{FI_BNF_AM2},
+			#{FI_BNF_AM3},
+			#{FI_BNF_RMK1},
+			#{FI_BNF_RMK2},
+			#{FI_BNF_RMK3},
+			#{ETC_TXPN_CNTN},
+			#{ETC_TXPN_AM},
+			#{ETC_TXPN_RMK},
+			#{CTR_PATN_RTO},
+			#{CTR_CHRR_RTO},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!-- 납품 업체 종업원 파견 약정서 backup  -->
+	<insert id="insertDlvgCompEmpDspcPmiwNew" parameterType="com.nh.escm.ct.eltctrw.vo.DlvgCompEmpDspcPmiwVO">
+		INSERT INTO /*anwEltCtrwDrupDAO insertDlvgCompEmpDspcPmiwNew */ CT_DLVG_COMP_EMP_DSPC_PMIW (
+				ELT_CTRW_NO,
+				CHG_SQNO,
+				PMIW_KDC,
+				DSPC_BASS,
+				LBRCS_DRTCS_CNTN1,
+				LBRCS_DRTCS_CNTN2,
+				LBRCS_DRTCS_AM1,
+				LBRCS_DRTCS_AM2,
+				LBRCS_DRTCS_RMK1,
+				LBRCS_DRTCS_RMK2,
+				LBRCS_OHCS_CNTN1,
+				LBRCS_OHCS_CNTN2,
+				LBRCS_OHCS_CNTN3,
+				LBRCS_OHCS_AM1,
+				LBRCS_OHCS_AM2,
+				LBRCS_OHCS_AM3,
+				LBRCS_OHCS_RMK1,
+				LBRCS_OHCS_RMK2,
+				LBRCS_OHCS_RMK3,
+				FI_BNF_CNTN1,
+				FI_BNF_CNTN2,
+				FI_BNF_CNTN3,
+				FI_BNF_AM1,
+				FI_BNF_AM2,
+				FI_BNF_AM3,
+				FI_BNF_RMK1,
+				FI_BNF_RMK2,
+				FI_BNF_RMK3,
+				ETC_TXPN_CNTN,
+				ETC_TXPN_AM,
+				ETC_TXPN_RMK,
+				CTR_PATN_RTO,
+				CTR_CHRR_RTO,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			LPAD( #{CHG_SQNO_TEMP}, '3','0' ),
+			#{PMIW_KDC},
+			#{DSPC_BASS},
+			#{LBRCS_DRTCS_CNTN1},
+			#{LBRCS_DRTCS_CNTN2},
+			#{LBRCS_DRTCS_AM1},
+			#{LBRCS_DRTCS_AM2},
+			#{LBRCS_DRTCS_RMK1},
+			#{LBRCS_DRTCS_RMK2},
+			#{LBRCS_OHCS_CNTN1},
+			#{LBRCS_OHCS_CNTN2},
+			#{LBRCS_OHCS_CNTN3},
+			#{LBRCS_OHCS_AM1},
+			#{LBRCS_OHCS_AM2},
+			#{LBRCS_OHCS_AM3},
+			#{LBRCS_OHCS_RMK1},
+			#{LBRCS_OHCS_RMK2},
+			#{LBRCS_OHCS_RMK3},
+			#{FI_BNF_CNTN1},
+			#{FI_BNF_CNTN2},
+			#{FI_BNF_CNTN3},
+			#{FI_BNF_AM1},
+			#{FI_BNF_AM2},
+			#{FI_BNF_AM3},
+			#{FI_BNF_RMK1},
+			#{FI_BNF_RMK2},
+			#{FI_BNF_RMK3},
+			#{ETC_TXPN_CNTN},
+			#{ETC_TXPN_AM},
+			#{ETC_TXPN_RMK},
+			#{CTR_PATN_RTO},
+			#{CTR_CHRR_RTO},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!-- 납품 업체 종업원 파견 약정서 수정  -->
+	<update id="updateDlvgCompEmpDspcPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.DlvgCompEmpDspcPmiwVO">
+		UPDATE CT_DLVG_COMP_EMP_DSPC_PMIW
+		/* anwEltCtrwDrupDAO updateDlvgCompEmpDspcPmiw  */
+		<set>
+			<if test="DSPC_BASS != null and DSPC_BASS.length() > 0 ">
+				DSPC_BASS= #{DSPC_BASS}, /*파견근거*/
+			</if>
+			<if test="LBRCS_DRTCS_CNTN1 != null and LBRCS_DRTCS_CNTN1.length() > 0 ">
+				LBRCS_DRTCS_CNTN1= #{LBRCS_DRTCS_CNTN1}, /*인건비직정비내용1*/
+			</if>
+			<if test="LBRCS_DRTCS_CNTN2 != null and LBRCS_DRTCS_CNTN2.length() > 0 ">
+				LBRCS_DRTCS_CNTN2= #{LBRCS_DRTCS_CNTN2}, /*인건비직정비내용2*/
+			</if>
+			<if test="LBRCS_DRTCS_AM1 != null and LBRCS_DRTCS_AM1.length() > 0 ">
+				LBRCS_DRTCS_AM1= #{LBRCS_DRTCS_AM1}, /*인건비직정비소요액1*/
+			</if>
+			<if test="LBRCS_DRTCS_AM2 != null and LBRCS_DRTCS_AM2.length() > 0 ">
+				LBRCS_DRTCS_AM2= #{LBRCS_DRTCS_AM2}, /*인건비직정비소요액2*/
+			</if>
+			<if test="LBRCS_DRTCS_RMK1 != null and LBRCS_DRTCS_RMK1.length() > 0 ">
+				LBRCS_DRTCS_RMK1= #{LBRCS_DRTCS_RMK1}, /*인건비직정비비고1*/
+			</if>
+			<if test="LBRCS_DRTCS_RMK2 != null and LBRCS_DRTCS_RMK2.length() > 0 ">
+				LBRCS_DRTCS_RMK2= #{LBRCS_DRTCS_RMK2}, /*인건비직정비비고2*/
+			</if>
+			<if test="LBRCS_OHCS_CNTN1 != null and LBRCS_OHCS_CNTN1.length() > 0 ">
+				LBRCS_OHCS_CNTN1= #{LBRCS_OHCS_CNTN1}, /*인건비간접비내용1*/
+			</if>
+			<if test="LBRCS_OHCS_CNTN2 != null and LBRCS_OHCS_CNTN2.length() > 0 ">
+				LBRCS_OHCS_CNTN2= #{LBRCS_OHCS_CNTN2}, /*인건비간접비내용2*/
+			</if>
+			<if test="LBRCS_OHCS_CNTN3 != null and LBRCS_OHCS_CNTN3.length() > 0 ">
+				LBRCS_OHCS_CNTN3= #{LBRCS_OHCS_CNTN3}, /*인건비간접비내용3*/
+			</if>
+			<if test="LBRCS_OHCS_AM1 != null and LBRCS_OHCS_AM1.length() > 0 ">
+				LBRCS_OHCS_AM1= #{LBRCS_OHCS_AM1}, /*인건비간접비소용액1*/
+			</if>
+			<if test="LBRCS_OHCS_AM2 != null and LBRCS_OHCS_AM2.length() > 0 ">
+				LBRCS_OHCS_AM2= #{LBRCS_OHCS_AM2}, /*인건비간접비소용액2*/
+			</if>
+			<if test="LBRCS_OHCS_AM3 != null and LBRCS_OHCS_AM3.length() > 0 ">
+				LBRCS_OHCS_AM3= #{LBRCS_OHCS_AM3}, /*인건비간접비소용액3*/
+			</if>
+			<if test="LBRCS_OHCS_RMK1 != null and LBRCS_OHCS_RMK1.length() > 0 ">
+				LBRCS_OHCS_RMK1= #{LBRCS_OHCS_RMK1}, /*인건비간접비비고1*/
+			</if>
+			<if test="LBRCS_OHCS_RMK2 != null and LBRCS_OHCS_RMK2.length() > 0 ">
+				LBRCS_OHCS_RMK2= #{LBRCS_OHCS_RMK2}, /*인건비간접비비고2*/
+			</if>
+			<if test="LBRCS_OHCS_RMK3 != null and LBRCS_OHCS_RMK3.length() > 0 ">
+				LBRCS_OHCS_RMK3= #{LBRCS_OHCS_RMK3}, /*인건비간접비비고3*/
+			</if>
+			<if test="FI_BNF_CNTN1 != null and FI_BNF_CNTN1.length() > 0 ">
+				FI_BNF_CNTN1= #{FI_BNF_CNTN1}, /*복리후생비내용1*/
+			</if>
+			<if test="FI_BNF_CNTN2 != null and FI_BNF_CNTN2.length() > 0 ">
+				FI_BNF_CNTN2= #{FI_BNF_CNTN2}, /*복리후생비내용2*/
+			</if>
+			<if test="FI_BNF_CNTN3 != null and FI_BNF_CNTN3.length() > 0 ">
+				FI_BNF_CNTN3= #{FI_BNF_CNTN3}, /*복리후생비내용3*/
+			</if>
+			<if test="FI_BNF_AM1 != null and FI_BNF_AM1.length() > 0 ">
+				FI_BNF_AM1= #{FI_BNF_AM1}, /*복리후생비소용액1*/
+			</if>
+			<if test="FI_BNF_AM2 != null and FI_BNF_AM2.length() > 0 ">
+				FI_BNF_AM2= #{FI_BNF_AM2}, /*복리후생비소용액2*/
+			</if>
+			<if test="FI_BNF_AM3 != null and FI_BNF_AM3.length() > 0 ">
+				FI_BNF_AM3= #{FI_BNF_AM3}, /*복리후생비소용액3*/
+			</if>
+			<if test="FI_BNF_RMK1 != null and FI_BNF_RMK1.length() > 0 ">
+				FI_BNF_RMK1= #{FI_BNF_RMK1}, /*복리후생비비고1*/
+			</if>
+			<if test="FI_BNF_RMK2 != null and FI_BNF_RMK2.length() > 0 ">
+				FI_BNF_RMK2= #{FI_BNF_RMK2}, /*복리후생비비고2*/
+			</if>
+			<if test="FI_BNF_RMK3 != null and FI_BNF_RMK3.length() > 0 ">
+				FI_BNF_RMK3= #{FI_BNF_RMK3}, /*복리후생비비고3*/
+			</if>
+			<if test="ETC_TXPN_CNTN != null and ETC_TXPN_CNTN.length() > 0 ">
+				ETC_TXPN_CNTN= #{ETC_TXPN_CNTN}, /*기타제경비내용*/
+			</if>
+			<if test="ETC_TXPN_AM != null and ETC_TXPN_AM.length() > 0 ">
+				ETC_TXPN_AM= #{ETC_TXPN_AM}, /*기타제경비소용액*/
+			</if>
+			<if test="ETC_TXPN_RMK != null and ETC_TXPN_RMK.length() > 0 ">
+				ETC_TXPN_RMK= #{ETC_TXPN_RMK}, /*기타제경비비고*/
+			</if>
+			<if test="CTR_PATN_RTO != null and CTR_PATN_RTO.length() > 0 ">
+				CTR_PATN_RTO = #{CTR_PATN_RTO}, /*계약 담당자 비율*/
+			</if>
+			<if test="CTR_CHRR_RTO != null and CTR_CHRR_RTO.length() > 0 ">
+				CTR_CHRR_RTO = #{CTR_CHRR_RTO}, /*계약 상대자 비율*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND PMIW_KDC = #{PMIW_KDC}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<!-- 납품 업체 종업원 파견 약정서 삭제  -->
+	<delete id="deleteDlvgCompEmpDspcPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.DlvgCompEmpDspcPmiwVO">
+		DELETE	FROM CT_DLVG_COMP_EMP_DSPC_PMIW
+		/* anwEltCtrwDrupDAO deleteDlvgCompEmpDspcPmiw  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO     = #{CHG_SQNO}
+			<if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+				AND PMIW_KDC = #{PMIW_KDC}
+			</if>
+
+	</delete>
+
+	<!-- 파견인원 근무기간 약정서 -->
+	<insert id="insertDspcPerWrkPrdPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.DspcPerWrkPrdPmiwVO">
+		INSERT INTO /*anwEltCtrwDrupDAO insertDspcPerWrkPrdPmiw */ CT_DSPC_PER_WRK_PRD_PMIW (
+				ELT_CTRW_NO,
+				CHG_SQNO,
+				PMIW_KDC,
+				SQNO,
+				STORNM,
+				DSPC_PER,
+				WRK_ST_DT,
+				WRK_ED_DT,
+				WRK_ST_HR,
+				WRK_ED_HR,
+				RCS_ST_HR,
+				RCS_ED_HR,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{PMIW_KDC},
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_DSPC_PER_WRK_PRD_PMIW WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{STORNM},
+			#{DSPC_PER},
+			#{WRK_ST_DT},
+			#{WRK_ED_DT},
+			#{WRK_ST_HR},
+			#{WRK_ED_HR},
+			#{RCS_ST_HR},
+			#{RCS_ED_HR},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!-- 파견인원 근무기간 약정서  backup-->
+	<insert id="insertDspcPerWrkPrdPmiwNew" parameterType="com.nh.escm.ct.eltctrw.vo.DspcPerWrkPrdPmiwVO">
+		INSERT INTO /*anwEltCtrwDrupDAO insertDspcPerWrkPrdPmiwNew */ CT_DSPC_PER_WRK_PRD_PMIW (
+				ELT_CTRW_NO,
+				CHG_SQNO,
+				PMIW_KDC,
+				SQNO,
+				STORNM,
+				DSPC_PER,
+				WRK_ST_DT,
+				WRK_ED_DT,
+				WRK_ST_HR,
+				WRK_ED_HR,
+				RCS_ST_HR,
+				RCS_ED_HR,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			LPAD( #{CHG_SQNO_TEMP}, '3','0' ),
+			#{PMIW_KDC},
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_DSPC_PER_WRK_PRD_PMIW WHERE ELT_CTRW_NO = #{TMP_ELT_CTRW_NO}),
+			#{STORNM},
+			#{DSPC_PER},
+			#{WRK_ST_DT},
+			#{WRK_ED_DT},
+			#{WRK_ST_HR},
+			#{WRK_ED_HR},
+			#{RCS_ST_HR},
+			#{RCS_ED_HR},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!-- 납품 업체 종업원 파견 약정서 수정  -->
+	<update id="updateDspcPerWrkPrdPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.DspcPerWrkPrdPmiwVO">
+		UPDATE CT_DSPC_PER_WRK_PRD_PMIW
+		/* anwEltCtrwDrupDAO updateDspcPerWrkPrdPmiw  */
+		<set>
+			<if test="STORNM != null and STORNM.length() > 0 ">
+				STORNM= #{STORNM}, /*매장명*/
+			</if>
+			<if test="DSPC_PER != null and DSPC_PER.length() > 0 ">
+				DSPC_PER= #{DSPC_PER}, /*파견인원*/
+			</if>
+			<if test="WRK_ST_DT != null and WRK_ST_DT.length() > 0 ">
+				WRK_ST_DT= #{WRK_ST_DT}, /*근무기간시작일자*/
+			</if>
+			<if test="WRK_ED_DT != null and WRK_ED_DT.length() > 0 ">
+				WRK_ED_DT= #{WRK_ED_DT}, /*근무기간종료일자*/
+			</if>
+			<if test="WRK_ST_HR != null and WRK_ST_HR.length() > 0 ">
+				WRK_ST_HR= #{WRK_ST_HR}, /*근무시작시간*/
+			</if>
+			<if test="WRK_ED_HR != null and WRK_ED_HR.length() > 0 ">
+				WRK_ED_HR= #{WRK_ED_HR}, /*근무종료시간*/
+			</if>
+			<if test="RCS_ST_HR != null and RCS_ST_HR.length() > 0 ">
+				RCS_ST_HR= #{RCS_ST_HR}, /*휴게시작시간*/
+			</if>
+			<if test="RCS_ED_HR != null and RCS_ED_HR.length() > 0 ">
+				RCS_ED_HR= #{RCS_ED_HR}, /*휴게종료시간*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND PMIW_KDC = #{PMIW_KDC}
+			AND CHG_SQNO = #{CHG_SQNO}
+			AND SQNO = #{SQNO}
+	</update>
+
+	<!-- 납품 업체 종업원 파견 약정서 삭제  -->
+	<delete id="deleteDspcPerWrkPrdPmiw" parameterType="com.nh.escm.ct.eltctrw.vo.DspcPerWrkPrdPmiwVO">
+		DELETE	FROM CT_DSPC_PER_WRK_PRD_PMIW
+		/* anwEltCtrwDrupDAO deleteDlvgCompEmpDspcPmiw  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO     = #{CHG_SQNO}
+			<if test="PMIW_KDC != null and PMIW_KDC.length() > 0 ">
+				AND PMIW_KDC = #{PMIW_KDC}
+			</if>
+	</delete>
+
+	<!--특약서 상세 backup  -->
+	<insert id="insertSctrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwDtlVO">
+		INSERT INTO CT_SCTRW_DTL (
+		/* anwEltCtrwDrupDAO insertSctrwDtl  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				VLD_PRD_ST_DT,
+				VLD_PRD_ED_DT,
+				DSPC_PRD_ST_DT,
+				DSPC_PRD_ED_DT,
+				WRK_ST_HR,
+				WRK_ED_HR,
+				EVT_PRD_ST_DT,
+				EVT_PRD_ED_DT,
+				PY_NT,
+				SEL_SSDY_RTO,
+				WRS_SPYAM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT,
+				NAME,
+				KIND,
+				PURPOSE,
+				ETC1,
+				ETC2
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO} , '3','0' ),
+			#{CTRW_STY_VER},
+			#{VLD_PRD_ST_DT},
+			#{VLD_PRD_ED_DT},
+			#{DSPC_PRD_ST_DT},
+			#{DSPC_PRD_ED_DT},
+			#{WRK_ST_HR},
+			#{WRK_ED_HR},
+			#{EVT_PRD_ST_DT},
+			#{EVT_PRD_ED_DT},
+			#{PY_NT},
+			#{SEL_SSDY_RTO},
+			#{WRS_SPYAM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{NAME},
+			#{KIND},
+			#{PURPOSE},
+			#{ETC1},
+			#{ETC2}
+		)
+	</insert>
+
+	<!--특약서 상세 backup  -->
+	<insert id="insertSctrwDtlNew" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwDtlVO">
+		INSERT INTO CT_SCTRW_DTL (
+		/* anwEltCtrwDrupDAO insertSctrwDtlNew  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				CTRW_STY_VER,
+				VLD_PRD_ST_DT,
+				VLD_PRD_ED_DT,
+				DSPC_PRD_ST_DT,
+				DSPC_PRD_ED_DT,
+				WRK_ST_HR,
+				WRK_ED_HR,
+				EVT_PRD_ST_DT,
+				EVT_PRD_ED_DT,
+				PY_NT,
+				SEL_SSDY_RTO,
+				WRS_SPYAM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT,
+				NAME,
+				KIND,
+				PURPOSE
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{VLD_PRD_ST_DT},
+			#{VLD_PRD_ED_DT},
+			#{DSPC_PRD_ST_DT},
+			#{DSPC_PRD_ED_DT},
+			#{WRK_ST_HR},
+			#{WRK_ED_HR},
+			#{EVT_PRD_ST_DT},
+			#{EVT_PRD_ED_DT},
+			#{PY_NT},
+			#{SEL_SSDY_RTO},
+			#{WRS_SPYAM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{NAME},
+			#{KIND},
+			#{PURPOSE}
+		)
+	</insert>
+
+
+	<update id="updateSctrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwDtlVO">
+		UPDATE CT_SCTRW_DTL
+		/* anwEltCtrwDrupDAO updateSctrwDtl  */
+		<set>
+			<if test="SCTRW_KDC != null and SCTRW_KDC.length() > 0 ">
+				SCTRW_KDC= #{SCTRW_KDC}, /*특약서종류코드*/
+			</if>
+			<if test="CTRW_STY_VER != null and CTRW_STY_VER.length() > 0 ">
+				CTRW_STY_VER= #{CTRW_STY_VER}, /*계약서양식버젼*/
+			</if>
+			<if test="VLD_PRD_ST_DT != null and VLD_PRD_ST_DT.length() > 0 ">
+				VLD_PRD_ST_DT= #{VLD_PRD_ST_DT}, /*유효기간시작일자*/
+			</if>
+			<if test="VLD_PRD_ED_DT != null and VLD_PRD_ED_DT.length() > 0 ">
+				VLD_PRD_ED_DT= #{VLD_PRD_ED_DT}, /*유효기간종료일자*/
+			</if>
+			<if test="DSPC_PRD_ST_DT != null and DSPC_PRD_ST_DT.length() > 0 ">
+				DSPC_PRD_ST_DT= #{DSPC_PRD_ST_DT}, /*파견기간시작일자*/
+			</if>
+			<if test="DSPC_PRD_ED_DT != null and DSPC_PRD_ED_DT.length() > 0 ">
+				DSPC_PRD_ED_DT= #{DSPC_PRD_ED_DT}, /*파견기간종료일자*/
+			</if>
+			<if test="WRK_ST_HR != null and WRK_ST_HR.length() > 0 ">
+				WRK_ST_HR= #{WRK_ST_HR}, /*근무시작시간*/
+			</if>
+			<if test="WRK_ED_HR != null and WRK_ED_HR.length() > 0 ">
+				WRK_ED_HR= #{WRK_ED_HR}, /*근무종료시간*/
+			</if>
+			<if test="EVT_PRD_ST_DT != null and EVT_PRD_ST_DT.length() > 0 ">
+				EVT_PRD_ST_DT= #{EVT_PRD_ST_DT}, /*행사기간시작일자*/
+			</if>
+			<if test="EVT_PRD_ED_DT != null and EVT_PRD_ED_DT.length() > 0 ">
+				EVT_PRD_ED_DT= #{EVT_PRD_ED_DT}, /*행사기간종료일자*/
+			</if>
+			<if test="PY_NT != null and PY_NT.length() > 0 ">
+				PY_NT= #{PY_NT}, /*행사기간종료일자*/
+			</if>
+			<if test="SEL_SSDY_RTO != null and SEL_SSDY_RTO.length() > 0 ">
+				SEL_SSDY_RTO= #{SEL_SSDY_RTO}, /*행사기간종료일자*/
+			</if>
+			<if test="WRS_SPYAM != null and WRS_SPYAM.length() > 0 ">
+				WRS_SPYAM= #{WRS_SPYAM}, /*행사기간종료일자*/
+			</if>
+			<if test="SCTR_SJT != null and SCTR_SJT.length() > 0 ">
+				SCTR_SJT= #{SCTR_SJT}, /*행사기간종료일자*/
+			</if>
+			<if test="NAME != null and NAME.length() > 0 ">
+				NAME= #{NAME}, /*행사기간종료일자*/
+			</if>
+			<if test="KIND != null and KIND.length() > 0 ">
+				KIND= #{KIND}, /*행사기간종료일자*/
+			</if>
+			<if test="PURPOSE != null and PURPOSE.length() > 0 ">
+				PURPOSE= #{PURPOSE}, /*행사기간종료일자*/
+			</if>
+			<if test="ETC1 != null and ETC1.length() > 0 ">
+				ETC1= #{ETC1}, /*예비컬럼1*/
+			</if>
+			<if test="ETC2 != null and ETC2.length() > 0 ">
+				ETC2= #{ETC2}, /*예비컬럼2*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			AND SCTRW_KDC    = #{SCTRW_KDC}
+			AND CTRW_STY_VER = #{CTRW_STY_VER}
+			AND CHG_SQNO     = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteSctrwDtl" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwDtlVO">
+		DELETE	FROM CT_SCTRW_DTL
+		/* anwEltCtrwDrupDAO deleteSctrwDtl  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO     = #{CHG_SQNO}
+			<if test="SCTRW_KDC != null and SCTRW_KDC.length() > 0 ">
+				AND SCTRW_KDC = #{SCTRW_KDC}
+			</if>
+	</delete>
+
+	<!--특약서_정상_마진율   -->
+	<insert id="insertSctrwNmlMrgnRt" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwNmlMrgnRtVO">
+		INSERT INTO CT_SCTRW_NML_MRGN_RT (
+		/* anwEltCtrwDrupDAO insertSctrwNmlMrgnRt  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				NML_MRGN_RT,
+				EVT_MRGN_RT,
+				RMK,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT,
+				NML_MRGN_RTM,
+				EVT_MRGN_RTM
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_NML_MRGN_RT WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{STORNM1},
+			#{NML_MRGN_RT},
+			#{EVT_MRGN_RT},
+			#{RMK},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{NML_MRGN_RTM},
+			#{EVT_MRGN_RTM}
+		)
+	</insert>
+	
+	<!--특약서_정상_마진율 backup  -->
+	<insert id="insertSctrwNmlMrgnRtNew" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwNmlMrgnRtVO">
+		INSERT INTO CT_SCTRW_NML_MRGN_RT (
+		/* anwEltCtrwDrupDAO insertSctrwNmlMrgnRtNew  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				NML_MRGN_RT,
+				EVT_MRGN_RT,
+				RMK,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT,
+				NML_MRGN_RTM,
+				EVT_MRGN_RTM
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_NML_MRGN_RT WHERE ELT_CTRW_NO = #{TMP_ELT_CTRW_NO}),
+			#{STORNM1},
+			#{NML_MRGN_RT},
+			#{EVT_MRGN_RT},
+			#{RMK},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{NML_MRGN_RT},
+			#{EVT_MRGN_RTM}
+		)
+	</insert>
+
+	<update id="updateSctrwNmlMrgnRt" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwNmlMrgnRtVO">
+		UPDATE CT_SCTRW_NML_MRGN_RT 	/* anwEltCtrwDrupDAO updateSctrwNmlMrgnRt  */
+		<set>
+				STORNM1= #{STORNM1},
+				NML_MRGN_RT= decode(#{NML_MRGN_RT} ,'  ','','1') ,
+				EVT_MRGN_RT= decode(#{EVT_MRGN_RT} ,'  ','','1')  ,
+				RMK= #{RMK},
+				NML_MRGN_RTM= decode(#{NML_MRGN_RTM} ,'  ','','1') ,
+				EVT_MRGN_RTM= decode(#{EVT_MRGN_RTM} ,'  ','','1')
+			LSCHG_DTM= SYSDATE ,
+			LS_CHGM= #{LS_CHGM}
+		</set>
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND SCTRW_KDC = #{SCTRW_KDC}
+			AND SQNO = #{SQNO}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteSctrwNmlMrgnRt" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwNmlMrgnRtVO">
+		DELETE	FROM CT_SCTRW_NML_MRGN_RT
+		/* anwEltCtrwDrupDAO deleteSctrwNmlMrgnRt  */
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+		<if test="SCTRW_KDC != null and SCTRW_KDC.length() > 0 ">
+			AND PMIW_KDC = #{SCTRW_KDC}
+		</if>
+		<if test="SQNO != null and SQNO.length() > 0 ">
+			AND SQNO = #{SQNO}
+		</if>
+	</delete>
+
+	<!--특약서_계약_마진율 -->
+	<insert id="insertSctrwCtrMrgnRt" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwCtrMrgnRtVO">
+		INSERT INTO CT_SCTRW_CTR_MRGN_RT (
+		/* anwEltCtrwDrupDAO insertSctrwCtrMrgnRt  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				DC_SEL_MRGN_RT10,
+				DC_SEL_MRGN_RT20,
+				DC_SEL_MRGN_RT30,
+				DC_SEL_MRGN_RT40,
+				DC_SEL_MRGN_RT50,
+				RMK,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_CTR_MRGN_RT WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{STORNM1},
+			#{DC_SEL_MRGN_RT10},
+			#{DC_SEL_MRGN_RT20},
+			#{DC_SEL_MRGN_RT30},
+			#{DC_SEL_MRGN_RT40},
+			#{DC_SEL_MRGN_RT50},
+			#{RMK},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!--특약서_계약_마진율 backup  -->
+	<insert id="insertSctrwCtrMrgnRtNew" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwCtrMrgnRtVO">
+		INSERT INTO CT_SCTRW_CTR_MRGN_RT (
+		/* anwEltCtrwDrupDAO insertSctrwCtrMrgnRtNew  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				DC_SEL_MRGN_RT10,
+				DC_SEL_MRGN_RT20,
+				DC_SEL_MRGN_RT30,
+				DC_SEL_MRGN_RT40,
+				DC_SEL_MRGN_RT50,
+				RMK,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_CTR_MRGN_RT WHERE ELT_CTRW_NO = #{TMP_ELT_CTRW_NO}),
+			#{STORNM1},
+			#{DC_SEL_MRGN_RT10},
+			#{DC_SEL_MRGN_RT20},
+			#{DC_SEL_MRGN_RT30},
+			#{DC_SEL_MRGN_RT40},
+			#{DC_SEL_MRGN_RT50},
+			#{RMK},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<update id="updateSctrwCtrMrgnRt" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwCtrMrgnRtVO">
+		UPDATE CT_SCTRW_CTR_MRGN_RT
+		/* anwEltCtrwDrupDAO updateSctrwCtrMrgnRt  */
+		<set>
+				STORNM1= #{STORNM1}, /*점포명1*/
+				DC_SEL_MRGN_RT10= #{DC_SEL_MRGN_RT10}, /*할인판매마진율10*/
+				DC_SEL_MRGN_RT20= #{DC_SEL_MRGN_RT20}, /*할인판매마진율20*/
+				DC_SEL_MRGN_RT30= #{DC_SEL_MRGN_RT30}, /*할인판매마진율30*/
+				DC_SEL_MRGN_RT40= #{DC_SEL_MRGN_RT40}, /*할인판매마진율40*/
+				DC_SEL_MRGN_RT50= #{DC_SEL_MRGN_RT50}, /*할인판매마진율50*/
+				RMK= #{RMK}, /*비고*/
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND SCTRW_KDC = #{SCTRW_KDC}
+			AND SQNO = #{SQNO}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteSctrwCtrMrgnRt"  parameterType="com.nh.escm.ct.eltctrw.vo.SctrwCtrMrgnRtVO">
+		DELETE	FROM CT_SCTRW_CTR_MRGN_RT
+		/* anwEltCtrwDrupDAO deleteSctrwCtrMrgnRt  */
+		WHERE 1=1
+		AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+		<if test="SCTRW_KDC != null and SCTRW_KDC.length() > 0 ">
+			AND PMIW_KDC = #{SCTRW_KDC}
+		</if>
+		<if test="SQNO != null and SQNO.length() > 0 ">
+			AND SQNO = #{SQNO}
+		</if>
+	</delete>
+
+	<!--특약서_판촉사원파견내역 -->
+		<insert id="insertSctrwPmtnEmpeDspcBrk" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwPmtnEmpeDspcBrkVO">
+		INSERT INTO CT_SCTRW_PMTN_EMPE_DSPC_BRK (
+		/* anwEltCtrwDrupDAO insertSctrwPmtnEmpeDspcBrk  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				PMTN_EMPE1,
+				STORNM2,
+				PMTN_EMPE2,
+				STORNM3,
+				PMTN_EMPE3,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_PMTN_EMPE_DSPC_BRK WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{STORNM1},
+			#{PMTN_EMPE1},
+			#{STORNM2},
+			#{PMTN_EMPE2},
+			#{STORNM3},
+			#{PMTN_EMPE3},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+	
+	<!--특약서_판촉사원파견내역 backup  -->
+		<insert id="insertSctrwPmtnEmpeDspcBrkNew" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwPmtnEmpeDspcBrkVO">
+		INSERT INTO CT_SCTRW_PMTN_EMPE_DSPC_BRK (
+		/* anwEltCtrwDrupDAO insertSctrwPmtnEmpeDspcBrkNew  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				PMTN_EMPE1,
+				STORNM2,
+				PMTN_EMPE2,
+				STORNM3,
+				PMTN_EMPE3,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_PMTN_EMPE_DSPC_BRK WHERE ELT_CTRW_NO = #{TMP_ELT_CTRW_NO}),
+			#{STORNM1},
+			#{PMTN_EMPE1},
+			#{STORNM2},
+			#{PMTN_EMPE2},
+			#{STORNM3},
+			#{PMTN_EMPE3},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+
+	<update id="updateSctrwPmtnEmpeDspcBrk" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwPmtnEmpeDspcBrkVO">
+		UPDATE CT_SCTRW_PMTN_EMPE_DSPC_BRK
+		/* anwEltCtrwDrupDAO updateSctrwPmtnEmpeDspcBrk  */
+		<set>
+			<if test="STORNM1 != null and STORNM1.length() > 0 ">
+				STORNM1= #{STORNM1}, /*점포명1*/
+			</if>
+			<if test="PMTN_EMPE1 != null and PMTN_EMPE1.length() > 0 ">
+				PMTN_EMPE1= #{PMTN_EMPE1}, /*판촉사원1*/
+			</if>
+			<if test="STORNM2 != null and STORNM2.length() > 0 ">
+				STORNM2= #{STORNM2}, /*점포명2*/
+			</if>
+			<if test="PMTN_EMPE2 != null and PMTN_EMPE2.length() > 0 ">
+				PMTN_EMPE2= #{PMTN_EMPE2}, /*판촉사원2*/
+			</if>
+			<if test="STORNM3 != null and STORNM3.length() > 0 ">
+				STORNM3= #{STORNM3}, /*점포명3*/
+			</if>
+			<if test="PMTN_EMPE3 != null and PMTN_EMPE3.length() > 0 ">
+				PMTN_EMPE3= #{PMTN_EMPE3}, /*판촉사원3*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND SCTRW_KDC = #{SCTRW_KDC}
+			AND SQNO = #{SQNO}
+			AND CHG_SQNO    = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteSctrwPmtnEmpeDspcBrk" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwPmtnEmpeDspcBrkVO">
+		DELETE	FROM CT_SCTRW_PMTN_EMPE_DSPC_BRK
+		/* anwEltCtrwDrupDAO deleteSctrwPmtnEmpeDspcBrk  */
+		WHERE 1=1
+		AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO    = #{CHG_SQNO}
+		<if test="SCTRW_KDC != null and SCTRW_KDC.length() > 0 ">
+			AND PMIW_KDC = #{SCTRW_KDC}
+		</if>
+		<if test="SQNO != null and SQNO.length() > 0 ">
+			AND SQNO = #{SQNO}
+		</if>
+	</delete>
+
+	<!--특약서_전체예상판촉비용 -->
+		<insert id="insertSctrwAllXpcPmtnCst" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwAllXpcPmtnCstVO">
+		INSERT INTO CT_SCTRW_ALL_XPC_PMTN_CST (
+		/* anwEltCtrwDrupDAO insertSctrwAllXpcPmtnCst  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				STOR_LY1,
+				SELA_AREA_M1,
+				SELA_AREA_PCN1,
+				STORNM2,
+				STOR_LY2,
+				SELA_AREA_M2,
+				SELA_AREA_PCN2,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_ALL_XPC_PMTN_CST WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{STORNM1},
+			#{STOR_LY1},
+			#{SELA_AREA_M1},
+			#{SELA_AREA_PCN1},
+			#{STORNM2},
+			#{STOR_LY2},
+			#{SELA_AREA_M2},
+			#{SELA_AREA_PCN2},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<!--특약서_전체예상판촉비용 backup  -->
+		<insert id="insertSctrwAllXpcPmtnCstNew" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwAllXpcPmtnCstVO">
+			INSERT INTO CT_SCTRW_ALL_XPC_PMTN_CST (
+			/* anwEltCtrwDrupDAO insertSctrwAllXpcPmtnCstNew  */
+				ELT_CTRW_NO,
+				SCTRW_KDC,
+				CHG_SQNO,
+				SQNO,
+				STORNM1,
+				STOR_LY1,
+				SELA_AREA_M1,
+				SELA_AREA_PCN1,
+				STORNM2,
+				STOR_LY2,
+				SELA_AREA_M2,
+				SELA_AREA_PCN2,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{SCTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_SCTRW_ALL_XPC_PMTN_CST WHERE ELT_CTRW_NO = #{TMP_ELT_CTRW_NO}),
+			#{STORNM1},
+			#{STOR_LY1},
+			#{SELA_AREA_M1},
+			#{SELA_AREA_PCN1},
+			#{STORNM2},
+			#{STOR_LY2},
+			#{SELA_AREA_M2},
+			#{SELA_AREA_PCN2},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<update id="updateSctrwAllXpcPmtnCst" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwAllXpcPmtnCstVO">
+		UPDATE CT_SCTRW_ALL_XPC_PMTN_CST
+		/* anwEltCtrwDrupDAO updateSctrwAllXpcPmtnCst  */
+		<set>
+			<if test="STORNM1 != null and STORNM1.length() > 0 ">
+				STORNM1= #{STORNM1}, /*점포명1*/
+			</if>
+			<if test="STOR_LY1 != null and STOR_LY1.length() > 0 ">
+				STOR_LY1= #{STOR_LY1}, /*점포층1*/
+			</if>
+			<if test="SELA_AREA_M1 != null and SELA_AREA_M1.length() > 0 ">
+				SELA_AREA_M1= #{SELA_AREA_M1}, /*매장면적미터1*/
+			</if>
+			<if test="SELA_AREA_PCN1 != null and SELA_AREA_PCN1.length() > 0 ">
+				SELA_AREA_PCN1= #{SELA_AREA_PCN1}, /*매장면적평수1*/
+			</if>
+			<if test="STORNM2 != null and STORNM2.length() > 0 ">
+				STORNM2= #{STORNM2}, /*점포명2*/
+			</if>
+			<if test="STOR_LY2 != null and STOR_LY2.length() > 0 ">
+				STOR_LY2= #{STOR_LY2}, /*점포층2*/
+			</if>
+			<if test="SELA_AREA_M2 != null and SELA_AREA_M2.length() > 0 ">
+				SELA_AREA_M2= #{SELA_AREA_M2}, /*매장면적미터2*/
+			</if>
+			<if test="SELA_AREA_PCN2 != null and SELA_AREA_PCN2.length() > 0 ">
+				SELA_AREA_PCN2= #{SELA_AREA_PCN2}, /*매장면적평수2*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND SCTRW_KDC = #{SCTRW_KDC}
+			AND SQNO = #{SQNO}
+			AND SQNO = #{SQNO}
+	</update>
+
+	<delete id="deleteSctrwAllXpcPmtnCst" parameterType="com.nh.escm.ct.eltctrw.vo.SctrwAllXpcPmtnCstVO">
+		DELETE	FROM CT_SCTRW_ALL_XPC_PMTN_CST
+		/* anwEltCtrwDrupDAO deleteSctrwAllXpcPmtnCst  */
+		WHERE 1=1
+		AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND SQNO = #{SQNO}
+		<if test="SCTRW_KDC != null and SCTRW_KDC.length() > 0 ">
+			AND SCTRW_KDC = #{SCTRW_KDC}
+		</if>
+		<if test="SQNO != null and SQNO.length() > 0 ">
+			AND SQNO = #{SQNO}
+		</if>
+	</delete>
+
+	<!--기타 계약서  -->
+	<insert id="insertEtcEltCtrw" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltCtrwVO">
+		INSERT INTO CT_ETC_ELT_CTRW (
+		/* anwEltCtrwDrupDAO  insertEtcEltCtrw  */
+			ELT_CTRW_NO,
+			ETC_CTRW_KDC,
+			CTRW_STY_VER,
+			CHG_SQNO,
+			LBRCS,
+			LBRCS_CLCN_BASS,
+			ETC,
+			ETC_CLCN_BASS,
+			NED_SS,
+			NED_BASS,
+			MSLAM,
+			MSLAM_PFT,
+			RLZ_XPC_PFT,
+			FSRG_DTM,
+			FS_RGM,
+			LSCHG_DTM,
+			LS_CHGM,
+			SCTR_SJT,
+			ETC1,
+			ETC2,
+			ETC3,
+			ETC4,
+			ETC5
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{ETC_CTRW_KDC},
+			#{CTRW_STY_VER},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{LBRCS},
+			#{LBRCS_CLCN_BASS},
+			#{ETC},
+			#{ETC_CLCN_BASS},
+			#{NED_SS},
+			#{NED_BASS},
+			#{MSLAM},
+			#{MSLAM_PFT},
+			#{RLZ_XPC_PFT},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT},
+			#{ETC1},
+			#{ETC2},
+			#{ETC3},
+			#{ETC4},
+			#{ETC5}
+		)
+	</insert>
+
+	<!--기타 계약서 backup  -->
+	<insert id="insertEtcEltCtrwNew" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltCtrwVO">
+		INSERT INTO CT_ETC_ELT_CTRW (
+		 /* anwEltCtrwDrupDAO insertEtcEltCtrwNew */
+					ELT_CTRW_NO,
+			ETC_CTRW_KDC,
+			CHG_SQNO,
+			CTRW_STY_VER,
+			LBRCS,
+			LBRCS_CLCN_BASS,
+			ETC,
+			ETC_CLCN_BASS,
+			NED_SS,
+			NED_BASS,
+			MSLAM,
+			MSLAM_PFT,
+			RLZ_XPC_PFT,
+			FSRG_DTM,
+			FS_RGM,
+			LSCHG_DTM,
+			LS_CHGM,
+			SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{ETC_CTRW_KDC},
+			LPAD( #{CHG_SQNO}, '3','0' ),
+			#{CTRW_STY_VER},
+			#{LBRCS},
+			#{LBRCS_CLCN_BASS},
+			#{ETC},
+			#{ETC_CLCN_BASS},
+			#{NED_SS},
+			#{NED_BASS},
+			#{MSLAM},
+			#{MSLAM_PFT},
+			#{RLZ_XPC_PFT},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<update id="updateEtcEltCtrw" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltCtrwVO">
+		UPDATE CT_ETC_ELT_CTRW
+		/* anwEltCtrwDrupDAO updateEtcEltCtrw */
+		<set>
+			<if test="LBRCS != null and LBRCS.length() > 0 ">
+				LBRCS= #{LBRCS}, /*인건비*/
+			</if>
+			<if test="LBRCS_CLCN_BASS != null and LBRCS_CLCN_BASS.length() > 0 ">
+				LBRCS_CLCN_BASS= #{LBRCS_CLCN_BASS}, /*인건비산출근거*/
+			</if>
+			<if test="ETC != null and ETC.length() > 0 ">
+				ETC= #{ETC}, /*기타*/
+			</if>
+			<if test="ETC_CLCN_BASS != null and ETC_CLCN_BASS.length() > 0 ">
+				ETC_CLCN_BASS= #{ETC_CLCN_BASS}, /*기타산출근거*/
+			</if>
+			<if test="NED_SS != null and NED_SS.length() > 0 ">
+				NED_SS= #{NED_SS}, /*소용비용계*/
+			</if>
+			<if test="NED_BASS != null and NED_BASS.length() > 0 ">
+				NED_BASS= #{NED_BASS}, /*소용비용산출근거*/
+			</if>
+			<if test="MSLAM != null and MSLAM.length() > 0 ">
+				MSLAM= #{MSLAM}, /*월매출액*/
+			</if>
+			<if test="MSLAM_PFT != null and MSLAM_PFT.length() > 0 ">
+				MSLAM_PFT= #{MSLAM_PFT}, /*월매출액이익*/
+			</if>
+			<if test="RLZ_XPC_PFT != null and RLZ_XPC_PFT.length() > 0 ">
+				RLZ_XPC_PFT= #{RLZ_XPC_PFT}, /*실현예상이익*/
+			</if>
+			<if test="SCTR_SJT != null and SCTR_SJT.length() > 0 ">
+				SCTR_SJT= #{SCTR_SJT}, /*특약사항*/
+			</if>
+			<if test="ETC1 != null and ETC1.length() > 0 ">
+				ETC1= #{ETC1}, /*예비컬럼1*/
+			</if>
+			<if test="ETC2 != null and ETC2.length() > 0 ">
+				ETC2= #{ETC2}, /*예비컬럼2*/
+			</if>
+			<if test="ETC3 != null and ETC3.length() > 0 ">
+				ETC3= #{ETC3}, /*예비컬럼3*/
+			</if>
+			<if test="ETC4 != null and ETC4.length() > 0 ">
+				ETC4= #{ETC4}, /*예비컬럼4*/
+			</if>
+			<if test="ETC5 != null and ETC5.length() > 0 ">
+				ETC5= #{ETC5}, /*예비컬럼5*/
+			</if>
+			LSCHG_DTM= SYSDATE, /*최종변경일시*/
+			LS_CHGM= #{LS_CHGM} /*최종변경자*/
+		</set>
+		WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND ETC_CTRW_KDC = #{ETC_CTRW_KDC}
+			AND CTRW_STY_VER = #{CTRW_STY_VER}
+			AND CHG_SQNO    = #{CHG_SQNO}
+	</update>
+
+	<delete id="deleteEtcEltCtrw" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltCtrwVO">
+		DELETE	FROM CT_ETC_ELT_CTRW
+		/* anwEltCtrwDrupDAO deleteEtcEltCtrw */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO    = #{CHG_SQNO}
+			<if test="ETC_CTRW_KDC != null and ETC_CTRW_KDC.length() > 0 ">
+				AND ETC_CTRW_KDC = #{ETC_CTRW_KDC}
+		</if>
+
+	</delete>
+
+	<insert id="insertEtcEltNtc" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltNtcVO">
+		INSERT INTO CT_ETC_ELT_NTC (
+		/* anwEltCtrwDrupDAO insertEtcEltNtc */
+				ELT_CTRW_NO,
+				CTRW_KDC,
+				SQNO,
+				TINM,
+				CNTN,
+				RLTM_NTC_SMS,
+				RLTM_NTC_SMS_RSP_RZT,
+				RLTM_NTC_EMAIL,
+				RLTM_NTC_EMAIL_RSP_RZT,
+				CHRG_BUYER_NM,
+				CHRG_BUYER_CTCPL,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{CTRW_KDC},
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM ELT_CTRW_NO WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{TINM},
+			#{CNTN},
+			#{RLTM_NTC_SMS},
+			#{RLTM_NTC_SMS_RSP_RZT},
+			#{RLTM_NTC_EMAIL},
+			#{RLTM_NTC_EMAIL_RSP_RZT},
+			#{CHRG_BUYER_NM},
+			#{CHRG_BUYER_CTCPL},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<insert id="insertEtcEltStylAmn" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltStylAmnVO">
+		INSERT INTO CT_ETC_ELT_STYL_AMM (
+		/* anwEltCtrwDrupDAO insertEtcEltStylAmn */
+				CTRW_KDC,
+				CTRW_STY_VER,
+				DCM_C,
+				CTRW_CNTN,
+				FLNM,
+				FL_PATHNM,
+				SYS_FLNM,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{CTRW_KDC},
+			(SELECT  NVL(LPAD( MAX(CTRW_STY_VER)+1, '4','0' ),'0001') FROM CT_ETC_ELT_STYL_AMM			WHERE CTRW_KDC = #{CTRW_KDC}),
+			#{DCM_C},
+			#{CTRW_CNTN},
+			#{FLNM},
+			#{FL_PATHNM},
+			#{SYS_FLNM},
+			#{FSRG_DTM},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<insert id="insertDcmStylAmn" parameterType="com.nh.escm.ct.eltctrw.vo.DcmStylAmnVO">
+		INSERT INTO CT_DCM_STYL_AMN (
+		/* anwEltCtrwDrupDAO insertDcmStylAmn */
+				ELT_CTRW_NO,
+				BUYER_ENO,
+				SQNO,
+				DCM_C,
+				DCM_NM,
+				ESS_YN,
+				RMK,
+				STS,
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM,
+				SCTR_SJT
+		) VALUES (
+			#{ELT_CTRW_NO},
+			#{BUYER_ENO},
+			(SELECT NVL(LPAD( MAX(SQNO+1), '4','0' ),'0001') FROM CT_DCM_STYL_AMN WHERE ELT_CTRW_NO = #{ELT_CTRW_NO} and BUYER_ENO = #{BUYER_ENO} ),
+			#{DCM_C},
+			#{DCM_NM},
+			#{ESS_YN},
+			#{RMK},
+			#{STS},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM},
+			#{SCTR_SJT}
+		)
+	</insert>
+
+	<select id="retrieveContractFormList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* anwEltCtrwDrupDAO retrieveContractFormList*/
+			A.CTRW_KDC, MAX(A.CTRW_STY_VER) AS CTRW_STY_VER
+	 		FROM CT_ETC_ELT_STYL_AMM A
+				WHERE SQNO = '01'
+                AND A.UYN = 'Y'
+					GROUP BY A.CTRW_KDC
+					ORDER BY A.CTRW_KDC ASC
+ 	</select>
+
+	<select id="retrieveRegister" parameterType="java.util.Map" resultType="java.util.Map">
+ 		SELECT /* anwEltCtrwDrupDAO retrieveRegister */
+	 		'' AS ELT_CTRW_NO,               /*전자계약서번호*/
+			'' AS NA_TRPL_C,                 /*경제통합거래처코드*/
+			'001' AS CHG_SQNO,                      /*일련번호*/
+			'' AS MN_CTRW_KD,               /*메인계약서종류*/
+			'0' AS ADD_CTRW_YN,               /*부가계약서*/
+			'0' AS PMIW_YN,                   /*약정서*/
+			'0' AS SCTRW_YN,                  /*특약서*/
+			'0' AS ETC_CTRW_YN,               /*기타계약서*/
+			'' AS BZNO,                      /*사업자등록번호*/
+			'' AS TELNO,                     /*전화번호*/
+			'' AS MPNO,                      /*핸드폰*/
+			'' AS EMAIL,                     /*EMAIL*/
+			'' AS CTRW_STY_VER,              /*계약서양식버젼*/
+			'' AS CTR_ST_DT,                 /*계약시작일자*/
+			'' AS CTR_ED_DT,                 /*계약종료일자*/
+			'' AS CTRW_DRUP_DT,              /*계약서작성일자*/
+			'' AS CEO,                       /*대표이사*/
+			'' AS MTALNM,                    /*상호*/
+			'' AS FZIP,                      /*앞자리우편번호*/
+			'' AS RZIP,                      /*뒷자리우편번호*/
+			'' AS ZIP_SQNO,                  /*우편번호일련번호*/
+			'' AS DONGUP,                    /*동이상주소*/
+			'' AS DONGBW,                    /*동이하주소*/
+			T.CLNTNM AS BUYER_BLG,           /*바이어소속*/
+			U.USR_NM AS BUYER_NM,            /*바이어성명*/
+			T.ATEL || T.HTEL ||T.STEL  AS BUYER_TELNO,      /*바이어 전화번호*/
+			ecl_decrypt(U.USR_MPNO) AS BUYER_MPNO,        /*바이어 전화번호*/
+			U.USR_EMAIL AS BUYER_EMAIL,      /*바이어 이메일*/
+			T.CLNTNM AS CTR_CHRR_MTALNM,           /*계약담당자 상호*/
+			T.REPMNM AS CTR_CHRR_REPMN,            /*계약담당자 대표자*/
+			'' AS CTR_CHRR_REP_DTYNM,             /*계약담당자 대표자 직책명*/
+			'' AS CTR_CHRR,            /*계약담당자*/
+			'' AS LA_AGNT,                   /*법률상대리인*/
+			T.FZIP  AS CTR_CHRR_FZIP,             /*계약담당자 앞자리우편번호*/
+			T.RZIP  AS CTR_CHRR_RZIP,             /*계약담당자 뒷자리우편번호*/
+			T.ZIP_SQNO  AS CTR_CHRR_ZIP_SQNO,         /*계약담당자 우편번호일련번호*/
+			T.DONGUP  AS CTR_CHRR_DONGUP,           /*계약담당자 동이상주소*/
+			T.DONGBW  AS CTR_CHRR_DONGBW,           /*계약담당자 동이하주소*/
+			'' AS RMK,                       /*비고*/
+			'1' AS STS,                      /*상태*/
+			'' AS COLB_COMP_SGNT,        		 /*협력업체서명상태*/
+			'' AS BUYER_APV_STS,             /*바이어승인상태*/
+			'N' AS CTR_PRD_AUT_XTN_YN,       /*계약기간 자동 연장여부*/
+			'' AS FGAT_PRVT_C,               /*위변조방지코드*/
+			'' AS BF_CTR_NO,                 /*이전계약번호*/
+			'' AS LA_AGNT_DTYNM,             /*법률상 대리 직책명*/
+			'' AS RRNO,                  		 /*주민등록번호*/
+			'' AS COPNO,                      /*법인등록번호*/
+			T.BIZ_NUMBER AS CTR_CHRR_BZNO	/*계약담당자  사업자번호*/
+		FROM PT_USR_INF U,TB_TR_TRPL_CIF T
+		WHERE U.NA_TRPL_C = T.NA_TRPL_C
+		<if test="BUYER_ENO != null and BUYER_ENO.length() > 0">
+			AND U.MB_ID =  #{BUYER_ENO}
+		</if>
+	</select>
+
+ 	<select id="retrieveEltCtrwDcmApdList" parameterType="java.util.Map" resultMap="EltCtrwDcmApdMap">
+    	SELECT 	/* anwEltCtrwDrupDAO retrieveEltCtrwDcmApdList */
+    			* 	FROM	CT_ELT_CTRW_DCM_APD
+	    	WHERE	ELT_CTRW_NO = #{ELT_CTRW_NO}
+	    	AND	CHG_SQNO = #{CHG_SQNO}
+
+	</select>
+
+	<select id="selectSearchdes" parameterType="java.util.Map" resultMap="rcMap">
+		SELECT  /*anwEltCtrwDrupDAO selectSearchdes  */
+			AA.CTR_ST_DT, AA.CTR_ED_DT, AA.CTR_DT, AA.CTRW_DRUP_DT, AA.BZNO, AA.ADDR, AA.BUYER_ADDR,
+			AA.MN_CTRW_KD, AA.ADD_CTRW_YN, AA.PMIW_YN, AA.SCTRW_YN, AA.ETC_CTRW_YN, AA.CEO, AA.MTALNM, AA.NA_TRPL_C,
+			AA.BUYER_BLG, AA.BUYER_NM, AA.BUYER_NA_TRPL_C, AA.CTR_CHRR_MTALNM, AA.CTR_CHRR_REPMN, AA.CTR_CHRR_REP_DTYNM,
+			AA.LA_AGNT, AA.FGAT_PRVT_C, AA.COLB_COMP_SGNT, AA.COLB_COMP_SGNT_DTM, AA.COLB_COMP_SEAL_APDFLNM, AA.COLB_COMP_SEAL_SYS_FLNM,
+			AA.BUYER_SEAL_APDFLNM, AA.BUYER_SEAL_SYS_FLNM, ecl_decrypt(AA.COPNO) COPNO, ecl_decrypt(AA.RRNO) RRNO, AA.LA_AGNT_DTYNM, AA.MN_CTRW_KDNM,
+			AA.CTR_PRD_AUT_XTN_YN, AA.BUYER_SGNT, AA.BUYER_SGNT_DT, AA.BF_CTR_NO, AA.BF_CTR_SQNO, AA.CLEAN_YN, AA.SEAL_OMIT_YN,
+			AA.STS, AA.LSCHG_DTM,
+			CASE WHEN AA.BF_CTR_NO IS NULL
+			  THEN (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE TEMP_YN = 'N' AND BF_CTR_NO = #{ELT_CTRW_NO} AND BF_CTR_SQNO = #{CHG_SQNO} AND STS = 'A')
+			  ELSE (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE TEMP_YN = 'N' AND BF_CTR_NO = AA.BF_CTR_NO AND BF_CTR_SQNO = AA.BF_CTR_SQNO AND STS = 'A')
+			  END AS ATCH_CTR_CNT,
+			AA.CTR_CHRR  
+		FROM (
+			SELECT
+				CONCAT( SUBSTR(M.CTR_ST_DT, 0,4) ,'년 ') || CONCAT( SUBSTR(M.CTR_ST_DT, 5,2) ,'월 ') || CONCAT( SUBSTR(M.CTR_ST_DT, 7,2) ,'일') AS CTR_ST_DT,
+				CONCAT( SUBSTR(M.CTR_ED_DT, 0,4) ,'년 ') || CONCAT( SUBSTR(M.CTR_ED_DT, 5,2) ,'월 ') || CONCAT( SUBSTR(M.CTR_ED_DT, 7,2) ,'일') AS CTR_ED_DT,
+				CONCAT( SUBSTR(M.CTR_ST_DT, 0,4) ,'.') || CONCAT( SUBSTR(M.CTR_ST_DT, 5,2) ,'.') || CONCAT( SUBSTR(M.CTR_ST_DT, 7,2) ,' ')
+				|| '~ '|| CONCAT( SUBSTR(M.CTR_ED_DT, 0,4) ,'.') || CONCAT( SUBSTR(M.CTR_ED_DT, 5,2) ,'.') || CONCAT( SUBSTR(M.CTR_ED_DT, 7,2) ,' ') AS CTR_DT,
+				CONCAT( SUBSTR(M.CTRW_DRUP_DT, 0,4) ,'년 ') || CONCAT( SUBSTR(M.CTRW_DRUP_DT, 5,2) ,'월 ') || CONCAT( SUBSTR(M.CTRW_DRUP_DT, 7,2) ,'일') AS CTRW_DRUP_DT ,
+				SUBSTR(M.BZNO, 0,3) || '-'||SUBSTR(M.BZNO, 4,2)|| '-'||SUBSTR(M.BZNO, 6,5) AS BZNO  /*사업장 등록증*/,
+				M.DONGUP || ' ' || M.DONGBW AS ADDR   ,
+				M.CTR_CHRR_DONGUP || ' ' || M.CTR_CHRR_DONGBW AS BUYER_ADDR
+				,M.MN_CTRW_KD          /*메인계약서종류*/
+				,M.ADD_CTRW_YN         /*부가계약서여부*/
+				,M.PMIW_YN             /*약정서여부  */
+				,M.SCTRW_YN            /*특약서여부  */
+				,M.ETC_CTRW_YN         /*기타계약서여부*/
+				,M.CEO                 /*대표이사*/
+				,M.MTALNM              /*상호  */
+				,M.NA_TRPL_C           /*협력업체 거래처 코드  */
+				,M.BUYER_BLG           /*바이어소속*/
+				,M.BUYER_NM            /*바이어성명*/
+				,M.BUYER_NA_TRPL_C     /*바이어 거래처 코드  */
+				,M.CTR_CHRR_MTALNM     /*계약담당자상호 */
+				,M.CTR_CHRR_REPMN      /*계약담당자대표자*/
+				,M.CTR_CHRR_REP_DTYNM /*계약담당자대표직책명*/
+				,M.LA_AGNT             /*법률상대리인  */
+				,M.FGAT_PRVT_C         /*위변조방지코드*/
+				,M.COLB_COMP_SGNT
+				,TO_CHAR(M.COLB_COMP_SGNT_DTM, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS COLB_COMP_SGNT_DTM
+				,M.COLB_COMP_SEAL_APDFLNM      /*협력업체인감도장파일명   */
+				,M.COLB_COMP_SEAL_SYS_FLNM       /*협력업체인감도장 시스템파일명  */
+				,M.BUYER_SEAL_APDFLNM      /*바이어인감도장파일명   */
+				,M.BUYER_SEAL_SYS_FLNM      /*바이어인감도장 위치  */
+				,M.COPNO      /*법인등록번호  */
+				,M.RRNO       /*주민등록번호  */
+				,M.LA_AGNT_DTYNM       /*법률상대리직책명  */
+				,(SELECT SIMP_CNM
+				   FROM MG_COMN_C_AMN
+				  WHERE SIMP_TPC = 'MN_CTRW_KD'
+					AND MN_CTRW_KD = SIMP_C
+				  ) AS MN_CTRW_KDNM /*계약서 종류 */
+				, M.CTR_PRD_AUT_XTN_YN
+				, M.BUYER_SGNT
+				, TO_CHAR(M.BUYER_SGNT_DTM, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS BUYER_SGNT_DT
+				, M.BF_CTR_NO
+				, M.BF_CTR_SQNO
+				, M.CLEAN_YN
+				, NVL(M.SEAL_OMIT_YN, 'N') SEAL_OMIT_YN
+		        , CASE WHEN M.CANCEL IS NOT NULL THEN '계약해지'
+		          WHEN STS = 'A' AND TO_CHAR(SYSDATE, 'YYYYMMDD') <![CDATA[<=]]> M.CTR_ED_DT THEN '체결완료'
+		          WHEN STS = 'A' AND TO_CHAR(SYSDATE, 'YYYYMMDD') <![CDATA[>]]> M.CTR_ED_DT THEN '계약종료'
+		          ELSE '미체결' END AS STS
+		        , CASE WHEN STS = 'A' AND TO_CHAR(SYSDATE, 'YYYYMMDD') <![CDATA[>]]> M.CTR_ED_DT AND M.CANCEL IS NULL THEN TO_CHAR(TO_DATE(M.CTR_ED_DT || '235959', 'YYYYMMDDHH24MISS'), 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') 
+		          ELSE TO_CHAR(M.LSCHG_DTM, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') END AS LSCHG_DTM
+		        , M.CTR_CHRR      /*계약담당자*/  
+			 FROM CT_ELT_CTRW_AMN M
+			WHERE M.ELT_CTRW_NO = #{ELT_CTRW_NO}
+			  AND M.CHG_SQNO = #{CHG_SQNO}
+		) AA
+	</select>
+
+	<select id="selectEltCtrwDtl" parameterType="java.util.Map" resultMap="EltCtrwDtlMap">
+				SELECT /*anwEltCtrwDrupDAO selectEltCtrwDtl */ *
+						FROM CT_ELT_CTRW_DTL
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectAddEltCtrwDtl" parameterType="java.util.Map" resultMap="AddEltCtrwDtlMap">
+				SELECT /* anwEltCtrwDrupDAO selectAddEltCtrwDtl */ *
+						FROM CT_ADD_ELT_CTRW_DTL
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectPmiwDtl" parameterType="java.util.Map" resultMap="PmiwDtlMap">
+				SELECT /* anwEltCtrwDrupDAO selectPmiwDtl */ *
+						FROM NHVANPTL.CT_PMIW_DTL
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectEvtAmPmiw" parameterType="java.util.Map" resultMap="EvtAmPmiwMap">
+				SELECT /* anwEltCtrwDrupDAO selectEvtAmPmiw */ *
+						FROM NHVANPTL.CT_EVT_AM_PMIW
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+	
+	<select id="selectLgqtTrFeePmiw" parameterType="java.util.Map" resultMap="LgqtTrFeePmiwMap">
+				SELECT /*anwEltCtrwDrupDAO  selectLgqtTrFeePmiw */ *
+						FROM NHVANPTL.CT_LGQT_TR_FEE_PMIW
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectDlvgCompEmpDspcPmiw" parameterType="java.util.Map" resultMap="DlvgCompEmpDspcPmiwMap">
+				SELECT /*anwEltCtrwDrupDAO  selectDlvgCompEmpDspcPmiw */
+				*
+						FROM NHVANPTL.CT_DLVG_COMP_EMP_DSPC_PMIW
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectDspcPerWrkPrdPmiw" parameterType="java.util.Map" resultMap="DspcPerWrkPrdPmiwMap">
+				SELECT /*anwEltCtrwDrupDAO  selectDspcPerWrkPrdPmiw */ *
+						FROM NHVANPTL.CT_DSPC_PER_WRK_PRD_PMIW
+							WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+							AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectDspcPerWrkPrdPmiwOz" parameterType="java.util.Map" resultMap="DspcPerWrkPrdPmiwMap">
+		SELECT /*ANWELTCTRWDRUPDAO  SELECTDSPCPERWRKPRDPMIWOz */
+			ELT_CTRW_NO ,PMIW_KDC,CHG_SQNO,SQNO,STORNM,DSPC_PER,
+			 TO_CHAR(TO_DATE(WRK_ST_DT,'YYYYMMDDHH24MI'),'YYYY-MM-DD') AS WRK_ST_DT,
+			 TO_CHAR(TO_DATE(WRK_ED_DT,'YYYYMMDDHH24MI'),'YYYY-MM-DD') AS WRK_ED_DT,
+			 SUBSTR(WRK_ST_HR , '0','2' ) || ':'|| SUBSTR(WRK_ST_HR ,'3' ,'2' ) AS WRK_ST_HR,
+			 SUBSTR(WRK_ED_HR , '0','2' ) || ':'|| SUBSTR(WRK_ED_HR ,'3' ,'2' ) AS WRK_ED_HR,
+			 SUBSTR(RCS_ST_HR , '0','2' ) || ':'|| SUBSTR(RCS_ST_HR ,'3' ,'2' ) AS RCS_ST_HR,
+			 SUBSTR(RCS_ED_HR , '0','2' ) || ':'|| SUBSTR(RCS_ED_HR ,'3' ,'2' ) AS RCS_ED_HR
+		FROM CT_DSPC_PER_WRK_PRD_PMIW
+		WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+		AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectSctrwDtl" parameterType="java.util.Map" resultMap="SctrwDtlMap">
+		SELECT /* anwEltCtrwDrupDAO selectSctrwDtl */ *
+		FROM CT_SCTRW_DTL
+		WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+		AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+	
+	<select id="selectSctrwNmlMrgnRt" parameterType="java.util.Map" resultMap="SctrwNmlMrgnRtMap">
+		SELECT /* anwEltCtrwDrupDAO selectSctrwNmlMrgnRt */ *
+		FROM CT_SCTRW_NML_MRGN_RT
+		WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+		AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectSctrwCtrMrgnRt" parameterType="java.util.Map" resultMap="SctrwCtrMrgnRtMap">
+		SELECT /* anwEltCtrwDrupDAO  selectSctrwCtrMrgnRt */ *
+		FROM CT_SCTRW_CTR_MRGN_RT
+		WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+		AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectSctrwAllXpcPmtnCst" parameterType="java.util.Map" resultMap="SctrwAllXpcPmtnCstMap">
+		SELECT /* anwEltCtrwDrupDAO selectSctrwAllXpcPmtnCst */ *
+		FROM CT_SCTRW_ALL_XPC_PMTN_CST
+		WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+		AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectEtcEltCtrw" parameterType="java.util.Map" resultMap="EtcEltCtrwMap">
+		SELECT /* anwEltCtrwDrupDAO selectEtcEltCtrw */ *
+		FROM CT_ETC_ELT_CTRW
+		WHERE ELT_CTRW_NO   = #{ELT_CTRW_NO}
+		AND CHG_SQNO   = #{CHG_SQNO}
+	</select>
+
+	<select id="selectEtcEltStylAmn" parameterType="java.util.Map" resultMap="selectEtcEltStylAmnMap">
+		SELECT /* anwEltCtrwDrupDAO selectEtcEltStylAmn   */ *  FROM (
+			SELECT SA.*
+						FROM  CT_ELT_CTRW_DTL D , CT_ETC_ELT_STYL_AMM SA
+							WHERE D.CTRW_STY_VER = SA.CTRW_STY_VER
+					 AND D.MN_CTRW_KDC = SA.CTRW_KDC
+								AND D.ELT_CTRW_NO = #{ELT_CTRW_NO}
+								AND D.CHG_SQNO   = #{CHG_SQNO}
+		UNION ALL
+			SELECT SA.*
+					 FROM  CT_ADD_ELT_CTRW_DTL D , CT_ETC_ELT_STYL_AMM SA
+							WHERE D.CTRW_STY_VER = SA.CTRW_STY_VER
+						AND D.ADD_CTRW_KDC = SA.CTRW_KDC
+						AND D.ELT_CTRW_NO = #{ELT_CTRW_NO}
+						AND D.CHG_SQNO   = #{CHG_SQNO}
+		UNION ALL
+				SELECT 	SA.*
+					 FROM  CT_PMIW_DTL D , CT_ETC_ELT_STYL_AMM SA
+							WHERE D.CTRW_STY_VER = SA.CTRW_STY_VER
+					 AND D.PMIW_KDC = SA.CTRW_KDC
+					 AND D.ELT_CTRW_NO = #{ELT_CTRW_NO}
+					 AND D.CHG_SQNO   = #{CHG_SQNO}
+		UNION ALL
+				SELECT 	SA.*
+				 FROM  CT_SCTRW_DTL D , CT_ETC_ELT_STYL_AMM SA
+				WHERE D.CTRW_STY_VER = SA.CTRW_STY_VER
+				   AND D.SCTRW_KDC = SA.CTRW_KDC
+					  AND D.ELT_CTRW_NO = #{ELT_CTRW_NO}
+					  AND D.CHG_SQNO   = #{CHG_SQNO}
+		UNION ALL
+				SELECT  	SA.*
+			   FROM  CT_ETC_ELT_CTRW D , CT_ETC_ELT_STYL_AMM SA
+			   WHERE D.CTRW_STY_VER = SA.CTRW_STY_VER
+				   AND D.ETC_CTRW_KDC = SA.CTRW_KDC
+				   AND D.ELT_CTRW_NO = #{ELT_CTRW_NO}
+				   AND D.CHG_SQNO   = #{CHG_SQNO}
+		)
+		ORDER BY CTRW_KDC , SQNO
+	</select>
+
+	<select id="selectEtcEltStylAmnTest" parameterType="java.util.Map" resultMap="selectEtcEltStylAmnMap">
+		SELECT /* anwEltCtrwDrupDAO selectEtcEltStylAmnTest */ *
+		FROM   CT_ETC_ELT_STYL_AMM
+    	WHERE CTRW_STY_VER = #{CTRW_STY_VER}
+        AND CTRW_KDC = #{CTRW_KDC}
+        ORDER BY SQNO
+	</select>
+
+	<!-- 임시저장 삭제 -->
+	<delete id="deleteTempEltCtrw" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDtlVO">
+		DELETE	FROM CT_ELT_CTRW_AMN
+		/* anwEltCtrwDrupDAO deleteTempEltCtrw  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</delete>
+
+	<delete id="deleteTempEltCtrwDcmApdAll" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		DELETE	FROM CT_ELT_CTRW_DCM_APD
+		/* anwEltCtrwDrupDAO deleteTempEltCtrwDcmApdAll  */
+			WHERE 1=1
+			AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+			AND CHG_SQNO = #{CHG_SQNO}
+	</delete>
+
+	<delete id="deleteEtcItemAll" parameterType="com.nh.escm.ct.eltctrw.vo.CtEtcItemVO">
+		DELETE FROM NHVANPTL.CT_ETC_ITEM
+		WHERE
+		 	  ELT_CTRW_NO = #{ELT_CTRW_NO}
+		  AND CHG_SQNO    = #{CHG_SQNO}
+	</delete>
+
+	<!-- 작성이력 삭제(계약서 삭제는 작성상태만 가능하므로 상태 '1'로 제한함) -->
+	<delete id="deleteEltNtc" parameterType="com.nh.escm.ct.eltctrw.vo.EtcEltNtcVO">
+		DELETE FROM NHVANPTL.CT_ETC_ELT_NTC
+		WHERE
+		 	  ELT_CTRW_NO = #{ELT_CTRW_NO}
+		 	  AND STS = '1'
+	</delete>
+
+</mapper>

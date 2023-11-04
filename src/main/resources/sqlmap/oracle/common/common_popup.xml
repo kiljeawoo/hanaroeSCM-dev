@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="popup">
+	
+	<!-- 
+	           취급상품의 공급처가 본사/대리점 전체인 취급상품 중에서 조회 
+	 -->
+	<select id="searchWRS" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  NA_WRS_C
+			   ,WRSNM
+			   ,BOXPE_AQZ
+			   ,CODE.SIMP_CNM
+			   ,VCBT_NA_WRS_C
+			   ,VCBX_NA_WRS_C 
+		   FROM TB_GD_WRS WRS
+		       ,TB_CM_SIMPC CODE
+		  WHERE CODE.SIMP_TPC='TXT_DSC'
+			AND CODE.SIMP_C=WRS.TXT_DSC
+		 	AND WRS.DEL_YN='0'
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+			 	AND WRS.NA_WRS_C IN 
+	            (
+				    SELECT NA_WRS_C 
+				      FROM TB_OD_TRTWRS
+				     WHERE SPYPL_NA_TRPL_C
+	                    IN
+	                    (
+	                        SELECT NA_TRPL_C 
+	                          FROM TB_TR_TRPL_CIF 
+	                         WHERE UP_NA_TRPL_C IN
+	                        (
+	                            SELECT UP_NA_TRPL_C 
+	                              FROM TB_TR_TRPL_CIF 
+	                             WHERE NA_TRPL_C = #{NA_TRPL_C}
+	                         )
+	                    )
+	            )
+            </if>
+			<if test="searchType != null and searchType == 'code'">
+				AND NA_WRS_C like '${searchText}%'
+			</if>
+			<if test="searchType != null and searchType == 'name'">
+				AND WRSNM like '${searchText}%'
+			</if>
+			<if test="searchType == null">
+				AND X=1
+			</if>
+	</select>
+	
+	<select id="searchRVOPL_TRPL" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			A.NA_TRPL_C, A.CLNTNM , B.NA_TEAM_C, B.TEAMNM
+		 FROM  TB_TR_TRPL_CIF A,TB_CM_TEAM B
+		WHERE A.NA_TRPL_C = B.NA_BZPLC(+)
+		<if test="searchType != null and searchType == 'code'">
+			AND A.NA_TRPL_C = #{searchText} 
+		</if>
+		<if test="searchType != null and searchType == 'name'">
+			AND A.CLNTNM LIKE '${searchText}%'
+		</if>
+		<if test="searchType == null">
+			AND X=1
+		</if>
+		AND A.DEL_YN='0'
+		
+		ORDER BY A.NA_TRPL_C, B.NA_TEAM_C
+	</select>
+
+	<select id="searchSPYPL_TRPL" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 NA_TRPL_C, CLNTNM, NA_USR_SYS_KDC , BIZ_NUMBER,
+		     TRIM(SUBSTR(DONGUP,1,30)) ADDR1,
+		     TRIM(SUBSTR(DONGBW,1,30)) ADDR2,
+		     FZIP || '-' || RZIP ZIP,
+		     NA_MBCO_DSC 
+		FROM TB_TR_TRPL_CIF
+		WHERE NAAC_DSC='9'
+		AND DEL_YN='0' 
+		<if test="searchType != null and searchType == 'code'">
+			AND NA_TRPL_C = #{searchText} 
+		</if>
+		<if test="searchType != null and searchType == 'name'">
+			AND CLNTNM LIKE '${searchText}%'
+		</if>
+		<if test="searchType == null">
+			AND X=1
+		</if>				
+		ORDER BY NA_TRPL_C, CLNTNM
+	</select>
+
+	<select id="searchVCBTBX" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT
+		NA_WRS_C,WRSNM,WRS_STDNM,NA_WRS_UNT_C,NA_WRS_ATTNM,VCBT_UPR,VCBT_FEE,WRS_CLF,WRS_CLFNM,FSRG_DTM 
+	FROM (
+		SELECT
+			 A.NA_WRS_C
+			,A.WRSNM
+			,A.WRS_STDNM
+			,A.NA_WRS_UNT_C
+			,C.NA_WRS_ATTNM
+			,(SELECT MIN(VCBT_UPR) FROM TB_OD_TRTWRS  WHERE NA_WRS_C= A.NA_WRS_C)  VCBT_UPR
+			,E.VCBT_FEE
+			,A.NA_WRS_LCLC||A.NA_WRS_MCLC||A.NA_WRS_SCLC||A.NA_WRS_DTCF_C  WRS_CLF
+			,B.WRS_LCLFNM || DECODE(WRS_MCLFNM,'','','/' || WRS_MCLFNM ) ||
+					  DECODE(WRS_SCLFNM,'','','/' || WRS_SCLFNM ) ||
+					  DECODE(WRS_DTCFNM,'','','/' || WRS_DTCFNM ) AS WRS_CLFNM
+			,TO_CHAR(A.FSRG_DTM,  'YYYYMMDD') AS FSRG_DTM
+		FROM TB_GD_WRS A,
+		     TB_GD_WRS_CLF B,
+		     TB_GD_WRS_ATTR C,
+		     TB_CM_SIMPC D,
+		     TB_CM_VCBT_FEE E
+		WHERE A.NA_WRS_LCLC=B.NA_WRS_LCLC
+		AND A.NA_WRS_MCLC=B.NA_WRS_MCLC
+		AND A.NA_WRS_SCLC=B.NA_WRS_SCLC
+		AND A.NA_WRS_DTCF_C=B.NA_WRS_DTCF_C
+		AND D.SIMP_TPC='TXT_DSC'
+		AND A.TXT_DSC=D.SIMP_C
+		AND C.NA_WRS_ATTR_C=A.NA_WRS_UNT_C
+		AND C.WRS_ATTR_DSC='01'
+		AND A.WRS_TPC=#{WRS_TPC}
+		AND A.DEL_YN='0'
+		AND A.NA_WRS_C=E.NA_WRS_C
+		AND C.DEL_YN='0'
+		AND E.DEL_YN='0'
+		<if test="searchType != null and searchType == 'code'">
+			AND A.NA_WRS_C = #{searchText}
+		</if>
+		<if test="searchType != null and searchType == 'name'">
+			AND A.WRSNM LIKE '${searchText}%'
+		</if>
+	  ) GROUP BY NA_WRS_C,WRSNM,WRS_STDNM,NA_WRS_UNT_C,NA_WRS_ATTNM,VCBT_UPR,VCBT_FEE,WRS_CLF,WRS_CLFNM,FSRG_DTM
+ 	ORDER BY WRSNM ASC
+	</select>
+	
+	<select id="searchBUYER" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NA_BZPLC,
+			NA_TEAM_C,
+			BUYER_ENO,
+			ecl_decrypt(BUYER_NM) as BUYER_NM,
+			DEPTNM,
+			CHRG_BSNNM,
+			ecl_decrypt(MPNO) as MPNO,
+			OFT,
+			OPNP_YN
+		FROM TB_CM_BUYER
+		WHERE NA_BZPLC='8808983000015'
+		AND NA_TEAM_C='00'
+		AND DEL_DTM IS NULL
+		<if test="searchType != null and searchType == 'code'">
+			AND BUYER_ENO = #{searchText}
+		</if>
+		<if test="searchType != null and searchType == 'name'">
+			AND BUYER_NM LIKE '${searchText}%'
+		</if>
+		<if test="searchType == null">
+			AND X=1
+		</if>
+	</select>
+	
+	<select id="selectWRSPopUp" parameterType="java.util.Map" resultType="java.util.Map">
+		<if test="searchMode != null and searchMode == 'search'">
+		<![CDATA[
+		
+			SELECT 
+			  NA_WRS_LCLC,
+			  NA_WRS_MCLC,
+			  NA_WRS_SCLC,
+			  NA_WRS_DTCF_C,
+			  WRS_LCLFNM,
+			  WRS_MCLFNM,
+			  WRS_SCLFNM,
+			  WRS_DTCFNM,
+			  WRS_ID_DSC
+			  
+			FROM TB_GD_WRS_CLF
+			
+			WHERE WRS_DTCFNM LIKE '${searchText}%'
+			AND NA_WRS_LCLC < '200'
+			]]>
+		</if>
+		<if test="searchMode != null and searchMode == 'select'">
+			<if test="level != null and (level eq 'L'.toString())">
+			<![CDATA[
+
+				SELECT
+				           NA_WRS_LCLC
+				         , WRS_LCLFNM
+				         
+				  FROM TB_GD_WRS_CLF
+				  
+				 WHERE 
+				       NA_WRS_LCLC   != '000'
+				   AND NA_WRS_MCLC    = '000'
+				   AND NA_WRS_SCLC    = '000'
+				   AND NA_WRS_DTCF_C  = '000'
+				   AND NA_WRS_LCLC < '200'  
+				   
+		      ORDER BY WRS_LCLFNM
+				
+
+			]]>
+			</if>
+			<if test="level != null and (level eq 'M'.toString()) and NA_WRS_LCLC != null" >
+			<![CDATA[
+
+				SELECT
+				           NA_WRS_MCLC
+				         , WRS_MCLFNM
+				         
+				  FROM TB_GD_WRS_CLF
+				  
+				 WHERE 
+				       NA_WRS_MCLC   != '000'
+				   AND NA_WRS_SCLC    = '000'
+				   AND NA_WRS_DTCF_C  = '000'
+                   AND NA_WRS_LCLC    = #{NA_WRS_LCLC}
+				   AND NA_WRS_LCLC    < '200'  
+				   
+			  ORDER BY WRS_MCLFNM
+			  
+			]]>	
+			</if>
+			<if test="level != null and (level eq 'S'.toString()) and NA_WRS_LCLC != null and NA_WRS_MCLC != null" >
+			<![CDATA[
+
+			  SELECT   
+
+			          NA_WRS_SCLC
+			        , WRS_SCLFNM
+			  FROM TB_GD_WRS_CLF
+			  WHERE 
+			        NA_WRS_LCLC    = #{NA_WRS_LCLC}
+				AND NA_WRS_MCLC    = #{NA_WRS_MCLC}
+			 	AND NA_WRS_DTCF_C  = '000'
+			    AND NA_WRS_SCLC   != '000'
+				AND NA_WRS_LCLC    < '200'
+			  ORDER BY  WRS_SCLFNM
+			  
+			]]>	
+			</if>
+			<if test="level != null and (level eq 'D'.toString()) and NA_WRS_LCLC != null and NA_WRS_MCLC != null and NA_WRS_SCLC != null" >
+			<![CDATA[
+				SELECT  
+				         NA_WRS_DTCF_C
+				       , WRS_DTCFNM
+			           , WRS_ID_DSC
+				 FROM TB_GD_WRS_CLF
+				WHERE NA_WRS_LCLC = #{NA_WRS_LCLC}
+				AND NA_WRS_MCLC   = #{NA_WRS_MCLC}
+				AND NA_WRS_SCLC   = #{NA_WRS_SCLC}
+				AND NA_WRS_LCLC   < '200'
+				ORDER BY WRS_DTCFNM
+			]]>
+			</if>
+		</if>
+	</select>	
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="essDcmAmnDAO">
+	
+
+ 		<select id="retrieveEssDcmAmnList" parameterType="java.util.Map" resultType="java.util.Map">
+ 				SELECT /* retrieveEssDcmAmnList */ 
+								'0' AS ISCHECKED
+								,STYL.MN_CTRW_KDC
+								,STYL.SQNO
+								,UI.USR_NM
+								,STYL.DCM_C
+								,STYL.DCM_NM
+								,STYL.ESS_YN
+								,STYL.RMK
+								,STYL.STS
+                ,STYL.LSCHG_DTM
+				FROM   CT_DCM_STYL_AMN STYL, PT_USR_INF UI
+					WHERE STYL.LS_CHGM = UI.MB_ID(+)  
+				<if test="MN_CTRW_KDC != null and MN_CTRW_KDC.length()  > 0">
+									AND MN_CTRW_KDC  =#{MN_CTRW_KDC}
+				</if>
+				<if test="MN_CTRW_KDC == null or MN_CTRW_KDC.length() == 0">
+		<!-- 이부분(1.2.3.4.5 등등)은 나중에 고치던가 해야함 -->		
+					<choose>
+						<when test="BUYER_DSC == 11">
+							<![CDATA[
+								AND STYL.MN_CTRW_KDC in(SELECT REGEXP_SUBSTR ( '101.102.103.104.105', '[^.]+', 1, LEVEL ) col
+									FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '101.102.103.104.105', '.' ) + 1 )
+							]]>
+		
+						</when>
+						
+                        <when test="BUYER_DSC == 21">
+							<![CDATA[
+								AND STYL.MN_CTRW_KDC in(SELECT REGEXP_SUBSTR ( '121', '[^.]+', 1, LEVEL ) col
+									FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '121', '.' ) + 1 )
+							]]>
+		
+						</when>
+						<when test="BUYER_DSC == 31">
+							<![CDATA[
+								AND STYL.MN_CTRW_KDC in(SELECT REGEXP_SUBSTR ( '106.107.108.109', '[^.]+', 1, LEVEL ) col
+									FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '106.107.108.109', '.' ) + 1 )
+							]]>
+						</when>
+						<when test="BUYER_DSC == 32">
+							<![CDATA[
+								AND STYL.MN_CTRW_KDC in(SELECT REGEXP_SUBSTR ( '107.109.110.111', '[^.]+', 1, LEVEL ) col
+									FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '107.109.110.111', '.' ) + 1 )
+							]]>
+						</when>
+					</choose>
+				</if>
+     order by STYL.MN_CTRW_KDC ,STYL.SQNO
+		 </select>
+
+ 		<insert id="insertEssDcmAmn" parameterType="com.nh.escm.ct.eltctrwamn.vo.EssDcmAmnVO">
+		INSERT INTO /* insertEssDcmAmn  */ CT_DCM_STYL_AMN (			
+				MN_CTRW_KDC
+				,SQNO
+				,BUYER_ENO
+				,DCM_C
+				,DCM_NM
+				,ESS_YN
+				,RMK
+				,STS
+				,FSRG_DTM
+				,FS_RGM
+				,LSCHG_DTM
+				,LS_CHGM
+		) VALUES (			
+			#{MN_CTRW_KDC},
+			(SELECT NVL(LPAD(MAX(SQNO +1) ,'4','0'),'0001') FROM CT_DCM_STYL_AMN WHERE MN_CTRW_KDC = #{MN_CTRW_KDC}  ),                
+			#{BUYER_ENO},
+			(SELECT NVL(MAX(DCM_C +1) ,1) FROM CT_DCM_STYL_AMN WHERE MN_CTRW_KDC = #{MN_CTRW_KDC}  ),
+			#{DCM_NM},
+			#{ESS_YN},
+			#{RMK},
+			#{STS},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM}
+		)
+	</insert>
+	<update id="updateEssDcmAmn" parameterType="com.nh.escm.ct.eltctrwamn.vo.EssDcmAmnVO">
+		 	UPDATE /*  updateEssDcmAmn  */	CT_DCM_STYL_AMN
+		 	<set>
+			 	
+			 	<if test="DCM_C != null and DCM_C.length() > 0 ">
+						DCM_C = #{DCM_C},
+				</if>
+				<if test="DCM_NM != null and DCM_NM.length() > 0 ">
+						DCM_NM = #{DCM_NM},
+				</if>		
+				<if test="ESS_YN != null and ESS_YN.length() > 0 ">
+						ESS_YN = #{ESS_YN},
+				</if>
+				<if test="RMK != null and RMK.length() > 0 ">
+						RMK = #{RMK},
+				</if>
+				<if test="STS != null and STS.length() > 0 ">
+						STS = #{STS},
+				</if>																
+				LSCHG_DTM= SYSDATE, /*최종변경일시*/ 
+				LS_CHGM= #{LS_CHGM} /*최종변경자*/ 
+			</set>
+				WHERE	MN_CTRW_KDC = #{MN_CTRW_KDC}
+				AND SQNO = #{SQNO}   
+	</update>
+		<delete id="deleteEssDcmAmn" parameterType="com.nh.escm.ct.eltctrwamn.vo.EssDcmAmnVO">
+		DELETE	FROM  /* deleteEssDcmAmn  */CT_DCM_STYL_AMN
+			WHERE MN_CTRW_KDC = #{MN_CTRW_KDC}
+			AND SQNO = #{SQNO}
+		
+	</delete>	
+
+</mapper>

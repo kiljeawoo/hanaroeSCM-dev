@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ctfcDAO">
+    
+	<resultMap id="ctfc" type="com.nh.escm.tx.ctfc.vo.CtfcVO">
+	    <result column="NA_BZPLC"                       property="NA_BZPLC" />                      
+		<result column="NA_BZPLNM"                      property="NA_BZPLNM" />                     
+		<result column="NA_TEMNM"                       property="NA_TEMNM" />                      
+		<result column="MAIN_CHRRNM"                    property="MAIN_CHRRNM" />                   
+		<result column="MAIN_CHRR_MPNO"                 property="MAIN_CHRR_MPNO" />                
+		<result column="SUB_CHRRNM"                     property="SUB_CHRRNM" />                    
+		<result column="SUB_CHRR_MPNO"                  property="SUB_CHRR_MPNO" />                 
+		<result column="SG_ATOA_FL_TMPNM"               property="SG_ATOA_FL_TMPNM" />              
+		<result column="SG_ATOA_FLNM"                   property="SG_ATOA_FLNM" />                  
+		<result column="SG_PSN_KY_FL_TMPNM"             property="SG_PSN_KY_FL_TMPNM" />            
+		<result column="SG_PSN_KY_FLNM"                 property="SG_PSN_KY_FLNM" />                
+		<result column="PWIZE_ATOA_FL_TMPNM"            property="PWIZE_ATOA_FL_TMPNM" />           
+		<result column="PWIZE_ATOA_FLNM"                property="PWIZE_ATOA_FLNM" />               
+		<result column="PWIZE_PSN_KY_FL_TMPNM"          property="PWIZE_PSN_KY_FL_TMPNM" />         
+		<result column="PWIZE_PSN_KY_FLNM"              property="PWIZE_PSN_KY_FLNM" />             
+		<result column="ATOA_ST_DT"                     property="ATOA_ST_DT" />                    
+		<result column="ATOA_ED_DT"                     property="ATOA_ED_DT" />                    
+		<result column="VLD_YN"                         property="VLD_YN" />                        
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />                      
+		<result column="FS_RGM"                         property="FS_RGM" />                        
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />                     
+		<result column="LS_CHGM"                        property="LS_CHGM" />                      
+	</resultMap>
+
+	
+	<select id= "retrieveCtfc"  parameterType="java.util.Map" resultMap="ctfc">
+	    SELECT NA_BZPLC
+		     , NA_BZPLNM
+		     , NA_TEMNM
+		     , MAIN_CHRRNM
+		     , MAIN_CHRR_MPNO
+		     , SUB_CHRRNM
+		     , SUB_CHRR_MPNO
+		     , SG_ATOA_FL_TMPNM
+		     , SG_ATOA_FLNM
+		     , SG_PSN_KY_FL_TMPNM
+		     , SG_PSN_KY_FLNM
+		     , PWIZE_ATOA_FL_TMPNM
+		     , PWIZE_ATOA_FLNM
+		     , PWIZE_PSN_KY_FL_TMPNM
+		     , PWIZE_PSN_KY_FLNM
+		     , ATOA_ST_DT
+		     , ATOA_ED_DT
+		     , VLD_YN
+		     , ATOA_PW
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		  FROM TX_ATOA_AMN
+		 WHERE NA_BZPLC = #{NA_BZPLC}
+	</select>
+	
+	<insert id = "insertCtfc"  parameterType="java.util.Map">
+	   INSERT
+		 INTO TX_ATOA_AMN 
+		   ( 
+			  NA_BZPLC
+			, NA_BZPLNM
+			, NA_TEMNM
+			, MAIN_CHRRNM
+			, MAIN_CHRR_MPNO
+			, SUB_CHRRNM
+			, SUB_CHRR_MPNO
+			, SG_ATOA_FL_TMPNM
+			, SG_ATOA_FLNM
+			, SG_PSN_KY_FL_TMPNM
+			, SG_PSN_KY_FLNM
+			, PWIZE_ATOA_FL_TMPNM
+			, PWIZE_ATOA_FLNM
+			, PWIZE_PSN_KY_FL_TMPNM
+			, PWIZE_PSN_KY_FLNM
+			, ATOA_ST_DT
+			, ATOA_ED_DT
+			, VLD_YN
+			, ATOA_PW
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+			 )
+		VALUES 
+			(
+			  #{NA_BZPLC}
+			, #{NA_BZPLNM}
+			, #{NA_TEMNM}
+			, #{MAIN_CHRRNM}
+			, #{MAIN_CHRR_MPNO}
+			, #{SUB_CHRRNM}
+			, #{SUB_CHRR_MPNO}
+			, #{SG_ATOA_FL_TMPNM}
+			, #{SG_ATOA_FLNM}
+			, #{SG_PSN_KY_FL_TMPNM}
+			, #{SG_PSN_KY_FLNM}
+			, #{PWIZE_ATOA_FL_TMPNM}
+			, #{PWIZE_ATOA_FLNM}
+			, #{PWIZE_PSN_KY_FL_TMPNM}
+			, #{PWIZE_PSN_KY_FLNM}
+			, #{ATOA_ST_DT}
+			, #{ATOA_ED_DT}
+			, #{VLD_YN}
+			, #{ATOA_PW}
+			, SYSDATE
+			, #{FS_RGM}
+			, SYSDATE
+			, #{LS_CHGM}
+			)
+	</insert>
+</mapper>

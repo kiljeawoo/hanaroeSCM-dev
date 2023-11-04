@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mymnuDAO">
+ 	
+	<select id="retrieveMyMenuList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveMyMenuList*/
+				A.MENU_ID,  B.MENU_NM
+		FROM PT_MYMNU A, PT_MENU_AMN B
+		WHERE A.MB_ID=#{MB_ID}
+			AND A.MENU_ID = B.MENU_ID
+	</select>
+ 	<insert id="insertMyMenu"  parameterType="java.util.Map" > 	 	
+ 		INSERT /*insertMyMenu*/ 
+ 			INTO PT_MYMNU (MB_ID, MENU_ID, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM)
+		VALUES (#{MB_ID},#{MENU_ID}, SYSDATE, #{MB_ID}, SYSDATE, #{MB_ID})
+ 	</insert>
+ 	
+ 	<delete id="deleteMyMenu" parameterType="java.util.Map" >
+ 		DELETE  /*deleteMyMenu*/
+ 			PT_MYMNU
+		WHERE MB_ID=#{MB_ID} AND MENU_ID =#{MENU_ID}
+ 	</delete>
+	
+</mapper>

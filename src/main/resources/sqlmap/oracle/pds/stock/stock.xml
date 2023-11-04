@@ -1,0 +1,2270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="stockDAO">
+	<resultMap type="com.nh.escm.pds.stock.vo.StockVO" id="StockVO">
+		<result column="YMD" property="YMD" />
+		<result column="CODE" property="CODE" />
+		<result column="QTY" property="QTY" />
+		<result column="NAME" property="NAME" />
+		<result column="STORE_CODE" property="STORE_CODE" />
+		<result column="STORE_NAME" property="STORE_NAME" />
+		<result column="AMOUNT" property="AMOUNT" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="PHD_FCLT_C" property="PHD_FCLT_C" />
+		<result column="TOTAL_SL_QT" property="TOTAL_SL_QT" />
+		<result column="TOTAL_TOT_SLAM" property="TOTAL_TOT_SLAM" />
+	</resultMap>
+	
+	<select id="getBZPLcode" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_BZPLC, 
+			A.SHRT_BZPLNM, 
+			A.BZPL_TPC, 
+			A.BZPL_DTI_TPC, 
+			B.BZPL_TPNM, 
+			B.BZPL_DTI_TPNM
+		FROM TB_CM_BZPL A, TB_TR_BZPL_TP B, TB_TR_TRNREL C
+		WHERE A.BZPL_TPC     = B.BZPL_TPC
+			AND A.BZPL_DTI_TPC = B.BZPL_DTI_TPC
+			AND A.BZPL_TPC    IN ( '504' , '505')
+			AND A.NA_BZPLC     = C.CSER_NA_TRPL_C
+			AND C.SPLR_NA_TRPL_C IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			AND C.DEL_DTM IS NULL
+			ORDER BY A.BZPL_TPC, A.BZPL_DTI_TPC, A.NA_BZPLC
+	</select>
+	
+	<!-- 0900 -->
+	<select id="retrieveDailyStoreSum" parameterType="java.util.Map" resultMap="StockVO">
+		SELECT
+		    YMD,
+		    QTY,
+		    TRUNC(AMOUNT/1000) AS AMOUNT
+		FROM
+		(
+		SELECT 
+		    STPL_DT AS YMD,
+		    SUM(STPL_QT) OVER(PARTITION BY STPL_DT) QTY,
+		    SUM(STPL_AM) OVER(PARTITION BY STPL_DT) AMOUNT
+		FROM 
+		    IAS_STPL_DD_ALL
+		WHERE 
+			1=1
+		    AND STPL_DT LIKE #{monthVal} || '%'
+		    AND TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		)ORDER BY YMD ASC
+	</select>
+	
+	<!-- 0910 -->
+	<select id="retrievePeriodSum" parameterType="java.util.Map" resultMap="StockVO">
+		SELECT
+		    YMD,
+		    QTY,
+		    TRUNC(AMOUNT/1000) AS AMOUNT
+		FROM
+		(
+		SELECT
+		    STPL_DT AS YMD,
+		    SUM(STPL_QT) OVER(PARTITION BY STPL_DT) QTY,
+		    SUM(STPL_AM) OVER(PARTITION BY STPL_DT) AMOUNT
+		FROM
+		    IAS_STPL_DD_ALL
+		WHERE
+			1=1
+		    AND STPL_DT BETWEEN #{monthsta} AND #{monthend}
+		    AND TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		)ORDER BY YMD ASC
+	</select>
+	
+	
+	<!-- 0920 카운트 -->
+	<select id="retrievePeriodStoreSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodStoreSum" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 0920 조회 -->
+	<select id="retrievePeriodStoreSum" parameterType="java.util.Map" resultMap="StockVO">
+		<bind name="sortName" value="'CODE'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodStoreSum" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 0920 수량/금액 총 합계 -->
+	<select id="totalPeriodStoreSum" parameterType="java.util.Map" resultMap="StockVO">
+		SELECT
+			NVL(SUM(LIST.QTY), 0) AS TOTAL_SL_QT
+			,NVL(SUM(LIST.AMOUNT), 0) AS TOTAL_TOT_SLAM
+		FROM
+		(
+		<include refid="sql_retrievePeriodStoreSum" />
+		) LIST
+	</select>
+	
+	<!-- 0920 조회 쿼리 -->
+	<sql id="sql_retrievePeriodStoreSum">
+		SELECT /*+ NHVANSTS.IAS_STPL_DD_BZPLC.IX_STPL_DD_BZPLC_01 */
+		    A.NA_BZPLC AS CODE,
+		    FN_CM_BZPL_NM(A.NA_BZPLC) AS NAME,
+		    SUM(A.STPL_QT) AS QTY,
+		    '0' AS AMOUNT,
+        	B.PHD_FCLT_C
+		FROM
+		    TB_SA_DP_STPL A, TB_OD_TRTWRS B
+		WHERE
+			1=1
+		    AND A.SL_DT = #{monthsta}
+			AND A.SPLR_NA_TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			AND A.NA_BZPLC = B.NA_BZPLC
+        	AND A.NA_WRS_C = B.NA_WRS_C
+		  	GROUP BY A.NA_BZPLC,B.PHD_FCLT_C
+	</sql>
+	
+	<!-- 0921 데이터 count-->
+	<select id="retrievePeriodStoreSumCount_sub" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodStoreSum_sub" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 0921 TOTAL 데이터 -->
+	<select id="totalPeriodStoreSum_sub" parameterType="java.util.Map" resultMap="StockVO">
+		SELECT
+			NVL(SUM(LIST.QTY), 0) AS TOTAL_SL_QT
+			,NVL(SUM(LIST.AMOUNT), 0) AS TOTAL_TOT_SLAM
+		FROM(
+		<include refid="sql_retrievePeriodStoreSum_sub" />
+		)LIST
+	</select>
+	
+	<!-- 0921 상세페이지 조회 -->
+	<select id="retrievePeriodStoreSum_sub" parameterType="java.util.Map" resultMap="StockVO">
+		<bind name="sortName" value="'CODE'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodStoreSum_sub" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 0921 조회 쿼리-->
+	<sql id="sql_retrievePeriodStoreSum_sub">
+		SELECT
+		    A.NA_BZPLC AS TRCODE,
+		    FN_CM_BZPL_NM(A.NA_BZPLC) AS TRNAME,
+		    A.NA_WRS_C AS CODE,
+		    (SELECT WRSNM FROM TB_GD_WRS 
+		    WHERE NA_WRS_C = A.NA_WRS_C) NAME,
+		    SUM(A.STPL_QT) AS QTY,
+		    '0' AS AMOUNT,
+		    B.PHD_FCLT_C
+		FROM
+		    TB_SA_DP_STPL A, TB_OD_TRTWRS B
+		WHERE
+		    1=1
+		    AND A.SPLR_NA_TRPL_C IN
+		    <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		    AND A.NA_BZPLC = #{centercode}
+		    AND A.SL_DT = #{monthsta}
+		<choose>
+		<when test="phd_c != null and phd_c.length() > 0">
+		    AND B.PHD_FCLT_C = #{phd_c}
+		</when>
+		<otherwise>
+		    AND B.PHD_FCLT_C IS NULL
+		</otherwise>
+		</choose>
+		    AND A.NA_BZPLC = B.NA_BZPLC
+		    AND A.NA_WRS_C = B.NA_WRS_C
+		    GROUP BY A.NA_BZPLC,A.NA_WRS_C,B.PHD_FCLT_C
+	</sql>
+	
+	<!-- 0930 카운트 -->
+	<select id="retrievePeriodSkuSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodSkuSum" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 0930 조회 -->
+	<select id="retrievePeriodSkuSum" parameterType="java.util.Map" resultMap="StockVO">
+		<bind name="sortName" value="'CODE'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodSkuSum" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 0930 TOTAL카운트 -->
+	<select id="totalPeriodSkuSum" parameterType="java.util.Map" resultMap="StockVO">
+		SELECT
+			NVL(SUM(LIST.QTY), 0) AS TOTAL_SL_QT
+			,NVL(SUM(LIST.AMOUNT), 0) AS TOTAL_TOT_SLAM
+		FROM
+		(
+		<include refid="sql_retrievePeriodSkuSum" />
+		)LIST
+	</select>
+	
+	<!-- 0930 -->
+	<sql id="sql_retrievePeriodSkuSum">
+		SELECT
+			CODE,
+			NAME,
+			SUM(QTY) QTY,
+			SUM(AMOUNT) AMOUNT
+		FROM(
+			SELECT
+			    A.NA_WRS_C AS CODE,
+			    (SELECT WRSNM FROM TB_GD_WRS 
+			    WHERE NA_WRS_C = A.NA_WRS_C) NAME,
+			    SUM(A.STPL_QT) AS QTY,
+			    '0' AS AMOUNT
+			FROM TB_SA_DP_STPL A
+			WHERE
+			    1=1
+			    AND A.SL_DT BETWEEN #{monthsta} AND #{monthend}
+			    AND A.SPLR_NA_TRPL_C IN
+			    <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		    		#{item}
+				</foreach>
+			    GROUP BY A.NA_WRS_C
+		) GROUP BY CODE,NAME
+	</sql>
+	
+	<!-- 0931 카운트 -->
+	<select id="retrievePeriodSkuSumCount_sub" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodSkuSum_sub" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 0931 조회 -->
+	<select id="retrievePeriodSkuSum_sub" parameterType="java.util.Map" resultMap="StockVO">
+		<bind name="sortName" value="'CODE'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodSkuSum_sub" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="totalPeriodSkuSum_sub" parameterType="java.util.Map" resultMap="StockVO">
+		SELECT
+			NVL(SUM(LIST.QTY), 0) AS TOTAL_SL_QT
+			,NVL(SUM(LIST.AMOUNT), 0) AS TOTAL_TOT_SLAM
+		FROM
+		(
+		<include refid="sql_retrievePeriodSkuSum_sub" />
+		)LIST
+	</select>
+	
+	<!-- 0931 -->
+	<sql id="sql_retrievePeriodSkuSum_sub">
+		SELECT
+		    A.NA_WRS_C AS TRCODE,
+		    A.NA_BZPLC AS CODE,
+		    (SELECT SHRT_BZPLNM FROM TB_CM_BZPL 
+		    WHERE NA_BZPLC = A.NA_BZPLC) NAME,
+		    SUM(A.STPL_QT) AS QTY,
+		    '0' AS AMOUNT
+		FROM
+			TB_SA_DP_STPL A
+		WHERE
+		    1=1
+		    AND A.SPLR_NA_TRPL_C IN
+		    <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		    AND A.NA_WRS_C = #{centercode}
+		    AND A.SL_DT BETWEEN #{monthsta} AND #{monthend}
+		    GROUP BY A.NA_WRS_C,A.NA_BZPLC,A.STPL_QT
+		    ORDER BY NAME
+	</sql>
+	
+	<!-- 일일자료 -->
+	<select id="downloadExcelStockDaliy" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			  A.NA_BZPLC
+			, (B.SHRT_BZPLNM) AS SHRT_BZPLNM
+            , A.SPLR_NA_TRPL_C
+            , D.CLNTNM AS SPLR_CLNTNM
+			, A.NA_WRS_C
+			, (C.WRSNM) AS WRSNM
+			, A.STPL_QT AS STPL_QT
+		FROM
+			    TB_SA_DP_STPL A
+			  , TB_CM_BZPL B
+			  , TB_GD_WRS C
+              , TB_TR_TRPL_CIF D
+		WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_WRS_C = C.NA_WRS_C
+			AND A.SPLR_NA_TRPL_C = D.NA_TRPL_C
+			AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+			AND A.SPLR_NA_TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>		
+		ORDER BY A.SPLR_NA_TRPL_C, A.NA_BZPLC,  A.NA_WRS_C
+	</select>
+	
+	<!-- 0900 엑셀 -->
+	<select id="downloadExcelDailyStoreSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT 
+		    DISTINCT
+		    YMD,
+		    TRUNC(AMOUNT/1000) AS AMOUNT,
+		    QTY
+		FROM
+		(
+		SELECT 
+		    STPL_DT AS YMD,
+		    SUM(STPL_QT) OVER(PARTITION BY STPL_DT) QTY,
+		    SUM(STPL_AM) OVER(PARTITION BY STPL_DT) AMOUNT
+		FROM 
+		    IAS_STPL_DD_ALL
+		WHERE 
+		    STPL_DT LIKE #{monthVal} || '%'
+		    AND TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		)ORDER BY YMD
+	</select>
+	
+	<!-- 0910 엑셀 -->
+	<select id="downloadExcelPeriodSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT 
+		    DISTINCT 
+		    YMD,
+		    TRUNC(AMOUNT/1000) AS AMOUNT,
+		    QTY
+		FROM
+		(
+		SELECT
+		    STPL_DT AS YMD,
+		    SUM(STPL_QT) OVER(PARTITION BY STPL_DT) QTY,
+		    SUM(STPL_AM) OVER(PARTITION BY STPL_DT) AMOUNT
+		FROM
+		    IAS_STPL_DD_ALL
+		WHERE
+		    STPL_DT BETWEEN #{start_date} AND #{end_date}
+		    AND TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		)ORDER BY YMD
+	</select>
+	
+	<!-- 0920 엑셀-->
+	<select id="downloadExcelPeriodStoreSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_retrievePeriodStoreSum" />
+		ORDER BY CODE ASC
+	</select>
+	
+	<!-- 0921 엑셀-->
+	<select id="downloadExcelPeriodStoreSumDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_retrievePeriodStoreSum_sub" />
+		ORDER BY CODE ASC
+	</select>
+	
+	<!-- 0930 엑셀-->
+	<select id="downloadExcelPeriodSkuSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_retrievePeriodSkuSum" />
+		ORDER BY CODE ASC
+	</select>
+	
+	<!-- 0931 엑셀 -->
+	<select id="downloadExcelPeriodSkuSumDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			A.TRCODE,
+			(SELECT WRSNM FROM TB_GD_WRS
+			WHERE NA_WRS_C = A.TRCODE
+			) TRNAME,
+			A.CODE,
+			A.NAME,
+			A.QTY,
+			'0' AS AMOUNT
+		FROM
+		(
+		<include refid="sql_retrievePeriodSkuSum_sub" />
+		)A ORDER BY CODE ASC
+	</select>
+	
+	<sql id="sql_centerStock_WRS">
+		WITH /*+ DPON2186R3 */ W_NA_WRS_C AS (
+			SELECT H.PHD_NA_BZPLC
+			, G.SHRT_BZPLNM
+			, H.NA_WRS_C
+			, NVL(SUM(H.PHD_TOT_QT),0) PHD_TOT_QT
+			, NVL(SUM( H.PHD_SPLY_QT + H.PHD_ALC_QT + H.PHD_PCK_QT + H.PHD_RZV_QT + H.PHD_CSMT_STR_QT + H.PHD_CSMT_DLR_QT), 0
+			) ETC_TOT_QT
+			FROM
+			TB_CM_BZPL G /*사업장기본*/
+			, TB_WM_SH_GDINV H /*재고_상품재고내역*/
+			WHERE
+			H.PHD_NA_BZPLC = #{PHD_NA_BZPLC} /*물류센터코드*/
+			AND H.WRS_GRD_DSC  IN ('10', '40', '50')
+			AND G.NA_BZPLC     = H.PHD_NA_BZPLC
+			AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */
+			OR ( '1' = #{WRS_P} AND H.NA_WRS_C   <![CDATA[>=]]> #{WRS_C_FM_PI} AND H.NA_WRS_C   <![CDATA[<=]]> #{WRS_C_FM_PO})
+			)
+			GROUP BY
+			H.PHD_NA_BZPLC
+			, G.SHRT_BZPLNM
+			, H.NA_WRS_C
+			)
+			SELECT /*+ DPON2186R3*/
+			/*
+			U.A1 , U.A2 , U.A3              , (SELECT CLNTNM FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = U.A3)  AS A4
+			, DECODE(U.A20, '10', '정상', '20', '반품', '30', '덤', '40', '행사', '50', '파손', '60', '폐기', '분실') AA
+			, U.A19    , U.A18     , U.A5
+			, U.A6 , U.A7 , U.A8              , U.A9               , U.A10
+			, U.A11, U.A12, U.A13             , U.A14              , U.A15
+			, U.A16, U.A17
+			*/
+			
+			U.A1 		/* 경제통합상품코드        */
+			, U.A2 	/* 상품명                  */
+			, U.A3	/* 물류센터코드            */
+			, (SELECT CLNTNM FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = U.A3)  AS A4 /* 물류센터명              */
+			, DECODE(U.A20, '10', '정상', '20', '반품', '30', '덤', '40', '행사', '50', '파손', '60', '폐기', '분실') A20 /* 상품등급                  */
+			, U.A19	/* 물류기능                  */
+			, U.A18	/* 납품수량                */
+			, U.A5	/* 물류총수량(낱개)        */
+			, U.A6	/* 물류총수량(표시)        */
+			, U.A7	/* 물류재고금액            */
+			, U.A8	/* 가용수량(낱개)          */
+			, U.A9
+			, U.A10	/* 가용금액                  */
+			, U.A11
+			, U.A12
+			, U.A13	/* 물류적송출고수량(낱개)    */
+			, U.A14	/* 물류적송출고수량(표시)    */
+			, U.A15	/* 물류적송출고금액          */
+			, U.A16	/* 물류적송입고수량(낱개)    */
+			, U.A17	/* 물류적송입고금액          */
+			
+			FROM (
+			SELECT
+			X.PHD_NA_BZPLC NABZPLC
+			, X.NA_WRS_C     WRSC
+			, W.PHD_FCLT_C   FCLTC
+			, W.WRS_GRD_DSC  GRDDSC
+			, NVL(SUM(X.PHD_TOT_QT),0)
+			- NVL(SUM(X.PHD_SPLY_QT
+			+X.PHD_ALC_QT
+			+X.PHD_PCK_QT
+			+X.PHD_RZV_QT
+			+X.PHD_CSMT_STR_QT
+			+X.PHD_CSMT_DLR_QT
+			)
+			,0)  AS USEEA_QT         /* 가용수량(낱개) */
+			, TRUNC(
+			CASE  (SUM(X.PHD_TOT_QT)
+			-SUM(X.PHD_SPLY_QT
+			+X.PHD_ALC_QT
+			+X.PHD_PCK_QT
+			+X.PHD_RZV_QT
+			+X.PHD_CSMT_STR_QT
+			+X.PHD_CSMT_DLR_QT
+			)
+			)
+			WHEN 0
+			THEN 0
+			ELSE  (SUM(X.PHD_TOT_QT)
+			-SUM(X.PHD_SPLY_QT +X.PHD_ALC_QT +X.PHD_PCK_QT +X.PHD_RZV_QT +X.PHD_CSMT_STR_QT +X.PHD_CSMT_DLR_QT)
+			) / Z.INPD_QT
+			END
+			
+			) AS USEBOX_QT
+			FROM TB_WM_SH_LOCINV  X
+			, TB_WM_MC_LOC     Y
+			, 
+			(
+			SELECT
+			A.NA_BZPLC          				NA_BZPLC               	/* 경제통합사업장 코드		*/
+			, A.NA_WRS_C          			NA_WRS_C               	/* 상품코드						*/
+			, A.PHD_BAS_UNT_IDVDC 		PHD_BAS_UNT_IDVDC	/* 물류기준단위개별코드		*/
+			, A.WRS_MRK_PHD_UNT_C 	WRS_MRK_PHD_UNT_C	/* 상품표시물류단위코드		*/
+			, A.NA_SPYPL_C        			NA_SPYPL_C             	/* 경제통합공급처코드			*/
+			, A.PLTT_LOAD_C       			PLTT_LOAD_C            	/* 파렛트적재코드				*/
+			, A.SVS_YN            				SVS_YN                 		/* 소분여부                  		*/
+			, A.SVS_QT            				SVS_QT                 		/* 소분수량						*/     
+			, A.SRTR_PRC_YN					SRTR_PRC_YN				/* 소터처리여부					*/
+			, (CASE A.WRS_MRK_PHD_UNT_C
+						WHEN 'PALLET'			THEN B.PHD_PLTT_BAS_QT		/* 물류파렛트기준수량			*/
+						WHEN 'BOX'				THEN C.MIN_ODR_QT				/*  물류박스기준수량			*/
+						WHEN 'CASE'			THEN B.PHD_CSE_BAS_QT			/* 물류케이스기준수량			*/
+						WHEN 'BUNDLE'		THEN B.PHD_BUDL_BAS_QT		/* 물류묶음기준수량			*/
+						WHEN 'EA'				THEN B.PHD_PIEC_BAS_QT			/* 물류낱개기준수량			*/          
+			  	END)								INPD_QT									/* 내품수량						*/
+			, A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT			/* 물류파렛트기준수량			*/
+			, C.MIN_ODR_QT					PHD_BOX_BAS_QT					/* 물류박스기준수량			*/
+			, B.PHD_CSE_BAS_QT			PHD_CSE_BAS_QT					/* 물류케이스기준수량			*/
+			, B.PHD_BUDL_BAS_QT			PHD_BUDL_BAS_QT					/* 물류묶음기준수량			*/
+			, B.PHD_PIEC_BAS_QT			PHD_PIEC_BAS_QT					/* 물류낱개기준수량			*/
+			, A.PLTPE_BOX_CN				PLTT_BOX_QT							/* 파렛트당박스수량			*/
+			, C.INPD_QT						DPINPD_QT								/* 수발주내품수량				*/
+			, B.PHD_BOX_BAS_QT			DPODR_QT								/* 수발주박스당입수			*/
+			, A.PHD_FCLT_C					PHD_FCLT_C							/* 물류기능구분코드			*/
+			FROM TB_FD_GM_GOOD_WH A											/* 상품관리물류취급상품기본	*/
+			, TB_WA_IC_STDUNIT B														/* 기준정보_기준단위코드     */
+			, TB_OD_TRTWRS C       
+			WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC
+			AND A.NA_BZPLC          = C.NA_BZPLC
+			AND A.NA_WRS_C          = C.NA_WRS_C
+			) Z
+			, TB_WM_SH_INVATTR W
+			WHERE X.PHD_NA_BZPLC          = #{PHD_NA_BZPLC} /*물류센터코드*/
+			AND X.PHD_NA_BZPLC          = Z.NA_BZPLC
+			AND X.NA_WRS_C              = Z.NA_WRS_C
+			AND X.PHD_NA_BZPLC          = Y.PHD_NA_BZPLC
+			AND X.NA_LOCA_C             = Y.NA_LOCA_C
+			AND Y.LOCA_KDC              = '01'
+			AND W.PHD_NA_BZPLC          = X.PHD_NA_BZPLC
+			AND W.NA_WRS_C              = X.NA_WRS_C
+			AND W.STPL_ATTR_PHD_IDVD_NO = X.STPL_ATTR_PHD_IDVD_NO
+			GROUP BY
+			X.PHD_NA_BZPLC
+			, X.NA_WRS_C
+			, Z.INPD_QT
+			, W.PHD_FCLT_C
+			, W.WRS_GRD_DSC
+			) T
+			,(SELECT  /*+ LEADING(A) INDEX(A PK_NA_WM_SH_GDINV)  */
+			A.NA_WRS_C                                     A1																			  	  		    /* 경제통합상품코드        */
+			, C.WRSNM                                        A2																			  	  		    /* 상품명                  */
+			, A.PHD_NA_BZPLC                                 A3																			  	  		    /* 물류센터코드            */
+			, ''														  								A4																			  	  	        /* 물류센터명              */
+			, Y.BAS_QT  								        A18																			  	  	        /* 납품수량                */
+			, NVL(SUM(A.PHD_TOT_QT),0)                       A5																			  	  		    /* 물류총수량(낱개)        */
+			, NVL(TRUNC(DECODE(SUM(A.PHD_TOT_QT),0,0,SUM(A.PHD_TOT_QT)/D.INPD_QT)),0)      A6																			  	  		    /* 물류총수량(표시)        */
+			, NVL(SUM(A.PHD_STPL_AM),0)                      A7																			  	  		    /* 물류재고금액            */
+			, NVL(SUM(A.PHD_TOT_QT),0)
+			- NVL(SUM(A.PHD_SPLY_QT
+			+A.PHD_ALC_QT
+			+A.PHD_PCK_QT
+			+A.PHD_RZV_QT
+			+A.PHD_CSMT_STR_QT
+			+A.PHD_CSMT_DLR_QT
+			)
+			,0)                                         A8																			  	    		     /* 가용수량(낱개)          */
+			, TRUNC(
+			CASE  (SUM(A.PHD_TOT_QT)
+			-SUM(A.PHD_SPLY_QT
+			+A.PHD_ALC_QT
+			+A.PHD_PCK_QT
+			+A.PHD_RZV_QT
+			+A.PHD_CSMT_STR_QT
+			+A.PHD_CSMT_DLR_QT
+			)
+			)
+			WHEN 0
+			THEN 0
+			ELSE (SUM(A.PHD_TOT_QT)
+			-SUM(A.PHD_SPLY_QT
+			+A.PHD_ALC_QT
+			+A.PHD_PCK_QT
+			+A.PHD_RZV_QT
+			+A.PHD_CSMT_STR_QT
+			+A.PHD_CSMT_DLR_QT
+			)
+			) / D.INPD_QT
+			END   )                                         A9
+			, (NVL(SUM(A.PHD_TOT_QT),0)
+			-NVL(SUM(A.PHD_SPLY_QT
+			+A.PHD_ALC_QT
+			+A.PHD_PCK_QT
+			+A.PHD_RZV_QT
+			+A.PHD_CSMT_STR_QT
+			+A.PHD_CSMT_DLR_QT
+			)
+			,0)
+			) * NVL(SUM(A.PHD_MVE_AVG_PCS),0)              A10																			  	      			 /* 가용금액                  */
+			,'0'      A11
+			,'0'      A12
+			, NVL(SUM(A.PHD_CSMT_DLR_QT),0)                  A13         																  	            /* 물류적송출고수량(낱개)    */
+			, NVL(TRUNC(DECODE(SUM(A.PHD_CSMT_DLR_QT),0,0,SUM(A.PHD_CSMT_DLR_QT)/D.INPD_QT)),0) A14         		          /* 물류적송출고수량(표시)    */
+			, NVL(TRUNC(DECODE(SUM(A.PHD_CSMT_DLR_QT),0,0,SUM(A.PHD_CSMT_DLR_QT)/D.INPD_QT)),0) * NVL(SUM(A.PHD_MVE_AVG_PCS),0)  A15							                  		     /* 물류적송출고금액          */
+			, NVL(SUM(A.PHD_CSMT_STR_QT),0)                  A16         																  	            /* 물류적송입고수량(낱개)    */
+			, NVL(SUM(A.PHD_CSMT_STR_QT),0) * NVL(SUM(A.PHD_MVE_AVG_PCS),0)  A17															  	  		     /* 물류적송입고금액          */
+			, D.PHD_FCLT_C                                                   A19 														  	  		     /* 물류기능                  */
+			, A.WRS_GRD_DSC                                                  A20 														  	  		     /* 상품등급                  */
+			FROM TB_WM_SH_GDINV   A                         																				  	  			 /* 재고_상품재고                 */
+			, TB_OD_TRTWRS    C                         																				  	  			 /* 상품관리_취급상품기본     */
+			,(
+			SELECT
+			A.NA_BZPLC          				NA_BZPLC               	/* 경제통합사업장 코드		*/
+			, A.NA_WRS_C          			NA_WRS_C               	/* 상품코드						*/
+			, A.PHD_BAS_UNT_IDVDC 		PHD_BAS_UNT_IDVDC	/* 물류기준단위개별코드		*/
+			, A.WRS_MRK_PHD_UNT_C 	WRS_MRK_PHD_UNT_C	/* 상품표시물류단위코드		*/
+			, A.NA_SPYPL_C        			NA_SPYPL_C             	/* 경제통합공급처코드			*/
+			, A.PLTT_LOAD_C       			PLTT_LOAD_C            	/* 파렛트적재코드				*/
+			, A.SVS_YN            				SVS_YN                 		/* 소분여부                  		*/
+			, A.SVS_QT            				SVS_QT                 		/* 소분수량						*/     
+			, A.SRTR_PRC_YN					SRTR_PRC_YN				/* 소터처리여부					*/
+			, (CASE A.WRS_MRK_PHD_UNT_C
+						WHEN 'PALLET'			THEN B.PHD_PLTT_BAS_QT		/* 물류파렛트기준수량			*/
+						WHEN 'BOX'				THEN C.MIN_ODR_QT				/*  물류박스기준수량			*/
+						WHEN 'CASE'			THEN B.PHD_CSE_BAS_QT			/* 물류케이스기준수량			*/
+						WHEN 'BUNDLE'		THEN B.PHD_BUDL_BAS_QT		/* 물류묶음기준수량			*/
+						WHEN 'EA'				THEN B.PHD_PIEC_BAS_QT			/* 물류낱개기준수량			*/          
+			  	END)								INPD_QT									/* 내품수량						*/
+			, A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT			/* 물류파렛트기준수량			*/
+			, C.MIN_ODR_QT					PHD_BOX_BAS_QT					/* 물류박스기준수량			*/
+			, B.PHD_CSE_BAS_QT			PHD_CSE_BAS_QT					/* 물류케이스기준수량			*/
+			, B.PHD_BUDL_BAS_QT			PHD_BUDL_BAS_QT					/* 물류묶음기준수량			*/
+			, B.PHD_PIEC_BAS_QT			PHD_PIEC_BAS_QT					/* 물류낱개기준수량			*/
+			, A.PLTPE_BOX_CN				PLTT_BOX_QT							/* 파렛트당박스수량			*/
+			, C.INPD_QT						DPINPD_QT								/* 수발주내품수량				*/
+			, B.PHD_BOX_BAS_QT			DPODR_QT								/* 수발주박스당입수			*/
+			, A.PHD_FCLT_C					PHD_FCLT_C							/* 물류기능구분코드			*/
+			FROM TB_FD_GM_GOOD_WH A											/* 상품관리물류취급상품기본	*/
+			, TB_WA_IC_STDUNIT B														/* 기준정보_기준단위코드     */
+			, TB_OD_TRTWRS C       
+			WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC
+			AND A.NA_BZPLC          = C.NA_BZPLC
+			AND A.NA_WRS_C          = C.NA_WRS_C
+			) D                         																				  	  			 /* 물류상품기본정보          */
+			, TB_TR_TRPL_CIF    E
+			, TB_FD_GM_GOOD_WH F                       																				  	  			 /* 거래처관리_거래처기본     */
+			, W_NA_WRS_C          J
+			, (SELECT
+			G.NA_BZPLC
+			, G.NA_WRS_C
+			, G.NA_SPYPL_C
+			, G.PHD_FCLT_C
+			, G.WRS_MRK_PHD_UNT_C
+			, G.PHD_BAS_UNT_IDVDC
+			, D.WRSNM
+			<!-- , D.WRS_TPC -->
+			, '1' WRS_TPC
+			, (CASE G.WRS_MRK_PHD_UNT_C
+			WHEN 'PALLET'		THEN H.PHD_PLTT_BAS_QT
+			WHEN 'BOX'			THEN D.MIN_ODR_QT
+			WHEN 'CASE'		THEN H.PHD_CSE_BAS_QT
+			WHEN 'BUNDLE'	THEN H.PHD_BUDL_BAS_QT
+			WHEN 'EA'			THEN H.PHD_PIEC_BAS_QT
+			END) BAS_QT
+			FROM
+			TB_FD_GM_GOOD_WH	G
+			, TB_OD_TRTWRS			D
+			, TB_WA_IC_STDUNIT	H
+			WHERE 1=1
+			AND D.NA_BZPLC			= G.NA_BZPLC
+			AND D.NA_WRS_C			= G.NA_WRS_C
+			AND H.PHD_BAS_UNT_IDVDC = G.PHD_BAS_UNT_IDVDC
+			AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */
+			OR ( '1' = #{WRS_P} AND G.NA_WRS_C   <![CDATA[>=]]> #{WRS_C_FM_PI} AND G.NA_WRS_C   <![CDATA[<=]]> #{WRS_C_FM_PO})
+			)
+			<!-- AND D.WRS_TPC IN ('1','2','3','5','4') 병+파+일+상 -->
+			) Y
+			WHERE A.PHD_NA_BZPLC
+			IN (
+			SELECT /*+ DPON2186R3 */
+			<!-- T1.NA_BZPLC -->
+			NA_TRPL_C NA_BZPLC
+			FROM
+			TB_TR_TRPL_CIF T1
+			, TB_OD_TRTWRS T3
+			WHERE 1=1
+			<!-- AND T1.AMN_NA_BZPLC = ''           																		      	          /* 사업장    */ -->
+			AND '1'             = DECODE(#{PHD_NA_BZPLC}, '1111111111111', '1'
+			, '0000000000000', '1'
+			, '8'
+			)
+			UNION  ALL
+			SELECT  /*+ DPON2186R3 */
+			T2.NA_TRPL_C
+			FROM
+			TB_TR_TRPL_CIF T2
+			WHERE 1=1
+			AND T2.NA_TRPL_C     = #{PHD_NA_BZPLC}             																          				 /* 사업장     */
+			AND '1'             = DECODE(#{PHD_NA_BZPLC}, '0000000000000'      , '1'
+			, #{PHD_NA_BZPLC}, '1'
+			, '0'
+			)
+			)
+			<!-- AND C.NA_TRPL_C = NA_TRPL_C -->
+			AND C.SPYPL_NA_TRPL_C IN /*권한사업장 거래처코드*/
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			AND A.PHD_NA_BZPLC  = C.NA_BZPLC
+			AND A.NA_WRS_C      = C.NA_WRS_C
+			AND A.PHD_NA_BZPLC  = D.NA_BZPLC
+			AND A.NA_WRS_C      = D.NA_WRS_C
+			AND C.NA_BZPLC      = F.NA_BZPLC
+			AND C.NA_WRS_C      = F.NA_WRS_C
+			AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */
+			OR ( '1' = #{WRS_P} AND A.NA_WRS_C   <![CDATA[>=]]> #{WRS_C_FM_PI} AND A.NA_WRS_C   <![CDATA[<=]]> #{WRS_C_FM_PO})
+			)
+			AND D.NA_SPYPL_C    = E.NA_TRPL_C
+			AND A.PHD_NA_BZPLC  = J.PHD_NA_BZPLC
+			AND J.PHD_NA_BZPLC  = Y.NA_BZPLC
+			AND J.NA_WRS_C      = Y.NA_WRS_C
+			AND A.PHD_NA_BZPLC  = J.PHD_NA_BZPLC
+			AND A.NA_WRS_C      = J.NA_WRS_C
+			AND A.WRS_GRD_DSC  <![CDATA[<>]]>  '30'
+			GROUP BY
+			A.PHD_NA_BZPLC
+			, C.SPYPL_NA_TRPL_C
+			, A.NA_WRS_C
+			, C.WRSNM
+			<!-- , C.WRS_STDNM -->
+			, D.PLTT_LOAD_C
+			, D.PLTT_BOX_QT
+			, A.WRS_GRD_DSC
+			, D.INPD_QT
+			, E.NA_TRPL_C
+			, E.CLNTNM
+			, D.PHD_FCLT_C
+			, A.PHD_NA_BZPLC
+			, Y.BAS_QT
+			) U
+			WHERE T.NABZPLC(+) IN /*권한사업장 거래처코드*/
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach> 
+			AND T.WRSC   (+) = U.A1
+			ORDER BY 1,3
+	</sql>
+	
+	<select id="centerStock_WRS" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_centerStock_WRS" />
+	</select>
+
+<select id="centerStock_WRS_IFRESULT" parameterType="java.util.Map" resultType="String">
+SELECT PROC_DATE FROM TB_IF_PROC_RESULT
+WHERE PROC_DATE = TO_CHAR(SYSDATE-1, 'YYYYMMDD')
+  AND IF_ID = 'WM012'
+  AND TOT_STSC = 'Y'
+</select>
+
+<sql id="sql_centerStock_WRS_pt">
+WITH VW_GOOD AS
+ (
+                  /* 물류상품기본정보 */ 
+                    SELECT   A.NA_BZPLC NA_BZPLC /* 경제통합사업장 코드 */ 
+                           , A.NA_SPYPL_C
+                           , A.NA_WRS_C NA_WRS_C /* 상품코드 */ 
+                          , ( 
+                               CASE A.WRS_MRK_PHD_UNT_C   /* 상품표시물류단위코드 */ 
+                                   WHEN 'PALLET' 
+                                   THEN B.PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                                   WHEN 'BOX' 
+                                   THEN C.MIN_ODR_QT /* 물류박스기준수량 */ 
+                                   WHEN 'CASE' 
+                                   THEN B.PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                                   WHEN 'BUNDLE' 
+                                   THEN B.PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                                   WHEN 'EA' 
+                                   THEN B.PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                               END 
+                           ) INPD_QT /* 내품수량 */ 
+
+                           
+                           , A.PHD_FCLT_C PHD_FCLT_C /* 물류기능구분코드 */ 
+                           , ( 
+                               CASE A.WRS_MRK_PHD_UNT_C   /* 상품표시물류단위코드 */ 
+                                   WHEN 'PALLET' 
+                                   THEN B.PHD_PLTT_BAS_QT 
+                                   WHEN 'BOX' 
+                                   THEN C.MIN_ODR_QT 
+                                   WHEN 'CASE' 
+                                   THEN B.PHD_CSE_BAS_QT 
+                                   WHEN 'BUNDLE' 
+                                   THEN B.PHD_BUDL_BAS_QT   /* 물류묶음기준수량 */ 
+                                   WHEN 'EA' 
+                                   THEN B.PHD_PIEC_BAS_QT  /* 물류낱개기준수량 */ 
+                               END 
+                           ) AS  bas_qt 
+                           , A.ATL_YN
+
+                      FROM   TB_FD_GM_GOOD_WH A /* 상품관리물류취급상품기본 */ 
+                           , TB_WA_IC_STDUNIT B /* 기준정보_기준단위코드 */ 
+                           ,  TB_OD_TRTWRS C 
+                     WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC  /* 물류기준단위개별코드 */ 
+                           AND A.NA_BZPLC = C.NA_BZPLC 
+                           AND A.NA_WRS_C = C.NA_WRS_C 
+                           AND A.NA_BZPLC = #{PHD_NA_BZPLC} 
+
+    )
+    
+       SELECT   /*+ LEADING(A) INDEX(A PK_NA_WM_SH_GDINV) */ 
+                A.na_wrs_c                           a1 /* 경제통합상품코드 */ 
+              , C.wrsnm                              a2 /* 상품명 */ 
+              , A.phd_na_bzplc                       a3 /* 물류센터코드 */ 
+              , (SELECT CLNTNM 
+                 FROM TB_TR_TRPL_CIF 
+                WHERE NA_TRPL_C = A.phd_na_bzplc
+               )                                     AS A4 /* 물류센터명 */ 
+
+              , NVL(SUM(A.phd_tot_qt),0)                                                   a5 /* 물류총수량(낱개) */ 
+              , NVL(TRUNC(decode(SUM(A.phd_tot_qt),0,0,SUM(A.phd_tot_qt)/D.inpd_qt)),0)    a6 /* 물류총수량(표시) */ 
+              , NVL(SUM(A.phd_stpl_am),0)                                                  a7 /* 물류재고금액 */ 
+              , NVL(SUM(A.phd_tot_qt),0) - NVL(SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ,0) a8 /* 가용수량(낱개) */ 
+              , TRUNC 
+              ( 
+                  CASE (SUM(A.phd_tot_qt) -SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ) 
+                      WHEN 0 
+                      THEN 0 
+                      ELSE (SUM(A.phd_tot_qt) -SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ) / D.inpd_qt 
+                  END 
+              )   a9  
+              , (NVL(SUM(A.phd_tot_qt),0) -NVL(SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ,0) ) * NVL(SUM(A.phd_mve_avg_pcs),0) a10 /* 가용금액 */ 
+              , '0' a11
+              , '0' a12 
+              , NVL(SUM(A.phd_csmt_dlr_qt),0) a13 /* 물류적송출고수량(낱개) */ 
+              , NVL(TRUNC(decode(SUM(A.phd_csmt_dlr_qt),0,0,SUM(A.phd_csmt_dlr_qt)/D.inpd_qt)),0) a14 /* 물류적송출고수량(표시) */ 
+              , NVL(TRUNC(decode(SUM(A.phd_csmt_dlr_qt),0,0,SUM(A.phd_csmt_dlr_qt)/D.inpd_qt)),0) * NVL(SUM(A.phd_mve_avg_pcs),0) a15 /* 물류적송출고금액 */ 
+              , NVL(SUM(A.phd_csmt_str_qt),0) a16 /* 물류적송입고수량(낱개) */ 
+              , NVL(SUM(A.phd_csmt_str_qt),0) * NVL(SUM(A.phd_mve_avg_pcs),0) a17 /* 물류적송입고금액 */ 
+              , D.bas_qt a18                                 /* 납품수량 */ 
+              , D.Phd_Fclt_C a19                             /* 물류기능 */ 
+              , DECODE(A.wrs_grd_dsc, '10', '정상', '20', '반품', '30', '덤', '40', '행사', '50', '파손', '60', '폐기', '분실') A20 /* 상품등급 */ 
+              , C.ATL_YN  A21     /* 간선 */
+              , D.NA_SPYPL_C
+              , C.SPYPL_NA_TRPL_C
+
+         FROM   
+                TB_WM_SH_GDINV A          /* 재고_상품재고 */ 
+              , (  
+              
+                   /*  간선 아님  */
+                   SELECT na_bzplc , na_wrs_c , wrsnm, SPYPL_NA_TRPL_C , '0' ATL_YN
+                    FROM TB_OD_TRTWRS 
+                   WHERE NA_BZPLC          = #{PHD_NA_BZPLC} 
+                     AND SPYPL_NA_TRPL_C   IN /*권한사업장 거래처코드*/ 
+		              <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+						#{item}
+					  </foreach>  
+					  
+			      <if test="atl_yn != null and atl_yn.length() > 0 and atl_yn == 1 ">
+
+	                   UNION ALL
+	                   
+	                  /* 간선 상품  */
+	                   SELECT A.na_bzplc , A.na_wrs_c , A.wrsnm, B.SPYPL_NA_TRPL_C , '1' ATL_YN
+	                    FROM  TB_OD_TRTWRS A
+	                        , TB_OD_TRTWRS B
+	                        , TB_TR_TRPL_CIF C
+	                   WHERE
+	                          A.SPYPL_NA_TRPL_C = B.NA_BZPLC
+	                    AND   A.NA_WRS_C        = B.NA_WRS_C
+	                    AND   B.NA_BZPLC        = C.NA_TRPL_C
+	                    AND   C.NA_USR_SYS_KDC  = '54'
+	                    AND A.NA_BZPLC          = #{PHD_NA_BZPLC}   -- 지방물류센터
+	                    
+	                    AND B.SPYPL_NA_TRPL_C IN /*권한사업장 거래처코드*/ 
+			              <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+							#{item}
+						  </foreach>  
+
+			     </if>
+                ) C
+              , VW_GOOD D                 /* 물류상품기본정보 */ 
+
+        WHERE 
+                  A.phd_na_bzplc  = C.na_bzplc 
+              AND A.na_wrs_c      = C.na_wrs_c  
+              
+              AND A.phd_na_bzplc    = D.na_bzplc 
+              AND A.na_wrs_c        = D.na_wrs_c 
+
+             AND A.phd_na_bzplc IN 
+              (
+                     #{PHD_NA_BZPLC} 
+
+              ) 
+
+              AND 
+              ( 
+                  '0' = NVL(#{WRS_P},'0') /* 상품재고_상품코드 전체 또는 입력값 */ 
+                  OR 
+                  ( 
+                      '1' = #{WRS_P} 
+                      AND A.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI} 
+                      AND A.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO} 
+                  ) 
+              )
+
+              AND A.wrs_grd_dsc <![CDATA[<>]]> '30' 
+
+
+        GROUP BY A.phd_na_bzplc , 
+              C.SPYPL_NA_TRPL_C , 
+              A.na_wrs_c , 
+              C.wrsnm , 
+              C.ATL_YN, 
+              A.wrs_grd_dsc , 
+              D.inpd_qt , 
+              D.phd_fclt_c , 
+              A.phd_na_bzplc , 
+              D.bas_qt ,
+              D.NA_SPYPL_C
+ORDER BY 1, 3 
+</sql>
+
+<select id="centerStock_WRS_pt" parameterType="java.util.Map" resultType="java.util.Map">
+	<include refid="sql_centerStock_WRS_pt"></include>
+</select>
+
+<select id="centerStock_WRS_pt_backup2" parameterType="java.util.Map" resultType="java.util.Map">
+WITH /*+ DPON2186R3 */ 
+       w_na_wrs_c AS 
+       (SELECT H.phd_na_bzplc , 
+              G.SHRT_BZPLNM , 
+              H.na_wrs_c , 
+              nvl(sum(H.phd_tot_qt),0) phd_tot_qt , 
+              nvl(SUM( H.phd_sply_qt + H.phd_alc_qt + H.phd_pck_qt + H.phd_rzv_qt + H.phd_csmt_str_qt + H.phd_csmt_dlr_qt ), 0 ) etc_tot_qt 
+         FROM TB_CM_BZPL G , 
+              TB_WM_SH_GDINV H 
+        WHERE H.phd_na_bzplc = #{PHD_NA_BZPLC} /*물류센터코드*/ 
+              AND H.wrs_grd_dsc IN ('10', '40', '50') 
+              AND G.na_bzplc = H.phd_na_bzplc 
+              AND 
+              ( 
+                  '0' = NVL(#{WRS_P},'0') /* 상품재고_상품코드 전체 또는 입력값 */ 
+                  OR 
+                  ( 
+                      '1' = #{WRS_P} 
+                      AND H.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI} 
+                      AND H.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO} 
+                  ) 
+              ) 
+        GROUP BY H.phd_na_bzplc , 
+              G.SHRT_BZPLNM , 
+              H.na_wrs_c 
+       ) 
+SELECT /*+ DPON2186R3*/ 
+       U.a1 , 
+       U.a2 , 
+       U.a3 , 
+       (SELECT CLNTNM 
+         FROM TB_TR_TRPL_CIF 
+        WHERE NA_TRPL_C = U.A3 
+       ) AS A4 /* 물류센터명 */ 
+       , 
+       DECODE(U.A20, '10', '정상', '20', '반품', '30', '덤', '40', '행사', '50', '파손', '60', '폐기', '분실') A20 /* 상품등급 */ 
+       , 
+       U.a19 , 
+       U.a18 , 
+       U.a5 , 
+       U.a6 , 
+       U.a7 , 
+       U.a8 , 
+       U.a9 , 
+       U.a10 , 
+       U.a11, 
+       U.a12, 
+       U.a13 , 
+       U.a14 , 
+       U.a15 , 
+       U.a16, 
+       U.a17 
+  FROM 
+      <!-- (SELECT /*+ LEADING (X Y W) USE_NL(Y W) INDEX(X PK_NA_WM_SH_LOCINV) INDEX(W IX_NA_WM_SH_INVATTR_N2) DPON2186R3*/ 
+              x.PHD_NA_BZPLC nabzplc , 
+              x.NA_WRS_C wrsc , 
+              w.phd_fclt_c fcltc , 
+              w.wrs_grd_dsc grddsc , 
+              NVL(SUM(x.phd_tot_qt),0) - NVL(SUM(x.phd_sply_qt +x.phd_alc_qt +x.phd_pck_qt +x.phd_rzv_qt +x.phd_csmt_str_qt +x.phd_csmt_dlr_qt ) ,0) AS useea_qt /* 가용수량(낱개) */ 
+              , 
+              TRUNC 
+              ( 
+                  CASE (SUM(x.phd_tot_qt) -SUM(x.phd_sply_qt +x.phd_alc_qt +x.phd_pck_qt +x.phd_rzv_qt +x.phd_csmt_str_qt +x.phd_csmt_dlr_qt ) ) 
+                      WHEN 0 
+                      THEN 0 
+                      ELSE (SUM(x.phd_tot_qt) -SUM(x.phd_sply_qt +x.phd_alc_qt +x.phd_pck_qt +x.phd_rzv_qt +x.phd_csmt_str_qt +x.phd_csmt_dlr_qt ) ) / z.inpd_qt 
+                  END 
+              ) AS usebox_qt 
+         FROM TB_WM_SH_LOCINV x , 
+              TB_WM_MC_LOC y , 
+              (SELECT A.NA_BZPLC NA_BZPLC /* 경제통합사업장 코드 */ 
+                     , 
+                     A.NA_WRS_C NA_WRS_C /* 상품코드 */ 
+                     , 
+                     A.PHD_BAS_UNT_IDVDC PHD_BAS_UNT_IDVDC /* 물류기준단위개별코드 */ 
+                     , 
+                     A.WRS_MRK_PHD_UNT_C WRS_MRK_PHD_UNT_C /* 상품표시물류단위코드 */ 
+                     , 
+                     A.NA_SPYPL_C NA_SPYPL_C /* 경제통합공급처코드 */ 
+                     , 
+                     A.PLTT_LOAD_C PLTT_LOAD_C /* 파렛트적재코드 */ 
+                     , 
+                     A.SVS_YN SVS_YN /* 소분여부 */ 
+                     , 
+                     A.SVS_QT SVS_QT /* 소분수량 */ 
+                     , 
+                     A.SRTR_PRC_YN SRTR_PRC_YN /* 소터처리여부 */ 
+                     , 
+                     ( 
+                         CASE A.WRS_MRK_PHD_UNT_C 
+                             WHEN 'PALLET' 
+                             THEN B.PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                             WHEN 'BOX' 
+                             THEN C.MIN_ODR_QT /* 물류박스기준수량 */ 
+                             WHEN 'CASE' 
+                             THEN B.PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                             WHEN 'BUNDLE' 
+                             THEN B.PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                             WHEN 'EA' 
+                             THEN B.PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                         END 
+                     ) 
+                     INPD_QT /* 내품수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                     , 
+                     C.MIN_ODR_QT PHD_BOX_BAS_QT /* 물류박스기준수량 */ 
+                     , 
+                     B.PHD_CSE_BAS_QT PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                     , 
+                     B.PHD_BUDL_BAS_QT PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                     , 
+                     B.PHD_PIEC_BAS_QT PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN PLTT_BOX_QT /* 파렛트당박스수량 */ 
+                     , 
+                     C.INPD_QT DPINPD_QT /* 수발주내품수량 */ 
+                     , 
+                     B.PHD_BOX_BAS_QT DPODR_QT /* 수발주박스당입수 */ 
+                     , 
+                     A.PHD_FCLT_C PHD_FCLT_C /* 물류기능구분코드 */ 
+                FROM TB_FD_GM_GOOD_WH A /* 상품관리물류취급상품기본 */ 
+                     , 
+                     TB_WA_IC_STDUNIT B /* 기준정보_기준단위코드 */ 
+                     , 
+                     TB_OD_TRTWRS C 
+               WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC 
+                     AND A.NA_BZPLC = C.NA_BZPLC 
+                     AND A.NA_WRS_C = C.NA_WRS_C 
+                     AND A.NA_BZPLC = #{PHD_NA_BZPLC}        
+                     AND A.NA_SPYPL_C IN
+                     <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+						#{item}
+					</foreach>
+              ) Z , 
+              TB_WM_SH_INVATTR W 
+        WHERE x.PHD_NA_BZPLC = #{PHD_NA_BZPLC} /*물류센터코드*/ 
+        	  <choose>
+			  <when test="ifResult != null and ifResult.length() > 0"> 
+			  AND X.PHD_STPL_DT = TO_CHAR(SYSDATE, 'YYYYMMDD')
+			  </when>
+			  <otherwise> 	    
+			  AND X.PHD_STPL_DT = TO_CHAR(SYSDATE-1, 'YYYYMMDD')  		
+			  </otherwise>
+			  </choose>	
+              AND x.phd_na_bzplc = z.na_bzplc 
+              AND x.na_wrs_c = z.na_wrs_c 
+              AND x.PHD_NA_BZPLC = y.PHD_NA_BZPLC 
+              AND x.NA_LOCA_C = y.NA_LOCA_C 
+              AND y.loca_kdc = '01' 
+              AND w.phd_na_bzplc = x.phd_na_bzplc 
+              AND w.na_wrs_c = x.na_wrs_c 
+              AND w.stpl_attr_phd_idvd_no = x.stpl_attr_phd_idvd_no 
+        GROUP BY x.PHD_NA_BZPLC , 
+              x.NA_WRS_C , 
+              z.inpd_qt , 
+              w.phd_fclt_c , 
+              w.wrs_grd_dsc 
+       ) T , -->
+       (SELECT /*+ LEADING(A) INDEX(A PK_NA_WM_SH_GDINV) */ 
+              A.na_wrs_c a1 /* 경제통합상품코드 */ 
+              , 
+              C.wrsnm a2 /* 상품명 */ 
+              , 
+              A.phd_na_bzplc a3 /* 물류센터코드 */ 
+              , 
+              '' a4 /* 물류센터명 */ 
+              , 
+              Y.bas_qt a18 /* 납품수량 */ 
+              , 
+              NVL(SUM(A.phd_tot_qt),0) a5 /* 물류총수량(낱개) */ 
+              , 
+              NVL(TRUNC(decode(SUM(A.phd_tot_qt),0,0,SUM(A.phd_tot_qt)/D.inpd_qt)),0) a6 /* 물류총수량(표시) */ 
+              , 
+              NVL(SUM(A.phd_stpl_am),0) a7 /* 물류재고금액 */ 
+              , 
+              NVL(SUM(A.phd_tot_qt),0) - NVL(SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ,0) a8 /* 가용수량(낱개) */ 
+              , 
+              TRUNC 
+              ( 
+                  CASE (SUM(A.phd_tot_qt) -SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ) 
+                      WHEN 0 
+                      THEN 0 
+                      ELSE (SUM(A.phd_tot_qt) -SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ) / D.inpd_qt 
+                  END 
+              ) 
+              a9 , 
+              (NVL(SUM(A.phd_tot_qt),0) -NVL(SUM(A.phd_sply_qt +A.phd_alc_qt +A.phd_pck_qt +A.phd_rzv_qt +A.phd_csmt_str_qt +A.phd_csmt_dlr_qt ) ,0) ) * NVL(SUM(A.phd_mve_avg_pcs),0) a10 /* 가용금액 */ 
+              , 
+              '0' a11 , 
+              '0' a12 , 
+              NVL(SUM(A.phd_csmt_dlr_qt),0) a13 /* 물류적송출고수량(낱개) */ 
+              , 
+              NVL(TRUNC(decode(SUM(A.phd_csmt_dlr_qt),0,0,SUM(A.phd_csmt_dlr_qt)/D.inpd_qt)),0) a14 /* 물류적송출고수량(표시) */ 
+              , 
+              NVL(TRUNC(decode(SUM(A.phd_csmt_dlr_qt),0,0,SUM(A.phd_csmt_dlr_qt)/D.inpd_qt)),0) * NVL(SUM(A.phd_mve_avg_pcs),0) a15 /* 물류적송출고금액 */ 
+              , 
+              NVL(SUM(A.phd_csmt_str_qt),0) a16 /* 물류적송입고수량(낱개) */ 
+              , 
+              NVL(SUM(A.phd_csmt_str_qt),0) * NVL(SUM(A.phd_mve_avg_pcs),0) a17 /* 물류적송입고금액 */ 
+              , 
+              D.Phd_Fclt_C a19 /* 물류기능 */ 
+              , 
+              A.wrs_grd_dsc a20 /* 상품등급 */ 
+         FROM TB_WM_SH_GDINV A /* 재고_상품재고 */ 
+              , 
+              TB_OD_TRTWRS C /* 상품관리_취급상품기본 */ 
+              , 
+              (SELECT A.NA_BZPLC NA_BZPLC /* 경제통합사업장 코드 */ 
+                     , 
+                     A.NA_WRS_C NA_WRS_C /* 상품코드 */ 
+                     , 
+                     A.PHD_BAS_UNT_IDVDC PHD_BAS_UNT_IDVDC /* 물류기준단위개별코드 */ 
+                     , 
+                     A.WRS_MRK_PHD_UNT_C WRS_MRK_PHD_UNT_C /* 상품표시물류단위코드 */ 
+                     , 
+                     A.NA_SPYPL_C NA_SPYPL_C /* 경제통합공급처코드 */ 
+                     , 
+                     A.PLTT_LOAD_C PLTT_LOAD_C /* 파렛트적재코드 */ 
+                     , 
+                     A.SVS_YN SVS_YN /* 소분여부 */ 
+                     , 
+                     A.SVS_QT SVS_QT /* 소분수량 */ 
+                     , 
+                     A.SRTR_PRC_YN SRTR_PRC_YN /* 소터처리여부 */ 
+                     , 
+                     ( 
+                         CASE A.WRS_MRK_PHD_UNT_C 
+                             WHEN 'PALLET' 
+                             THEN B.PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                             WHEN 'BOX' 
+                             THEN C.MIN_ODR_QT /* 물류박스기준수량 */ 
+                             WHEN 'CASE' 
+                             THEN B.PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                             WHEN 'BUNDLE' 
+                             THEN B.PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                             WHEN 'EA' 
+                             THEN B.PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                         END 
+                     ) 
+                     INPD_QT /* 내품수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                     , 
+                     C.MIN_ODR_QT PHD_BOX_BAS_QT /* 물류박스기준수량 */ 
+                     , 
+                     B.PHD_CSE_BAS_QT PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                     , 
+                     B.PHD_BUDL_BAS_QT PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                     , 
+                     B.PHD_PIEC_BAS_QT PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN PLTT_BOX_QT /* 파렛트당박스수량 */ 
+                     , 
+                     C.INPD_QT DPINPD_QT /* 수발주내품수량 */ 
+                     , 
+                     B.PHD_BOX_BAS_QT DPODR_QT /* 수발주박스당입수 */ 
+                     , 
+                     A.PHD_FCLT_C PHD_FCLT_C /* 물류기능구분코드 */ 
+                FROM TB_FD_GM_GOOD_WH A /* 상품관리물류취급상품기본 */ 
+                     , 
+                     TB_WA_IC_STDUNIT B /* 기준정보_기준단위코드 */ 
+                     , 
+                     TB_OD_TRTWRS C 
+               WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC 
+                     AND A.NA_BZPLC = C.NA_BZPLC 
+                     AND A.NA_WRS_C = C.NA_WRS_C 
+                     AND A.NA_BZPLC = #{PHD_NA_BZPLC} 
+                     AND A.NA_SPYPL_C IN
+                     <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+						#{item}
+					</foreach>
+					
+					
+              ) D /* 물류상품기본정보 */ 
+              , 
+              TB_TR_TRPL_CIF E /* 거래처관리_거래처기본 */ 
+              , 
+              TB_FD_GM_GOOD_WH F , 
+              W_NA_WRS_C J , 
+              (SELECT /*+ LEADING(G) USE_NL(D H) INDEX(G PK_NA_FD_GM_GOOD_WH) INDEX(H PK_NA_WA_IC_STDUNIT) */ 
+                     g.na_bzplc , 
+                     g.na_wrs_c , 
+                     g.na_spypl_c , 
+                     g.phd_fclt_c , 
+                     g.wrs_mrk_phd_unt_c , 
+                     g.phd_bas_unt_idvdc , 
+                     D.wrsnm , 
+                     ( 
+                         CASE G.WRS_MRK_PHD_UNT_C 
+                             WHEN 'PALLET' 
+                             THEN H.PHD_PLTT_BAS_QT 
+                             WHEN 'BOX' 
+                             THEN D.MIN_ODR_QT 
+                             WHEN 'CASE' 
+                             THEN H.PHD_CSE_BAS_QT 
+                             WHEN 'BUNDLE' 
+                             THEN H.PHD_BUDL_BAS_QT 
+                             WHEN 'EA' 
+                             THEN H.PHD_PIEC_BAS_QT 
+                         END 
+                     ) 
+                     bas_qt 
+                FROM TB_FD_GM_GOOD_WH G , 
+                     TB_OD_TRTWRS D , 
+                     TB_WA_IC_STDUNIT H 
+               WHERE D.na_bzplc = G.na_bzplc 
+                     AND D.na_wrs_c = G.na_wrs_c 
+                     AND H.PHD_BAS_UNT_IDVDC = G.PHD_BAS_UNT_IDVDC 
+                     AND 
+                     ( 
+                         '0' = NVL(#{WRS_P},'0') /* 상품재고_상품코드 전체 또는 입력값 */ 
+                         OR 
+                         ( 
+                             '1' = #{WRS_P} 
+                             AND G.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI} 
+                             AND G.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO} 
+                         ) 
+                     ) 
+                     AND G.NA_BZPLC = #{PHD_NA_BZPLC}
+                     AND G.NA_SPYPL_C IN
+                     <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+						#{item}
+					</foreach>
+              ) Y 
+        WHERE A.phd_na_bzplc IN 
+              (SELECT /*+ DPON2186R3 */ 
+                     T1.na_bzplc 
+                FROM TB_CM_BZPL T1 , 
+                     TB_TR_TRPL_CIF T2 , 
+                     TB_FD_GM_GOOD_WH T3 
+               WHERE T1.na_bzplc = T2.na_trpl_c 
+                     AND T1.amn_na_bzplc = #{PHD_NA_BZPLC} /* 사업장    */ 
+                     AND '1' = DECODE(#{PHD_NA_BZPLC}, '1111111111111', '1' , '0000000000000', '1' , '8' ) 
+                  UNION ALL 
+              SELECT /*+ DPON2186R3 */ 
+                     T2.na_trpl_c 
+                FROM TB_CM_BZPL T1 , 
+                     TB_TR_TRPL_CIF T2 
+               WHERE T1.na_bzplc = T2.na_trpl_c 
+                     AND T1.na_bzplc = #{PHD_NA_BZPLC} /* 사업장     */ 
+                     AND '1' = DECODE(#{PHD_NA_BZPLC}, '0000000000000' , '1' , #{PHD_NA_BZPLC}, '1' , '0' )  
+              ) 
+              AND C.SPYPL_NA_TRPL_C IN /*권한사업장 거래처코드*/ 
+              <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			  </foreach>  
+              AND A.phd_na_bzplc = C.na_bzplc 
+              AND A.na_wrs_c = C.na_wrs_c 
+              AND A.phd_na_bzplc = D.na_bzplc 
+              AND A.na_wrs_c = D.na_wrs_c 
+              AND C.na_bzplc = F.na_bzplc 
+              AND C.na_wrs_c = F.na_wrs_c 
+              AND 
+              ( 
+                  '0' = NVL(#{WRS_P},'0') /* 상품재고_상품코드 전체 또는 입력값 */ 
+                  OR 
+                  ( 
+                      '1' = #{WRS_P} 
+                      AND A.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI}
+                      AND A.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO} 
+                  ) 
+              ) 
+              AND D.na_spypl_c = E.na_trpl_c 
+              AND A.phd_na_bzplc = J.phd_na_bzplc 
+              AND J.phd_na_bzplc = Y.na_bzplc 
+              AND J.na_wrs_c = Y.na_wrs_c 
+              AND A.phd_na_bzplc = J.phd_na_bzplc 
+              AND A.na_wrs_c = J.na_wrs_c 
+              AND A.wrs_grd_dsc <![CDATA[<>]]> '30' 
+        GROUP BY A.phd_na_bzplc , 
+              C.SPYPL_NA_TRPL_C , 
+              A.na_wrs_c , 
+              C.wrsnm , 
+              D.pltt_load_c , 
+              D.pltt_box_qt , 
+              A.wrs_grd_dsc , 
+              D.inpd_qt , 
+              E.na_trpl_c , 
+              E.clntnm , 
+              D.phd_fclt_c , 
+              A.phd_na_bzplc , 
+              Y.bas_qt 
+       ) U 
+ <!--  WHERE T.NABZPLC(+) = #{PHD_NA_BZPLC}   
+       AND T.wrsc (+) = U.a1  -->
+ORDER BY 1, 
+       3 
+	</select>
+	
+	<select id="centerStock_WRS_pt_backup" parameterType="java.util.Map" resultType="java.util.Map">
+with /*+ DPON2186R3 */ w_na_wrs_c as (                                                                                                           
+     select H.phd_na_bzplc                                                                                                                           
+          , G.SHRT_BZPLNM                                                                                                                            
+          , H.na_wrs_c                                                                                                                               
+          , nvl(sum(H.phd_tot_qt),0) phd_tot_qt                                                                                                      
+          , nvl(SUM( H.phd_sply_qt                                                                                                                   
+                    + H.phd_alc_qt                                                                                                                   
+                    + H.phd_pck_qt                                                                                                                   
+                    + H.phd_rzv_qt                                                                                                                   
+                    + H.phd_csmt_str_qt                                                                                                              
+                    + H.phd_csmt_dlr_qt                                                                                                              
+                    ), 0                                                                                                                             
+                ) etc_tot_qt                                                                                                                         
+      from                                                                                                                                           
+           TB_CM_BZPL  G                                                                                                                       
+         , TB_WM_SH_GDINV H                                                                                                                       
+     where                                                                                                                                           
+           H.phd_na_bzplc = #{PHD_NA_BZPLC} /*물류센터코드*/                                                                                                         
+       AND H.wrs_grd_dsc  IN ('10', '40', '50')                                                                                                      
+       AND G.na_bzplc     = H.phd_na_bzplc                                                                                                           
+            AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */                                                      
+                 OR ( '1' = #{WRS_P} AND H.na_wrs_c   <![CDATA[>=]]> #{WRS_C_FM_PI} AND H.na_wrs_c   <![CDATA[<=]]> #{WRS_C_FM_PO})                                       
+                )                                                                                                                                    
+     group by                                                                                                                                        
+           H.phd_na_bzplc                                                                                                                            
+         , G.SHRT_BZPLNM                                                                                                                             
+         , H.na_wrs_c                                                                                                                                
+    )                                                                                                                                                
+    SELECT /*+ DPON2186R3*/                                                    																  	              
+            U.a1 , U.a2 , U.a3              
+            , (SELECT CLNTNM 
+         FROM TB_TR_TRPL_CIF 
+        WHERE NA_TRPL_C = U.A3
+       ) AS A4 /* 물류센터명 */ 
+       , 
+       DECODE(U.A20, '10', '정상', '20', '반품', '30', '덤', '40', '행사', '50', '파손', '60', '폐기', '분실') A20 /* 상품등급 */    							  
+            , U.a19    , U.a18     , U.a5   																										  													
+          	 , U.a6 , U.a7 , U.a8              , U.a9               , U.a10       																  	   
+          	 , U.a11, U.a12, U.a13             , U.a14              , U.a15       																  	   
+          	 , U.a16, U.a17                                                       																  	  
+       FROM (select /*+ LEADING (X Y W) USE_NL(Y W) INDEX(X PK_NA_WM_SH_LOCINV) INDEX(W IX_NA_WM_SH_INVATTR_N2) DPON2186R3*/                         
+                    x.PHD_NA_BZPLC nabzplc                                     																  	  
+                  , x.NA_WRS_C     wrsc                                        																  	  
+                  , w.phd_fclt_c   fcltc                                       																  	  
+                  , w.wrs_grd_dsc  grddsc                                      																  	  
+                  , NVL(SUM(x.phd_tot_qt),0)                                   																  	  
+                  - NVL(SUM(x.phd_sply_qt                                      																  	  
+                           +x.phd_alc_qt                                       																  	  
+                           +x.phd_pck_qt                                       																  	  
+                           +x.phd_rzv_qt																										  	  
+                          +x.phd_csmt_str_qt                                   																  	  
+                           +x.phd_csmt_dlr_qt                                  																  	  
+                           )                                                   																  	  
+                       ,0)  AS useea_qt         /* 가용수량(낱개) */           																  	  
+	                                 , TRUNC(              																													
+	             case  (SUM(x.phd_tot_qt)                  																													                                                                                                   
+	                      -SUM(x.phd_sply_qt               																													                                                                                                      
+	                          +x.phd_alc_qt                																													                                                                                                      
+	                          +x.phd_pck_qt                																													                                                                                                      
+	                          +x.phd_rzv_qt                																													                                                                                                      
+	                          +x.phd_csmt_str_qt           																													                                                                                                      
+	                          +x.phd_csmt_dlr_qt           																													                                                                                                      
+	                          )                            																													                                                                                                      
+	                      )                                																													
+	             when 0                                    																													
+	             then 0                                    																													
+	             else  (SUM(x.phd_tot_qt)                  																													                                                                                                   
+	                      -SUM(x.phd_sply_qt               																													                                                                                                      
+	                          +x.phd_alc_qt                																													                                                                                                      
+	                          +x.phd_pck_qt                																													                                                                                                      
+	                          +x.phd_rzv_qt                																													                                                                                                      
+	                          +x.phd_csmt_str_qt           																													                                                                                                      
+	                          +x.phd_csmt_dlr_qt           																													                                                                                                      
+	                          )                            																													                                                                                                      
+	                      ) / z.inpd_qt                    																													
+	             end                                       																													
+	                                                       																													                                                                              
+	                     ) as usebox_qt                    																													
+               from TB_WM_SH_LOCINV  x                                      																  	  
+                  , TB_WM_MC_LOC     y                                      																  	  
+                  , (SELECT A.NA_BZPLC NA_BZPLC /* 경제통합사업장 코드 */ 
+                     , 
+                     A.NA_WRS_C NA_WRS_C /* 상품코드 */ 
+                     , 
+                     A.PHD_BAS_UNT_IDVDC PHD_BAS_UNT_IDVDC /* 물류기준단위개별코드 */ 
+                     , 
+                     A.WRS_MRK_PHD_UNT_C WRS_MRK_PHD_UNT_C /* 상품표시물류단위코드 */ 
+                     , 
+                     A.NA_SPYPL_C NA_SPYPL_C /* 경제통합공급처코드 */ 
+                     , 
+                     A.PLTT_LOAD_C PLTT_LOAD_C /* 파렛트적재코드 */ 
+                     , 
+                     A.SVS_YN SVS_YN /* 소분여부 */ 
+                     , 
+                     A.SVS_QT SVS_QT /* 소분수량 */ 
+                     , 
+                     A.SRTR_PRC_YN SRTR_PRC_YN /* 소터처리여부 */ 
+                     , 
+                     (
+                         CASE A.WRS_MRK_PHD_UNT_C 
+                             WHEN 'PALLET' 
+                             THEN B.PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                             WHEN 'BOX' 
+                             THEN C.MIN_ODR_QT /* 물류박스기준수량 */ 
+                             WHEN 'CASE' 
+                             THEN B.PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                             WHEN 'BUNDLE' 
+                             THEN B.PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                             WHEN 'EA' 
+                             THEN B.PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                         END
+                     ) 
+                     INPD_QT /* 내품수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                     , 
+                     C.MIN_ODR_QT PHD_BOX_BAS_QT /* 물류박스기준수량 */ 
+                     , 
+                     B.PHD_CSE_BAS_QT PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                     , 
+                     B.PHD_BUDL_BAS_QT PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                     , 
+                     B.PHD_PIEC_BAS_QT PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN PLTT_BOX_QT /* 파렛트당박스수량 */ 
+                     , 
+                     C.INPD_QT DPINPD_QT /* 수발주내품수량 */ 
+                     , 
+                     B.PHD_BOX_BAS_QT DPODR_QT /* 수발주박스당입수 */ 
+                     , 
+                     A.PHD_FCLT_C PHD_FCLT_C /* 물류기능구분코드 */ 
+                FROM TB_FD_GM_GOOD_WH A /* 상품관리물류취급상품기본 */ 
+                     , 
+                     TB_WA_IC_STDUNIT B /* 기준정보_기준단위코드 */ 
+                     , 
+                     TB_OD_TRTWRS C 
+               WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC 
+                     AND A.NA_BZPLC = C.NA_BZPLC 
+                     AND A.NA_WRS_C = C.NA_WRS_C 
+              ) Z , 
+              TB_WM_SH_INVATTR W                                    																  	  
+              where x.PHD_NA_BZPLC          = #{PHD_NA_BZPLC} /*물류센터코드*/     
+                AND X.PHD_STPL_DT = TO_CHAR(SYSDATE-1, 'YYYYMMDD')            																  	  
+                AND x.phd_na_bzplc          = z.na_bzplc                       																  	  
+                AND x.na_wrs_c              = z.na_wrs_c                       																  	  
+                and x.PHD_NA_BZPLC          = y.PHD_NA_BZPLC																					  	  
+                and x.NA_LOCA_C             = y.NA_LOCA_C                      																  	  
+                and y.loca_kdc              = '01'                             																  	  
+                and w.phd_na_bzplc          = x.phd_na_bzplc                   																  	  
+                and w.na_wrs_c              = x.na_wrs_c                       																  	  
+                and w.stpl_attr_phd_idvd_no = x.stpl_attr_phd_idvd_no          																  	  
+              group by                                                         																  	  
+                    x.PHD_NA_BZPLC                                             																  	  
+                  , x.NA_WRS_C                                                 																  	  
+                  , z.inpd_qt                                                  																  	  
+                  , w.phd_fclt_c                                               																  	  
+                  , w.wrs_grd_dsc                                              																  	  
+            ) T                                                                																  	  
+             ,(SELECT  /*+ LEADING(A) INDEX(A PK_NA_WM_SH_GDINV)  */            																  	  
+                    A.na_wrs_c                                     a1																			  	  		    /* 경제통합상품코드        */
+                  , C.wrsnm                                        a2																			  	  		    /* 상품명                  */
+                  , A.phd_na_bzplc                                 a3																			  	  		    /* 물류센터코드            */
+                  , ''														  								a4																			  	  	        /* 물류센터명              */
+                  , Y.bas_qt  								        a18																			  	  	        /* 납품수량                */
+                  , NVL(SUM(A.phd_tot_qt),0)                       a5																			  	  		    /* 물류총수량(낱개)        */
+                  , NVL(TRUNC(decode(SUM(A.phd_tot_qt),0,0,SUM(A.phd_tot_qt)/D.inpd_qt)),0)      a6																			  	  		    /* 물류총수량(표시)        */
+                  , NVL(SUM(A.phd_stpl_am),0)                      a7																			  	  		    /* 물류재고금액            */
+                  , NVL(SUM(A.phd_tot_qt),0)                                   																  	  
+                  - NVL(SUM(A.phd_sply_qt                                      																  	  
+                           +A.phd_alc_qt																										  	  	
+                           +A.phd_pck_qt                                       																  	  
+                           +A.phd_rzv_qt                                       																  	  
+                           +A.phd_csmt_str_qt																									  	  
+                           +A.phd_csmt_dlr_qt                                  																  	  
+                           )                                                   																  	  
+                       ,0)                                         a8																			  	    		     /* 가용수량(낱개)          */
+                  , TRUNC(                                                                                         
+                  case  (SUM(A.phd_tot_qt)                                                                                                                     
+                          -SUM(A.phd_sply_qt                                                                                                                     
+                              +A.phd_alc_qt                                                                                                                      
+                              +A.phd_pck_qt                                                                                                                      
+                              +A.phd_rzv_qt                                                                                                                      
+                              +A.phd_csmt_str_qt                                                                                                                 
+                              +A.phd_csmt_dlr_qt                                                                                                                 
+                              )                                                                                                                                  
+                          )                                                                                        
+                   WHEN 0                                                                                          
+                   THEN 0                                                                                          
+                   ELSE (SUM(A.phd_tot_qt)                                                                                                                     
+                          -SUM(A.phd_sply_qt                                                                                                                     
+                              +A.phd_alc_qt                                                                                                                      
+                              +A.phd_pck_qt                                                                                                                      
+                              +A.phd_rzv_qt                                                                                                                      
+                              +A.phd_csmt_str_qt                                                                                                                 
+                              +A.phd_csmt_dlr_qt                                                                                                                 
+                              )                                                                                                                                  
+                          ) / D.inpd_qt                                                                                                                          
+                   END   )                                         a9                                                                                                
+                  , (NVL(SUM(A.phd_tot_qt),0)                                  																  	  
+                    -NVL(SUM(A.phd_sply_qt                                     																  	  
+                            +A.phd_alc_qt                                      																  	  
+                            +A.phd_pck_qt																										  	  	
+                            +A.phd_rzv_qt                                      																  	  
+                            +A.phd_csmt_str_qt                                 																  	  
+                            +A.phd_csmt_dlr_qt                                 																  	  
+                            )                                                  																  	  
+                        ,0)                                                    																  	  
+                    ) * NVL(SUM(A.phd_mve_avg_pcs),0)              a10																			  	      			 /* 가용금액                  */
+                 ,'0'      a11                                              																          
+                 ,'0'      a12                                              																          
+                  , NVL(SUM(A.phd_csmt_dlr_qt),0)                  a13         																  	            /* 물류적송출고수량(낱개)    */
+                  , NVL(TRUNC(decode(SUM(A.phd_csmt_dlr_qt),0,0,SUM(A.phd_csmt_dlr_qt)/D.inpd_qt)),0) a14         		          /* 물류적송출고수량(표시)    */
+                  , NVL(TRUNC(decode(SUM(A.phd_csmt_dlr_qt),0,0,SUM(A.phd_csmt_dlr_qt)/D.inpd_qt)),0) * NVL(SUM(A.phd_mve_avg_pcs),0)  a15							                  		     /* 물류적송출고금액          */
+                  , NVL(SUM(A.phd_csmt_str_qt),0)                  a16         																  	            /* 물류적송입고수량(낱개)    */
+                  , NVL(SUM(A.phd_csmt_str_qt),0) * NVL(SUM(A.phd_mve_avg_pcs),0)  a17															  	  		     /* 물류적송입고금액          */
+                  , D.Phd_Fclt_C                                                   a19 														  	  		     /* 물류기능                  */
+                  , A.wrs_grd_dsc                                                  a20 														  	  		     /* 상품등급                  */
+               FROM TB_WM_SH_GDINV   A                         																				  	  			 /* 재고_상품재고                 */
+                  , TB_OD_TRTWRS    C                         																				  	  			 /* 상품관리_취급상품기본     */
+                  , 
+                  (SELECT A.NA_BZPLC NA_BZPLC /* 경제통합사업장 코드 */ 
+                     , 
+                     A.NA_WRS_C NA_WRS_C /* 상품코드 */ 
+                     , 
+                     A.PHD_BAS_UNT_IDVDC PHD_BAS_UNT_IDVDC /* 물류기준단위개별코드 */ 
+                     , 
+                     A.WRS_MRK_PHD_UNT_C WRS_MRK_PHD_UNT_C /* 상품표시물류단위코드 */ 
+                     , 
+                     A.NA_SPYPL_C NA_SPYPL_C /* 경제통합공급처코드 */ 
+                     , 
+                     A.PLTT_LOAD_C PLTT_LOAD_C /* 파렛트적재코드 */ 
+                     , 
+                     A.SVS_YN SVS_YN /* 소분여부 */ 
+                     , 
+                     A.SVS_QT SVS_QT /* 소분수량 */ 
+                     , 
+                     A.SRTR_PRC_YN SRTR_PRC_YN /* 소터처리여부 */ 
+                     , 
+                     (
+                         CASE A.WRS_MRK_PHD_UNT_C 
+                             WHEN 'PALLET' 
+                             THEN B.PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                             WHEN 'BOX' 
+                             THEN C.MIN_ODR_QT /* 물류박스기준수량 */ 
+                             WHEN 'CASE' 
+                             THEN B.PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                             WHEN 'BUNDLE' 
+                             THEN B.PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                             WHEN 'EA' 
+                             THEN B.PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                         END
+                     ) 
+                     INPD_QT /* 내품수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT /* 물류파렛트기준수량 */ 
+                     , 
+                     C.MIN_ODR_QT PHD_BOX_BAS_QT /* 물류박스기준수량 */ 
+                     , 
+                     B.PHD_CSE_BAS_QT PHD_CSE_BAS_QT /* 물류케이스기준수량 */ 
+                     , 
+                     B.PHD_BUDL_BAS_QT PHD_BUDL_BAS_QT /* 물류묶음기준수량 */ 
+                     , 
+                     B.PHD_PIEC_BAS_QT PHD_PIEC_BAS_QT /* 물류낱개기준수량 */ 
+                     , 
+                     A.PLTPE_BOX_CN PLTT_BOX_QT /* 파렛트당박스수량 */ 
+                     , 
+                     C.INPD_QT DPINPD_QT /* 수발주내품수량 */ 
+                     , 
+                     B.PHD_BOX_BAS_QT DPODR_QT /* 수발주박스당입수 */ 
+                     , 
+                     A.PHD_FCLT_C PHD_FCLT_C /* 물류기능구분코드 */ 
+                FROM TB_FD_GM_GOOD_WH A /* 상품관리물류취급상품기본 */ 
+                     , 
+                     TB_WA_IC_STDUNIT B /* 기준정보_기준단위코드 */ 
+                     , 
+                     TB_OD_TRTWRS C 
+               WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC 
+                     AND A.NA_BZPLC = C.NA_BZPLC 
+                     AND A.NA_WRS_C = C.NA_WRS_C 
+              ) D                         																				  	  			 /* 물류상품기본정보          */
+                  , TB_TR_TRPL_CIF    E                         																				  	  			 /* 거래처관리_거래처기본     */
+                  , TB_FD_GM_GOOD_WH F                                      																  	  
+                  , W_NA_WRS_C          J                                                                                                               
+                  , (select  /*+ LEADING(G) USE_NL(D H) INDEX(G PK_NA_FD_GM_GOOD_WH) INDEX(H PK_NA_WA_IC_STDUNIT) */                                 
+                            g.na_bzplc                                                                                                               
+                          , g.na_wrs_c                                                                                                               
+                          , g.na_spypl_c                                                                                                             
+                          , g.phd_fclt_c                                                                                                             
+                          , g.wrs_mrk_phd_unt_c                                                                                                      
+                          , g.phd_bas_unt_idvdc                                                                                                      
+                          , D.wrsnm
+                          , (CASE G.WRS_MRK_PHD_UNT_C                                                                                                
+                                  WHEN 'PALLET' THEN H.PHD_PLTT_BAS_QT                                                                               
+                                  WHEN 'BOX'    THEN D.MIN_ODR_QT                                                                                    
+                                  WHEN 'CASE'   THEN H.PHD_CSE_BAS_QT                                                                                
+                                  WHEN 'BUNDLE' THEN H.PHD_BUDL_BAS_QT                                                                               
+                                  WHEN 'EA'     THEN H.PHD_PIEC_BAS_QT                                                                               
+                             END) bas_qt                                                                                                             
+                       from                                                                                                                          
+                            TB_FD_GM_GOOD_WH G                                                                                                    
+                          , TB_OD_TRTWRS    D                                                                                                    
+                          , TB_WA_IC_STDUNIT H                                                                                                    
+                      where                                                                                                                          
+                            D.na_bzplc          = G.na_bzplc                                                                                         
+                        AND D.na_wrs_c          = G.na_wrs_c                                                                                         
+                        AND H.PHD_BAS_UNT_IDVDC = G.PHD_BAS_UNT_IDVDC                                                                                
+                        AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */                                          
+                             OR ( '1' = #{WRS_P} AND G.na_wrs_c   <![CDATA[>=]]> #{WRS_C_FM_PI} AND G.na_wrs_c    <![CDATA[<=]]> #{WRS_C_FM_PO})                           
+                            )                                                                                                                        
+                    ) Y                                                                                                                              
+              WHERE A.phd_na_bzplc IN                                            																  	  
+                (
+                SELECT /*+ DPON2186R3 */ 
+			       T1.na_bzplc 
+			  FROM TB_CM_BZPL T1 , 
+			       TB_TR_TRPL_CIF T2 , 
+			       TB_FD_GM_GOOD_WH T3 
+			 WHERE T1.na_bzplc = T2.na_trpl_c 
+			       AND T1.amn_na_bzplc = #{PHD_NA_BZPLC} /* 사업장    */ 
+			       AND '1' = DECODE(#{PHD_NA_BZPLC}, '1111111111111', '1' , '0000000000000', '1' , '8' ) 
+			    UNION ALL 
+			SELECT /*+ DPON2186R3 */ 
+			       T2.na_trpl_c 
+			  FROM TB_CM_BZPL T1 , 
+			       TB_TR_TRPL_CIF T2 
+			 WHERE T1.na_bzplc = T2.na_trpl_c 
+			       AND T1.na_bzplc = #{PHD_NA_BZPLC} /* 사업장     */ 
+			       AND '1' = DECODE(#{PHD_NA_BZPLC}, '0000000000000' , '1' , #{PHD_NA_BZPLC}, '1' , '0' ) 
+             )   
+  	    	 AND C.SPYPL_NA_TRPL_C IN /*권한사업장 거래처코드*/
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>                                                                                                                                                                                                        
+                AND A.phd_na_bzplc  = C.na_bzplc                                                                                                     
+                AND A.na_wrs_c      = C.na_wrs_c                                                                                                     
+                AND A.phd_na_bzplc  = D.na_bzplc                                                                                                     
+                AND A.na_wrs_c      = D.na_wrs_c																							          	
+                AND C.na_bzplc      = F.na_bzplc                                                                                                     
+                AND C.na_wrs_c      = F.na_wrs_c                                                                                                     
+                AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */                                                  
+                     OR ( '1' = #{WRS_P} AND A.na_wrs_c   <![CDATA[>=]]> #{WRS_C_FM_PI} AND A.na_wrs_c   <![CDATA[<=]]> #{WRS_C_FM_PO})                                   
+                    )                                                                                                                                
+                AND D.na_spypl_c    = E.na_trpl_c                                                                                                    
+                AND A.phd_na_bzplc  = J.phd_na_bzplc                                                                                                 
+                AND J.phd_na_bzplc  = Y.na_bzplc                                                                                                     
+                AND J.na_wrs_c      = Y.na_wrs_c                                                                                                     
+                AND A.phd_na_bzplc  = J.phd_na_bzplc                                                                                                 
+                AND A.na_wrs_c      = J.na_wrs_c                                                                                                     
+                AND A.wrs_grd_dsc    <![CDATA[<>]]> '30'                                                                                                          
+              GROUP BY                                                                                                                               
+                    A.phd_na_bzplc                                                                                                                   
+                  , C.SPYPL_NA_TRPL_C                                                                                                                      
+                  , A.na_wrs_c                                                                                                                       
+                  , C.wrsnm                                                                                                                          
+                  <!-- , C.wrs_stdnm  -->                                                                                                                      
+                  , D.pltt_load_c                                                                                                                    
+                  , D.pltt_box_qt                                                                                                                    
+                  , A.wrs_grd_dsc                                                                                                                    
+                  , D.inpd_qt                                                                                                                        
+                  , E.na_trpl_c                                                                                                                      
+                  , E.clntnm                                                                                                                         
+                  , D.phd_fclt_c                                                                                                                     
+                  , A.phd_na_bzplc                                                                                                                   
+          		     , Y.bas_qt                                                                                                                       
+            ) U                                                                                                                                      
+        WHERE T.NABZPLC(+) = #{PHD_NA_BZPLC}                                                                                                  
+          AND T.wrsc   (+) = U.a1                                                                                                                    
+        ORDER BY 1,3  
+</select>
+
+<select id="centerStock_WRS_Jb" parameterType="java.util.Map" resultType="java.util.Map">
+SELECT /*+ LEADING(B A) DPON2186R3 */                                                                                                                          
+	    NVL(B.NA_WRS_C, '')   a1                                                                                                                                     /* 통합상품코드            */
+	   ,NVL(C.WRSNM, '')      a2                                                                                                                                     /* 상품명                  */
+	   ,DECODE(GROUPING(E.CLNTNM), 1, '', NVL(A.NA_BZPLC, ''))   a3                                                                                                  /* 물류경제통합사업장코드  */
+	   ,DECODE(GROUPING(E.CLNTNM), 0, NVL(A.SHRT_BZPLNM,''))     a4                                                                                                  /* 물류센터명              */                                                                                                                                      /* 납품수량                */
+	   ,'0'     a5                                                                                                                                         /* 납품수량                */
+	   ,NVL(SUM(B.PHD_TOT_QT), 0)       a6                                                                                                                           /* 물류총_낱개             */
+	   ,Trunc(NVL(SUM(B.PHD_TOT_QT /  
+     NVL(
+     (CASE D.WRS_MRK_PHD_UNT_C                                                                    									  
+                            WHEN 'PALLET' THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'P') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'B') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'P') + 2), -1)                                                 									  
+                            WHEN 'BOX'    THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'B') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'C') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'B') + 2), -1)                                                            									  
+                            WHEN 'CASE'   THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'C') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'D') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'C') + 2), -1)                                                       									  
+                            WHEN 'BUNDLE' THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'D') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'E') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'D') + 2), -1)                                                        									  
+                            WHEN 'EA'     THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'E') + 1, LENGTH(D.PHD_BAS_UNT_IDVDC) - INSTR(D.PHD_BAS_UNT_IDVDC, 'E') + 2), -1)
+                            ELSE NVL('',1)
+                  END)
+     , 0)),0) ,2)  a7                                              /* 물류총_박스             */
+	   ,NVL(SUM(TRUNC(DECODE(B.WRS_GRD_DSC, '30',0,B.PHD_MVE_AVG_PCS)                                                                                                                             
+	          * (B.PHD_TOT_QT + B.PHD_CSMT_STR_QT + B.PHD_CSMT_DLR_QT))),0)   a8                                                                                     /* 물류재고금액            */
+	   ,NVL(SUM(B.PHD_TOT_QT), 0) -                                                                                                                                                               
+	    NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0)   a9                                                                                 /* 가용낱개                */
+	   ,Trunc(NVL(SUM((NVL(B.PHD_TOT_QT, 0) -                                                                                                                                                     
+	     NVL(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT, 0)) /                                                                                                                    
+	     NVL(
+       (CASE D.WRS_MRK_PHD_UNT_C                                                                    									  
+                            WHEN 'PALLET' THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'P') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'B') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'P') + 2), -1)                                                 									  
+                            WHEN 'BOX'    THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'B') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'C') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'B') + 2), -1)                                                            									  
+                            WHEN 'CASE'   THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'C') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'D') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'C') + 2), -1)                                                       									  
+                            WHEN 'BUNDLE' THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'D') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'E') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'D') + 2), -1)                                                        									  
+                            WHEN 'EA'     THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'E') + 1, LENGTH(D.PHD_BAS_UNT_IDVDC) - INSTR(D.PHD_BAS_UNT_IDVDC, 'E') + 2), -1)
+                            ELSE NVL('',1)
+                  END)
+       , 0)),0) ,2)   a10                                                                         /* 가용_박스               */
+	   ,(NVL(SUM(B.PHD_TOT_QT), 0) -                                                                                                                                                              
+	    NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0)                                                                                                                   
+	    ) * NVL(SUM(B.phd_mve_avg_pcs),0)   a11                                                                                                                      /* 가용재고금액            */
+       ,'0'      a12                                              																                      				
+       ,'0'      a13                                              																                        		                                                                                                /* 예상소진일자            */
+	   ,NVL(SUM(B.PHD_CSMT_DLR_QT), 0)  a14                                                                                                                          /* 적송출고_낱개           */
+     ,Trunc(NVL(SUM(B.PHD_CSMT_DLR_QT /                                                                                                                            
+	    NVL(
+      (CASE D.WRS_MRK_PHD_UNT_C                                                                    									  
+                            WHEN 'PALLET' THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'P') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'B') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'P') + 2), -1)                                                 									  
+                            WHEN 'BOX'    THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'B') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'C') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'B') + 2), -1)                                                            									  
+                            WHEN 'CASE'   THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'C') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'D') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'C') + 2), -1)                                                       									  
+                            WHEN 'BUNDLE' THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'D') + 1, INSTR(D.PHD_BAS_UNT_IDVDC, 'E') - 1 - INSTR(D.PHD_BAS_UNT_IDVDC, 'D') + 2), -1)                                                        									  
+                            WHEN 'EA'     THEN NVL(SUBSTR(D.PHD_BAS_UNT_IDVDC, INSTR(D.PHD_BAS_UNT_IDVDC, 'E') + 1, LENGTH(D.PHD_BAS_UNT_IDVDC) - INSTR(D.PHD_BAS_UNT_IDVDC, 'E') + 2), -1)
+                            ELSE NVL('',1)
+                  END)
+      , 0)),0) ,2)   a15                                                                          /* 적송출고_박스           */
+	   ,NVL(SUM(B.PHD_CSMT_DLR_QT), 0) * NVL(SUM(B.phd_mve_avg_pcs),0)  a16                                                                                          /* 적송출고금액            */
+	   ,NVL(SUM(B.PHD_CSMT_STR_QT), 0)   a17                                                                                                                         /* 적송입고_낱개           */
+	   ,NVL(SUM(B.PHD_CSMT_STR_QT), 0) * NVL(SUM(B.phd_mve_avg_pcs),0)   a18                                                                                         /* 적송입고금액            */
+	FROM TB_CM_BZPL    A                                                                                                                                       /* 조직관리_사업장기본     */
+	   , TB_WM_SH_GDINV   B                                                                                                                                       /* 재고_상품재고           */
+	   , TB_OD_TRTWRS    C                                                                                                                                       /* 상품관리_취급상품기본   */
+	   , TB_FD_GM_GOOD_WH D                                                                                                                                       /* 상품관리_취급상품기본   */
+	   , (
+    SELECT
+    A.NA_BZPLC          				NA_BZPLC               	/* 경제통합사업장 코드		*/
+    , A.NA_WRS_C          			NA_WRS_C               	/* 상품코드						*/
+    , A.PHD_BAS_UNT_IDVDC 		PHD_BAS_UNT_IDVDC	/* 물류기준단위개별코드		*/
+    , A.WRS_MRK_PHD_UNT_C 	WRS_MRK_PHD_UNT_C	/* 상품표시물류단위코드		*/
+    , A.NA_SPYPL_C        			NA_SPYPL_C             	/* 경제통합공급처코드			*/
+    , A.PLTT_LOAD_C       			PLTT_LOAD_C            	/* 파렛트적재코드				*/
+    , A.SVS_YN            				SVS_YN                 		/* 소분여부                  		*/
+    , A.SVS_QT            				SVS_QT                 		/* 소분수량						*/     
+    , A.SRTR_PRC_YN					SRTR_PRC_YN				/* 소터처리여부					*/
+    , (CASE A.WRS_MRK_PHD_UNT_C
+          WHEN 'PALLET'			THEN B.PHD_PLTT_BAS_QT		/* 물류파렛트기준수량			*/
+          WHEN 'BOX'				THEN C.MIN_ODR_QT				/*  물류박스기준수량			*/
+          WHEN 'CASE'			THEN B.PHD_CSE_BAS_QT			/* 물류케이스기준수량			*/
+          WHEN 'BUNDLE'		THEN B.PHD_BUDL_BAS_QT		/* 물류묶음기준수량			*/
+          WHEN 'EA'				THEN B.PHD_PIEC_BAS_QT			/* 물류낱개기준수량			*/          
+        END)								INPD_QT									/* 내품수량						*/
+    , A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT			/* 물류파렛트기준수량			*/
+    , C.MIN_ODR_QT					PHD_BOX_BAS_QT					/* 물류박스기준수량			*/
+    , B.PHD_CSE_BAS_QT			PHD_CSE_BAS_QT					/* 물류케이스기준수량			*/
+    , B.PHD_BUDL_BAS_QT			PHD_BUDL_BAS_QT					/* 물류묶음기준수량			*/
+    , B.PHD_PIEC_BAS_QT			PHD_PIEC_BAS_QT					/* 물류낱개기준수량			*/
+    , A.PLTPE_BOX_CN				PLTT_BOX_QT							/* 파렛트당박스수량			*/
+    , C.INPD_QT						DPINPD_QT								/* 수발주내품수량				*/
+    , B.PHD_BOX_BAS_QT			DPODR_QT								/* 수발주박스당입수			*/
+    , A.PHD_FCLT_C					PHD_FCLT_C							/* 물류기능구분코드			*/
+    FROM TB_FD_GM_GOOD_WH A											/* 상품관리물류취급상품기본	*/
+    , TB_WA_IC_STDUNIT B														/* 기준정보_기준단위코드     */
+    , TB_OD_TRTWRS C       
+    WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC
+    AND A.NA_BZPLC          = C.NA_BZPLC
+    AND A.NA_WRS_C          = C.NA_WRS_C
+		) F                                                                                                                                       /* 거래처관리_거래처기본   */
+	   , TB_TR_TRPL_CIF    E                                                                                                                                                                                                                                                                                       
+	WHERE B.PHD_NA_BZPLC          = #{PHD_NA_BZPLC}                                                                                                                    
+	   AND A.NA_BZPLC             = B.PHD_NA_BZPLC                                                                                                                 
+	   AND A.NA_BZ_TPC            = '12'                                                                                                                           
+	   AND B.PHD_NA_BZPLC         = C.NA_BZPLC                                                                                                                     
+	   AND B.NA_WRS_C             = C.NA_WRS_C                                                                                                                     
+	   AND B.PHD_NA_BZPLC         = D.NA_BZPLC                                                                                                                     
+	   AND B.NA_WRS_C             = D.NA_WRS_C                                                                                                                     
+	   AND B.phd_na_bzplc         = F.na_bzplc                                                                                                                     
+	   AND B.na_wrs_c             = F.na_wrs_c                                                                                                                                                                                                                                             
+	   AND (     '0' = NVL(#{WRS_P},'0')                                       									 													/* 상품재고_상품코드 전체 또는 입력값   */                                                  
+	    OR ( '1' = #{WRS_P} AND B.na_wrs_c   <![CDATA[>=]]> #{WRS_C_FM_PI} AND B.na_wrs_c   <![CDATA[<=]]> #{WRS_C_FM_PO})     			 												                                 
+	       )                                                                                              			 												
+	   AND ('ZZ' = 'ZZ'  OR B.WRS_GRD_DSC =  'ZZ' )                                                                                                          
+	   AND C.SPYPL_NA_TRPL_C            = E.NA_TRPL_C                                                                                                                    
+	   AND C.SPYPL_NA_TRPL_C      IN    
+     <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>                                                                                                                    
+	   AND F.na_spypl_c           = E.na_trpl_c                                                                                                                                         																				    											    
+	   AND (                                                                                                                                                       
+	       ( 15 = 15 )                                                                                                    
+	      )                                                                                                                                                        
+	GROUP BY                                                                                                                                                       
+	          B.NA_WRS_C                                                                                                                                           
+	         ,C.SPYPL_NA_TRPL_C                                                                                                                                          
+	         ,A.NA_BZPLC                                                                                                                                           
+	         ,A.SHRT_BZPLNM                                                                                                                                        
+	         ,B.PHD_MVE_AVG_PCS                                                                                                                                    
+	         ,E.CLNTNM                                                                                                                                             
+	         ,C.WRSNM                                                                                                                                              
+	         <!-- ,C.WRS_STDNM  -->                                                                                                                                          
+	         ,B.WRS_GRD_DSC                                                                                                                                        
+	         ,D.PHD_BAS_UNT_IDVDC																																	
+	         ,D.WRS_MRK_PHD_UNT_C                                                                                                                                  
+	         ,D.AUT_ODR_YN                                                                                                                                                                                                                                                                                  
+	         ,F.inpd_qt                                                                                                                                                                                                                                                                                 
+	HAVING CASE WHEN 0 = 2                                                                                                                               
+	            THEN NVL(SUM(B.PHD_TOT_QT), 0) -                                                                                                                   
+	                 NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0)                                                                       
+	            WHEN 0 = 0                                                                                                                               
+	            THEN 1                                                                                                                                             
+	            END <![CDATA[>]]> 0                                                                                                                                            
+	ORDER BY                                                                                                                                                       
+	         C.SPYPL_NA_TRPL_C,B.NA_WRS_C,C.WRSNM
+           <!-- ,C.WRS_STDNM,  -->
+           B.WRS_GRD_DSC     
+</select>
+
+<select id="centerStock_Daily" parameterType="java.util.Map" resultType="java.util.Map">
+SELECT /*+ DPON2186R3.pc   */ 
+        A3 																/* 재고일자     			 */ 
+       ,A8 																/* 상품코드     			 */ 
+       ,A9 																/* 상품명       			 */ 
+       ,A1 																/* 물류센터코드 			 */ 
+       ,A2 																/* 물류센터명   			 */ 
+       ,A12 															/* 내품수량    			 */ 
+       ,A15 															/* 총재고수량   			 */ 
+       ,Trunc(A16,2) AS A30 											/* 총재고박스   			 */ 
+       ,DECODE(A13, '30', 0, MAX(A14)) * (A15 + A29 + A31) AS A31 		/* 총재고금액   			 */ 
+       ,A17 															/* 가용재고수량 			 */ 
+       ,Trunc(A18,2) AS A32 											/* 가용재고박스 			 */ 
+       ,A17 * MAX(A14) AS A33 											/* 가용재고금액 			 */ 
+       ,'0' AS A34 														/* 일평균출고량 			 */ 
+       ,'0' AS A35 														/* 예상소진일자 			 */ 
+       ,A29 															/* 반품재고수량 			 */ 
+       ,A29 * MAX(A14) AS A36 											/* 반품재고금액 			 */
+	   FROM(                                                                                                                       
+	     SELECT /*+ LEADING(B) INDEX(B PK_NA_WA_SH_DINV) DPON2186R3 */ 
+              NVL(B.PHD_NA_BZPLC, '')      A1                                                                                         	/* 물류경제통합사업장코드 */ 
+              ,NVL(A.SHRT_BZPLNM, '') A2 																								/*  사업장명              */ 
+              ,B.PHD_STPL_DT                A3                                                                                         	/* 물류재고일자           */ 
+              ,NVL(B.NA_LOCA_C, '')         A4                                                                                         	/* 경제통합로케이션코드   */ 
+              ,NVL(C.SPYPL_NA_TRPL_C, '') A6 																							/* 경제통합거래처코드     */ 
+              ,NVL(E.CLNTNM, '') A7 																									/* 거래처명               */ 
+              ,NVL(B.NA_WRS_C, '')          A8                                                                                         	/* 경제통합상품코드       */ 
+			  ,NVL(C.WRSNM, '') A9 																										/* 상품명                 */ 
+              <!-- ,NVL(C.WRS_STDNM, '')         A10  -->                                                                               /* 상품규격명             */ 
+              ,NVL(B.WRS_MRK_PHD_UNT_C, '') A11                                                                                        	/* 상품표시물류단위코드   */ 
+              ,NVL(B.BOX_INPD_QT, 0)        A12                                                                                        	/* 내품수량               */ 
+			  ,DECODE(G.svs_yn, '0', 0, G.svs_qt) A40 																					/* 소분내품수량           */ 
+              ,NVL(D.WRS_GRD_DSC, 0) A13 																								/* 상품등급구분코드       */ 
+              <!-- ,NVL(DECODE(F.STPL_QT,0,DECODE(F.STPL_UPR, 0, F.BF_STPL_UPR,F.STPL_UPR), F.STPL_UPR),0)  A14   -->
+              ,1 A14 
+              ,NVL(SUM(B.PHD_TOT_QT), 0)    A15                                                                                        	/* 물류총수량_낱개        */ 
+              ,NVL(SUM(B.PHD_TOT_QT), 0) / NVL(B.BOX_INPD_QT, 0)  A16                                                                  	/* 물류총수량_박스        */ 
+              ,NVL(SUM(B.PHD_TOT_QT), 0) - 
+              NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0)   A17                                           	/* 가용수량_낱개          */ 
+              ,(NVL(SUM(B.PHD_TOT_QT), 0) - 
+              NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0)) / NVL(B.BOX_INPD_QT, 0)  A18                  	/* 가용수량_박스          */ 
+              ,NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0)                          A19                     /*비가용수량_낱개         */ 
+              ,NVL(SUM(B.PHD_SPLY_QT + B.PHD_ALC_QT + B.PHD_PCK_QT + B.PHD_RZV_QT), 0) / NVL(B.BOX_INPD_QT, 0)  A20                   	/* 비가용수량_박스        */ 
+              ,NVL(SUM(B.PHD_SPLY_QT), 0)                                           A21                                                 /* 물류보충수량_낱개      */ 
+              ,NVL(SUM(B.PHD_SPLY_QT), 0) / NVL(B.BOX_INPD_QT, 0)                   A22                                                 /* 물류보충수량_박스      */ 
+              ,NVL(SUM(B.PHD_ALC_QT), 0)                                            A23                                                 /* 물류할당수량_낱개      */ 
+              ,NVL(SUM(B.PHD_ALC_QT), 0) / NVL(B.BOX_INPD_QT, 0)                    A24                                                 /* 물류할당수량_박스      */ 
+              ,NVL(SUM(B.PHD_PCK_QT), 0)                                            A25                                                 /* 물류피킹수량_낱개      */ 
+              ,NVL(SUM(B.PHD_PCK_QT), 0) / NVL(B.BOX_INPD_QT, 0)                    A26                                                 /* 물류피킹수량_박스      */ 
+              ,NVL(SUM(B.PHD_RZV_QT), 0)                                            A27                                                 /* 물류보류수량_낱개      */ 
+              ,NVL(SUM(B.PHD_RZV_QT), 0) / NVL(B.BOX_INPD_QT, 0)                    A28                                                 /* 물류보류수량_박스      */ 
+              ,NVL(SUM(B.PHD_CSMT_STR_QT), 0)                                       A29                                                 /* 물류적송입고수량_낱개  */ 
+              ,NVL(SUM(B.PHD_CSMT_STR_QT), 0) / NVL(B.BOX_INPD_QT, 0)               A30                                                 /* 물류적송입고수량_박스  */ 
+              ,NVL(SUM(B.PHD_CSMT_DLR_QT), 0)                                       A31                                                 /* 물류적송출고수량_낱개  */ 
+              ,NVL(SUM(B.PHD_CSMT_DLR_QT), 0) / NVL(B.BOX_INPD_QT, 0)               A32                                                 /* 물류적송출고수량_박스  */ 
+     FROM 	  TB_CM_BZPL    A          																									/* 조직관리_사업장기본      */                                                           
+	       ,(                                                                                                                      
+	       SELECT O.* 
+                      , ( 
+                          CASE OS.WRS_MRK_PHD_UNT_C 
+                               WHEN 'PALLET' THEN S.phd_pltt_bas_qt                                                                    	/* 물류파렛트기준수량      */ 
+                               WHEN 'BOX'    THEN S.phd_box_bas_qt                                                                     	/* 물류박스기준수량        */ 
+                               WHEN 'CASE'   THEN S.phd_cse_bas_qt                                                                     	/* 물류케이스기준수량      */ 
+                               WHEN 'BUNDLE' THEN S.phd_budl_bas_qt                                                                    	/* 물류묶음기준수량        */ 
+                               WHEN 'EA'     THEN S.phd_piec_bas_qt                                                                    	/* 물류낱개기준수량        */ 
+                          END 
+                         ) BOX_INPD_QT
+                         , OS.WRS_MRK_PHD_UNT_C                                                                                         /* 내품수량                */ 
+                   FROM TB_WM_SH_LOCINV O 
+                      , TB_WA_IC_STDUNIT S
+                      , TB_FD_GM_GOOD_WH OS
+                  WHERE O.phd_bas_unt_idvdc = S.phd_bas_unt_idvdc 
+                    AND O.NA_WRS_C = OS.NA_WRS_C
+                    <![CDATA[AND (O.PHD_TOT_QT+O.PHD_SPLY_QT+O.PHD_ALC_QT+O.PHD_PCK_QT+O.PHD_RZV_QT+O.PHD_CSMT_STR_QT+O.PHD_CSMT_DLR_QT) <> 0]]> 
+	        )  B                           									 												         	/* 재고_로케이션재고        */
+	       ,TB_OD_TRTWRS      C         																					         	/* 상품관리_취급상품기본    */
+	       ,TB_WM_SH_INVATTR  D         																					         	/* 재고_재고속성내역        */
+	       ,TB_TR_TRPL_CIF    E         																					         	/* 거래처관리_거래처기본    */
+	       <!-- ,TB_NA_LD_SH_PUMDAY_MS F    -->   																					    /* 품데이                   */
+	       ,TB_FD_GM_GOOD_WH  G                                                                                                 
+	  WHERE 
+        A.NA_BZPLC            = B.PHD_NA_BZPLC                                                                               
+	    AND A.NA_BZ_TPC       = '12'                                                                                         
+	    AND C.NA_BZPLC        = G.NA_BZPLC                                                                                         
+	    AND C.NA_WRS_C        = G.NA_WRS_C                                                                                         
+	    AND (                                                                                                                      
+	            (0 = 0 AND 1=1)                                                                                                    
+	         OR (0 = 1 AND G.svs_yn   = '1')                                                                                       
+	         OR (0 = 2 AND G.svs_yn   = '0')                                                                                       
+	        )                                                                                                                      
+	    AND B.PHD_NA_BZPLC          = C.NA_BZPLC                                                                                      
+	    AND B.NA_WRS_C              = C.NA_WRS_C                                                                                   
+	    AND B.PHD_NA_BZPLC          = D.PHD_NA_BZPLC                                                                              
+	    AND B.NA_WRS_C              = D.NA_WRS_C                                                                                 
+	    AND B.STPL_ATTR_PHD_IDVD_NO = D.STPL_ATTR_PHD_IDVD_NO  			                                                                     
+	    AND B.PHD_NA_BZPLC          = #{PHD_NA_BZPLC}                                                                                 
+	    AND B.PHD_STPL_DT           = #{PHD_STPL_DT}                                                                              
+	    AND (     '0' = NVL(#{WRS_P},'0')                                                    									                	/* 상품재고_상품코드 전체 또는 입력값   */                                                  
+	    OR ( '1' = #{WRS_P} AND B.na_wrs_c  <![CDATA[>=]]> #{WRS_C_FM_PI} AND B.na_wrs_c   <![CDATA[<=]]> #{WRS_C_FM_PO})           			                                            
+	         )                                                                                                   			            
+	    AND C.SPYPL_NA_TRPL_C             = E.NA_TRPL_C                                                                                  
+	    AND C.SPYPL_NA_TRPL_C IN
+	    <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>                                                                       			            
+	    <!-- AND B.PHD_NA_BZPLC          = F.NA_BZPLC(+)           -->                                                                         
+	    <!-- AND B.PHD_STPL_DT           = F.TR_DT(+)              -->                                                                     
+	    <!-- AND B.NA_WRS_C              = F.STPL_AMN_NA_WRS_C(+)  -->																		
+	    AND A.NA_BZ_TPC             = '12'                                                               		                    
+	    <!-- AND '00'                    = F.NA_TEAM_C(+)        -->                                                                           
+	    <!-- AND '01'                    = F.BZ_METH_DSC(+)      -->                                                                        
+	    <!-- AND '*'                     = F.NA_BLB_DFC_DSC(+)   -->                                                                        
+	    <!-- AND '01'                    = F.PD_LED_DSC(+)       -->                                                                        
+	    <!-- AND (                                               -->                                                                        
+	    <!--     (15= 15 AND C.wrs_tpc IN ( '1', '4', '2', '3', '5'))  --> <!-- 일 + 병 + 상 + 파  -->                                                
+	    <!--    )            -->                                                                                                            
+	  GROUP BY 
+            B.PHD_NA_BZPLC                                                                                                       
+	        ,A.SHRT_BZPLNM                                                                                                       
+	        ,B.PHD_STPL_DT                                                                                                       
+	        ,B.NA_LOCA_C                                                                                                         
+	        ,C.SPYPL_NA_TRPL_C                                                                                                         
+	        ,E.CLNTNM                                                                                                            
+	        ,B.NA_WRS_C                                                                                                      
+	        ,C.WRSNM                                                                                                             
+	        <!-- ,C.WRS_STDNM     -->                                                                                                    
+	        ,B.WRS_MRK_PHD_UNT_C                                                                                                
+	        ,D.WRS_GRD_DSC                                                                                                       
+	        ,B.BOX_INPD_QT                                                                                                     
+	        ,DECODE(G.svs_yn, '0', 0, G.svs_qt)                                                                                  
+	        <!-- ,DECODE(F.STPL_QT,0,DECODE(F.STPL_UPR, 0, F.BF_STPL_UPR,F.STPL_UPR), F.STPL_UPR) -->                                     
+	  )                                                                                                                            
+	 GROUP BY  A1 ,A2 ,A3 ,A8 ,A9 ,A12 ,A13 ,A15 ,A16 ,A17 ,A18 ,A29 ,A31                                                          
+	 ORDER BY  A3, A8
+</select>
+
+	<sql id="sql_centerStock_Daily">
+		WITH /*+ DPON2186R3 */ W_NA_WRS_C AS (                                                                                                                  	
+    	     SELECT H.phd_na_bzplc                                                                                                                              
+    	          , G.SHRT_BZPLNM                                                                                                                               
+    	          , H.na_wrs_c                                                                                                                                  
+    	          , NVL(SUM(H.phd_tot_qt),0) phd_tot_qt                                                                                                         
+    	          , NVL(SUM( H.phd_sply_qt                                                                                                                      
+    	                    + H.phd_alc_qt                                                                                                                      
+    	                    + H.phd_pck_qt                                                                                                                      
+    	                    + H.phd_rzv_qt                                                                                                                      
+    	                    + H.phd_csmt_str_qt                                                                                                                 
+    	                    + H.phd_csmt_dlr_qt                                                                                                                 
+    	                    ), 0                                                                                                                                
+    	                ) etc_tot_qt                                                                                                                            
+    	     FROM                                                                                                                                              
+    	           TB_CM_BZPL  		G                                                                                                                          
+    	         , TB_WM_SH_GDINV 	H                                                                                                                          
+    	     WHERE                                                                                                                                              
+    	           H.phd_na_bzplc = #{PHD_NA_BZPLC} /*물류센터코드*/                                                                                                            
+    	       AND H.wrs_grd_dsc  IN ('10', '40', '50')                                                                                                         
+    	       AND G.na_bzplc     = H.phd_na_bzplc                                                                                                              
+    	            AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */                                                         
+    	                 OR ( '1' = #{WRS_P} AND H.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI} AND H.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO})                                          
+    	                )                                                                                                                                       
+    	     GROUP BY                                                                                                                                           
+    	           H.phd_na_bzplc                                                                                                                               
+    	         , G.SHRT_BZPLNM                                                                                                                                
+    	         , H.na_wrs_c                                                                                                                                      					    	
+		), TMP_VIEW AS																					
+		(                                                                                                                                                       
+			SELECT /*+ DPON2186R3.pc */                                                                                                                              
+			           A.phd_stpl_dt                                                                                                                              /* 재고일자     */
+			         , A.na_wrs_c                                                                                                                                 /* 상품코드     */
+			         , D.wrsnm                                                                                                                                    /* 상품명       */
+			         , A.phd_na_bzplc                                                                                                                             /* 물류센터코드 */
+			         , C.shrt_bzplnm                                                                                                                              /* 물류센터명   */
+			         , NVL((A.phd_tot_qt),0) phd_tot_qt                                                                                                           /* 총재고수량   */
+			         , NVL(TRUNC((A.phd_tot_qt)/
+               (CASE V.WRS_MRK_PHD_UNT_C                                                                    									  
+                            WHEN 'PALLET' THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'P') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'B') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'P')+1)+1), -1)                                                 									  
+                            WHEN 'BOX'    THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'B') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'C') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'B')+1)+1), -1)                                                            									  
+                            WHEN 'CASE'   THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'C') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'D') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'C')+1)+1), -1)                                                       									  
+                            WHEN 'BUNDLE' THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'D') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'E') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'D')+1)+1), -1)                                                        									  
+                            WHEN 'EA'     THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'E') + 1, LENGTH(A.PHD_BAS_UNT_IDVDC) - (INSTR(A.PHD_BAS_UNT_IDVDC, 'E')+1)+1), -1)
+                            ELSE NVL('',1)
+                  END)
+               ),0) phd_tot_qt2                                   /* 총재고박스   */
+			   <!-- , MAX(NVL(DECODE(F.STPL_QT,0,DECODE(F.STPL_UPR, 0, F.BF_STPL_UPR,F.STPL_UPR), F.STPL_UPR),0)) * NVL(SUM(A.PHD_TOT_QT), 0) phd_tot_qt3     -->  /* 총재고금액   */
+               ,'0' phd_tot_qt3 
+			         , A.WRS_GRD_DSC                                                                                                                              /* 상품등급구분 */
+			         , D.inpd_qt                                                                                                                                  
+			         , V.phd_fclt_c                                                                                                                               /* 물류기능코드 */
+			      FROM (SELECT                                                                                          
+			                   A.phd_na_bzplc                                                                                                                   
+			                 , A.phd_stpl_dt                                                                                                                    
+			                 , A.na_wrs_c                                                                                                                       
+			                 , E.wrs_grd_dsc                                                                                                                    
+			                 , A.PHD_BAS_UNT_IDVDC                                                                                                              
+			                 , SUM(A.phd_tot_qt) phd_tot_qt                                                                                                     
+			              FROM ( SELECT                           
+			                            A.phd_na_bzplc                                                                                                          
+			                          , A.phd_stpl_dt                                                                                                           
+			                          , A.na_wrs_c                                                                                                              
+			                          , A.stpl_attr_phd_idvd_no                                                                                                 
+			                          , A.PHD_BAS_UNT_IDVDC                                                                                                     
+			                          , SUM(A.phd_tot_qt) phd_tot_qt                                                                                            
+			                       FROM TB_WM_SH_LOCINV A                                                                                    
+			                          , (                                                                                                                       
+			                            SELECT                                                                                    
+			                                   T1.na_bzplc AS na_bzplc                                                                                          
+			                              FROM                                                                                                                  
+			                                   TB_CM_BZPL T1                                                                                              
+			                                 , TB_TR_TRPL_CIF T2                                                                                              
+			                             WHERE                                                                                                                  
+			                               T1.na_bzplc     = T2.na_trpl_c                                                                                   
+			                               AND T1.amn_na_bzplc = #{PHD_NA_BZPLC}                                                                                         
+			                               AND '1'         = DECODE(#{PHD_NA_BZPLC}, '1111111111111', '1', '0000000000000', '1', '8')                       
+			                             UNION ALL                                                                                                              
+			                            SELECT /*+ DPON2186R3 */                                                                                                
+			                                   T2.na_trpl_c AS na_bzplc                                                                                         
+			                              FROM                                                                                                                  
+			                                   TB_CM_BZPL T1                                                                                              
+			                                 , TB_TR_TRPL_CIF T2                                                                                              
+			                            WHERE                                                                                                                   
+			                                    T1.na_bzplc = T2.na_trpl_c                                                                                      
+			                              <!-- AND   T1.phdct_uz_dsc = '1'  -->                                                                                          
+			                              AND   T1.na_bzplc = #{PHD_NA_BZPLC}                                                                                  
+			                                   AND '1'      = DECODE(#{PHD_NA_BZPLC}, '0000000000000', '1', #{PHD_NA_BZPLC}, '1', '0')                                                                                                            
+			                          ) B                                                                                                                       
+			                      WHERE A.phd_na_bzplc          = B.na_bzplc                                                                                    
+			                        AND A.phd_stpl_dt           = #{PHD_STPL_DT}                                                                           
+			                      GROUP BY                                                                                                                      
+			                            A.phd_na_bzplc                                                                                                          
+			                          , A.stpl_attr_phd_idvd_no                                                                                                 
+			                          , A.na_wrs_c                                                                                                              
+			                          , A.phd_stpl_dt                                                                                                           
+			                          , A.PHD_BAS_UNT_IDVDC ) A                                                                                                 
+			                 , TB_WM_SH_INVATTR  E                                                                                                           
+			             WHERE A.phd_na_bzplc          = E.phd_na_bzplc                                                                                         
+			               AND A.stpl_attr_phd_idvd_no = E.stpl_attr_phd_idvd_no                                                                                
+			               AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */                                                  
+			               OR ( '1' = #{WRS_P} AND A.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI} AND A.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO})                                       
+			                )                                                                                                                                   
+			             GROUP BY                                                                                                                               
+			                   A.phd_na_bzplc                                                                                                                   
+			                 , A.phd_stpl_dt                                                                                                                    
+			                 , A.na_wrs_c                                                                                                                       
+			                 , E.wrs_grd_dsc                                                                                                                    
+			                 , A.PHD_BAS_UNT_IDVDC                                                                                                              
+			             ORDER BY                                                                                                                               
+			                   A.phd_na_bzplc                                                                                                                   
+			                 , A.phd_stpl_dt                                                                                                                    
+			                 , A.na_wrs_c                                                                                                                       
+			                 ) A                                                                                                                                
+			         , TB_CM_BZPL       C                                                                                                                 
+			         , TB_OD_TRTWRS     D                                                                                                                 
+			         <!-- , TB_NA_LD_SH_PUMDAY_MS  F   -->                                                                                                               
+			         , 
+                             (
+                              SELECT
+                              A.NA_BZPLC                    NA_BZPLC                  	/* 경제통합사업장 코드      */
+                              , A.NA_WRS_C                  NA_WRS_C                  	/* 상품코드                 */
+                              , A.PHD_BAS_UNT_IDVDC       	PHD_BAS_UNT_IDVDC   		/* 물류기준단위개별코드     */
+                              , A.WRS_MRK_PHD_UNT_C    		WRS_MRK_PHD_UNT_C   		/* 상품표시물류단위코드     */
+                              , A.NA_SPYPL_C                NA_SPYPL_C                	/* 경제통합공급처코드       */
+                              , A.PLTT_LOAD_C               PLTT_LOAD_C               	/* 파렛트적재코드           */
+                              , A.SVS_YN                    SVS_YN                  	/* 소분여부                 */
+                              , A.SVS_QT                    SVS_QT                  	/* 소분수량                 */     
+                              , A.SRTR_PRC_YN               SRTR_PRC_YN            		/* 소터처리여부             */
+                              , (CASE A.WRS_MRK_PHD_UNT_C
+                                       WHEN 'PALLET'        THEN B.PHD_PLTT_BAS_QT     	/* 물류파렛트기준수량       */
+                                       WHEN 'BOX'           THEN C.MIN_ODR_QT          	/*  물류박스기준수량        */
+                                       WHEN 'CASE'         	THEN B.PHD_CSE_BAS_QT       /* 물류케이스기준수량       */
+                                       WHEN 'BUNDLE'      	THEN B.PHD_BUDL_BAS_QT      /* 물류묶음기준수량         */
+                                       WHEN 'EA'            THEN B.PHD_PIEC_BAS_QT      /* 물류낱개기준수량         */          
+                                   END)                     INPD_QT                  	/* 내품수량                 */
+                              , A.PLTPE_BOX_CN*C.MIN_ODR_QT PHD_PLTT_BAS_QT         	/* 물류파렛트기준수량       */
+                              , C.MIN_ODR_QT               	PHD_BOX_BAS_QT              /* 물류박스기준수량         */
+                              , B.PHD_CSE_BAS_QT         	PHD_CSE_BAS_QT              /* 물류케이스기준수량       */
+                              , B.PHD_BUDL_BAS_QT         	PHD_BUDL_BAS_QT             /* 물류묶음기준수량         */
+                              , B.PHD_PIEC_BAS_QT         	PHD_PIEC_BAS_QT             /* 물류낱개기준수량         */
+                              , A.PLTPE_BOX_CN            	PLTT_BOX_QT                 /* 파렛트당박스수량         */
+                              , C.INPD_QT                  	DPINPD_QT                   /* 수발주내품수량           */
+                              , B.PHD_BOX_BAS_QT         	DPODR_QT                    /* 수발주박스당입수         */
+                              , A.PHD_FCLT_C               	PHD_FCLT_C                  /* 물류기능구분코드         */
+                              FROM TB_FD_GM_GOOD_WH 	A                               /* 상품관리물류취급상품기본 */
+                              , TB_WA_IC_STDUNIT 		B                               /* 기준정보_기준단위코드    */
+                              , TB_OD_TRTWRS 			C       
+                              WHERE A.PHD_BAS_UNT_IDVDC = B.PHD_BAS_UNT_IDVDC
+                              AND A.NA_BZPLC          	= C.NA_BZPLC
+                              AND A.NA_WRS_C          	= C.NA_WRS_C
+                              AND A.NA_BZPLC = #{PHD_NA_BZPLC}       
+              				  AND A.NA_SPYPL_C IN 
+						       <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+							   #{item}
+							   </foreach>         
+                              )	V                                                                                                                 
+			     WHERE A.phd_na_bzplc          	= C.na_bzplc                                                                                                     
+			       AND A.phd_na_bzplc          	= D.na_bzplc                                                                                                     
+			       AND D.SPYPL_NA_TRPL_C 		IN 
+			       <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				   #{item}
+				   </foreach>                                                                                       
+			       AND A.na_wrs_c              	= D.na_wrs_c                                                                                                     
+			       <!-- AND A.PHD_NA_BZPLC         = F.NA_BZPLC(+)            -->                                                                                        
+			       <!-- AND A.PHD_STPL_DT          = F.TR_DT(+)               -->                                                                                   
+			       <!-- AND A.NA_WRS_C             = F.STPL_AMN_NA_WRS_C(+)   -->                                                                                  
+			       <!-- AND '00'                   = F.NA_TEAM_C(+)           -->                                                                                  
+			       <!-- AND '01'                   = F.BZ_METH_DSC(+)         -->                                                                                   
+			       <!-- AND '*'                    = F.NA_BLB_DFC_DSC(+)      -->                                                                                   
+			       <!-- AND '01'                   = F.PD_LED_DSC(+)          -->                                                                                  
+			       AND A.phd_na_bzplc          	= V.na_bzplc                                                                                                     
+			       AND A.na_wrs_c              	= V.na_wrs_c                                                                                                     
+			     GROUP BY A.phd_stpl_dt                                                                                                                         
+			            , A.na_wrs_c                                                                                                                            
+			            , D.wrsnm                                                                                                                               
+			            , A.phd_na_bzplc                                                                                                                        
+			            , C.shrt_bzplnm                                                                                                                         
+			            , NVL((A.phd_tot_qt),0)                                                                                                                
+			            , NVL(TRUNC((A.phd_tot_qt)/ 
+                  (CASE V.WRS_MRK_PHD_UNT_C                                                                    									  
+                            WHEN 'PALLET' THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'P') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'B') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'P')+1)+1), -1)                                                 									  
+                            WHEN 'BOX'    THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'B') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'C') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'B')+1)+1), -1)                                                            									  
+                            WHEN 'CASE'   THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'C') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'D') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'C')+1)+1), -1)                                                       									  
+                            WHEN 'BUNDLE' THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'D') + 1, INSTR(A.PHD_BAS_UNT_IDVDC, 'E') - 1 - (INSTR(A.PHD_BAS_UNT_IDVDC, 'D')+1)+1), -1)                                                        									  
+                            WHEN 'EA'     THEN NVL(SUBSTR(A.PHD_BAS_UNT_IDVDC, INSTR(A.PHD_BAS_UNT_IDVDC, 'E') + 1, LENGTH(A.PHD_BAS_UNT_IDVDC) - (INSTR(A.PHD_BAS_UNT_IDVDC, 'E')+1)+1), -1)
+                            ELSE NVL('',1)
+                  END)
+                  ),0)                                       
+			            <!-- , DECODE(F.STPL_QT,0,DECODE(F.STPL_UPR, 0, F.BF_STPL_UPR,F.STPL_UPR), F.STPL_UPR)    -->                                                     
+			            , A.WRS_GRD_DSC                                                                                                                         
+			            , D.inpd_qt                                                                                                                              
+			            , V.phd_fclt_c                                                                                                                             
+		)                                                                                                                                                       
+		SELECT DISTINCT W.PHD_STPL_DT  A3                                                                                                                         
+			, W.NA_WRS_C                 A8                                                                                                                       
+			, W.WRSNM                    A9                                                                                                                       
+			, W.PHD_NA_BZPLC             A1                                                                                                                       
+			, W.SHRT_BZPLNM              A2                                                                                                                       
+			, W.PHD_FCLT_C               A4                                                                                                                       
+			, G.bas_qt                   A12                                                                                                                       
+			, NVL((XX.phd_tot_qt),0)     A15                                                                                                                           
+			, NVL((XX.phd_tot_qt2),0)    A30                                                                                                                          
+			, NVL((XX.phd_tot_qt3),0)    A31                                                                                                                         
+            , CASE                                                                                                                                              
+                 WHEN NVL((XX.phd_tot_qt),0) - NVL((YY.phd_tot_qt),0)  <![CDATA[<]]> 0                                                                                      
+                 THEN 0                                                                                                                                        
+                 ELSE NVL((XX.phd_tot_qt),0) - NVL((YY.phd_tot_qt),0)                                                                                          
+              END                  A17                                                                                                                                            
+            , CASE                                                                                                                                              
+                 WHEN NVL((XX.phd_tot_qt2),0) - NVL((YY.phd_tot_qt2),0)  <![CDATA[<]]> 0                                                                                    
+                 THEN 0                                                                                                                                        
+                 ELSE NVL((XX.phd_tot_qt2),0) - NVL((YY.phd_tot_qt2),0)                                                                                        
+            END 								   A32                                                                                                                                               
+           , CASE                                                                                                                                              
+                 WHEN (NVL((XX.phd_tot_qt3),0) - NVL((YY.phd_tot_qt3),0) )  <![CDATA[<]]> 0                                                                                 
+                 THEN 0                                                                                                                                        
+                 ELSE NVL((XX.phd_tot_qt3),0) - NVL((YY.phd_tot_qt3),0)                                                                                        
+           END   								   A33                                                                                                                                             
+           , '0' 									 A34                                                                                                                                               
+           , '0' 									 A35                                                                                                                                               
+	 , NVL((YY.phd_tot_qt),0)  			 A29                                                                                                                          
+	 , NVL((YY.phd_tot_qt3),0) 			 A36                                                                                                                          
+		FROM TMP_VIEW    W                                                                                                                             
+           , W_NA_WRS_C              J                                                                                                           					
+	 ,  (                                                                                                                                                
+			     SELECT phd_stpl_dt                                                                                                                             
+			          , na_wrs_c                                                                                                                                
+			          , wrsnm                                                                                                                                   
+			          , phd_na_bzplc                                                                                                                            
+			          , shrt_bzplnm                                                                                                                             
+			          , SUM(phd_tot_qt) phd_tot_qt                                                                                                              
+			          , SUM(phd_tot_qt2) phd_tot_qt2                                                                                                            
+			          , SUM(phd_tot_qt3) phd_tot_qt3                                                                                                            
+			       FROM TMP_VIEW                                                                                                                                
+			      WHERE WRS_GRD_DSC <![CDATA[<>]]> '20'                                                                                                                     
+			      GROUP BY phd_stpl_dt                                                                                                                          
+			             , na_wrs_c                                                                                                                             
+			             , wrsnm                                                                                                                                
+			             , phd_na_bzplc                                                                                                                         
+			             , shrt_bzplnm	                                                                                                                        
+			    ) XX                                                                                                                                            
+			,  (SELECT * FROM TMP_VIEW WHERE WRS_GRD_DSC = '20') YY                                                                                             
+            , (SELECT                                                                                              									  
+                      G.na_bzplc                                                                                   									  
+                    , G.na_wrs_c                                                                                   									  
+                    , G.na_spypl_c                                                                                 									  
+                    , G.phd_fclt_c                                                                                 									  
+                    , G.wrs_mrk_phd_unt_c                                                                          									  
+                    , G.phd_bas_unt_idvdc                                                                          									  
+                    , D.wrsnm
+			      <!-- , D.wrs_tpc   -->                                                                          									  
+                    , (CASE G.WRS_MRK_PHD_UNT_C                                                                    									  
+                            WHEN 'PALLET' THEN H.PHD_PLTT_BAS_QT                                                   									  
+                            WHEN 'BOX'    THEN D.MIN_ODR_QT                                                        									  
+                            WHEN 'CASE'   THEN H.PHD_CSE_BAS_QT                                                    									  
+                            WHEN 'BUNDLE' THEN H.PHD_BUDL_BAS_QT                                                   									  
+                            WHEN 'EA'     THEN H.PHD_PIEC_BAS_QT                                                   									  
+                        END) bas_qt                                                                                									  
+                 FROM                                                                                              									  
+                      TB_FD_GM_GOOD_WH G                                                                        									  
+                    , TB_OD_TRTWRS    D                                                                        									  
+                    , TB_WA_IC_STDUNIT H                                                                        									  
+                WHERE                                                                                              									  
+                      D.na_bzplc          = G.na_bzplc                                                             									  
+                 AND D.na_wrs_c          = G.na_wrs_c                                                             									  
+                 AND H.PHD_BAS_UNT_IDVDC = G.PHD_BAS_UNT_IDVDC                                                    									  
+			     AND (     '0' = NVL(#{WRS_P},'0')       /* 상품재고_상품코드 전체 또는 입력값   */                                                  
+			     OR ( '1' = #{WRS_P} AND G.na_wrs_c <![CDATA[>=]]> #{WRS_C_FM_PI} AND G.na_wrs_c <![CDATA[<=]]> #{WRS_C_FM_PO})                                       
+			      )                                                                                                                                   
+              ) G                                                                                                                                     
+		WHERE                                                                                                                                                      
+		      W.PHD_STPL_DT          = XX.PHD_STPL_DT(+)                                                                                                           
+		  AND W.NA_WRS_C             = XX.NA_WRS_C   (+)                                                                                                           
+		  AND W.PHD_NA_BZPLC         = XX.PHD_NA_BZPLC(+)                                                                                                          
+		  AND W.PHD_STPL_DT          = YY.PHD_STPL_DT(+)                                                                                                           
+		  AND W.NA_WRS_C             = YY.NA_WRS_C   (+)                                                                                                           
+		  AND W.PHD_NA_BZPLC         = YY.PHD_NA_BZPLC(+)                                                                                                          
+		  AND W.phd_na_bzplc         = G.na_bzplc                                                                                                              
+		  AND W.na_wrs_c             = G.na_wrs_c                                                                                                                  
+		  AND G.na_bzplc             = J.phd_na_bzplc                                                                                                              
+		  AND G.na_wrs_c             = J.na_wrs_c                                                                                                                  
+	   ORDER BY  1,2
+	</sql>
+
+	<select id="centerStock_Daily_Pt" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_centerStock_Daily" />
+	</select>
+	
+	<select id="downloadExcelcenterStock_WRS" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_centerStock_WRS_pt"></include>
+	</select>
+	
+	<select id="downloadExcelCenterStock_Daily" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_centerStock_Daily" />
+	</select>
+</mapper>

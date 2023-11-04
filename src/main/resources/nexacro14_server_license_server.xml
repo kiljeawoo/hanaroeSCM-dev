@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<license version="1.0">
+	<product>
+		<name>nexacro&#32;platform</name>
+		<version>14</version>
+		<function>Windows,&#32;WindowsRT,&#32;MAC,&#32;iOS,&#32;Android</function>
+	</product>
+	<customer>
+		<name>eSCM시스템</name>
+		<coreCount>18</coreCount>
+		<ipAddress>192.168.20.41,192.168.20.42,192.168.0.41,192.168.0.42,121.156.58.243</ipAddress>
+		<targetPlatform>Runtime,HTML5</targetPlatform>
+	</customer>
+	<date>
+		<activation>2015-10-02</activation>
+		<term>0</term>
+	</date>
+	<key>YMVHX72AQ4EJCT84UAVWXVZN7TVJYY9J9</key>
+</license>

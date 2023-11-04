@@ -1,0 +1,217 @@
+﻿#content_agreement dt,#content_privacy dt {
+  background:url('../images/common/icon11.gif') 0 45% no-repeat;
+  padding:6px 0 6px 15px;
+  font-weight:bold;
+}
+#content_agreement dd,#content_privacy dd {
+  line-height:160%;
+  padding:0 0 0 12px;
+}
+#content_agreement ol li, #content_privacy ol li {
+  line-height:160%;
+  margin:0 0 0 20px;
+  color:#333;
+  list-style-type:decimal;
+  background:url('../images/common/icon11.gif') 15px 45% no-repeat;
+}
+#content_agreement ol li ol li {
+  line-height:160%;
+  margin:0 0 0 20px;
+  color:#666;
+  list-style-type:lower-roman;
+}
+/*��������*/
+#content_privacy dt {
+  background:url('../images/common/icon11.gif') 15px 45% no-repeat;
+  padding:6px 0 6px 30px;
+  font-weight:bold;
+}
+#content_privacy dd {
+  line-height:160%;
+  padding:0 0 0 27px;
+}
+#content_privacy ul li {
+  line-height:160%;
+  margin:0 0 0 25px;
+  color:#333;
+  list-style-type:disc;
+}
+.content_txt {
+  padding:5px 0 5px 15px;
+}
+#content_privacy p {
+  padding:2px 0 2px 12px;
+}
+#content_privacy ol li {
+  margin:0 0 0 35px;
+}
+
+#content_agreement {
+  text-align:left;
+}
+
+#content_privacy{
+  text-align:left;
+}
+
+/*���ھ�����*/
+.ol_li1 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_1.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li2 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_2.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li3 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_3.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li4 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_4.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li5 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_5.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li6 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_6.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li7 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_7.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li8 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_8.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li9 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_9.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li10 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_10.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li11 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_11.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li12 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_12.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li13 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_13.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li14 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_14.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li15 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_15.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li16 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_16.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li17 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_17.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li18 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_18.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li19 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_19.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li20 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num1_20.gif') 10px 3px no-repeat;
+  padding:2px 0 2px 30px;
+}
+.ol_li_li1 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_1.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li2 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_2.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li3 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_3.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li4 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_4.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li5 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_5.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li6 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_6.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li7 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_7.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li8 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_8.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li9 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_9.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li10 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_10.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li11 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_11.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li12 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_12.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li13 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_13.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li14 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_14.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li15 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_15.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li16 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_16.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li17 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_17.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li18 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_18.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li19 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_19.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}
+.ol_li_li20 {
+  background:url('http://www.enongmin.co.kr/css/new/images/icon1_num2_20.gif') 0 3px no-repeat;
+  padding:2px 0 2px 20px;
+}

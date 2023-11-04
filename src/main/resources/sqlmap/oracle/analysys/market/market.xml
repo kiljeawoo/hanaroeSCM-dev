@@ -1,0 +1,2532 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MarketDAO">	
+	
+	<!-- 엑셀 -->
+	<select id="excel1900_1910" parameterType="map" resultType="map">
+		SELECT MM.*, DD.*, RANK() OVER (PARTITION BY MM.MCODE ORDER BY DD.POINT DESC) RANK 
+		FROM
+		(SELECT 
+		<if test="DIV == '1'.toString()">
+				A.BZPLC 	AS MCODE 
+				,A.BZPLCNM 	AS MNAME
+		</if>
+		<if test="DIV == '2'.toString()">
+				A.LCLC 		AS MCODE 
+				,A.LCLCNM 	AS MNAME
+		</if>
+		FROM
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_BZPLC_CLS A
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_BZPLC_CLS A
+			</if>
+				, TB_TR_TRPL_CIF B
+		WHERE
+				A.TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    			#{item}
+		</foreach>
+				AND A.BZPLC = B.NA_TRPL_C
+			<if test="RGN_C != null and RGN_C > 0">
+				AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+			</if>	
+			<if test="pageType == 'M'.toString()">
+				AND A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				AND A.SQWW = #{DATE}
+			</if>
+		GROUP BY
+		<if test="DIV == '1'.toString()">
+				A.BZPLC, A.BZPLCNM
+		</if>
+		<if test="DIV == '2'.toString()">
+				A.LCLC, A.LCLCNM
+		</if>
+		) MM,
+		(SELECT 
+				AA.DCODE AS DCODE
+				,AA.CODE AS CODE
+				,AA.NAME AS NAME
+				,AA.QTY AS QTY
+				,TRUNC(AA.AMOUNT / 1000, 0) AS AMOUNT
+				,TRUNC(AA.AMOUNT_TOT / 1000, 0) AS AMOUNT_TOT
+				,TRUNC(NVL(AA.AMOUNT / DECODE(AA.AMOUNT_TOT, 0, NULL, AA.AMOUNT_TOT)*100, 0), 2) AS POINT
+				FROM
+				(
+				SELECT
+				<if test="DIV == '1'.toString()">    
+				    LCLC           AS CODE
+				    ,LCLCNM        AS NAME
+				    ,BZPLC         AS DCODE
+				 </if> 
+				 <if test="DIV == '2'.toString()">
+					BZPLC 			AS CODE 
+					,BZPLCNM		AS NAME
+					,LCLC        	AS DCODE
+				</if>	  
+				    ,SUM(SL_AM)    AS AMOUNT
+				    ,SUM(SL_QT)    AS QTY
+				    ,NVL(
+				        (SELECT
+				            SUM(SL_AM)    AS AMOUNT
+				        FROM
+				       <if test="pageType == 'M'.toString()"> 
+				           IAS_SL_MM_BZPLC_CLS
+			            WHERE
+			                SL_YM = #{DATE}
+				        </if>
+				        <if test="pageType == 'W'.toString()">
+				        	IAS_SL_WW_BZPLC_CLS
+			        	WHERE
+		                    SQWW = #{DATE}
+				        </if>   
+				        <if test="DIV == '1'.toString()">
+				             AND BZPLC = A.BZPLC
+				        </if>
+				        <if test="DIV == '2'.toString()">
+				             AND LCLC = A.LCLC
+				        </if>
+				    ), 0) AS AMOUNT_TOT
+				FROM
+				<if test="pageType == 'M'.toString()">     
+				    IAS_SL_MM_BZPLC_CLS A
+				</if>
+				<if test="pageType == 'W'.toString()">     
+				    IAS_SL_WW_BZPLC_CLS A
+				</if>
+				    , TB_TR_TRPL_CIF B
+				WHERE
+				        A.TRPL_C IN
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    					#{item}
+				</foreach>
+				<if test="pageType == 'M'.toString()">    
+				    AND A.SL_YM = #{DATE}
+				</if>
+				<if test="pageType == 'W'.toString()">    
+				    AND A.SQWW = #{DATE}
+				</if>			
+				    AND A.BZPLC = B.NA_TRPL_C
+				<if test="RGN_C != null and RGN_C > 0">
+					AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+				</if>
+				GROUP BY
+				<if test="DIV == '1'.toString()">
+				    A.LCLC, A.LCLCNM, A.BZPLC
+				</if>
+				<if test="DIV == '2'.toString()">
+				    A.BZPLC, A.BZPLCNM, A.LCLC
+				</if>
+				)AA)DD
+				WHERE
+				MM.MCODE = DD.DCODE
+	</select>
+	
+	<select id="excel1920_1930" parameterType="map" resultType="map">
+		SELECT MM.*, DD.*, RANK() OVER (PARTITION BY MM.MCODE ORDER BY DD.POINT DESC) RANK 
+		FROM
+		(SELECT
+				 A.LCLC 		AS MCODE 
+				,A.LCLCNM 		AS MNAME
+		FROM		
+		<if test="DIV == '1'.toString()">
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_CLS_WRS A
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_CLS_WRS A
+			</if>
+		</if>
+		<if test="DIV == '2'.toString()">
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_BZPLC_CLS A
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_BZPLC_CLS A
+			</if>
+				, TB_TR_TRPL_CIF B
+		</if>
+		WHERE
+			A.TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    			#{item}
+		</foreach>
+			<if test="pageType == 'M'.toString()">
+				AND A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				AND A.SQWW = #{DATE}
+			</if>
+			<if test="DIV == '2'.toString()">
+				AND A.BZPLC = B.NA_TRPL_C
+				<if test="RGN_C != null and RGN_C > 0">
+					AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+				</if>
+			</if>
+		GROUP BY A.LCLC, A.LCLCNM)MM,
+		(SELECT 
+				 AA.DCODE 									AS DCODE
+				,AA.CODE 									AS CODE
+				,AA.NAME 									AS NAME
+				,AA.QTY 									AS QTY
+				,TRUNC(AA.AMOUNT / 1000, 0) 				AS AMOUNT
+				,TRUNC(AA.AMOUNT_TOT / 1000, 0) 			AS AMOUNT_TOT
+				,TRUNC(NVL(AA.AMOUNT / DECODE(AA.AMOUNT_TOT, 0, NULL, AA.AMOUNT_TOT)*100, 0), 2) AS POINT
+				FROM
+				(
+				SELECT
+				<if test="DIV == '1'.toString()">    
+				     A.WRS_C		AS CODE
+				    ,A.WRSNM     	AS NAME
+				</if> 
+				<if test="DIV == '2'.toString()">
+					 A.BZPLC 		AS CODE 
+					,A.BZPLCNM		AS NAME
+				</if>
+					,A.LCLC			AS DCODE	  
+				    ,SUM(A.SL_AM) 	AS AMOUNT
+				    ,SUM(A.SL_QT) 	AS QTY
+				    ,NVL(
+				         (SELECT
+				               SUM(SL_AM) AS AMOUNT
+				         FROM
+					<if test="DIV == '1'.toString()">
+				    	 <if test="pageType == 'M'.toString()"> 
+					           IAS_SL_MM_CLS_WRS
+				         WHERE
+				        	   SL_YM = #{DATE}
+					     </if>
+					     <if test="pageType == 'W'.toString()">
+					           IAS_SL_WW_CLS_WRS
+				         WHERE
+			                   SQWW = #{DATE}
+					     </if>
+				    </if>
+				    <if test="DIV == '2'.toString()">
+				    	 <if test="pageType == 'M'.toString()"> 
+					            IAS_SL_MM_BZPLC_CLS
+				         WHERE
+				                SL_YM = #{DATE}
+					     </if>
+					     <if test="pageType == 'W'.toString()">
+					        	IAS_SL_WW_BZPLC_CLS
+				         WHERE
+			                    SQWW = #{DATE}
+					     </if>
+				    </if>  
+				     			AND LCLC = A.LCLC
+				    ), 0) AS AMOUNT_TOT
+				FROM
+				<if test="DIV == '1'.toString()">
+					<if test="pageType == 'M'.toString()">     
+					    IAS_SL_MM_CLS_WRS A
+					</if>
+					<if test="pageType == 'W'.toString()">     
+					    IAS_SL_WW_CLS_WRS A
+					</if>
+				</if>
+				<if test="DIV == '2'.toString()">
+					<if test="pageType == 'M'.toString()">     
+					    IAS_SL_MM_BZPLC_CLS A
+					</if>
+					<if test="pageType == 'W'.toString()">     
+					    IAS_SL_WW_BZPLC_CLS A
+					</if>
+					    , TB_TR_TRPL_CIF B
+				</if>
+				WHERE
+				        A.TRPL_C IN
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    					#{item}
+				</foreach>
+				<if test="pageType == 'M'.toString()">    
+				    AND A.SL_YM = #{DATE}
+				</if>
+				<if test="pageType == 'W'.toString()">    
+				    AND A.SQWW = #{DATE}
+				</if>				
+				<if test="DIV == '2'.toString()">
+					AND A.BZPLC = B.NA_TRPL_C
+					<if test="RGN_C != null and RGN_C > 0">
+						AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+					</if>
+				</if>
+				GROUP BY
+				<if test="DIV == '1'.toString()">
+				    A.WRS_C, A.WRSNM, A.LCLC
+				</if>
+				<if test="DIV == '2'.toString()">
+				    A.BZPLC, A.BZPLCNM, A.LCLC
+				</if>
+				)AA)DD
+				WHERE
+				MM.MCODE = DD.DCODE
+	</select>
+	
+	<select id="excel1940" parameterType="map" resultType="map">
+		SELECT MM.*, DD.*, RANK() OVER (PARTITION BY MM.MCODE ORDER BY DD.POINT DESC) RANK 
+		FROM
+		(SELECT
+				 A.LCLC 	AS MCODE 
+				,A.LCLCNM 	AS MNAME
+		FROM				
+		<if test="pageType == 'M'.toString()">
+			IAS_SL_MM_BZPLC_CLS A
+		</if>
+		<if test="pageType == 'W'.toString()">
+			IAS_SL_WW_BZPLC_CLS A
+		</if>
+			, TB_TR_TRPL_CIF B		
+		WHERE
+		<if test="pageType == 'M'.toString()">
+				A.SL_YM = #{DATE}
+		</if>
+		<if test="pageType == 'W'.toString()">
+				A.SQWW = #{DATE}
+		</if>
+		    AND A.LCLC = #{CODE}
+			AND A.BZPLC = B.NA_TRPL_C
+		<if test="RGN_C != null and RGN_C > 0">
+			AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+		</if>
+		GROUP BY A.LCLC, A.LCLCNM
+		)MM,
+		(SELECT 
+			    AAA.DCODE AS DCODE,
+			    AAA.CODE AS CODE,
+			    AAA.NAME AS NAME,
+			    AAA.QTY AS QTY,
+			    AAA.AMOUNT AS AMOUNT,
+			    AAA.POINT AS POINT,
+			    AAA.RN AS RN,
+			    BBB.DCODE AS PRE_DCODE,
+			    BBB.QTY AS PRE_QTY,
+			    BBB.AMOUNT AS PRE_AMOUNT,
+			    BBB.RN AS PRE_RN
+			FROM
+					(SELECT
+					  AA.*
+					FROM
+					(SELECT
+					A.*,
+					ROWNUM AS RN
+					FROM
+					(SELECT
+					    A.LCLC AS DCODE,
+					    A.TRPL_C AS CODE,
+					    A.CLNTNM AS NAME,
+					    SUM(A.SL_QT) AS QTY,
+					    TRUNC(SUM(A.SL_AM) / 1000, 0) AS AMOUNT,
+					    TRUNC(NVL(SUM(A.SL_AM) / DECODE( 
+					           NVL((SELECT 
+					            SUM(AA.SL_AM) 
+					        FROM 
+					        <if test="pageType == 'M'.toString()">    
+					            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+					        WHERE AA.SL_YM = #{DATE}
+					        </if>
+					        <if test="pageType == 'W'.toString()">    
+					            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+					        WHERE AA.SQWW = #{DATE}
+					        </if>
+					        AND AA.LCLC = #{CODE}
+					        AND AA.BZPLC = BB.NA_TRPL_C
+					        <if test="RGN_C != null and RGN_C > 0">
+								AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+							</if>
+					        ),0)
+					        , 0, NULL, (
+						        NVL((SELECT 
+						            SUM(AA.SL_AM) 
+						        FROM 
+						        <if test="pageType == 'M'.toString()">    
+						            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+						        WHERE AA.SL_YM = #{DATE}
+						        </if>
+						        <if test="pageType == 'W'.toString()">    
+						            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+						        WHERE AA.SQWW = #{DATE}
+						        </if>
+						        AND AA.LCLC = #{CODE}
+						        AND AA.BZPLC = BB.NA_TRPL_C
+						        <if test="RGN_C != null and RGN_C > 0">
+									AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+								</if>
+						        ), 0)
+					        )) *100, 0), 2) AS POINT
+					FROM
+					<if test="pageType == 'M'.toString()">
+					    IAS_SL_MM_BZPLC_CLS A, TB_TR_TRPL_CIF B					    
+					WHERE
+						 A.SL_YM = #{DATE}
+					</if>
+					<if test="pageType == 'W'.toString()">    
+			            IAS_SL_WW_BZPLC_CLS A, TB_TR_TRPL_CIF B					            
+			        WHERE 
+			        	 A.SQWW = #{DATE}
+			        </if>
+			        AND A.LCLC = #{CODE}
+					AND A.BZPLC = B.NA_TRPL_C 
+					<if test="RGN_C != null and RGN_C > 0">
+						AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+					</if>
+					GROUP BY A.TRPL_C, A.CLNTNM, A.LCLC
+					ORDER BY AMOUNT DESC)A)AA
+					<![CDATA[WHERE AA.RN <= #{CNT}]]>)AAA,
+											(SELECT
+											AA.*
+											FROM
+											(SELECT
+											A.*,
+											ROWNUM AS RN
+											FROM
+											(SELECT
+												A.LCLC AS DCODE,
+											    A.TRPL_C AS CODE,
+											    A.CLNTNM AS NAME,
+											    SUM(A.SL_QT) AS QTY,
+											    TRUNC(SUM(A.SL_AM) / 1000, 0) AS AMOUNT,
+											    TRUNC(
+											    	NVL(SUM(A.SL_AM) / 
+											           DECODE(
+											           NVL((SELECT 
+											            SUM(AA.SL_AM) 
+											        FROM 
+											        <if test="pageType == 'M'.toString()">     
+											            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB
+											        WHERE AA.SL_YM = #{PREDATE}
+											        </if>
+											        <if test="pageType == 'W'.toString()">    
+											            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+											        WHERE AA.SQWW = #{PREDATE}
+											        </if>
+											        AND AA.LCLC = #{CODE}
+											        AND AA.BZPLC = BB.NA_TRPL_C
+											        <if test="RGN_C != null and RGN_C > 0">
+														AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+													</if>
+											        ),0)
+											        , 0, NULL,(
+											        	 NVL((SELECT 
+											            SUM(AA.SL_AM) 
+											        FROM 
+											        <if test="pageType == 'M'.toString()">     
+											            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB
+											        WHERE AA.SL_YM = #{PREDATE}
+											        </if>
+											        <if test="pageType == 'W'.toString()">    
+											            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+											        WHERE AA.SQWW = #{PREDATE}
+											        </if>
+											        AND AA.LCLC = #{CODE}
+											        AND AA.BZPLC = BB.NA_TRPL_C
+											        <if test="RGN_C != null and RGN_C > 0">
+														AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+													</if>
+											        ),0)
+											        ))*100, 0), 2) AS POINT  
+											FROM
+											<if test="pageType == 'M'.toString()">
+											    IAS_SL_MM_BZPLC_CLS A, TB_TR_TRPL_CIF B
+											WHERE
+												 A.SL_YM = #{PREDATE}
+											</if>
+											<if test="pageType == 'W'.toString()">    
+									            IAS_SL_WW_BZPLC_CLS A, TB_TR_TRPL_CIF B					            
+									        	WHERE
+									        		A.SQWW = #{PREDATE}
+									        </if>
+									        AND A.LCLC = #{CODE}
+											AND A.BZPLC = B.NA_TRPL_C
+											<if test="RGN_C != null and RGN_C > 0">
+												AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+											</if>
+											GROUP BY A.TRPL_C, A.CLNTNM, A.LCLC
+											ORDER BY AMOUNT DESC)A)AA
+											<![CDATA[WHERE AA.RN <= #{CNT}]]>)BBB
+			WHERE AAA.CODE = BBB.CODE(+)
+			ORDER BY AAA.RN)DD
+			<!--  WHERE MM.MCODE = DD.DCODE -->	
+			<!--  AND MM.MCODE = PRE_DCODE -->
+	</select>
+	
+	<select id="excel1950" parameterType="map" resultType="map">
+		SELECT MM.*, DD.*, RANK() OVER (PARTITION BY MM.MCODE ORDER BY DD.POINT DESC) RANK 
+		FROM
+		(SELECT
+				 A.LCLC 	AS MCODE 
+				,A.LCLCNM 	AS MNAME
+		FROM				
+		<if test="pageType == 'M'.toString()">
+			IAS_SL_MM_BZPLC_CLS A
+		</if>
+		<if test="pageType == 'W'.toString()">
+			IAS_SL_WW_BZPLC_CLS A
+		</if>
+			, TB_TR_TRPL_CIF B		
+		WHERE
+		<if test="pageType == 'M'.toString()">
+				A.SL_YM = #{DATE}
+		</if>
+		<if test="pageType == 'W'.toString()">
+				A.SQWW = #{DATE}
+		</if>
+		    AND A.LCLC = #{CODE}
+			AND A.BZPLC = B.NA_TRPL_C
+		<if test="RGN_C != null and RGN_C > 0">	
+			AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+		</if>	
+		GROUP BY A.LCLC, A.LCLCNM
+		)MM,
+		(SELECT 
+			    AAA.DCODE AS DCODE,
+			    AAA.CODE AS CODE,
+			    AAA.NAME AS NAME,
+			    AAA.QTY AS QTY,
+			    AAA.AMOUNT AS AMOUNT,
+			    AAA.POINT AS POINT,
+			    AAA.RN AS RN,
+			    BBB.DCODE AS PRE_DCODE,
+			    BBB.QTY AS PRE_QTY,
+			    BBB.AMOUNT AS PRE_AMOUNT,
+			    BBB.RN AS PRE_RN
+			FROM
+					(SELECT
+					  AA.*
+					FROM
+					(SELECT
+					A.*,
+					ROWNUM AS RN
+					FROM
+					(SELECT
+					    A.LCLC AS DCODE,
+					    A.TRPL_C AS CODE,
+					    A.CLNTNM AS NAME,
+					    SUM(A.SL_QT) AS QTY,
+					    TRUNC(SUM(A.SL_AM) / 1000, 0) AS AMOUNT,
+					    TRUNC(NVL(SUM(A.SL_AM) / DECODE( 
+					           NVL((SELECT 
+					            SUM(AA.SL_AM) 
+					        FROM 
+					        <if test="pageType == 'M'.toString()">    
+					            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+					        WHERE AA.SL_YM = #{DATE}
+					        </if>
+					        <if test="pageType == 'W'.toString()">    
+					            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+					        WHERE AA.SQWW = #{DATE}
+					        </if>
+					        AND AA.LCLC = #{CODE}
+					        AND AA.BZPLC = BB.NA_TRPL_C
+					        <if test="RGN_C != null and RGN_C > 0">
+					        	AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+					        </if>	
+					        	),0)
+					        , 0, NULL, (
+						        NVL((SELECT 
+						            SUM(AA.SL_AM) 
+						        FROM 
+						        <if test="pageType == 'M'.toString()">    
+						            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+						        WHERE AA.SL_YM = #{DATE}
+						        </if>
+						        <if test="pageType == 'W'.toString()">    
+						            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+						        WHERE AA.SQWW = #{DATE}
+						        </if>
+						        AND AA.LCLC = #{CODE}
+						        AND AA.BZPLC = BB.NA_TRPL_C
+						        <if test="RGN_C != null and RGN_C > 0">
+						        	AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+						        </if>
+						        ), 0)
+					        )) *100, 0), 2) AS POINT
+					FROM
+					<if test="pageType == 'M'.toString()">
+					    IAS_SL_MM_BZPLC_CLS A, TB_TR_TRPL_CIF B					    
+					WHERE
+						 A.SL_YM = #{DATE}
+					</if>
+					<if test="pageType == 'W'.toString()">    
+			            IAS_SL_WW_BZPLC_CLS A, TB_TR_TRPL_CIF B					            
+			        WHERE 
+			        	 A.SQWW = #{DATE}
+			        </if>
+			        AND A.LCLC = #{CODE}
+					AND A.BZPLC = B.NA_TRPL_C 
+					<if test="RGN_C != null and RGN_C > 0">
+						AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+					</if>	
+					GROUP BY A.TRPL_C, A.CLNTNM, A.LCLC
+					ORDER BY AMOUNT DESC)A)AA
+					<![CDATA[WHERE AA.RN <= #{CNT}]]>)AAA,
+											(SELECT
+											AA.*
+											FROM
+											(SELECT
+											A.*,
+											ROWNUM AS RN
+											FROM
+											(SELECT
+												A.LCLC AS DCODE,
+											    A.TRPL_C AS CODE,
+											    A.CLNTNM AS NAME,
+											    SUM(A.SL_QT) AS QTY,
+											    TRUNC(SUM(A.SL_AM) / 1000, 0) AS AMOUNT,
+											    TRUNC(
+											    	NVL(SUM(A.SL_AM) / 
+											           DECODE(
+											           NVL((SELECT 
+											            SUM(AA.SL_AM) 
+											        FROM 
+											        <if test="pageType == 'M'.toString()">     
+											            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB
+											        WHERE AA.SL_YM = #{PREDATE}
+											        </if>
+											        <if test="pageType == 'W'.toString()">    
+											            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+											        WHERE AA.SQWW = #{PREDATE}
+											        </if>
+											        AND AA.LCLC = #{CODE}
+											        AND AA.BZPLC = BB.NA_TRPL_C
+											        <if test="RGN_C != null and RGN_C > 0">
+											        	AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+											        </if>	
+											        	),0)
+											        , 0, NULL,(
+											        	 NVL((SELECT 
+											            SUM(AA.SL_AM) 
+											        FROM 
+											        <if test="pageType == 'M'.toString()">     
+											            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB
+											        WHERE AA.SL_YM = #{PREDATE}
+											        </if>
+											        <if test="pageType == 'W'.toString()">    
+											            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+											        WHERE AA.SQWW = #{PREDATE}
+											        </if>
+											        AND AA.LCLC = #{CODE}
+											        AND AA.BZPLC = BB.NA_TRPL_C
+											        <if test="RGN_C != null and RGN_C > 0">
+											        	AND BB.NA_RGN_C LIKE #{RGN_C}||'%'
+											        </if>
+											        ),0)
+											        ))*100, 0), 2) AS POINT  
+											FROM
+											<if test="pageType == 'M'.toString()">
+											    IAS_SL_MM_BZPLC_CLS A, TB_TR_TRPL_CIF B
+											WHERE
+												 A.SL_YM = #{PREDATE}
+											</if>
+											<if test="pageType == 'W'.toString()">    
+									            IAS_SL_WW_BZPLC_CLS A, TB_TR_TRPL_CIF B					            
+									        	WHERE
+									        		A.SQWW = #{PREDATE}
+									        </if>
+									        AND A.LCLC = #{CODE}
+											AND A.BZPLC = B.NA_TRPL_C
+											<if test="RGN_C != null and RGN_C > 0">
+												AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+											</if>	
+											GROUP BY A.TRPL_C, A.CLNTNM, A.LCLC
+											ORDER BY AMOUNT DESC)A)AA
+											<![CDATA[WHERE AA.RN <= #{CNT}]]>)BBB
+			WHERE AAA.CODE = BBB.CODE(+)
+			ORDER BY AAA.RN)DD
+			<!-- WHERE MM.MCODE = DD.DCODE  -->	
+			<!-- AND MM.MCODE = PRE_DCODE  -->
+	</select>
+	
+	<select id="excel1970_1980" parameterType="map" resultType="map">
+		SELECT MM.*,DD.*
+		FROM
+		(SELECT
+				TRPL_C AS MCODE,
+				CLNTNM AS MNAME
+		FROM
+		<if test="pageType == 'M'.toString()">
+			IAS_SL_MM_BZPLC_CLS
+		</if>
+		<if test="pageType == 'W'.toString()">
+			IAS_SL_WW_BZPLC_CLS
+		</if>
+		WHERE
+			<if test="pageType == 'M'.toString()">
+				SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				SQWW = #{DATE}
+			</if>
+				AND BZPLC = #{BZPLC}
+		GROUP BY TRPL_C, CLNTNM
+		ORDER BY CLNTNM)MM,
+		(SELECT    
+		          A.TRPL_C AS DCODE,
+		          A.LCLC AS CODE,
+		          A.LCLCNM AS NAME,
+		          TRUNC(A.SL_AM / 1000, 0) AS AMOUNT,
+		          TRUNC(
+			              (SELECT
+			                      SUM(SL_AM)
+			              FROM
+							<if test="pageType == 'M'.toString()">
+								IAS_SL_MM_BZPLC_CLS
+							</if>
+							<if test="pageType == 'W'.toString()">
+								IAS_SL_WW_BZPLC_CLS
+							</if> B
+			              WHERE
+			                 <if test="pageType == 'M'.toString()">   
+			                      SL_YM = #{DATE}
+			                 </if>
+			                 <if test="pageType == 'W'.toString()">
+			                 	  SQWW = #{DATE}
+			                 </if>
+			                  AND BZPLC = #{BZPLC}
+			                  AND B.LCLC = A.LCLC GROUP BY LCLC
+			              ) / 1000, 0) AS AMOUNT_TOT,
+		          TRUNC(
+		          		  NVL(A.SL_AM / 
+		          		  			DECODE(
+						            NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{DATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{DATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0), 0, NULL,(
+						 				  NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{DATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{DATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0)))*100, 0), 2) AS POINT,
+				  A.SL_QT AS QTY,
+	              (SELECT
+	                      SUM(SL_QT)
+	              FROM
+					<if test="pageType == 'M'.toString()">
+						IAS_SL_MM_BZPLC_CLS
+					</if>
+					<if test="pageType == 'W'.toString()">
+						IAS_SL_WW_BZPLC_CLS
+					</if> B
+	              WHERE
+	                 <if test="pageType == 'M'.toString()">   
+	                      SL_YM = #{DATE}
+	                 </if>
+	                 <if test="pageType == 'W'.toString()">
+	                 	  SQWW = #{DATE}
+	                 </if>
+	                  AND BZPLC = #{BZPLC}
+	                  AND B.LCLC = A.LCLC GROUP BY LCLC
+	              ) AS QTY_TOT,
+                TRUNC(
+	          		  NVL(A.SL_QT / 
+	          		  DECODE(
+				            NVL((SELECT  
+				            	    SUM(SL_QT)
+				          	 FROM			            	
+							<if test="pageType == 'M'.toString()">
+								IAS_SL_MM_BZPLC_CLS
+							</if>
+							<if test="pageType == 'W'.toString()">
+								IAS_SL_WW_BZPLC_CLS
+							</if> B
+				         	 WHERE
+				         	<if test="pageType == 'M'.toString()">   
+			                     SL_YM = #{DATE}
+			                </if>
+			                <if test="pageType == 'W'.toString()">
+			                	 SQWW = #{DATE}
+			                </if>
+				             	 AND BZPLC = #{BZPLC}
+				             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+					 ),0), 0, NULL,(
+									NVL((SELECT
+										 	SUM(SL_QT)
+							          	 FROM			            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{DATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{DATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC  
+					),0)))*100, 0), 2) AS QTY_POINT,
+		          TRUNC(PRE.AMOUNT / 1000, 0) AS PRE_AMOUNT,
+		          TRUNC(PRE.AMOUNT_TOT / 1000, 0) AS PRE_AMOUNT_TOT,
+		          PRE.POINT AS PRE_POINT,
+		          PRE.QTY AS PRE_QTY,
+		          PRE.QTY_TOT AS PRE_QTY_TOT,
+		          PRE.QTY_POINT AS PRE_QTY_POINT
+		FROM	
+				<if test="pageType == 'M'.toString()">
+					IAS_SL_MM_BZPLC_CLS
+				</if>
+				<if test="pageType == 'W'.toString()">
+					IAS_SL_WW_BZPLC_CLS
+				</if> A, 
+		          (
+		            SELECT
+		            	  A.TRPL_C AS TRPL_C,	
+				          A.LCLC AS LCLC,
+		                  A.SL_AM AS AMOUNT,		                  
+		                  (SELECT
+		                          SUM(SL_AM)
+		                   FROM
+					   		<if test="pageType == 'M'.toString()">
+								IAS_SL_MM_BZPLC_CLS
+							</if>
+							<if test="pageType == 'W'.toString()">
+								IAS_SL_WW_BZPLC_CLS
+							</if> B							
+		                   WHERE
+						    <if test="pageType == 'M'.toString()">			                   
+		                          SL_YM = #{PREDATE}
+		                    </if>
+		                    <if test="pageType == 'W'.toString()">
+		                    	  SQWW = #{PREDATE}
+		                    </if>
+		                      AND BZPLC = #{BZPLC}
+						      AND B.LCLC = A.LCLC GROUP BY LCLC   
+		                   ) AS AMOUNT_TOT,
+		                    TRUNC(
+		                    NVL(A.SL_AM / 
+		          		  			DECODE(
+						            NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{PREDATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{PREDATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0), 0, NULL,(
+						 				  NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{PREDATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{PREDATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0)))*100, 0), 2) AS POINT,
+						      A.SL_QT AS QTY,
+						       (SELECT
+		                          SUM(SL_QT)
+				                   FROM
+							   		<if test="pageType == 'M'.toString()">
+										IAS_SL_MM_BZPLC_CLS
+									</if>
+									<if test="pageType == 'W'.toString()">
+										IAS_SL_WW_BZPLC_CLS
+									</if> B
+				                    WHERE
+								    <if test="pageType == 'M'.toString()">			                   
+				                          SL_YM = #{PREDATE}
+				                    </if>
+				                    <if test="pageType == 'W'.toString()">
+				                    	  SQWW = #{PREDATE}
+				                    </if>
+				                      AND BZPLC = #{BZPLC}
+								      AND B.LCLC = A.LCLC GROUP BY LCLC
+				                   ) AS QTY_TOT,
+				                   TRUNC(
+					          		  NVL(A.SL_QT / 
+					          		  DECODE(
+								            NVL((SELECT  
+								            	    SUM(SL_QT)
+								          	 FROM			            	
+											<if test="pageType == 'M'.toString()">
+												IAS_SL_MM_BZPLC_CLS
+											</if>
+											<if test="pageType == 'W'.toString()">
+												IAS_SL_WW_BZPLC_CLS
+											</if> B
+								         	 WHERE
+								         	<if test="pageType == 'M'.toString()">   
+							                     SL_YM = #{PREDATE}
+							                </if>
+							                <if test="pageType == 'W'.toString()">
+							                	 SQWW = #{PREDATE}
+							                </if>
+								             	 AND BZPLC = #{BZPLC}
+								             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+										 ),0), 0, NULL,(
+												NVL((SELECT
+													 	SUM(SL_QT)
+										          	 FROM			            	
+													<if test="pageType == 'M'.toString()">
+														IAS_SL_MM_BZPLC_CLS
+													</if>
+													<if test="pageType == 'W'.toString()">
+														IAS_SL_WW_BZPLC_CLS
+													</if> B
+										         	 WHERE
+										         	<if test="pageType == 'M'.toString()">   
+									                     SL_YM = #{PREDATE}
+									                </if>
+									                <if test="pageType == 'W'.toString()">
+									                	 SQWW = #{PREDATE}
+									                </if>
+										             	 AND BZPLC = #{BZPLC}
+										             	 AND B.LCLC = A.LCLC GROUP BY LCLC  
+								),0)))*100, 0), 2) AS QTY_POINT       
+		             FROM
+		             	<if test="pageType == 'M'.toString()">
+							IAS_SL_MM_BZPLC_CLS
+						</if>
+						<if test="pageType == 'W'.toString()">
+							IAS_SL_WW_BZPLC_CLS
+						</if> A	
+		             WHERE
+	                 <if test="pageType == 'M'.toString()">			                   
+						 A.SL_YM = #{PREDATE}
+                     </if>
+                     <if test="pageType == 'W'.toString()">
+                    	 A.SQWW = #{PREDATE}
+                     </if>
+		             AND A.BZPLC = #{BZPLC}
+		             AND A.TRPL_C = #{TRPL_C}
+                     ORDER BY LCLC
+				)PRE 
+		WHERE
+			<if test="pageType == 'M'.toString()">		
+			        A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">		
+			        A.SQWW = #{DATE}
+			</if>
+			    AND A.BZPLC = #{BZPLC}
+			    AND A.TRPL_C = PRE.TRPL_C
+			    AND A.LCLC = PRE.LCLC
+			ORDER BY POINT DESC)DD
+			WHERE MM.MCODE = DD.DCODE
+	</select>
+	
+	
+	<!-- 자사상품 월별,주별 시장점유율  -->
+	
+	<!-- 점포/분류 리스트 -->
+	<select id="retrieveStoreClsMasterList" parameterType="map" resultType="map">
+		SELECT 
+		<if test="DIV == '1'.toString()">
+				A.BZPLC 	AS CODE 
+				,A.BZPLCNM 	AS NAME
+		</if>
+		<if test="DIV == '2'.toString()">
+				A.LCLC 		AS CODE 
+				,A.LCLCNM 	AS NAME
+		</if>
+		FROM
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_BZPLC_CLS A
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_BZPLC_CLS A
+			</if>
+				, TB_TR_TRPL_CIF B
+		WHERE
+				A.TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    			#{item}
+		</foreach>
+				AND A.BZPLC = B.NA_TRPL_C
+			<if test="RGN_C != null and RGN_C > 0">
+				AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+			</if>	
+			<if test="pageType == 'M'.toString()">
+				AND A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				AND A.SQWW = #{DATE}
+			</if>
+		GROUP BY
+		<if test="DIV == '1'.toString()">
+				A.BZPLC ,A.BZPLCNM
+		</if>
+		<if test="DIV == '2'.toString()">
+				A.LCLC, A.LCLCNM
+		</if>
+		ORDER BY CODE			
+	</select>
+	
+	<!-- 점포/분류 상세 데이터 -->
+	<select id="retrieveStoreClsList" parameterType="map" resultType="map">
+		SELECT 
+				AA.CODE AS CODE
+				,AA.NAME AS NAME
+				,AA.QTY AS QTY
+				,TRUNC(AA.AMOUNT / 1000, 0) AS AMOUNT
+       			,TRUNC(AA.AMOUNT_TOT / 1000, 0) AS AMOUNT_TOT
+       			,TRUNC(NVL(AA.AMOUNT / DECODE(AA.AMOUNT_TOT, 0, NULL, AA.AMOUNT_TOT)*100, 0), 2) AS POINT       			
+		        ,AA.AMOUNT AS AMOUNT_ORG
+		        ,AA.AMOUNT_TOT AS AMOUNT_TOT_ORG
+				FROM
+				(
+				SELECT
+				<if test="DIV == '1'.toString()">    
+				    A.LCLC           AS CODE
+				    ,A.LCLCNM        AS NAME
+				 </if> 
+				 <if test="DIV == '2'.toString()">
+					A.BZPLC 			AS CODE 
+					,A.BZPLCNM		AS NAME
+				</if>	  
+				    ,SUM(A.SL_AM)    AS AMOUNT
+				    ,SUM(A.SL_QT)    AS QTY
+				    ,NVL(
+				        (SELECT
+				            SUM(SL_AM)    AS AMOUNT
+				        FROM
+				       <if test="pageType == 'M'.toString()"> 
+				            IAS_SL_MM_BZPLC_CLS
+			            WHERE
+			                SL_YM = #{DATE}
+				        </if>
+				        <if test="pageType == 'W'.toString()">
+				        	IAS_SL_WW_BZPLC_CLS
+			        	WHERE
+		                    SQWW = #{DATE}
+				        </if>   
+				        <if test="DIV == '1'.toString()">    
+				            AND BZPLC = #{CODE}
+				        </if>
+				        <if test="DIV == '2'.toString()">    
+				            AND LCLC = #{CODE}
+				        </if>
+				    ), 0) AS AMOUNT_TOT
+				FROM
+				<if test="pageType == 'M'.toString()">     
+				    IAS_SL_MM_BZPLC_CLS A
+				</if>
+				<if test="pageType == 'W'.toString()">     
+				    IAS_SL_WW_BZPLC_CLS A
+				</if>
+				    , TB_TR_TRPL_CIF B
+				WHERE
+				        A.TRPL_C IN
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    					#{item}
+				</foreach>
+				<if test="pageType == 'M'.toString()">    
+				    AND A.SL_YM = #{DATE}
+				</if>
+				<if test="pageType == 'W'.toString()">    
+				    AND A.SQWW = #{DATE}
+				</if>
+				<if test="DIV == '1'.toString()">    
+				    AND A.BZPLC = #{CODE}
+				</if>
+				<if test="DIV == '2'.toString()">
+					AND A.LCLC = #{CODE}
+				</if>
+				    AND A.BZPLC = B.NA_TRPL_C
+				<if test="RGN_C != null and RGN_C > 0">
+					AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+				</if>    
+				GROUP BY
+				<if test="DIV == '1'.toString()">
+				    A.LCLC, A.LCLCNM
+				</if>
+				<if test="DIV == '2'.toString()">
+				    A.BZPLC, A.BZPLCNM
+				</if>
+				)AA ORDER BY POINT DESC 	
+	</select>
+	
+	
+	<!-- 자사상품 월별,주별 시장점유율 상세 -->	
+	
+	<!-- 분류 리스트 -->
+	<select id="retrieveDetailClsMasterList" parameterType="map" resultType="map">
+		SELECT
+				 A.LCLC 		AS CODE 
+				,A.LCLCNM 		AS NAME
+		FROM		
+		<if test="DIV == '1'.toString()">
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_CLS_WRS A
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_CLS_WRS A
+			</if>
+		</if>
+		<if test="DIV == '2'.toString()">
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_BZPLC_CLS A
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_BZPLC_CLS A
+			</if>
+				, TB_TR_TRPL_CIF B
+		</if>
+		WHERE
+			A.TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    			#{item}
+		</foreach>
+			<if test="pageType == 'M'.toString()">
+				AND A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				AND A.SQWW = #{DATE}
+			</if>
+			<if test="DIV == '2'.toString()">
+				AND A.BZPLC = B.NA_TRPL_C
+				<if test="RGN_C != null and RGN_C > 0">
+					AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+				</if>
+			</if>
+		GROUP BY A.LCLC, A.LCLCNM
+		ORDER BY CODE	
+	</select>	
+	
+	<!-- 분류별, 점포별 상세 -->
+	<select id="retrieveDetailClsSlaveList" parameterType="map" resultType="map">
+		SELECT 
+				 AA.CODE 									AS CODE
+				,AA.NAME 									AS NAME
+				,AA.QTY 									AS QTY
+				,TRUNC(AA.AMOUNT / 1000, 0) 				AS AMOUNT
+				,TRUNC(AA.AMOUNT_TOT / 1000, 0) 			AS AMOUNT_TOT
+				,TRUNC(NVL(AA.AMOUNT / DECODE(AA.AMOUNT_TOT, 0, NULL, AA.AMOUNT_TOT)*100, 0), 2) AS POINT
+				,AA.AMOUNT									AS AMOUNT_ORG
+				,AA.AMOUNT_TOT								AS AMOUNT_TOT_ORG
+				FROM
+				(
+				SELECT
+				<if test="DIV == '1'.toString()">    
+				     A.WRS_C		AS CODE
+				    ,A.WRSNM     	AS NAME
+				</if> 
+				<if test="DIV == '2'.toString()">
+					 A.BZPLC 		AS CODE 
+					,A.BZPLCNM		AS NAME
+				</if>	  
+				    ,SUM(A.SL_AM) 	AS AMOUNT
+				    ,SUM(A.SL_QT) 	AS QTY
+				    ,NVL(
+				         (SELECT
+				               SUM(SL_AM) AS AMOUNT
+				         FROM
+					<if test="DIV == '1'.toString()">
+				    	 <if test="pageType == 'M'.toString()"> 
+					           IAS_SL_MM_CLS_WRS
+				         WHERE
+				        	   SL_YM = #{DATE}
+					     </if>
+					     <if test="pageType == 'W'.toString()">
+					           IAS_SL_WW_CLS_WRS
+				         WHERE
+			                   SQWW = #{DATE}
+					     </if>
+				    </if>
+				    <if test="DIV == '2'.toString()">
+				    	 <if test="pageType == 'M'.toString()"> 
+					            IAS_SL_MM_BZPLC_CLS
+				         WHERE
+				                SL_YM = #{DATE}
+					     </if>
+					     <if test="pageType == 'W'.toString()">
+					        	IAS_SL_WW_BZPLC_CLS
+				         WHERE
+			                    SQWW = #{DATE}
+					     </if>
+				    </if>  
+				     			AND LCLC = #{CODE}
+				    ), 0) AS AMOUNT_TOT
+				FROM
+				<if test="DIV == '1'.toString()">
+					<if test="pageType == 'M'.toString()">     
+					    IAS_SL_MM_CLS_WRS A
+					</if>
+					<if test="pageType == 'W'.toString()">     
+					    IAS_SL_WW_CLS_WRS A
+					</if>
+				</if>
+				<if test="DIV == '2'.toString()">
+					<if test="pageType == 'M'.toString()">     
+					    IAS_SL_MM_BZPLC_CLS A
+					</if>
+					<if test="pageType == 'W'.toString()">     
+					    IAS_SL_WW_BZPLC_CLS A
+					</if>
+					    , TB_TR_TRPL_CIF B
+				</if>
+				WHERE
+				        A.TRPL_C IN
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    					#{item}
+				</foreach>
+				  	AND A.LCLC = #{CODE}
+				<if test="pageType == 'M'.toString()">    
+				    AND A.SL_YM = #{DATE}
+				</if>
+				<if test="pageType == 'W'.toString()">    
+				    AND A.SQWW = #{DATE}
+				</if>				
+				<if test="DIV == '2'.toString()">
+					AND A.BZPLC = B.NA_TRPL_C
+				    AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+				</if>
+				GROUP BY
+				<if test="DIV == '1'.toString()">
+				    A.WRS_C, A.WRSNM
+				</if>
+				<if test="DIV == '2'.toString()">
+				    A.BZPLC, A.BZPLCNM
+				</if>
+				)AA ORDER BY POINT DESC	
+	</select>
+	
+	
+	<!-- 월별,주별 판매순위 랭킹 -->
+	
+	<!-- 분류 리스트 -->
+	<select id="retrieveRankingMasterList" parameterType="map" resultType="map">
+		SELECT AA.CODE, AA.NAME FROM
+		(SELECT
+				 A.LCLC 	AS CODE 
+				,A.LCLCNM 	AS NAME
+		FROM				
+		<if test="pageType == 'M'.toString()">
+			IAS_SL_MM_BZPLC_CLS A
+		</if>
+		<if test="pageType == 'W'.toString()">
+			IAS_SL_WW_BZPLC_CLS A
+		</if>
+			, TB_TR_TRPL_CIF B		
+		WHERE
+		<if test="pageType == 'M'.toString()">
+				 A.SL_YM = #{DATE}
+		</if>
+		<if test="pageType == 'W'.toString()">
+				 A.SQWW = #{DATE}
+		</if>
+			AND A.BZPLC = B.NA_TRPL_C
+		<if test="RGN_C != null and RGN_C > 0">
+			AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+		</if>
+		GROUP BY A.LCLC, A.LCLCNM)AA,
+		(SELECT 
+				NA_WRS_LCLC || NA_WRS_MCLC || NA_WRS_SCLC AS CODE FROM PT_OCMA_CRGR
+		WHERE 
+				SVC_ED_DT IS NULL
+			AND NA_TRPL_C = #{TRPL_C})BB
+		WHERE AA.CODE = BB.CODE
+		ORDER BY AA.CODE			
+	</select>
+	
+	<!-- 분류별 거래처 판매순위 -->
+	<select id="retrieveRankingSlaveList" parameterType="map" resultType="map">
+		SELECT 
+			    AAA.CODE AS CODE,
+			    AAA.NAME AS NAME,
+			    AAA.QTY AS QTY,
+			    AAA.AMOUNT AS AMOUNT,
+			    AAA.POINT AS POINT,
+			    AAA.RN AS RN,
+			    BBB.QTY AS PRE_QTY,
+			    BBB.AMOUNT AS PRE_AMOUNT,
+			    BBB.RN AS PRE_RN
+			FROM
+					(SELECT
+					  AA.*
+					FROM
+					(SELECT
+					A.*,
+					ROWNUM AS RN
+					FROM
+					(SELECT
+					    A.TRPL_C AS CODE,
+					    A.CLNTNM AS NAME,
+					    SUM(A.SL_QT) AS QTY,
+					    TRUNC(SUM(A.SL_AM) / 1000, 0) AS AMOUNT,
+					    TRUNC(NVL(SUM(A.SL_AM) / DECODE( 
+					           NVL((SELECT 
+					            SUM(AA.SL_AM) 
+					        FROM 
+					        <if test="pageType == 'M'.toString()">    
+					            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+					        WHERE AA.SL_YM = #{DATE}
+					        </if>
+					        <if test="pageType == 'W'.toString()">    
+					            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+					        WHERE AA.SQWW = #{DATE}
+					        </if>
+					        AND AA.LCLC = #{CODE}
+					        AND AA.BZPLC = BB.NA_TRPL_C
+					        AND BB.NA_RGN_C LIKE #{RGN_C}||'%'),0)
+					        , 0, NULL, (
+						        NVL((SELECT 
+						            SUM(AA.SL_AM) 
+						        FROM 
+						        <if test="pageType == 'M'.toString()">    
+						            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+						        WHERE AA.SL_YM = #{DATE}
+						        </if>
+						        <if test="pageType == 'W'.toString()">    
+						            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+						        WHERE AA.SQWW = #{DATE}
+						        </if>
+						        AND AA.LCLC = #{CODE}
+						        AND AA.BZPLC = BB.NA_TRPL_C
+						        AND BB.NA_RGN_C LIKE #{RGN_C}||'%'), 0)
+					        )) *100, 0), 2) AS POINT
+					FROM
+					<if test="pageType == 'M'.toString()">
+					    IAS_SL_MM_BZPLC_CLS A, TB_TR_TRPL_CIF B					    
+					WHERE
+						A.SL_YM = #{DATE}
+					</if>
+					<if test="pageType == 'W'.toString()">    
+			            IAS_SL_WW_BZPLC_CLS A, TB_TR_TRPL_CIF B					            
+			        WHERE A.SQWW = #{DATE}
+			        </if>
+					AND A.LCLC = #{CODE}
+					AND A.BZPLC = B.NA_TRPL_C
+					AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+					GROUP BY A.TRPL_C, A.CLNTNM
+					ORDER BY AMOUNT DESC)A)AA
+					<![CDATA[WHERE AA.RN <= #{CNT}]]>)AAA,
+											(SELECT
+											AA.*
+											FROM
+											(SELECT
+											A.*,
+											ROWNUM AS RN
+											FROM
+											(SELECT
+											    A.TRPL_C AS CODE,
+											    A.CLNTNM AS NAME,
+											    SUM(A.SL_QT) AS QTY,
+											    TRUNC(SUM(A.SL_AM) / 1000, 0) AS AMOUNT,
+											    TRUNC(
+											    	NVL(SUM(A.SL_AM) / 
+											           DECODE(
+											           NVL((SELECT 
+											            SUM(AA.SL_AM) 
+											        FROM 
+											        <if test="pageType == 'M'.toString()">     
+											            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB
+											        WHERE AA.SL_YM = #{PREDATE}
+											        </if>
+											        <if test="pageType == 'W'.toString()">    
+											            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+											        WHERE AA.SQWW = #{PREDATE}
+											        </if>
+											        AND AA.LCLC = #{CODE}
+											        AND AA.BZPLC = BB.NA_TRPL_C
+											        AND BB.NA_RGN_C LIKE #{RGN_C}||'%'),0)
+											        , 0, NULL,(
+											        	 NVL((SELECT 
+											            SUM(AA.SL_AM) 
+											        FROM 
+											        <if test="pageType == 'M'.toString()">     
+											            IAS_SL_MM_BZPLC_CLS AA, TB_TR_TRPL_CIF BB
+											        WHERE AA.SL_YM = #{PREDATE}
+											        </if>
+											        <if test="pageType == 'W'.toString()">    
+											            IAS_SL_WW_BZPLC_CLS AA, TB_TR_TRPL_CIF BB					            
+											        WHERE AA.SQWW = #{PREDATE}
+											        </if>
+											        AND AA.LCLC = #{CODE}
+											        AND AA.BZPLC = BB.NA_TRPL_C
+											        AND BB.NA_RGN_C LIKE #{RGN_C}||'%'),0)
+											        ))*100, 0), 2) AS POINT     
+											FROM
+											<if test="pageType == 'M'.toString()">
+											    IAS_SL_MM_BZPLC_CLS A, TB_TR_TRPL_CIF B
+											WHERE
+												A.SL_YM = #{PREDATE}
+											</if>
+											<if test="pageType == 'W'.toString()">    
+									            IAS_SL_WW_BZPLC_CLS A, TB_TR_TRPL_CIF B					            
+									        	WHERE A.SQWW = #{PREDATE}
+									        </if>
+											AND A.LCLC = #{CODE}
+											AND A.BZPLC = B.NA_TRPL_C
+											AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+											GROUP BY A.TRPL_C, A.CLNTNM
+											ORDER BY AMOUNT DESC)A)AA
+											<![CDATA[WHERE AA.RN <= #{CNT}]]>)BBB
+			WHERE AAA.CODE = BBB.CODE(+)
+			ORDER BY AAA.RN		
+	</select>
+	
+	
+	<!-- 월별,주별 경쟁사 시장분석 -->
+	
+	<!-- 사업장 리스트 -->
+	<select id="retrieveCompetitorsBzplcList" parameterType="map" resultType="map">
+		SELECT
+				A.BZPLC AS CODE,
+				A.BZPLCNM AS NAME
+		FROM
+		<if test="pageType == 'M'.toString()">
+			IAS_SL_MM_BZPLC_CLS
+		</if>
+		<if test="pageType == 'W'.toString()">
+			IAS_SL_WW_BZPLC_CLS
+		</if>
+		 A, TB_TR_TRPL_CIF B	
+		WHERE
+			<if test="pageType == 'M'.toString()">
+				 A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				 A.SQWW = #{DATE}
+			</if>
+			 AND A.BZPLC = B.NA_TRPL_C
+			 AND B.NA_RGN_C LIKE #{RGN_C}||'%'	
+		GROUP BY A.BZPLC, A.BZPLCNM
+  		ORDER BY CODE
+	</select>
+	
+	<!-- 경쟁사 리스트 -->
+	<select id="retrieveCompetitorsMasterList" parameterType="map" resultType="map">
+		SELECT
+				TRPL_C AS CODE,
+				CLNTNM AS NAME
+		FROM
+			<if test="pageType == 'M'.toString()">
+				IAS_SL_MM_BZPLC_CLS
+			</if>
+			<if test="pageType == 'W'.toString()">
+				IAS_SL_WW_BZPLC_CLS
+			</if>
+		WHERE
+			<if test="pageType == 'M'.toString()">
+				SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">
+				SQWW = #{DATE}
+			</if>
+			 AND BZPLC IN
+			<foreach collection="BZPLC" item="item" index="index" separator="," open="(" close=")">
+   					#{item}
+			</foreach>
+		GROUP BY TRPL_C, CLNTNM
+		ORDER BY CLNTNM
+	</select>
+	
+	<!-- 경쟁사별 분류,상품 데이터 -->
+	<select id="retrieveCompetitorsSlaveList" parameterType="map" resultType="map">
+		SELECT AA.CODE, AA.NAME
+  		FROM
+		(SELECT    
+		          A.LCLC AS CODE,
+		          A.LCLCNM AS NAME,
+		          TRUNC(A.SL_AM / 1000, 0) AS AMOUNT,
+		          TRUNC(
+			              (SELECT
+			                      SUM(SL_AM)
+			              FROM
+							<if test="pageType == 'M'.toString()">
+								IAS_SL_MM_BZPLC_CLS
+							</if>
+							<if test="pageType == 'W'.toString()">
+								IAS_SL_WW_BZPLC_CLS
+							</if> B
+			              WHERE
+			                 <if test="pageType == 'M'.toString()">   
+			                      SL_YM = #{DATE}
+			                 </if>
+			                 <if test="pageType == 'W'.toString()">
+			                 	  SQWW = #{DATE}
+			                 </if>
+			                  AND BZPLC = #{BZPLC}
+			                  AND B.LCLC = A.LCLC GROUP BY LCLC
+			              ) / 1000, 0) AS AMOUNT_TOT,
+		          TRUNC(
+		          		  NVL(A.SL_AM / 
+		          		  			DECODE(
+						            NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{DATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{DATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0), 0, NULL,(
+						 				  NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{DATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{DATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0)))*100, 0), 2) AS POINT,
+				  A.SL_QT AS QTY,
+	              (SELECT
+	                      SUM(SL_QT)
+	              FROM
+					<if test="pageType == 'M'.toString()">
+						IAS_SL_MM_BZPLC_CLS
+					</if>
+					<if test="pageType == 'W'.toString()">
+						IAS_SL_WW_BZPLC_CLS
+					</if> B
+	              WHERE
+	                 <if test="pageType == 'M'.toString()">   
+	                      SL_YM = #{DATE}
+	                 </if>
+	                 <if test="pageType == 'W'.toString()">
+	                 	  SQWW = #{DATE}
+	                 </if>
+	                  AND BZPLC = #{BZPLC}
+	                  AND B.LCLC = A.LCLC GROUP BY LCLC
+	              ) AS QTY_TOT,
+                TRUNC(
+	          		  NVL(A.SL_QT / 
+	          		  DECODE(
+				            NVL((SELECT  
+				            	    SUM(SL_QT)
+				          	 FROM			            	
+							<if test="pageType == 'M'.toString()">
+								IAS_SL_MM_BZPLC_CLS
+							</if>
+							<if test="pageType == 'W'.toString()">
+								IAS_SL_WW_BZPLC_CLS
+							</if> B
+				         	 WHERE
+				         	<if test="pageType == 'M'.toString()">   
+			                     SL_YM = #{DATE}
+			                </if>
+			                <if test="pageType == 'W'.toString()">
+			                	 SQWW = #{DATE}
+			                </if>
+				             	 AND BZPLC = #{BZPLC}
+				             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+					 ),0), 0, NULL,(
+									NVL((SELECT
+										 	SUM(SL_QT)
+							          	 FROM			            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{DATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{DATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC  
+					),0)))*100, 0), 2) AS QTY_POINT,
+		          TRUNC(PRE.AMOUNT / 1000, 0) AS PRE_AMOUNT,
+		          TRUNC(PRE.AMOUNT_TOT / 1000, 0) AS PRE_AMOUNT_TOT,
+		          PRE.POINT AS PRE_POINT,
+		          PRE.QTY AS PRE_QTY,
+		          PRE.QTY_TOT AS PRE_QTY_TOT,
+		          PRE.QTY_POINT AS PRE_QTY_POINT
+		FROM	
+				<if test="pageType == 'M'.toString()">
+					IAS_SL_MM_BZPLC_CLS
+				</if>
+				<if test="pageType == 'W'.toString()">
+					IAS_SL_WW_BZPLC_CLS
+				</if> A, 
+		          (
+		            SELECT
+				          A.LCLC AS LCLC,
+		                  A.SL_AM AS AMOUNT,		                  
+		                  (SELECT
+		                          SUM(SL_AM)
+		                   FROM
+					   		<if test="pageType == 'M'.toString()">
+								IAS_SL_MM_BZPLC_CLS
+							</if>
+							<if test="pageType == 'W'.toString()">
+								IAS_SL_WW_BZPLC_CLS
+							</if> B							
+		                   WHERE
+						    <if test="pageType == 'M'.toString()">			                   
+		                          SL_YM = #{PREDATE}
+		                    </if>
+		                    <if test="pageType == 'W'.toString()">
+		                    	  SQWW = #{PREDATE}
+		                    </if>
+		                      AND BZPLC = #{BZPLC}
+						      AND B.LCLC = A.LCLC GROUP BY LCLC   
+		                   ) AS AMOUNT_TOT,
+		                    TRUNC(
+		                    NVL(A.SL_AM / 
+		          		  			DECODE(
+						            NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{PREDATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{PREDATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0), 0, NULL,(
+						 				  NVL((SELECT 
+						            	    SUM(SL_AM)
+							          	 FROM					            	
+										<if test="pageType == 'M'.toString()">
+											IAS_SL_MM_BZPLC_CLS
+										</if>
+										<if test="pageType == 'W'.toString()">
+											IAS_SL_WW_BZPLC_CLS
+										</if> B
+							         	 WHERE
+							         	<if test="pageType == 'M'.toString()">   
+						                     SL_YM = #{PREDATE}
+						                </if>
+						                <if test="pageType == 'W'.toString()">
+						                	 SQWW = #{PREDATE}
+						                </if>
+							             	 AND BZPLC = #{BZPLC}
+							             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+						 				),0)))*100, 0), 2) AS POINT,
+						      A.SL_QT AS QTY,
+						       (SELECT
+		                          SUM(SL_QT)
+				                   FROM
+							   		<if test="pageType == 'M'.toString()">
+										IAS_SL_MM_BZPLC_CLS
+									</if>
+									<if test="pageType == 'W'.toString()">
+										IAS_SL_WW_BZPLC_CLS
+									</if> B
+				                    WHERE
+								    <if test="pageType == 'M'.toString()">			                   
+				                          SL_YM = #{PREDATE}
+				                    </if>
+				                    <if test="pageType == 'W'.toString()">
+				                    	  SQWW = #{PREDATE}
+				                    </if>
+				                      AND BZPLC = #{BZPLC}
+								      AND B.LCLC = A.LCLC GROUP BY LCLC
+				                   ) AS QTY_TOT,
+				                   TRUNC(
+					          		  NVL(A.SL_QT / 
+					          		  DECODE(
+								            NVL((SELECT  
+								            	    SUM(SL_QT)
+								          	 FROM			            	
+											<if test="pageType == 'M'.toString()">
+												IAS_SL_MM_BZPLC_CLS
+											</if>
+											<if test="pageType == 'W'.toString()">
+												IAS_SL_WW_BZPLC_CLS
+											</if> B
+								         	 WHERE
+								         	<if test="pageType == 'M'.toString()">   
+							                     SL_YM = #{PREDATE}
+							                </if>
+							                <if test="pageType == 'W'.toString()">
+							                	 SQWW = #{PREDATE}
+							                </if>
+								             	 AND BZPLC = #{BZPLC}
+								             	 AND B.LCLC = A.LCLC GROUP BY LCLC
+										 ),0), 0, NULL,(
+												NVL((SELECT
+													 	SUM(SL_QT)
+										          	 FROM			            	
+													<if test="pageType == 'M'.toString()">
+														IAS_SL_MM_BZPLC_CLS
+													</if>
+													<if test="pageType == 'W'.toString()">
+														IAS_SL_WW_BZPLC_CLS
+													</if> B
+										         	 WHERE
+										         	<if test="pageType == 'M'.toString()">   
+									                     SL_YM = #{PREDATE}
+									                </if>
+									                <if test="pageType == 'W'.toString()">
+									                	 SQWW = #{PREDATE}
+									                </if>
+										             	 AND BZPLC = #{BZPLC}
+										             	 AND B.LCLC = A.LCLC GROUP BY LCLC  
+								),0)))*100, 0), 2) AS QTY_POINT       
+		             FROM
+		             	<if test="pageType == 'M'.toString()">
+							IAS_SL_MM_BZPLC_CLS
+						</if>
+						<if test="pageType == 'W'.toString()">
+							IAS_SL_WW_BZPLC_CLS
+						</if> A	
+		             WHERE
+	                <if test="pageType == 'M'.toString()">			                   
+						A.SL_YM = #{PREDATE}
+                    </if>
+                    <if test="pageType == 'W'.toString()">
+                    	 A.SQWW = #{PREDATE}
+                    </if>
+		             AND A.BZPLC = #{BZPLC}
+		             AND A.TRPL_C= #{TRPL_C}
+                     ORDER BY LCLC
+				)PRE 
+		WHERE
+			<if test="pageType == 'M'.toString()">		
+			        A.SL_YM = #{DATE}
+			</if>
+			<if test="pageType == 'W'.toString()">		
+			        A.SQWW = #{DATE}
+			</if>
+			    AND A.BZPLC = #{BZPLC}
+			    AND A.TRPL_C= #{TRPL_C}
+			    AND A.LCLC = PRE.LCLC)AA,
+		     (SELECT 
+		     		NA_WRS_LCLC || NA_WRS_MCLC || NA_WRS_SCLC AS CODE 
+      		  FROM 
+      		  		PT_OCMA_CRGR
+		  	  WHERE 
+		  	  		SVC_ED_DT IS NULL
+			  AND NA_TRPL_C = #{TRPL_C})BB
+			  WHERE 
+			  		AA.CODE = BB.CODE
+			  ORDER BY 
+			  		AA.POINT DESC
+	</select>
+	
+	<!--  점포별 ABC분석  -->
+	<select id="retrieveABCList" parameterType="map" resultType="map">
+		SELECT
+		    BB.WRS_C AS CODE,
+		    BB.WRSNM AS NAME,
+		    ${SQL1}
+		FROM
+			(SELECT
+			    AA.WRS_C AS WRS_C,
+    			AA.WRSNM AS WRSNM,       
+			    ${SQL2}
+			FROM
+				(SELECT 
+				    A.NA_BZPLC AS BZPLC,
+				    A.NA_WRS_C AS WRS_C,
+				    B.WRSNM AS WRSNM,    
+				    SUM(A.TOT_SLAM) AS AMOUNT    
+				FROM TB_SA_TD_WRS_SPYPL A, TB_GD_WRS B
+				WHERE  
+					A.NA_WRS_C = B.NA_WRS_C
+				    AND A.SL_DT = #{DATE}
+				    AND A.SPY_NA_TRPL_C IN
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+    				#{item}
+				</foreach>
+				    AND A.NA_BZPLC IN
+				<foreach collection="BZPLC" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				GROUP BY A.NA_BZPLC, A.NA_WRS_C, B.WRSNM)AA)BB
+		GROUP BY BB.WRS_C, BB.WRSNM
+		ORDER BY BZPLC0 DESC
+	</select>
+	
+	<select id="selectListMyCategory" parameterType="map" resultType="map">
+		SELECT 
+				NA_WRS_LCLC || NA_WRS_MCLC || NA_WRS_SCLC AS CODE 
+		FROM 
+				PT_OCMA_CRGR
+		WHERE 
+				SVC_ED_DT IS NULL
+	    AND NA_TRPL_C = #{TRPL_C}
+	    ORDER BY CODE ASC
+	</select>
+	
+
+	<!-- 월별카테고리판매정보조회 -->
+	<select id="retrieveCompetitorsClsBzplcWrsList" parameterType="map" resultType="map">
+
+		SELECT   
+		<if test="pageType == 'M'.toString()">
+             A.SL_YM   AS SL_YM
+		</if>
+
+		<if test="pageType == 'W'.toString()">
+              A.SQWW   AS SL_YM
+		</if>
+          
+           , B.NA_WRS_LCLC       
+           , D.WRS_LCLFNM        
+           , B.NA_WRS_MCLC       
+           , D.WRS_MCLFNM        
+           , B.NA_WRS_SCLC       
+           , D.WRS_SCLFNM        
+           , B.NA_WRS_DTCF_C     
+           , D.WRS_DTCFNM        
+           , A.BZPLC             
+           , F.SHRT_BZPLNM	AS BZPLNM       
+           , B.MFT_NA_TRPL_C     
+           , C.CLNTNM AS MFT_NA_TRPL_CNM            
+           , A.WRS_C             
+           , A.WRSNM             
+           , A.SL_QT             
+           , A.SL_AM             
+           , DECODE(E.CONSENT_YN, 'Y', '동의', '거부')        AS CONSENT_YN
+		  FROM
+
+		<if test="pageType == 'M'.toString()">
+             NHVANSTS.IAS_SL_MM_BZPLC_WRS A   
+		</if>
+
+		<if test="pageType == 'W'.toString()">
+             NHVANSTS.IAS_SL_WW_BZPLC_WRS A   
+		</if>
+
+           , NHVANINF.TB_GD_WRS B
+           , NHVANINF.TB_TR_TRPL_CIF C
+           , NHVANINF.TB_GD_WRS_CLF D
+           , NHVANPTL.PT_USR_CONSENT E
+           , NHVANINF.TB_CM_BZPL F
+           , NHVANINF.TB_TR_TRPL_CIF H
+
+		 WHERE 
+               A.WRS_C         = B.NA_WRS_C
+           AND B.MFT_NA_TRPL_C = C.NA_TRPL_C
+           AND B.NA_WRS_LCLC   = D.NA_WRS_LCLC           
+           AND B.NA_WRS_MCLC   = D.NA_WRS_MCLC           
+           AND B.NA_WRS_SCLC   = D.NA_WRS_SCLC           
+           AND B.NA_WRS_DTCF_C = D.NA_WRS_DTCF_C
+           AND C.UP_NA_TRPL_C  = E.NA_TRPL_C
+           AND A.BZPLC         = F.NA_BZPLC
+           AND F.NA_BZPLC      = H.NA_TRPL_C
+           
+		<if test="pageType == 'M'.toString()">
+           AND A.SL_YM         =  #{DATE}
+           AND A.SL_YM         =  '201608' 
+		</if>
+
+		<if test="pageType == 'W'.toString()">
+           AND A.SQWW         =  #{DATE}
+           AND A.SQWW  IN  ('201632', '201633', '201634')
+			<![CDATA[ ]]>
+		</if>
+
+           AND E.BSN_DSC       = 'sales_price'
+           AND E.CONSENT_YN    = 'Y'
+           
+			<if test="BZPLC != null and BZPLC.length() > 0">
+	           AND A.BZPLC         =  #{BZPLC}
+			</if>
+
+			<if test="LCLC != null and LCLC.length() > 0">
+	           AND B.NA_WRS_LCLC         =  #{LCLC}
+			</if>
+			
+			<if test="MCLC != null and MCLC.length()  > 0">
+	           AND B.NA_WRS_MCLC         =  #{MCLC}
+			</if>
+			
+			<if test="SCLC != null and SCLC.length()  > 0">
+	           AND B.NA_WRS_SCLC         =  #{SCLC}
+			</if>
+			
+			<![CDATA[AND ROWNUM < 20001]]>
+			
+  ORDER BY 1, 2, 4, 6, 8, 10, 12, 14
+	</select>
+	
+
+	<select id="retrieveConsentTrplList"   parameterType="map" resultType="map">
+	
+		SELECT /*retrieveConsentTrplList*/ 
+		           '0' AS CHECK_BOX           
+              , A.BSN_DSC               
+              , A.NA_TRPL_C             
+              , B.CLNTNM NA_TRPL_NM
+              , A.MB_ID                 
+              , A.CONSENT_YN            
+              , A.FSRG_DTM              
+              , A.FS_RGM                
+              , A.LSCHG_DTM             
+              , A.LS_CHGM               
+		FROM   NHVANPTL.PT_USR_CONSENT A    
+         , NHVANINF.TB_TR_TRPL_CIF B  
+		WHERE A.NA_TRPL_C = B.NA_TRPL_C
+		-- AND A.CONSENT_YN = 'Y'
+	     
+	    AND A.NA_TRPL_C NOT IN (
+	    
+			SELECT INTE_TRPL_C 
+	
+			 FROM IAS_CLS_INTE_TRPL
+		 	WHERE
+					TRPL_C = #{NA_TRPL_C}
+
+	    )
+	    
+	    
+	</select>
+	
+	<!-- 관심점포/상픔 저장 리스트 -->
+	<select id="retrieveInteTrplList" parameterType="map" resultType="map">
+
+		SELECT
+				  A.INTE_TRPL_C 	   AS CODE 
+				, A.INTE_TRPL_NM 	   AS NAME
+				, TO_CHAR(A.MOD_DTM, 'YYYY-MM-DD') AS YMD
+                , B.CONSENT_YN
+                , A.INTE_TRPL_NM || ' (' || DECODE(B.CONSENT_YN, 'Y', '동의', 'N', '비동의') || ') '  AS NAME_YN
+				, row_number() over ( order by A.INTE_TRPL_C) AS NO  
+
+		 FROM   NHVANSTS.IAS_CLS_INTE_TRPL A
+		      , NHVANPTL.PT_USR_CONSENT B
+	 	WHERE
+	 	      A.INTE_TRPL_C = B.NA_TRPL_C
+          AND B.BSN_DSC = 'sales_price'
+          AND A.TRPL_C = #{TRPL_C}
+
+	 ORDER BY
+			  A.INTE_TRPL_C
+
+	</select>
+	
+	<!-- 관심점포/상품 등록 -->
+	<insert id="insertInteTrplList" parameterType="map">
+		INSERT INTO IAS_CLS_INTE_TRPL (TRPL_C, INTE_TRPL_C,  INTE_TRPL_NM, RG_DTM, MOD_DTM)  
+		                       VALUES ( #{TRPL_C}, #{INTE_TRPL_C}, #{INTE_TRPL_NM}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<!-- 관심점포/상품 삭제 -->
+	<delete id="deleteInteTrplList" parameterType="map">
+		DELETE FROM  IAS_CLS_INTE_TRPL
+
+		WHERE 
+			TRPL_C = #{TRPL_C}
+		AND INTE_TRPL_C = #{CODE}	
+	</delete>		
+	
+
+	<!-- 업체별 관심상품 리스트 미등록 -->
+	<select id="retrieveTrplWrsList" parameterType="map" resultType="map">
+
+			SELECT
+			          '0' AS CHECK_BOX    
+                    , A.NA_WRS_LCLC       
+                    , B.WRS_LCLFNM        
+                    , A.NA_WRS_MCLC       
+                    , B.WRS_MCLFNM        
+                    , A.NA_WRS_SCLC       
+                    , B.WRS_SCLFNM        
+                    , A.NA_WRS_DTCF_C     
+                    , B.WRS_DTCFNM        
+					, A.NA_WRS_C
+					, A.WRSNM  
+					, #{INTE_TRPL_C} AS INTE_TRPL_C
+			FROM 
+					  TB_GD_WRS A
+					, TB_GD_WRS_CLF B
+			WHERE 
+                     A.NA_WRS_LCLC   = B.NA_WRS_LCLC           
+                 AND A.NA_WRS_MCLC   = B.NA_WRS_MCLC           
+                 AND A.NA_WRS_SCLC   = B.NA_WRS_SCLC           
+                 AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
+
+	             AND A.NA_WRS_C IN (
+				                          SELECT DISTINCT NA_WRS_C
+				                            FROM  TB_OD_TRTWRS
+				                           WHERE  SPYPL_NA_TRPL_C IN (
+				                                         SELECT  NA_TRPL_C 
+				                                          FROM TB_TR_TRPL_CIF
+				                                         WHERE UP_NA_TRPL_C =  #{INTE_TRPL_C}
+				                                    )
+				                                    
+	                                    )
+			AND A.NA_WRS_C NOT IN 
+			(
+			 
+				SELECT
+
+						WRS_C 
+
+				FROM 
+						IAS_CLS_INTE_WRS
+				WHERE TRPL_C  = #{NA_TRPL_C}
+				  AND INTE_TRPL_C = #{INTE_TRPL_C}
+			  )
+
+			<if test="WRSNM != null and WRSNM.length() > 0">
+	           AND WRSNM  LIKE #{WRSNM}||'%'
+			</if>
+	</select>
+	
+	<!-- 관심상품 등록 카테고리 리스트 -->
+	<select id="retrieveClsWrsList" parameterType="map" resultType="map">
+
+			SELECT  
+			         '0' AS CHECK_BOX   
+			       , A.NA_WRS_C 
+			       , A.WRSNM
+			       , A.MFT_NA_TRPL_C INTE_TRPL_C
+			       , B.CLNTNM AS NA_TRPL_NM
+			  FROM   TB_GD_WRS A
+			       , TB_TR_TRPL_CIF B
+                   , PT_USR_CONSENT C
+			 WHERE
+                     A.MFT_NA_TRPL_C = B.NA_TRPL_C
+                AND B.NA_TRPL_C = C.NA_TRPL_C
+         
+			<if test="NA_WRS_LCLC != null and NA_WRS_LCLC.length() > 0">
+	           AND A.NA_WRS_LCLC         =  #{NA_WRS_LCLC}
+			</if>
+			
+			<if test="NA_WRS_MCLC != null and NA_WRS_MCLC.length()  > 0">
+	           AND A.NA_WRS_MCLC         =  #{NA_WRS_MCLC}
+			</if>
+			
+			<if test="NA_WRS_SCLC != null and NA_WRS_SCLC.length()  > 0">
+	           AND A.NA_WRS_SCLC         =  #{NA_WRS_SCLC}
+			</if>
+			
+			<if test="NA_WRS_DTCF_C != null and NA_WRS_DTCF_C.length()  > 0">
+	           AND A.NA_WRS_DTCF_C         =  #{NA_WRS_DTCF_C}
+			</if>
+			AND A.NA_WRS_C NOT IN 
+			(
+			 
+				SELECT
+
+						WRS_C 
+
+				FROM 
+						IAS_CLS_INTE_WRS
+				WHERE TRPL_C  = #{TRPL_C}
+
+			  )
+
+	</select>
+	
+	
+	<!-- 관심상품 등록 -->
+	<insert id="insertInteWrsList" parameterType="map">
+
+		INSERT INTO IAS_CLS_INTE_WRS
+		(
+		    TRPL_C
+		  , INTE_TRPL_C
+		  , WRS_C
+		  , WRSNM
+		  , RG_DTM
+		  , MOD_DTM
+		)
+		VALUES
+		(
+		    #{TRPL_C}
+		  , #{INTE_TRPL_C}
+		  , #{WRS_C}
+		  , #{WRSNM}
+		  , SYSDATE
+		  , SYSDATE
+		)
+		
+	</insert>
+	<!-- 카테고리별 등록된 관심상품  리스트 -->
+	<select id="retrieveClsInteWrsList" parameterType="map" resultType="map">
+
+			SELECT
+		              '0' AS CHECK_BOX 
+		            , row_number() over ( order by A.INTE_TRPL_C, C.NA_WRS_LCLC, C.NA_WRS_MCLC, C.NA_WRS_SCLC, C.NA_WRS_DTCF_C, A.WRS_C ) AS NO   
+		            , A.WRS_C   
+		            , A.WRSNM  
+		            , A.INTE_TRPL_C 
+		            , B.CLNTNM AS INTE_TRPL_NM
+		            , D.WRS_DTCFNM
+		            , TO_CHAR(A.RG_DTM, 'YYYYMMDD') RG_DTM
+			FROM 
+				   IAS_CLS_INTE_WRS A
+                 , TB_TR_TRPL_CIF B
+                 , TB_GD_WRS  C
+                 , TB_GD_WRS_CLF D
+           WHERE 
+			      A.INTE_TRPL_C   = B.NA_TRPL_C
+              AND A.WRS_C         = C.NA_WRS_C
+              AND C.NA_WRS_LCLC   = D.NA_WRS_LCLC           
+              AND C.NA_WRS_MCLC   = D.NA_WRS_MCLC           
+              AND C.NA_WRS_SCLC   = D.NA_WRS_SCLC           
+              AND C.NA_WRS_DTCF_C = D.NA_WRS_DTCF_C
+			  AND A.TRPL_C       = #{NA_TRPL_C}
+			  
+			<if test="LCLC != null and LCLC.length() > 0">
+	           AND C.NA_WRS_LCLC         =  #{LCLC}
+			</if>
+			
+			<if test="MCLC != null and MCLC.length()  > 0">
+	           AND C.NA_WRS_MCLC         =  #{MCLC}
+			</if>
+			
+			<if test="SCLC != null and SCLC.length()  > 0">
+	           AND C.NA_WRS_SCLC         =  #{SCLC}
+			</if>
+			
+			<if test="DTCF_C != null and SCLC.length()  > 0">
+	           AND C.NA_WRS_DTCF_C         =  #{DTCF_C}
+			</if>
+			
+		 ORDER BY A.INTE_TRPL_C, C.NA_WRS_LCLC, C.NA_WRS_MCLC, C.NA_WRS_SCLC, C.NA_WRS_DTCF_C, A.WRS_C
+
+	</select>
+	
+	<!-- 관심상품  삭제 -->
+	<delete id="deleteClsInteWrsList" parameterType="map">
+		DELETE FROM  IAS_CLS_INTE_WRS
+
+		WHERE 
+			TRPL_C      = #{TRPL_C}
+		AND INTE_TRPL_C = #{INTE_TRPL_C}	
+		AND WRS_C       = #{WRS_C}
+	</delete>
+
+	<!-- 월별 카테고리판매정보 리스트 -->
+	<select id="retrieveCatSalesMon" parameterType="map" resultType="map">
+		
+		SELECT 
+	             VW_INTE_WRS.NA_WRS_LCLC
+	           , VW_INTE_WRS.NA_WRS_MCLC
+	           , VW_INTE_WRS.NA_WRS_SCLC
+	           , VW_INTE_WRS.NA_WRS_DTCF_C
+		       , VW_INTE_WRS.WRS_SCLFNM
+		       , VW_INTE_WRS.WRS_DTCFNM
+		       , VW_SL_WRS.SL_QT
+		       , VW_SL_WRS.SL_SKU_CNT
+		       , VW_INTE_WRS.REG_SKU_CNT
+		 
+		FROM
+		(
+				SELECT 
+		             B.NA_WRS_LCLC
+		           , B.NA_WRS_MCLC
+		           , B.NA_WRS_SCLC
+		           , B.NA_WRS_DTCF_C
+		           , C.WRS_SCLFNM
+		           , C.WRS_DTCFNM
+		           , COUNT(A.WRS_C)   REG_SKU_CNT
+		
+				  FROM 
+		             NHVANSTS.IAS_CLS_INTE_WRS A
+		           , NHVANINF.TB_GD_WRS B
+		           , NHVANINF.TB_GD_WRS_CLF C
+				 WHERE 
+		               A.WRS_C         = B.NA_WRS_C
+		           AND B.NA_WRS_LCLC   = C.NA_WRS_LCLC           
+		           AND B.NA_WRS_MCLC   = C.NA_WRS_MCLC           
+		           AND B.NA_WRS_SCLC   = C.NA_WRS_SCLC           
+		           AND B.NA_WRS_DTCF_C = C.NA_WRS_DTCF_C
+		           AND A.TRPL_C        = #{TRPL_C}
+		GROUP BY   
+		             B.NA_WRS_LCLC
+		           , B.NA_WRS_MCLC
+		           , B.NA_WRS_SCLC
+		           , B.NA_WRS_DTCF_C
+		           , C.WRS_SCLFNM
+		           , C.WRS_DTCFNM
+		
+		) VW_INTE_WRS
+		, (
+		               SELECT
+		                        G.NA_WRS_LCLC
+		                      , G.NA_WRS_MCLC
+		                      , G.NA_WRS_SCLC
+		                      , G.NA_WRS_DTCF_C
+		                      , COUNT(E.WRS_C) SL_SKU_CNT 
+		                      , SUM(E.SL_QT) SL_QT
+		                 FROM   NHVANSTS.IAS_SL_MM_BZPLC_WRS E
+		                      , NHVANSTS.IAS_CLS_INTE_WRS F
+		                      , TB_GD_WRS G
+		                      
+		                WHERE E.WRS_C = F.WRS_C
+		                  AND E.WRS_C = G.NA_WRS_C
+		                  AND F.TRPL_C = #{TRPL_C}
+		                  AND E.SL_YM  = #{SL_YM}
+		
+		             GROUP BY  
+		                        G.NA_WRS_LCLC
+		                      , G.NA_WRS_MCLC
+		                      , G.NA_WRS_SCLC
+		                      , G.NA_WRS_DTCF_C
+		)  VW_SL_WRS
+		
+		WHERE 
+		      VW_INTE_WRS.NA_WRS_LCLC   = VW_SL_WRS.NA_WRS_LCLC
+		  AND VW_INTE_WRS.NA_WRS_MCLC   = VW_SL_WRS.NA_WRS_MCLC
+		  AND VW_INTE_WRS.NA_WRS_SCLC   = VW_SL_WRS.NA_WRS_SCLC
+		  AND VW_INTE_WRS.NA_WRS_DTCF_C = VW_SL_WRS.NA_WRS_DTCF_C
+		
+		ORDER BY 1, 2, 3
+
+
+	</select>
+	
+	
+
+	<!-- 월별카테고리판매정보 엑셀상세 다운로드  -->
+	<select id="retrieveClsWrsMonList" parameterType="map" resultType="map" fetchSize="1000">
+
+		SELECT   
+             A.SL_YM   AS SL_YM
+           , A.BZPLC             
+           , F.SHRT_BZPLNM	AS BZPLNM       
+           , D.NA_WRS_LCLC       
+           , D.WRS_LCLFNM        
+           , D.NA_WRS_MCLC       
+           , D.WRS_MCLFNM        
+           , D.NA_WRS_SCLC       
+           , D.WRS_SCLFNM        
+           , D.NA_WRS_DTCF_C     
+           , D.WRS_DTCFNM        
+           , G.INTE_TRPL_C AS MFT_NA_TRPL_C   
+           , I.CLNTNM AS MFT_NA_TRPL_CNM         
+           , A.WRS_C             
+           , A.WRSNM             
+           , A.SL_QT             
+           ,  DECODE(E.CONSENT_YN, 'Y', A.SL_AM, 0)   AS SL_AM          
+           , DECODE(E.CONSENT_YN, 'Y', '동의', '거부')   AS CONSENT_YN
+		  FROM
+             NHVANSTS.IAS_SL_MM_BZPLC_WRS A   
+           , NHVANINF.TB_GD_WRS B
+           
+           , NHVANINF.TB_GD_WRS_CLF D
+           , NHVANPTL.PT_USR_CONSENT E
+           , NHVANINF.TB_CM_BZPL F
+
+           , NHVANSTS.IAS_CLS_INTE_WRS G
+           , NHVANINF.TB_TR_TRPL_CIF I
+           
+		 WHERE 
+               A.WRS_C         = B.NA_WRS_C
+
+           AND B.NA_WRS_LCLC   = D.NA_WRS_LCLC           
+           AND B.NA_WRS_MCLC   = D.NA_WRS_MCLC           
+           AND B.NA_WRS_SCLC   = D.NA_WRS_SCLC           
+           AND B.NA_WRS_DTCF_C = D.NA_WRS_DTCF_C
+           
+           AND A.BZPLC         = F.NA_BZPLC
+
+           AND B.NA_WRS_C      = G.WRS_C
+           AND G.INTE_TRPL_C   = I.NA_TRPL_C   
+           AND I.UP_NA_TRPL_C  = E.NA_TRPL_C
+           AND A.SL_YM         =  #{DATE}
+           AND E.BSN_DSC       = 'sales_price'
+           
+           -- AND E.CONSENT_YN    = 'Y'
+           
+           AND G.TRPL_C =  #{TRPL_C}
+           
+			<if test="BZPLC != null and BZPLC.length() > 0">
+	           AND A.BZPLC         =  #{BZPLC}
+			</if>
+
+			<if test="LCLC != null and LCLC.length() > 0">
+	           AND B.NA_WRS_LCLC         =  #{LCLC}
+			</if>
+			
+			<if test="MCLC != null and MCLC.length()  > 0">
+	           AND B.NA_WRS_MCLC         =  #{MCLC}
+			</if>
+			
+			<if test="SCLC != null and SCLC.length()  > 0">
+	           AND B.NA_WRS_SCLC         =  #{SCLC}
+			</if>
+			
+			<if test="DTCF_C != null and SCLC.length()  > 0">
+	           AND B.NA_WRS_DTCF_C         =  #{DTCF_C}
+			</if>
+
+  ORDER BY 
+             A.BZPLC             
+           , B.NA_WRS_LCLC       
+           , D.WRS_LCLFNM        
+           , B.NA_WRS_MCLC       
+           , D.WRS_MCLFNM        
+           , B.NA_WRS_SCLC       
+           , D.WRS_SCLFNM        
+           , B.NA_WRS_DTCF_C     
+           , D.WRS_DTCFNM
+           , B.MFT_NA_TRPL_C             
+           , A.WRS_C   
+  
+  
+	</select>
+	
+	
+
+	<!-- 울별 카테고리판매정보 리스트 -->
+	<select id="retrieveCatSalesWeek" parameterType="map" resultType="map">
+		
+		SELECT 
+	             VW_INTE_WRS.NA_WRS_LCLC
+	           , VW_INTE_WRS.NA_WRS_MCLC
+	           , VW_INTE_WRS.NA_WRS_SCLC
+	           , VW_INTE_WRS.NA_WRS_DTCF_C
+		       , VW_INTE_WRS.WRS_SCLFNM
+		       , VW_INTE_WRS.WRS_DTCFNM
+		       , VW_SL_WRS.SL_QT
+		       , VW_SL_WRS.SL_SKU_CNT
+		       , VW_INTE_WRS.REG_SKU_CNT
+		 
+		FROM
+		(
+				SELECT 
+		             B.NA_WRS_LCLC
+		           , B.NA_WRS_MCLC
+		           , B.NA_WRS_SCLC
+		           , B.NA_WRS_DTCF_C
+		           , C.WRS_SCLFNM
+		           , C.WRS_DTCFNM
+		           , COUNT(A.WRS_C)   REG_SKU_CNT
+		
+				  FROM 
+		             NHVANSTS.IAS_CLS_INTE_WRS A
+		           , NHVANINF.TB_GD_WRS B
+		           , NHVANINF.TB_GD_WRS_CLF C
+				 WHERE 
+		               A.WRS_C         = B.NA_WRS_C
+		           AND B.NA_WRS_LCLC   = C.NA_WRS_LCLC           
+		           AND B.NA_WRS_MCLC   = C.NA_WRS_MCLC           
+		           AND B.NA_WRS_SCLC   = C.NA_WRS_SCLC           
+		           AND B.NA_WRS_DTCF_C = C.NA_WRS_DTCF_C
+		           AND A.TRPL_C        = #{TRPL_C}
+		GROUP BY   
+		             B.NA_WRS_LCLC
+		           , B.NA_WRS_MCLC
+		           , B.NA_WRS_SCLC
+		           , B.NA_WRS_DTCF_C
+		           , C.WRS_SCLFNM
+		           , C.WRS_DTCFNM
+		
+		) VW_INTE_WRS
+		, (
+		               SELECT
+		                        G.NA_WRS_LCLC
+		                      , G.NA_WRS_MCLC
+		                      , G.NA_WRS_SCLC
+		                      , G.NA_WRS_DTCF_C
+		                      , COUNT(E.WRS_C) SL_SKU_CNT 
+		                      , SUM(E.SL_QT) SL_QT
+		                 FROM   NHVANSTS.IAS_SL_WW_BZPLC_WRS E
+		                      , NHVANSTS.IAS_CLS_INTE_WRS F
+		                      , TB_GD_WRS G
+		                      
+		                WHERE E.WRS_C = F.WRS_C
+                          AND E.TRPL_C = F.INTE_TRPL_C 
+		                  AND E.WRS_C = G.NA_WRS_C
+		                  AND F.TRPL_C = #{TRPL_C}
+		                  AND E.SQWW   = #{SL_WK}
+		
+		             GROUP BY  
+		                        G.NA_WRS_LCLC
+		                      , G.NA_WRS_MCLC
+		                      , G.NA_WRS_SCLC
+		                      , G.NA_WRS_DTCF_C
+		)  VW_SL_WRS
+		
+		WHERE 
+		      VW_INTE_WRS.NA_WRS_LCLC   = VW_SL_WRS.NA_WRS_LCLC
+		  AND VW_INTE_WRS.NA_WRS_MCLC   = VW_SL_WRS.NA_WRS_MCLC
+		  AND VW_INTE_WRS.NA_WRS_SCLC   = VW_SL_WRS.NA_WRS_SCLC
+		  AND VW_INTE_WRS.NA_WRS_DTCF_C = VW_SL_WRS.NA_WRS_DTCF_C
+		
+		ORDER BY 1, 2, 3
+
+
+	</select>
+	
+
+	<!-- 주별카테고리판매정보조회 -->
+	<select id="retrieveClsWrsWeekList" parameterType="map" resultType="map">
+
+		SELECT /*+ USE_HASH(G A ) */  
+             A.SQWW   AS SL_YM
+           , A.BZPLC             
+           , F.SHRT_BZPLNM	AS BZPLNM      
+           , B.NA_WRS_LCLC       
+           , D.WRS_LCLFNM        
+           , B.NA_WRS_MCLC       
+           , D.WRS_MCLFNM        
+           , B.NA_WRS_SCLC       
+           , D.WRS_SCLFNM        
+           , B.NA_WRS_DTCF_C     
+           , D.WRS_DTCFNM        
+           , B.MFT_NA_TRPL_C     
+           , C.CLNTNM AS MFT_NA_TRPL_CNM            
+           , A.WRS_C             
+           , A.WRSNM             
+           , A.SL_QT             
+           ,  DECODE(E.CONSENT_YN, 'Y', A.SL_AM, 0)   AS SL_AM          
+           , DECODE(E.CONSENT_YN, 'Y', '동의', '거부')   AS CONSENT_YN
+		  FROM
+             NHVANSTS.IAS_SL_WW_BZPLC_WRS A   
+           , NHVANINF.TB_GD_WRS B
+           , NHVANINF.TB_TR_TRPL_CIF C
+           , NHVANINF.TB_GD_WRS_CLF D
+           , NHVANPTL.PT_USR_CONSENT E
+           , NHVANINF.TB_CM_BZPL F
+           , NHVANINF.TB_TR_TRPL_CIF H
+           , NHVANSTS.IAS_CLS_INTE_WRS G
+           
+		 WHERE 
+               A.WRS_C         = B.NA_WRS_C
+           /* AND B.MFT_NA_TRPL_C = C.NA_TRPL_C */
+           AND A.TRPL_C        = C.NA_TRPL_C
+           AND B.NA_WRS_LCLC   = D.NA_WRS_LCLC           
+           AND B.NA_WRS_MCLC   = D.NA_WRS_MCLC           
+           AND B.NA_WRS_SCLC   = D.NA_WRS_SCLC           
+           AND B.NA_WRS_DTCF_C = D.NA_WRS_DTCF_C
+           AND C.UP_NA_TRPL_C  = E.NA_TRPL_C
+           AND A.BZPLC         = F.NA_BZPLC
+           AND F.NA_BZPLC      = H.NA_TRPL_C
+           AND B.NA_WRS_C      = G.WRS_C
+           AND C.UP_NA_TRPL_C  = G.INTE_TRPL_C
+           AND A.SQWW           = #{SL_WK}
+           AND E.BSN_DSC       = 'sales_price'
+           -- AND E.CONSENT_YN    = 'Y'
+           AND G.TRPL_C =  #{TRPL_C}
+           
+			<if test="BZPLC != null and BZPLC.length() > 0">
+	           AND A.BZPLC         =  #{#{TRPL_C}}
+			</if>
+
+			<if test="LCLC != null and LCLC.length() > 0">
+	           AND B.NA_WRS_LCLC         =  #{LCLC}
+			</if>
+			
+			<if test="MCLC != null and MCLC.length()  > 0">
+	           AND B.NA_WRS_MCLC         =  #{MCLC}
+			</if>
+			
+			<if test="SCLC != null and SCLC.length()  > 0">
+	           AND B.NA_WRS_SCLC         =  #{SCLC}
+			</if>
+			
+			<if test="DTCF_C != null and DTCF_C.length()  > 0">
+	           AND B.NA_WRS_DTCF_C         =  #{DTCF_C}
+			</if>
+
+  ORDER BY  
+             A.SQWW 
+           , A.BZPLC             
+           , B.NA_WRS_LCLC       
+           , B.NA_WRS_MCLC       
+           , B.NA_WRS_SCLC       
+           , B.NA_WRS_DTCF_C     
+           , B.MFT_NA_TRPL_C
+           , A.WRS_C
+           
+	</select>
+	
+	<select id="excelTitle" parameterType="map" resultType="map">
+		SELECT
+				 A.LCLC 	AS MCODE 
+				,A.LCLCNM 	AS MNAME
+		FROM				
+		<if test="pageType == 'M'.toString()">
+			IAS_SL_MM_BZPLC_CLS A
+		</if>
+		<if test="pageType == 'W'.toString()">
+			IAS_SL_WW_BZPLC_CLS A
+		</if>
+			, TB_TR_TRPL_CIF B		
+		WHERE
+		<if test="pageType == 'M'.toString()">
+				A.SL_YM = #{DATE}
+		</if>
+		<if test="pageType == 'W'.toString()">
+				A.SQWW = #{DATE}
+		</if>
+		    AND A.LCLC = #{CODE}
+			AND A.BZPLC = B.NA_TRPL_C
+		<if test="RGN_C != null and RGN_C > 0">
+			AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+		</if>
+		GROUP BY A.LCLC, A.LCLCNM
+	</select>
+</mapper>

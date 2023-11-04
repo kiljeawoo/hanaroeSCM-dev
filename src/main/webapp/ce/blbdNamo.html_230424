@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="ko" lang="ko">
+<head>
+   <title>Namo CrossEditor</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <script type="text/javascript" src="./js/namo_scripteditor.js"></script>
+   <script src="./lib/jquery-1.7.2.min.js"></script>
+   <script type="text/javascript" src="./js/user.js"></script>
+   <style>
+      html, body { margin:0; outline:0; border:0; width:100%; height:100%; }
+      div#edt_wrap { width:100%; height:100%; }
+   </style>
+</head>
+<body onload="domLoaded()">
+   <div id="edt_wrap">
+		<textarea id="namoedt" name="namoedt" alt="initText" title="initText" Style="width:100%; height:100%; font-size:10pt"></textarea>
+		<script type="text/javascript" language="javascript">
+				var init = false;
+				var size = "0";
+				CrossEditor = new NamoSE('namoedt');
+				CrossEditor.params.Width = "100%";
+				CrossEditor.params.Height = 300;
+				CrossEditor.params.UserLang = "auto";
+				CrossEditor.params.FullScreen = true;
+				//CrossEditor.params.UploadFileExecutePath = "http://localhost:8080/nhvan/rest/ce/imageUpload";
+				CrossEditor.params.UploadFileExecutePath = "/nhvan/rest/ce/imageUpload";
+				CrossEditor.params.event.CBInsertedImageEx = function(obj){
+				if (location.search.indexOf("type=nhm") != -1 && obj.element != null) {
+					size +=obj.size+",";
+					var imgList = CrossEditor.GetBodyElementsByTagName("img").length;
+					if (imgList > 5) {
+						alert("이미지는 5개까지 업로드 할 수 있습니다.");
+						
+						try {
+							obj.element.remove();
+						} catch(e) {
+							obj.element.parentNode.removeChild(obj.element); // for IE
+						}
+					}
+				}
+			}
+			CrossEditor.EditorStart();
+			
+			function OnInitCompleted(e){
+				var loopCnt = 0;
+				var interval = setInterval(function() {
+					callInit();
+					if (init || loopCnt > 20) {
+						clearInterval(interval);
+					}
+					loopCnt++;
+				}, 50);
+			}
+			
+			function callInit() {
+				if (!init) {
+					if (window.NEXACROWEBBROWSER && window.NEXACROWEBBROWSER.on_fire_onusernotify) {
+						window.NEXACROHTML.FireUserNotify("#INIT@");
+						init = true;
+					}
+				}
+			}
+		</script>
+	</div>
+</body>
+</html>

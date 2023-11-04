@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="infAnssDAO">
+ 	<sql id="sql_infAnssList">
+ 		SELECT /* retrieveInfAnssList */
+		       RMS_MM,
+		       '[' || RMS_TRPL_C || '] ' || CLNTNM AS CLNTNM,
+		       IA_SVC,
+		       CASE WHEN IA_SVC = 'IA_SVC1' then 'BI조회'
+		            WHEN IA_SVC = 'IA_SVC2' then '추이분석'
+		            WHEN IA_SVC = 'IA_SVC3' then '시장분석(자사)'
+		            WHEN IA_SVC = 'IA_SVC4' then '카테고리 시장분석'
+		            WHEN IA_SVC = 'IA_SVC5' then '파일제공'
+		            END AS IA_SVC_NM,
+		       /*CASE WHEN (IA_SVC IN ('IA_SVC1', 'IA_SVC2', 'IA_SVC3') AND AMOUNT != 0) THEN RMS_MM
+		            WHEN (IA_SVC IN ('IA_SVC4') AND AMOUNT != 0) THEN TO_CHAR(AMOUNT / (SELECT MM_FDAM FROM BL_FDAM_SVC_RATE WHERE RATE_DSC = '34'))
+		            WHEN (IA_SVC IN ('IA_SVC5') AND AMOUNT != 0) THEN TO_CHAR((
+		                     SELECT COUNT(BLBD_UG_AM)
+		                       FROM BL_BLBD_UGQT
+		                      WHERE UPLOAD_DT BETWEEN RMS_MM || '01' AND RMS_MM || '31'
+		                        AND PAY_TRPL_C = RMS_TRPL_C)
+		                 )
+		            END AS UGQT,*/
+		            AMOUNT
+		  FROM (
+		           SELECT RMS_MM,
+		                  RMS_TRPL_C,
+		                  CLNTNM,
+		                  NVL(IA_BI_UG_AM, 0) AS IA_SVC1,
+		                  NVL(IA_PG_UG_AM, 0) AS IA_SVC2,
+		                  NVL(IA_MA_UG_AM, 0) AS IA_SVC3,
+		                  NVL(IA_CTGR_UG_AM, 0) AS IA_SVC4,
+		                  NVL(IA_BLBD_UG_AM, 0) AS IA_SVC5
+		             FROM BL_MM_RQS_AM
+		            WHERE RMS_MM = #{RMS_MM}
+		          <choose>
+		          <when test="RMS_TRPL_C == 'A'.toString()">
+		              AND (
+		                      RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		                      OR
+		                      PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		                  )
+		          </when>
+		          <otherwise>
+		              AND RMS_TRPL_C = #{TRPL_C}
+		          </otherwise>
+		          </choose>
+		       ) UNPIVOT (
+		           AMOUNT FOR IA_SVC IN (IA_SVC1, IA_SVC2, IA_SVC3, IA_SVC4, IA_SVC5)
+		       )
+		 ORDER BY RMS_TRPL_C, IA_SVC	
+ 	</sql>
+ 	
+	<!-- 월별이용료명세서 > 정보분석조회 목록 조회 -->
+	<select id="retrieveInfAnssList"  parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_infAnssList" />
+	</select>
+	
+	<select id="downloadExcelInfAnssList"  parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_infAnssList" />
+	</select>
+	
+</mapper>

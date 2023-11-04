@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="./css/video-js.css" rel="stylesheet"><!-- http://vjs.zencdn.net/5.19.2/video-js.css -->
+  <script src="./css/video.js"></script><!-- http://vjs.zencdn.net/5.19.2/video.js -->
+  <style>
+  	html, body { width: 100%; height:100%; padding:0; margin:0; outline:0; }
+  	.my-video-dimensions, video { position: relative; width: 100% !important; height:100% !important; }
+  </style>
+</head>
+
+<script type="text/javascript">
+var player;
+function fn_init() {
+	player = videojs("my-video", {
+	controls : true
+	, playsinline : true
+	, preload : "metadata"
+	});
+	
+}
+
+function stopVideo() {
+	player.pause();
+}
+
+function callShowVideo(imgFlnm, videoFlnm){
+	var posterPath = "./img/"+imgFlnm;
+	var srcPath = "./mp4/"+videoFlnm;
+	
+	//document.getElementById("my-video").setAttribute("poster", posterPath);
+	//document.getElementById("my-video-src").setAttribute("src", srcPath);
+	
+	player.src({type: 'video/mp4', src: srcPath});
+	player.poster(posterPath);
+
+}
+</script>
+<body oncontextmenu='return false' onload="fn_init()">
+  <video id="my-video" class="video-js" style="width:100% !important; height:100% !important;">
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+  </video>
+</body>
+
+</html>

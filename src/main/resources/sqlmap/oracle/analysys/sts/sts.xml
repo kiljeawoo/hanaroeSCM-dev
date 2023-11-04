@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="stsDAO">
+	
+
+	<select id="retrieveDlvRatioList" parameterType="java.util.Map" resultType="java.util.Map">
+            WITH VW_ODR AS
+            (
+                
+                SELECT  
+                
+                         SUBSTR(A.DVY_RQR_DT, 1, 6) AS SL_YM
+                       , A.ODRPL_NA_TRPL_C
+                       , B.NA_WRS_C   
+                       , C.WRSNM
+                       , SUM(B.ODR_QT) ODR_QT       -- 발주수량
+                
+                  FROM TB_OD_ORDER_M A
+                  
+                  JOIN TB_OD_ORDER_D B
+                    ON A.ODRPL_NA_TEAM_C   = B.ODRPL_NA_TEAM_C
+                   AND A.ODR_DT            = B.ODR_DT
+                   AND A.ODR_SLPNO         = B.ODR_SLPNO
+                   AND A.ODRPL_NA_TRPL_C   = B.ODRPL_NA_TRPL_C
+                   
+                  JOIN TB_GD_WRS C
+                    ON B.NA_WRS_C = C.NA_WRS_C
+            
+                 WHERE 
+                       A.RVOPL_NA_TRPL_C  IN
+                           <foreach item="item" collection="TRPL_C_ARR" open="(" close=")" separator=",">
+                               #{item}
+                           </foreach>
+                   AND A.DVY_RQR_DT BETWEEN #{date_fr} AND #{date_to}
+                   AND A.NA_ODR_STS_DSC IN ('03', '06', '07', '08') 
+                  
+              GROUP BY
+                         SUBSTR(A.DVY_RQR_DT, 1, 6) 
+                       , A.ODRPL_NA_TRPL_C
+                       , B.NA_WRS_C
+                       , C.WRSNM
+            
+            ) 
+
+           , VW_DLV AS
+           (
+               SELECT
+                         M.SPYPL_NA_TRPL_C
+                       , M.ODRPL_NA_TRPL_C 
+                       , M.NA_DVY_PLASH_SLPNO
+                           -- , M.ODRPL_NA_TRPL_C NA_BZPLC
+                           , N.NA_WRS_C
+                       , N.DVY_PLA_QT
+               
+                  FROM TB_OD_DLVPNSHT_M M
+                  
+                  JOIN TB_OD_DLVPNSHT_D N
+                    ON M.SPYPL_NA_TRPL_C     = N.SPYPL_NA_TRPL_C
+                   AND M.DVYAA_NA_TRPL_C     = N.DVYAA_NA_TRPL_C
+                   AND M.NA_DVY_PLASH_SLPNO  = N.NA_DVY_PLASH_SLPNO
+                   AND M.DVY_PLA_DT          = N.DVY_PLA_DT
+                   AND M.SPYPL_NA_TRPL_C IN
+           
+                    <foreach item="item" collection="TRPL_C_ARR" open="(" close=")" separator=",">
+                        #{item}
+                    </foreach>
+                            
+                   AND M.DVY_PLA_DT BETWEEN #{date_fr} AND #{date_to}
+                   
+                   AND M.DVY_PLASH_STSC   -- 배송예정서상태코드
+                       IN
+                       (
+                            '01' -- 배송예정
+                          , '02' -- 검수
+                          , '03' -- 매입
+                       )
+                   -- 무발주 배송예정서 제외 여부
+                   AND N.ODR_DT    IS NOT NULL
+                   AND N.ODR_SLPNO   IS NOT NULL
+                   AND N.ODR_DSQNO   IS NOT NULL
+               
+           ) 
+           
+           , VW_DV_SLP AS
+           (
+              SELECT DISTINCT
+                                SPYPL_NA_TRPL_C
+                              , ODRPL_NA_TRPL_C
+                              , NA_DVY_PLASH_SLPNO
+                 FROM VW_DLV
+           )
+            
+           , VW_DV_QT AS
+           (
+              SELECT
+                        ODRPL_NA_TRPL_C
+                      , NA_WRS_C
+                      , SUM(DVY_PLA_QT) QT
+                      
+                 FROM VW_DLV
+                 
+              GROUP BY    ODRPL_NA_TRPL_C
+                        , NA_WRS_C
+           
+           )
+           
+            , VW_BYNG AS
+            (
+                  SELECT   
+                             M.NA_BZPLC
+                           , N.NA_WRS_C
+                           , SUM(N.BYNG_QT) BYNG_QT
+                        
+                    FROM TB_BY_BYNG_M M
+            
+                    JOIN TB_BY_BYNG_WRS N
+                      ON M.NA_BZPLC  = N.NA_BZPLC
+                     AND M.NA_TEAM_C = N.NA_TEAM_C
+                     AND M.SLP_DT    = N.SLP_DT
+                     AND M.NA_SLPNO  = N.NA_SLPNO
+            
+                    JOIN VW_DV_SLP DM 
+                      ON M.ACTL_BUYPL_NA_TRPL_C  = DM.SPYPL_NA_TRPL_C
+                     AND M.NA_BZPLC              = DM.ODRPL_NA_TRPL_C 
+                     AND M.NA_DVY_PLASH_SLPNO    = DM.NA_DVY_PLASH_SLPNO 
+                   
+                   WHERE DM.SPYPL_NA_TRPL_C IN
+                        <foreach item="item" collection="TRPL_C_ARR" open="(" close=")" separator=",">
+                            #{item}
+                        </foreach>
+                     
+                     AND M.BUYPL_NA_TRPL_C  IN 
+                        <foreach item="item" collection="TRPL_C_ARR" open="(" close=")" separator=",">
+                            #{item}
+                        </foreach>
+            
+              GROUP BY   M.NA_BZPLC
+                       , N.NA_WRS_C
+            
+            ) 
+
+                SELECT
+                         O.SL_YM
+                       , O.ODRPL_NA_TRPL_C                        AS NA_BZPLC
+                       , CIF.CLNTNM                               AS NA_BZPLNM
+                       , O.NA_WRS_C  
+                       , O.WRSNM
+                       , O.ODR_QT    
+                       , NVL(D.QT, 0)                             AS DLV_QT
+                       , NVL(B.BYNG_QT, 0)                        AS BYNG_QT
+                       
+                       , CASE 
+                             WHEN #{ratioDsc} = '1' THEN 
+                                 ROUND(NVL(B.BYNG_QT, 0)/O.ODR_QT*100, 2)
+                                 
+                             WHEN  #{ratioDsc} = '2' THEN 
+                                 ROUND(NVL(D.QT, 0)/O.ODR_QT*100, 2)
+                         END                        
+                         AS RATIO
+                           
+                  FROM VW_ODR  O
+              
+                  JOIN VW_BYNG B
+                    ON O.ODRPL_NA_TRPL_C = B.NA_BZPLC
+                   AND O.NA_WRS_C = B.NA_WRS_C
+                   
+                  JOIN VW_DV_QT D
+                    ON O.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+                   AND O.NA_WRS_C = D.NA_WRS_C
+               
+                  JOIN TB_TR_TRPL_CIF CIF
+                    ON O.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C
+                
+          ORDER BY 
+                   O.ODRPL_NA_TRPL_C, O.NA_WRS_C 
+
+	</select>
+	
+</mapper>

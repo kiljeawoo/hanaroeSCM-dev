@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="1"/>
+		<property name="maxTotal" value="5" />
+		<property name="maxIdle" value="1" />
+		<property name="maxWaitMillis" value="10000" />
+		<property name="minEvictableIdleTimeMillis" value="60000" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+	
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+	    <property name="jndiName" value="${jdbc.jndiName}" />
+	</bean>
+ -->
+	<!-- for MyBatis -->
+	<!-- jdbc.properties 의 jdbc.type 값에 따라 sqlmap 이 로딩된다. -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:sqlmap/${jdbc.type}/**/*.xml" />
+	</bean>
+
+</beans>

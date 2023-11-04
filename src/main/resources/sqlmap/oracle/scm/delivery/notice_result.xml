@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	배송업무
+ -->
+ 
+ <mapper namespace="notice_result">
+ 	<sql id="sql_retrieveDeliveryResult">
+		SELECT 
+			A.DVY_PLASH_STSC,
+			A.DVYAA_NA_TRPL_C,
+			DECODE(A.DVY_PLASH_STSC,'00', '[00] 전송상태','['||A.DVY_PLASH_STSC||'] '||FN_CM_SIMP_CNM('DVY_PLASH_STSC', A.DVY_PLASH_STSC)) DVY_PLASH_STSNM,
+			A.ODRPL_NA_TRPL_C,
+            A.ODRPL_NA_TEAM_C,
+            A.SPYPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N,
+            A.NA_DVY_PLASH_SLPNO,
+            A.DVY_AM,
+            A.DVY_VAT,
+			A.DVY_PLA_DT,
+			B.ODR_SLPNO,
+			B.ODR_DT,
+			A.DDLY_YN,
+			A.CSER_CTR_TPC,
+			TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') LSCHG_DTM,
+			A.LS_CMENO,
+			DECODE(A.PRC_YN,'Y','R', A.PRC_YN) PRC_YN,
+			A.RES_CODE R_CODE, 
+			CASE WHEN A.PRC_YN = 'R' THEN '정상'
+				 WHEN A.PRC_YN IS NULL THEN ''
+				 WHEN A.PRC_YN IN ('N', 'P')  THEN '전송중'
+				 ELSE '오류'
+		 	 END RES_CODE,
+            A.RES_DESC RES_DESC,
+            CASE
+		    	WHEN (A.PRC_YN = 'E' AND RES_DESC LIKE '[평택물류]%SQLCODE = [-60]%'
+			   			OR 
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '[평택물류]%ORA-00001: uniqu%'
+			  	      	OR
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%SQLCODE[-60]%[수발주]수주내역 등록 오류입니다]%'
+			  	        OR
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%ORA-00060%deadlock detected%' 
+			  	        OR
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%ORA-00001%'
+			   			OR 
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%물류센터 TC출고 작업 중 입니다%잠시 후 배송예정서를 등록해주세요%'
+			  	      ) THEN 'Y'
+		        WHEN A.PRC_YN = 'P' AND A.LSCHG_DTM IS NULL AND TRUNC((SYSDATE - A.SLPNO_RMS_DTM) * (24 * 60)) > 3 THEN 'Y'
+		        WHEN A.PRC_YN = 'P' AND TRUNC((SYSDATE - A.LSCHG_DTM) * (24 * 60)) > 3 THEN 'Y'
+		        ELSE
+		        	'N'
+		    END AS ISRESEND
+		FROM 
+			TB_OD_DLVPNSHT_M A,
+			(
+			SELECT
+				SPYPL_NA_TRPL_C,
+				DVYAA_NA_TRPL_C,
+				NA_DVY_PLASH_SLPNO,
+				max(ODR_DT) ODR_DT,
+				max(ODR_SLPNO) ODR_SLPNO
+			FROM TB_OD_DLVPNSHT_D
+			WHERE 1=1
+			<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+				AND DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+			</if>
+			AND SPYPL_NA_TRPL_C IN 
+			<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			GROUP BY SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C, NA_DVY_PLASH_SLPNO
+			) B
+		WHERE 1=1
+			AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND (A.TEMP_YN = 'N' OR A.TEMP_YN IS NULL)
+			AND A.PRC_YN != 'T' 
+			AND A.SPYPL_NA_TRPL_C IN 
+			<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+			<if test="MBCO_TYPE == 5">
+				AND A.TRU_AGCY_NA_TRPL_C = #{TRU_AGCY_NA_TRPL_C}
+			</if>
+		<if test="DDLY_YN != null and DDLY_YN != '1'.toString()">
+			<choose>
+				<when test="DDLY_YN == '2'.toString()">
+					AND A.DDLY_YN = '0'	
+				</when>
+				<otherwise>
+					AND A.DDLY_YN = '1'
+				</otherwise>
+			</choose>
+		</if>
+		<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+					AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		</if>
+		<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+					AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+		</if>
+		<if test="NA_DVY_PLASH_SLPNO != null and NA_DVY_PLASH_SLPNO.length() > 0">
+			AND A.NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+		</if>
+		<if test="ODR_SLPNO != null and ODR_SLPNO.length() > 0">
+			AND B.ODR_SLPNO = #{ODR_SLPNO}
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '1'.toString()">
+			AND A.PRC_YN = 'E'
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '2'.toString()">
+			 AND A.DVY_PLASH_STSC ='04'
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '3'.toString()">
+			AND A.PRC_YN IN ('Y', 'R')
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '4'.toString()">
+			AND A.PRC_YN = 'P'
+		</if>
+	</sql>
+	
+	<select id="retrieveDeliveryResult" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'ODRPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO DESC'" />
+		<bind name="sortType" value="''" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryResult" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="sql_retrieveDeliveryDetailResult" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT *
+			FROM
+			  (SELECT ROW_NUMBER() OVER(ORDER BY ODRPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO DESC , 'asc') AS RN,
+			    PAGE.*
+			  FROM
+			    (SELECT A.DVY_PLASH_STSC,
+			      A.DVYAA_NA_TRPL_C,
+			      DECODE(A.DVY_PLASH_STSC,'00', '[00] 전송상태','['
+			      ||A.DVY_PLASH_STSC
+			      ||'] '
+			      ||FN_CM_SIMP_CNM('DVY_PLASH_STSC', A.DVY_PLASH_STSC)) DVY_PLASH_STSNM,
+			      A.ODRPL_NA_TRPL_C,
+			      A.ODRPL_NA_TEAM_C,
+			      A.SPYPL_NA_TRPL_C,
+			      FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			      FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N,
+			      A.NA_DVY_PLASH_SLPNO,
+			      B.NA_WRS_C,
+			      C.WRSNM,
+			      B.DVY_AM,
+			      B.DVY_VAT,
+			      D.WRS_STDNM,
+			      D.BOXPE_AQZ,
+			      DECODE(B.DVY_WRS_UPR, NULL, B.CTR_UPR, B.DVY_WRS_UPR) AS ODR_PCS,
+			      FN_CM_SIMP_CNM('NA_WRS_UNT_C', D.NA_WRS_UNT_C) AS NA_WRS_UNT_C,
+			      B.DVY_PLA_QT,
+			      B.DVY_PLA_DT,
+			      B.ODR_SLPNO,
+			      B.ODR_DT,
+			      E.ODR_QT,
+			      A.DDLY_YN,
+			      C.VCBT_UPR,
+			      (B.DVY_PLA_QT * C.VCBT_UPR * DECODE(NVL(D.VCBT_QT, '1'), '0', '1', NVL(D.VCBT_QT, '1'))) AS VCBT_AM,
+			      A.CSER_CTR_TPC,
+			      TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') LSCHG_DTM,
+			      A.LS_CMENO,
+			      DECODE(A.PRC_YN,'Y','R', A.PRC_YN) PRC_YN,
+			      A.RES_CODE R_CODE,
+			      CASE
+			        WHEN A.PRC_YN = 'R'
+			        THEN '정상'
+			        WHEN A.PRC_YN IS NULL
+			        THEN ''
+			        WHEN A.PRC_YN IN ('N', 'P')
+			        THEN '전송중'
+			        ELSE '오류'
+			      END RES_CODE,
+			      A.RES_DESC RES_DESC,
+			      CASE
+			        WHEN (
+			          A.PRC_YN = 'E' AND RES_DESC LIKE '[평택물류]%SQLCODE = [-60]%'
+			   			OR 
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '[평택물류]%ORA-00001: uniqu%'
+			  	      	OR
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%SQLCODE[-60]%[수발주]수주내역 등록 오류입니다]%'
+			  	        OR
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%ORA-00060%deadlock detected%' 
+			  	        OR
+			  	      A.PRC_YN = 'E' AND RES_DESC LIKE '%ORA-00001%') THEN 'Y'
+			        WHEN A.PRC_YN = 'P' AND A.LSCHG_DTM IS NULL AND TRUNC((SYSDATE - A.SLPNO_RMS_DTM) * (24 * 60)) > 3 THEN 'Y'
+			        WHEN A.PRC_YN = 'P' AND TRUNC((SYSDATE - A.LSCHG_DTM) * (24 * 60)) > 3 THEN 'Y'
+			        ELSE 'N'
+			      END AS ISRESEND
+			    FROM TB_OD_DLVPNSHT_M A,
+			         TB_OD_DLVPNSHT_D B,
+			         TB_OD_TRTWRS C,
+			         TB_GD_WRS D ,
+			         TB_OD_ORDER_D E
+			    WHERE 1                  =1
+			    AND A.SPYPL_NA_TRPL_C    = B.SPYPL_NA_TRPL_C
+			    AND A.DVYAA_NA_TRPL_C    = B.DVYAA_NA_TRPL_C
+			    AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			    AND A.ODRPL_NA_TRPL_C    = C.NA_BZPLC
+			    AND B.NA_WRS_C           = C.NA_WRS_C
+			    AND C.NA_WRS_C           = D.NA_WRS_C
+			    AND B.ODR_DT             = E.ODR_DT(+)
+			    AND B.ODR_SLPNO          = E.ODR_SLPNO(+)
+			    AND B.NA_WRS_C           = E.NA_WRS_C(+)
+			    AND (A.TEMP_YN           = 'N'
+			    OR A.TEMP_YN            IS NULL)
+			    AND A.PRC_YN            != 'T'
+			    AND A.SPYPL_NA_TRPL_C   IN <foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+												#{item}
+											</foreach>
+			    <if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+					AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+				</if>
+				<if test="MBCO_TYPE == 5">
+					AND A.TRU_AGCY_NA_TRPL_C = #{TRU_AGCY_NA_TRPL_C}
+				</if>
+				<if test="DDLY_YN != null and DDLY_YN != '1'.toString()">
+				<choose>
+					<when test="DDLY_YN == '2'.toString()">
+						AND A.DDLY_YN = '0'	
+					</when>
+					<otherwise>
+						AND A.DDLY_YN = '1'
+					</otherwise>
+				</choose>
+			</if>
+			<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+				AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			</if>
+			<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+				AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+			</if>
+			<if test="NA_DVY_PLASH_SLPNO != null and NA_DVY_PLASH_SLPNO.length() > 0">
+				AND A.NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			</if>
+			<if test="ODR_SLPNO != null and ODR_SLPNO.length() > 0">
+				AND B.ODR_SLPNO = #{ODR_SLPNO}
+			</if>
+			<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '1'.toString()">
+				AND A.PRC_YN = 'E'
+			</if>
+			<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '2'.toString()">
+				 AND A.DVY_PLASH_STSC ='04'
+			</if>
+			<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '3'.toString()">
+				AND A.PRC_YN IN ('Y', 'R')
+			</if>
+			<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '4'.toString()">
+				AND A.PRC_YN = 'P'
+			</if>
+			    ) PAGE
+			)
+	</select>
+	
+	<select id="getDeliveryResultCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveDeliveryResult" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 배송예정서 기본 수정 -->
+	<update id="reSendDeliveryNoticeOrder" parameterType="java.util.Map">
+		UPDATE TB_OD_DLVPNSHT_M SET
+			LS_CMENO = #{LS_CMENO},
+			LSCHG_DTM = SYSDATE,
+			PRC_YN = 'N',
+			RES_CODE = '',
+			RES_DESC = '',
+			EDI_IF_ID = NULL, 
+			EDI_IF_DT = NULL, 
+			EDI_IF_RSND_SEQ = 0, 
+			DOC_RMS_LOC_DSC='WEB'
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+			AND NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			AND DVY_PLA_DT = #{DVY_PLA_DT}
+	</update>
+	
+	<update id="deliveryNoticeAllCancelProc" parameterType="java.util.Map" >
+		UPDATE TB_OD_DLVPNSHT_M
+		   SET LS_CMENO = #{LS_CMENO},
+			   LSCHG_DTM = SYSDATE,
+			   PRC_YN = 'N',
+			   RES_CODE = '',
+			   RES_DESC = '',
+			   EDI_IF_ID = NULL, 
+			   EDI_IF_DT = NULL, 
+			   EDI_IF_RSND_SEQ = 0
+		WHERE SPYPL_NA_TRPL_C   IN 
+				<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+		  AND DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+		  AND (PRC_YN = 'E' AND RES_DESC LIKE '[평택물류]%SQLCODE = [-60]%'
+			   	OR 
+			   PRC_YN = 'E' AND RES_DESC LIKE '[평택물류]%ORA-00001: uniqu%'
+			  	OR
+			   PRC_YN = 'E' AND RES_DESC LIKE '%SQLCODE[-60]%[수발주]수주내역 등록 오류입니다]%'
+			  	OR
+			   PRC_YN = 'E' AND RES_DESC LIKE '%ORA-00060%deadlock detected%' 
+			  	OR
+			   PRC_YN = 'E' AND RES_DESC LIKE '%ORA-00001%'
+			    OR
+			   PRC_YN = 'P' AND LSCHG_DTM IS NULL AND TRUNC((SYSDATE - SLPNO_RMS_DTM) * (24 * 60)) > 3
+			    OR
+			   PRC_YN = 'P' AND TRUNC((SYSDATE - LSCHG_DTM) * (24 * 60)) > 3)
+	</update>
+	
+	<select id="downloadExcelDeliveryResult" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'ODRPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO DESC'" />
+		<bind name="sortType" value="''" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryResult" />
+		<include refid="common.paging_end" />
+	</select>
+ </mapper>

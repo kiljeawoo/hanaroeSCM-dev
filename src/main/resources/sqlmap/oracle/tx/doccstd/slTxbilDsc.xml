@@ -1,0 +1,3517 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="slTxbilDscDAO">
+
+	<resultMap id="TaxMap" type="com.nh.escm.tx.doccstd.vo.SlTxbilVO">
+		<result column="ISCHECKED" property="ISCHECKED" />
+		<result column="PBC_SQNO" property="PBC_SQNO" />
+		<result column="NTS_TMS_SQNO" property="NTS_TMS_SQNO" />
+		<result column="TXBIL_CNT" property="TXBIL_CNT" />
+		<result column="TXBIL_NO" property="TXBIL_NO" />
+		<result column="TXBIL_SQNO" property="TXBIL_SQNO" />
+		<result column="CRT_DT" property="CRT_DT" />
+		<result column="TXBIL_KD" property="TXBIL_KD" />
+		<result column="RCT_RQS_DSC" property="RCT_RQS_DSC" />
+		<result column="MOD_C" property="MOD_C" />
+		<result column="RMK1" property="RMK1" />
+		<result column="RMK2" property="RMK2" />
+		<result column="RMK3" property="RMK3" />
+		<result column="REV_RPT_NO" property="REV_RPT_NO" />
+		<result column="BAT_ISU_ST_DT" property="BAT_ISU_ST_DT" />
+		<result column="BAT_ISU_ED_DT" property="BAT_ISU_ED_DT" />
+		<result column="REV_TTCN" property="REV_TTCN" />
+		<result column="SPLR_BZNO" property="SPLR_BZNO" />
+		<result column="SPLR_NA_TRPL_C" property="SPLR_NA_TRPL_C" />
+		<result column="SPLR_MTALNM" property="SPLR_MTALNM" />
+		<result column="SPLR_REPMNM" property="SPLR_REPMNM" />
+		<result column="SPLR_ADR" property="SPLR_ADR" />
+		<result column="SPLR_BZTPNM" property="SPLR_BZTPNM" />
+		<result column="SPLR_BZC" property="SPLR_BZC" />
+		<result column="SPLR_DEPTNM" property="SPLR_DEPTNM" />
+		<result column="SPLR_CHRRNM" property="SPLR_CHRRNM" />
+		<result column="SPLR_CHRR_TELNO" property="SPLR_CHRR_TELNO" />
+		<result column="SPLR_CHRR_EMAIL" property="SPLR_CHRR_EMAIL" />
+		<result column="SPLR_CHRR_MPNO" property="SPLR_CHRR_MPNO" />
+		<result column="SPLR_FAXNO" property="SPLR_FAXNO" />
+		<result column="BUY_DSC" property="BUY_DSC" />
+		<result column="BUY_BZNO" property="BUY_BZNO" />
+		<result column="BUY_NA_TRPL_C" property="BUY_NA_TRPL_C" />
+		<result column="BUY_MTALNM" property="BUY_MTALNM" />
+		<result column="BUY_REPMNM" property="BUY_REPMNM" />
+		<result column="BUY_ADR" property="BUY_ADR" />
+		<result column="BUY_BZTPNM" property="BUY_BZTPNM" />
+		<result column="BUY_BZC" property="BUY_BZC" />
+		<result column="BUY_FAXNO" property="BUY_FAXNO" />
+		<result column="BUY_DEPTNM1" property="BUY_DEPTNM1" />
+		<result column="BUY_CHRRNM1" property="BUY_CHRRNM1" />
+		<result column="BUY_CHRR_TELNO1" property="BUY_CHRR_TELNO1" />
+		<result column="BUY_CHRR_EMAIL1" property="BUY_CHRR_EMAIL1" />
+		<result column="BUY_CHRR_MPNO1" property="BUY_CHRR_MPNO1" />
+		<result column="BUY_DEPTNM2" property="BUY_DEPTNM2" />
+		<result column="BUY_CHRRNM2" property="BUY_CHRRNM2" />
+		<result column="BUY_CHRR_TELNO2" property="BUY_CHRR_TELNO2" />
+		<result column="BUY_CHRR_EMAIL2" property="BUY_CHRR_EMAIL2" />
+		<result column="BUY_CHRR_MPNO2" property="BUY_CHRR_MPNO2" />
+		<result column="ETR_BZNO" property="ETR_BZNO" />
+		<result column="ETR_NA_TRPL_C" property="ETR_NA_TRPL_C" />
+		<result column="ETR_MTALNM" property="ETR_MTALNM" />
+		<result column="ETR_REPMNM" property="ETR_REPMNM" />
+		<result column="ETR_ADR" property="ETR_ADR" />
+		<result column="ETR_BZTPNM" property="ETR_BZTPNM" />
+		<result column="ETR_BZC" property="ETR_BZC" />
+		<result column="ETR_DEPTNM" property="ETR_DEPTNM" />
+		<result column="ETR_CHRRNM" property="ETR_CHRRNM" />
+		<result column="ETR_CHRR_TELNO" property="ETR_CHRR_TELNO" />
+		<result column="ETR_CHRR_EMAIL" property="ETR_CHRR_EMAIL" />
+		<result column="STL_METHC1" property="STL_METHC1" />
+		<result column="STL_AM1" property="STL_AM1" />
+		<result column="STL_METHC2" property="STL_METHC2" />
+		<result column="STL_AM2" property="STL_AM2" />
+		<result column="STL_METHC3" property="STL_METHC3" />
+		<result column="STL_AM3" property="STL_AM3" />
+		<result column="STL_METHC4" property="STL_METHC4" />
+		<result column="STL_AM4" property="STL_AM4" />
+		<result column="SPRTT" property="SPRTT" />
+		<result column="TXA_TT" property="TXA_TT" />
+		<result column="TOT_AM" property="TOT_AM" />
+		<result column="RQR_STS_C" property="RQR_STS_C" />
+		<result column="RPBC_DSC" property="RPBC_DSC" />
+		<result column="BYNG_SL_DSC" property="BYNG_SL_DSC" />
+		<result column="RSP_C" property="RSP_C" />
+		<result column="RSP_MSG" property="RSP_MSG" />
+		<result column="RQR_CHAN_DSC" property="RQR_CHAN_DSC" />
+		<result column="EMAIL_PBC_RQR_YN" property="EMAIL_PBC_RQR_YN" />
+		<result column="SMS_PBC_RQR_YN" property="SMS_PBC_RQR_YN" />
+		<result column="FAX_PBC_RQR_YN" property="FAX_PBC_RQR_YN" />
+		<result column="MOD_TAX_PBC_SQNO" property="MOD_TAX_PBC_SQNO" />
+		<result column="MOD_TAX_NTS_TMS_SQNO" property="MOD_TAX_NTS_TMS_SQNO" />
+		<result column="ISTT_PBC_YN" property="ISTT_PBC_YN" />
+		<result column="PBC_DT" property="PBC_DT" />
+		<result column="ERP_REF_NO" property="ERP_REF_NO" />
+		<result column="ASP_TMS_DTM" property="ASP_TMS_DTM" />
+		<result column="ASP_RSP_DTM" property="ASP_RSP_DTM" />
+		<result column="DEPT_C" property="DEPT_C" />
+		<result column="DEPTNM" property="DEPTNM" />
+		<result column="BRC" property="BRC" />
+		<result column="BRNM" property="BRNM" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="NA_BZPLNM" property="NA_BZPLNM" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="NA_TEAMNM" property="NA_TEAMNM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="NA_CLNTNM" property="NA_CLNTNM" />
+		<result column="NA_CLNT_TEAM_C" property="NA_CLNT_TEAM_C" />
+		<result column="NA_CLNT_TEAMNM" property="NA_CLNT_TEAMNM" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_LCLFNM" property="NA_WRS_LCLFNM" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_MCLFNM" property="NA_WRS_MCLFNM" />
+		<result column="NA_TOT_DSC" property="NA_TOT_DSC" />
+		<result column="NA_TOT_DSNM" property="NA_TOT_DSNM" />
+		<result column="NA_TOT_DTI_DSC" property="NA_TOT_DTI_DSC" />
+		<result column="NA_TOT_DTI_DSNM" property="NA_TOT_DTI_DSNM" />
+		<result column="TXBZ_TP_DSC" property="TXBZ_TP_DSC" />
+		<result column="TXBZ_TP_PBCNM" property="TXBZ_TP_PBCNM" />
+		<result column="RC_MSG" property="RC_MSG" />
+		<result column="HOFC_BAT_RG_DSC" property="HOFC_BAT_RG_DSC" />
+		<result column="INPMN_ENO" property="INPMN_ENO" />
+		<result column="APVMN_ENO" property="APVMN_ENO" />
+		<result column="ELSG_YN" property="ELSG_YN" />
+		<result column="DCZ_UYN" property="DCZ_UYN" />
+		<result column="ASP_ETR_YN" property="ASP_ETR_YN" />
+		<result column="SIGN_R_VAL" property="SIGN_R_VAL" />
+		<result column="SPYPL_C" property="SPYPL_C" />
+		<result column="VENDER_C" property="VENDER_C" />
+		<result column="ORR_DT" property="ORR_DT" />
+		<result column="ORR_NO" property="ORR_NO" />
+		<result column="RSR_HDNG1" property="RSR_HDNG1" />
+		<result column="RSR_HDNG2" property="RSR_HDNG2" />
+		<result column="RSR_HDNG3" property="RSR_HDNG3" />
+		<result column="RSR_HDNG4" property="RSR_HDNG4" />
+		<result column="RSR_HDNG5" property="RSR_HDNG5" />
+		<result column="RSR_HDNG6" property="RSR_HDNG6" />
+		<result column="RSR_HDNG7" property="RSR_HDNG7" />
+		<result column="RSR_HDNG8" property="RSR_HDNG8" />
+		<result column="RSR_HDNG9" property="RSR_HDNG9" />
+		<result column="RSR_HDNG10" property="RSR_HDNG10" />
+		<result column="RSR_HDNG11" property="RSR_HDNG11" />
+		<result column="RSR_HDNG12" property="RSR_HDNG12" />
+		<result column="RSR_HDNG13" property="RSR_HDNG13" />
+		<result column="RSR_HDNG14" property="RSR_HDNG14" />
+		<result column="RSR_HDNG15" property="RSR_HDNG15" />
+		<result column="RSR_HDNG16" property="RSR_HDNG16" />
+		<result column="RSR_HDNG17" property="RSR_HDNG17" />
+		<result column="RSR_HDNG18" property="RSR_HDNG18" />
+		<result column="RSR_HDNG19" property="RSR_HDNG19" />
+		<result column="RSR_HDNG20" property="RSR_HDNG20" />
+		<result column="RSR_HDNG21" property="RSR_HDNG21" />
+		<result column="RSR_HDNG22" property="RSR_HDNG22" />
+		<result column="RSR_HDNG23" property="RSR_HDNG23" />
+		<result column="RSR_HDNG24" property="RSR_HDNG24" />
+		<result column="RSR_HDNG25" property="RSR_HDNG25" />
+		<result column="TXBIL_STSC" property="TXBIL_STSC" />
+		<result column="PKG_SQNO" property="PKG_SQNO" />
+		<result column="NA_BZPLC_TEAM_C" property="NA_BZPLC_TEAM_C" />
+		<result column="NA_TRPL_C_TEAM_C" property="NA_TRPL_C_TEAM_C" />
+		<result column="PRC_RZT_C_MSG" property="PRC_RZT_C_MSG" />
+		<result column="PRC_RZT_C" property="PRC_RZT_C" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FS_RGM" property="FS_RGM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CHGM" property="LS_CHGM" />
+		<result column="LATCNM" property="LATCNM" />
+	</resultMap>
+
+	<resultMap id="TaxMapDetail" type="com.nh.escm.tx.doccstd.vo.SlTxbilDscVO">
+		<result column="PBC_SQNO" property="PBC_SQNO" />
+		<result column="DTL_SQNO" property="DTL_SQNO" />
+		<result column="TR_DT" property="TR_DT" />
+		<result column="TR_DT_MON" property="TR_DT_MON" />
+		<result column="TR_DT_DAY" property="TR_DT_DAY" />
+		<result column="LATCNM" property="LATCNM" />
+		<result column="STD" property="STD" />
+		<result column="RMK" property="RMK" />
+		<result column="QT" property="QT" />
+		<result column="UPR" property="UPR" />
+		<result column="SPPR" property="SPPR" />
+		<result column="TXA" property="TXA" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FS_RGM" property="FS_RGM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CHGM" property="LS_CHGM" />
+	</resultMap>
+	
+	
+	<resultMap id="ByngMonMap" type="com.nh.escm.tx.doccstd.vo.ByngMonVO">
+		<result column="ISCHECKED" property="ISCHECKED" />
+		  <result column="ADJ_NA_BZPLC" property="ADJ_NA_BZPLC" />
+		  <result column="ADJ_BZPL_NA_TEAM_C" property="ADJ_BZPL_NA_TEAM_C" />
+		  <result column="BAS_YM" property="BAS_YM" />
+		  <result column="NA_BZPLC" property="NA_BZPLC" />
+		  <result column="NA_TEAM_C" property="NA_TEAM_C" />
+		  <result column="NA_ADJPL_C" property="NA_ADJPL_C" />
+		  <result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		  <result column="BZ_METH_DSC" property="BZ_METH_DSC" />
+		  <result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		  <result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		  <result column="NA_BLB_DFC_DSC" property="NA_BLB_DFC_DSC" />
+		  <result column="ADJPL_BIZ_NUMBER" property="ADJPL_BIZ_NUMBER" />
+		  <result column="NA_BLB_DFC_DSC" property="NA_BLB_DFC_DSC" />
+		  <result column="ADJPL_NA_TRPL_N" property="ADJPL_NA_TRPL_N" />
+		  <result column="TXT_AM" property="TXT_AM" />
+		  <result column="BAS_STAT" property="BAS_STAT" />
+		  <result column="BAC" property="BAC" />
+		  <result column="ISSUE_SEQ" property="ISSUE_SEQ" />
+		  <result column="ISSUE_USER_ID" property="ISSUE_USER_ID" />
+		  <result column="ISSUE_STAT" property="ISSUE_STAT" />
+		  <result column="ISSUE_STAT_CD" property="ISSUE_STAT_CD" />
+		  <result column="DRUP_DT" property="DRUP_DT" />
+		  <result column="ISSUE_DT" property="ISSUE_DT" />
+	</resultMap>
+	
+	<resultMap id="BasSvcMap" type="com.nh.escm.tx.doccstd.vo.BasSvcVO">
+		<result column="ISCHECKED" property="ISCHECKED" />
+		<result column="ADJ_NA_BZPLC" property="ADJ_NA_BZPLC" />
+		<result column="ADJ_NA_BZPLC_N" property="ADJ_NA_BZPLC_N" />
+		<result column="ADJ_BZPL_NA_TEAM_C" property="ADJ_BZPL_NA_TEAM_C" />
+		<result column="BAS_YM" property="BAS_YM" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="NA_ADJPL_C" property="NA_ADJPL_C" />
+		<result column="NA_ADJPL_N" property="NA_ADJPL_N" />
+		<result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		<result column="BZ_METH_DSC" property="BZ_METH_DSC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_BLB_DFC_DSC" property="NA_BLB_DFC_DSC" />
+		<result column="CROV_AM" property="CROV_AM" />
+		<result column="TXT_AM" property="TXT_AM" />
+		<result column="TXT_VAT" property="TXT_VAT" />
+		<result column="EXTX_AM" property="EXTX_AM" />
+		<result column="SMA_AM" property="SMA_AM" />
+		<result column="LIQ_SPY_AM" property="LIQ_SPY_AM" />
+		<result column="LIQ_SPY_VAT" property="LIQ_SPY_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VCBX_AM" property="VCBX_AM" />
+		<result column="STOG_AM" property="STOG_AM" />
+		<result column="CBAM" property="CBAM" />
+		<result column="ETC_STL_AM" property="ETC_STL_AM" />
+		<result column="PPY_AM" property="PPY_AM" />
+		<result column="BYNG_DC_AM" property="BYNG_DC_AM" />
+		<result column="MAD_AM" property="MAD_AM" />
+		<result column="PY_AM" property="PY_AM" />
+		<result column="PY_CAN_AM" property="PY_CAN_AM" />
+		<result column="BAC" property="BAC" />
+		<result column="DLAY_INT_OCU_AM" property="DLAY_INT_OCU_AM" />
+		<result column="DLAY_INT_PY_AM" property="DLAY_INT_PY_AM" />
+		<result column="MRG_AM" property="MRG_AM" />
+		<result column="MRG_DLAY_INT" property="MRG_DLAY_INT" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="DB_CRC_AM" property="DB_CRC_AM" />
+		<result column="CR_CRC_AM" property="CR_CRC_AM" />
+		<result column="BYNG_SSDY" property="BYNG_SSDY" />
+		<result column="AMN_FEE" property="AMN_FEE" />
+		<result column="AMN_FEE_VAT" property="AMN_FEE_VAT" />
+		<result column="PHD_FEE" property="PHD_FEE" />
+		<result column="PHD_FEE_VAT" property="PHD_FEE_VAT" />
+		<result column="AFF_SSDY" property="AFF_SSDY" />
+		<result column="PHD_AFF_SSDY" property="PHD_AFF_SSDY" />
+		<result column="VCBT_RTU_AM" property="VCBT_RTU_AM" />
+		<result column="VCBX_RTU_AM" property="VCBX_RTU_AM" />
+		<result column="VPLTT_RTU_AM" property="VPLTT_RTU_AM" />
+		<result column="RTU_FEE" property="RTU_FEE" />
+		<result column="RTU_FEE_VAT" property="RTU_FEE_VAT" />
+		<result column="MCDBD_AM" property="MCDBD_AM" />
+		<result column="SEL_SSDY" property="SEL_SSDY" />
+		<result column="ETR_FEE_ARG_AM" property="ETR_FEE_ARG_AM" />
+		<result column="DLAYPZ" property="DLAYPZ" />
+		<result column="PY_ETC_AM" property="PY_ETC_AM" />
+		<result column="VPLTT_AM" property="VPLTT_AM" />
+		<result column="TRPL_CORP_NO" property="TRPL_CORP_NO" />
+		<result column="TRPL_CORP_NM" property="TRPL_CORP_NM" />
+		<result column="TRPL_ADDR" property="TRPL_ADDR" />
+		<result column="TRPL_CHRG_NM" property="TRPL_CHRG_NM" />
+		<result column="TRPL_NA_TEAM_NM" property="TRPL_NA_TEAM_NM" />
+		<result column="TRPL_CHRG_MPNO" property="TRPL_CHRG_MPNO" />
+		<result column="TRPL_TELNO" property="TRPL_TELNO" />
+		<result column="BZPLC_CORP_NO" property="BZPLC_CORP_NO" />
+		<result column="BZPLC_CORP_NM" property="BZPLC_CORP_NM" />
+		<result column="BZPLC_ADDR" property="BZPLC_ADDR" />
+		<result column="BZPLC_CHRG_NM" property="BZPLC_CHRG_NM" />
+		<result column="BZPLC_NA_TEAM_NM" property="BZPLC_NA_TEAM_NM" />
+		<result column="BZPLC_CHRG_MPNO" property="BZPLC_CHRG_MPNO" />
+		<result column="BZPLC_TELNO" property="BZPLC_TELNO" />
+		<result column="BAS_STAT" property="BAS_STAT" />
+		<result column="ISSUE_DT" property="ISSUE_DT" />
+		<result column="CNFM_SIGN_USER_ID" property="CNFM_SIGN_USER_ID" />
+		<result column="CNFM_SIGN_DATA" property="CNFM_SIGN_DATA" />
+		<result column="CNFM_DT" property="CNFM_DT" />
+	</resultMap>
+	
+	
+	
+	
+
+	<select id="retrieveTaxBillList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveTaxBillList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveTaxBillListCount"  parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sum_start" />
+		<include refid="sql_retrieveTaxBillList" />
+		<include refid="sum_end" />
+	</select>
+	
+	
+	<sql id="sum_start">
+		SELECT 
+		 COUNT(*)					as CNT 
+		,NVL(SUM(SPRTT),0)		as SPRTT
+		,NVL(SUM(TXA_TT),0)	as TXA_TT
+		,NVL(SUM(TOT_AM),0)	as TOT_AM
+		FROM (
+	</sql>
+	<sql id="sum_end">
+		) CNT
+	</sql>
+	
+	
+	<sql id = "sql_retrieveTaxBillList">
+	    SELECT /*+ index(a IDX_TX_TXBIL_9)  */
+			  '0' AS ISCHECKED
+			 , A.PBC_SQNO
+			 , A.NTS_TMS_SQNO
+			 , A.TXBIL_SQNO
+			 , A.CRT_DT
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.TXBIL_KD AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KD
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.RCT_RQS_DSC AND SIMP_TPC = 'RCT_RQS_DSC') AS RCT_RQS_DSC
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.MOD_C AND SIMP_TPC = 'MOD_C') AS MOD_C
+			 , A.RMK1
+			 , A.SPLR_BZNO
+			 , A.SPLR_NA_TRPL_C
+			 , A.SPLR_MTALNM
+			 , A.SPLR_REPMNM
+			 , ECL_DECRYPT(A.SPLR_CHRR_MPNO) AS SPLR_CHRR_MPNO
+			 , A.BUY_DSC
+			 , A.BUY_NA_TRPL_C
+			 , A.BUY_BZNO
+			 , A.BUY_MTALNM
+			 , A.BUY_REPMNM
+			 , A.SPRTT
+			 , A.TXA_TT
+			 , A.TOT_AM
+			 , A.RQR_STS_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.RPBC_DSC AND SIMP_TPC = 'RPBC_DSC') AS RPBC_DSC 
+			 , A.MOD_TAX_PBC_SQNO
+             , A.MOD_TAX_NTS_TMS_SQNO
+             , DECODE(A.TXBIL_STSC,'00',A.PBC_DT,'01',NULL,'02',NULL,'04',A.PBC_DT,'07',A.PBC_DT,'99',A.PBC_DT,NULL) AS PBC_DT
+             , DECODE(A.PBC_DT, NULL, '', TO_CHAR( TO_DATE(A.PBC_DT, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI:SS')) AS PBC_DT2
+			 , (SELECT LATCNM
+                  FROM TX_TXBIL_DTL SA
+                 WHERE SA.PBC_SQNO = A.PBC_SQNO
+                   AND DTL_SQNO= (SELECT MIN(DTL_SQNO) FROM TX_TXBIL_DTL WHERE PBC_SQNO = A.PBC_SQNO)) AS LATCNM
+			 , A.NA_BZPLC
+			 , A.NA_BZPLNM
+			 , A.NA_TEAM_C
+			 , A.NA_TEAMNM
+			 , A.NA_TRPL_C
+			 , A.NA_CLNTNM
+			 , A.NA_CLNT_TEAM_C
+			 , A.NA_CLNT_TEAMNM
+			 , A.NA_BZPLC || '/' || A.NA_TEAM_C AS  NA_BZPLC_TEAM_C
+			 , A.NA_TRPL_C || '/' || A.NA_CLNT_TEAM_C AS NA_TRPL_C_TEAM_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = NVL(A.TXBIL_STSC, '01') AND SIMP_TPC = 'TXBIL_STSC') AS TXBIL_STSC
+			 , SUBSTR(A.RG_DT, 0, 8) AS RG_DT
+			 , D.PRC_RZT_C
+			 , D.PRC_MSG
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = D.PRC_RZT_C AND SIMP_TPC = 'PRC_RZT_C') AS PRC_RZT_C_MSG
+		     , A.SPLR_ID_TXREG
+		     , A.BUY_ID_TXREG
+		  FROM TX_TXBIL A
+			 , TX_NTS_RPT D
+		 WHERE 1=1
+		   AND A.PBC_SQNO = D.PBC_SQNO(+)
+		   AND (A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE01} OR A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE02})
+		   AND A.TXBIL_STSC IN
+		<if test="TXBIL_STSC != null">
+		<foreach collection="TXBIL_STSC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach> 		   
+		</if>
+		<if test="NA_TRPL_C != null">
+		   AND A.NA_TRPL_C IN
+			(
+				SELECT NA_TRPL_C FROM PT_USR_INF WHERE NA_TRPL_C IN
+				<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				   		#{item}
+				</foreach>
+				
+				UNION ALL
+				SELECT NA_TRPL_C FROM nhvaninf.TB_TR_TRPL_CIF WHERE NA_TRPL_C IN
+				<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+				</foreach>
+				
+				UNION ALL 
+				SELECT NA_TRPL_C FROM nhvaninf.TB_TR_TRPL_CIF WHERE BIZ_NUMBER IN 
+				(
+				    SELECT NVL(BIZ_NUMBER,'AAA') FROM nhvaninf.TB_TR_TRPL_CIF WHERE NA_TRPL_C IN 
+		            <foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		              #{item}
+		            </foreach>
+		         )
+
+			)
+		</if>
+		
+		<!-- 
+		     위와 조회조건이 격치는 것으로 보임 
+		 -->
+
+		<if test="RPBC_DSC != null and RPBC_DSC.length() > 0">
+			<choose>
+				<when test="RPBC_DSC == 1">
+					<if test="NA_TRPL_C != null">
+					
+						AND A.NA_TRPL_C IN
+						<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+						   		#{item}
+						</foreach>
+					</if>
+				</when>
+			</choose>
+		</if>
+		
+		<if test="NA_BZPLC != null and NA_BZPLC.length() > 0" >
+			 	AND A.NA_BZPLC in /*농협*/ 
+			 	(
+			 		SELECT  #{NA_BZPLC} FROM DUAL 
+			 		UNION ALL
+			 		SELECT NA_TRPL_C FROM nhvaninf.TB_TR_TRPL_CIF WHERE BIZ_NUMBER IN (NVL(#{BUY_BZNO},'AAA'))
+					UNION ALL
+					SELECT NA_TRPL_C FROM nhvaninf.TB_TR_TRPL_CIF WHERE NA_TRPL_C =  #{NA_BZPLC}
+                    UNION ALL
+                    SELECT DISTINCT  B.NA_TRPL_C  
+                      FROM PT_NA_BZPL_AMN A
+                         , TB_TR_TRPL_CIF B
+                     WHERE A.NA_BZPLC = B.NA_TRPL_C
+                       AND B.DEL_YN='0'
+                       AND A.USRID = #{USRID}
+			 	)
+		</if>
+		<choose>
+			<when test="DT_TYPE == 1">
+		   	AND A.CRT_DT BETWEEN #{STARTDT} AND #{ENDDT}
+			</when>
+			<when test="DT_TYPE == 2">
+		   	AND A.RG_DT BETWEEN #{STARTDT} || '000000' AND #{ENDDT} || '999999'
+			</when>
+		</choose> 
+		<if test="RPBC_DSC != null and RPBC_DSC.length() > 0" >
+		   	AND A.RPBC_DSC = #{RPBC_DSC}
+		</if>
+		<if test="OCU_DSC != null and OCU_DSC.length() > 0" >
+		   	AND A.OCU_DSC = #{OCU_DSC}
+		</if>
+		<if test="NTS_TMS_SQNO != null and NTS_TMS_SQNO.length() > 0">
+		   	AND A.NTS_TMS_SQNO LIKE #{NTS_TMS_SQNO} || '%'
+		</if>
+		<if test="SPLR_BZNO != null and SPLR_BZNO.length() > 0">
+		   	AND A.SPLR_BZNO = #{SPLR_BZNO}
+		</if>
+		<if test="BUY_BZNO != null and BUY_BZNO.length() > 0">
+		   	AND A.BUY_BZNO = #{BUY_BZNO}
+		</if>
+		<if test="NA_CLNT_TEAM_C != null and NA_CLNT_TEAM_C.length() > 0">
+		   	AND A.NA_CLNT_TEAM_C = #{NA_CLNT_TEAM_C} 
+		</if>
+		<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+		   	AND A.NA_TEAM_C = #{NA_TEAM_C} 
+		</if>
+	</sql>
+	
+	<select id="retrieveUnissuedTaxbilList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveUnissuedTaxbilList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveUnissuedTaxbilListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveUnissuedTaxbilList" />
+		<include refid="common.count_end" />
+	</select>
+
+	
+
+	<select id="retrieveSaleTaxBillRvsList" parameterType="java.util.Map" resultMap="TaxMap">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSaleTaxBillRvsList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveSaleTaxBillRvsListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSaleTaxBillRvsList" />
+		<include refid="common.count_end" />
+	</select>
+	<sql id="sql_retrieveUnissuedTaxbilList">
+		SELECT /*+ index(a IDX_TX_TXBIL_8) use_hash(a c) */
+			  '0' AS ISCHECKED
+			 , A.PBC_SQNO
+             , A.NTS_TMS_SQNO
+             , A.TXBIL_SQNO
+             , A.CRT_DT
+             , (SELECT SIMP_CNM
+                  FROM MG_COMN_C_AMN
+                 WHERE SIMP_C = NVL(A.TXBIL_KD,'0101')
+                   AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KD
+             , (SELECT SIMP_CNM
+                  FROM MG_COMN_C_AMN
+                 WHERE SIMP_C = A.RCT_RQS_DSC
+                   AND SIMP_TPC = 'RCT_RQS_DSC') AS RCT_RQS_DSC
+             , (SELECT SIMP_CNM
+                  FROM MG_COMN_C_AMN
+                 WHERE SIMP_C = A.MOD_C
+                   AND SIMP_TPC = 'MOD_C') AS MOD_C
+             , A.RMK1
+             , A.SPLR_BZNO
+             , A.SPLR_NA_TRPL_C
+             , A.SPLR_MTALNM
+             , A.SPLR_REPMNM
+             , ecl_decrypt(A.SPLR_CHRR_MPNO) AS SPLR_CHRR_MPNO
+             , A.BUY_DSC
+             , A.BUY_NA_TRPL_C
+             , A.BUY_BZNO
+             , A.BUY_MTALNM
+             , A.BUY_REPMNM
+             , A.SPRTT
+             , A.TXA_TT
+             , A.TOT_AM
+             , A.RQR_STS_C
+             , (SELECT SIMP_CNM
+                  FROM MG_COMN_C_AMN
+                 WHERE SIMP_C = A.RPBC_DSC
+                   AND SIMP_TPC = 'RPBC_DSC') AS RPBC_DSC
+             , A.MOD_TAX_PBC_SQNO
+             , A.MOD_TAX_NTS_TMS_SQNO
+             , A.PBC_DT
+             , (SELECT LATCNM
+                  FROM TX_TXBIL_DTL SA
+                 WHERE SA.PBC_SQNO = A.PBC_SQNO
+                   AND DTL_SQNO= (SELECT MIN(DTL_SQNO) FROM TX_TXBIL_DTL WHERE PBC_SQNO = A.PBC_SQNO)) AS LATCNM
+             , A.NA_BZPLC
+             , A.NA_BZPLNM
+             , A.NA_TEAM_C
+             , A.NA_TEAMNM
+             , A.NA_TRPL_C
+             , A.NA_CLNTNM
+             , A.NA_CLNT_TEAM_C
+             , A.NA_CLNT_TEAMNM
+             , (SELECT SIMP_CNM
+                  FROM MG_COMN_C_AMN
+                 WHERE SIMP_C = NVL(A.TXBIL_STSC,'01')
+                   AND SIMP_TPC = 'TXBIL_STSC') AS TXBIL_STSC
+             , A.RG_DT
+             , (SELECT SB.USR_NM
+                  FROM PT_USR_INF SB
+                     , PT_USR_AUTH SC
+                 WHERE SB.NA_TRPL_C = A.NA_TRPL_C
+                   AND SB.MB_ID = SC.MB_ID
+                   AND SC.USR_AUTH_DSC ='3') AS USR_NM
+             , (SELECT SB.USR_MPNO
+                  FROM PT_USR_INF SB
+                     , PT_USR_AUTH SC
+                 WHERE SB.NA_TRPL_C = A.NA_TRPL_C
+                   AND SB.MB_ID = SC.MB_ID
+                   AND SC.USR_AUTH_DSC ='3') AS USR_MPNO
+             , D.PRC_MSG
+		 FROM NHVANPTL.TX_TXBIL A
+			  LEFT OUTER JOIN NHVANPTL.TX_NTS_RPT D
+						   ON A.PBC_SQNO = D.PBC_SQNO
+		WHERE A.RPBC_DSC = '2'
+		  AND (A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE01} OR A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE02})
+		  AND A.TXBIL_STSC IN
+		<if test="TXBIL_STSC != null">
+		<foreach collection="TXBIL_STSC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach> 
+		</if>
+		<if test="NTS_TMS_SQNO != null and NTS_TMS_SQNO.length()>0">
+			AND A.NTS_TMS_SQNO LIKE #{NTS_TMS_SQNO} || '%'
+		</if>
+		<if test="NA_TRPL_C != null ">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+			AND A.NA_BZPLC = #{NA_BZPLC} /*농협*/
+		</if>
+		<choose>
+			<when test="DT_TYPE == 1">
+				AND A.CRT_DT BETWEEN #{STARTDT} AND #{ENDDT}
+			</when>
+			<when test="DT_TYPE == 2">
+				AND A.RG_DT BETWEEN #{STARTDT} || '000000' AND #{ENDDT} || '999999'
+			</when>
+		</choose>
+		<if test="SPLR_BZNO != null and SPLR_BZNO.length()>0">
+		   AND A.SPLR_BZNO LIKE #{SPLR_BZNO} || '%'
+		</if>
+		AND NOT (A.RSR_HDNG20 IS NOT NULL AND A.RSR_HDNG20 = 'escmtax')
+	</sql>
+	
+	<sql id = "sql_retrieveSaleTaxBillRvsList">
+	    SELECT 
+			  '0' AS ISCHECKED
+			 , A.PBC_SQNO
+			 , A.NTS_TMS_SQNO
+			 , A.TXBIL_SQNO
+			 , A.CRT_DT
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.TXBIL_KD AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KD
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.RCT_RQS_DSC AND SIMP_TPC = 'RCT_RQS_DSC') AS RCT_RQS_DSC
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.MOD_C AND SIMP_TPC = 'MOD_C') AS MOD_C
+			 , A.RMK1
+			 , A.SPLR_BZNO
+			 , A.SPLR_NA_TRPL_C
+			 , A.SPLR_MTALNM
+			 , A.SPLR_REPMNM
+			 , ECL_DECRYPT(A.SPLR_CHRR_MPNO) AS SPLR_CHRR_MPNO
+			 , A.BUY_DSC
+			 , A.BUY_NA_TRPL_C
+			 , A.BUY_BZNO
+			 , A.BUY_MTALNM
+			 , A.BUY_REPMNM
+			 , A.SPRTT
+			 , A.TXA_TT
+			 , A.TOT_AM
+			 , A.RQR_STS_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.RPBC_DSC AND SIMP_TPC = 'RPBC_DSC') AS RPBC_DSC 
+			 , A.MOD_TAX_PBC_SQNO
+             , A.MOD_TAX_NTS_TMS_SQNO
+             , A.PBC_DT
+			 , C.LATCNM
+			 , A.NA_BZPLC
+			 , A.NA_BZPLNM
+			 , A.NA_TEAM_C
+			 , A.NA_TEAMNM
+			 , A.NA_TRPL_C
+			 , A.NA_CLNTNM
+			 , A.NA_CLNT_TEAM_C
+			 , A.NA_CLNT_TEAMNM
+			 , A.NA_BZPLC || '/' || A.NA_TEAM_C AS  NA_BZPLC_TEAM_C
+			 , A.NA_TRPL_C || '/' || A.NA_CLNT_TEAM_C AS NA_TRPL_C_TEAM_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = NVL(A.TXBIL_STSC, '01') AND SIMP_TPC = 'TXBIL_STSC') AS TXBIL_STSC
+			 , A.RG_DT
+			 , D.PRC_RZT_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = D.PRC_RZT_C AND SIMP_TPC = 'PRC_RZT_C') AS PRC_RZT_C_MSG
+		  FROM TX_TXBIL A
+			 , TX_TXBIL_DTL C
+			 , TX_NTS_RPT D
+		 WHERE A.RPBC_DSC = '2'
+		   AND A.PBC_SQNO = C.PBC_SQNO(+)
+		   AND A.PBC_SQNO = D.PBC_SQNO(+)
+		   AND C.DTL_SQNO = 1
+		   AND (A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE01} OR A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE02})
+		   AND A.TXBIL_STSC IN
+		<if test="TXBIL_STSC != null">
+		<foreach collection="TXBIL_STSC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach> 
+		</if>
+		<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		<choose>
+		<when test="DT_TYPE == 1">
+		   AND A.CRT_DT BETWEEN #{STARTDT} AND #{ENDDT}
+		</when>
+		<when test="DT_TYPE == 2">
+		   AND A.RG_DT BETWEEN #{STARTDT} || '000000' AND #{ENDDT} || '999999'
+		</when>
+		</choose> 
+		<if test="NTS_TMS_SQNO != null and NTS_TMS_SQNO.length() > 0">
+		   AND A.NTS_TMS_SQNO LIKE #{NTS_TMS_SQNO} || '%'
+		</if>
+		<if test="NA_BZPLC != null and NA_BZPLC.length() > 0" >
+		   AND A.NA_BZPLC = #{NA_BZPLC} /*농협*/
+		</if>
+		<if test="BIZ_NUMBER != null and NA_BZPLC.length()>0">
+		   AND A.SPLR_BZNO LIKE #{BIZ_NUMBER} || '%'
+		</if>
+	</sql>
+	
+	<select id="retrieveBuyTaxBillList" parameterType="java.util.Map" resultMap="TaxMap">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveBuyTaxBillList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveBuyTaxBillListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveBuyTaxBillList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	
+	<select id = "TaxbillListIT" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT    TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') AS DT 
+		        , SUBSTR(a.crt_dt , 1,6) AS regs_date 
+		        , TXBIL_STSC 
+		        , (
+		               SELECT simp_cnm 
+		                 FROM NHVANPTL.mg_comn_c_amn 
+		                WHERE simp_tpc='TXBIL_STSC' 
+		                  AND simp_c = a.TXBIL_STSC
+		            )  AS status
+		         ,   COUNT(*)  AS COUNT
+		         , sum(TOT_AM) AS tot_amt
+		         
+		FROM NHVANPTL.TX_TXBIL a
+		WHERE 1=1
+		<![CDATA[
+		     AND a.CRT_DT >= '20160101'
+		]]>
+		AND a.CRT_DT BETWEEN #{STARTDT} AND #{ENDDT}
+		AND a.RPBC_DSC = '2'
+		AND NOT (a.RSR_HDNG20 IS NOT NULL AND a.RSR_HDNG20 = 'escmtax')
+		GROUP BY  a.txbil_stsc,SUBSTR(a.crt_dt , 1,6)
+	ORDER BY  SUBSTR(a.crt_dt , 1,6) , a.txbil_stsc
+		
+	</select>
+	
+	
+	<sql id = "sql_retrieveBuyTaxBillList">
+	    SELECT 
+			  '0' AS ISCHECKED
+			 , A.PBC_SQNO
+			 , A.NTS_TMS_SQNO
+			 , A.TXBIL_SQNO
+			 , A.CRT_DT
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = NVL(A.TXBIL_KD, '0101') AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KD
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.RCT_RQS_DSC AND SIMP_TPC = 'RCT_RQS_DSC') AS RCT_RQS_DSC
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.MOD_C AND SIMP_TPC = 'MOD_C') AS MOD_C
+			 , A.RMK1
+			 , A.SPLR_BZNO
+			 , A.SPLR_NA_TRPL_C
+			 , A.SPLR_MTALNM
+			 , A.SPLR_REPMNM
+			 , ECL_DECRYPT(A.SPLR_CHRR_MPNO) AS SPLR_CHRR_MPNO
+			 , A.BUY_DSC
+			 , A.BUY_NA_TRPL_C
+			 , A.BUY_BZNO
+			 , A.BUY_MTALNM
+			 , A.BUY_REPMNM
+			 , A.SPRTT
+			 , A.TXA_TT
+			 , A.TOT_AM
+			 , A.RQR_STS_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = A.RPBC_DSC AND SIMP_TPC = 'RPBC_DSC') AS RPBC_DSC 
+			 , A.MOD_TAX_PBC_SQNO
+             , A.MOD_TAX_NTS_TMS_SQNO
+             , A.PBC_DT
+			 , C.LATCNM
+			 , A.NA_BZPLC
+			 , A.NA_BZPLNM
+			 , A.NA_TEAM_C
+			 , A.NA_TEAMNM
+			 , A.NA_TRPL_C
+			 , A.NA_CLNTNM
+			 , A.NA_CLNT_TEAM_C
+			 , A.NA_CLNT_TEAMNM
+			 , A.NA_BZPLC || '/' || A.NA_TEAM_C AS  NA_BZPLC_TEAM_C
+			 , A.NA_TRPL_C || '/' || A.NA_CLNT_TEAM_C AS NA_TRPL_C_TEAM_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = NVL(A.TXBIL_STSC, '01') AND SIMP_TPC = 'TXBIL_STSC') AS TXBIL_STSC
+			 , A.RG_DT
+			 , D.PRC_RZT_C
+			 , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = D.PRC_RZT_C AND SIMP_TPC = 'PRC_RZT_C') AS PRC_RZT_C_MSG
+		  FROM TX_TXBIL A
+			 , TX_TXBIL_DTL C
+			 , TX_NTS_RPT D
+		 WHERE A.RPBC_DSC = '1'
+		   AND A.PBC_SQNO = C.PBC_SQNO(+)
+		   AND A.PBC_SQNO = D.PBC_SQNO(+)
+		   AND C.DTL_SQNO = 1
+		   AND (A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE01} OR A.TXBIL_KD LIKE '%' || #{TXBIL_KD} || #{CODE02})
+		   AND A.TXBIL_STSC IN
+		<if test="TXBIL_STSC != null">
+		<foreach collection="TXBIL_STSC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach> 
+		</if>
+		<if test="NA_TRPL_C != null">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		<if test="NTS_TMS_SQNO != null">
+		   AND A.NTS_TMS_SQNO LIKE #{NTS_TMS_SQNO} || '%'
+		</if>
+		<if test="NA_BZPLC != null">
+		   AND A.NA_BZPLC = #{NA_BZPLC} /*공급받는자, 농협*/
+		</if>
+		<choose>
+		<when test="DT_TYPE == 1">
+		   AND A.CRT_DT BETWEEN #{STARTDT} AND #{ENDDT}
+		</when>
+		<when test="DT_TYPE == 2">
+		   AND A.RG_DT BETWEEN #{STARTDT} || '000000' AND #{ENDDT} || '999999'
+		</when>
+		</choose> 
+		<if test="BIZ_NUMBER != null">
+		   AND A.BUY_BZNO LIKE #{BIZ_NUMBER} || '%'
+		</if>
+	</sql>
+
+
+	<select id="retrieveTaxBillModList" parameterType="java.util.Map"
+		resultMap="TaxMap">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveBuyTaxBillList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveTaxBillModListCount" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveBuyTaxBillList" />
+		<include refid="common.count_end" />
+	</select>
+
+
+	<select id="retrieveTaxText" parameterType="java.util.Map" resultMap="TaxMap">
+		SELECT '0' AS ISCHECKED
+		     , A.PBC_SQNO
+		     , A.NTS_TMS_SQNO
+		     , A.TXBIL_CNT
+		     , A.TXBIL_NO
+		     , A.TXBIL_SQNO
+		     , A.CRT_DT
+		     , A.TXBIL_KD
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(A.RCT_RQS_DSC, '10')
+		           AND SIMP_TPC = 'RCT_RQS_DSC') AS RCT_RQS_DSC
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = A.MOD_C
+		           AND SIMP_TPC = 'MOD_C') AS MOD_C
+		     , A.RMK1
+		     , A.RMK2
+		     , A.RMK3
+		     , A.REV_RPT_NO
+		     , A.BAT_ISU_ST_DT
+		     , A.BAT_ISU_ED_DT
+		     , A.REV_TTCN
+		     , A.SPLR_BZNO
+		     , A.SPLR_NA_TRPL_C
+		     , A.SPLR_MTALNM
+		     , A.SPLR_REPMNM
+		     , A.SPLR_ADR
+		     , A.SPLR_BZTPNM
+		     , A.SPLR_BZC
+		     , A.SPLR_DEPTNM
+		     , A.SPLR_CHRRNM
+		     , A.SPLR_CHRR_TELNO
+		     , A.SPLR_CHRR_EMAIL
+		     , A.SPLR_CHRR_MPNO
+		     , A.SPLR_FAXNO
+		     , A.BUY_DSC
+		     , A.BUY_BZNO
+		     , A.BUY_NA_TRPL_C
+		     , A.BUY_MTALNM
+		     , A.BUY_REPMNM
+		     , A.BUY_ADR
+		     , A.BUY_BZTPNM
+		     , A.BUY_BZC
+		     , A.BUY_FAXNO
+		     , A.BUY_DEPTNM1
+		     , A.BUY_CHRRNM1
+		     , A.BUY_CHRR_TELNO1
+		     , A.BUY_CHRR_EMAIL1
+		     , A.BUY_CHRR_MPNO1
+		     , A.BUY_DEPTNM2
+		     , A.BUY_CHRRNM2
+		     , A.BUY_CHRR_TELNO2
+		     , A.BUY_CHRR_EMAIL2
+		     , A.BUY_CHRR_MPNO2
+		     , A.SPYPL_C
+		     , A.VENDER_C
+		     , A.ORR_DT
+		     , A.ORR_NO
+		     , A.TXA_TT
+		     , A.TOT_AM
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(STL_METHC1, '10')
+		           AND SIMP_TPC = 'STL_METHC') AS STL_METHC1
+		     , A.STL_AM1
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(STL_METHC2, '20')
+		           AND SIMP_TPC = 'STL_METHC') AS STL_METHC2
+		     , A.STL_AM2
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(STL_METHC3, '30')
+		           AND SIMP_TPC = 'STL_METHC') AS STL_METHC3
+		     , A.STL_AM3
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(STL_METHC4, '40')
+		           AND SIMP_TPC = 'STL_METHC') AS STL_METHC4
+		     , A.STL_AM4
+		     , A.SPRTT
+		     , A.NA_BZPLC
+		     , A.NA_TRPL_C
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(TXBIL_STSC, '02')
+		           AND SIMP_TPC = 'TXBIL_STSC') AS TXBIL_STSC
+		     , A.PKG_SQNO
+		     , A.SPLR_ID_TXREG
+		     , A.BUY_ID_TXREG
+		  FROM TX_TXBIL A
+		 WHERE PBC_SQNO IN <![CDATA[ (SELECT REGEXP_SUBSTR ( #{PBC_SQNO}, '[^.]+', 1, LEVEL ) col
+		          FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{PBC_SQNO}, '.' ) ) ]]>
+		 ORDER BY PBC_SQNO
+	</select>
+
+	<select id="retrieveTaxDtl" parameterType="java.util.Map" resultMap="TaxMapDetail">
+		SELECT
+			  PBC_SQNO
+			, DTL_SQNO
+			, TR_DT
+			, SUBSTR(TR_DT, 5, 2) AS TR_DT_MON
+			, SUBSTR(TR_DT, 7, 2) AS TR_DT_DAY
+			, LATCNM
+			, STD
+			, RMK
+			, QT
+			, UPR
+			, SPPR
+			, TXA
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+		 FROM TX_TXBIL_DTL
+		WHERE PBC_SQNO = #{PBC_SQNO}
+		ORDER BY DTL_SQNO
+	</select>
+
+	<insert id="insertTxbilElsg" parameterType="java.util.Map">
+		INSERT
+		INTO TX_TXBIL_ELSG
+		( PBC_SQNO
+		, PBC_DTM
+		, NTS_TMS_YN
+		, ELSG_CNTN
+		, FSRG_DTM
+		, FS_RGM
+		, LSCHG_DTM
+		, LS_CHGM
+		)
+		VALUES
+		(
+		#{PBC_SQNO}
+		, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		, 'N'
+		, #{ELSG_CNTN}
+		, SYSDATE
+		, #{FS_RGM}
+		, SYSDATE
+		, #{LS_CHGM}
+		)
+	</insert>
+
+
+	<update id="updateTxBil" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET SIGN_R_VAL = #{SIGN_R_VAL}
+		     , PBC_DT = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		     , TXBIL_STSC = '04'
+		     , LS_CHGM = #{LS_CHGM}
+		     , LSCHG_DTM = SYSDATE
+		 WHERE PBC_SQNO = #{PBC_SQNO}
+	</update>
+
+	<select id="retrieveSlTxbilForSvc" parameterType="java.util.Map" resultMap="TaxMap">
+		SELECT '0' AS ISCHECKED
+		     , A.PBC_SQNO
+		     , A.NTS_TMS_SQNO
+		     , A.TXBIL_SQNO
+		     , A.CRT_DT
+		     , A.TXBIL_KD
+		     , A.RCT_RQS_DSC
+		     , NVL(A.TXBIL_STSC, '01') AS TXBIL_STSC
+		     , A.MOD_C
+		     , A.RMK1
+		     , A.REV_RPT_NO
+		     , A.SPLR_BZNO
+		     , A.SPLR_NA_TRPL_C
+		     , A.SPLR_MTALNM
+		     , A.SPLR_REPMNM
+		     , A.SPLR_ADR
+		     , A.SPLR_BZTPNM
+		     , A.SPLR_BZC
+		     , A.SPLR_DEPTNM
+		     , A.SPLR_CHRRNM
+		     , A.SPLR_CHRR_TELNO
+		     , A.SPLR_CHRR_EMAIL
+		     , ecl_decrypt(A.SPLR_CHRR_MPNO) AS SPLR_CHRR_MPNO
+		     , A.SPLR_FAXNO
+		     , A.BUY_DSC
+		     , A.BUY_BZNO
+		     , A.BUY_NA_TRPL_C
+		     , A.BUY_MTALNM
+		     , A.BUY_REPMNM
+		     , A.BUY_ADR
+		     , A.BUY_BZTPNM
+		     , A.BUY_BZC
+		     , A.BUY_FAXNO
+		     , A.BUY_DEPTNM1
+		     , A.BUY_CHRRNM1
+		     , A.BUY_CHRR_TELNO1
+		     , A.BUY_CHRR_EMAIL1
+		     , A.BUY_CHRR_MPNO1
+		     , A.BUY_DEPTNM2
+		     , A.BUY_CHRRNM2
+		     , A.BUY_CHRR_TELNO2
+		     , A.BUY_CHRR_EMAIL2
+		     , A.BUY_CHRR_MPNO2
+		     , A.PBC_DT
+		     , A.RPBC_DSC
+		     , NVL(STL_METHC1, '') AS STL_METHC1
+		     , NVL(STL_AM1, '') AS STL_AM1
+		     , NVL(STL_METHC2, '') AS STL_METHC2
+		     , NVL(STL_AM2, '') AS STL_AM2
+		     , NVL(STL_METHC3, '') AS STL_METHC3
+		     , NVL(STL_AM3, '') AS STL_AM3
+		     , NVL(STL_METHC4, '') AS STL_METHC4
+		     , NVL(STL_AM4, '') AS STL_AM4
+		     , A.TXA_TT
+		     , A.TOT_AM
+		     , A.SPRTT
+		     , A.PKG_SQNO
+		     , A.MOD_TAX_PBC_SQNO
+		     , A.MOD_TAX_NTS_TMS_SQNO
+		     , A.REV_TTCN
+		     , A.BAT_ISU_ST_DT
+		     , A.BAT_ISU_ED_DT
+		     , A.SPLR_ID_TXREG
+		     , A.BUY_ID_TXREG
+		  FROM TX_TXBIL A
+		 WHERE A.PBC_SQNO = #{PBC_SQNO}
+		 ORDER BY PBC_SQNO DESC
+	</select>
+	
+	<select id="retrieveTaxBillForSign" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT '0' AS ISCHECKED
+		     , A.PBC_SQNO
+		     , A.NTS_TMS_SQNO
+		     , A.TXBIL_SQNO
+		     , A.CRT_DT
+		     , A.TXBIL_KD
+		     , A.RCT_RQS_DSC
+		     , NVL(A.TXBIL_STSC, '01') AS TXBIL_STSC
+		     , A.MOD_C
+		     , A.RMK1
+		     , A.REV_RPT_NO
+		     , A.SPLR_BZNO
+		     , A.SPLR_NA_TRPL_C
+		     , A.SPLR_MTALNM
+		     , A.SPLR_REPMNM
+		     , A.SPLR_ADR
+		     , A.SPLR_BZTPNM
+		     , A.SPLR_BZC
+		     , A.SPLR_DEPTNM
+		     , A.SPLR_CHRRNM
+		     , A.SPLR_CHRR_TELNO
+		     , A.SPLR_CHRR_EMAIL
+		     , ecl_decrypt(A.SPLR_CHRR_MPNO) AS SPLR_CHRR_MPNO
+		     , A.SPLR_FAXNO
+		     , A.BUY_DSC
+		     , A.BUY_BZNO
+		     , A.BUY_NA_TRPL_C
+		     , A.BUY_MTALNM
+		     , A.BUY_REPMNM
+		     , A.BUY_ADR
+		     , A.BUY_BZTPNM
+		     , A.BUY_BZC
+		     , A.BUY_FAXNO
+		     , A.BUY_DEPTNM1
+		     , A.BUY_CHRRNM1
+		     , A.BUY_CHRR_TELNO1
+		     , A.BUY_CHRR_EMAIL1
+		     , A.BUY_CHRR_MPNO1
+		     , A.BUY_DEPTNM2
+		     , A.BUY_CHRRNM2
+		     , A.BUY_CHRR_TELNO2
+		     , A.BUY_CHRR_EMAIL2
+		     , A.BUY_CHRR_MPNO2
+		     , A.PBC_DT
+		     , A.RPBC_DSC
+		     , NVL(STL_METHC1, '') AS STL_METHC1
+		     , NVL(STL_AM1, '') AS STL_AM1
+		     , NVL(STL_METHC2, '') AS STL_METHC2
+		     , NVL(STL_AM2, '') AS STL_AM2
+		     , NVL(STL_METHC3, '') AS STL_METHC3
+		     , NVL(STL_AM3, '') AS STL_AM3
+		     , NVL(STL_METHC4, '') AS STL_METHC4
+		     , NVL(STL_AM4, '') AS STL_AM4
+		     , A.TXA_TT
+		     , A.TOT_AM
+		     , A.SPRTT
+		     , A.PKG_SQNO
+		     , A.MOD_TAX_PBC_SQNO
+		     , A.MOD_TAX_NTS_TMS_SQNO
+		     , A.REV_TTCN
+		     , A.BAT_ISU_ST_DT
+		     , A.BAT_ISU_ED_DT
+		     , A.SPLR_ID_TXREG
+		     , A.BUY_ID_TXREG
+		  FROM TX_TXBIL A
+		  WHERE 1=1
+		  <if test = "PBC_SQNO != null">
+		   AND A.PBC_SQNO IN 
+			<foreach collection="PBC_SQNO" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		 </if>
+		 ORDER BY PBC_SQNO DESC
+	</select>
+
+	<select id="retrieveTaxBillDetailForSign" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT
+			  PBC_SQNO
+			, DTL_SQNO
+			, TR_DT
+			, SUBSTR(TR_DT, 5, 2) AS TR_DT_MON
+			, SUBSTR(TR_DT, 7, 2) AS TR_DT_DAY
+			, LATCNM
+			, STD
+			, RMK
+			, QT
+			, UPR
+			, SPPR
+			, TXA
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+		 FROM TX_TXBIL_DTL
+		 WHERE 1=1
+		  <if test = "PBC_SQNO != null">
+		   AND PBC_SQNO IN 
+			<foreach collection="PBC_SQNO" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		 </if>
+		 ORDER BY PBC_SQNO DESC, DTL_SQNO
+	</select>
+	
+	<select id="retrieveBZPLC" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			  A.NA_TRPL_C
+			, A.NA_TRPL_DSC
+			, A.BIZ_NUMBER
+			, ecl_decrypt(A.REPMNM) AS REPMNM
+			, A.CLNTNM
+		 FROM TB_TR_TRPL_CIF A
+		WHERE A.DEL_YN='0'
+		  <!-- AND A.NAAC_DSC = '3' -->
+		<if test="sType != null">
+			<choose>
+				<when test="sType == 1">
+					AND A.CLNTNM LIKE #{searchText} || '%'
+				</when>
+				<when test="sType == 2">
+					AND A.BIZ_NUMBER LIKE #{searchText} || '%'
+				</when>
+				<when test="sType == 3">
+					AND A.NA_TRPL_C LIKE #{searchText} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+
+
+	<select id="retrieveSlTxbilDescForOz" parameterType="java.util.Map" resultMap="TaxMapDetail">
+		SELECT PBC_SQNO
+		     , DTL_SQNO
+		     , TR_DT
+		     , SUBSTR(TR_DT, 5, 2) AS TR_DT_MON
+		     , SUBSTR(TR_DT, 7, 2) AS TR_DT_DAY
+		     , LATCNM
+		     , STD
+		     , RMK
+		     , DECODE(QT, NULL, 0, QT) AS QT
+		     , DECODE(UPR, NULL, 0, UPR) AS UPR
+		     , SPPR
+		     , TXA
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		  FROM TX_TXBIL_DTL
+		 WHERE PBC_SQNO IN <![CDATA[ (SELECT REGEXP_SUBSTR ( #{PBC_SQNO}, '[^.]+', 1, LEVEL ) col
+		          FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{PBC_SQNO}, '.' ) ) ]]>
+		 ORDER BY DTL_SQNO
+	</select>
+
+	<select id="getXML" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PBC_SQNO
+		     , A.ELSG_CNTN
+		     , B.NTS_TMS_SQNO
+		  FROM TX_TXBIL_ELSG A
+		     , TX_TXBIL B
+		 WHERE A.PBC_SQNO = B.PBC_SQNO
+		   AND A.PBC_SQNO = #{PBC_SQNO}
+		   AND A.PBC_DTM = (SELECT MAX(PBC_DTM)
+		          FROM TX_TXBIL_ELSG
+		         WHERE PBC_SQNO = #{PBC_SQNO})
+	</select>
+
+	<update id="updateTaxMod" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET ( TXBIL_CNT
+             , TXBIL_NO
+             , TXBIL_SQNO
+             , RCT_RQS_DSC
+             , RMK1
+             , RMK2
+             , REV_RPT_NO
+             , BAT_ISU_ST_DT
+             , BAT_ISU_ED_DT
+             , REV_TTCN
+             , SPLR_BZNO
+             , SPLR_NA_TRPL_C
+             , SPLR_MTALNM
+             , SPLR_REPMNM
+             , SPLR_ADR
+             , SPLR_BZTPNM
+             , SPLR_BZC
+             , SPLR_DEPTNM
+             , SPLR_CHRRNM
+             , SPLR_CHRR_TELNO
+             , SPLR_CHRR_EMAIL
+             , SPLR_CHRR_MPNO
+             , SPLR_FAXNO
+             , BUY_DSC
+             , BUY_BZNO
+             , BUY_NA_TRPL_C
+             , BUY_MTALNM
+             , BUY_REPMNM
+             , BUY_ADR
+             , BUY_BZTPNM
+             , BUY_BZC
+             , BUY_FAXNO
+             , BUY_DEPTNM1
+             , BUY_CHRRNM1
+             , BUY_CHRR_TELNO1
+             , BUY_CHRR_EMAIL1
+             , BUY_CHRR_MPNO1
+             , BUY_DEPTNM2
+             , BUY_CHRRNM2
+             , BUY_CHRR_TELNO2
+             , BUY_CHRR_EMAIL2
+             , BUY_CHRR_MPNO2
+             , ETR_BZNO
+             , ETR_NA_TRPL_C
+             , ETR_MTALNM
+             , ETR_REPMNM
+             , ETR_ADR
+             , ETR_BZTPNM
+             , ETR_BZC
+             , ETR_DEPTNM
+             , ETR_CHRRNM
+             , ETR_CHRR_TELNO
+             , ETR_CHRR_EMAIL
+             , STL_METHC1
+             , STL_METHC2
+             , STL_METHC3
+             , STL_METHC4
+             , RQR_STS_C
+             , RPBC_DSC
+             , BYNG_SL_DSC
+             , RSP_C
+             , RSP_MSG
+             , RQR_CHAN_DSC
+             , EMAIL_PBC_RQR_YN
+             , SMS_PBC_RQR_YN
+             , FAX_PBC_RQR_YN
+             , ISTT_PBC_YN
+             , ERP_REF_NO
+             , ASP_TMS_DTM
+             , ASP_RSP_DTM
+             , DEPT_C
+             , DEPTNM
+             , BRC
+             , BRNM
+             , NA_BZPLC
+             , NA_BZPLNM
+             , NA_TEAM_C
+             , NA_TEAMNM
+             , NA_TRPL_C
+             , NA_CLNTNM
+             , NA_CLNT_TEAM_C
+             , NA_CLNT_TEAMNM
+             , NA_WRS_LCLC
+             , NA_WRS_LCLFNM
+             , NA_WRS_MCLC
+             , NA_WRS_MCLFNM
+             , NA_TOT_DSC
+             , NA_TOT_DSNM
+             , NA_TOT_DTI_DSC
+             , NA_TOT_DTI_DSNM
+             , TXBZ_TP_DSC
+             , TXBZ_TP_PBCNM
+             , RC_MSG
+             , HOFC_BAT_RG_DSC
+             , INPMN_ENO
+             , APVMN_ENO
+             , ELSG_YN
+             , DCZ_UYN
+             , ASP_ETR_YN
+             , SPYPL_C
+             , VENDER_C
+             , ORR_DT
+             , ORR_NO ) = (SELECT TXBIL_CNT
+             , TXBIL_NO
+             , TXBIL_SQNO
+             , RCT_RQS_DSC
+             , RMK1
+             , RMK2
+             , REV_RPT_NO
+             , BAT_ISU_ST_DT
+             , BAT_ISU_ED_DT
+             , REV_TTCN
+             , SPLR_BZNO
+             , SPLR_NA_TRPL_C
+             , SPLR_MTALNM
+             , SPLR_REPMNM
+             , SPLR_ADR
+             , SPLR_BZTPNM
+             , SPLR_BZC
+             , SPLR_DEPTNM
+             , SPLR_CHRRNM
+             , SPLR_CHRR_TELNO
+             , SPLR_CHRR_EMAIL
+             , SPLR_CHRR_MPNO
+             , SPLR_FAXNO
+             , BUY_DSC
+             , BUY_BZNO
+             , BUY_NA_TRPL_C
+             , BUY_MTALNM
+             , BUY_REPMNM
+             , BUY_ADR
+             , BUY_BZTPNM
+             , BUY_BZC
+             , BUY_FAXNO
+             , BUY_DEPTNM1
+             , BUY_CHRRNM1
+             , BUY_CHRR_TELNO1
+             , BUY_CHRR_EMAIL1
+             , BUY_CHRR_MPNO1
+             , BUY_DEPTNM2
+             , BUY_CHRRNM2
+             , BUY_CHRR_TELNO2
+             , BUY_CHRR_EMAIL2
+             , BUY_CHRR_MPNO2
+             , ETR_BZNO
+             , ETR_NA_TRPL_C
+             , ETR_MTALNM
+             , ETR_REPMNM
+             , ETR_ADR
+             , ETR_BZTPNM
+             , ETR_BZC
+             , ETR_DEPTNM
+             , ETR_CHRRNM
+             , ETR_CHRR_TELNO
+             , ETR_CHRR_EMAIL
+             , STL_METHC1
+             , STL_METHC2
+             , STL_METHC3
+             , STL_METHC4
+             , RQR_STS_C
+             , RPBC_DSC
+             , BYNG_SL_DSC
+             , RSP_C
+             , RSP_MSG
+             , RQR_CHAN_DSC
+             , EMAIL_PBC_RQR_YN
+             , SMS_PBC_RQR_YN
+             , FAX_PBC_RQR_YN
+             , ISTT_PBC_YN
+             , ERP_REF_NO
+             , ASP_TMS_DTM
+             , ASP_RSP_DTM
+             , DEPT_C
+             , DEPTNM
+             , BRC
+             , BRNM
+             , NA_BZPLC
+             , NA_BZPLNM
+             , NA_TEAM_C
+             , NA_TEAMNM
+             , NA_TRPL_C
+             , NA_CLNTNM
+             , NA_CLNT_TEAM_C
+             , NA_CLNT_TEAMNM
+             , NA_WRS_LCLC
+             , NA_WRS_LCLFNM
+             , NA_WRS_MCLC
+             , NA_WRS_MCLFNM
+             , NA_TOT_DSC
+             , NA_TOT_DSNM
+             , NA_TOT_DTI_DSC
+             , NA_TOT_DTI_DSNM
+             , TXBZ_TP_DSC
+             , TXBZ_TP_PBCNM
+             , RC_MSG
+             , HOFC_BAT_RG_DSC
+             , INPMN_ENO
+             , APVMN_ENO
+             , ELSG_YN
+             , DCZ_UYN
+             , ASP_ETR_YN
+             , SPYPL_C
+             , VENDER_C
+             , ORR_DT
+             , ORR_NO
+          FROM TX_TXBIL
+         WHERE PBC_SQNO = #{MOD_TAX_PBC_SQNO} )
+		 WHERE PBC_SQNO = #{PBC_SQNO}
+	</update>
+
+	<insert id="insertTaxMod" parameterType="java.util.Map">
+		INSERT
+		INTO TX_TXBIL
+		( PBC_SQNO
+		, NTS_TMS_SQNO
+		, MOD_C
+		, MOD_TAX_PBC_SQNO
+		, MOD_TAX_NTS_TMS_SQNO
+		, CRT_DT
+		, STL_AM1
+		, STL_AM2
+		, STL_AM3
+		, STL_AM4
+		, SPRTT
+		, TXA_TT
+		, TOT_AM
+		, TXBIL_KD
+		, TXBIL_STSC
+		, FSRG_DTM
+		, FS_RGM
+		, LSCHG_DTM
+		, LS_CHGM
+		, OCU_DSC
+		)
+		VALUES
+		(
+		#{PBC_SQNO}
+		, #{NTS_TMS_SQNO}
+		, #{MOD_C}
+		, #{MOD_TAX_PBC_SQNO}
+		, #{MOD_TAX_NTS_TMS_SQNO}
+		, #{CRT_DT}
+		, #{STL_AM1}
+		, #{STL_AM2}
+		, #{STL_AM3}
+		, #{STL_AM4}
+		, #{SPRTT}
+		, #{TXA_TT}
+		, #{TOT_AM}
+		, '0201'
+		, '02'
+		, #{FSRG_DTM}
+		, #{FS_RGM}
+		, #{FSRG_DTM}
+		, #{FS_RGM}
+		, '01'
+		)
+	</insert>
+    
+    <insert id="insertTaxMod2" parameterType="java.util.Map">
+		INSERT
+				INTO TX_TXBIL
+				( 
+					  PBC_SQNO
+					, NTS_TMS_SQNO
+					, MOD_C
+					, MOD_TAX_PBC_SQNO
+					, MOD_TAX_NTS_TMS_SQNO
+					, CRT_DT
+					, STL_AM1
+					, STL_AM2
+					, STL_AM3
+					, STL_AM4
+					, SPRTT
+					, TXA_TT
+					, TOT_AM
+					, TXBIL_KD
+					, TXBIL_STSC
+					, FSRG_DTM
+					, FS_RGM
+					, LSCHG_DTM
+					, LS_CHGM
+					, BUY_BZNO
+					, BUY_REPMNM
+					, BUY_MTALNM
+					, BUY_ADR
+					, BUY_BZTPNM
+					, BUY_BZC
+					, BUY_CHRR_EMAIL1
+					, RSR_HDNG21
+					, RMK1
+					, BUY_ID_TXREG
+				    , OCU_DSC
+				)
+				VALUES
+				(
+					  #{PBC_SQNO}
+					, #{NTS_TMS_SQNO}
+					, #{MOD_C}
+					, #{MOD_TAX_PBC_SQNO}
+					, #{MOD_TAX_NTS_TMS_SQNO}
+					, #{CRT_DT}
+					, #{STL_AM1}
+					, #{STL_AM2}
+					, #{STL_AM3}
+					, #{STL_AM4}
+					, #{SPRTT}
+					, #{TXA_TT}
+					, #{TOT_AM}
+					, '0201'
+					, '02'
+					, #{FSRG_DTM}
+					, #{FS_RGM}
+					, #{FSRG_DTM}
+					, #{FS_RGM}
+					, #{BUY_BZNO}
+					, #{BUY_REPMNM}
+					, #{BUY_MTALNM}
+					, #{BUY_ADR}
+					, #{BUY_BZTPNM}
+					, #{BUY_BZC}
+					, #{BUY_CHRR_EMAIL1}
+					, #{BUY_CHRR_EMAIL1}
+					, #{RMK1}
+					, #{BUY_ID_TXREG} 
+					, '01'
+				)
+	</insert>
+    
+
+    <update id="updateTaxMod2" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET ( TXBIL_CNT
+             , TXBIL_NO
+             , TXBIL_SQNO
+             , RCT_RQS_DSC
+             , RMK2
+             , REV_RPT_NO
+             , BAT_ISU_ST_DT
+             , BAT_ISU_ED_DT
+             , REV_TTCN
+             , SPLR_BZNO
+             , SPLR_NA_TRPL_C
+             , SPLR_MTALNM
+             , SPLR_REPMNM
+             , SPLR_ADR
+             , SPLR_BZTPNM
+             , SPLR_BZC
+             , SPLR_DEPTNM
+             , SPLR_CHRRNM
+             , SPLR_CHRR_TELNO
+             , SPLR_CHRR_EMAIL
+             , SPLR_CHRR_MPNO
+             , SPLR_FAXNO
+             , BUY_DSC
+             , BUY_NA_TRPL_C
+             , BUY_FAXNO
+             , BUY_DEPTNM1
+             , BUY_CHRRNM1
+             , BUY_CHRR_TELNO1
+             , BUY_CHRR_MPNO1
+             , BUY_DEPTNM2
+             , BUY_CHRRNM2
+             , BUY_CHRR_TELNO2
+             , BUY_CHRR_EMAIL2
+             , BUY_CHRR_MPNO2
+             , ETR_BZNO
+             , ETR_NA_TRPL_C
+             , ETR_MTALNM
+             , ETR_REPMNM
+             , ETR_ADR
+             , ETR_BZTPNM
+             , ETR_BZC
+             , ETR_DEPTNM
+             , ETR_CHRRNM
+             , ETR_CHRR_TELNO
+             , ETR_CHRR_EMAIL
+             , STL_METHC1
+             , STL_METHC2
+             , STL_METHC3
+             , STL_METHC4
+             , RQR_STS_C
+             , RPBC_DSC
+             , BYNG_SL_DSC
+             , RSP_C
+             , RSP_MSG
+             , RQR_CHAN_DSC
+             , EMAIL_PBC_RQR_YN
+             , SMS_PBC_RQR_YN
+             , FAX_PBC_RQR_YN
+             , ISTT_PBC_YN
+             , ERP_REF_NO
+             , ASP_TMS_DTM
+             , ASP_RSP_DTM
+             , DEPT_C
+             , DEPTNM
+             , BRC
+             , BRNM
+             , NA_BZPLC
+             , NA_BZPLNM
+             , NA_TEAM_C
+             , NA_TEAMNM
+             , NA_TRPL_C
+             , NA_CLNTNM
+             , NA_CLNT_TEAM_C
+             , NA_CLNT_TEAMNM
+             , NA_WRS_LCLC
+             , NA_WRS_LCLFNM
+             , NA_WRS_MCLC
+             , NA_WRS_MCLFNM
+             , NA_TOT_DSC
+             , NA_TOT_DSNM
+             , NA_TOT_DTI_DSC
+             , NA_TOT_DTI_DSNM
+             , TXBZ_TP_DSC
+             , TXBZ_TP_PBCNM
+             , RC_MSG
+             , HOFC_BAT_RG_DSC
+             , INPMN_ENO
+             , APVMN_ENO
+             , ELSG_YN
+             , DCZ_UYN
+             , ASP_ETR_YN
+             , SPYPL_C
+             , VENDER_C
+             , ORR_DT
+             , ORR_NO ) = (SELECT TXBIL_CNT
+             , TXBIL_NO
+             , TXBIL_SQNO
+             , RCT_RQS_DSC
+             , RMK2
+             , REV_RPT_NO
+             , BAT_ISU_ST_DT
+             , BAT_ISU_ED_DT
+             , REV_TTCN
+             , SPLR_BZNO
+             , SPLR_NA_TRPL_C
+             , SPLR_MTALNM
+             , SPLR_REPMNM
+             , SPLR_ADR
+             , SPLR_BZTPNM
+             , SPLR_BZC
+             , SPLR_DEPTNM
+             , SPLR_CHRRNM
+             , SPLR_CHRR_TELNO
+             , SPLR_CHRR_EMAIL
+             , SPLR_CHRR_MPNO
+             , SPLR_FAXNO
+             , BUY_DSC
+             , BUY_NA_TRPL_C
+             , BUY_FAXNO
+             , BUY_DEPTNM1
+             , BUY_CHRRNM1
+             , BUY_CHRR_TELNO1
+             , BUY_CHRR_MPNO1
+             , BUY_DEPTNM2
+             , BUY_CHRRNM2
+             , BUY_CHRR_TELNO2
+             , BUY_CHRR_EMAIL2
+             , BUY_CHRR_MPNO2
+             , ETR_BZNO
+             , ETR_NA_TRPL_C
+             , ETR_MTALNM
+             , ETR_REPMNM
+             , ETR_ADR
+             , ETR_BZTPNM
+             , ETR_BZC
+             , ETR_DEPTNM
+             , ETR_CHRRNM
+             , ETR_CHRR_TELNO
+             , ETR_CHRR_EMAIL
+             , STL_METHC1
+             , STL_METHC2
+             , STL_METHC3
+             , STL_METHC4
+             , RQR_STS_C
+             , RPBC_DSC
+             , BYNG_SL_DSC
+             , RSP_C
+             , RSP_MSG
+             , RQR_CHAN_DSC
+             , EMAIL_PBC_RQR_YN
+             , SMS_PBC_RQR_YN
+             , FAX_PBC_RQR_YN
+             , ISTT_PBC_YN
+             , ERP_REF_NO
+             , ASP_TMS_DTM
+             , ASP_RSP_DTM
+             , DEPT_C
+             , DEPTNM
+             , BRC
+             , BRNM
+             , NA_BZPLC
+             , NA_BZPLNM
+             , NA_TEAM_C
+             , NA_TEAMNM
+             , NA_TRPL_C
+             , NA_CLNTNM
+             , NA_CLNT_TEAM_C
+             , NA_CLNT_TEAMNM
+             , NA_WRS_LCLC
+             , NA_WRS_LCLFNM
+             , NA_WRS_MCLC
+             , NA_WRS_MCLFNM
+             , NA_TOT_DSC
+             , NA_TOT_DSNM
+             , NA_TOT_DTI_DSC
+             , NA_TOT_DTI_DSNM
+             , TXBZ_TP_DSC
+             , TXBZ_TP_PBCNM
+             , RC_MSG
+             , HOFC_BAT_RG_DSC
+             , INPMN_ENO
+             , APVMN_ENO
+             , ELSG_YN
+             , DCZ_UYN
+             , ASP_ETR_YN
+             , SPYPL_C
+             , VENDER_C
+             , ORR_DT
+             , ORR_NO
+          FROM TX_TXBIL
+         WHERE PBC_SQNO = #{MOD_TAX_PBC_SQNO} )
+		 WHERE PBC_SQNO = #{PBC_SQNO}
+	</update>
+	
+    
+	<insert id="insertTaxDetail" parameterType="java.util.Map">
+		INSERT
+		INTO TX_TXBIL_DTL
+		(
+		  	  PBC_SQNO
+			, DTL_SQNO
+			, TR_DT
+			, LATCNM
+			, STD
+			, RMK
+			, QT
+			, UPR
+			, SPPR
+			, TXA
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+		)
+		VALUES
+		(
+			  #{PBC_SQNO}
+			, #{DTL_SQNO}
+			, #{TR_DT}
+			, #{LATCNM}
+			, #{STD}
+			, #{RMK}
+			, #{QT}
+			, #{UPR}
+			, #{SPPR}
+			, #{TXA}
+			, #{FSRG_DTM}
+			, #{FS_RGM}
+			, #{FSRG_DTM}
+			, #{FS_RGM}
+		)
+	</insert>
+
+
+	<insert id="insertTaxbil" parameterType="java.util.Map">
+		INSERT
+		  INTO TX_TXBIL
+			(
+			  PBC_SQNO
+			, NTS_TMS_SQNO
+			, TXBIL_CNT
+			, TXBIL_NO
+			, TXBIL_SQNO
+			, CRT_DT
+			, TXBIL_KD
+			, RCT_RQS_DSC
+			, MOD_C
+			, RMK1
+			, RMK2
+			, RMK3
+			, REV_RPT_NO
+			, BAT_ISU_ST_DT
+			, BAT_ISU_ED_DT
+			, REV_TTCN
+			, SPLR_BZNO
+			, SPLR_NA_TRPL_C
+			, SPLR_MTALNM
+			, SPLR_REPMNM
+			, SPLR_ADR
+			, SPLR_BZTPNM
+			, SPLR_BZC
+			, SPLR_DEPTNM
+			, SPLR_CHRRNM
+			, SPLR_CHRR_TELNO
+			, SPLR_CHRR_EMAIL
+			, SPLR_CHRR_MPNO
+			, SPLR_FAXNO
+			, BUY_DSC
+			, BUY_BZNO
+			, BUY_NA_TRPL_C
+			, BUY_MTALNM
+			, BUY_REPMNM
+			, BUY_ADR
+			, BUY_BZTPNM
+			, BUY_BZC
+			, BUY_FAXNO
+			, BUY_DEPTNM1
+			, BUY_CHRRNM1
+			, BUY_CHRR_TELNO1
+			, BUY_CHRR_EMAIL1
+			, BUY_CHRR_MPNO1
+			, BUY_DEPTNM2
+			, BUY_CHRRNM2
+			, BUY_CHRR_TELNO2
+			, BUY_CHRR_EMAIL2
+			, BUY_CHRR_MPNO2
+			, ETR_BZNO
+			, ETR_NA_TRPL_C
+			, ETR_MTALNM
+			, ETR_REPMNM
+			, ETR_ADR
+			, ETR_BZTPNM
+			, ETR_BZC
+			, ETR_DEPTNM
+			, ETR_CHRRNM
+			, ETR_CHRR_TELNO
+			, ETR_CHRR_EMAIL
+			, STL_METHC1
+			, STL_AM1
+			, STL_METHC2
+			, STL_AM2
+			, STL_METHC3
+			, STL_AM3
+			, STL_METHC4
+			, STL_AM4
+			, SPRTT
+			, TXA_TT
+			, TOT_AM
+			, RQR_STS_C
+			, RPBC_DSC
+			, BYNG_SL_DSC
+			, RSP_C
+			, RSP_MSG
+			, RQR_CHAN_DSC
+			, EMAIL_PBC_RQR_YN
+			, SMS_PBC_RQR_YN
+			, FAX_PBC_RQR_YN
+			, MOD_TAX_PBC_SQNO
+			, MOD_TAX_NTS_TMS_SQNO
+			, ISTT_PBC_YN
+			, PBC_DT
+			, ERP_REF_NO
+			, ASP_TMS_DTM
+			, ASP_RSP_DTM
+			, DEPT_C
+			, DEPTNM
+			, BRC
+			, BRNM
+			, NA_BZPLC
+			, NA_BZPLNM
+			, NA_TEAM_C
+			, NA_TEAMNM
+			, NA_TRPL_C
+			, NA_CLNTNM
+			, NA_CLNT_TEAM_C
+			, NA_CLNT_TEAMNM
+			, NA_WRS_LCLC
+			, NA_WRS_LCLFNM
+			, NA_WRS_MCLC
+			, NA_WRS_MCLFNM
+			, NA_TOT_DSC
+			, NA_TOT_DSNM
+			, NA_TOT_DTI_DSC
+			, NA_TOT_DTI_DSNM
+			, TXBZ_TP_DSC
+			, TXBZ_TP_PBCNM
+			, RC_MSG
+			, HOFC_BAT_RG_DSC
+			, INPMN_ENO
+			, APVMN_ENO
+			, ELSG_YN
+			, DCZ_UYN
+			, ASP_ETR_YN
+			, SIGN_R_VAL
+			, SPYPL_C
+			, VENDER_C
+			, ORR_DT
+			, ORR_NO
+			, TXBIL_STSC
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+			, PKG_SQNO
+			, OCU_DSC
+			)
+			VALUES
+			(
+			  #{PBC_SQNO}
+			, #{NTS_TMS_SQNO}
+			, #{TXBIL_CNT}
+			, #{TXBIL_NO}
+			, #{TXBIL_SQNO}
+			, #{CRT_DT}
+			, #{TXBIL_KD}
+			, #{RCT_RQS_DSC}
+			, #{MOD_C}
+			, #{RMK1}
+			, #{RMK2}
+			, #{RMK3}
+			, #{REV_RPT_NO}
+			, #{BAT_ISU_ST_DT}
+			, #{BAT_ISU_ED_DT}
+			, #{REV_TTCN}
+			, #{SPLR_BZNO}
+			, #{SPLR_NA_TRPL_C}
+			, #{SPLR_MTALNM}
+			, #{SPLR_REPMNM}
+			, #{SPLR_ADR}
+			, #{SPLR_BZTPNM}
+			, #{SPLR_BZC}
+			, #{SPLR_DEPTNM}
+			, #{SPLR_CHRRNM}
+			, #{SPLR_CHRR_TELNO}
+			, #{SPLR_CHRR_EMAIL}
+			, #{SPLR_CHRR_MPNO}
+			, #{SPLR_FAXNO}
+			, #{BUY_DSC}
+			, #{BUY_BZNO}
+			, #{BUY_NA_TRPL_C}
+			, #{BUY_MTALNM}
+			, #{BUY_REPMNM}
+			, #{BUY_ADR}
+			, #{BUY_BZTPNM}
+			, #{BUY_BZC}
+			, #{BUY_FAXNO}
+			, #{BUY_DEPTNM1}
+			, #{BUY_CHRRNM1}
+			, #{BUY_CHRR_TELNO1}
+			, #{BUY_CHRR_EMAIL1}
+			, #{BUY_CHRR_MPNO1}
+			, #{BUY_DEPTNM2}
+			, #{BUY_CHRRNM2}
+			, #{BUY_CHRR_TELNO2}
+			, #{BUY_CHRR_EMAIL2}
+			, #{BUY_CHRR_MPNO2}
+			, #{ETR_BZNO}
+			, #{ETR_NA_TRPL_C}
+			, #{ETR_MTALNM}
+			, #{ETR_REPMNM}
+			, #{ETR_ADR}
+			, #{ETR_BZTPNM}
+			, #{ETR_BZC}
+			, #{ETR_DEPTNM}
+			, #{ETR_CHRRNM}
+			, #{ETR_CHRR_TELNO}
+			, #{ETR_CHRR_EMAIL}
+			, '10'
+			, #{STL_AM1}
+			, '20'
+			, #{STL_AM2}
+			, '30'
+			, #{STL_AM3}
+			, '40'
+			, #{STL_AM4}
+			, #{SPRTT}
+			, #{TXA_TT}
+			, #{TOT_AM}
+			, #{RQR_STS_C}
+			, '1'
+			, #{BYNG_SL_DSC}
+			, #{RSP_C}
+			, #{RSP_MSG}
+			, #{RQR_CHAN_DSC}
+			, #{EMAIL_PBC_RQR_YN}
+			, #{SMS_PBC_RQR_YN}
+			, #{FAX_PBC_RQR_YN}
+			, #{MOD_TAX_PBC_SQNO}
+			, #{MOD_TAX_NTS_TMS_SQNO}
+			, #{ISTT_PBC_YN}
+			, #{PBC_DT}
+			, #{ERP_REF_NO}
+			, #{ASP_TMS_DTM}
+			, #{ASP_RSP_DTM}
+			, #{DEPT_C}
+			, #{DEPTNM}
+			, #{BRC}
+			, #{BRNM}
+			, #{NA_BZPLC}
+			, #{NA_BZPLNM}
+			, #{NA_TEAM_C}
+			, #{NA_TEAMNM}
+			, #{NA_TRPL_C}
+			, #{NA_CLNTNM}
+			, #{NA_CLNT_TEAM_C}
+			, #{NA_CLNT_TEAMNM}
+			, #{NA_WRS_LCLC}
+			, #{NA_WRS_LCLFNM}
+			, #{NA_WRS_MCLC}
+			, #{NA_WRS_MCLFNM}
+			, #{NA_TOT_DSC}
+			, #{NA_TOT_DSNM}
+			, #{NA_TOT_DTI_DSC}
+			, #{NA_TOT_DTI_DSNM}
+			, #{TXBZ_TP_DSC}
+			, #{TXBZ_TP_PBCNM}
+			, #{RC_MSG}
+			, #{HOFC_BAT_RG_DSC}
+			, #{INPMN_ENO}
+			, #{APVMN_ENO}
+			, #{ELSG_YN}
+			, #{DCZ_UYN}
+			, #{ASP_ETR_YN}
+			, #{SIGN_R_VAL}
+			, #{SPYPL_C}
+			, #{VENDER_C}
+			, #{ORR_DT}
+			, #{ORR_NO}
+			, '02'
+			, #{Date}
+			, #{FS_RGM}
+			, #{Date}
+			, #{FS_RGM}
+			, #{PKG_SQNO}
+			, '02'
+			)
+	</insert>
+
+	<delete id="deleteTaxbilDesc" parameterType="java.util.Map">
+		DELETE
+		FROM TX_TXBIL
+		WHERE PBC_SQNO = #{PBC_SQNO}
+	</delete>
+
+	<delete id="deleteTaxbil" parameterType="java.util.Map">
+		DELETE
+		FROM TX_TXBIL_DTL
+		WHERE PBC_SQNO = #{PBC_SQNO}
+	</delete>
+
+	<select id="checkDup" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		FROM TX_TXBIL
+		WHERE MOD_TAX_PBC_SQNO = #{PBC_SQNO}
+	</select>
+
+	<select id="retrieveTRPL" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.NA_TRPL_C
+			, A.NA_TRPL_DSC
+			, A.NAAC_DSC
+			, A.CLNTNM
+			, A.TRPL_ABR_NM
+			, A.NA_MBCO_DSC
+			, A.UP_NA_TRPL_C
+			, A.FZIP
+			, A.RZIP
+			, A.ZIP_SQNO
+			, A.DONGUP
+			, A.DONGBW
+			, A.NA_RGN_C
+			, A.TEL_NAT_NO
+			, A.FAX_RGNO
+			, A.HFAX
+			, A.FAX_SQNO
+			, A.MPSVNO
+			, A.MPHNO
+			, A.MPSQNO
+			, A.FMACH_PATS_TRT_YN
+			, A.NA_BZPL_TXBZ_RPT_FORM_C
+			, A.NA_USR_SYS_KDC
+			, A.ELT_TXBIL_UYN
+			, A.TR_STOP_YN
+			, A.TR_STOP_RSNC
+			, A.TR_STOP_DT
+			, A.COPNO_CIF_NO
+			, ecl_decrypt(A.REPMNM) AS REPMNM
+			, A.BZCCNM
+			, A.BZTPNM
+			, A.LIQ_SEL_RPT_NO
+			, A.LIQ_WHSL_COMP_C
+			, A.LIQ_RTL_COMP_C
+			, A.NA_TXBZ_DSC
+			, A.BIZ_NUMBER
+			, A.CHG_YN
+			, A.LS_CMENO
+			, A.LS_NA_BZPLC
+			, A.PRC_YN
+			, A.RSP_C_CNTN
+			, A.EDI_IF_ID
+			, A.ATEL || A.HTEL || A.STEL AS TEL
+		FROM TB_TR_TRPL_CIF A
+		WHERE USR_SYS_C IN ('53', '91', '95', '96')
+		  
+			<choose>
+				<when test="sType == 3">
+					AND A.NA_TRPL_C = #{searchText}
+				</when>
+				
+				<when test="sType == 1">
+					AND A.CLNTNM LIKE #{searchText} || '%'
+					AND A.DEL_YN='0'
+				</when>
+				<when test="sType == 2">
+					AND A.BIZ_NUMBER LIKE #{searchText} || '%'
+					AND A.DEL_YN='0'
+				</when>
+				<otherwise>
+					AND ( A.BIZ_NUMBER LIKE #{searchText} || '%' OR A.CLNTNM LIKE '%' ||
+					#{searchText} || '%'    OR A.NA_TRPL_C =  #{searchText}) /*전체*/
+					AND A.DEL_YN='0'
+				</otherwise>
+			</choose>
+	</select>
+
+	<update id="taxCancel" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET TXBIL_STSC = '05'
+		     , LS_CHGM = #{LS_CHGM}
+		     , LSCHG_DTM = SYSDATE
+		WHERE PBC_SQNO IN 
+			<foreach collection="PBC_SQNO" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+	</update>
+
+	<insert id="insertTaxSmsSend" parameterType="java.util.Map">
+		INSERT INTO /*insertSmsSend*/ SDK_SMS_SEND 
+			(
+			 MSG_ID
+			,USER_ID
+			,SCHEDULE_TYPE
+			,SUBJECT
+			,SMS_MSG
+			,SEND_DATE
+			,DEST_TYPE
+			,DEST_COUNT
+			,DEST_INFO
+			,SEND_STATUS
+			,SEND_COUNT
+			,SEND_RESULT
+			,CALLBACK
+			)
+			VALUES 
+			(
+			#{MSG_ID},
+			#{USER_ID},
+			#{SCHEDULE_TYPE},
+			#{SUBJECT},
+			#{SMS_MSG},
+			#{SEND_DATE},
+			#{DEST_TYPE},
+			#{DEST_COUNT},
+			#{DEST_INFO},
+			#{SEND_STATUS},
+			#{SEND_COUNT},
+			#{SEND_RESULT},
+			#{CALLBACK}
+			)
+	</insert>
+
+	<select id="getSmsSequence" parameterType="java.util.Map" resultType="int">
+		SELECT SDK_SMS_SEQ.NEXTVAL AS SEQ FROM DUAL
+	</select>
+
+	<select id="retrieveTaxSmsResult" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'SEND_DATE DESC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveTaxSmsResult" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveTaxSmsResultCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveTaxSmsResult" />
+		<include refid="common.count_end" />
+	</select>
+
+	<sql id="sql_retrieveTaxSmsResult">
+		SELECT *
+		  FROM (SELECT '0' ISCHECKED
+		             , MSG_ID
+		             , USER_ID
+		             , SMS_MSG
+		             , SUBJECT
+		             , CALLBACK
+		             , SUBSTR(DEST_INFO, 0, INSTR(DEST_INFO, '^')-1) AS USR_NM
+		             , SUBSTR(DEST_INFO, INSTR(DEST_INFO, '^')+1) AS USR_MPNO
+		             , SEND_STATUS
+		             , SEND_DATE
+		          FROM SDK_SMS_SEND A
+		         WHERE SEND_DATE BETWEEN #{STARTDT} AND #{ENDDT}
+		           AND A.USER_ID = 'eTax'
+		         UNION
+		SELECT '0' ISCHECKED
+		             , MSG_ID
+		             , USER_ID
+		             , SMS_MSG
+		             , SUBJECT
+		             , CALLBACK
+		             , SUBSTR(DEST_INFO, 0, INSTR(DEST_INFO, '^')-1) AS USR_NM
+		             , SUBSTR(DEST_INFO, INSTR(DEST_INFO, '^')+1) AS USR_MPNO
+		             , 3 AS SEND_STATUS
+		             , SEND_DATE
+		          FROM SDK_SMS_REPORT
+		         WHERE SEND_DATE BETWEEN #{STARTDT} AND #{ENDDT}
+		           AND USER_ID = 'eTax' )
+		<where>
+			<if test="USR_MPNO != null">
+				AND USR_MPNO = #{USR_MPNO}
+			</if>
+			<if test="SEND_STATUS != null">
+				AND SEND_STATUS = #{SEND_STATUS}
+			</if>
+		</where>
+		ORDER BY SEND_DATE DESC
+	</sql>
+	
+	<select id="retrieveBzplcList" parameterType="java.util.Map" resultType="java.util.Map">
+		 SELECT A.NA_BZPLC AS NA_BZPLC
+		      , '[' || A.NA_BZPLC || '] ' ||  B.CLNTNM AS CLNTNM
+		   FROM PT_NA_BZPL_AMN A
+		      , TB_TR_TRPL_CIF B
+		  WHERE A.NA_BZPLC = B.NA_TRPL_C
+		    AND B.DEL_YN='0'
+		    AND A.USRID = #{USRID}
+		  GROUP BY NA_BZPLC, CLNTNM
+	</select>
+	
+	<select id="retrieveBzplcTeamCodeList" parameterType="java.util.Map" resultType="java.util.Map">
+		 SELECT A.USRID
+		      , A.NA_BZPLC
+		      , A.NA_TEAM_C
+		      , C.TEAMNM
+		   FROM PT_NA_BZPL_AMN A
+		      , TB_TR_TRPL_CIF B
+		      , TB_CM_TEAM C
+		  WHERE A.NA_BZPLC = B.NA_TRPL_C
+		    AND A.NA_BZPLC = C.NA_BZPLC
+		    AND A.NA_TEAM_C = C.NA_TEAM_C
+		    AND A.USRID = #{USRID}
+		    AND B.DEL_YN='0'
+	</select>
+	
+	<select id="retrieveEmailResendList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveEmailResendList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveEmailResendListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveEmailResendList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<sql id="sql_retrieveEmailResendList">
+		SELECT /*+ index(a IDX_TX_TXBIL_8) use_hash(a c) */
+		       '0' AS ISCHECKED
+		     , A.PBC_SQNO
+		     , A.NTS_TMS_SQNO
+		     , A.TXBIL_SQNO
+		     , A.CRT_DT
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = A.TXBIL_KD
+		           AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KD
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = A.RCT_RQS_DSC
+		           AND SIMP_TPC = 'RCT_RQS_DSC') AS RCT_RQS_DSC
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = A.MOD_C
+		           AND SIMP_TPC = 'MOD_C') AS MOD_C
+		     , A.RMK1
+		     , A.SPLR_BZNO
+		     , A.SPLR_NA_TRPL_C
+		     , A.SPLR_MTALNM
+		     , A.SPLR_REPMNM
+		     , A.SPLR_CHRR_EMAIL
+		     , A.SPLR_CHRR_MPNO
+		     , A.BUY_DSC
+		     , A.BUY_NA_TRPL_C
+		     , A.BUY_BZNO
+		     , A.BUY_MTALNM
+		     , A.BUY_REPMNM
+		     , A.SPRTT
+		     , A.TXA_TT
+		     , A.TOT_AM
+		     , A.RQR_STS_C
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = A.RPBC_DSC
+		           AND SIMP_TPC = 'RPBC_DSC') AS RPBC_DSC
+		     , A.MOD_TAX_PBC_SQNO
+		     , A.MOD_TAX_NTS_TMS_SQNO
+		     , A.PBC_DT
+		     , C.LATCNM
+		     , A.NA_BZPLC
+		     , A.NA_BZPLNM
+		     , A.NA_TEAM_C
+		     , A.NA_TEAMNM
+		     , A.NA_TRPL_C
+		     , A.NA_CLNTNM
+		     , A.NA_CLNT_TEAM_C
+		     , A.NA_CLNT_TEAMNM
+		     , A.NA_BZPLC || '/' || A.NA_TEAM_C AS NA_BZPLC_TEAM_C
+		     , A.NA_TRPL_C || '/' || A.NA_CLNT_TEAM_C AS NA_TRPL_C_TEAM_C
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = NVL(A.TXBIL_STSC, '01')
+		           AND SIMP_TPC = 'TXBIL_STSC') AS TXBIL_STSC
+		     , A.RG_DT
+		     , D.PRC_RZT_C
+		     , (SELECT SIMP_CNM
+		          FROM MG_COMN_C_AMN
+		         WHERE SIMP_C = D.PRC_RZT_C
+		           AND SIMP_TPC = 'PRC_RZT_C') AS PRC_RZT_C_MSG
+		     , A.SMS_PBC_RQR_YN
+		     , A.EMAIL_PBC_RQR_YN
+		     , DECODE(EMAIL_PBC_RQR_YN, 'Y', 'EMAIL','') || DECODE(EMAIL_PBC_RQR_YN, 'Y', DECODE(SMS_PBC_RQR_YN, 'Y', ', ','') ,'') ||  DECODE(SMS_PBC_RQR_YN, 'Y', 'SMS', '')  AS PBC_RQR_YN
+		     , DECODE(E.send_status, 0 , '메세지입력', 1, 'Agent처리시작', 2, '서버전송중', 3 , '전송완료', -1 , '실패', null, '미발송', '') AS SMS_SEND_STATUS
+		     , DECODE(F.MSGFLAG, 0, '발송전', 99, '발송완료', null, '미발송','실패') AS EMAIL_SEND_STATUS
+		     , RSR_HDNG21
+		     , RSR_HDNG22
+		  FROM TX_TXBIL A
+		     , TX_TXBIL_DTL C
+		     , TX_NTS_RPT D
+		     , (SELECT MSG_ID, user_id, subject,  substr(DEST_INFO, INSTR(DEST_INFO, '^')+1), send_status
+		          FROM SDK_SMS_SEND A
+		         UNION 
+		        SELECT MSG_ID, user_id, subject, substr(DEST_INFO, INSTR(DEST_INFO, '^')+1), 3
+		          FROM SDK_SMS_REPORT B
+		       ) E /*SMS*/
+		     , IM_DMAIL_INFO_1 F /*EMAIL*/
+	     WHERE A.PBC_SQNO = C.PBC_SQNO(+)
+		   AND A.PBC_SQNO = D.PBC_SQNO(+)
+		   AND A.RSR_HDNG24 = E.MSG_ID(+)
+		   AND A.RSR_HDNG23 = TO_CHAR(F.SEQIDX(+))
+		   AND C.DTL_SQNO = 1
+		<if test="TXBIL_STSC != null">
+		   AND A.TXBIL_STSC IN
+		<foreach collection="TXBIL_STSC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+		</if> 		   
+		<if test="NA_TRPL_C != null">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		<choose>
+		<when test="DT_TYPE == 1">
+		   AND A.CRT_DT BETWEEN #{STARTDT} AND #{ENDDT}
+		</when>
+		<when test="DT_TYPE == 2">
+		   AND A.RG_DT BETWEEN #{STARTDT} || '000000' AND #{ENDDT} || '999999'
+		</when>
+		</choose> 
+		<if test="RPBC_DSC != null and RPBC_DSC.length() > 0" >
+		   AND A.RPBC_DSC = #{RPBC_DSC}
+		</if>
+		<if test="NTS_TMS_SQNO != null and NTS_TMS_SQNO.length() > 0">
+		   AND A.NTS_TMS_SQNO LIKE #{NTS_TMS_SQNO} || '%'
+		</if>
+		<if test="NA_BZPLC != null and NA_BZPLC.length() > 0" >
+		   AND A.NA_BZPLC = #{NA_BZPLC} /*농협*/
+		</if>
+		<if test="SPLR_BZNO != null and SPLR_BZNO.length() > 0">
+		   AND A.SPLR_BZNO LIKE #{SPLR_BZNO} || '%'
+		</if>
+		<if test="BUY_BZNO != null and BUY_BZNO.length() > 0">
+		   AND A.BUY_BZNO LIKE #{BUY_BZNO} || '%'
+		</if>
+		<if test="NA_CLNT_TEAM_C != null and NA_CLNT_TEAM_C.length() > 0">
+		   AND A.NA_CLNT_TEAM_C = #{NA_CLNT_TEAM_C} 
+		</if>
+		<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+		   AND A.NA_TEAM_C = #{NA_TEAM_C} 
+		</if>
+	</sql>
+	
+	
+	<update id="updateEmailAddr" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET RSR_HDNG21 = #{email}
+		 WHERE PBC_SQNO = #{PBC_SQNO}
+	</update>
+
+	<insert id="reSendSms" parameterType="java.util.Map">
+		INSERT INTO /*insertSmsSend*/ SDK_SMS_SEND 
+			(
+			 MSG_ID
+			,USER_ID
+			,SCHEDULE_TYPE
+			,SUBJECT
+			,SMS_MSG
+			,SEND_DATE
+			,DEST_TYPE
+			,DEST_COUNT
+			,DEST_INFO
+			,SEND_STATUS
+			,SEND_COUNT
+			,SEND_RESULT
+			,CALLBACK
+			,RESERVED1
+			)
+			VALUES 
+			(
+			#{MSG_ID},
+			#{USER_ID},
+			#{SCHEDULE_TYPE},
+			#{SUBJECT},
+			#{SMS_MSG},
+			#{SEND_DATE},
+			#{DEST_TYPE},
+			#{DEST_COUNT},
+			#{DEST_INFO},
+			#{SEND_STATUS},
+			#{SEND_COUNT},
+			#{SEND_RESULT},
+			#{CALLBACK},
+			#{NA_TRPL_C}
+			)
+	</insert>
+	
+	
+	<!-- 
+	<insert id="reSendSms"  parameterType="java.util.Map" >
+
+        INSERT INTO SSG_SEND_TRAN_KKO
+        (
+            FSEQ                                                           /* 메시지 SEQ: PK_AutoIncrement                     */
+          , FUSERID                                                        /* USER계정                                         */
+          , FSECTIONCODE                                                   /* 계층코드: SINC로부터 부여받은 코드값. 알림톡 메이전트 하나로 여러개 시스템 사용시 각 시스템 구분자: 공란가능         */
+          , FCAMPCODE                                                      /* 캠페인코드: CRM전송등에 이용. 발송업무구분자. 참조용. 공란가능                     */
+          , FYELLOWID                                                      /* 하나로 eSC 고유 값. 고정.                        */
+          , FKKOSUBJECT                                                    /* KKO 친구톡전용 제목                              */
+          , FTEMPLATEKEY                                                   /* KKO 템플릿키                                     */
+          , FKKOBUTTON                                                     /* KKO 버튼(링크기능, JSON 이용)                    */
+          , FKKORESENDTYPE                                                 /* KKO/KKF 재발송 메시지 타입(SMS/LMS)              */
+          , FKKORESENDMSG                                                  /* KKO/KKF SMS재발송 메시지 내용                    */
+          , FMSGTYPE                                                       /* 메시지타입( 4: KKO 6: KKF 7: KKI)                */
+          , FMESSAGE                                                       /* 메시지본문                                       */
+          , FSENDDATE                                                      /* 시지 발송할 시간(예약메시지인경우 해당 예약일시) */
+          , FDESTINE                                                       /* 수신자 전화번호                                  */
+          , FCALLBACK                                                      /* 발신자 전화번호(회신번호)                        */
+        )                                                                                                                                       
+        VALUES
+        (
+             XROSHOT.SSG_SEND_TRAN_KKO_SEQ.nextval                         /* FSEQ           : 메시지 SEQ: PK_AutoIncrement                     */
+          , #{USER_ID}                                                     /* FUSERID        : USER계정                                         */
+          , 'eSCM-Web'                                                     /* FSECTIONCODE   : 계층코드: SINC로부터 부여받은 코드값 . 알림톡 메이전트 하나로 여러개 시스템 사용시 각 시스템 구분자: 공란가능             */
+          , 'reSendSms'                                                     /* FCAMPCODE      : 캠페인코드: CRM전송등에 이용.  발송업무구분자. 참조용. 공란가능   */
+          , '9d937cdaac0527a3b73f6a7f3200703d5a37813c'                     /* FYELLOWID      : 하나로 eSC 고유 값. 고정.                        */
+          , '@하나로escm'                                                     /* FKKOSUBJECT    : KKO 친구톡전용 제목                              */
+          , #{FTEMPLATEKEY}                                                /* FTEMPLATEKEY   : KKO 템플릿키                                     */
+          , ''                                                             /* FKKOBUTTON     : KKO 버튼(링크기능, JSON 이용)                    */
+          , 'SMS'                                                          /* FKKORESENDTYPE : KKO/KKF 재발송 메시지 타입(SMS/LMS)              */
+          , null                                                           /* FKKORESENDMSG  : KKO/KKF SMS재발송 메시지 내용                    */
+          , '4'                                                            /* FMSGTYPE       : 메시지타입( 4: KKO 6: KKF 7: KKI)                */
+          , #{SMS_MSG}                                                     /* FMESSAGE       : 메시지본문                                       */
+          , sysdate                                                        /* FSENDDATE      : 시지 발송할 시간(예약메시지인경우 해당 예약일시) */      
+          , #{DEST_INFO}                                                    /* FDESTINE       : 수신자 전화번호                                  */
+          , '15221211'                                                     /* FCALLBACK      : 발신자 전화번호(회신번호)                        */
+        ) 
+	 </insert>
+	 -->
+	<select id="getEmailSequence" parameterType="java.util.Map" resultType="int">
+		SELECT IM_SEQ_DMAIL_INFO_1.NEXTVAL AS SEQ FROM DUAL
+	</select>
+	
+	<insert id="reSendEmail"  parameterType="java.util.Map" >
+	 	INSERT INTO /*insertEmailSend*/ IM_DMAIL_INFO_1 
+	 	     (	
+	 			 SEQIDX
+				,SUBJECT
+				,QRY
+				,REJECT_SLIST_IDX
+				,BLOCK_GROUP_IDX
+				,MAILFROM
+				,MAILTO
+				,REPLYTO
+				,ERRORSTO
+				,HTML
+				,ENCODING
+				,CHARSET
+				,SDATE
+				,TDATE
+				,DURATION_SET
+				,CLICK_SET
+				,SITE_SET
+				,ATC_SET
+				,RNAME
+				,MTYPE
+				,U_IDX
+				,G_IDX
+				,MSGFLAG
+				,MAILIDX
+				,CONTENT
+		)VALUES (
+				#{SEQIDX},
+				#{SUBJECT},
+				#{QRY},
+				'0',
+				'0',
+				#{MAILFROM},
+				#{MAILTO},
+				#{REPLYTO},
+				#{ERRORSTO},
+				#{HTML},				
+				'0',
+				'utf-8',
+				TO_CHAR(SYSDATE, 'yyyymmddhh24miss'),
+				TO_CHAR(SYSDATE, 'yyyymmddhh24miss'),
+				'1',
+				'1',
+				'0',
+				#{ATC_SET},
+				#{RNAME},
+				#{MTYPE},
+				'1',
+				'1',
+				'0',
+				#{MAILIDX},
+				#{CONTENT,jdbcType=LONGVARCHAR}
+		)	 
+	 </insert>
+	 
+	<update id="updateReSendEamil" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET RSR_HDNG23 = #{SEQIDX}
+		 WHERE PBC_SQNO = #{PBC_SQNO}
+	</update>
+	
+	<update id="updateReSendSms" parameterType="java.util.Map">
+		UPDATE TX_TXBIL
+		   SET RSR_HDNG24 = #{MSG_ID}
+		 WHERE PBC_SQNO = #{PBC_SQNO}
+	</update>
+	
+	<insert id="insertTxNtsRpt"  parameterType="java.util.Map" >
+	 	INSERT INTO TX_NTS_RPT 
+			 ( PBC_SQNO
+		     , NTS_TMS_SQNO
+		     , TXBIL_STSC
+		     , PRC_STSC
+		     , PRC_RZT_C
+		     , PRC_MSG
+		     , PRC_YN
+		     , RSP_C_CNTN
+		     , EDI_IF_ID
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+			 )
+		VALUES 
+			 ( 
+			
+			   #{PBC_SQNO}
+			 , #{NTS_TMS_SQNO}
+			 , '05'
+			 , '01'
+			 , 'SUC001'
+			 , '발행취소'
+			 , 'N'
+			 , ''
+			 , ''
+			 , SYSDATE
+			 , #{LS_CHGM}
+			 , SYSDATE
+			 , #{LS_CHGM}
+			 ) 
+	 </insert>
+	 <select id="retrieveTaxElsgCount" parameterType="java.util.Map" resultType="int">
+		SELECT 
+			count(*) AS sign_cnt 
+		FROM 
+			TX_TXBIL_ELSG
+		WHERE
+			PBC_SQNO = (SELECT PBC_SQNO FROM TX_TXBIL WHERE PBC_SQNO =#{PBC_SQNO} AND TXBIL_STSC NOT IN ('99'))
+		AND NTS_TMS_YN = 'Y'		
+	</select>
+	
+	<select id="retrieveTaxElsgCountWithN" parameterType="java.util.Map" resultType="int">
+		SELECT 
+			count(*) AS sign_cnt 
+		FROM 
+			TX_TXBIL_ELSG
+		WHERE
+			PBC_SQNO = (SELECT PBC_SQNO FROM TX_TXBIL WHERE PBC_SQNO =#{PBC_SQNO} AND TXBIL_STSC IN ('04'))
+		AND NTS_TMS_YN = 'N'		
+	</select>
+	
+	
+	<select id="getErrorTxbilCount" parameterType="java.util.Map" resultType="int">
+		SELECT 
+			count(*) AS cnt 
+		FROM 
+			TX_TXBIL
+		WHERE
+			PBC_SQNO = #{PBC_SQNO}
+		AND TXBIL_STSC = '99'		
+	</select>
+	
+	
+	
+	<select id="getTxbilPrcRztCWithERR" parameterType="java.util.Map" resultType="int">
+		WITH TB_TXBIL_TEMP AS (
+     		SELECT NTS_TMS_SQNO,TXBIL_STSC
+       	FROM 
+       		TX_TXBIL
+		WHERE 1=1
+    		AND PBC_SQNO = #{PBC_SQNO}
+		)
+			SELECT 
+				count(*) as cnt
+  			FROM 
+  				TB_TXBIL_TEMP T,
+       			(SELECT C.NTS_TMS_SQNO, PRC_RZT_C
+          			FROM (SELECT NTS_TMS_SQNO, MAX(RSP_HR) AS LAST_RSP_HR
+                  FROM NHVANPTL.TX_NTS_SNR_INF
+                 WHERE NTS_TMS_SQNO IN (SELECT NTS_TMS_SQNO FROM TB_TXBIL_TEMP)
+                 GROUP BY NTS_TMS_SQNO
+               ) A,
+               (SELECT NTS_TMS_SQNO, RSP_HR, MAX(SMT_SQNO) AS LAST_SMT_SQNO
+                  FROM NHVANPTL.TX_NTS_SNR_INF
+                 WHERE NTS_TMS_SQNO IN (SELECT NTS_TMS_SQNO FROM TB_TXBIL_TEMP)
+                 GROUP BY NTS_TMS_SQNO, RSP_HR
+               ) B,
+               (SELECT NTS_TMS_SQNO, RSP_HR, SMT_SQNO, PRC_RZT_C
+                  FROM NHVANPTL.TX_NTS_SNR_INF
+                 WHERE NTS_TMS_SQNO IN (SELECT NTS_TMS_SQNO FROM TB_TXBIL_TEMP)
+               ) C
+         WHERE 1=1
+           AND A.NTS_TMS_SQNO = B.NTS_TMS_SQNO
+           AND B.NTS_TMS_SQNO = C.NTS_TMS_SQNO
+           AND A.NTS_TMS_SQNO = C.NTS_TMS_SQNO
+           AND A.LAST_RSP_HR = B.RSP_HR
+           AND B.LAST_SMT_SQNO = C.SMT_SQNO
+       ) D
+ 		WHERE 1=1
+   		AND T.NTS_TMS_SQNO = D.NTS_TMS_SQNO(+)
+   		AND SUBSTR(DECODE(T.TXBIL_STSC,'05','SUC001',NVL(D.PRC_RZT_C,'000000')),1,3) != 'SYN'
+	</select>
+	
+	
+	<sql id="sql_retrieveByngMon">
+		SELECT
+			  '0' AS ISCHECKED
+			, BG.ADJ_NA_BZPLC AS ADJ_NA_BZPLC
+			, BG.ADJ_BZPL_NA_TEAM_C AS ADJ_BZPL_NA_TEAM_C
+			, BG.BAS_YM AS BAS_YM
+			, BG.NA_BZPLC AS NA_BZPLC
+			, BG.NA_TEAM_C AS NA_TEAM_C
+			, BG.NA_ADJPL_C AS NA_ADJPL_C
+			, BG.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C
+			, BG.BZ_METH_DSC AS BZ_METH_DSC
+			, BG.NA_WRS_LCLC AS NA_WRS_LCLC
+			, BG.NA_WRS_MCLC AS NA_WRS_MCLC
+			, BG.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC
+			, BG.TXT_AM AS TXT_AM
+			, BG.ADJPL_NA_TRPL_N AS ADJPL_NA_TRPL_N
+			, BG.ADJPL_BIZ_NUMBER AS ADJPL_BIZ_NUMBER
+			, BG.BAS_STAT
+			, BG.BAC
+			, BI.ISSUE_SEQ AS ISSUE_SEQ
+			, BI.ISSUE_USER_ID AS ISSUE_USER_ID
+			, DECODE(NVL(BI.ISSUE_STAT, 0), 0, '미발행', 1, '발행', '취소') AS ISSUE_STAT
+			, NVL(BI.ISSUE_STAT, '0') AS ISSUE_STAT_CD
+			, BI.DRUP_DT AS DRUP_DT
+			, BI.ISSUE_DT AS ISSUE_DT
+		FROM (
+			SELECT
+				  DECODE(MON.NA_BZPLC, '8808983000015', '8808983000015', MON.ADJ_NA_BZPLC) AS ADJ_NA_BZPLC
+				, MON.ADJ_BZPL_NA_TEAM_C AS ADJ_BZPL_NA_TEAM_C
+				, MON.BAS_YM AS BAS_YM/* 기준월 */
+				, MON.NA_BZPLC AS NA_BZPLC
+				, MON.NA_TEAM_C AS NA_TEAM_C
+				, MON.NA_ADJPL_C AS NA_ADJPL_C/* 공급거래처코드 */
+				, MON.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C
+				, MON.BZ_METH_DSC AS BZ_METH_DSC
+				, MON.NA_WRS_LCLC AS NA_WRS_LCLC
+				, MON.NA_WRS_MCLC AS NA_WRS_MCLC
+				, MON.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC
+				, MON.TXT_AM AS TXT_AM
+				, CIF.CLNTNM AS ADJPL_NA_TRPL_N/* 공급거래처명 */
+				, ACIF.BIZ_NUMBER AS ADJPL_BIZ_NUMBER
+				, BS.BAS_STAT AS BAS_STAT
+				, SUM(MON.BAC) BAC
+			FROM 
+		     TB_DE_BYNG_MON MON
+        	,TB_TAXBIL_BAS_SVC BS
+		    ,TB_TR_TRPL_CIF CIF
+		    ,TB_TR_TRPL_CIF ACIF
+			WHERE 1=1
+	        AND MON.ADJ_NA_BZPLC = BS.ADJ_NA_BZPLC(+)
+	        AND MON.ADJ_BZPL_NA_TEAM_C = BS.ADJ_BZPL_NA_TEAM_C(+)
+	        AND MON.BAS_YM = BS.BAS_YM (+)/* 기준월 */
+	        AND MON.NA_BZPLC = BS.NA_BZPLC(+)
+	        AND MON.NA_TEAM_C = BS.NA_TEAM_C(+)
+	        AND MON.NA_ADJPL_C  = BS.NA_ADJPL_C(+)/* 공급거래처코드 */
+	        AND MON.ADJPL_NA_TEAM_C = BS.ADJPL_NA_TEAM_C(+)
+	        AND MON.BZ_METH_DSC = BS.BZ_METH_DSC(+)
+	        AND MON.NA_WRS_LCLC = BS.NA_WRS_LCLC(+)
+	        AND MON.NA_WRS_MCLC = BS.NA_WRS_MCLC(+)
+	        AND MON.NA_BLB_DFC_DSC = BS.NA_BLB_DFC_DSC(+)
+		    AND MON.NA_ADJPL_C = CIF.NA_TRPL_C
+		    AND MON.NA_ADJPL_C = ACIF.NA_TRPL_C
+		    AND MON.NA_BLB_DFC_DSC = '*' 
+		    AND DECODE(MON.NA_BZPLC, '8808983000015', '8808983000015', MON.ADJ_NA_BZPLC) = '8808983000015'
+		    GROUP BY DECODE(MON.NA_BZPLC, '8808983000015', '8808983000015', MON.ADJ_NA_BZPLC)
+			    , MON.ADJ_BZPL_NA_TEAM_C, MON.BAS_YM, MON.NA_BZPLC, MON.NA_TEAM_C, MON.NA_ADJPL_C, MON.ADJPL_NA_TEAM_C
+			    , MON.BZ_METH_DSC, MON.NA_WRS_LCLC, MON.NA_WRS_MCLC, MON.NA_BLB_DFC_DSC, MON.TXT_AM
+			    , CIF.CLNTNM, ACIF.BIZ_NUMBER, BS.BAS_STAT
+		) BG, (
+			SELECT 
+				  ADJ_NA_BZPLC
+				, ADJ_BZPL_NA_TEAM_C
+				, BAS_YM
+				, NA_BZPLC
+				, NA_TEAM_C
+				, NA_ADJPL_C
+				, ADJPL_NA_TEAM_C
+				, BZ_METH_DSC
+				, NA_WRS_LCLC
+				, NA_WRS_MCLC
+				, NA_BLB_DFC_DSC
+				, MAX(ISSUE_SEQ) OVER(PARTITION BY ADJ_NA_BZPLC, ADJ_BZPL_NA_TEAM_C, BAS_YM, NA_BZPLC, NA_TEAM_C, NA_ADJPL_C, ADJPL_NA_TEAM_C, BZ_METH_DSC, NA_WRS_LCLC, NA_WRS_MCLC, NA_BLB_DFC_DSC) AS ISSUE_SEQ
+				, ISSUE_SEQ AS SEQ
+				, ISSUE_STAT
+				, ISSUE_USER_ID
+				, DRUP_DT
+				, ISSUE_DT
+			FROM TB_DE_BYNG_ISSUE_HIS
+			WHERE 1=1
+		) BI
+		WHERE 1=1
+		AND BG.ADJ_NA_BZPLC = BI.ADJ_NA_BZPLC(+)
+		AND BG.ADJ_BZPL_NA_TEAM_C = BI.ADJ_BZPL_NA_TEAM_C(+)
+		AND BG.BAS_YM = BI.BAS_YM (+)/* 기준월 */
+		AND BG.NA_BZPLC = BI.NA_BZPLC(+)
+		AND BG.NA_TEAM_C = BI.NA_TEAM_C(+)
+		AND BG.NA_ADJPL_C  = BI.NA_ADJPL_C(+)/* 공급거래처코드 */
+		AND BG.ADJPL_NA_TEAM_C = BI.ADJPL_NA_TEAM_C(+)
+		AND BG.BZ_METH_DSC = BI.BZ_METH_DSC(+)
+		AND BG.NA_WRS_LCLC = BI.NA_WRS_LCLC(+)
+		AND BG.NA_WRS_MCLC = BI.NA_WRS_MCLC(+)
+		AND BG.NA_BLB_DFC_DSC = BI.NA_BLB_DFC_DSC(+)
+		AND NVL(BI.SEQ, 1) = NVL(BI.ISSUE_SEQ, 1)
+		<!-- 
+			관리부 담당은 전체 사업장 조회
+			담당자 소속은 반드시 상품본부여야함(8808983000015) - 다른 소속일 시 채권채무발행 데이터 INSERT 안됨 
+		-->
+		AND DECODE(#{USER_ID}, (SELECT MB_ID FROM MG_HUR_INF WHERE BSN_DSC = 'BAS' AND UYN = 'Y'), (SELECT NA_TRPL_C FROM PT_USR_INF WHERE MB_ID = #{USER_ID} AND USR_TPC = '02'), BG.ADJ_NA_BZPLC )  = (SELECT NA_TRPL_C FROM PT_USR_INF WHERE MB_ID = #{USER_ID} AND USR_TPC = '02')
+		<if test="BAS_YM != null and BAS_YM.length() > 0">
+			<choose>
+				<when test="BAS_YM2 != null and BAS_YM2.length() > 0">
+					AND BG.BAS_YM BETWEEN #{BAS_YM} AND #{BAS_YM2}
+				</when>
+				<otherwise>
+					AND BG.BAS_YM = #{BAS_YM}
+				</otherwise>
+			</choose>
+		</if>
+		<if test="ADJPL_BIZ_NUMBER != null and ADJPL_BIZ_NUMBER.length() > 0">
+			AND BG.ADJPL_BIZ_NUMBER = #{ADJPL_BIZ_NUMBER}
+		</if>
+		<if test="NA_ADJPL_C != null and NA_ADJPL_C.length() > 0">
+			AND BG.NA_ADJPL_C = #{NA_ADJPL_C}
+		</if>
+		<if test="ISSUE_STAT != null and ISSUE_STAT.length() > 0">
+			AND NVL(BI.ISSUE_STAT, '0') = ${ISSUE_STAT}
+		</if>
+	</sql>
+	
+	<select id="retrieveByngMon" parameterType="map" resultMap="ByngMonMap">
+		<bind name="sortName" value="'NA_ADJPL_C, BAS_YM, ISSUE_DT DESC'" />
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveByngMon" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveByngMonCount" parameterType="java.util.Map" resultType="int">
+		SELECT
+			NVL(COUNT(BAC), 0) AS BAC
+		FROM (
+			<include refid="sql_retrieveByngMon" />
+		)
+	</select>
+	
+	<!-- 
+	             잔액장 발행내역 엑셀 다운로드 
+	 -->
+	<select id="downloadExcelByngMon" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+	    <include refid="sql_retrieveByngMon" />
+	</select>
+	
+	<select id="getByngMonSumBacAm" parameterType="map" resultType="long">
+		SELECT
+			NVL(SUM(BAC), 0) AS BAC
+		FROM (
+			<include refid="sql_retrieveByngMon" />
+		)
+	</select>
+	
+	<insert id="insertByngHis" parameterType="map">
+		INSERT INTO  TB_DE_BYNG_ISSUE_HIS
+		(
+			 ADJ_NA_BZPLC
+		    ,ADJ_BZPL_NA_TEAM_C
+		    ,BAS_YM
+		    ,NA_BZPLC
+		    ,NA_TEAM_C
+		    ,NA_ADJPL_C
+		    ,ADJPL_NA_TEAM_C
+		    ,BZ_METH_DSC
+		    ,NA_WRS_LCLC
+		    ,NA_WRS_MCLC
+		    ,NA_BLB_DFC_DSC
+		    ,ISSUE_SEQ
+		    ,ISSUE_USER_ID
+		    ,ISSUE_STAT
+		    ,DRUP_DT
+		    ,ISSUE_DT
+		)
+		VALUES
+		(
+			 #{ADJ_NA_BZPLC}
+		    ,#{ADJ_BZPL_NA_TEAM_C}
+		    ,#{BAS_YM}
+		    ,#{NA_BZPLC}
+		    ,#{NA_TEAM_C}
+		    ,#{NA_ADJPL_C}
+		    ,#{ADJPL_NA_TEAM_C}
+		    ,#{BZ_METH_DSC}
+		    ,#{NA_WRS_LCLC}
+		    ,#{NA_WRS_MCLC}
+		    ,#{NA_BLB_DFC_DSC}
+		    ,(
+		    	SELECT 
+		    		NVL(MAX(NVL(ISSUE_SEQ, 0)), 0) + 1 
+		    	FROM TB_DE_BYNG_ISSUE_HIS 
+		    	WHERE 1=1
+		    		AND ADJ_NA_BZPLC = #{ADJ_NA_BZPLC}
+				    AND ADJ_BZPL_NA_TEAM_C = #{ADJ_BZPL_NA_TEAM_C}
+				    AND BAS_YM = #{BAS_YM}
+				    AND NA_BZPLC = #{NA_BZPLC}
+				    AND NA_TEAM_C = #{NA_TEAM_C}
+				    AND NA_ADJPL_C = #{NA_ADJPL_C}
+				    AND ADJPL_NA_TEAM_C = #{ADJPL_NA_TEAM_C}
+				    AND BZ_METH_DSC = #{BZ_METH_DSC}
+				    AND NA_WRS_LCLC = #{NA_WRS_LCLC}
+				    AND NA_WRS_MCLC = #{NA_WRS_MCLC}
+				    AND NA_BLB_DFC_DSC = #{NA_BLB_DFC_DSC}
+				
+		     )
+		    ,#{ISSUE_USER_ID}
+		    ,#{ISSUE_STAT}
+		    ,#{DRUP_DT}
+		    ,#{ISSUE_DT}	
+		)
+	</insert>
+	
+	<insert id="insertTxbilBasSvc" parameterType="map">
+			INSERT INTO TB_TAXBIL_BAS_SVC
+		    (
+		       ADJ_NA_BZPLC
+		      ,ADJ_BZPL_NA_TEAM_C
+		      ,BAS_YM
+		      ,NA_BZPLC
+		      ,NA_TEAM_C
+		      ,NA_ADJPL_C
+		      ,ADJPL_NA_TEAM_C
+		      ,BZ_METH_DSC
+		      ,NA_WRS_LCLC
+		      ,NA_WRS_MCLC
+		      ,NA_BLB_DFC_DSC
+		      ,CROV_AM
+		      ,TXT_AM
+		      ,TXT_VAT
+		      ,EXTX_AM
+		      ,SMA_AM
+		      ,LIQ_SPY_AM
+		      ,LIQ_SPY_VAT
+		      ,VCBT_AM
+		      ,VCBX_AM
+		      ,STOG_AM
+		      ,CBAM
+		      ,ETC_STL_AM
+		      ,PPY_AM
+		      ,BYNG_DC_AM
+		      ,MAD_AM
+		      ,PY_AM
+		      ,PY_CAN_AM
+		      ,BAC
+		      ,DLAY_INT_OCU_AM
+		      ,DLAY_INT_PY_AM
+		      ,MRG_AM
+		      ,MRG_DLAY_INT
+		      ,SPY_AM
+		      ,DB_CRC_AM
+		      ,CR_CRC_AM
+		      ,BYNG_SSDY
+		      ,AMN_FEE
+		      ,AMN_FEE_VAT
+		      ,PHD_FEE
+		      ,PHD_FEE_VAT
+		      ,AFF_SSDY
+		      ,PHD_AFF_SSDY
+		      ,VCBT_RTU_AM
+		      ,VCBX_RTU_AM
+		      ,VPLTT_RTU_AM
+		      ,RTU_FEE
+		      ,RTU_FEE_VAT
+		      ,MCDBD_AM
+		      ,SEL_SSDY
+		      ,ETR_FEE_ARG_AM
+		      ,DLAYPZ
+		      ,PY_ETC_AM
+		      ,VPLTT_AM
+		      ,BZPLC_CORP_NO
+		      ,BZPLC_CORP_NM
+		      ,BZPLC_ADDR
+		      ,BZPLC_CHRG_NM
+		      ,BZPLC_NA_TEAM_NM
+		      ,BZPLC_CHRG_MPNO
+		      ,BZPLC_TELNO
+		      ,BAS_STAT
+		      ,ISSUE_USER_ID
+		      ,ISSUE_DT
+		    )
+			  SELECT
+					   BG.ADJ_NA_BZPLC AS ADJ_NA_BZPLC
+					  ,BG.ADJ_BZPL_NA_TEAM_C AS ADJ_BZPL_NA_TEAM_C
+					  ,BG.BAS_YM AS BAS_YM
+					  ,BG.NA_BZPLC AS NA_BZPLC
+					  ,BG.NA_TEAM_C AS NA_TEAM_C
+					  ,BG.NA_ADJPL_C AS NA_ADJPL_C
+					  ,BG.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C
+					  ,BG.BZ_METH_DSC AS BZ_METH_DSC
+					  ,BG.NA_WRS_LCLC AS NA_WRS_LCLC
+					  ,BG.NA_WRS_MCLC AS NA_WRS_MCLC
+					  ,BG.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC
+					  ,BG.CROV_AM
+				      ,BG.TXT_AM
+				      ,BG.TXT_VAT
+				      ,BG.EXTX_AM
+				      ,BG.SMA_AM
+				      ,BG.LIQ_SPY_AM
+				      ,BG.LIQ_SPY_VAT
+				      ,BG.VCBT_AM
+				      ,BG.VCBX_AM
+				      ,BG.STOG_AM
+				      ,BG.CBAM
+				      ,BG.ETC_STL_AM
+				      ,BG.PPY_AM
+				      ,BG.BYNG_DC_AM
+				      ,BG.MAD_AM
+				      ,BG.PY_AM
+				      ,BG.PY_CAN_AM
+				      ,BG.BAC
+				      ,BG.DLAY_INT_OCU_AM
+				      ,BG.DLAY_INT_PY_AM
+				      ,BG.MRG_AM
+				      ,BG.MRG_DLAY_INT
+				      ,BG.SPY_AM
+				      ,BG.DB_CRC_AM
+				      ,BG.CR_CRC_AM
+				      ,BG.BYNG_SSDY
+				      ,BG.AMN_FEE
+				      ,BG.AMN_FEE_VAT
+				      ,BG.PHD_FEE
+				      ,BG.PHD_FEE_VAT
+				      ,BG.AFF_SSDY
+				      ,BG.PHD_AFF_SSDY
+				      ,BG.VCBT_RTU_AM
+				      ,BG.VCBX_RTU_AM
+				      ,BG.VPLTT_RTU_AM
+				      ,BG.RTU_FEE
+				      ,BG.RTU_FEE_VAT
+				      ,BG.MCDBD_AM
+				      ,BG.SEL_SSDY
+				      ,BG.ETR_FEE_ARG_AM
+				      ,BG.DLAYPZ
+				      ,BG.PY_ETC_AM
+				      ,BG.VPLTT_AM      
+				      ,BZPL.TRPL_CORP_NO AS BZPL_CORP_NO
+				      ,BZPL.TRPL_CORP_NM AS BZPL_CORP_NM
+				      ,BZPL.TRPL_ADDR AS BZPL_ADDR
+				      ,BZPL.TRPL_CHRG_NM AS BZPL_CHRG_NM
+				      ,BZPL.TRPL_NA_TEAM_NM AS BZPL_NA_TEAM_NM
+				      ,BZPL.TRPL_CHRG_MPNO AS BZPL_CHRG_MPNO
+				      ,BZPL.TRPL_TELNO AS BZPL_TELNO
+				      ,'0'
+				      ,BI.ISSUE_USER_ID
+				      ,#{ISSUE_DT}
+			FROM
+					(
+					  SELECT
+					     MON.ADJ_NA_BZPLC AS ADJ_NA_BZPLC
+					    ,MON.ADJ_BZPL_NA_TEAM_C AS ADJ_BZPL_NA_TEAM_C
+					    ,MON.BAS_YM AS BAS_YM/* 기준월 */
+					    ,MON.NA_BZPLC AS NA_BZPLC
+					    ,MON.NA_TEAM_C AS NA_TEAM_C
+					    ,MON.NA_ADJPL_C AS NA_ADJPL_C/* 공급거래처코드 */
+					    ,MON.ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C
+					    ,MON.BZ_METH_DSC AS BZ_METH_DSC
+					    ,MON.NA_WRS_LCLC AS NA_WRS_LCLC
+					    ,MON.NA_WRS_MCLC AS NA_WRS_MCLC
+					    ,MON.NA_BLB_DFC_DSC AS NA_BLB_DFC_DSC
+				        ,MON.CROV_AM
+				        ,MON.TXT_AM AS TXT_AM
+				        ,MON.TXT_VAT
+				        ,MON.EXTX_AM
+				        ,MON.SMA_AM
+				        ,MON.LIQ_SPY_AM
+				        ,MON.LIQ_SPY_VAT
+				        ,MON.VCBT_AM
+				        ,MON.VCBX_AM
+				        ,MON.STOG_AM
+				        ,MON.CBAM
+				        ,MON.ETC_STL_AM
+				        ,MON.PPY_AM
+				        ,MON.BYNG_DC_AM
+				        ,MON.MAD_AM
+				        ,MON.PY_AM
+				        ,MON.PY_CAN_AM
+				        ,MON.BAC
+				        ,MON.DLAY_INT_OCU_AM
+				        ,MON.DLAY_INT_PY_AM
+				        ,MON.MRG_AM
+				        ,MON.MRG_DLAY_INT
+				        ,MON.SPY_AM
+				        ,MON.DB_CRC_AM
+				        ,MON.CR_CRC_AM
+				        ,MON.BYNG_SSDY
+				        ,MON.AMN_FEE
+				        ,MON.AMN_FEE_VAT
+				        ,MON.PHD_FEE
+				        ,MON.PHD_FEE_VAT
+				        ,MON.AFF_SSDY
+				        ,MON.PHD_AFF_SSDY
+				        ,MON.VCBT_RTU_AM
+				        ,MON.VCBX_RTU_AM
+				        ,MON.VPLTT_RTU_AM
+				        ,MON.RTU_FEE
+				        ,MON.RTU_FEE_VAT
+				        ,MON.MCDBD_AM
+				        ,MON.SEL_SSDY
+				        ,MON.ETR_FEE_ARG_AM
+				        ,MON.DLAYPZ
+				        ,MON.PY_ETC_AM
+				        ,MON.VPLTT_AM
+					    ,CIF.CLNTNM AS ADJPL_NA_TRPL_N/* 공급거래처명 */
+					    ,ACIF.BIZ_NUMBER AS ADJPL_BIZ_NUMBER
+					  FROM 
+					     TB_DE_BYNG_MON MON
+					    ,TB_TR_TRPL_CIF CIF
+					    ,TB_TR_TRPL_CIF ACIF
+					  WHERE 1=1
+					    AND MON.NA_ADJPL_C = CIF.NA_TRPL_C
+					    AND MON.NA_ADJPL_C = ACIF.NA_TRPL_C
+					    AND MON.NA_BLB_DFC_DSC = '*' 
+					) BG,
+					(
+					  SELECT 
+					     ADJ_NA_BZPLC
+					    ,ADJ_BZPL_NA_TEAM_C
+					    ,BAS_YM
+					    ,NA_BZPLC
+					    ,NA_TEAM_C
+					    ,NA_ADJPL_C
+					    ,ADJPL_NA_TEAM_C
+					    ,BZ_METH_DSC
+					    ,NA_WRS_LCLC
+					    ,NA_WRS_MCLC
+					    ,NA_BLB_DFC_DSC
+					    ,MAX(ISSUE_SEQ) OVER(PARTITION BY ADJ_NA_BZPLC, ADJ_BZPL_NA_TEAM_C, BAS_YM, NA_BZPLC, NA_TEAM_C, NA_ADJPL_C, ADJPL_NA_TEAM_C, BZ_METH_DSC, NA_WRS_LCLC, NA_WRS_MCLC, NA_BLB_DFC_DSC) AS ISSUE_SEQ
+					    ,ISSUE_SEQ AS SEQ
+					    ,ISSUE_STAT
+					    ,ISSUE_USER_ID
+					    ,DRUP_DT
+					    ,ISSUE_DT
+					  FROM
+					    TB_DE_BYNG_ISSUE_HIS
+					  WHERE 1=1
+					) BI,
+			    (
+			      SELECT 
+			         TC.NA_TRPL_C AS NA_TRPl_C
+			        ,TC.BIZ_NUMBER AS TRPL_CORP_NO
+			        ,TC.CLNTNM AS TRPL_CORP_NM
+			        ,DONGUP || ' ' || DONGBW AS TRPL_ADDR
+			        ,UI.USR_NM AS TRPL_CHRG_NM
+			        ,'' AS TRPL_NA_TEAM_NM
+			        ,USR_MPNO AS TRPL_CHRG_MPNO
+			        ,USR_TELNO AS TRPL_TELNO
+			        ,UI.MB_ID AS MB_ID
+			      FROM 
+			        PT_USR_INF UI,
+			        TB_TR_TRPL_CIF TC
+			      WHERE 1=1
+			        AND UI.NA_TRPL_C = TC.NA_TRPL_C
+			        AND USR_TPC = '02'
+			    ) BZPL
+			  WHERE 1=1
+			    AND BZPL.NA_TRPl_C = BG.ADJ_NA_BZPLC
+			    AND BZPL.MB_ID = BI.ISSUE_USER_ID
+			    AND BG.ADJ_NA_BZPLC = BI.ADJ_NA_BZPLC(+)
+			    AND BG.ADJ_BZPL_NA_TEAM_C = BI.ADJ_BZPL_NA_TEAM_C(+)
+			    AND BG.BAS_YM = BI.BAS_YM (+)/* 기준월 */
+			    AND BG.NA_BZPLC = BI.NA_BZPLC(+)
+			    AND BG.NA_TEAM_C = BI.NA_TEAM_C(+)
+			    AND BG.NA_ADJPL_C  = BI.NA_ADJPL_C(+)/* 공급거래처코드 */
+			    AND BG.ADJPL_NA_TEAM_C = BI.ADJPL_NA_TEAM_C(+)
+			    AND BG.BZ_METH_DSC = BI.BZ_METH_DSC(+)
+			    AND BG.NA_WRS_LCLC = BI.NA_WRS_LCLC(+)
+			    AND BG.NA_WRS_MCLC = BI.NA_WRS_MCLC(+)
+			    AND BG.NA_BLB_DFC_DSC = BI.NA_BLB_DFC_DSC(+)
+			    AND NVL(BI.SEQ, 1) = NVL(BI.ISSUE_SEQ, 1)
+			    AND BG.ADJ_NA_BZPLC = #{ADJ_NA_BZPLC}
+				AND BG.ADJ_BZPL_NA_TEAM_C = #{ADJ_BZPL_NA_TEAM_C}
+				AND BG.BAS_YM = #{BAS_YM}
+				AND BG.NA_BZPLC = #{NA_BZPLC}
+				AND BG.NA_TEAM_C = #{NA_TEAM_C}
+				AND BG.NA_ADJPL_C = #{NA_ADJPL_C}
+				AND BG.ADJPL_NA_TEAM_C = #{ADJPL_NA_TEAM_C}
+				AND BG.BZ_METH_DSC = #{BZ_METH_DSC}
+				AND BG.NA_WRS_LCLC = #{NA_WRS_LCLC}
+				AND BG.NA_WRS_MCLC = #{NA_WRS_MCLC}
+				AND BG.NA_BLB_DFC_DSC = #{NA_BLB_DFC_DSC}
+			    AND BI.ISSUE_STAT = '1'				 
+	</insert>
+	
+	<update id="updateCnfMSign" parameterType="map">
+		UPDATE TB_TAXBIL_BAS_SVC
+		SET
+		  (
+		   TRPL_CORP_NO
+		  ,TRPL_CORP_NM
+		  ,TRPL_ADDR
+		  ,TRPL_CHRG_NM
+		  ,TRPL_NA_TEAM_NM
+		  ,TRPL_CHRG_MPNO
+		  ,TRPL_TELNO
+		  ) = 
+		  (
+		    SELECT 
+		       TC.BIZ_NUMBER AS TRPL_CORP_NO
+		      ,TC.CLNTNM AS TRPL_CORP_NM
+		      ,DONGUP || ' ' || DONGBW AS TRPL_ADDR
+		      ,UI.USR_NM AS TRPL_CHRG_NM
+		      ,'' AS TRPL_NA_TEAM_NM
+		      ,USR_MPNO AS TRPL_CHRG_MPNO
+		      ,USR_TELNO AS TRPL_TELNO
+		    FROM 
+		      PT_USR_INF UI,
+		      TB_TR_TRPL_CIF TC
+		    WHERE 1=1
+		      AND UI.NA_TRPL_C = TC.NA_TRPL_C
+		      AND UI.MB_ID = #{CNFM_SIGN_USER_ID}
+		      AND USR_TPC = '01'
+		  )
+		    ,CNFM_SIGN_USER_ID 	= #{CNFM_SIGN_USER_ID}
+			,CNFM_SIGN_DATA 		= #{CNFM_SIGN_DATA}
+			,CNFM_DT 					= #{CNFM_DT}
+			,BAS_STAT 				= #{BAS_STAT}
+		WHERE 1=1
+			AND ADJ_NA_BZPLC				= #{ADJ_NA_BZPLC}
+			AND ADJ_BZPL_NA_TEAM_C 	= #{ADJ_BZPL_NA_TEAM_C}
+			AND BAS_YM 						= #{BAS_YM}
+			AND NA_BZPLC 					= #{NA_BZPLC}
+			AND NA_TEAM_C 					= #{NA_TEAM_C}
+			AND NA_ADJPL_C 					= #{NA_ADJPL_C}
+			AND ADJPL_NA_TEAM_C 		= #{ADJPL_NA_TEAM_C}
+			AND BZ_METH_DSC 				= #{BZ_METH_DSC}
+			AND NA_WRS_LCLC 				= #{NA_WRS_LCLC}
+			AND NA_WRS_MCLC 				= #{NA_WRS_MCLC}
+			AND NA_BLB_DFC_DSC 			= #{NA_BLB_DFC_DSC}
+	</update>
+	
+	<sql id="sql_retrieveBasSvc" >
+		SELECT
+		      '0' AS ISCHECKED
+			, BS.ADJ_NA_BZPLC
+			, TC.CLNTNM AS ADJ_NA_BZPLC_N 
+			, BS.ADJ_BZPL_NA_TEAM_C
+			, BS.BAS_YM
+			, BS.NA_BZPLC
+			, BS.NA_TEAM_C
+			, BS.NA_ADJPL_C
+			, TCA.CLNTNM AS NA_ADJPL_N
+			, BS.ADJPL_NA_TEAM_C
+			, BS.BZ_METH_DSC
+			, BS.NA_WRS_LCLC
+			, BS.NA_WRS_MCLC
+			, BS.NA_BLB_DFC_DSC
+			, BS.CROV_AM
+			, BS.TXT_AM
+			, BS.TXT_VAT
+			, BS.EXTX_AM
+			, BS.SMA_AM
+			, BS.LIQ_SPY_AM
+			, BS.LIQ_SPY_VAT
+			, BS.VCBT_AM
+			, BS.VCBX_AM
+			, BS.STOG_AM
+			, BS.CBAM
+			, BS.ETC_STL_AM
+			, BS.PPY_AM
+			, BS.BYNG_DC_AM
+			, BS.MAD_AM
+			, BS.PY_AM
+			, BS.PY_CAN_AM
+			, BS.BAC
+			, BS.DLAY_INT_OCU_AM
+			, BS.DLAY_INT_PY_AM
+			, BS.MRG_AM
+			, BS.MRG_DLAY_INT
+			, BS.SPY_AM
+			, BS.DB_CRC_AM
+			, BS.CR_CRC_AM
+			, BS.BYNG_SSDY
+			, BS.AMN_FEE
+			, BS.AMN_FEE_VAT
+			, BS.PHD_FEE
+			, BS.PHD_FEE_VAT
+			, BS.AFF_SSDY
+			, BS.PHD_AFF_SSDY
+			, BS.VCBT_RTU_AM
+			, BS.VCBX_RTU_AM
+			, BS.VPLTT_RTU_AM
+			, BS.RTU_FEE
+			, BS.RTU_FEE_VAT
+			, BS.MCDBD_AM
+			, BS.SEL_SSDY
+			, BS.ETR_FEE_ARG_AM
+			, BS.DLAYPZ
+			, BS.PY_ETC_AM
+			, BS.VPLTT_AM
+			, BS.TRPL_CORP_NO
+			, BS.TRPL_CORP_NM
+			, BS.TRPL_ADDR
+			, BS.TRPL_CHRG_NM
+			, BS.TRPL_NA_TEAM_NM
+			, ECL_DECRYPT(BS.TRPL_CHRG_MPNO) AS TRPL_CHRG_MPNO
+			, BS.TRPL_TELNO
+			, BS.BZPLC_CORP_NO
+			, BS.BZPLC_CORP_NM
+			, BS.BZPLC_ADDR
+			, BS.BZPLC_CHRG_NM
+			, BS.BZPLC_NA_TEAM_NM
+			, BS.BZPLC_CHRG_MPNO
+			, BS.BZPLC_TELNO
+			, BS.BAS_STAT
+			, BS.ISSUE_DT
+			, BS.CNFM_SIGN_USER_ID
+			, BS.CNFM_SIGN_DATA
+			, BS.CNFM_DT
+		FROM 
+			TB_TAXBIL_BAS_SVC BS,
+			TB_TR_TRPL_CIF TC,
+			TB_TR_TRPL_CIF TCA
+		WHERE 1=1 
+		AND BS.ADJ_NA_BZPLC = TC.NA_TRPL_C
+		AND BS.NA_ADJPL_C = TCA.NA_TRPL_C
+		AND BS.NA_ADJPL_C IN 
+		<foreach collection="NA_ADJPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="ADJ_NA_BZPLC != null and ADJ_NA_BZPLC.length() > 0">
+			AND BS.ADJ_NA_BZPLC = #{ADJ_NA_BZPLC}
+		</if>
+		<if test="BAS_YM != null and BAS_YM.length() > 0">
+			AND BS.BAS_YM = #{BAS_YM}
+		</if>
+		<if test="BAS_STAT != null and BAS_STAT.length() > 0">
+			AND BS.BAS_STAT = #{BAS_STAT}
+		</if>
+		<if test="BZPLC_CORP_NO != null and BZPLC_CORP_NO.length() > 0">
+			AND (BS.BZPLC_CORP_NO = #{BZPLC_CORP_NO}
+			OR NVL(BS.BZPLC_CORP_NO, #{BZPLC_CORP_NO}) = #{BZPLC_CORP_NO})
+		</if>
+	</sql>
+	
+	<select id="retrieveBasSvc" parameterType="map" resultMap="BasSvcMap">
+		<bind name="sortName" value="'BAS_YM, BAS_STAT DESC'" />
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveBasSvc" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveBasSvcCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveBasSvc" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="getBasSvcSum" parameterType="map" resultType="long">
+		SELECT
+			NVL(SUM(BAC), 0) AS BAC
+		FROM (
+			<include refid="sql_retrieveBasSvc" />
+		)
+	</select>
+	
+	<update id="upadteStatBasSvc" parameterType="map">
+		UPDATE TB_TAXBIL_BAS_SVC
+		SET 
+			BAS_STAT = #{BAS_STAT}
+		WHERE 1=1
+			AND BAS_STAT = '0'
+			AND ADJ_NA_BZPLC				= #{ADJ_NA_BZPLC}
+			AND ADJ_BZPL_NA_TEAM_C 	= #{ADJ_BZPL_NA_TEAM_C}
+			AND BAS_YM 						= #{BAS_YM}
+			AND NA_BZPLC 					= #{NA_BZPLC}
+			AND NA_TEAM_C 					= #{NA_TEAM_C}
+			AND NA_ADJPL_C 					= #{NA_ADJPL_C}
+			AND ADJPL_NA_TEAM_C 		= #{ADJPL_NA_TEAM_C}
+			AND BZ_METH_DSC 				= #{BZ_METH_DSC}
+			AND NA_WRS_LCLC 				= #{NA_WRS_LCLC}
+			AND NA_WRS_MCLC 				= #{NA_WRS_MCLC}
+			AND NA_BLB_DFC_DSC 			= #{NA_BLB_DFC_DSC}
+	</update>
+	
+	<select id="getBasSvc" parameterType="map" resultMap="BasSvcMap">
+		SELECT
+			 ADJ_NA_BZPLC 
+			,ADJ_BZPL_NA_TEAM_C
+			,BAS_YM
+			,NA_BZPLC
+			,NA_TEAM_C
+			,NA_ADJPL_C
+			,ADJPL_NA_TEAM_C
+			,BZ_METH_DSC
+			,NA_WRS_LCLC
+			,NA_WRS_MCLC
+			,NA_BLB_DFC_DSC
+			,CROV_AM
+			,TXT_AM
+			,TXT_VAT
+			,EXTX_AM
+			,SMA_AM
+			,LIQ_SPY_AM
+			,LIQ_SPY_VAT
+			,VCBT_AM
+			,VCBX_AM
+			,STOG_AM
+			,CBAM
+			,ETC_STL_AM
+			,PPY_AM
+			,BYNG_DC_AM
+			,MAD_AM
+			,PY_AM
+			,PY_CAN_AM
+			,BAC
+			,DLAY_INT_OCU_AM
+			,DLAY_INT_PY_AM
+			,MRG_AM
+			,MRG_DLAY_INT
+			,SPY_AM
+			,DB_CRC_AM
+			,CR_CRC_AM
+			,BYNG_SSDY
+			,AMN_FEE
+			,AMN_FEE_VAT
+			,PHD_FEE
+			,PHD_FEE_VAT
+			,AFF_SSDY
+			,PHD_AFF_SSDY
+			,VCBT_RTU_AM
+			,VCBX_RTU_AM
+			,VPLTT_RTU_AM
+			,RTU_FEE
+			,RTU_FEE_VAT
+			,MCDBD_AM
+			,SEL_SSDY
+			,ETR_FEE_ARG_AM
+			,DLAYPZ
+			,PY_ETC_AM
+			,VPLTT_AM
+			,TRPL_CORP_NO
+			,TRPL_CORP_NM
+			,TRPL_ADDR
+			,TRPL_CHRG_NM
+			,TRPL_NA_TEAM_NM
+			,ECL_DECRYPT(TRPL_CHRG_MPNO) AS TRPL_CHRG_MPNO
+			,TRPL_TELNO
+			,BZPLC_CORP_NO
+			,BZPLC_CORP_NM
+			,BZPLC_ADDR
+			,BZPLC_CHRG_NM
+			,BZPLC_NA_TEAM_NM
+			,BZPLC_CHRG_MPNO
+			,BZPLC_TELNO
+			,BAS_STAT
+			,ISSUE_USER_ID
+			,ISSUE_DT
+			,CNFM_SIGN_USER_ID
+			,CNFM_SIGN_DATA
+			,CNFM_DT
+		FROM 
+			TB_TAXBIL_BAS_SVC
+		WHERE 1=1
+			AND ADJ_NA_BZPLC				= #{ADJ_NA_BZPLC}
+			AND ADJ_BZPL_NA_TEAM_C 	= #{ADJ_BZPL_NA_TEAM_C}
+			AND BAS_YM 						= #{BAS_YM}
+			AND NA_BZPLC 					= #{NA_BZPLC}
+			AND NA_TEAM_C 					= #{NA_TEAM_C}
+			AND NA_ADJPL_C 					= #{NA_ADJPL_C}
+			AND ADJPL_NA_TEAM_C 		= #{ADJPL_NA_TEAM_C}
+			AND BZ_METH_DSC 				= #{BZ_METH_DSC}
+			AND NA_WRS_LCLC 				= #{NA_WRS_LCLC}
+			AND NA_WRS_MCLC 				= #{NA_WRS_MCLC}
+			AND NA_BLB_DFC_DSC 			= #{NA_BLB_DFC_DSC}
+			AND BAS_STAT 					= #{BAS_STAT}
+	</select>
+	
+	<!-- 월잔액장 미확인 건 팝업 -->
+	<select id="retrieveBasSvcStatCount"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			  BS.BAS_YM
+			, SUM( CASE BS.BAS_STAT WHEN '0' THEN 1 ELSE 0 END) AS N_CNT
+			, SUM( CASE BS.BAS_STAT WHEN '1' THEN 1 ELSE 0 END) AS Y_CNT
+		FROM 
+			TB_TAXBIL_BAS_SVC BS
+		WHERE 1=1 
+		AND BS.NA_ADJPL_C IN (
+              SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE UP_NA_TRPL_C = #{TRPL_C}
+           )
+		<if test="BAS_YM != null and BAS_YM.length() > 0">
+			AND BS.BAS_YM BETWEEN #{BAS_YM} AND #{BAS_YM2}
+		</if>
+		GROUP BY BS.BAS_YM
+		ORDER BY BS.BAS_YM
+	</select>
+	
+	<!-- 월잔액장 미확인 건 수 확인 -->
+	<select id="retrieveBasNoCheckCount"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			COUNT(BS.BAS_STAT) AS CNT
+		FROM
+			TB_TAXBIL_BAS_SVC BS
+		WHERE 1=1 
+		AND BS.BAS_STAT = '0'
+		AND BS.NA_ADJPL_C IN (
+			SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE UP_NA_TRPL_C = #{TRPL_C}
+		)
+		<if test="BAS_YM != null and BAS_YM.length() > 0">
+			AND BS.BAS_YM BETWEEN #{BAS_YM} AND #{BAS_YM2}
+		</if>
+	</select>
+	
+	<select id="retrieveHurInf"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT MB_ID FROM MG_HUR_INF
+		 WHERE BSN_DSC = 'BAS'
+		   AND UYN = 'Y'
+	</select>
+	
+	<select id="retrieveTaxBillListExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveTaxBillList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveUnissuedTaxbilListExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'PBC_SQNO DESC'" />
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveUnissuedTaxbilList" />
+		<include refid="common.paging_end" />
+	</select>
+</mapper>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pdaInspection">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->
+	
+	<sql id="sql_mainSelect">
+		SELECT NA_BZPLC																/* 경제통합사업장코드 */
+	          , FN_TRPL_CIF_NM(NA_BZPLC) as CLNTNM									/* 경제통합사업장명 */
+	          , NA_TEAM_C															/* 경제통합팀코드 */
+	          , FN_CM_TEAM_NM(NA_BZPLC, NA_TEAM_C)||'('||NA_TEAM_C||')' as TEAM_NM	/* 경제통합팀명 */
+	          , SLP_DT																/* 검수일자 */
+	          , NA_SLPNO															/* 검수전표번호 */
+	          , NA_TRMNO															/* 경제통합단말기번호 */
+	          , CNR_WRS_DSC															/* 검수상품구분코드 */
+	          , BUYPL_NA_TRPL_C														/* 매입처경제통합거래처코드 */
+	          , FN_TRPL_CIF_NM(BUYPL_NA_TRPL_C) as BUYPL_CLNTNM						/* 매입처경제통합거래처명 */
+	          , FN_CM_TEAM_NM(BUYPL_NA_TRPL_C, BUYPL_NA_TEAM_C)||'('||BUYPL_NA_TEAM_C||')' as BUYPL_TEAM_NM	/* 매입처경제통합팀명 */
+	          , C1.SIMP_CNM AS BYNG_REF_NM											/* 매입참조구분명 */
+	          , ODR_DT																/* 근거전표일자 */
+	          , TR_BASS_NO															/* 거래근거번호 */
+	          , CNR_STS_DSC															/* 검수상태구분코드 */
+	          , CNR_FIX_USR_ID														/* 검수확인사용자 */
+	          , TO_CHAR(CNR_FIX_DTM, 'YYYY-MM-DD HH24:MI:SS') as CNR_FIX_DTM		/* 검수확인일시 */
+	          , CNR_CMPL_USR_ID														/* 검수완료사용자 */
+	          , CNR_CMPL_ENO														/* 검수완료개인번호 */
+	          , TO_CHAR(CNR_CMPL_DTM, 'YYYY-MM-DD HH24:MI:SS') as CNR_CMPL_DTM		/* 검수완료일시 */
+		  FROM TB_PD_BYNG_CNR_M CM
+        		LEFT OUTER JOIN TB_CM_SIMPC C1 ON (CM.BYNG_REF_DSC = C1.SIMP_C AND C1.SIMP_TPC = 'BYNG_REF_DSC')
+	    <where>
+           	SLP_DT BETWEEN #{FROM_DATE:VARCHAR} AND #{TO_DATE:VARCHAR}
+        	<if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+				AND NA_SLPNO LIKE #{NA_SLPNO:VARCHAR}||'%'
+        	</if>
+        	<if test="BYNG_REF_DSC != null and BYNG_REF_DSC.length() > 0">
+				AND BYNG_REF_DSC = #{BYNG_REF_DSC:VARCHAR}
+        	</if>
+        	<if test="ODR_DT != null and ODR_DT.length() > 0">
+				AND ODR_DT = #{ODR_DT:VARCHAR}
+        	</if>
+        	<if test="TR_BASS_NO != null and TR_BASS_NO.length() > 0">
+				AND TR_BASS_NO = #{TR_BASS_NO:VARCHAR}
+        	</if>
+        	<if test="CNR_STS_DSC != null and CNR_STS_DSC.length() > 0">
+				AND CNR_STS_DSC = #{CNR_STS_DSC:VARCHAR}
+        	</if>
+        	<if test="USER_ID != null and USER_ID.length() > 0">
+				AND (CNR_FIX_USR_ID LIKE #{USER_ID:VARCHAR}||'%' OR CNR_CMPL_USR_ID LIKE #{USER_ID:VARCHAR}||'%')
+        	</if>
+        	<if test="GLN != null and GLN.length() > 0">
+				AND NA_BZPLC = #{GLN:VARCHAR}
+        	</if>
+   		    <if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND NA_BZPLC = #{NA_BZPLC:VARCHAR}
+        	</if>
+      	</where>
+	</sql>
+	
+	<!-- 검수 리스트 총 카운트 -->
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 검수 마스터 리스트 -->
+	<select id="mainSelectList" parameterType="Map" resultType="java.util.HashMap">
+	 <bind name="sortName" value="'NA_BZPLC, NA_TEAM_C, SLP_DT, NA_SLPNO desc'"/> 
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 검수내역 상세 리스트 -->
+	<select id="selectDetail" parameterType="Map" resultType="java.util.HashMap">
+		SELECT CD.NA_BZPLC				/* 경제통합사업장코드 */
+				, CD.NA_TEAM_C			/* 경제통합팀코드 */
+				, CD.SLP_DT				/* 검수일자 */
+				, CD.NA_SLPNO			/* 경제통합전표번호 */
+				, CD.SLP_SQNO			/* 전표일련번호 */
+				, CD.NA_WRS_C			/* 경제통합상품코드 */
+				, AA.WRSNM  			/* 경제통합상품명 */
+				, CD.BYNG_QT			/* 검수수량 */
+				, CD.BYNG_UPR			/* 매입단가 */
+				, CD.CNR_MTHD_DSC		/* 검수방법구분코드 (0:상품건별처리 1:상품바코드일괄 2:물류바코드 3:전표일괄 4:확인화면) */
+				, CD.CNR_USR_ID			/* 검수사용자아이디 */
+				, TO_CHAR(CD.CNR_DTM, 'YYYY-MM-DD HH24:MI:SS') as CNR_DTM	/* 검수일시 */
+				, CD.NA_TRMNO												/* 경제통합단말기번호 */
+				, CD.DQPD_RSNC												/* 결품사유코드 */
+				, DECODE(CD.DQPD_RSNC, '00', '기타', NVL(BB.SIMP_CNM, '')) as DQPD_RSN_NM	 /* 결품사유내용 */
+		  FROM TB_PD_BYNG_CNR_D CD
+		  	  LEFT OUTER JOIN TB_OD_TRTWRS AA
+				ON ( CD.NA_BZPLC = AA.NA_BZPLC AND CD.NA_WRS_C = AA.NA_WRS_C
+				AND AA.DEL_DTM IS NULL )		/* 삭제 상품은 제외  */
+	  		  LEFT OUTER JOIN TB_CM_SIMPC BB 
+	  		  	ON ( CD.DQPD_RSNC = BB.SIMP_C AND BB.SIMP_TPC = 'DQPD_RSNC' )
+		 WHERE CD.NA_BZPLC = #{NA_BZPLC:VARCHAR}
+		   AND CD.NA_TEAM_C = #{NA_TEAM_C:VARCHAR}
+		   AND CD.SLP_DT = #{SLP_DT:VARCHAR}
+		   AND CD.NA_SLPNO = #{NA_SLPNO:VARCHAR}
+		 ORDER BY CD.SLP_DT, CD.SLP_SQNO
+	</select>
+	
+	<!-- 검수내역 헤더 정보 -->
+	<select id="selectMaster" parameterType="Map" resultType="java.util.HashMap">
+		SELECT NA_BZPLC																	/* 경제통합사업장코드 */
+				, FN_TRPL_CIF_NM(NA_BZPLC) as CLNTNM									/* 경제통합사업장명 */
+				, NA_TEAM_C																/* 경제통합팀코드 */
+				, FN_CM_TEAM_NM(NA_BZPLC, NA_TEAM_C)||'('||NA_TEAM_C||')' as TEAM_NM	/* 경제통합팀명 */
+				, SLP_DT																/* 검수일자 */
+				, NA_SLPNO																/* 전표번호 */
+				, WHSE_C																/* 창고코드 */
+				, NA_TRMNO																/* 경제통합단말기번호 */
+				, CNR_WRS_DSC															/* 검수상품구분코드 */
+				, BUYPL_NA_TRPL_C														/* 매입처경제통합거래처코드 */
+				, FN_TRPL_CIF_NM(BUYPL_NA_TRPL_C) as BUYPL_CLNTNM						/* 매입처경제통합거래처명 */
+				, FN_CM_TEAM_NM(BUYPL_NA_TRPL_C, BUYPL_NA_TEAM_C)||'('||BUYPL_NA_TEAM_C||')' as BUYPL_TEAM_NM	/* 매입처경제통합팀명 */
+				, C1.SIMP_CNM AS BYNG_REF_NM											/* 매입참조구분명 */
+				, ODR_DT																/* 근거전표일자 */
+				, TR_BASS_NO															/* 거래근거번호 */
+				, NA_CRC_CAN_DSC														/* 경제통합정정취소구분코드 */
+				, REPLACE(REPLACE(RMK_CNTN, CHR(10), ' '), CHR(13), ' ') AS RMK_CNTN	/* 비고내용 */
+				, CNR_STS_DSC															/* 검수상태구분코드 */
+				, CNR_FIX_NA_BZPLC														/* 검수확인사업장코드 */
+				, CNR_FIX_USR_ID														/* 검수확인사용자아이디 */
+				, TO_CHAR(CNR_FIX_DTM, 'YYYY-MM-DD HH24:MI:SS') as CNR_FIX_DTM			/* 검수확인일시 */
+				, CNR_CMPL_NA_BZPLC														/* 검수완료사업장코드 */
+				, CNR_CMPL_USR_ID														/* 검수완료사용자아이디 */
+				, CNR_CMPL_ENO															/* 검수완료개인번호 */
+				, CNR_CMPL_SIGN_FN														/* 검수완료서명파일 */
+				, TO_CHAR(CNR_CMPL_DTM, 'YYYY-MM-DD HH24:MI:SS') as CNR_CMPL_DTM		/* 검수완료일시 */
+				, PRC_YN																/* 경통전송여부 */
+				, REPLACE(REPLACE(RSP_C_CNTN, CHR(10), ''), CHR(13), '') AS RSP_C_CNTN	/* 결과수신 */
+				, NH_SLP_DT
+				, NH_NA_SLPNO
+				, EDI_IF_ID																/* EDI인터페이스아이디 */
+				, TO_CHAR(FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS') as FSRG_DTM				/* 최초등록일시 */
+				, TO_CHAR(LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') as LSCHG_DTM				/* 최종변경일시 */
+		  FROM TB_PD_BYNG_CNR_M CM
+		  		LEFT OUTER JOIN TB_CM_SIMPC C1 ON (CM.BYNG_REF_DSC = C1.SIMP_C AND C1.SIMP_TPC = 'BYNG_REF_DSC')
+		 WHERE NA_BZPLC = #{NA_BZPLC:VARCHAR}
+		   AND NA_TEAM_C = #{NA_TEAM_C:VARCHAR}
+		   AND SLP_DT = #{SLP_DT:VARCHAR}
+		   AND NA_SLPNO = #{NA_SLPNO:VARCHAR}
+	</select>
+	
+	<!-- 검수내역 취소,확인,완료 조건 include -->
+	<sql id="condition_updateMst">
+		 WHERE NA_BZPLC = #{NA_BZPLC:VARCHAR}
+		   AND NA_TEAM_C = #{NA_TEAM_C:VARCHAR}
+		   AND SLP_DT = #{SLP_DT:VARCHAR}
+		   AND NA_SLPNO = #{NA_SLPNO:VARCHAR}
+		   AND PRC_YN NOT IN ('N', 'P')		/* 경통전송 상태 체크 */
+	</sql>
+	<!-- 검수내역 취소,확인,완료 -->
+	<update id="updateMst" parameterType="Map">
+		UPDATE TB_PD_BYNG_CNR_M SET
+		<choose>
+		 	<when test="'HC'.toString() == mode"> <!-- HC:확인취소  -->
+                 CNR_STS_DSC = '1'                            /* 검수상태구분코드 : 1:미검수  2:검수확인  3:검수완료 */
+                 , RMK_CNTN = TRIM(#{USER_ID:VARCHAR})|| '->' || TO_CHAR(sysdate,'yyyy-mm-dd hh24:mi:ss' ) || '에 확인취소됨'    /* 비고내용 */
+                 , CNR_FIX_NA_BZPLC = #{GLN:VARCHAR}    	/* 검수확인사업장코드 */
+                 , CNR_FIX_USR_ID = #{USER_ID:VARCHAR}    	/* 검수확인사용자아이디 */
+                 , CNR_FIX_DTM = SYSDATE                    /* 검수확인일시 */
+		 		 , PRC_YN = 'T'								/* 경통전송여부 */
+		 		 , RSP_C_CNTN = NULL
+		 		 , LSCHG_DTM = SYSDATE
+             <include refid="condition_updateMst" />
+            	AND CNR_STS_DSC = '2'	/* 확인된 전표에 대해서만 확인취소 가능함 */        
+             </when>
+             <when test="'YC'.toString() == mode"> <!-- YC:완료취소 이 때는 검수상태구분코드(CNR_STS_DSC)는 업데이트하지 않으며, 경통I/F 성공시 업데이트된다. 완료취소시에는 기존 완료전표의 경통전표일자/전표번호를 경통으로 발송하므로, DB의 해당 값들을 변경하지 않는다.  -->
+		 		RMK_CNTN = TRIM(#{USER_ID:VARCHAR})|| '->' || TO_CHAR(sysdate,'yyyy-mm-dd hh24:mi:ss' ) || '에 완료취소됨'    /* 비고내용 */
+                 , CNR_CMPL_NA_BZPLC = #{GLN:VARCHAR}    	/* 검수완료사업장코드 */
+                 , CNR_CMPL_USR_ID = #{USER_ID:VARCHAR}    	/* 검수완료사용자아이디 */
+                 , CNR_CMPL_DTM = SYSDATE                  	/* 검수완료일시 */
+                 , NA_CRC_CAN_DSC = '9'                     /* 경제통합정정취소구분코드: 0:등록, 9:등록취소 */
+                 , PRC_YN = 'N'                             /* 경통전송여부 */
+		 		 , RSP_C_CNTN = NULL
+                 , LSCHG_DTM = SYSDATE
+             <include refid="condition_updateMst" />
+            	AND CNR_STS_DSC = '3'    /* 완료된 전표에 대해서만 완료취소 가능함 */
+             </when>
+             <when test="'SH'.toString() == mode"> <!-- SH:검수확인 -->
+                 CNR_STS_DSC = '2'                            /* 검수상태구분코드: 1:미검수  2:검수확인  3:검수완료 */
+                 , RMK_CNTN =  TRIM(#{USER_ID:VARCHAR})|| '->' || TO_CHAR(sysdate,'yyyy-mm-dd hh24:mi:ss' ) || '에 확인됨'    /* 비고내용 */
+                 , CNR_FIX_NA_BZPLC = #{GLN:VARCHAR}    	/* 검수확인사업장코드 */
+                 , CNR_FIX_USR_ID = #{USER_ID:VARCHAR}    	/* 검수확인사용자아이디 */
+                 , CNR_FIX_DTM = SYSDATE                    /* 검수확인일시 */
+		 		 , PRC_YN = 'T'								/* 경통전송여부 */
+		 		 , RSP_C_CNTN = NULL
+                 , LSCHG_DTM = SYSDATE
+             <include refid="condition_updateMst" />
+            	AND CNR_STS_DSC = '1'    /* 미검수된 전표에 대해서만 검수확인 가능함 */
+             </when>
+             <when test="'SY'.toString() == mode"> <!-- SY:검수완료 이 때는 검수상태구분코드(CNR_STS_DSC)는 업데이트하지 않는다. 경통I/F 성공시 업데이트된다. 경통으로 전송할 전표일자/전표번호로 업데이트한다.-->                                   			
+                  CNR_CMPL_NA_BZPLC = #{GLN:VARCHAR}    	/* 검수완료사업장코드 */
+                 , CNR_CMPL_USR_ID = #{USER_ID:VARCHAR}    	/* 검수완료사용자아이디 */
+                 , CNR_CMPL_ENO = #{USER_ID:VARCHAR}        /* 검수완료개인번호 */ 
+                 , CNR_CMPL_SIGN_FN = #{CNR_CMPL_SIGN_FN:VARCHAR}    /* 검수완료서명파일 */
+                 , CNR_CMPL_DTM = SYSDATE                  	/* 검수완료일시 */
+                 , NA_CRC_CAN_DSC = '0'                    	/* 경제통합정정취소구분코드: 0:등록, 9:등록취소 */
+                 , PRC_YN = 'N'                           	/* 경통전송여부 */
+		 		 , RSP_C_CNTN = NULL
+		 		 , NH_SLP_DT = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		 		 , NH_NA_SLPNO = #{NA_SLPNO:VARCHAR}
+                 , LSCHG_DTM = SYSDATE
+            <include refid="condition_updateMst" />
+            	AND CNR_STS_DSC = '2'    /* 확인된 전표에 대해서만 검수완료 가능함 */
+             </when>
+        </choose>
+	</update>
+	
+	<update id="updateDetail" parameterType="Map">
+		UPDATE TB_PD_BYNG_CNR_D
+		   SET BYNG_QT = #{BYNG_QT}
+		 WHERE NA_BZPLC = #{NA_BZPLC}
+		   AND NA_TEAM_C = #{NA_TEAM_C}
+		   AND SLP_DT = #{SLP_DT}
+		   AND NA_SLPNO = #{NA_SLPNO}
+		   AND SLP_SQNO = #{SLP_SQNO}
+	</update>
+
+</mapper>

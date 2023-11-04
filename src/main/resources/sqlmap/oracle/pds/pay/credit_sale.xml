@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="creditSale">
+	<sql id="sql_getCreditSaleReserveList">
+			SELECT 	
+			 A.NA_BZPLC            /* 00 경제통합사업장코드        */
+			,FN_TRPL_CIF_NM(A.NA_BZPLC) NA_BZPLC_NM         /* 01 경제통합사업장명          */
+			,A.NA_TEAM_C           /* 02 경제통합 거래팀코드       */
+			,FN_CM_TEAM_NM(A.NA_BZPLC,A.NA_TEAM_C) NA_TEAM_NM  /* 03 경제통합사업장팀명        */
+			,A.PY_PLA_DT           /* 04 경제통합 지급예정일       */
+			,A.ADJ_NA_BZPLC        /* 05 경제통합 지점사업장코드   */
+			,FN_TRPL_CIF_NM(A.ADJ_NA_BZPLC) ADJ_NA_BZPLC_NM     /* 06 경제통합 지점사업장명     */
+			,A.ADJ_BZPL_NA_TEAM_C  /* 07 정산사업장팀코드          */
+			,FN_CM_TEAM_NM(A.ADJ_NA_BZPLC, A.ADJ_BZPL_NA_TEAM_C) ADJ_BZPL_NA_TEAM_NM /* 08 정산사업장팀명            */
+			,A.BZ_METH_DSC         /* 09 경제통합 매취수탁구분코드 */
+			,A.NA_ADJPL_C          /* 10 경제통합 정산처코드       */
+			,FN_TRPL_CIF_NM(A.NA_ADJPL_C) NA_ADJPL_C_NM       /* 11 경제통합 정산처명         */
+			,A.ADJPL_NA_TEAM_C     /* 12 경제통합 정산처팀코드     */
+			,FN_CM_TEAM_NM(A.NA_ADJPL_C, A.ADJPL_NA_TEAM_C) ADJPL_NA_TEAM_NM    /* 13 경제통합 정산처팀명       */
+			,A.NA_TRPL_C           /* 14 경제통합거래처코드        */
+			,FN_TRPL_CIF_NM(A.NA_TRPL_C) NA_TRPL_C_NM        /* 15 경제통합거래처명          */
+			,A.TRPL_NA_TEAM_C      /* 16 거래처 팀코드             */
+			,FN_CM_TEAM_NM(A.NA_TRPL_C, A.TRPL_NA_TEAM_C) TRPL_NA_TEAM_NM     /* 17 거래처 팀명               */
+			,A.CBAM                /* 18 경제통합 외상매입금       */
+			,A.PY_AM               /* 19 경제통합 지급금액         */
+			,A.PPY_AM              /* 20 선지급금액                */
+			,A.BYNG_DC_AM          /* 21 경제통합 매입할인액       */
+			,A.OFS_AM              /* 22 상계금액                  */
+			,A.ACTL_PY_PLA_AM      /* 23 경제통합 실지급예정금액   */
+			,A.SPY_AM               /* 24 공급금액                  */
+			,A.TXT_AM            /* 25 과세금액                  */
+			,A.TXT_VAT              /* 26 과세부가세                */
+			,A.EXTX_AM             /* 27 면세금액                  */
+			,A.SMA_AM              /* 28 영세금액                  */
+			,A.LIQ_SPY_AM          /* 29 주류공급금액              */
+			,A.LIQ_SPY_VAT         /* 30 주류공급부가세            */
+			,A.VCBT_AM VCBT_AM             /* 31 공병금액                  */
+			,A.VCBX_AM VCBX_AM             /* 32 공상자금액                */
+			,A.VPLTT_AM            /* 33 공파렛트금액              */
+			,A.BYNG_SSDY BYNG_SSDY           /* 34 매입장려금                */
+			,A.AMN_FEE             /* 35 관리수수료	     */
+			,A.AMN_FEE_VAT         /* 36 관리수수료부가세        */
+			,A.PHD_FEE             /* 37 물류수수료         */
+			,A.PHD_FEE_VAT         /* 38 물류수수료부가세   */
+			,A.PHD_AFF_SSDY        /* 39 물류사후장려금            */
+			,A.AFF_SSDY            /* 40 사후장려금                */
+			,A.VCBT_RTU_AM         /* 41 공병반환금액              */
+			,A.VCBX_RTU_AM         /* 42 공상자반환금액            */
+			,A.VPLTT_RTU_AM        /* 43 공파렛트반환금액          */
+			,A.RTU_FEE             /* 44 반환수수료                */
+			,A.RTU_FEE_VAT         /* 45 반환수수료부가세          */
+			,A.MAD_AM              /* 46 공제금액             */
+			,A.DB_CRC_AM           /* 47 차변정정금액              */
+			,A.CR_CRC_AM           /* 48 대변정정금액              */
+			,A.MRG_OCU_AM          /* 49 합병발생금액              */
+			,A.MRG_SBT_AM          /* 50 합병차감금액              */
+			,A.YY_CROV_AM          /* 51 년도이월금액              */
+			,A.YY_CROV_SBT_AM      /* 52 년도이월차감금액          */
+			,A.CROV_OCU_AM         /* 53 이월발생금액              */
+			,A.CROV_SBT_AM         /* 54 이월차감금액              */
+			,A.NODR_RGD_AM         /* 55 무발주반품금액            */
+			,A.CPL_YN              /* 56 완료여부                  */
+			,A.FTR_PY_DT           /* 57 경제통합 최초지급일자     */
+			,A.LS_PY_DT            /* 58 경제통합 최종지급일자     */
+			,A.FTR_TR_DT           /* 59 경제통합 최초거래일자     */
+			,A.LS_TR_DT            /* 60 경제통합 최종거래일자     */
+			,A.ETC_AM1             /* 61 기타금액1                 */
+			,A.ETC_AM2             /* 62 기타금액2                 */
+			,A.ETC_AM3             /* 63 기타금액3                 */
+			,'' RMK_CNTN1           /* 64 비고내용1                 */
+			,'' RMK_CNTN2           /* 65 비고내용2                 */
+		FROM TB_DE_BCDEXPT A
+		WHERE 1=1
+		AND A.NA_BZPLC='8808983000015'
+		<if test="DATE_TYPE != null and  DATE_TYPE != '' and DATE_TYPE == 'PY_PLA_DT'">
+			AND  A.py_pla_dt BETWEEN #{FROM_DT} AND #{TO_DT}
+		</if>	
+				
+		<if test="DATE_TYPE != null and  DATE_TYPE != '' and DATE_TYPE == 'BASE_DT'">
+			AND   (( A.ftr_tr_dt BETWEEN  #{FROM_DT} AND #{TO_DT} ) OR ( A.ls_tr_dt BETWEEN  #{FROM_DT} AND #{TO_DT} ) )
+		</if>
+		
+		<if test="CPL_YN != null and CPL_YN != '' and CPL_YN != '0'.toString()">
+			AND  A.cpl_yn = #{CPL_YN}
+		</if>	
+		
+		
+		<if test="NA_BZPLC != null and NA_BZPLC != '' and NA_BZPLC != '1'.toString()">
+			AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>
+		AND A.NA_ADJPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+		</foreach>
+		UNION ALL
+		SELECT 	
+			 A.NA_BZPLC            /* 00 경제통합사업장코드        */
+			,FN_TRPL_CIF_NM(A.NA_BZPLC) NA_BZPLC_NM         /* 01 경제통합사업장명          */
+			,A.NA_TEAM_C           /* 02 경제통합 거래팀코드       */
+			,FN_CM_TEAM_NM(A.NA_BZPLC,A.NA_TEAM_C) NA_TEAM_NM  /* 03 경제통합사업장팀명        */
+			,A.PY_PLA_DT           /* 04 경제통합 지급예정일       */
+			,A.ADJ_NA_BZPLC        /* 05 경제통합 지점사업장코드   */
+			,FN_TRPL_CIF_NM(A.ADJ_NA_BZPLC) ADJ_NA_BZPLC_NM     /* 06 경제통합 지점사업장명     */
+			,A.ADJ_BZPL_NA_TEAM_C  /* 07 정산사업장팀코드          */
+			,FN_CM_TEAM_NM(A.ADJ_NA_BZPLC, A.ADJ_BZPL_NA_TEAM_C) ADJ_BZPL_NA_TEAM_NM /* 08 정산사업장팀명            */
+			,A.BZ_METH_DSC         /* 09 경제통합 매취수탁구분코드 */
+			,A.NA_ADJPL_C          /* 10 경제통합 정산처코드       */
+			,FN_TRPL_CIF_NM(A.NA_ADJPL_C) NA_ADJPL_C_NM       /* 11 경제통합 정산처명         */
+			,A.ADJPL_NA_TEAM_C     /* 12 경제통합 정산처팀코드     */
+			,FN_CM_TEAM_NM(A.NA_ADJPL_C, A.ADJPL_NA_TEAM_C) ADJPL_NA_TEAM_NM    /* 13 경제통합 정산처팀명       */
+			,A.NA_TRPL_C           /* 14 경제통합거래처코드        */
+			,FN_TRPL_CIF_NM(A.NA_TRPL_C) NA_TRPL_C_NM        /* 15 경제통합거래처명          */
+			,A.TRPL_NA_TEAM_C      /* 16 거래처 팀코드             */
+			,FN_CM_TEAM_NM(A.NA_TRPL_C, A.TRPL_NA_TEAM_C) TRPL_NA_TEAM_NM     /* 17 거래처 팀명               */
+			,A.CBAM                /* 18 경제통합 외상매입금       */
+			,A.PY_AM               /* 19 경제통합 지급금액         */
+			,A.PPY_AM              /* 20 선지급금액                */
+			,A.BYNG_DC_AM          /* 21 경제통합 매입할인액       */
+			,A.OFS_AM              /* 22 상계금액                  */
+			,A.ACTL_PY_PLA_AM      /* 23 경제통합 실지급예정금액   */
+			,A.SPY_AM               /* 24 공급금액                  */
+			,A.TXT_AM            /* 25 과세금액                  */
+			,A.TXT_VAT              /* 26 과세부가세                */
+			,A.EXTX_AM             /* 27 면세금액                  */
+			,A.SMA_AM              /* 28 영세금액                  */
+			,A.LIQ_SPY_AM          /* 29 주류공급금액              */
+			,A.LIQ_SPY_VAT         /* 30 주류공급부가세            */
+			,A.VCBT_AM VCBT_AM             /* 31 공병금액                  */
+			,A.VCBX_AM VCBX_AM             /* 32 공상자금액                */
+			,A.VPLTT_AM            /* 33 공파렛트금액              */
+			,A.BYNG_SSDY BYNG_SSDY           /* 34 매입장려금                */
+			,A.AMN_FEE             /* 35 관리수수료	           */
+			,A.AMN_FEE_VAT         /* 36 관리수수료부가세          */
+			,A.PHD_FEE             /* 37 물류수수료		          */
+			,A.PHD_FEE_VAT         /* 38 물류수수료부가세        */
+			,A.PHD_AFF_SSDY        /* 39 물류사후장려금            */
+			,A.AFF_SSDY            /* 40 사후장려금                */
+			,A.VCBT_RTU_AM         /* 41 공병반환금액              */
+			,A.VCBX_RTU_AM         /* 42 공상자반환금액            */
+			,A.VPLTT_RTU_AM        /* 43 공파렛트반환금액          */
+			,A.RTU_FEE             /* 44 반환수수료                */
+			,A.RTU_FEE_VAT         /* 45 반환수수료부가세          */
+			,A.MAD_AM              /* 46 공제금액         */
+			,A.DB_CRC_AM           /* 47 차변정정금액              */
+			,A.CR_CRC_AM           /* 48 대변정정금액              */
+			,A.MRG_OCU_AM          /* 49 합병발생금액              */
+			,A.MRG_SBT_AM          /* 50 합병차감금액              */
+			,A.YY_CROV_AM          /* 51 년도이월금액              */
+			,A.YY_CROV_SBT_AM      /* 52 년도이월차감금액          */
+			,A.CROV_OCU_AM         /* 53 이월발생금액              */
+			,A.CROV_SBT_AM         /* 54 이월차감금액              */
+			,A.NODR_RGD_AM         /* 55 무발주반품금액            */
+			,A.CPL_YN              /* 56 완료여부                  */
+			,A.FTR_PY_DT           /* 57 경제통합 최초지급일자     */
+			,A.LS_PY_DT            /* 58 경제통합 최종지급일자     */
+			,A.FTR_TR_DT           /* 59 경제통합 최초거래일자     */
+			,A.LS_TR_DT            /* 60 경제통합 최종거래일자     */
+			,A.ETC_AM1             /* 61 기타금액1                 */
+			,A.ETC_AM2             /* 62 기타금액2                 */
+			,A.ETC_AM3             /* 63 기타금액3                 */
+			,'' RMK_CNTN1           /* 64 비고내용1                 */
+			,'' RMK_CNTN2           /* 65 비고내용2                 */
+		FROM TB_DE_BCDEXPT A
+		WHERE 1=1
+		AND A.NA_BZPLC!='8808983000015'
+		<if test="DATE_TYPE != null and  DATE_TYPE != '' and DATE_TYPE == 'PY_PLA_DT'">
+			AND  A.py_pla_dt BETWEEN #{FROM_DT} AND #{TO_DT}
+		</if>	
+		
+		<if test="DATE_TYPE != null and  DATE_TYPE != '' and DATE_TYPE == 'BASE_DT'">
+			AND  A.tr_dt BETWEEN #{FROM_DT} AND #{TO_DT}
+		</if>
+		
+		<if test="CPL_YN != null and CPL_YN != '' and CPL_YN != '0'.toString()">
+			AND  A.cpl_yn = #{CPL_YN}
+		</if>	
+		
+		<if test="NA_BZPLC != null and NA_BZPLC != '' and NA_BZPLC != '1'.toString()">
+			AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>
+		AND A.NA_ADJPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+		</foreach>
+		
+		
+	</sql>
+	
+	<select id="getCreditSaleReserveList" parameterType="java.util.Map" resultType="java.util.Map">	
+		<include refid="sql_getCreditSaleReserveList" />
+	</select>
+	
+	<select id="getCreditSaleReserveListSum" parameterType="java.util.Map" resultType="java.util.Map">	
+		SELECT
+			NVL(SUM( A.CBAM),0) CBAM,
+			NVL(SUM(A.PY_PLA_AM),0) PY_PLA_AM
+		FROM TB_DE_BCDEXPT A
+		<if test="DATE_TYPE != null and  DATE_TYPE != ''">
+		WHERE ${DATE_TYPE} BETWEEN #{START_DATE} AND #{END_DATE}
+		</if>
+		<if test="NA_BZPLC != null and NA_BZPLC != '' and NA_BZPLC != 'all'">
+		AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>
+		AND A.NA_ADJPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+		</foreach>
+	</select>
+	
+	<sql id="sql_getCreditSaleList">
+	
+	SELECT D.* FROM (	
+        SELECT
+			A.NA_BZPLC, 
+			FN_TRPL_CIF_NM(A.NA_BZPLC) NA_BZPL_NM,
+			A.NA_TEAM_C, 
+			FN_CM_TEAM_NM(A.NA_BZPLC, A.NA_TEAM_C) TEAM_NM, 
+			A.PY_DT, 
+			A.PY_NA_SLPNO, 
+			MAX(A.NA_SLPNO) NA_SLPNO,
+			MAX(A.PY_PRC_PLA_DT) PY_PRC_PLA_DT,
+			MAX(A.PY_PRC_PLA_NA_SLPNO) PY_PRC_PLA_NA_SLPNO,
+			MAX(A.TR_DT) TR_DT,
+			MAX(A.OCU_NA_SLPNO) OCU_NA_SLPNO,
+			MAX(A.SLP_DT) SLP_DT,
+			MAX(A.PY_PLA_DT) PY_PLA_DT,
+			MAX(A.OCU_NA_TR_DSC) OCU_NA_TR_DSC,
+			FN_CM_SIMP_CNM('ROTS_CTR_DSC',MAX(A.ROTS_CTR_DSC)) ROTS_CTR_DSC,
+			FN_CM_SIMP_CNM('BZ_METH_DSC',MAX(A.BZ_METH_DSC)) BZ_METH_DSC,
+			MAX(A.SPY_TPC) SPY_TPC,
+			A.NA_ADJPL_C, 
+			FN_TRPL_CIF_NM(A.NA_ADJPL_C) NA_ADJPL_NM,
+			MAX(A.ADJPL_NA_TEAM_C) ADJPL_NA_TEAM_C,
+			FN_CM_TEAM_NM(A.NA_ADJPL_C, MAX(A.ADJPL_NA_TEAM_C)) ADJPL_NA_TEAM_NM, 
+			A.NA_TRPL_C, 
+			FN_TRPL_CIF_NM(A.NA_TRPL_C) NA_TRPL_NM,
+			MAX(A.TRPL_NA_TEAM_C) TRPL_NA_TEAM_C,
+			FN_CM_TEAM_NM(A.NA_TRPL_C, MAX(A.TRPL_NA_TEAM_C)) TRPL_NA_TEAM_NM,
+			MAX(A.ADJ_NA_BZPLC) ADJ_NA_BZPLC,
+			FN_TRPL_CIF_NM(MAX(A.ADJ_NA_BZPLC)) ADJ_NA_BZPL_NM,
+			MAX(A.ADJ_BZPL_NA_TEAM_C) ADJ_BZPL_NA_TEAM_C,
+			FN_CM_TEAM_NM(MAX(A.ADJ_NA_BZPLC), MAX(A.ADJ_BZPL_NA_TEAM_C)) ADJ_BZPL_NA_TEAM_NM,
+			MAX(A.NA_TR_DSC) NA_TR_DSC,
+			MAX(A.NA_BLB_DFC_DSC) NA_BLB_DFC_DSC,
+			FN_CM_SIMP_CNM('PY_RQT_DSC',MAX(A.PY_RQT_DSC)) PY_RQT_DSC,
+			SUM(A.PY_PRN) PY_PRN,
+			SUM(A.BYNG_DC_AM) BYNG_DC_AM,
+			SUM(A.BYNG_DC_VAT) BYNG_DC_VAT,
+			SUM(A.OFS_AM) OFS_AM,
+			SUM(A.SSDY_PY_AM) SSDY_PY_AM,
+			SUM(A.DLAYPZ) DLAYPZ,
+			SUM(A.IVSAM) IVSAM,
+			SUM(A.DLAY_INT_PY_AM) DLAY_INT_PY_AM,
+			SUM(A.DLAY_INT_RDU_AM) DLAY_INT_RDU_AM,
+			SUM(A.PPY_DDS) PPY_DDS,
+			SUM(A.PPY_ITR) PPY_ITR,
+			SUM(A.DLAY_ITR) DLAY_ITR,
+			MAX(A.INT_RCKN_DT) INT_RCKN_DT,
+			MAX(RTRIM(A.STL_ACNO))||'/'||MAX(A.DPRNM) STL_ACNO,
+			MAX(A.BNK_C) BNK_C,
+			MAX(A.DPRNM) DPRNM,
+			MAX(A.PATN_SLP_DT) PATN_SLP_DT,
+			MAX(A.PATN_NA_SLPNO) PATN_NA_SLPNO,
+			MAX(A.PATN_SLP_PRC_STSC) PATN_SLP_PRC_STSC,
+			FN_CM_SIMP_CNM('PY_STL_DSC',MAX(A.PY_STL_DSC)) PY_STL_DSC,			
+			FN_CM_SIMP_CNM('NA_CRC_CAN_DSC',MAX(A.NA_CRC_CAN_DSC)) NA_CRC_CAN_DSC,
+			MAX(A.OSLIP_DT) OSLIP_DT,
+			MAX(A.OGN_NA_SLPNO) OGN_NA_SLPNO,
+			MAX(A.RMK_CNTN) RMK_CNTN
+		FROM TB_DE_BCDPAY A
+		WHERE A.PY_DT BETWEEN #{START_DATE} AND #{END_DATE}
+		<if test="ROTS_CTR_DSC != null and ROTS_CTR_DSC != '' and ROTS_CTR_DSC != 'all'">
+		AND A.ROTS_CTR_DSC = #{ROTS_CTR_DSC}
+		</if>
+		<if test="ADJ_NA_BZPLC != null and ADJ_NA_BZPLC != '' and ADJ_NA_BZPLC != 'all'">
+		AND A.NA_BZPLC = #{ADJ_NA_BZPLC}
+		</if>
+		AND A.NA_ADJPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+		</foreach>
+        GROUP BY py_dt, na_adjpl_c, na_trpl_c, na_bzplc, na_team_c, py_na_slpno) D
+        ORDER BY D.PY_DT
+	</sql>		
+	
+	<select id="getCreditSaleList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_getCreditSaleList" />
+	</select>
+	
+	<select id="getCreditSaleListSum" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * PY_PRN), 0) PY_PRN,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * BYNG_DC_AM), 0) BYNG_DC_AM,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * BYNG_DC_VAT), 0) BYNG_DC_VAT,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * OFS_AM), 0) OFS_AM,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * SSDY_PY_AM), 0) SSDY_PY_AM,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * DLAYPZ), 0) DLAYPZ,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * IVSAM), 0) IVSAM,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * DLAY_INT_PY_AM), 0) DLAY_INT_PY_AM,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * DLAY_INT_RDU_AM), 0) DLAY_INT_RDU_AM,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * PPY_DDS), 0) PPY_DDS,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * PPY_ITR), 0) PPY_ITR,
+			NVL(SUM(DECODE(NA_CRC_CAN_DSC,'2',-1,'3',-1, 1) * DLAY_ITR), 0) DLAY_ITR
+		FROM TB_DE_BCDPAY
+		WHERE PY_DT BETWEEN #{START_DATE} AND #{END_DATE}
+		<if test="ROTS_CTR_DSC != null and ROTS_CTR_DSC != '' and ROTS_CTR_DSC != 'all'">
+		AND ROTS_CTR_DSC = #{ROTS_CTR_DSC}
+		</if>
+		<if test="ADJ_NA_BZPLC != null and ADJ_NA_BZPLC != '' and ADJ_NA_BZPLC != 'all'">
+		AND NA_BZPLC = #{ADJ_NA_BZPLC}
+		</if>
+		AND NA_ADJPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+		</foreach>
+	</select>
+		
+	<select id="getCreditSaleReserveListExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">	
+		<include refid="sql_getCreditSaleReserveList" />
+	</select>
+	
+	<select id="getCreditSaleListExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_getCreditSaleList" />
+	</select>			
+</mapper>

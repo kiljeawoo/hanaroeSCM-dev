@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lginLgotDAO">
+ 
+
+	<select id="isLockUser"  parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT LOCK_YN
+		  FROM PT_USR_INF
+		 WHERE MB_ID = #{MB_ID}
+	</select>
+
+	<select id="isExistUser"  parameterType="java.util.Map" resultType="int">
+		SELECT /*isExistUser*/ 	
+			COUNT(*)
+		FROM PT_USR_INF
+		WHERE MB_ID =#{MB_ID}
+			<choose>
+			    <when test="TRANS_YN == null or TRANS_YN.length() ==0 ">
+			        AND MB_PW= ecl_digest(#{MB_PW})	
+			    </when>
+			    <otherwise>
+			       AND MB_PW= #{MB_PW} 
+			    </otherwise>	
+			</choose>
+	</select>
+	
+	<update id="updateLoginTryCount">
+		UPDATE PT_USR_INF
+		<set>
+		<choose>
+			<when test="@org.apache.commons.lang.StringUtils@isNotEmpty(loginYn) and loginYn == 'Y'.toString()">
+			   LGIN_TRY = 0
+			</when>
+			<when test="@org.apache.commons.lang.StringUtils@isNotEmpty(loginYn) and loginYn == 'N'.toString()">
+			   LGIN_TRY = ( CASE
+								 WHEN LGIN_TRY <![CDATA[<]]> 5
+								 THEN LGIN_TRY + 1
+								 ELSE LGIN_TRY
+							END )
+			 , LOCK_YN = ( CASE
+								WHEN LGIN_TRY >= 4
+								THEN '2'
+								ELSE LOCK_YN
+						   END )
+			</when>
+		</choose>
+		</set>
+		 WHERE MB_ID = #{MB_ID}
+	</update>
+
+	<select id="retrieveUserType"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveUserType*/ 	
+			USR_TPC
+		FROM PT_USR_INF
+		WHERE MB_ID =#{MB_ID}
+			<choose>
+			    <when test="TRANS_YN == null or TRANS_YN.length() ==0">
+			        AND MB_PW= ecl_digest(#{MB_PW})	
+			    </when>
+			    <otherwise>
+			       AND MB_PW= #{MB_PW} 
+			    </otherwise>	
+			</choose>
+	</select>
+	
+	<select id="retrieveUserAuthList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveUserAuthList*/ 	
+			USR_AUTH_DSC
+		FROM PT_USR_AUTH
+		WHERE MB_ID =#{MB_ID}			
+		ORDER BY USR_AUTH_DSC 
+	</select>
+	
+	<!-- 접근권한이 없는 메뉴그룹 목록 조회 -->
+	<select id="retrieveNoAuthMenuGroupList" parameterType="java.util.Map" resultType="String">
+		SELECT /* retrieveNoAuthMenuGroupList */
+		       MENU_GROUP        /* 메뉴그룹 */
+		  FROM PT_USR_MENU_AUTH
+		 WHERE MB_ID = #{MB_ID}  /* 회원ID */
+		   AND AUTH_F = '0'      /* 권한여부 (0: 권한없음) */
+	</select>
+	
+	<!-- 권한으로 사용자 목록 조회 -->
+	<select id="retrieveUserListByAuth" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveUserListByAuth */
+		       A.MB_ID   /* 회원ID */
+		     , A.USR_NM  /* 사용자명 */
+		  FROM PT_USR_INF A
+		       INNER JOIN PT_USR_AUTH B
+		               ON A.MB_ID = B.MB_ID
+		 WHERE A.NA_TRPL_C    = #{NA_TRPL_C}     /* 거래처코드 */
+		   AND B.USR_AUTH_DSC = #{USR_AUTH_DSC}  /* 사용자권한 (1: 빌링, 2: 전자계약, 3: 세금계산서) */
+		 ORDER BY A.MB_ID
+	</select>
+	
+	<select id="retrieveUser"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveUser */
+		       A.MB_ID
+		     , A.NA_TRPL_C
+		     , C.SIMP_C as NA_MBCO_DSC
+		     , B.CLNTNM
+		     , A.USR_NM
+		     , A.COMP_TPC
+		     , A.USR_TPC
+		     , (SELECT MAX(LGIN_DTM) FROM PT_LGIN_HST WHERE MB_ID = A.MB_ID) AS LGIN_DTM
+		     , A.MB_CV_DSC
+		     , A.PW_LSRG_DT
+		     , A.ENT_PRG_STSC
+		     , A.HOFF_APV_YN 
+		     , B.NA_USR_SYS_KDC
+		     , B.BIZ_NUMBER
+		     , CASE WHEN G.SVC_STSC = '1' OR A.USR_TPC IN ('02', '03', '05', '70', '80', '81') /* SVC_STSC(0: 서비스 중지, 1: 서비스 사용), USR_TPC(02: 본부, 03: 하나로마트, 05:전자계약전용  70: (주)농협하나로유통 제주물류센터, 80: 농협IT전략부 , 81:A마켓)*/
+		            THEN 'Y'
+		            ELSE 'N' END AS SVC_STATUS
+	<![CDATA[
+		     , CASE WHEN A.USR_TPC = '01'
+		             AND A.ENT_PRG_STSC = '1'
+		             AND A.REQ_DT IS NULL AND A.APV_DT IS NULL
+		            THEN 'Y'  /* 유예기간 */
+		            WHEN A.USR_TPC = '01' AND A.ENT_PRG_STSC = '1'
+		             AND A.REQ_DT IS NOT NULL AND A.APV_DT IS NOT NULL
+		             AND EXISTS (SELECT '1' FROM PT_USR_AUTH WHERE MB_ID = A.MB_ID AND USR_AUTH_DSC = '1')
+		             AND '3' <> (SELECT STL_METH_DSC FROM PT_PAY_INF WHERE NA_TRPL_C = A.NA_TRPL_C)
+		             AND NOT EXISTS (
+		                     SELECT ELSG_CNTN
+		                       FROM PT_PAY_INF PI, PT_PAY_INF_ELSG PIE
+		                      WHERE PI.NA_TRPL_C = PIE.NA_TRPL_C
+		                        AND PI.NA_TRPL_C = A.NA_TRPL_C
+		                        AND PIE.ENT_PRG_STSC = '1'
+		                        AND PIE.ELSG_DTM = (SELECT MAX(ELSG_DTM) FROM PT_PAY_INF_ELSG WHERE NA_TRPL_C = A.NA_TRPL_C AND ENT_PRG_STSC = '1')
+		                        AND PI.STL_METH_DSC IN ('1', '2')
+		                        AND ELSG_CNTN IS NOT NULL
+		                 )
+		            THEN 'A'  /* 전자서명 */
+		            ELSE 'N' END AS CHANGE_MB
+		     , CASE WHEN 0 < (SELECT MAX(NA_TRPL_C) FROM CT_ELT_CTRW_AMN WHERE NA_TRPL_C = A.NA_TRPL_C AND STS IN ('1', '4') AND TEMP_YN = 'N' AND TO_CHAR(SYSDATE,'YYYYMMDD') <= CTR_ED_DT)  /* 계약서 작성(1), 보완(4) */
+		             AND '2' = (SELECT USR_AUTH_DSC FROM PT_USR_AUTH WHERE MB_ID = A.MB_ID AND USR_AUTH_DSC = '2')
+		            THEN 'Y'  /* 전자 계약 변경 사항 있을때 */
+		            ELSE 'N' END AS CHANGE_ELT
+	]]>
+		     , B.UP_NA_TRPL_C
+		     , B.USR_SYS_C
+		     , B.TRPL_DTL_TPC
+		  FROM PT_USR_INF A
+		       INNER JOIN TB_TR_TRPL_CIF B
+		               ON A.NA_TRPL_C = B.NA_TRPL_C
+		       INNER JOIN TB_CM_SIMPC C
+		               ON B.NA_MBCO_DSC = C.SIMP_C
+		              AND C.SIMP_TPC = 'NA_MBCO_DSC'
+		              AND C.USE_YN = 'Y'
+		       LEFT OUTER JOIN BL_COMP_SVC_AMN G
+		               ON A.NA_TRPL_C = G.NA_TRPL_C
+		 WHERE A.MB_ID = #{MB_ID}
+		   <choose>
+		   <when test="TRANS_YN == null or TRANS_YN.length() == 0">
+		       AND A.MB_PW = ecl_digest(#{MB_PW})
+		   </when>
+		   <otherwise>
+		       AND A.MB_PW = #{MB_PW}
+		   </otherwise>
+		   </choose>
+	</select>
+	
+	<select id="getLoginHistoryCnt" parameterType="java.util.Map" resultType="int">
+		SELECT /*getLoginHistoryCnt*/
+			COUNT(*)
+		FROM PT_LGIN_HST
+		WHERE MB_ID=#{MB_ID}
+	</select>
+	
+	<insert id="insertLoginHistory"  parameterType="java.util.Map" >
+		INSERT INTO /*insertLoginHistory*/ 
+		PT_LGIN_HST (			
+			MB_ID,
+			LGIN_DTM,
+			LGIN_IPADR			
+		) VALUES (			
+			#{MB_ID},
+			#{LGIN_DTM},
+			#{LGIN_IPADR}			
+		)
+	</insert>
+	
+	<select id="isWeakPw"  parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) AS CNT
+		  FROM PT_USR_INF
+		 WHERE MB_ID = #{mbId}
+		   AND MB_PW = ECL_DIGEST(#{bzNo})	
+	</select>
+	
+	<!-- 퇴직 임직원 여부 확인 -->
+	<select id="isFiredNhUser"  parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(USRID) AS CNT
+		  FROM PT_NA_BZPL_AMN
+		 WHERE USRID = #{MB_ID}	
+	</select>
+	
+	<!-- 하나로유통 사용자 검사 -->
+	<select id="retrieveCheckNhUserBzplc"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			AA.MB_ID
+			, AA.NA_TRPL_C
+			, MAX(AA.STS) NH_STS
+		FROM (
+			SELECT
+				A.MB_ID
+				, A.NA_TRPL_C
+				, CASE
+					WHEN C.DEPT_ID IS NOT NULL AND C.DEPT_ID = B.DEPT_ID THEN '2' /* 하나로유통 사용자, 부서코드까지 일치 */
+					WHEN C.DEPT_ID IS NOT NULL AND B.DEPT_ID IS NOT NULL THEN '1' /* 하나로유통 사용자, 부서코드 불일치 */
+					WHEN C.DEPT_ID IS NOT NULL AND B.DEPT_ID IS NULL THEN '0' /* 하나로유통 사용자 아님 */
+					ELSE '3' /* 범농협 */
+				END AS STS
+			FROM
+				PT_USR_INF A,
+		    	NHVANPTL.PT_NH_USR_INF B,
+		    	NHVANPTL.PT_NH_DEPT_INF C
+			WHERE A.MB_ID = #{MB_ID}
+			AND A.MB_ID = B.USER_ID(+)
+			AND INSTR(C.NA_BZPLC(+) || ',' || C.BLG_NA_BZPLC(+), A.NA_TRPL_C) <![CDATA[>]]> 0
+			AND C.USE_YN(+) = 'Y'
+		) AA
+		GROUP BY AA.MB_ID, AA.NA_TRPL_C
+	</select>
+	
+	<!-- 하나로유통 사용자 검사2 -->
+	<select id="retrieveCheckNhUserBzplc2"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.MB_ID
+			, A.NA_TRPL_C
+			, A.USR_TPC
+			, A.DEPT_ID
+			, DECODE(B.USER_ID, NULL, 'N', 'Y') AS HNR_YN /* [하나로유통] 사용자등록 */
+			, CASE WHEN A.USR_TPC = DECODE(C.DEPT_DSC, '01', '02', '03') THEN 'Y' ELSE 'N' END AS TPC_YN /* [하나로유통] 유형일치 */
+			, DECODE(INSTR(C.NA_BZPLC || ',' || C.BLG_NA_BZPLC, A.NA_TRPL_C), 0, 'N', 'Y') AS CIF_YN /* [하나로유통] 소속사업장일치 */
+			, CASE WHEN COUNT(D.DEPT_ID) > 0 THEN 'Y' ELSE 'N' END AS HNR_BZPL_YN
+			, (SELECT DECODE(COUNT(USRID), 0, 'N', 'Y') FROM PT_NA_BZPL_AMN WHERE USRID = A.MB_ID AND NA_BZPLC = A.NA_TRPL_C) AS BZPL_YN
+		FROM
+			PT_USR_INF A,
+			NHVANPTL.PT_NH_USR_INF B,
+			NHVANPTL.PT_NH_DEPT_INF C,
+			NHVANPTL.PT_NH_DEPT_INF D
+		WHERE 1=1
+		AND A.USR_TPC IN ('02', '03')
+		AND A.MB_ID = #{MB_ID}
+		AND A.MB_ID = B.USER_ID(+)
+		AND A.DEPT_ID = C.DEPT_ID(+)
+		AND C.USE_YN(+) = 'Y'
+		AND D.USE_YN(+) = 'Y'
+		AND INSTR(D.NA_BZPLC(+) || ',' || D.BLG_NA_BZPLC(+), A.NA_TRPL_C) <![CDATA[>]]> 0
+		GROUP BY A.MB_ID, A.NA_TRPL_C, A.USR_TPC, A.DEPT_ID, B.USER_ID, C.DEPT_DSC, C.NA_BZPLC, C.BLG_NA_BZPLC
+	</select>
+		
+	<!-- 서비스차단조회  -->
+	<select id="retrieveBlockService" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 BLOCK_SQNO
+			 , BLOCK_TI
+			 , BLOCK_CNTN
+			 , BLOCK_PGM
+			 , TO_CHAR(BLOCK_ST_DTM, 'YYYY-MM-DD HH24:MI') AS BLOCK_ST_DTM
+			 , TO_CHAR(BLOCK_ED_DTM, 'YYYY-MM-DD HH24:MI') AS BLOCK_ED_DTM
+		FROM TB_BLOCK_SVC
+		WHERE UYN = 'Y'
+		AND BSN_DSC = #{bsnDsc}
+		<if test="blockPgm != null">
+			AND BLOCK_PGM = #{blockPgm}
+		</if>
+		AND SYSDATE BETWEEN BLOCK_ST_DTM AND BLOCK_ED_DTM
+		AND ROWNUM = 1
+		ORDER BY BLOCK_ST_DTM DESC
+	</select>
+	
+	<update id="update_PT_USR_INF_in_login" parameterType="java.util.Map">
+		/*update_PT_USR_INF_in_login*/
+		update PT_USR_INF set NA_TRPL_C = '${repNaBzplc}', MGR_YN='${mgrYn}' where mb_id = '${usridRes}'
+	</update>
+
+	<!--로그인시 기본 서비스가 등록 되어있는지 체크-->
+	<select id="is_exist_NA_TRPL_C" parameterType="String" resultType="int">
+		select count(*) from PT_SVC_ENT_AMN where 1=1
+		and NA_TRPL_C = #{na_trpl_c}
+		and SVC_ID = '10'
+	</select>
+
+	<insert id="add_row_in_PT_SVC_ENT_AMN" parameterType="java.util.Map">
+		insert into PT_SVC_ENT_AMN (NA_TRPL_C, SVC_ID, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM)
+		values (#{repNaBzplc}, '10', sysdate, 'SYSTEM', sysdate, 'SYSTEM')
+	</insert>
+</mapper>

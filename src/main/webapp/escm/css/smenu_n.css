@@ -1,0 +1,94 @@
+﻿/*��޴�*/
+.stit_sub1 { background:url('../CTR_IMG/stitle_box.gif') 0 0 no-repeat; }
+.stit_sub2 { background:url('../CTR_IMG/stitle_box.gif') 0 -70px no-repeat; }
+.stit_sub3 { background:url('../CTR_IMG/stitle_box.gif') 0 -140px no-repeat; }
+.stit_sub4 { background:url('../CTR_IMG/stitle_box.gif') 0 -210px no-repeat; }
+.stit_sub5 { background:url('../CTR_IMG/stitle_box.gif') 0 -280px no-repeat; }
+.stit_sub6 { background:url('../CTR_IMG/stitle_box.gif') 0 -350px no-repeat; }
+.stit_sub7 { background:url('../CTR_IMG/stitle_box.gif') 0 -420px no-repeat; }
+.stit_sub8 { background:url('../CTR_IMG/stitle_box.gif') 0 -490px no-repeat; }
+.stit_sub9 { background:url('../CTR_IMG/stitle_box.gif') 0 -560px no-repeat; }
+
+/*����1*/
+.stit_subtitle1_1 { background:url('../CTR_IMG/stit_sub1.gif') 0 0 no-repeat; }
+.stit_subtitle1_2 { background:url('../CTR_IMG/stit_sub1.gif') 0 -22px no-repeat; }
+.stit_subtitle1_3 { background:url('../CTR_IMG/stit_sub1.gif') 0 -44px no-repeat; }
+.stit_subtitle1_4 { background:url('../CTR_IMG/stit_sub1.gif') 0 -66px no-repeat; }
+.stit_subtitle1_5 { background:url('../CTR_IMG/stit_sub1.gif') 0 -88px no-repeat; }
+.stit_subtitle1_6 { background:url('../CTR_IMG/stit_sub1.gif') 0 -110px no-repeat; }
+.stit_subtitle1_7 { background:url('../CTR_IMG/stit_sub1.gif') 0 -132px no-repeat; }
+.stit_subtitle1_8 { background:url('../CTR_IMG/stit_sub1.gif') 0 -154px no-repeat; }
+.stit_subtitle1_9 { background:url('../CTR_IMG/stit_sub1.gif') 0 -176px no-repeat; }
+
+/*����2*/
+.stit_subtitle2_1 { background:url('../CTR_IMG/stit_sub2.gif') 0 0 no-repeat; }
+.stit_subtitle2_2 { background:url('../CTR_IMG/stit_sub2.gif') 0 -22px no-repeat; }
+.stit_subtitle2_3 { background:url('../CTR_IMG/stit_sub2.gif') 0 -44px no-repeat; }
+.stit_subtitle2_4 { background:url('../CTR_IMG/stit_sub2.gif') 0 -66px no-repeat; }
+.stit_subtitle2_5 { background:url('../CTR_IMG/stit_sub2.gif') 0 -88px no-repeat; }
+.stit_subtitle2_6 { background:url('../CTR_IMG/stit_sub2.gif') 0 -110px no-repeat; }
+.stit_subtitle2_7 { background:url('../CTR_IMG/stit_sub2.gif') 0 -132px no-repeat; }
+
+/*����3*/
+.stit_subtitle3_1 { background:url('../CTR_IMG/stit_sub3.gif') 0 0 no-repeat; }
+.stit_subtitle3_2 { background:url('../CTR_IMG/stit_sub3.gif') 0 -22px no-repeat; }
+.stit_subtitle3_3 { background:url('../CTR_IMG/stit_sub3.gif') 0 -44px no-repeat; }
+.stit_subtitle3_4 { background:url('../CTR_IMG/stit_sub3.gif') 0 -66px no-repeat; }
+.stit_subtitle3_5 { background:url('../CTR_IMG/stit_sub3.gif') 0 -88px no-repeat; }
+.stit_subtitle3_6 { background:url('../CTR_IMG/stit_sub3.gif') 0 -110px no-repeat; }
+.stit_subtitle3_7 { background:url('../CTR_IMG/stit_sub3.gif') 0 -132px no-repeat; }
+
+/*����4*/
+.stit_subtitle4_1 { background:url('../CTR_IMG/stit_sub4.gif') 0 0 no-repeat; }
+.stit_subtitle4_2 { background:url('../CTR_IMG/stit_sub4.gif') 0 -22px no-repeat; }
+.stit_subtitle4_3 { background:url('../CTR_IMG/stit_sub4.gif') 0 -44px no-repeat; }
+.stit_subtitle4_4 { background:url('../CTR_IMG/stit_sub4.gif') 0 -66px no-repeat; }
+.stit_subtitle4_5 { background:url('../CTR_IMG/stit_sub4.gif') 0 -88px no-repeat; }
+.stit_subtitle4_6 { background:url('../CTR_IMG/stit_sub4.gif') 0 -110px no-repeat; }
+.stit_subtitle4_7 { background:url('../CTR_IMG/stit_sub4.gif') 0 -132px no-repeat; }
+
+/*����5*/
+.stit_subtitle5_1 { background:url('../CTR_IMG/stit_sub5.gif') 0 0 no-repeat; }
+.stit_subtitle5_2 { background:url('../CTR_IMG/stit_sub5.gif') 0 -22px no-repeat; }
+.stit_subtitle5_3 { background:url('../CTR_IMG/stit_sub5.gif') 0 -44px no-repeat; }
+.stit_subtitle5_4 { background:url('../CTR_IMG/stit_sub5.gif') 0 -66px no-repeat; }
+.stit_subtitle5_5 { background:url('../CTR_IMG/stit_sub5.gif') 0 -88px no-repeat; }
+.stit_subtitle5_6 { background:url('../CTR_IMG/stit_sub5.gif') 0 -110px no-repeat; }
+.stit_subtitle5_7 { background:url('../CTR_IMG/stit_sub5.gif') 0 -132px no-repeat; }
+
+/*����6*/
+.stit_subtitle6_1 { background:url('../CTR_IMG/stit_sub6.gif') 0 0 no-repeat; }
+.stit_subtitle6_2 { background:url('../CTR_IMG/stit_sub6.gif') 0 -22px no-repeat; }
+.stit_subtitle6_3 { background:url('../CTR_IMG/stit_sub6.gif') 0 -44px no-repeat; }
+.stit_subtitle6_4 { background:url('../CTR_IMG/stit_sub6.gif') 0 -66px no-repeat; }
+.stit_subtitle6_5 { background:url('../CTR_IMG/stit_sub6.gif') 0 -88px no-repeat; }
+.stit_subtitle6_6 { background:url('../CTR_IMG/stit_sub6.gif') 0 -110px no-repeat; }
+.stit_subtitle6_7 { background:url('../CTR_IMG/stit_sub6.gif') 0 -132px no-repeat; }
+.stit_subtitle6_8 { background:url('../CTR_IMG/stit_sub6.gif') 0 -154px no-repeat; }
+
+/*����7*/
+.stit_subtitle7_1 { background:url('/images/subtitle/stit_sub7.gif') 0 0 no-repeat; }
+.stit_subtitle7_2 { background:url('/images/subtitle/stit_sub7.gif') 0 -22px no-repeat; }
+.stit_subtitle7_3 { background:url('/images/subtitle/stit_sub7.gif') 0 -44px no-repeat; }
+.stit_subtitle7_4 { background:url('/images/subtitle/stit_sub7.gif') 0 -66px no-repeat; }
+.stit_subtitle7_5 { background:url('/images/subtitle/stit_sub7.gif') 0 -88px no-repeat; }
+.stit_subtitle7_6 { background:url('/images/subtitle/stit_sub7.gif') 0 -110px no-repeat; }
+.stit_subtitle7_7 { background:url('/images/subtitle/stit_sub7.gif') 0 -132px no-repeat; }
+
+/*����8*/
+.stit_subtitle8_1 { background:url('../CTR_IMG/stit_sub8.gif') 0 0 no-repeat; }
+.stit_subtitle8_2 { background:url('../CTR_IMG/stit_sub8.gif') 0 -22px no-repeat; }
+.stit_subtitle8_3 { background:url('../CTR_IMG/stit_sub8.gif') 0 -44px no-repeat; }
+.stit_subtitle8_4 { background:url('../CTR_IMG/stit_sub8.gif') 0 -66px no-repeat; }
+.stit_subtitle8_5 { background:url('../CTR_IMG/stit_sub8.gif') 0 -88px no-repeat; }
+.stit_subtitle8_6 { background:url('../CTR_IMG/stit_sub8.gif') 0 -110px no-repeat; }
+.stit_subtitle8_7 { background:url('../CTR_IMG/stit_sub8.gif') 0 -132px no-repeat; }
+
+/*����9*/
+.stit_subtitle9_1 { background:url('../CTR_IMG/stit_sub9.gif') 0 0 no-repeat; }
+.stit_subtitle9_2 { background:url('../CTR_IMG/stit_sub9.gif') 0 -22px no-repeat; }
+.stit_subtitle9_3 { background:url('../CTR_IMG/stit_sub9.gif') 0 -44px no-repeat; }
+.stit_subtitle9_4 { background:url('../CTR_IMG/stit_sub9.gif') 0 -66px no-repeat; }
+.stit_subtitle9_5 { background:url('../CTR_IMG/stit_sub9.gif') 0 -88px no-repeat; }
+.stit_subtitle9_6 { background:url('../CTR_IMG/stit_sub9.gif') 0 -110px no-repeat; }
+.stit_subtitle9_7 { background:url('../CTR_IMG/stit_sub9.gif') 0 -132px no-repeat; }

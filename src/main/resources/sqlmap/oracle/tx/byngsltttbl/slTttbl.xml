@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="slTttblDAO">
+    
+	<resultMap id="slTttbl" type="com.nh.escm.tx.byngsltttbl.vo.SlTttblVO">
+	    <result column="COUNT_BUY_BZNO"                      property="COUNT_BUY_BZNO" />    
+	    <result column="SUM_BUY_BZNO"                       property="SUM_BUY_BZNO" />                      
+		<result column="SPRTT"                      property="SPRTT" />                  
+		<result column="TXA_TT"                          property="TXA_TT" />                        
+		<result column="TOT_AM"                         property="TOT_AM" />    
+		 <result column="COUNT_BUY_BZNO2"                      property="COUNT_BUY_BZNO2" />    
+	    <result column="SUM_BUY_BZNO2"                       property="SUM_BUY_BZNO2" />                      
+		<result column="SPRTT2"                      property="SPRTT2" />                  
+		<result column="TXA_TT2"                          property="TXA_TT2" />                        
+		<result column="TOT_AM2"                         property="TOT_AM2" />                      
+	</resultMap>
+
+	
+	<select id= "retrieveByngsltttbl"  parameterType="java.util.Map" resultMap="slTttbl">
+	    SELECT COUNT(COUNT(A.BUY_BZNO)) AS COUNT_BUY_BZNO
+ 		     , NVL(SUM(COUNT(A.BUY_BZNO)),0) AS SUM_BUY_BZNO
+		     , NVL(SUM(SUM(A.SPRTT)),0)  AS SPRTT
+		     , NVL(SUM(SUM(A.TXA_TT)),0) AS TXA_TT
+		     , NVL(SUM(SUM(A.TOT_AM)),0) AS TOT_AM
+		  FROM TX_TXBIL A
+		 WHERE A.CRT_DT BETWEEN #{START} AND #{END}
+		   <if test="NA_TRPL_C != null">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		   AND A.RPBC_DSC = #{RPBC_DSC}
+ 		 <if test = "OCU_DSC != null and OCU_DSC.length() > 0">
+		   AND A.OCU_DSC = #{OCU_DSC}
+		 </if>
+ 		 <if test = "NA_BZPLC != null and NA_BZPLC.length() > 0">
+		   AND A.NA_BZPLC = #{NA_BZPLC}
+		 </if>  
+		   AND ( 
+		   		 A.TXBIL_STSC = '04' OR /*발행*/
+		     	 A.TXBIL_STSC = '07' OR /*국세청접수*/
+		     	 A.TXBIL_STSC = '99' OR /*발행오류*/
+		     	 A.TXBIL_STSC = '00'  /*국세청신고완료*/
+		       )
+		 GROUP BY A.BUY_BZNO
+	</select>
+	
+	<select id= "retrieveByngsltttbl2"  parameterType="java.util.Map" resultMap="slTttbl">
+	    SELECT COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO
+		     , COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.SPRTT))),0)  AS SPRTT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.SPRTT))),0)  AS SPRTT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TXA_TT))),0) AS TXA_TT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TXA_TT))),0) AS TXA_TT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TOT_AM))),0) AS TOT_AM
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TOT_AM))),0) AS TOT_AM2
+		  FROM TX_TXBIL A
+		 WHERE A.CRT_DT BETWEEN #{START} AND #{END}
+		   <if test="NA_TRPL_C != null">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		   AND A.RPBC_DSC = #{RPBC_DSC}
+ 		 <if test = "OCU_DSC != null and OCU_DSC.length() > 0">
+		   AND A.OCU_DSC = #{OCU_DSC}
+		 </if>
+ 		 <if test = "NA_BZPLC != null and NA_BZPLC.length() > 0">
+		   AND A.NA_BZPLC = #{NA_BZPLC}
+		 </if>  
+		   AND A.TXBIL_STSC = '00' /*국세청신고완료*/
+		 GROUP BY A.BUY_BZNO
+	</select>
+	
+	
+	<select id= "retrieveByngsltttbl3"  parameterType="java.util.Map" resultMap="slTttbl">
+	    SELECT COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO
+		     , COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.SPRTT))),0)  AS SPRTT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.SPRTT))),0)  AS SPRTT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TXA_TT))),0) AS TXA_TT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TXA_TT))),0) AS TXA_TT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TOT_AM))),0) AS TOT_AM
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TOT_AM))),0) AS TOT_AM2
+		  FROM TX_TXBIL A
+		 WHERE A.CRT_DT BETWEEN #{START} AND #{END}
+		   <if test="NA_TRPL_C != null">
+		   AND A.NA_TRPL_C IN 
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		</if>
+		   AND A.RPBC_DSC = #{RPBC_DSC}
+ 		 <if test = "OCU_DSC != null and OCU_DSC.length() > 0">
+		   AND A.OCU_DSC = #{OCU_DSC}
+		 </if>
+ 		 <if test = "NA_BZPLC != null and NA_BZPLC.length() > 0">
+		   AND A.NA_BZPLC = #{NA_BZPLC}
+		 </if>  
+		   AND ( 
+		   		 A.TXBIL_STSC = '04' OR /*발행*/
+		     	 A.TXBIL_STSC = '07' OR /*국세청접수*/
+		     	 A.TXBIL_STSC = '99'    /*오류*/
+		       )
+		 GROUP BY A.BUY_BZNO
+	</select>
+	
+	<select id= "retrieveByngsltttblAdmin"  parameterType="java.util.Map" resultMap="slTttbl">
+	    SELECT COUNT(COUNT(A.BUY_BZNO)) AS COUNT_BUY_BZNO
+		     , NVL(SUM(COUNT(A.BUY_BZNO)),0) AS SUM_BUY_BZNO
+		     , NVL(SUM(SUM(A.SPRTT)),0)  AS SPRTT
+		     , NVL(SUM(SUM(A.TXA_TT)),0) AS TXA_TT
+		     , NVL(SUM(SUM(A.TOT_AM)),0) AS TOT_AM
+		  FROM TX_TXBIL A
+		 WHERE A.NA_BZPLC = '1148164826000'
+		   <if test = "SPLR_BZNO != null and SPLR_BZNO.length() > 0">
+		   AND A.SPLR_BZNO = '1148164826'
+		 </if>
+		 <if test = "BUY_BZNO != null and BUY_BZNO.length() > 0">
+		   AND A.BUY_BZNO = '1148164826'
+		 </if>    
+		   AND A.CRT_DT BETWEEN #{START} AND #{END}
+		   AND ( 
+		         A.TXBIL_STSC = '04' OR /*발행*/
+		         A.TXBIL_STSC = '07' OR /*국세청접수*/
+		         A.TXBIL_STSC = '99' OR /*발행오류*/
+		         A.TXBIL_STSC = '00'  /*국세청신고완료*/
+		       )
+		 GROUP BY A.BUY_BZNO
+	</select>
+	
+	<select id= "retrieveByngsltttblAdmin2"  parameterType="java.util.Map" resultMap="slTttbl">
+	    SELECT COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO
+		     , COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.SPRTT))),0)  AS SPRTT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.SPRTT))),0)  AS SPRTT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TXA_TT))),0) AS TXA_TT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TXA_TT))),0) AS TXA_TT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TOT_AM))),0) AS TOT_AM
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TOT_AM))),0) AS TOT_AM2
+		  FROM TX_TXBIL A
+		 WHERE A.NA_BZPLC = '1148164826000'
+		 <if test = "SPLR_BZNO != null and SPLR_BZNO.length() > 0">
+		   AND A.SPLR_BZNO = '1148164826'
+		 </if>
+		 <if test = "BUY_BZNO != null and BUY_BZNO.length() > 0">
+		   AND A.BUY_BZNO = '1148164826'
+		 </if>    
+		   AND A.CRT_DT BETWEEN #{START} AND #{END}
+		   AND A.TXBIL_STSC = '00' /*국세청신고완료*/
+		 GROUP BY A.BUY_BZNO
+	</select>
+	
+	
+	<select id= "retrieveByngsltttblAdmin3"  parameterType="java.util.Map" resultMap="slTttbl">
+	    SELECT COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO
+		     , COUNT(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO)))  AS COUNT_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, COUNT(A.BUY_BZNO))),0)    AS SUM_BUY_BZNO2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.SPRTT))),0)  AS SPRTT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.SPRTT))),0)  AS SPRTT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TXA_TT))),0) AS TXA_TT
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TXA_TT))),0) AS TXA_TT2
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 10, SUM(A.TOT_AM))),0) AS TOT_AM
+		     , NVL(SUM(DECODE(LENGTH(TRIM(A.BUY_BZNO)), 13, SUM(A.TOT_AM))),0) AS TOT_AM2
+		  FROM TX_TXBIL A
+		 WHERE A.NA_BZPLC = '1148164826000'
+		  <if test = "SPLR_BZNO != null and SPLR_BZNO.length() > 0">
+		   AND A.SPLR_BZNO = '1148164826'
+		 </if>
+		 <if test = "BUY_BZNO != null and BUY_BZNO.length() > 0">
+		   AND A.BUY_BZNO = '1148164826'
+		 </if>    
+		   AND A.CRT_DT BETWEEN #{START} AND #{END}
+		   AND ( 
+		   		 A.TXBIL_STSC = '04' OR /*발행*/
+		     	 A.TXBIL_STSC = '07' OR /*국세청접수*/
+		     	 A.TXBIL_STSC = '99'    /*오류*/
+		       )
+		   AND A.NTS_TMS_SQNO IS NULL
+		 GROUP BY A.BUY_BZNO
+	</select>
+</mapper>

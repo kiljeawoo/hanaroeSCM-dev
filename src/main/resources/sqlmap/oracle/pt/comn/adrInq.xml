@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adrInqDAO">
+
+	<resultMap id="rcZipMap" type="com.nh.escm.pt.comn.vo.AdrInqVO">
+		<result column="ISCHECKED" property="ISCHECKED" />
+		<result column="DTCT_NO" property="DTCT_NO" />
+		<result column="PROVNM" property="PROVNM" />
+		<result column="CCWNM" property="CCWNM" />
+		<result column="TTVNM" property="TTVNM" />
+		<result column="RODNM_C" property="RODNM_C" />
+		<result column="RODNM" property="RODNM" />
+		<result column="BLD_NO_MHZNO" property="BLD_NO_MHZNO" />
+		<result column="BLD_NO_SHZNO" property="BLD_NO_SHZNO" />
+		<result column="CCWN_BLDNM" property="CCWN_BLDNM" />
+		<result column="LWDG_C" property="LWDG_C" />
+		<result column="LWDGNM" property="LWDGNM" />
+		<result column="LTNO_MHZNO" property="LTNO_MHZNO" />
+		<result column="LTNO_SHZNO" property="LTNO_SHZNO" />
+		<result column="BLD_AMNNO" property="BLD_AMNNO" />
+		<result column="RINM" property="RINM" />
+	</resultMap>
+
+	<select id="retrieveAdrInqList" parameterType="java.util.Map"
+		resultMap="rcZipMap">
+		<bind name="sortName" value="'null'" />
+		<bind name="sortType" value="'null'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveZipList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveAdrInqCount" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveZipList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<sql id="sql_retrieveZipList">
+		SELECT DISTINCT '0' AS ISCHECKED , A.BLD_AMNNO, A.RODNM, A.DTCT_NO, A.PROVNM,A.CCWNM,A.CCWN_BLDNM,A.LWDGNM,A.ADDGNM, A.TTVNM, A.BLD_NO_MHZNO, A.BLD_NO_SHZNO, A.LTNO_MHZNO, A.LTNO_SHZNO, A.RINM
+		FROM MG_ZIP A
+		WHERE A.PROVNM = #{PROVNM}
+		<if test="EDT_ZIP != null and EDT_ZIP.length() > 0">
+			<choose>
+				<when test="CBO_COMP == 1">
+					AND  A.LWDGNM = #{EDT_ZIP}
+					<!-- 
+					AND ( A.LWDGNM LIKE #{EDT_ZIP} || '%'
+					OR A.ADDGNM LIKE #{EDT_ZIP} || '%'
+					OR A.CCWN_BLDNM LIKE #{EDT_ZIP} || '%')
+					 -->
+					<if test="EDT_ZIP2 != null and EDT_ZIP2.length() > 0">
+						AND A.LTNO_MHZNO = #{EDT_ZIP2}
+						<if test="EDT_ZIP3 != null and EDT_ZIP3.length() > 0">
+							AND A.LTNO_SHZNO = #{EDT_ZIP3}
+						</if>
+					</if>
+				</when>
+				<when test="CBO_COMP == 2">
+					AND A.RODNM = #{EDT_ZIP}
+					<!-- 
+					AND ( A.RODNM LIKE #{EDT_ZIP} || '%'
+					OR A.CCWN_BLDNM LIKE #{EDT_ZIP} || '%'
+					)
+					 -->
+					<if test="EDT_ZIP2 != null and EDT_ZIP2.length() > 0">
+						AND A.BLD_NO_MHZNO = #{EDT_ZIP2}
+						<if test="EDT_ZIP3 != null and EDT_ZIP3.length() > 0">
+							AND A.BLD_NO_SHZNO = #{EDT_ZIP3}
+						</if>
+					</if>
+				</when>
+			</choose>
+		</if>
+	</sql>
+
+</mapper>

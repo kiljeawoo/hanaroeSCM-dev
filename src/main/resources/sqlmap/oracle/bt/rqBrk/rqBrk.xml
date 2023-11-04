@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rqBrkDAO">
+
+	<resultMap id="rcResultSumMap" type="com.nh.escm.bt.rqBrk.vo.RqBrkVO">
+		<result column="ISCHECKED" property="ISCHECKED" />
+		<result column="CSLT_RQ_NO" property="CSLT_RQ_NO" />
+		<result column="USR_NM" property="USR_NM" />
+		<result column="BUYER_CHRG_BSNNM" property="BUYER_CHRG_BSNNM" />
+		<result column="CONM" property="CONM" />
+		<result column="BZNO" property="BZNO" />
+		<result column="CHRRNM" property="CHRRNM" />
+		<result column="CHRR_MPNO" property="CHRR_MPNO" />
+		<result column="RQ_DT" property="RQ_DT" />
+		<result column="STS" property="STS" />
+		<result column="STS_NM" property="STS_NM" />
+		<result column="MAJ_LATC" property="MAJ_LATC" />
+		<result column="CSLT_DSC" property="CSLT_DSC" />
+	</resultMap>
+
+	<!-- 상담신청 존재여부 -->
+	<select id="existsCsltRq" parameterType="java.util.Map" resultType="int">
+		SELECT /* existsCsltRq */
+		       COUNT(Q.CSLT_RQ_NO)
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		 WHERE BZNO      = #{MAE_BZNO}
+		   AND CHRRNM    = #{EDT_CHRRNM}
+		   AND CHRR_MPNO = ecl_encrypt(#{CHRR_MPNO})
+	</select>
+
+	<!-- 1년 이내 상담신청 존재여부 -->
+	<select id="existsCsltRqInOneYear" parameterType="java.util.Map" resultType="int">
+		SELECT /* existsCsltRqInOneYear */
+		       COUNT(Q.CSLT_RQ_NO)
+		  FROM BT_CTR_CSLT_RQ Q
+
+		 WHERE 
+		 <![CDATA[
+		        MONTHS_BETWEEN(SYSDATE, FSRG_DTM) < 12
+		 ]]>
+		    AND Q.BZNO      = #{MAE_BZNO}
+
+	</select>
+
+	<!-- 1년 이내 상담신청 존재여부 -->
+	<!-- 
+			BT_CTR_CSLT_RQ.STS = MG_TPC_AMN.CTR_STS
+			계약상담상태
+			1	신청
+			2	보완
+			3	재신청
+			4	접수
+			5	거절
+			6	완료
+	 -->
+	<select id="rejectedInOneYear" parameterType="java.util.Map" resultType="java.util.Map">
+
+		WITH TMP_VW AS
+		(
+		      SELECT /* existsCsltRqInOneYear */
+		              Q.LS_CHGM
+		            , Q.LSCHG_DTM
+		        FROM BT_CTR_CSLT_RQ Q
+		  
+		       WHERE 
+			         Q.STS          = '5'
+                 AND Q.REJECT_ALLOW = 'N'
+			     AND Q.BZNO         = #{bzno}
+
+			 <![CDATA[
+			    AND MONTHS_BETWEEN(SYSDATE, FSRG_DTM) < 12
+                AND SYSDATE < ADD_MONTHS(Q.FSRG_DTM, Q.REJECT_MONTH)
+			 ]]>
+		    ORDER BY Q.LSCHG_DTM DESC
+		 )
+		 
+		  SELECT   A.LS_CHGM
+		         , B.USR_NM 
+		    FROM TMP_VW A
+		    JOIN PT_USR_INF B 
+		      ON A.LS_CHGM = B.MB_ID
+		  
+		  WHERE ROWNUM = 1
+
+	</select>
+
+	<!-- 상담신청 목록 -->
+	<select id="retrieveRqBrkList" parameterType="java.util.Map" resultMap="rcResultSumMap">
+		SELECT /* retrieveRqBrkList */
+		       '' AS ISCHECKED
+		     , Q.CSLT_RQ_NO
+		     , DECODE(Q.BUYER_NM, '', '담당자배정중', Q.BUYER_NM) AS USR_NM
+		     , Q.BUYER_CHRG_BSNNM
+		     , Q.CONM                /* 업체명 */
+		     , Q.BZNO                /* 사업자등록번호 */
+		     , Q.CHRRNM              /* 신청자명 */
+		     , ecl_decrypt(Q.CHRR_MPNO) AS CHRR_MPNO  /* 휴대폰 */
+		     , Q.RQ_DT
+		     , Q.STS                 /* 진행상태코드 */
+		     , (
+		           SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'CTR_STS' AND SIMP_C = Q.STS
+		       ) AS STS_NM           /* 진행상태명 */
+		     , Q.MAJ_LATC            /* 주력품목 */
+		     , NVL(Q.CSLT_DSC, 101) CSLT_DSC/* 항목구분 */
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		 WHERE Q.BZNO      = #{MAE_BZNO}
+		   AND Q.CHRRNM    = #{EDT_CHRRNM}
+		   AND Q.CHRR_MPNO = ecl_encrypt(#{CHRR_MPNO})
+		   AND Q.RQ_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}  /* 신청일자 */
+		<if test="CBO_STS != null and CBO_STS.length() > 0">
+		<![CDATA[
+		   AND Q.STS IN (
+		           SELECT REGEXP_SUBSTR(#{CBO_STS}, '[^.]+', 1, LEVEL) 
+		             FROM DUAL CONNECT BY LEVEL <= REGEXP_COUNT(#{CBO_STS}, '.' ) + 1
+		       )
+		]]>
+		</if>
+		<if test="EDT_BUYER != null and EDT_BUYER.length() > 0">
+		   AND Q.BUYER_NM = #{EDT_BUYER}  /* 담당바이어 */
+		</if>
+		<if test="CBO_DSC != null and CBO_DSC.length() > 0">
+		<![CDATA[
+		   AND NVL(Q.CSLT_DSC, 101) IN (
+		           SELECT REGEXP_SUBSTR(#{CBO_DSC}, '[^.]+', 1, LEVEL)
+		             FROM DUAL CONNECT BY LEVEL <= LENGTH(REGEXP_REPLACE(#{CBO_DSC}, '[^.]+',''))+1
+		       )
+		]]>
+		</if>
+		 ORDER BY CSLT_RQ_NO DESC
+	</select>
+
+</mapper>

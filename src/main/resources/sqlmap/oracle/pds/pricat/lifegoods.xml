@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lifeGoodsDAO">
+	<resultMap type="com.nh.escm.pds.pricat.vo.LifeGoodsVO" id="LifeGoodsVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_BYNG_DSC_NM" property="NA_BYNG_DSC_NM" />
+		<result column="PGNM" property="PGNM" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="SEL_UPR" property="SEL_UPR" />
+		<result column="COMP_FEERT" property="COMP_FEERT" />
+		<result column="AMN_FEERT" property="AMN_FEERT" />
+		<result column="TROT_FEERT" property="TROT_FEERT" />
+		<result column="PHD_FEERT" property="PHD_FEERT" />
+		<result column="PHD_DDLY_FEERT" property="PHD_DDLY_FEERT" />
+		<result column="PY_FDTCN" property="PY_FDTCN" />
+		<result column="ODR_FBID_YN" property="ODR_FBID_YN" />
+		<result column="ODR_FBID_RSN" property="ODR_FBID_RSN" />
+		<result column="BUYER_ENO" property="BUYER_ENO" />
+		<result column="BUYER_NM" property="BUYER_NM" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRGMN_NA_BZPLC" property="FSRGMN_NA_BZPLC" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LSCGMN_NA_BZPLC" property="LSCGMN_NA_BZPLC" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+		<result column="DLMN_ENO" property="DLMN_ENO" />
+		<result column="DLMN_NA_BZPLC" property="DLMN_NA_BZPLC" />
+		<result column="NA_BZPLC_NM" property="NA_BZPLC_NM" />
+		<result column="RVO_YN" property="RVO_YN" />
+		<result column="WRS_ODR_FBID_YN" property="WRS_ODR_FBID_YN" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="CTR_TPC" property="CTR_TPC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="UP_NA_TRPL_C" property="UP_NA_TRPL_C" />
+		<result column="TRPL_ABR_NM" property="TRPL_ABR_NM" />
+		<result column="PRGR_DSC" property="PRGR_DSC" />
+		<result column="APL_DT" property="APL_DT" />
+		<result column="DDLY_PHD_FEERT" property="DDLY_PHD_FEERT" />
+		<result column="CHRG_BUYER_ENO" property="CHRG_BUYER_ENO" />
+		<result column="DTM" property="DTM" />
+		<result column="BOX_WRS_C_YN" property="BOX_WRS_C_YN" />
+        
+	</resultMap>
+	
+	
+	<select id="getuptrpl" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			UP_NA_TRPL_C,
+			FN_TRPL_CIF_NM(UP_NA_TRPL_C) TRPL_ABR_NM
+		FROM TB_TR_TRPL_CIF
+		WHERE NA_TRPL_C = #{glncode}
+	</select>
+	
+	<!-- 상품공급가격 조회 count -->
+	<select id="lifeschCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_schselect"/>
+		<include refid="common.count_end" />
+	</select>
+	<!-- 상품공급가격 조회 -->
+	<select id="schselect" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_schselect"/>
+	</select>
+	<!-- 상품공급가격 엑셀다운로드 -->
+	<select id="downloadExcelLifeGoods" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_schselect"/>
+	</select>
+	<!-- 상품공급가격 출력 -->
+	<select id="lifeschprint" parameterType="java.util.Map" resultMap="LifeGoodsVO">
+		<include refid="sql_schselect"/>
+	</select>
+	
+	<sql id="sql_schselect">
+			SELECT  /*+ leading(trnrel bzpl b a d c) index(trnrel IDX_TB_TR_TRNREL_02) use_nl(trnrel bzpl b a d c) */
+				A.NA_BZPLC, 		/* 사업장코드 */
+				FN_CM_BZPL_NM(A.NA_BZPLC) NA_BZPLC_NM,
+				A.NA_TEAM_C,		/* 팀코드 */
+				A.PRGR_C,
+				A.NA_WRS_C,
+				B.WRSNM,
+				CASE WHEN B.SPY_TPC IS NOT NULL THEN (FN_CM_SIMP_CNM('SPY_TPC',B.SPY_TPC)) ELSE '' END AS SPY_TPC_NM, 
+				C.PGNM,
+				CASE A.BYNG_UPR 
+                    WHEN 0 THEN '0.00'
+                    ELSE TO_CHAR(A.BYNG_UPR, 'fm99999999999.99') 
+                END AS BYNG_UPR, 
+				CASE A.SEL_UPR 
+                    WHEN 0 THEN '0.00'
+                    ELSE TO_CHAR(A.SEL_UPR, 'fm999999999999.99') 
+                END AS SEL_UPR, 
+				A.COMP_FEERT,
+				A.AMN_FEERT,
+				A.TROT_FEERT,
+				A.PHD_FEERT,
+				A.DDLY_PHD_FEERT,
+				A.PY_FDTCN,
+				A.ODR_FBID_YN,
+				CASE WHEN A.ODR_FBID_RSNC IS NOT NULL THEN (FN_CM_SIMP_CNM('ODR_FBID_RSNC',A.ODR_FBID_RSNC)) ELSE '' END AS ODR_FBID_RSNC_NM,
+				A.ODR_FBID_RSNC,
+				A.CHRG_BUYER_ENO,
+				(SELECT BUYER_NM FROM TB_CM_BUYER
+			    WHERE NA_BZPLC = A.NA_BZPLC
+			    AND BUYER_ENO = REPLACE(A.CHRG_BUYER_ENO,' ','')
+				) BUYER_NM,
+				TO_CHAR(A.FSRG_DTM,'YYYY-MM-DD') FSRG_DTM,
+				TO_CHAR(A.LSCHG_DTM,'YYYY-MM-DD') LSCHG_DTM,
+				TO_CHAR(A.DEL_DTM,'YYYY-MM-DD') DEL_DTM,
+				TO_CHAR(A.FSRG_DTM,'YYYY-MM-DD')||' / '||
+				TO_CHAR(A.LSCHG_DTM,'YYYY-MM-DD')||' / '||
+				TO_CHAR(A.DEL_DTM,'YYYY-MM-DD') AS DTM,
+				A.FSRGMN_ENO,
+				A.FSRGMN_NA_BZPLC,
+				A.LS_CMENO,			/* 최종사용자  */
+				A.LSCGMN_NA_BZPLC,
+				A.DLMN_ENO,
+				A.DLMN_NA_BZPLC,
+				B.RVO_PSB_YN,
+		        B.ODR_PSB_YN,
+		        D.BOXPE_AQZ
+			FROM 
+				TB_TR_TRNREL TRNREL
+				,TB_CM_BZPL BZPL
+				,TB_OD_TRTWRS B
+				,TB_GD_PRGR_GOODLOG A
+				,TB_GD_WRS D
+				,TB_CM_PRGR_BASE C
+				
+                <if test="BOX_WRS_C_YN != null and BOX_WRS_C_YN.equals('1')">
+                    , TB_FD_GM_GOOD_WH E
+                </if>
+                
+			WHERE
+				TRNREL.SPLR_NA_TRPL_C IN 
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    			#{item}
+				</foreach>						
+				AND TRNREL.SPLR_NA_TRPL_C = B.SPYPL_NA_TRPL_C 
+				AND TRNREL.CSER_NA_TRPL_C = B.NA_BZPLC
+				AND TRNREL.CSER_NA_TRPL_C = BZPL.NA_BZPLC
+				AND A.NA_BZPLC = B.NA_BZPLC
+				AND A.NA_TEAM_C = B.NA_TEAM_C
+				AND A.NA_WRS_C = B.NA_WRS_C
+				AND A.NA_WRS_C = D.NA_WRS_C
+				AND A.PRGR_C = C.PRGR_C(+)
+				AND A.PRGR_DSC = C.PRGR_DSC(+)
+				AND '1' = C.PRGR_DSC(+) 
+				
+                <if test="BOX_WRS_C_YN != null and BOX_WRS_C_YN.equals('1')">
+			        AND B.NA_BZPLC = E.NA_BZPLC
+			        AND B.NA_WRS_C = E.NA_WRS_C
+			        AND E.BOX_WRS_C_YN = #{BOX_WRS_C_YN}
+                </if>
+                
+				
+				<if test="COMBO_PAY != 'all'">
+					AND A.PRGR_C = #{COMBO_PAY}
+				</if>
+				<if test="TXT_DSC != 'all'">
+					AND B.TXT_DSC = #{TXT_DSC}
+				</if>
+				<if test="STO_CODE != null and STO_CODE.length() > 0">
+					AND B.NA_WRS_C BETWEEN #{STO_CODE} AND #{STO_CODE2}
+				</if>
+				<if test="DATE_RDO == 1">
+					AND A.FSRG_DTM <![CDATA[>=]]> TO_DATE(#{DATE_FROM}||'000000' ,'YYYYMMDDHH24MISS')
+        			AND A.FSRG_DTM <![CDATA[<=]]> TO_DATE(#{DATE_TO}||'235959' ,'YYYYMMDDHH24MISS')
+				</if>
+				<if test="DATE_RDO == 2">
+					AND A.LSCHG_DTM <![CDATA[>=]]> TO_DATE(#{DATE_FROM}||'000000' ,'YYYYMMDDHH24MISS')
+        			AND A.LSCHG_DTM <![CDATA[<=]]> TO_DATE(#{DATE_TO}||'235959' ,'YYYYMMDDHH24MISS')
+				</if>
+				<if test="DATE_RDO == 3">
+					AND A.DEL_DTM <![CDATA[>=]]> TO_DATE(#{DATE_FROM}||'000000' ,'YYYYMMDDHH24MISS')
+        			AND A.DEL_DTM <![CDATA[<=]]> TO_DATE(#{DATE_TO}||'235959' ,'YYYYMMDDHH24MISS')
+				</if>
+				AND A.APL_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+      			AND A.APL_ED_DT <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+      			AND C.PRGR_DSC = '1'
+      			AND C.DEL_DTM IS NULL
+      			<choose>
+      				<when test="isBzplc != null and !isBzplc.equals('')">
+						<if test="bzplc != 'all' and !bzplc.equals('')">
+							AND BZPL.NA_BZPLC = #{bzplc}
+      					</if>
+      				</when>
+      				<otherwise>
+      					<if test="COMBO_CTR == 00">
+							AND BZPL.BZPL_TPC = '504'
+						</if>
+						<if test="COMBO_CTR != 00">
+							AND BZPL.NA_BZPLC = #{COMBO_CTR}
+						</if>
+      				</otherwise>
+      			</choose>
+				<if test="ODR_FBID_YN == 0">
+					AND A.ODR_FBID_YN = '0'
+				</if>
+				<if test="DEL_DTM == 0">
+					AND A.DEL_DTM IS NULL
+				</if>
+				ORDER BY A.NA_BZPLC,A.NA_WRS_C,A.PRGR_C ASC
+	</sql>
+	
+	<!-- 상품 공급가격이력 조회,엑셀 -->
+	<select id="hofselect"  parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_hofselect"/>
+	</select>
+	<!-- 상품 공급가격이력 출력 -->
+	<select id="historyprint" parameterType="java.util.Map" resultMap="LifeGoodsVO">
+		<include refid="sql_hofselect"/>
+	</select>
+	<sql id="sql_hofselect">
+			SELECT
+				A.NA_BZPLC
+	  			, FN_CM_BZPL_NM(A.NA_BZPLC) NA_BZPLC_NM
+				, A.NA_TEAM_C
+				, A.PRGR_C
+				, SUBSTR(TO_CHAR(A.LSCHG_DTM,'YYYYMMDDHH24MISS'),0,4)||'-'||SUBSTR(TO_CHAR(A.LSCHG_DTM,'YYYYMMDDHH24MISS'),5,2)||'-'||SUBSTR(TO_CHAR(A.LSCHG_DTM,'YYYYMMDDHH24MISS'),7,2)
+				 ||' '||SUBSTR(TO_CHAR(A.LSCHG_DTM,'YYYYMMDDHH24MISS'),9,2)||':'||SUBSTR(TO_CHAR(A.LSCHG_DTM,'YYYYMMDDHH24MISS'),11,2)||':'||SUBSTR(TO_CHAR(A.LSCHG_DTM,'YYYYMMDDHH24MISS'),13,2) AS APL_DT
+				, A.NA_WRS_C
+				, B.WRSNM
+				, CASE WHEN B.SPY_TPC IS NOT NULL THEN (FN_CM_SIMP_CNM('SPY_TPC',B.SPY_TPC)) ELSE '' END AS SPY_TPC_NM
+				, C.PGNM
+				, CASE A.BYNG_UPR 
+                    WHEN 0 THEN '0.00'
+                    ELSE TO_CHAR(A.BYNG_UPR, 'fm9999999.90') 
+                   END AS BYNG_UPR
+				, 0 SEL_UPR
+				, A.COMP_FEERT
+				, A.AMN_FEERT
+				, A.TROT_FEERT
+				, A.PHD_FEERT
+				, A.DDLY_PHD_FEERT
+				, A.PY_FDTCN
+				, A.ODR_FBID_YN
+				, CASE WHEN A.ODR_FBID_RSNC IS NOT NULL THEN (FN_CM_SIMP_CNM('ODR_FBID_RSNC',A.ODR_FBID_RSNC)) ELSE '' END AS ODR_FBID_RSNC_NM
+				, A.CHRG_BUYER_ENO
+				, (SELECT BUYER_NM FROM TB_CM_BUYER WHERE NA_BZPLC = A.NA_BZPLC
+				AND NA_TEAM_C = A.NA_TEAM_C
+				AND BUYER_ENO = A.CHRG_BUYER_ENO) AS BUYER_NM  
+				, A.FSRGMN_ENO
+				, A.FSRGMN_NA_BZPLC
+				, A.LS_CMENO
+				, A.LSCGMN_NA_BZPLC
+				, A.DLMN_ENO
+				, A.DLMN_NA_BZPLC
+				, TO_CHAR(A.fsrg_dtm, 'YYYY-MM-DD') ||' / '|| 
+				TO_CHAR(A.lschg_dtm, 'YYYY-MM-DD') ||' / '|| 
+				TO_CHAR(A.del_dtm, 'YYYY-MM-DD') DTM
+				, TO_CHAR(A.fsrg_dtm, 'YYYY-MM-DD') FSRG_DTM
+	  			, TO_CHAR(A.lschg_dtm, 'YYYY-MM-DD') LSCHG_DTM
+	  			, TO_CHAR(A.del_dtm, 'YYYY-MM-DD') DEL_DTM
+			FROM
+				TB_GD_PRGR_GOODLOG A,
+				TB_OD_TRTWRS B,
+				TB_CM_PRGR_BASE C,
+				TB_CM_BZPL D
+			WHERE 
+
+
+				    A.NA_BZPLC  = B.NA_BZPLC
+				AND A.NA_TEAM_C = B.NA_TEAM_C
+				AND A.PRGR_C IN (SELECT PRGR_C FROM TB_CM_PRGR_BASE WHERE PRGR_DSC = '1' AND DEL_DTM IS NULL)
+				AND A.NA_WRS_C = B.NA_WRS_C
+				AND A.PRGR_C   = C.PRGR_C(+)
+				AND A.PRGR_DSC = C.PRGR_DSC(+)
+				AND A.NA_BZPLC = D.NA_BZPLC
+				AND '1' = C.PRGR_DSC(+)
+				AND B.SPYPL_NA_TRPL_C = #{glncode}
+				
+      			<if test="NA_BZPLC == 00">
+					AND D.BZPL_TPC = '504'
+				</if>
+				<if test="NA_BZPLC != 00">
+					AND B.NA_BZPLC = #{NA_BZPLC}
+				</if>
+				<if test="GUBUN == 1">
+					<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+						AND A.NA_WRS_C = #{NA_WRS_C}
+					</if>
+				</if>
+				<if test="GUBUN == 2">
+					<if test="WRSNM != null and WRSNM.length() > 0">
+						AND A.WRSNM LIKE #{WRSNM} || '%%'
+					</if>
+				</if>
+				<if test="PRGR_C != 'all'">
+					AND A.PRGR_C = #{PRGR_C}
+				</if>
+				<if test="TXT_DSC != 'all'">
+					AND B.TXT_DSC = #{TXT_DSC}
+				</if>
+				<if test="DATE_RDO == 1">
+					AND A.FSRG_DTM <![CDATA[>=]]> TO_DATE(#{DATE_FROM}||'000000' ,'YYYYMMDDHH24MISS')
+	        		AND A.FSRG_DTM <![CDATA[<=]]> TO_DATE(#{DATE_TO}||'235959' ,'YYYYMMDDHH24MISS')
+				</if>
+				<if test="DATE_RDO == 2">
+					AND A.LSCHG_DTM <![CDATA[>=]]> TO_DATE(#{DATE_FROM}||'000000' ,'YYYYMMDDHH24MISS')
+	        		AND A.LSCHG_DTM <![CDATA[<=]]> TO_DATE(#{DATE_TO}||'235959' ,'YYYYMMDDHH24MISS')
+				</if>
+				<if test="DATE_RDO == 3">
+					AND A.DEL_DTM <![CDATA[>=]]> TO_DATE(#{DATE_FROM}||'000000' ,'YYYYMMDDHH24MISS')
+	        		AND A.DEL_DTM <![CDATA[<=]]> TO_DATE(#{DATE_TO}||'235959' ,'YYYYMMDDHH24MISS')
+				</if>
+				
+				<!--  전체 발주처 조회시 건수제한 -->
+      			<if test="NA_BZPLC == 00">
+					AND ROWNUM <![CDATA[<]]> 10001
+				</if>
+
+				ORDER BY
+				         A.NA_BZPLC,A.NA_WRS_C,A.PRGR_C ASC
+	</sql>
+	
+	<select id="downloadExcelLifeGoodsHistorys"  parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_hofselect"/>
+	</select>
+</mapper>

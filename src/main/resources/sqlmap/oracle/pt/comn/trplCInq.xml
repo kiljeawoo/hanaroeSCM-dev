@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="trplCInqDAO">
+	
+ 		<select id="retrieveNaBzplCList" parameterType="java.util.Map" resultType="java.util.Map">
+			 SELECT DISTINCT /* anwEltCtrwDrupDAO retrieveNaBzplCList*/
+			 		'0' AS ISCHECKED,
+				    TC.NA_TRPL_C,         /*경제통합거래처코드*/
+				    TC.CLNTNM,            /*거래처명*/
+				    TC.TRPL_ABR_NM,       /*거래처약어명*/
+				    TC.FZIP,              /*앞자리우편번호*/
+				    TC.RZIP,              /*뒷자리우편번호*/
+				    TC.ZIP_SQNO,          /*우편번호일련번호*/
+				    TC.DONGUP,            /*동이상주소*/
+				    TC.DONGBW,            /*동이하주소*/
+				    TC.ATEL,              /*전화지역번호*/
+				    TC.HTEL,              /*전화국번호*/
+				    TC.STEL,              /*전화일련번호*/
+				    ecl_decrypt(TC.MPSVNO) as MPSVNO,            /*휴대전화서비스번호*/
+				    ecl_decrypt(TC.MPHNO) as MPHNO,             /*휴대전화국번호*/
+				    ecl_decrypt(TC.MPSQNO) as MPSQNO,            /*휴대전화일련번호*/
+				    TC.TR_STOP_YN,        /*거래중지여부*/
+				    TC.TR_STOP_RSNC,      /*거래중지사유코드*/
+				    TC.TR_STOP_DT,        /*거래중지일자*/
+				    TC.COPNO_CIF_NO,      /*법인등록번호*/
+				    ecl_decrypt(TC.REPMNM) as REPMNM,            /*대표자명*/
+				    TC.BZCCNM,            /*업종코드명*/
+				    TC.BZTPNM,            /*업태명*/
+				    ecl_decrypt(TC.BIZ_NUMBER) as BIZ_NUMBER        /*사업자등록번호*/
+			    
+			FROM   TB_TR_TRPL_CIF TC 
+			     , PT_USR_INF PI 
+			     , PT_USR_AUTH PA
+			
+			WHERE
+			      PI.MB_ID = PA.MB_ID
+			  AND TC.NA_TRPL_C = PI.NA_TRPL_C
+			  AND PI.USR_TPC IN ('01', '03', '05')
+			  AND PA.USR_AUTH_DSC IN ('2', '6')  /* 2 전자계약  */
+			/*
+				01	협력업체
+				02	본부
+				03	하나로마트
+				04	세금계산서전용
+				05	전자계약전용
+				70	제주물류센터
+				80	농협IT전략부
+				81	A마켓협력업체
+				99	운영자
+			*/
+			
+			<if test="USR_TPC != null and USR_TPC.length() > 0">
+			    <choose>
+	
+							<when test="USR_TPC == '01' or USR_TPC == '04' or USR_TPC == '05' or USR_TPC == '81' ">
+						            AND TC.NA_MBCO_DSC ('1')  /* 1 본사 */
+							</when>
+							<when test="USR_TPC == '02' or USR_TPC == '03'">
+									AND TC.NA_MBCO_DSC IN ('1', '2')  /* 1 본사 2 지사*/
+							</when>
+	
+					</choose>
+			</if>
+	
+			<if test="EDT_COMP != null and EDT_COMP.length() > 0">
+			    <choose>
+							<when test="CBO_COMP == 1">
+									AND TC.NA_TRPL_C LIKE  #{EDT_COMP} || '%'
+							</when>
+							<when test="CBO_COMP == 2">
+									AND TC.CLNTNM LIKE   #{EDT_COMP} || '%'
+							</when>
+							<when test="CBO_COMP == 3">
+									AND TC.BIZ_NUMBER LIKE   #{EDT_COMP} || '%'
+							</when>
+					</choose>
+			</if>
+			 
+		
+ 		</select>	
+	
+	
+</mapper>

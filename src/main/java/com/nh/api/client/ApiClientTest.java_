@@ -1,0 +1,65 @@
+package com.nh.api.client;
+
+import java.io.InputStream;
+
+import com.esum.appetizer.util.DateUtil;
+import com.nh.api.ApiException;
+import com.nh.api.ApiResponse;
+import com.nh.api.SequenceManager;
+import com.nh.api.Utils;
+//import com.nh.api.message.TE001;
+
+public class ApiClientTest {
+	
+	//---------------------------------------------------------------
+	// TestCase
+	//---------------------------------------------------------------
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		
+		testCase1();
+	}
+	
+
+	private static void testCase1() throws Exception {
+		TE001 msg = new TE001();
+		
+		// header
+		msg.setIfTypeCode("TE001"); //7->5자리 (인터페이스ID)
+		msg.setSendNum(SequenceManager.getInstance().create(msg.getId(), msg.getSendDate()));
+		
+		// Parameter [입력정의]
+//		msg.setInqCase("검색명");
+		
+		// 테스트 URL
+		ApiResponse respMessage = new ApiClient("http://121.156.58.244:39080/proxy/handler").send(msg);
+		
+		// 웹에서 구현 (설정 사용하도록 구현)
+//		ApiResponse respMessage = new ApiClient().send(msg);
+		
+		
+		// Result [출력정의]
+//		//Case1
+//		String resultNo = Utils.subStringByIndex(respMessage.getBody(), 0, 10);
+//		
+//		//Case2
+//		//String nhOdrSlpno = Utils.subStringByIndex(respMessage.getBody(), 0, 16);
+//		//String dvyRqrDt = Utils.subStringByIndex(respMessage.getBody(), 16, 24);
+		
+		//Case3
+		try (InputStream in = respMessage.getBodyAsStream()) {
+			int rowcnt = Utils.readToInt(in, 7);
+			
+			for (int i = 0; i < rowcnt; i++) {
+				//source1
+				String rztVal1 = Utils.readToString(in, 50).trim();
+//				String rztVal2 = Utils.readToString(in, 50).trim();
+				//......
+				
+				//source2
+//				ResultVo resultVo = ResultVo.build(in);
+			}
+		}
+	}
+
+}

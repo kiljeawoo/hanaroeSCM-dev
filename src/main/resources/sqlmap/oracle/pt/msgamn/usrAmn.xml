@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usrAmnDAO">
+	<resultMap id="UsrAmnMap" type="com.nh.escm.pt.msgamn.vo.UsrAmnVO">
+		<result column="DEPT_ID" property="DEPT_ID" />
+		<result column="DEPT_HIGH" property="DEPT_HIGH" />
+		<result column="DEPT_NAME" property="DEPT_NAME" />
+		<result column="DEPT_SORT" property="DEPT_SORT" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="DEPT_LEVEL" property="DEPT_LEVEL" />
+		<result column="LEVEL_ID" property="LEVEL_ID" />
+		<result column="USER_ID" property="USER_ID" />
+		<result column="USER_NAME" property="USER_NAME" />
+		<result column="POS" property="POS" />
+		<result column="GRADE" property="GRADE" />
+		<result column="JOB" property="JOB" />
+		<result column="PHONE" property="PHONE" />
+		<result column="MOBILE" property="MOBILE" />
+		<result column="EMAIL" property="EMAIL" />
+		<result column="USER_SORT" property="USER_SORT" />
+		<result column="PIC_FL_TMP_NM" property="PIC_FL_TMP_NM" />
+		<result column="PICTURE" property="PICTURE" />
+		<result column="PIC_FL_NM" property="PIC_FL_NM" />
+		<result column="AUTH_TYPE_CD" property="AUTH_TYPE_CD" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="BZNO" property="BZNO" />
+		<result column="CLNTNM" property="CLNTNM" />
+	</resultMap>
+	
+	<resultMap id="mgSmsResult" type="com.nh.escm.pt.msgamn.vo.MgSmsInfoVO">
+		<result column="EXECUTE_DT" property="EXECUTE_DT" />
+		<result column="MOBILE" property="MOBILE" />
+		<result column="NAME" property="NAME" />
+		<result column="START_DTM" property="START_DTM" />
+		<result column="END_DTM" property="END_DTM" />
+	</resultMap>
+	
+	<!-- MSGR_USER 사용자 리스트 조회 -->
+	<select id="retrieveUserAmnList" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT 
+			 MU.USER_ID AS USER_ID
+			,MU.DEPT_ID AS DEPT_ID
+			,MU.USER_NAME AS USER_NAME
+			,MU.DEPT_NAME AS DEPT_NAME
+			,MU.POS AS POS
+			,MU.GRADE AS GRADE
+			,MU.JOB AS JOB
+			,MU.PHONE AS PHONE
+			,MU.MOBILE AS MOBILE
+			,MU.EMAIL AS EMAIL
+			,MU.USER_SORT AS USER_SORT
+			,MU.PIC_FL_TMP_NM AS PIC_FL_TMP_NM
+			,MU.AUTH_TYPE_CD AS AUTH_TYPE_CD
+			,UI.NA_TRPL_C AS NA_TRPL_C
+			,UI.BZNO AS BZNO
+			,CIF.CLNTNM AS CLNTNM
+		FROM 
+			MSGR_USER MU,
+			PT_USR_INF UI,
+			TB_TR_TRPL_CIF CIF
+		WHERE 1=1
+			AND MU.USER_ID = UI.MB_ID(+)
+			AND UI.NA_TRPL_C = CIF.NA_TRPL_C(+)
+			AND MU.DEPT_ID=#{DEPT_ID}
+		<choose>
+			<when test="DEPT_ID == '99999' ">
+				ORDER BY UI.NA_TRPL_C, CIF.CLNTNM, MU.USER_NAME
+			</when>
+			<otherwise>
+				ORDER BY MU.USER_SORT	
+			</otherwise> 
+		</choose>	
+		
+	</select>
+	
+	<!-- MSGR_DEPT 조직 리스트 조회 -->
+	<select id="retrieveEmpeTeam" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT DEPT_ID
+		,DEPT_HIGH
+		,DEPT_NAME
+		,DEPT_SORT
+		,NA_BZPLC
+		,DEPT_LEVEL
+		FROM MSGR_DEPT
+		WHERE DEPT_ID=#{DEPT_ID}
+		ORDER BY DEPT_SORT
+	</select>
+	
+	<!-- MSGR_DEPT 조직 리스트 조회 -->
+	<select id="retrieveEmpeList" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT DEPT_ID
+		,DEPT_HIGH
+		,DEPT_NAME
+		,DEPT_SORT
+		,NA_BZPLC
+		,DEPT_LEVEL
+		FROM MSGR_DEPT
+		WHERE DEPT_SORT LIKE #{DEPT_SORT} || '%'
+		ORDER BY DEPT_SORT
+	</select>
+	
+	<!-- MSGR_DEPT 조직 리스트 조회 -->
+	<select id="retrieveEmpeAmnListpop" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT DEPT_ID
+		,DEPT_HIGH
+		,DEPT_NAME
+		,DEPT_SORT
+		,NA_BZPLC
+		,DEPT_LEVEL
+		FROM MSGR_DEPT
+		ORDER BY DEPT_SORT
+	</select>
+	
+	<!-- MSGR_DEPT 조직 리스트 조회 -->
+	<select id="retrieveEmpeAmnListpop2" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT A.DEPT_ID
+			,A.DEPT_HIGH
+			,A.DEPT_NAME
+			,A.DEPT_SORT
+			,A.NA_BZPLC
+			,'0' DEPT_LEVEL 
+   			,B.DEPT_NAME DEPT_U_NAME
+		FROM MSGR_DEPT A, MSGR_DEPT B
+   		WHERE A.DEPT_NAME LIKE UPPER ('%' || #{DEPT_NAME} || '%')
+    	AND A.DEPT_HIGH = B.DEPT_ID
+		ORDER BY DEPT_SORT
+	</select>
+	
+	<!-- MSGR_USER : 사용자 추가 -->
+	<insert id="insertUserAmn" parameterType="com.nh.escm.pt.msgamn.vo.UsrAmnVO">
+		INSERT INTO
+		MSGR_USER
+		VALUES(#{USER_ID}
+		,#{DEPT_ID} 
+		,#{USER_NAME}
+		,#{DEPT_NAME}
+		,#{POS}
+		,#{GRADE}
+		,#{JOB}
+		,#{PHONE}
+		,#{MOBILE}
+		,#{EMAIL}
+		,#{USER_SORT}
+		,#{PIC_FL_NM}
+		,#{PIC_FL_TMP_NM}
+		,#{AUTH_TYPE_CD})
+	</insert>
+	
+	<!-- MSGR_USER : 사용자 수정 -->
+	<update id="updateUserAmn" parameterType="com.nh.escm.pt.msgamn.vo.UsrAmnVO">
+		UPDATE MSGR_USER
+    	SET DEPT_ID = #{DEPT_ID}
+    	, USER_NAME = #{USER_NAME}
+    	, DEPT_NAME = #{DEPT_NAME}
+    	, POS = #{POS}
+    	, GRADE = #{GRADE}
+    	, JOB = #{JOB}
+    	, PHONE = #{PHONE}
+    	, MOBILE = #{MOBILE}
+    	, EMAIL = #{EMAIL}
+    	, USER_SORT = #{USER_SORT}
+    	<if test="PIC_FL_TMP_NM != null and PIC_FL_TMP_NM.length() > 0">
+    	, PIC_FL_NM = #{PIC_FL_NM}
+    	, PIC_FL_TMP_NM = #{PIC_FL_TMP_NM}
+    	</if>
+    	, AUTH_TYPE_CD = #{AUTH_TYPE_CD}
+    	WHERE USER_ID = #{USER_ID}
+	</update>
+	
+	<!-- MSGR_USER : 사용자 삭제 -->
+	<delete id="deleteUserAmn" parameterType="com.nh.escm.pt.msgamn.vo.UsrAmnVO">
+		DELETE FROM MSGR_USER
+		WHERE USER_ID=#{USER_ID} 
+	</delete>
+	
+	<!-- MSGR_USER 중복체크 -->
+	<select id="checkUserAmnid" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT USER_ID
+		FROM MSGR_USER		
+		WHERE USER_ID = #{USER_ID}
+	</select>
+	
+	<!-- MSGR_USER 사진불러오기 -->
+	<select id="retrievePicture" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT USER_ID
+		,PIC_FL_NM
+		,PIC_FL_TMP_NM
+		FROM MSGR_USER		
+		WHERE USER_ID = #{USER_ID}
+	</select>
+	
+	<!-- MSGR_USER 부서 아이디 찾기 -->
+	<select id="retrieveDeptAmn" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT DEPT_ID
+		,DEPT_SORT
+		FROM MSGR_DEPT		
+		WHERE DEPT_ID = #{DEPT_ID}
+	</select>
+	
+	<!-- MSGR_USER 사용자 권한 확인 -->
+	<select id="retrieveCheckAuth" parameterType="java.util.Map"
+		resultMap="UsrAmnMap">
+		SELECT DEPT_ID,
+		AUTH_TYPE_CD
+		FROM MSGR_USER		
+		WHERE USER_ID = #{USER_ID}
+	</select>
+	
+	<!-- 업무시간외 문의대응 SMS -->
+	<select id="getMgSmsInfo" resultMap="mgSmsResult">
+		SELECT /* getMgSmsInfo */
+		       A.EXECUTE_DT AS EXECUTE_DT
+		     , A.MOBILE
+		     , A.NAME
+		     , B.HLDY_DSC
+		     , A.EXECUTE_DT || CASE WHEN B.BAS_DT IS NULL THEN '180000' ELSE '000000' END AS START_DTM
+		     , A.EXECUTE_DT || CASE WHEN B.BAS_DT IS NULL THEN '090000' ELSE '235959' END AS END_DTM
+		     , CASE WHEN B.BAS_DT IS NULL THEN '0' ELSE '1' END AS HOLIDAY_YN
+		  FROM (
+		           SELECT MAX(TO_CHAR(SYSDATE, 'YYYYMMDD')) AS EXECUTE_DT, MOBILE, NAME
+		             FROM MG_SMS_INF 
+		            WHERE BSN_DSC = 'NOTI' 
+		            GROUP BY MOBILE, NAME
+		       ) A
+		       LEFT OUTER JOIN (
+		           SELECT BAS_DT, HLDY_DSC, HLDYNM
+		             FROM TB_CM_DTHLDY_ORGZ 
+		            WHERE NA_TRPL_C = '8808983000015'				/* (주)농협하나로유통 상품본부 */
+		              AND BAS_DT = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		              AND HLDY_DSC != '0'
+		              AND DEL_YN = '0'
+		       ) B ON A.EXECUTE_DT = B.BAS_DT
+	</select>
+
+	<select id="getSmsSequence" resultType="java.lang.String">
+		SELECT SDK_SMS_SEQ.NEXTVAL AS SEQ FROM DUAL
+	</select>
+	
+	
+	<insert id="insertSmsSend"  parameterType="java.util.Map" >
+	 	INSERT INTO /*insertSmsSend*/ SDK_SMS_SEND (	
+	 			 MSG_ID 
+				,USER_ID
+				,SCHEDULE_TYPE 
+				,SUBJECT
+				,SMS_MSG
+				,SEND_DATE
+				,DEST_TYPE
+				,DEST_COUNT
+				,DEST_INFO
+				,SEND_STATUS
+				,SEND_COUNT
+				,SEND_RESULT
+				,RESERVED1
+				,CALLBACK
+		)VALUES (
+				#{MSG_ID},
+				#{USER_ID},
+				#{SCHEDULE_TYPE},
+				#{SUBJECT},
+				#{SMS_MSG},
+				#{SEND_DATE},
+				#{DEST_TYPE},
+				#{DEST_COUNT},
+				#{DEST_INFO},
+				#{SEND_STATUS},
+				#{SEND_COUNT},
+				#{SEND_RESULT}, 
+				#{RESERVED1}, 
+				#{CALLBACK}
+		)	 
+	 </insert>
+	 
+	 <select id="getUserAmnCnt" parameterType="string" resultType="string">
+		SELECT
+  			COUNT(*) AS USER_CNT
+		FROM
+		  MSGR_USER
+		WHERE 1=1
+			AND DEPT_ID IN 
+			(
+				    SELECT
+				      DEPT_ID
+				    FROM
+				    (
+				    
+					    SELECT
+					        '' AS VIEW_DEPT_ID
+					      , DEPT_ID
+					      , DEPT_SORT
+					    FROM 
+					    	MSGR_DEPT
+					    WHERE 1=1
+					      AND DEPT_ID = #{DEPT_ID}
+					    UNION ALL
+						    SELECT 
+						      LPAD(' ', 2*(LEVEL-1)) || DEPT_ID AS VIEW_DEPT_ID, 
+						      DEPT_ID,
+						      DEPT_SORT
+						    FROM 
+						      MSGR_DEPT
+						    WHERE 1=1
+						    START WITH DEPT_HIGH = #{DEPT_ID}
+						    CONNECT BY PRIOR DEPT_ID = DEPT_HIGH
+				    )
+			)
+	</select>
+	
+	
+	<!-- 하나로유통 임직원 동기화(메신저 데이터 변경 시) -->
+	<insert id="syncHanaroUser" parameterType="com.nh.escm.pt.msgamn.vo.UsrAmnVO">
+		MERGE INTO NHVANPTL.PT_NH_USR_INF
+	 		USING DUAL ON(USER_ID = #{USER_ID})
+		WHEN MATCHED THEN
+	    	UPDATE SET
+		    	USER_NAME = #{USER_NAME}, 
+				DEPT_ID = #{DEPT_ID},
+				DEPT_NAME = #{DEPT_NAME},
+				POS = #{POS},
+				GRADE = #{GRADE},
+				LSCHG_DTM = SYSDATE,
+				LS_CHGM = #{USER_ID}
+    	WHEN NOT MATCHED THEN    
+		    INSERT (USER_ID, USER_NAME, DEPT_ID, DEPT_NAME, POS, GRADE, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM)
+			VALUES (#{USER_ID}, #{USER_NAME}, #{DEPT_ID}, #{DEPT_NAME}, #{POS}, #{GRADE}, SYSDATE, #{USER_ID}, SYSDATE, #{USER_ID}) 
+	</insert>
+	
+	<!-- 하나로eSCM 회원 동기화(메신저 데이터 변경 시) -->
+	<insert id="syncEscmUser" parameterType="com.nh.escm.pt.msgamn.vo.UsrAmnVO">
+		MERGE INTO NHVANPTL.PT_USR_INF
+	 		USING DUAL ON(MB_ID = #{USER_ID})
+		WHEN MATCHED THEN
+	    	UPDATE SET
+		    	USER_NAME = #{USER_NAME}, 
+				DEPT_ID = #{DEPT_ID},
+				DEPT_NAME = #{DEPT_NAME},
+				POS = #{POS},
+				GRADE = #{GRADE},
+				LSCHG_DTM = SYSDATE,
+				LS_CHGM = #{USER_ID}
+	</insert> 
+</mapper>

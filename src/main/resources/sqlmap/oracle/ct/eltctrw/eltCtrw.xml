@@ -1,0 +1,2508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eltCtrwDAO">
+	<resultMap id="rscListMap" type="com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		<result column="ELT_CTRW_NO"						property="ELT_CTRW_NO" />
+		<result column="NA_TRPL_C"							property="NA_TRPL_C" />
+		<result column="SQNO"										property="SQNO" />
+		<result column="MN_CTRW_KD"							property="MN_CTRW_KD" />
+		<result column="ADD_CTRW_YN"						property="ADD_CTRW_YN" />
+		<result column="PMIW_YN"								property="PMIW_YN" />
+		<result column="SCTRW_YN"								property="SCTRW_YN" />
+		<result column="ETC_CTRW_YN"						property="ETC_CTRW_YN" />
+		<result column="BZNO"										property="BZNO" />
+		<result column="BUYER_NA_TRPL_C"				property="BUYER_NA_TRPL_C" />
+		<result column="TELNO"									property="TELNO" />
+		<result column="EMAIL"									property="EMAIL" />
+		<result column="CTRW_STY_VER"						property="CTRW_STY_VER" />
+		<result column="CTR_ST_DT"							property="CTR_ST_DT" />
+		<result column="CTR_ED_DT"							property="CTR_ED_DT" />
+		<result column="CTRW_DRUP_DT"						property="CTRW_DRUP_DT" />
+		<result column="CEO"										property="CEO" />
+		<result column="MTALNM"									property="MTALNM" />
+		<result column="FZIP"										property="FZIP" />
+		<result column="RZIP"										property="RZIP" />
+		<result column="ZIP_SQNO"								property="ZIP_SQNO" />
+		<result column="DONGUP"									property="DONGUP" />
+		<result column="DONGBW"									property="DONGBW" />
+		<result column="BUYER_ENO"							property="BUYER_ENO" />
+		<result column="BUYER_BLG"							property="BUYER_BLG" />
+		<result column="BUYER_NM"								property="BUYER_NM" />
+		<result column="BUYER_TELNO"						property="BUYER_TELNO" />
+		<result column="BUYER_EMAIL"						property="BUYER_EMAIL" />
+		<result column="CTR_CHRR_MTALNM"				property="CTR_CHRR_MTALNM" />
+		<result column="CTR_CHRR_REPMN"					property="CTR_CHRR_REPMN" />
+		<result column="CTR_CHRR_REP_DTYNM"			property="CTR_CHRR_REP_DTYNM" />
+		<result column="LA_AGNT"								property="LA_AGNT" />
+		<result column="CTR_CHRR_FZIP"					property="CTR_CHRR_FZIP" />
+		<result column="CTR_CHRR_RZIP"					property="CTR_CHRR_RZIP" />
+		<result column="CTR_CHRR_ZIP_SQNO"			property="CTR_CHRR_ZIP_SQNO" />
+		<result column="CTR_CHRR_DONGUP"				property="CTR_CHRR_DONGUP" />
+		<result column="CTR_CHRR_DONGBW"				property="CTR_CHRR_DONGBW" />
+		<result column="RMK"										property="RMK" />
+		<result column="STS"										property="STS" />
+		<result column="STS_NM"								property="STS_NM" />
+		<result column="STS_CANCEL"					property="STS_CANCEL" />
+		<result column="STS_EXP"					property="STS_EXP" />
+		<result column="COLB_COMP_SGNT"			    property="COLB_COMP_SGNT" />
+		<result column="COLB_COMP_SEAL_APDFLNM"			    property="COLB_COMP_SEAL_APDFLNM" />
+		<result column="COLB_COMP_SEAL_SYS_FLNM"			    property="COLB_COMP_SEAL_SYS_FLNM" />
+		<result column="BUYER_APV_STS"					property="BUYER_APV_STS" />
+		<result column="BUYER_SEAL_APDFLNM"					property="BUYER_SEAL_APDFLNM" />
+		<result column="BUYER_SEAL_SYS_FLNM"					property="BUYER_SEAL_SYS_FLNM" />
+		<result column="BUYER_SGNT"			    property="BUYER_SGNT" />
+		<result column="CTR_PRD_AUT_XTN_YN"			property="CTR_PRD_AUT_XTN_YN" />
+		<result column="FGAT_PRVT_C"						property="FGAT_PRVT_C" />
+		<result column="BF_CTR_NO"							property="BF_CTR_NO" />
+		<result column="BF_CTR_SQNO"							property="BF_CTR_SQNO" />
+		<result column="FSRG_DTM"								property="FSRG_DTM" />
+		<result column="FS_RGM"									property="FS_RGM" />
+		<result column="LSCHG_DTM"							property="LSCHG_DTM" />
+		<result column="LS_CHGM"								property="LS_CHGM" />
+		<result column="DCM_NM"									property="DCM_NM" />
+		<result column="ESS_YN"									property="ESS_YN" />
+		<result column="CD_TYPE"								property="CD_TYPE" />
+		<result column="CD_M"									property="CD_M" />
+		<result column="CD_D"									property="CD_D" />
+		<result column="SIMP_TPC"								property="SIMP_TPC" />
+		<result column="SIMP_C"									property="SIMP_C" />
+		<result column="SIMP_CNM"								property="SIMP_CNM" />
+		<result column="ATCH_CTR_CNT"                		 property="ATCH_CTR_CNT" />
+		<result column="ATCH_CTR_NO"                		 property="ATCH_CTR_NO" />
+	</resultMap>
+
+	<select id="retrieveSubEltCtrwList" parameterType="java.util.Map" resultMap="rscListMap">
+	SELECT  /*eltCtrwDAO retrieveSubEltCtrwList */
+			'0' AS ISCHEC,
+				AMN.ELT_CTRW_NO,                 /*전자계약서번호                          */
+				AMN.CHG_SQNO,                 /*전자계약서번호                          */
+				AMN.NA_TRPL_C,                   /*경제통합거래처코드( 계약자)             */
+				AMN.BUYER_NA_TRPL_C,             /*바이어경제통합거래처코드                */
+				AMN.MN_CTRW_KD ,                 /*메인계약서종류                          */
+				A.SIMP_CNM AS MN_CTRW_KD_NM,     /*메인계약서종류명                        */
+				<![CDATA[
+				CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') > AMN.CTR_ED_DT THEN  '계약종료'
+				WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <= AMN.CTR_ED_DT
+                  AND AMN.CHG_SQNO <> (SELECT  MAX(CHG_SQNO) FROM CT_ELT_CTRW_AMN WHERE ELT_CTRW_NO = AMN.ELT_CTRW_NO )
+				THEN  '계약변경'
+				ELSE B.SIMP_CNM
+				END AS STS_NM   ]]>,
+				AMN.STS,                         /*상태                                    */
+				CASE WHEN AMN.CANCEL IS NULL THEN '정상'
+					ELSE '해지'
+				END STS_CANCEL,
+				AMN.BUYER_BLG,                   /*바이어소속                              */
+				AMN.BUYER_ENO,                   /*바이어개인번호                          */
+				AMN.CTR_CHRR_MTALNM,             /*바이어상호                              */
+				AMN.MTALNM,                      /*상호                                    */
+				AMN.CTR_ST_DT,                   /*계약시작일자                            */
+				AMN.CTR_ED_DT,                   /*계약종료일자                            */
+				AMN.CTR_ST_DT ||'~'|| AMN.CTR_ED_DT AS CTR_DT,                   /*계약종료일자                            */
+				AMN.CHG_SQNO,                     /*계약종료일자                            */
+				AMN.COLB_COMP_SEAL_APDFLNM,                     /*계약종료일자                            */
+				AMN.COLB_COMP_SEAL_SYS_FLNM,                     /*계약종료일자                            */
+				AMN.BUYER_SEAL_APDFLNM,                     /*계약종료일자                            */
+				AMN.BUYER_SEAL_SYS_FLNM,                     /*계약종료일자                            */
+				AMN.FSRG_DTM,		/*최초 등록시간 */
+				AMN.BF_CTR_NO,
+				AMN.BF_CTR_SQNO,
+				CASE WHEN AMN.BF_CTR_NO IS NULL AND AMN.STS = 'A' THEN (SELECT LISTAGG(ELT_CTRW_NO, '&#10;') WITHIN GROUP (ORDER BY ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.ELT_CTRW_NO AND BF_CTR_SQNO = AMN.CHG_SQNO)
+					WHEN AMN.BF_CTR_NO IS NOT NULL THEN AMN.BF_CTR_NO || '&#10;' || (SELECT LISTAGG(ELT_CTRW_NO, '&#10;') WITHIN GROUP (ORDER BY ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND ELT_CTRW_NO != AMN.ELT_CTRW_NO AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.BF_CTR_NO AND BF_CTR_SQNO = AMN.BF_CTR_SQNO)
+					ELSE ''
+				END AS ATCH_CTR_NO,
+				CASE WHEN AMN.BF_CTR_NO IS NULL AND AMN.STS != 'A' THEN 0
+				  WHEN AMN.BF_CTR_NO IS NULL THEN (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.ELT_CTRW_NO AND BF_CTR_SQNO = AMN.CHG_SQNO)
+				  ELSE (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.BF_CTR_NO AND BF_CTR_SQNO = AMN.BF_CTR_SQNO)
+				END AS ATCH_CTR_CNT,
+				CASE WHEN AMN.MN_CTRW_KD IN ('1', '12', '51', '52') AND AMN.STS != 'A' AND AMN.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y' ELSE 'N' END AS STS_EXP
+		FROM
+				CT_ELT_CTRW_AMN AMN,
+				(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC in('MN_CTRW_KD' ,'MN_CTRW_KDC')) A,
+				(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS') B
+		WHERE
+				AMN.MN_CTRW_KD = A.SIMP_C(+)
+				AND AMN.STS = B.SIMP_C(+)
+				AND NVL(AMN.TEMP_YN, 'N') = 'N'
+			/*	AND AMN.ELT_CTRW_NO IS NOT NULL */
+				AND AMN.NA_TRPL_C = #{NA_TRPL_C}
+				<if test="CBO_CTRW != null and CBO_CTRW.length() > 0">
+			    <![CDATA[
+                AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{CBO_CTRW}, '[^.]+', 1, LEVEL ) col
+                FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{CBO_CTRW}, '\.' ) + 1 )
+                ]]>
+                </if>
+				<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+			   <choose>
+				   <when test="CBO_CONTDAY == 0">
+							AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 1">
+							AND AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 2">
+							AND AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+				</choose>
+				</if>
+				<if test="EDT_BUYER_BLG != null and EDT_BUYER_BLG.length() > 0">
+				AND  AMN.BUYER_BLG like  #{EDT_BUYER_BLG}||'%'
+				</if>
+				<if test="CBO_STS != null and CBO_STS.length() > 0">
+			    <![CDATA[
+                AND AMN.STS in(SELECT REGEXP_SUBSTR ( #{CBO_STS}, '[^.]+', 1, LEVEL ) col
+                FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{CBO_STS}, '\.' ) + 1 )
+                ]]>
+       </if>
+		ORDER BY AMN.LS_CHGM DESC, AMN.ELT_CTRW_NO DESC, AMN.CHG_SQNO DESC
+	</select>
+
+	<select id="retrieveSubEltCtrwPrgStsList" parameterType="java.util.Map" resultMap="rscListMap">
+		SELECT  /*eltCtrwDAO retrieveSubEltCtrwPrgStsList */
+			'0' AS ISCHECKED,
+			AMN.ELT_CTRW_NO,                 /*전자계약서번호                          */
+			AMN.NA_TRPL_C,                   /*경제통합거래처코드( 계약자)             */
+			AMN.BUYER_NA_TRPL_C,             /*바이어경제통합거래처코드                */
+			AMN.MN_CTRW_KD ,                 /*메인계약서종류                          */
+      		A.SIMP_CNM AS MN_CTRW_KD_NM,     /*메인계약서종류명                        */
+        	CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료'
+            ELSE B.SIMP_CNM
+            END AS STS_NM ,
+			AMN.STS,                         /*상태                                    */
+			CASE WHEN AMN.MN_CTRW_KD IN ('1', '12', '51', '52') AND AMN.STS != 'A' AND AMN.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y' ELSE 'N' END AS STS_EXP,
+			AMN.BUYER_BLG,                   /*바이어소속                              */
+			AMN.BUYER_ENO,                   /*바이어개인번호                          */
+			AMN.CTR_CHRR_MTALNM,             /*바이어상호                              */
+			AMN.MTALNM,                      /*상호                                    */
+			AMN.CTR_ST_DT,                   /*계약시작일자                            */
+			AMN.CTR_ED_DT,                   /*계약종료일자                            */
+			AMN.CTR_ST_DT ||'~'|| AMN.CTR_ED_DT AS CTR_DT,                   /*계약종료일자                            */
+			AMN.CHG_SQNO,                     /*계약종료일자                            */
+			AMN.LS_CHGM,                     /*계약종료일자                            */
+			AMN.COLB_COMP_SEAL_APDFLNM,                     /*계약종료일자                            */
+			AMN.COLB_COMP_SEAL_SYS_FLNM,                     /*계약종료일자                            */
+			AMN.BUYER_SEAL_APDFLNM,                     /*계약종료일자                            */
+			AMN.BUYER_SEAL_SYS_FLNM,                     /*계약종료일자                            */
+			AMN.BF_CTR_NO,
+			AMN.BF_CTR_SQNO,
+			AMN.SEAL_OMIT_YN
+		FROM
+			CT_ELT_CTRW_AMN AMN,
+			(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC in('MN_CTRW_KD' ,'MN_CTRW_KDC')) A,
+			(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS') B
+		WHERE
+			AMN.MN_CTRW_KD = A.SIMP_C(+)
+			AND NVL(AMN.TEMP_YN, 'N') = 'N'
+			AND AMN.STS = B.SIMP_C(+)
+			AND AMN.ELT_CTRW_NO IS NOT NULL
+			<if test="NA_TRPL_C != null and NA_TRPL_C > 0">
+				AND AMN.NA_TRPL_C = #{NA_TRPL_C}
+			</if>
+			AND AMN.STS NOT IN ('5', '6', '7', '8', '9', 'A')
+			AND AMN.CTR_ED_DT <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			<if test="CBO_CTRW != null and CBO_CTRW.length() > 0">
+				<![CDATA[
+	               AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{CBO_CTRW}, '[^.]+', 1, LEVEL ) col
+	               FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{CBO_CTRW}, '\.' ) + 1 )
+               ]]>
+               </if>
+			<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+				<choose>
+				    <when test="CBO_CONTDAY == 0">
+				    		AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+				    </when>
+					<when test="CBO_CONTDAY == 1">
+						AND AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 2">
+						AND AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+				</choose>
+			</if>
+			<if test="EDT_BUYER_BLG != null and EDT_BUYER_BLG.length() > 0">
+				AND  AMN.BUYER_BLG like  #{EDT_BUYER_BLG}||'%'
+			</if>
+			<if test="CBO_STS != null and CBO_STS.length() > 0">
+				<![CDATA[
+					AND AMN.STS in(SELECT REGEXP_SUBSTR ( #{CBO_STS}, '[^.]+', 1, LEVEL ) col
+					FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{CBO_STS}, '\.' ) + 1 )
+				]]>
+			</if>
+		ORDER BY AMN.LSCHG_DTM DESC, AMN.CHG_SQNO DESC, AMN.ELT_CTRW_NO DESC
+	</select>
+
+	<select id="retrieveEltCtrwList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'LSCHG_DTM DESC, ELT_CTRW_NO DESC , CHG_SQNO DESC'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveEltCtrwList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveEltCtrwListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+ 		<include refid="common.count_start" />
+		<include refid="sql_retrieveEltCtrwList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<sql id="sql_retrieveEltCtrwList">
+		SELECT  /*eltCtrwDAO retrieveEltCtrwList */
+			'0' AS ISCHECKED,
+			DDD.ELT_CTRW_NO ,
+			DDD.CHG_SQNO,
+			DDD.MN_CTRW_KD ,
+			DDD.MN_CTRW_KD_NM ,
+			DDD.NA_TRPL_C,
+			DDD.MTALNM,
+			DDD.CTR_CHRR_MTALNM,
+			DDD.CTR_CHRR_REPMN,
+			DDD.CTR_ST_DT,
+			DDD.CTR_ED_DT,
+			DDD.CTR_ST_DT ||'~'|| DDD.CTR_ED_DT AS CTR_DT ,
+			DDD.CTRW_DRUP_DT,
+			DDD.COLB_COMP_SGNT_DTM, /*협력업체 승인 날짜*/
+			DDD.BUYER_APV_DTM, /*바이어 승인 날짜*/
+			DDD.STS,
+			DDD.STS_NM,
+			DECODE(DDD.DCM_APD_CHK, '0', '', '첨부파일'|| decode (DDD.STYL_AMM_CHK, '0', '' , CHR(44)) ) || DECODE(DDD.STYL_AMM_CHK, '0', '', '계약서 문구') AS CHG_NM,
+			DDD.STYL_AMM_CHK,
+			DDD.DCM_APD_CHK,
+			DDD.BUYER_APV_STS,
+			DDD.FSRG_DTM,
+			DDD.LSCHG_DTM,
+			DDD.LS_CHGM,
+			DDD.BUYER_NM,
+			DDD.BUYER_NA_TRPL_NM,
+			DDD.BUYER_BZNO,
+			DDD.STS_CANCEL,
+			CASE WHEN DDD.MN_CTRW_KD IN ('1', '12', '51', '52') AND DDD.STS != 'A' AND DDD.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y' ELSE 'N' END AS STS_EXP,
+			DDD.CEO,
+			DDD.TELNO,
+			DDD.DONG,
+			DDD.BF_CTR_NO,
+			DDD.BF_CTR_SQNO,
+			CASE WHEN DDD.BF_CTR_NO IS NULL AND DDD.STS = 'A' THEN (SELECT LISTAGG(ELT_CTRW_NO, '&#10;') WITHIN GROUP (ORDER BY ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = DDD.ELT_CTRW_NO AND BF_CTR_SQNO = DDD.CHG_SQNO)
+				WHEN DDD.BF_CTR_NO IS NOT NULL THEN DDD.BF_CTR_NO || '&#10;' || (SELECT LISTAGG(ELT_CTRW_NO, '&#10;') WITHIN GROUP (ORDER BY ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND ELT_CTRW_NO != DDD.ELT_CTRW_NO AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = DDD.BF_CTR_NO AND BF_CTR_SQNO = DDD.BF_CTR_SQNO)
+				ELSE ''
+			END AS ATCH_CTR_NO,
+			CASE WHEN DDD.BF_CTR_NO IS NULL AND DDD.STS != 'A' THEN 0
+				WHEN DDD.BF_CTR_NO IS NULL THEN (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = DDD.ELT_CTRW_NO AND BF_CTR_SQNO = DDD.CHG_SQNO)
+				ELSE (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = DDD.BF_CTR_NO AND BF_CTR_SQNO = DDD.BF_CTR_SQNO)
+			END AS ATCH_CTR_CNT,
+			DDD.SEAL_OMIT_YN
+			<if  test = "MN_CTRW_DSN != null and MN_CTRW_DSN.length() > 0">
+			, (SELECT DECODE(COUNT(*), 0, '신규계약', '재계약') FROM CT_ELT_CTRW_AMN
+     			WHERE NVL(TEMP_YN, 'N') = 'N'
+          		  AND DDD.MN_CTRW_KD = MN_CTRW_KD
+           	 	  AND DDD.NA_TRPL_C = NA_TRPL_C
+           		  AND STS = 'A'
+     			) AS MN_CTRW_DSN
+     		</if>
+		FROM (
+			SELECT
+				AMN.ELT_CTRW_NO ,
+				AMN.CHG_SQNO,
+				AMN.MN_CTRW_KD ,
+				A.SIMP_CNM AS MN_CTRW_KD_NM ,
+				AMN.NA_TRPL_C,
+				AMN.MTALNM,
+				AMN.CTR_CHRR_MTALNM,
+				AMN.CTR_CHRR_REPMN,
+				AMN.CTR_ST_DT,
+				AMN.CTR_ED_DT,
+				AMN.CTRW_DRUP_DT,
+				AMN.COLB_COMP_SGNT_DTM, /*바이어 승인 날짜*/
+				AMN.BUYER_APV_DTM, /*협력업체 승인 날짜*/
+				AMN.BUYER_APV_STS, /*바이어 승인 체크*/
+				AMN.STS,
+				TO_CHAR(AMN.FSRG_DTM,'YYYYMMDDHH24MI') FSRG_DTM,
+				TO_CHAR(AMN.LSCHG_DTM,'YYYYMMDDHH24MI') LSCHG_DTM,
+				AMN.LS_CHGM,
+				AMN.BUYER_NM,
+				FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) AS BUYER_NA_TRPL_NM,
+				CIF.BIZ_NUMBER AS BUYER_BZNO,
+				AMN.CEO,
+				ecl_decrypt(AMN.TELNO) AS TELNO,
+				AMN.DONGUP ||' '|| CASE AMN.DONGBW WHEN 'undefined' THEN  ' ' ELSE AMN.DONGBW END AS DONG,
+				CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료' ELSE B.SIMP_CNM END AS STS_NM
+				, CASE WHEN AMN.CANCEL IS NULL THEN '정상' ELSE '해지' END STS_CANCEL
+				, (SELECT COUNT(DISTINCT(AA.SQNO) )
+						FROM CT_DCM_STYL_AMN AA ,  CT_ELT_CTRW_DCM_APD BB
+						WHERE AA.MN_CTRW_KDC = BB.MN_CTRW_KDC
+						AND AA.SQNO NOT IN (SELECT SQNO FROM CT_ELT_CTRW_DCM_APD WHERE ELT_CTRW_NO  = AMN.ELT_CTRW_NO AND CHG_SQNO  = AMN.CHG_SQNO)
+						AND AA.STS  = 'Y'
+						AND BB.ELT_CTRW_NO  = AMN.ELT_CTRW_NO
+						AND BB.CHG_SQNO  = AMN.CHG_SQNO  ) AS DCM_APD_CHK ,  /*첨부 파일 변경여부*/
+						(SELECT COUNT(DD.CTRW_KDC)
+							FROM (
+								SELECT D.MN_CTRW_KDC AS CTRW_KDC ,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO
+									FROM CT_ELT_CTRW_DTL D  , (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM  WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+									WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+									AND D.MN_CTRW_KDC = AA.CTRW_KDC
+								UNION ALL
+								SELECT D.ADD_CTRW_KDC AS CTRW_KDC ,AA.CTRW_STY_VER , D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO
+									FROM CT_ADD_ELT_CTRW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM	WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+									WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+									AND D.ADD_CTRW_KDC = AA.CTRW_KDC
+								UNION ALL
+								SELECT D.PMIW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO
+									FROM CT_PMIW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+									WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+									AND D.PMIW_KDC = AA.CTRW_KDC
+								UNION ALL
+								SELECT D.SCTRW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO
+									FROM CT_SCTRW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+									WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+									AND D.SCTRW_KDC = AA.CTRW_KDC
+								UNION ALL
+								SELECT D.ETC_CTRW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO
+									FROM CT_ETC_ELT_CTRW D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+									WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+									AND D.ETC_CTRW_KDC = AA.CTRW_KDC
+							) DD
+							WHERE  DD.ELT_CTRW_NO = AMN.ELT_CTRW_NO
+							AND DD.CHG_SQNO = AMN.CHG_SQNO  ) AS STYL_AMM_CHK  /*계약식 양식 변경여부*/
+				, AMN.BF_CTR_NO
+				, AMN.BF_CTR_SQNO
+				, AMN.SEAL_OMIT_YN
+			FROM CT_ELT_CTRW_AMN AMN ,
+				TB_TR_TRPL_CIF CIF ,
+				PT_USR_INF INF ,
+				(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC in('MN_CTRW_KD' ,'MN_CTRW_KDC')) A,
+				(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+				UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B
+			WHERE AMN.BUYER_NA_TRPL_C = CIF.NA_TRPL_C
+			AND AMN.BUYER_ENO = INF.MB_ID
+			AND NVL(AMN.TEMP_YN, 'N') = 'N'
+			AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+			AND AMN.STS = B.SIMP_C(+)
+			<choose>
+				<when test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC eq '99'">
+					/* 최고권한 - 모든계약서 조회 */
+				</when>
+				<when test = "USR_TPC eq '02'">
+					/* 본부회원 - 모든계약서 조회 */
+				</when>
+				<otherwise>
+					AND (
+						AMN.BUYER_ENO = #{BUYER_ID}
+						<if test="SIGN_YN == null and BUYER_DSC != null and BUYER_DSC eq '14'">
+							<!-- 테넌트 단기(본부통합) -->
+							OR EXISTS (
+								SELECT 1 FROM CT_ELT_CTRW_DTL
+								WHERE ELT_CTRW_NO = AMN.ELT_CTRW_NO AND CHG_SQNO = AMN.CHG_SQNO
+								AND '0000000000' = CASE WHEN MN_CTRW_KDC IN ('144', '145') THEN ETC8 WHEN MN_CTRW_KDC IN ('197', '198') THEN ETC31 END
+							)
+						</if>
+						OR
+						(
+							INF.USR_TPC = #{USR_TPC}
+							AND (
+								/* 직매장 담당자 */
+								( SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = AMN.BUYER_NA_TRPL_C ) IN ( SELECT BIZ_NUMBER FROM NHVANPTL.PT_BRANCH WHERE CHIEF_ENO = #{BUYER_ID} AND BRANCH_DSC = '01' )
+<!-- 								OR -->
+<!-- 								/* 직매장 담당자(신규관리) - 회원관리 개선 적용 후 적용 */ -->
+<!-- 								( SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = AMN.BUYER_NA_TRPL_C ) IN ( SELECT BIZ_NUMBER FROM NHVANPTL.PT_NH_DEPT_INF WHERE CHIEF_ENO = #{BUYER_ID} AND USE_YN = 'Y' ) -->
+								OR
+								/* 사업자 번호가 같거나   */
+								CIF.BIZ_NUMBER = ( SELECT B.BIZ_NUMBER FROM PT_USR_INF A, TB_TR_TRPL_CIF B WHERE MB_ID =  #{BUYER_ID} AND A.NA_TRPL_C = B.NA_TRPL_C )
+								OR
+								/* GLN 이 같은경우   */
+								AMN.BUYER_NA_TRPL_C = ( SELECT NA_TRPL_C  FROM PT_USR_INF WHERE MB_ID =  #{BUYER_ID} )
+							)
+						)
+						<if  test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC.length() > 0">
+							/* 개별권한 - 특정계약서 조회(유형권한+개별권한) */
+							OR AMN.MN_CTRW_KD IN (
+								SELECT CD_D
+								FROM TB_CD_MAP
+								WHERE CD_TYPE='MN_CTRW_KD'
+								AND UYN = 'Y'
+								AND CD_M IN (
+									SELECT ELT_AUTH_DSC
+									FROM NHVANPTL.CT_ELT_AUTH
+									WHERE ELT_AUTH_DSC IN ('11','12','13','14', '15', '16')
+									AND MB_ID = #{BUYER_ID}
+								)
+							)
+						</if>
+					)
+				</otherwise>
+			</choose>
+			<if test= "BUYER_ENO != null and BUYER_ENO.length() > 0">
+				AND AMN.BUYER_ENO = #{BUYER_ENO}
+			</if>
+			<if test= "BUYER_NM != null and BUYER_NM.length() > 0">
+				AND AMN.BUYER_NM = #{BUYER_NM}
+			</if>
+			<if test= "BUYER_GLN != null and BUYER_GLN.length() > 0">
+				AND AMN.BUYER_NA_TRPL_C = #{BUYER_GLN}
+			</if>
+			<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+			    <choose>
+				    <when test="CBO_CONTDAY == 0">
+				    		AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+				    </when>
+					<when test="CBO_CONTDAY == 1">
+							AND  AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 2">
+							AND  AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+				</choose>
+			</if>
+			<if test="CBO_KD != null and CBO_KD.length() > 0">
+			    <choose>
+					<when test="CBO_KD == 1">
+							AND  AMN.MTALNM like  #{EDT_KD}||'%'
+					</when>
+					<when test="CBO_KD == 2">
+							AND  AMN.NA_TRPL_C = #{EDT_KD}
+					</when>
+					<when test="CBO_KD == 3">
+							AND  AMN.BZNO = #{EDT_KD}
+					</when>
+				</choose>
+			</if>
+			<if test="FV_STS != null and FV_STS.length() > 0">
+				<![CDATA[
+					AND AMN.STS in(SELECT REGEXP_SUBSTR ( #{FV_STS}, '[^.]+', 1, LEVEL ) col
+						FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_STS}, '\.' ) + 1 )
+				]]>
+			</if>
+			<if test="APV_STS != null and APV_STS.length() > 0">
+				<![CDATA[
+					AND AMN.STS = #{APV_STS}
+					AND AMN.CTR_ED_DT >=   TO_CHAR(SYSDATE,'YYYYMMDD')
+				]]>
+			</if>
+			<if test="FV_MNCTRWKD != null and FV_MNCTRWKD.length() > 0">
+				<![CDATA[
+					AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{FV_MNCTRWKD}, '[^.]+', 1, LEVEL ) col
+						FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_MNCTRWKD}, '\.' ) + 1 )
+					]]>
+			</if>
+	 		<if test="BUYER_DSC != null and BUYER_DSC.length() > 0">
+				<![CDATA[
+					AND AMN.MN_CTRW_KD in (SELECT CD_D FROM TB_CD_MAP WHERE CD_TYPE = 'MN_CTRW_KD' AND CD_M=#{BUYER_DSC})
+				]]>
+			</if>
+		) DDD
+	</sql>
+
+	<select id="retrieveEltCtrw" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrieveEltCtrw */
+				M.ELT_CTRW_NO /*전자계약서 번호*/
+				,M.CEO   /*협력업체 사장 */
+				,M.TELNO /*협력업체 전화*/
+				,ecl_decrypt(M.MPNO) as MPNO    /*협력업체 전화*/
+				,M.EMAIL /*협력업체 이메일*/
+				,M.BUYER_NM /*바이어 이름 */
+				,M.BUYER_TELNO /*바이어 전화*/
+				,ecl_decrypt(M.BUYER_MPNO) as BUYER_MPNO /*바이어 전화*/
+				,M.BUYER_EMAIL /*협력업체 이메일*/
+				,A.SIMP_CNM AS CTRW_KD_NM /*계약서종류*/
+				,A.SIMP_C AS CTRW_KDC /*계약서종류코드*/
+				,M.MN_CTRW_KD  /*계약서종류*/
+				,B.SIMP_C AS TMP_STS /*계약서상태코드*/
+				,B.SIMP_CNM AS TMP_STS_NM /*계약서상태*/
+				,CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]> M.CTR_ED_DT THEN 'Y' ELSE 'N' END AS STS_END
+				,CASE WHEN M.MN_CTRW_KD IN ('1', '12', '51', '52') AND M.STS != 'A' AND M.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y' ELSE 'N' END AS STS_EXP
+				,M.CANCEL
+				,M.CHG_SQNO /*일련번호*/
+				,'' AS STS
+				,'' AS TINM  /*제목 */
+				,'' AS CNTN  /*내용 */
+				,'0' AS RLTM_NTC_SMS  /*실시간통지_문자 */
+				,'0' AS RLTM_NTC_EMAIL  /*실시간통지_이메일 */
+				,M.CHG_SQNO  /*실시간통지_이메일 */
+				,M.COLB_COMP_SEAL_APDFLNM  /*실시간통지_이메일 */
+				,M.COLB_COMP_SEAL_SYS_FLNM  /*실시간통지_이메일 */
+				,M.BUYER_SEAL_APDFLNM  /*실시간통지_이메일 */
+				,M.BUYER_SEAL_SYS_FLNM  /*실시간통지_이메일 */
+				,M.BUYER_APV_STS  /*바이어 승인상태 */
+				,M.COLB_COMP_SGNT /*협력업체 서명*/
+				,M.COLB_COMP_SGNT_DTM /*협력업체서명일시*/
+				, (SELECT NA_TRPL_SEAL_FLNM FROM TB_TR_TRPL_CIF  WHERE NA_TRPL_C = M.BUYER_NA_TRPL_C ) AS BUYER_NA_TRPL_SEAL_FLNM
+				,M.SEAL_OMIT_YN
+		FROM CT_ELT_CTRW_AMN M ,
+		    (SELECT SIMP_C_EXPL,SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC in('MN_CTRW_KD' ,'MN_CTRW_KDC')) A ,
+		    (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+			UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B
+			 WHERE TRIM(M.MN_CTRW_KD) = A.SIMP_C(+)
+			 	AND M.STS = B.SIMP_C(+)
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				AND M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+		<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+				AND M.CHG_SQNO  = #{CHG_SQNO}
+		</if>
+		 ORDER BY ELT_CTRW_NO DESC
+	</select>
+
+ 	<select id="retrieveEltCtrwKdList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  /*eltCtrwDAO retrieveEltCtrwKdList */
+			 * FROM (
+
+					/* 부가계약서*/
+					 SELECT A.SIMP_C_EXPL AS CTRW_NM
+					 			 ,A.SIMP_CNM AS CTRW_KD_NM
+					  		 ,SIMP_C AS CTRW_KDC
+						 FROM CT_ADD_ELT_CTRW_DTL D,
+					     (SELECT SIMP_C_EXPL,SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ADD_CTRW_KDC') A
+						 	WHERE D.ADD_CTRW_KDC = A.SIMP_C(+)
+						 	<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+									AND D.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+							</if>
+								<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+									AND D.CHG_SQNO  = #{CHG_SQNO}
+							</if>
+			 UNION ALL
+			 	/* 약정서*/
+				 SELECT A.SIMP_C_EXPL AS CTRW_NM
+							 ,A.SIMP_CNM AS CTRW_KD_NM
+							 ,SIMP_C AS CTRW_KDC
+				 	FROM CT_PMIW_DTL D,
+				     (SELECT SIMP_C_EXPL,SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'PMIW_KDC') A
+				 		WHERE D.PMIW_KDC = A.SIMP_C(+)
+				  <if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+									AND D.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+					</if>
+					<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+									AND D.CHG_SQNO  = #{CHG_SQNO}
+					</if>
+			UNION ALL
+				 /* 특약서*/
+				 SELECT A.SIMP_C_EXPL AS CTRW_NM
+							 ,A.SIMP_CNM AS CTRW_KD_NM
+							 ,SIMP_C AS CTRW_KDC
+				 		FROM CT_SCTRW_DTL D,
+				    	 (SELECT SIMP_C_EXPL,SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'SCTRW_KDC') A
+				 			WHERE D.SCTRW_KDC = A.SIMP_C(+)
+				 		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+									AND D.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+						</if>
+						<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+									AND D.CHG_SQNO  = #{CHG_SQNO}
+					  </if>
+
+			UNION ALL
+			 /* 부가 계약서 */
+				 SELECT A.SIMP_C_EXPL AS CTRW_NM
+							 ,A.SIMP_CNM AS CTRW_KD_NM
+							 ,SIMP_C AS CTRW_KDC
+				 	FROM CT_ETC_ELT_CTRW D,
+				     	 (SELECT SIMP_C_EXPL,SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ETC_CTRW_KDC') A
+				 	WHERE D.ETC_CTRW_KDC = A.SIMP_C(+)
+					 <if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+								AND D.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+					</if>
+					<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+									AND D.CHG_SQNO  = #{CHG_SQNO}
+					</if>
+
+			 )
+ 				ORDER BY  CTRW_KDC ASC
+ 		</select>
+
+		<select id="retrieveEltCtrwNtcList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT /*eltCtrwDAO retrieveEltCtrwNtcList */
+			 M.ELT_CTRW_NO /*전자계약서 번호*/
+							,M.MPNO    /*협력업체 전화*/
+							,M.EMAIL /*협력업체 이메일*/
+							,M.BUYER_MPNO /*협력업체 이메일*/
+							,M.BUYER_EMAIL /*협력업체 이메일*/
+							,A.SIMP_CNM AS CTRW_KD_NM  /*계약서종류*/
+							,B.SIMP_CNM AS STS_NM /*계약서상태*/
+							,N.CTRW_KDC  /*계약서종류코드*/
+							,N.TINM  /*제목 */
+							,N.CNTN  /*내용 */
+							,N.USR_TPC  /*사용자유형 */
+							,DECODE( CONCAT(N.RLTM_NTC_SMS ,N.RLTM_NTC_EMAIL) , '11' , 'SMS,EMAIL', '10' , 'SMS' , '01' , 'EMAIL','없음' )AS RLTM_NTC_CHK
+							,N.RLTM_NTC_SMS  /*SMS 사용여부 */
+							,N.RLTM_NTC_EMAIL  /*EMAIL사용여부 */
+							,N.SMS_NATV_NO  /*SMS고유번호 */
+							,N.EMAIL_NATV_NO  /*EMAIL고유번호 */
+							,N.FS_RGM  /*EMAIL고유번호 */
+							,U.USR_NM    /*등록자 */
+							,N.FSRG_DTM    /*날짜*/
+				FROM CT_ELT_CTRW_AMN M ,CT_ETC_ELT_NTC N,PT_USR_INF U,
+					(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC in('MN_CTRW_KD' ,'MN_CTRW_KDC')) A,
+				    (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+				         UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B
+				 WHERE M.ELT_CTRW_NO = N.ELT_CTRW_NO(+)
+				 AND N.CTRW_KDC = A.SIMP_C(+)
+				 AND N.CTRW_KDC = A.SIMP_C(+)
+				 AND N.STS = B.SIMP_C(+)
+				 AND N.FS_RGM = U.MB_ID(+)
+			 	 AND N.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+         AND M.CHG_SQNO  = #{CHG_SQNO}
+			<!--  ORDER BY N.SQNO DESC  기존꺼 -->
+			ORDER BY N.FSRG_DTM DESC
+ 	</select>
+
+	<select id="retrieveEltCtrwFileYnList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrieveEltCtrwFileYnList */
+			APD.DCM_C
+			, '0' AS ISCHECKED
+			, APD.ELT_CTRW_NO
+			, APD.MN_CTRW_KDC
+			, APD.SQNO
+			, APD.CHG_SQNO
+			, APD.BUYER_ENO
+			, APD.DCM_NM
+			, APD.ESS_YN
+			, DECODE (APD.ESS_YN , 'Y' ,'필수', '선택')AS ESS_YN_NM
+			, APD.APDFL_SZE AS FILESIZE
+			, APD.APDFLNM AS ORGFNAME
+			, APD.SYS_FLNM AS SYSTEMFILENAME
+			, 'ELT' AS SEAL        /*디렉토리 정의*/
+			, CASE WHEN APD.LS_CHGM = APD.FS_RGM AND APD.FS_RGM = 'SYSTEM'  THEN '2'
+				ELSE'1' END AS DCM_APD_STS /*등록 상태 기존 사용 1 신규 등록 2 */
+			, '' AS RMK              /*비고*/
+			, '' AS LSCHG_USR_NM     /*수정자*/
+			, '' AS LSCHG_DTM        /*수정 날짜 */
+			, APD.FS_RGM
+			, APD.APDFL_STS
+		FROM 	CT_ELT_CTRW_DTL D ,
+			CT_ELT_CTRW_DCM_APD APD
+		WHERE D.ELT_CTRW_NO = APD.ELT_CTRW_NO
+		AND D.CHG_SQNO = APD.CHG_SQNO
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				AND D.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+		<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+				AND D.CHG_SQNO  = #{CHG_SQNO}
+		</if>
+		UNION ALL
+		SELECT 	DISTINCT(A.DCM_C) AS DCM_C,
+  			'0' AS ISCHECKED
+            , B.ELT_CTRW_NO
+            , B.MN_CTRW_KDC
+            , A.SQNO
+            , B.CHG_SQNO
+            , A.BUYER_ENO
+			, A.DCM_NM
+            , A.ESS_YN
+            , DECODE (A.ESS_YN , 'Y' ,'필수', '선택')AS ESS_YN_NM
+            , '' AS  FILESIZE
+            , '' AS  ORGFNAME
+            , '' AS  SYSTEMFILENAME
+	   		, '' AS SEAL        /*디렉토리 정의*/
+            ,'0' AS DCM_APD_STS        /*등록 상태 0 신규등록예정 */
+            , A.RMK              /*추가 항목 내용*/
+            , UI.USR_NM AS LSCHG_USR_NM         /*수정자*/
+            , TO_CHAR(A.LSCHG_DTM , 'YYYYDDMM') AS LSCHG_DTM        /*수정 날짜 */
+            , B.FS_RGM
+            , '' AS APDFL_STS
+        FROM CT_DCM_STYL_AMN A,  CT_ELT_CTRW_DCM_APD B, PT_USR_INF UI
+        WHERE A.MN_CTRW_KDC = B.MN_CTRW_KDC
+        AND A.SQNO NOT IN (
+        	SELECT SQNO
+        	FROM CT_ELT_CTRW_DCM_APD
+        	WHERE 1=1
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				AND ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+				AND CHG_SQNO  = #{CHG_SQNO}
+			</if>
+		)
+		AND A.STS  = 'Y'
+		AND A.BUYER_ENO  = UI.MB_ID
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+			AND B.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+		<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+			AND B.CHG_SQNO  = #{CHG_SQNO}
+		</if>
+	</select>
+
+	<insert id="insertEtcEltNtc"  parameterType="java.util.Map" >
+	 	INSERT INTO /*eltCtrwDAO insertEtcEltNtc */	 CT_ETC_ELT_NTC (
+	 		ELT_CTRW_NO,
+			CTRW_KDC,
+			SQNO,
+			STS,
+			TINM,
+			CNTN,
+			USR_TPC,
+			RLTM_NTC_SMS,
+			SMS_NATV_NO,
+			RLTM_NTC_EMAIL,
+			EMAIL_NATV_NO,
+			FSRG_DTM,
+			FS_RGM,
+			LSCHG_DTM,
+			LS_CHGM
+		)VALUES (
+			#{ELT_CTRW_NO},
+			#{CTRW_KDC},
+			( select NVL(MAX(SQNO + 1), 1) from CT_ETC_ELT_NTC where ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{STS},
+			#{TINM},
+			#{CNTN},
+			#{USR_TPC},
+			#{RLTM_NTC_SMS},
+			#{SMS_NATV_NO},
+			#{RLTM_NTC_EMAIL},
+			#{EMAIL_NATV_NO},
+			 SYSDATE,
+			#{USR_ID},
+			 SYSDATE,
+			#{USR_ID}
+		)
+	 	</insert>
+
+	<insert id="insertEtcEltNtcFyn"  parameterType="java.util.Map" >
+	 	INSERT INTO  /*eltCtrwDAO insertEtcEltNtcFyn */ CT_ELT_CTRW_DCM_APD (
+	 		ELT_CTRW_NO,
+			MN_CTRW_KDC,
+			SQNO,
+			BUYER_ENO,
+			DCM_C,
+			DCM_NM,
+			ESS_YN,
+			APDFLNM,
+			APDFL_PATHNM,
+			APDFL_SZE,
+			SYS_FLNM,
+			FSRG_DTM,
+			FS_RGM,
+			LSCHG_DTM,
+			LS_CHGM
+		)VALUES (
+			#{ELT_CTRW_NO},
+			#{MN_CTRW_KDC},
+			 ( select LPAD( NVL(MAX(SQNO + 1), 1) ,'4' ,'0')  from CT_ELT_CTRW_DCM_APD where ELT_CTRW_NO = #{ELT_CTRW_NO}) ,
+			#{BUYER_ENO},
+			#{DCM_C},
+			#{DCM_NM},
+			#{ESS_YN},
+			#{APDFLNM},
+			#{APDFL_PATHNM},
+			#{APDFL_SZE},
+			#{SYS_FLNM},
+			 SYSDATE,
+			#{USR_ID},
+			 SYSDATE,
+			#{USR_ID}
+		)
+	 	</insert>
+
+	<insert id="insertDcmStylAmn"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+	 	INSERT INTO /*eltCtrwDAO insertDcmStylAmn */   CT_ELT_CTRW_DCM_APD (
+	 		ELT_CTRW_NO,
+			MN_CTRW_KDC,
+			CHG_SQNO,
+			SQNO,
+			BUYER_ENO,
+			DCM_C,
+			DCM_NM,
+			ESS_YN,
+			APDFLNM,
+			APDFL_PATHNM,
+			APDFL_SZE,
+			SYS_FLNM,
+			FSRG_DTM,
+			FS_RGM,
+			LSCHG_DTM,
+			LS_CHGM
+<!-- 			PI_CHECK -->
+		)VALUES (
+			#{ELT_CTRW_NO},
+			#{MN_CTRW_KDC},
+			#{CHG_SQNO},
+			( select LPAD( NVL(MAX(SQNO + 1), 1) ,'4' ,'0') from CT_ELT_CTRW_DCM_APD where ELT_CTRW_NO = #{ELT_CTRW_NO}),
+			#{BUYER_ENO},
+			#{DCM_C},
+			#{DCM_NM},
+			#{ESS_YN},
+			#{APDFLNM},
+			#{APDFL_PATHNM},
+			#{APDFL_SZE},
+			#{SYS_FLNM},
+			 SYSDATE,
+			#{FS_RGM},
+			 SYSDATE,
+			#{LS_CHGM}
+<!-- 			#{PI_CHECK} -->
+		)
+	</insert>
+
+	<update id="updateEtcEltNtcFyn"  parameterType="java.util.Map" >
+		 	UPDATE /*eltCtrwDAO updateEtcEltNtcFyn */ 	CT_ELT_CTRW_DCM_APD
+					SET APDFLNM = #{APDFLNM},
+						APDFL_SZE = #{APDFL_SZE},
+						SYS_FLNM = #{SYS_FLNM},
+						LSCHG_DTM = SYSDATE,
+						LS_CHGM = #{USR_ID}
+			WHERE  	ELT_CTRW_NO = #{ELT_CTRW_NO}
+					AND CHG_SQNO = #{CHG_SQNO}
+					AND SQNO = #{FSQNO}
+	</update>
+
+	<update id="updateDcmStylAmn"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		 	UPDATE 	/*eltCtrwDAO updateDcmStylAmn */  CT_ELT_CTRW_DCM_APD
+					SET APDFLNM = #{APDFLNM},
+						APDFL_SZE = #{APDFL_SZE},
+						SYS_FLNM = #{SYS_FLNM},
+						LSCHG_DTM = SYSDATE,
+						LS_CHGM = #{LS_CHGM},
+						APDFL_STS = #{APDFL_STS}
+<!-- 						PI_CHECK = #{PI_CHECK} -->
+			WHERE  	ELT_CTRW_NO = #{ELT_CTRW_NO}
+					AND CHG_SQNO = #{CHG_SQNO}
+					AND SQNO = #{SQNO}
+	</update>
+
+	<delete id="deleteEtcEltNtcFyn" parameterType="java.util.Map" >
+		DELETE	/*eltCtrwDAO deleteEtcEltNtcFyn */ FROM CT_ELT_CTRW_DCM_APD
+		WHERE 1=1
+			AND ELT_CTRW_NO= #{ELT_CTRW_NO}
+			AND SQNO= #{SQNO}
+			AND CHG_SQNO = #{CHG_SQNO}
+			AND SYS_FLNM = #{SYS_FLNM}
+	</delete>
+
+	<delete id="deleteDcmStylAmn"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+			UPDATE	/*eltCtrwDAO deleteDcmStylAmn */  CT_ELT_CTRW_DCM_APD
+ 			  SET APDFLNM = ''
+    			, APDFL_SZE = ''
+                , SYS_FLNM = ''
+                , APDFL_STS = ''
+			WHERE ELT_CTRW_NO= #{ELT_CTRW_NO}
+			AND SQNO= #{SQNO}
+	</delete>
+
+	<update id="updateEltCtrwDcmApd"  parameterType="java.util.Map" >
+		 	UPDATE /*eltCtrwDAO updateEltCtrwDcmApd */	CT_ELT_CTRW_AMN
+			        SET STS = #{STS},
+			       <if test="COLB_COMP_SGNT != null and COLB_COMP_SGNT.length() > 0 ">
+						COLB_COMP_SGNT= #{COLB_COMP_SGNT}, /*협력업체 서명*/
+						COLB_COMP_SGNT_DTM= SYSDATE, /*협력업체 서명 시간*/
+					</if>
+					<if test="COLB_COMP_SEAL_SYS_FLNM != null and COLB_COMP_SEAL_SYS_FLNM.length() > 0 ">
+						COLB_COMP_SEAL_SYS_FLNM= #{COLB_COMP_SEAL_SYS_FLNM}, /*협력업체 인감도장 시스템 파일명*/
+					</if>
+					<if test="COLB_COMP_SEAL_APDFLNM != null and COLB_COMP_SEAL_APDFLNM.length() > 0 ">
+						COLB_COMP_SEAL_APDFLNM= #{COLB_COMP_SEAL_APDFLNM}, /*협력업체 인감도장 파일명*/
+					</if>
+					<choose>
+						<when test='BUYER_APV_STS != null and BUYER_APV_STS.length() > 0  and STS != "8"'>
+								BUYER_APV_STS= #{BUYER_APV_STS},   /*바이어승인상태*/
+								BUYER_APV_DTM = SYSDATE,   /*바이어승인상태*/
+						</when>
+						<when test='STS == "8" or STS == "3" or STS == "4"'>
+								BUYER_APV_STS = null,
+								BUYER_APV_DTM = '',   /*바이어승인상태*/
+								COLB_COMP_SGNT_DTM = '',   /*협력업체 승인상태*/
+						</when>
+					</choose>
+					<if test="BUYER_SEAL_APDFLNM != null and BUYER_SEAL_APDFLNM.length() > 0 ">
+						BUYER_SEAL_APDFLNM= #{BUYER_SEAL_APDFLNM}, /*협력업체 인감도장 시스템 파일명*/
+					</if>
+					<if test="BUYER_SEAL_SYS_FLNM != null and BUYER_SEAL_SYS_FLNM.length() > 0 ">
+						BUYER_SEAL_SYS_FLNM= #{BUYER_SEAL_SYS_FLNM}, /*협력업체 인감도장 파일명*/
+					</if>
+			       <if test="BUYER_SGNT != null and BUYER_SGNT.length() > 0 ">
+						BUYER_SGNT     = #{BUYER_SGNT}, /*바이어 전자 서명*/
+						BUYER_SGNT_DTM = SYSDATE,   /*바이어 전자 서명 시간*/
+					</if>
+
+					<if test="FGAT_PRVT_C != null and FGAT_PRVT_C.length() > 0 ">
+						FGAT_PRVT_C= #{FGAT_PRVT_C}, /*위변조방지코드*/
+					</if>
+					LSCHG_DTM = SYSDATE,
+					LS_CHGM = #{USR_ID}
+			WHERE  	ELT_CTRW_NO = #{ELT_CTRW_NO}
+					AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<update id="updateEtcEltNtcB"  parameterType="java.util.Map" >
+		 	UPDATE 	/*eltCtrwDAO updateEtcEltNtcB */  CT_ETC_ELT_NTC
+		       	SET STS = #{STS},
+					LSCHG_DTM = SYSDATE,
+					LS_CHGM = #{USR_ID}
+			WHERE  	ELT_CTRW_NO = #{ELT_CTRW_NO}
+					AND SQNO = #{SQNO}
+	</update>
+
+	 <select id="retrieveEltCtrwAmnList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*eltCtrwDAO retrieveEltCtrwAmnList */
+			'0' AS ISCHECKED ,M.ELT_CTRW_NO ,M.NA_TRPL_C,M.CHG_SQNO,M.MN_CTRW_KD,NVL(M.ADD_CTRW_YN,0) AS ADD_CTRW_YN,NVL(M.PMIW_YN ,0) AS PMIW_YN,NVL(M.SCTRW_YN,0) AS SCTRW_YN
+			,NVL(M.ETC_CTRW_YN,0) AS ETC_CTRW_YN,M.BZNO,M.BUYER_NA_TRPL_C,M.TELNO, ecl_decrypt(M.MPNO) as MPNO
+			,M.EMAIL,M.CTRW_STY_CHG_VER_YN,M.CTR_ST_DT,M.CTR_ED_DT,M.CTRW_DRUP_DT,M.CEO,M.MTALNM,M.FZIP,M.RZIP,M.ZIP_SQNO,M.DONGUP,M.DONGBW,M.BUYER_ENO
+			,M.BUYER_BLG,M.BUYER_NM,M.BUYER_TELNO, ecl_decrypt(M.BUYER_MPNO) as BUYER_MPNO,M.BUYER_EMAIL,M.CTR_CHRR_MTALNM,M.CTR_CHRR_REPMN ,M.CTR_CHRR_REP_DTYNM ,M.CTR_CHRR,M.LA_AGNT,M.CTR_CHRR_FZIP,M.CTR_CHRR_RZIP
+			,M.CTR_CHRR_ZIP_SQNO,M.CTR_CHRR_DONGUP,M.CTR_CHRR_DONGBW,M.RMK,M.STS,M.COLB_COMP_SGNT,M.BUYER_APV_STS,M.CTR_PRD_AUT_XTN_YN,M.FGAT_PRVT_C
+			,M.BF_CTR_NO,M.BF_CTR_SQNO,M.FSRG_DTM,M.FS_RGM,M.LSCHG_DTM,M.LS_CHGM , ecl_decrypt(M.RRNO) as RRNO,ecl_decrypt(M.COPNO) as COPNO,M.LA_AGNT_DTYNM, M.BUYER_SEAL_APDFLNM, M.BUYER_SEAL_SYS_FLNM
+			FROM CT_ELT_CTRW_AMN M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrieveEltCtrwDtlList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*eltCtrwDAO retrieveEltCtrwDtlList */
+			'0' AS ISCHECKED,	M.*
+			FROM CT_ELT_CTRW_DTL M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrieveAddEltCtrwDtlList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*eltCtrwDAO retrieveAddEltCtrwDtlList */
+			'0' AS ISCHECKED,	M.*
+			FROM CT_ADD_ELT_CTRW_DTL M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrievePmiwDtlList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*eltCtrwDAO retrievePmiwDtlList */
+			'0' AS ISCHECKED,	M.*
+			FROM CT_PMIW_DTL M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrieveEvtAmPmiwList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*eltCtrwDAO retrieveEvtAmPmiwList */
+			'0' AS ISCHECKED,	M.*
+			FROM NHVANWAS.CT_EVT_AM_PMIW M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrieveLgqtTrFeePmiwList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT   /*eltCtrwDAO retrieveLgqtTrFeePmiwList */
+			'0' AS ISCHECKED,	M.*
+			FROM NHVANWAS.CT_LGQT_TR_FEE_PMIW M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	 <select id="retrieveDlvgCompEmpDspcPmiwList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT   /*eltCtrwDAO retrieveDlvgCompEmpDspcPmiwList */
+			'0' AS ISCHECKED,	M.*
+			FROM NHVANWAS.CT_DLVG_COMP_EMP_DSPC_PMIW M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	 </select>
+
+	 <select id="retrieveDspcPerWrkPrdPmiwList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT   /*eltCtrwDAO retrieveDspcPerWrkPrdPmiwList */
+			'0' AS ISCHECKED,	M.*
+			FROM NHVANWAS.CT_DSPC_PER_WRK_PRD_PMIW M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	 </select>
+
+	<select id="retrieveSctrwDtlList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT   /*eltCtrwDAO retrieveSctrwDtlList */
+			'0' AS ISCHECKED,	M.*
+			FROM NHVANWAS.CT_SCTRW_DTL M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrieveSctrwCtrMrgnRtList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*eltCtrwDAO retrieveSctrwCtrMrgnRtList */
+			'0' AS ISCHECKED,	M.*
+			FROM NHVANWAS.CT_SCTRW_CTR_MRGN_RT M
+			<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+					WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+			</if>
+			<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+					AND M.CHG_SQNO  = #{CHG_SQNO}
+			</if>
+	</select>
+
+	<select id="retrieveSctrwNmlMrgnRtList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT   /*eltCtrwDAO retrieveSctrwNmlMrgnRtList */
+		'0' AS ISCHECKED,	M.*
+		FROM NHVANWAS.CT_SCTRW_NML_MRGN_RT M
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+		<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+				AND M.CHG_SQNO  = #{CHG_SQNO}
+		</if>
+	</select>
+
+ 	<select id="retrieveSctrwPmtnEmpeDspcBrkList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT   /*eltCtrwDAO retrieveSctrwPmtnEmpeDspcBrkList */
+		'0' AS ISCHECKED,	M.*
+		FROM NHVANWAS.CT_SCTRW_PMTN_EMPE_DSPC_BRK M
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+		<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+				AND M.CHG_SQNO  = #{CHG_SQNO}
+		</if>
+ 	</select>
+
+ 	<select id="retrieveSctrwAllXpcPmtnCstList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT   /*eltCtrwDAO retrieveSctrwAllXpcPmtnCstList */
+		'0' AS ISCHECKED,	M.*
+		FROM NHVANWAS.CT_SCTRW_ALL_XPC_PMTN_CST M
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+		<if test="CHG_SQNO != null and CHG_SQNO.length() > 0">
+				AND M.CHG_SQNO  = #{CHG_SQNO}
+		</if>
+ 	</select>
+
+ 	<select id="retrieveEtcEltCtrwList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT   /*eltCtrwDAO retrieveEtcEltCtrwList */
+		'0' AS ISCHECKED,	M.*
+		FROM NHVANWAS.CT_ETC_ELT_CTRW M
+		<if test="ELT_CTRW_NO != null and ELT_CTRW_NO.length() > 0">
+				WHERE M.ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		</if>
+ 	</select>
+
+	<update id="updateEltCtrwApd"  parameterType="java.util.Map" >
+	 	MERGE INTO CT_ELT_APD_BIGO
+		  USING DUAL
+		     ON (ELT_CTRW_NO = #{ELT_CTRW_NO})
+		   WHEN MATCHED THEN
+		 UPDATE SET BIGO = #{BIGO}
+		           ,LSCHG_DTM = SYSDATE
+		           ,LS_CHGM = #{LS_CHGM}
+		    WHEN NOT MATCHED THEN
+ 		      INSERT (ELT_CTRW_NO, BIGO, FSRG_DTM, FS_RGM)
+		  VALUES (#{ELT_CTRW_NO},#{BIGO},SYSDATE,#{FS_RGM})
+ 	</update>
+
+	<update id="deleteEltCtrwApd"  parameterType="java.util.Map" >
+	 	DELETE CT_ELT_APD
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+ 	</update>
+
+ 	<insert id="insertEltCtrwApd"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+	 	INSERT INTO /*eltCtrwDAO insertEltCtrwApd */   CT_ELT_APD (
+	 		ELT_CTRW_NO,
+			SQNO,
+			DCM_NM,
+			APDFLNM,
+			APDFL_PATHNM,
+			APDFL_SZE,
+			SYS_FLNM,
+			FSRG_DTM,
+			FS_RGM
+		)VALUES (
+			#{ELT_CTRW_NO},
+			(#{SQNO}),
+			#{DCM_NM},
+			#{APDFLNM},
+			#{APDFL_PATHNM},
+			#{APDFL_SZE},
+			#{SYS_FLNM},
+			 SYSDATE,
+			#{FS_RGM}
+		)
+ 	</insert>
+
+ 	<select id="retrieveEltCtrwApd" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT BIGO
+		      ,'ELT' SEAL
+		  FROM CT_ELT_APD_BIGO
+		 WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+ 	</select>
+
+ 	<select id="retrieveEltCtrwApdFileList" parameterType="java.util.Map" resultType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		SELECT ELT_CTRW_NO
+		      ,SQNO
+		      ,APDFLNM ORGFNAME
+		      ,APDFL_PATHNM
+		      ,APDFL_SZE
+		      ,SYS_FLNM SYSTEMFILENAME
+		      ,DCM_NM
+		      ,'ELT' AS SEAL
+		  FROM CT_ELT_APD
+		 WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+ 	</select>
+
+ 	 <update id="updateCancelElt" parameterType="java.util.Map">
+		UPDATE CT_ELT_CTRW_AMN
+		   SET CANCEL = 'Y'
+			, LSCHG_DTM  = SYSDATE
+			, LS_CHGM = #{LS_CHGM}
+		 WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+           AND CHG_SQNO = #{CHG_SQNO}
+ 	</update>
+
+	<select id="retrievetEtcItemList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrievetEtcItemList */
+		         '0' AS ISCHECKED
+		       , ELT_CTRW_NO
+		       , CHG_SQNO
+		       , SQNO
+		       , ITEM_CODE
+		       , ITEM_NAME
+		       , STANDARD
+		       , COUNTRY
+		       , COMPANY
+			   , BRAND
+			   , QTY
+			   , UPR
+			   , ETC1
+			   , ETC2
+			   , ETC3
+			   , ETC4
+			   , ETC5
+		       , FSRG_DTM
+		       , FS_RGM
+		       , LSCHG_DTM
+		       , LS_CHGM
+		  FROM NHVANPTL.CT_ETC_ITEM
+		  WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		    AND CHG_SQNO = #{CHG_SQNO}
+	</select>
+
+ 	<insert id="insertEtcItem" parameterType="com.nh.escm.ct.eltctrw.vo.CtEtcItemVO">
+	 	INSERT INTO /*eltCtrwDAO insertEtcItem */   NHVANPTL.CT_ETC_ITEM (
+		      ELT_CTRW_NO
+		    , CHG_SQNO
+		    , SQNO
+		    , ITEM_CODE
+		    , ITEM_NAME
+		    , STANDARD
+		    , COUNTRY
+		    , COMPANY
+		    , BRAND
+		    , QTY
+		    , UPR
+		    , ETC1
+		    , ETC2
+		    , ETC3
+		    , ETC4
+		    , ETC5
+		    , FSRG_DTM
+		    , FS_RGM
+		    , LSCHG_DTM
+		    , LS_CHGM
+		)VALUES (
+			  #{ELT_CTRW_NO}
+			, #{CHG_SQNO}
+			, (SELECT NVL(MAX(TO_NUMBER(SQNO)), 0) + 1 FROM  NHVANPTL.CT_ETC_ITEM WHERE ELT_CTRW_NO = #{ELT_CTRW_NO} AND CHG_SQNO = #{CHG_SQNO} )
+			, #{ITEM_CODE}
+			, #{ITEM_NAME}
+			, #{STANDARD}
+			, #{COUNTRY}
+			, #{COMPANY}
+			, #{BRAND}
+			, #{QTY}
+			, #{UPR}
+			, #{ETC1}
+			, #{ETC2}
+			, #{ETC3}
+			, #{ETC4}
+			, #{ETC5}
+			, SYSDATE
+			, #{FS_RGM}
+			, SYSDATE
+			, #{LS_CHGM}
+		)
+ 	</insert>
+
+ 	<insert id="updateEtcItem"  parameterType="com.nh.escm.ct.eltctrw.vo.CtEtcItemVO">
+	 	UPDATE  NHVANPTL.CT_ETC_ITEM
+	 	SET
+		      ITEM_CODE  = #{ITEM_CODE}
+		    , ITEM_NAME  = #{ITEM_NAME}
+		    , STANDARD   = #{STANDARD}
+		    , COUNTRY    = #{COUNTRY}
+		    , COMPANY    = #{COMPANY}
+		    , BRAND      = #{BRAND}
+		    , QTY        = #{QTY}
+		    , UPR        = #{UPR}
+		    , ETC1        = #{ETC1}
+		    , ETC2        = #{ETC2}
+		    , ETC3        = #{ETC3}
+		    , ETC4        = #{ETC4}
+		    , ETC5        = #{ETC5}
+		    , FS_RGM     = #{FS_RGM}
+		    , LSCHG_DTM  = SYSDATE
+		    , LS_CHGM    = #{LS_CHGM}
+		WHERE
+		 	  ELT_CTRW_NO = #{ELT_CTRW_NO}
+		  AND CHG_SQNO    = #{CHG_SQNO}
+		  AND SQNO        = #{SQNO}
+	</insert>
+
+ 	<insert id="deleteEtcItem"  parameterType="com.nh.escm.ct.eltctrw.vo.CtEtcItemVO">
+	 	DELETE FROM  NHVANPTL.CT_ETC_ITEM
+		WHERE
+		 	  ELT_CTRW_NO = #{ELT_CTRW_NO}
+		  AND CHG_SQNO    = #{CHG_SQNO}
+		  AND SQNO        = #{SQNO}
+	</insert>
+
+	<select id="retrievePrintItemList"   parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrievetEtcItemList */
+		         '0' AS ISCHECKED
+		       , ELT_CTRW_NO
+		       , CHG_SQNO
+		       , SQNO
+		       , ITEM_CODE
+		       , ITEM_NAME
+		       , STANDARD
+		       , COUNTRY
+		       , COMPANY
+		       , FSRG_DTM
+		       , FS_RGM
+		       , LSCHG_DTM
+		       , LS_CHGM
+		  FROM NHVANPTL.CT_ETC_ITEM
+		 WHERE ELT_CTRW_NO =  #{ELT_CTRW_NO}
+		   AND CHG_SQNO =  #{CHG_SQNO}
+	</select>
+
+	<select id="retrievePrintItemHeader"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT   TO_CHAR(SYSDATE, 'YYYYMMDD') AS DT
+		      , B.DONGUP || B.DONGBW AS ADDR
+		      , B.CLNTNM AS NA_TRPL_CNM
+		      , B.REPMNM AS REPNM
+		      , C.DONGUP || C.DONGBW AS BUYER_ADDR
+		      , C.CLNTNM AS BUYER_NA_TRPL_CNM
+		      , C.REPMNM AS BUYER_REPNM
+		FROM   NHVANPTL.CT_ELT_CTRW_AMN A
+		     , NHVANINF.TB_TR_TRPL_CIF B
+		     , NHVANINF.TB_TR_TRPL_CIF C
+		WHERE A.NA_TRPL_C = B.NA_TRPL_C
+		  AND A.BUYER_NA_TRPL_C = C.NA_TRPL_C
+		  AND A.ELT_CTRW_NO   =  #{ELT_CTRW_NO}
+		  AND A.CHG_SQNO      =  #{CHG_SQNO}
+	</select>
+
+	<select id="retrieveTrplCif" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			    A.*
+		 FROM  TB_TR_TRPL_CIF A
+		WHERE A.NA_TRPL_C = #{TRPL_C}
+	</select>
+
+	<update id = "supuadate" parameterType="java.util.Map">
+		UPDATE CT_ELT_CTRW_AMN
+		   SET STS = '4'
+			, BUYER_APV_STS = null
+			, BUYER_APV_DTM = null
+			, LSCHG_DTM  = SYSDATE
+			, LS_CHGM = #{LS_CHGM}
+		 WHERE ELT_CTRW_NO = #{eltCtrwNo}
+	</update>
+
+	<update id = "EltupdateStat" parameterType = "com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		UPDATE CT_ELT_CTRW_AMN
+		   SET CHG_REQ_STAT = #{CHG_REQ_STAT}
+		   ,LSCHG_DTM = SYSDATE
+		 WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		   AND CTR_ED_DT <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+		   AND STS NOT IN 'A'
+	</update>
+
+	<insert id = "insertCtrwchg" parameterType = "com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		INSERT
+		  INTO CT_ELT_CTRW_CHG_AMN
+			(ELT_CTRW_NO
+			, CHG_NO
+			, BUYER_ENO
+			, BUYER_NM
+			, CHG_BUYER_ENO
+			, CHG_BUYER_NM
+			, STS
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM	)
+		VALUES(
+			#{ELT_CTRW_NO}
+			,(SELECT NVL(MAX(CHG_NO),0)+1 AS CHG_NO FROM CT_ELT_CTRW_CHG_AMN)
+			,#{BUYER_ENO}
+			,#{BUYER_NM}
+			,#{CHG_BUYER_ENO}
+			,#{CHG_BUYER_NM}
+			,'N'
+			,SYSDATE
+			,#{CHG_BUYER_ENO}
+			,SYSDATE
+			,#{CHG_BUYER_ENO}
+		)
+	</insert>
+	<select id = "searchChgno" parameterType = "com.nh.escm.ct.eltctrw.vo.EltCtrwVO" resultType="int">
+		SELECT CHG_NO
+		  FROM CT_ELT_CTRW_CHG_AMN
+		 WHERE ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		   AND BUYER_ENO = #{BUYER_ENO}
+		   AND STS ='N'
+	</select>
+
+	<update id = "updateBuyerStat" parameterType = "com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+			UPDATE CT_ELT_CTRW_AMN
+			   SET CHG_REQ_STAT = 'N'
+			   	 , BUYER_ENO = (select CHG_BUYER_ENO from CT_ELT_CTRW_CHG_AMN where CHG_NO = #{CHG_NO} AND ELT_CTRW_NO = #{ELT_CTRW_NO} )
+			   	 , BUYER_NM  = (select CHG_BUYER_NM from CT_ELT_CTRW_CHG_AMN where CHG_NO = #{CHG_NO} AND  ELT_CTRW_NO = #{ELT_CTRW_NO} )
+			   	 , BZNO 	 = (select BZNO
+			   	    			  from pt_usr_inf
+			   	    			 where mb_id = (
+       										select CHG_BUYER_ENO
+       										  from CT_ELT_CTRW_CHG_AMN
+       										 where CHG_NO = #{CHG_NO}
+       										  AND ELT_CTRW_NO = #{ELT_CTRW_NO}))
+			   ,LSCHG_DTM = SYSDATE
+			   ,LS_CHGM = #{BUYER_ENO}
+			 WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+			   AND CTR_ED_DT <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+			   AND STS NOT IN 'A'
+	</update>
+
+	<delete id = "deleteCtrwchg" parameterType = "com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		DELETE
+		  FROM CT_ELT_CTRW_CHG_AMN
+		 WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		   AND STS = 'N'
+	</delete>
+
+	<update id = "updateBuyerCtrwchg"  parameterType = "com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		UPDATE CT_ELT_CTRW_CHG_AMN
+		   SET STS = 'Y'
+		    , LSCHG_DTM = SYSDATE
+			, LS_CHGM = #{LS_CHGM}
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND   CHG_NO = #{CHG_NO}
+	</update>
+
+	<select id = "retrieveChgelt"  parameterType="java.util.Map" resultType="java.util.Map">
+		    select
+			'0' AS ISCHECKED,
+			       DDD.ELT_CTRW_NO ,
+			       DDD.MN_CTRW_KD_NM ,
+			       DDD.NA_TRPL_C,
+			       DDD.MTALNM,
+			       DDD.CTR_ST_DT ||'~'|| DDD.CTR_ED_DT AS CTR_DT ,
+			       DDD.STS_NM,
+			       DDD.BUYER_NM,
+			       DDD.BUYER_NA_TRPL_NM,
+			       DDD.STS_CANCEL,
+			       DDD.CHG_REQ_STAT,
+			       DDD.BUYER_ENO,
+			       BBB.CHG_BUYER_ENO,
+			       BBB.CHG_BUYER_NM,
+			       BBB.STS
+	 		 from (
+				SELECT
+				       AMN.ELT_CTRW_NO ,
+				       A.SIMP_CNM AS MN_CTRW_KD_NM ,
+				       AMN.NA_TRPL_C,
+				       AMN.MTALNM,
+				       AMN.CTR_ST_DT,
+				       AMN.CTR_ED_DT,
+				       AMN.CTRW_DRUP_DT,
+				       AMN.STS,
+				       AMN.LSCHG_DTM,
+			           AMN.BUYER_NM,
+			           FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) AS BUYER_NA_TRPL_NM,
+			           AMN.BUYER_ENO,
+				       CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료'
+                   ELSE B.SIMP_CNM
+                   END AS STS_NM
+               , CASE WHEN AMN.CANCEL IS NULL THEN '정상'
+                      ELSE '해지'
+                  END STS_CANCEL
+               ,CASE WHEN AMN.CHG_REQ_STAT IS NULL THEN ' '
+               		 WHEN AMN.CHG_REQ_STAT = 'N' THEN ' '
+               		 WHEN AMN.CHG_REQ_STAT = 'O' THEN '보류'
+                      ELSE '승인신청'
+                  END CHG_REQ_STAT
+               , CASE WHEN AMN.MN_CTRW_KD IN ('1', '12', '51', '52') AND AMN.STS != 'A' AND AMN.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y'
+				    ELSE 'N'
+				END STS_EXP
+				FROM   CT_ELT_CTRW_AMN AMN ,
+				       TB_TR_TRPL_CIF CIF ,
+				       (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'MN_CTRW_KD') A,
+				       (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+				         UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B
+				WHERE AMN.BUYER_NA_TRPL_C = CIF.NA_TRPL_C
+                  AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+				  AND AMN.STS = B.SIMP_C(+)
+          AND ELT_CTRW_NO IN ( SELECT ELT_CTRW_NO
+                                  FROM CT_ELT_CTRW_CHG_AMN
+                                 WHERE  CHG_BUYER_ENO  = #{BUYER_ENO}
+                                   AND STS ='N')
+           <if test="FV_MNCTRWKD != null and FV_MNCTRWKD.length() > 0">
+			<![CDATA[
+				 AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{FV_MNCTRWKD}, '[^.]+', 1, LEVEL ) col
+							FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_MNCTRWKD}, '\.' ) + 1 )
+			]]>
+		 	</if>
+                                      ) DDD , CT_ELT_CTRW_CHG_AMN BBB
+      WHERE DDD.CHG_REQ_STAT IN ('승인신청', '보류')
+      AND DDD.ELT_CTRW_NO = BBB.ELT_CTRW_NO
+        AND DDD.BUYER_ENO = BBB.BUYER_ENO
+         AND BBB.STS != 'Y'
+         AND DDD.STS_EXP = 'N'
+          ORDER BY DDD.LSCHG_DTM DESC, DDD.ELT_CTRW_NO DESC
+	</select>
+
+	<select id = "retrieveBuyerChgelt"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'0' AS ISCHECKED,
+			DDD.ELT_CTRW_NO ,
+			DDD.CHG_SQNO,
+			DDD.MN_CTRW_KD_NM ,
+			DDD.NA_TRPL_C,
+			DDD.MTALNM,
+			DDD.CTR_ST_DT || '~' || DDD.CTR_ED_DT AS CTR_DT ,
+			DDD.STS_NM,
+			DDD.BUYER_NM,
+			DDD.BUYER_NA_TRPL_NM,
+			DDD.STS_CANCEL,
+			DDD.CHG_REQ_STAT,
+			DDD.BUYER_ENO,
+			BBB.CHG_BUYER_ENO,
+			BBB.CHG_BUYER_NM,
+			FN_TRPL_CIF_NM(CCC.NA_TRPL_C) AS CHG_NA_TRPL_NM,
+			BBB.STS
+		FROM (
+			SELECT
+				AMN.ELT_CTRW_NO ,
+				AMN.CHG_SQNO,
+				A.SIMP_CNM AS MN_CTRW_KD_NM ,
+				AMN.NA_TRPL_C,
+				AMN.MTALNM,
+				AMN.CTR_ST_DT,
+				AMN.CTR_ED_DT,
+				AMN.CTRW_DRUP_DT,
+				AMN.STS,
+				AMN.LSCHG_DTM,
+				AMN.BUYER_NM,
+				FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) AS BUYER_NA_TRPL_NM,
+				AMN.BUYER_ENO,
+				CASE
+					WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료'
+					ELSE B.SIMP_CNM
+				END AS STS_NM,
+				CASE
+					WHEN AMN.CANCEL IS NULL THEN '정상'
+					ELSE '해지'
+				END STS_CANCEL,
+				CASE WHEN AMN.CHG_REQ_STAT IS NULL THEN ' '
+					WHEN AMN.CHG_REQ_STAT = 'N' THEN ' '
+					WHEN AMN.CHG_REQ_STAT = 'O' THEN '보류'
+					ELSE '승인신청'
+				END CHG_REQ_STAT,
+				CASE WHEN AMN.MN_CTRW_KD IN ('1', '12', '51', '52') AND AMN.STS != 'A' AND AMN.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y'
+				    ELSE 'N'
+				END STS_EXP
+			FROM
+				CT_ELT_CTRW_AMN AMN ,
+				TB_TR_TRPL_CIF CIF ,
+				(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'MN_CTRW_KD') A,
+				(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS' UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B,
+				CT_ELT_CTRW_CHG_AMN CHG
+			WHERE AMN.BUYER_NA_TRPL_C = CIF.NA_TRPL_C
+			AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+			AND AMN.STS = B.SIMP_C(+)
+			AND CHG.STS = 'N'
+			AND CHG.ELT_CTRW_NO = AMN.ELT_CTRW_NO
+			AND CHG.BUYER_ENO = AMN.BUYER_ENO
+			<choose>
+				<when test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC eq '99'">
+					/* 최고권한 - 모든계약서 조회 */
+				</when>
+				<otherwise>
+					AND (
+						<choose>
+							<when test = "USR_TPC eq '02'">
+								AMN.BUYER_ENO  = #{BUYER_ENO}
+							</when>
+							<otherwise>
+								AMN.BUYER_ENO  = #{BUYER_ENO}
+								OR
+								CIF.BIZ_NUMBER IN ( SELECT BIZ_NUMBER FROM NHVANPTL.PT_BRANCH WHERE CHIEF_ENO = #{BUYER_ENO} AND BRANCH_DSC = '01')
+<!-- 								회원관리 개선 적용 후 적용 -->
+<!-- 								OR -->
+<!-- 								CIF.BIZ_NUMBER IN ( SELECT BIZ_NUMBER FROM NHVANPTL.PT_NH_DEPT_INF WHERE CHIEF_ENO = #{BUYER_ENO} AND USE_YN = 'Y') -->
+							</otherwise>
+						</choose>
+						<if  test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC.length() > 0">
+							/* 개별권한 - 특정계약서 조회(유형권한+개별권한) */
+							OR  AMN.MN_CTRW_KD IN (
+								SELECT CD_D
+								FROM TB_CD_MAP
+								WHERE CD_TYPE='MN_CTRW_KD'
+								AND UYN = 'Y'
+								AND CD_M IN (
+									SELECT ELT_AUTH_DSC
+									FROM NHVANPTL.CT_ELT_AUTH
+									WHERE ELT_AUTH_DSC IN ('11','12','13','14', '15', '16')
+									AND MB_ID = #{BUYER_ENO}
+								)
+							)
+						</if>
+					)
+				</otherwise>
+			</choose>
+		) DDD,
+		CT_ELT_CTRW_CHG_AMN BBB,
+		PT_USR_INF CCC
+		WHERE DDD.CHG_REQ_STAT IN ('승인신청', '보류')
+		AND DDD.ELT_CTRW_NO = BBB.ELT_CTRW_NO
+		AND DDD.BUYER_ENO = BBB.BUYER_ENO
+		AND BBB.BUYER_ENO = CCC.MB_ID(+)
+		AND BBB.STS != 'Y'
+		AND DDD.STS_EXP = 'N'
+		ORDER BY DDD.LSCHG_DTM DESC, DDD.ELT_CTRW_NO DESC
+	</select>
+
+	<select id="retrieveEltCtrwListCh" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  /*eltCtrwDAO retrieveEltCtrwList */
+			'0' AS ISCHECKED,
+			DDD.ELT_CTRW_NO ,
+			DDD.CHG_SQNO,
+			DDD.MN_CTRW_KD ,
+			DDD.MN_CTRW_KD_NM ,
+			DDD.NA_TRPL_C,
+			DDD.MTALNM,
+			DDD.CTR_ST_DT,
+			DDD.CTR_ED_DT,
+			DDD.CTR_ST_DT ||'~'|| DDD.CTR_ED_DT AS CTR_DT ,
+			DDD.CTRW_DRUP_DT,
+			DDD.COLB_COMP_SGNT_DTM, /*협력업체 승인 날짜*/
+			DDD.BUYER_APV_DTM, /*바이어 승인 날짜*/
+			DDD.STS,
+			DDD.STS_NM,
+			DDD.BUYER_APV_STS,
+			DDD.LSCHG_DTM,
+			DDD.BUYER_NM,
+			DDD.BUYER_NA_TRPL_NM,
+			DDD.STS_CANCEL,
+			DDD.CHG_REQ_STAT,
+			DDD.BUYER_ENO
+		FROM (
+			SELECT
+				AMN.ELT_CTRW_NO ,
+				AMN.CHG_SQNO,
+				AMN.MN_CTRW_KD ,
+				A.SIMP_CNM AS MN_CTRW_KD_NM ,
+				AMN.NA_TRPL_C,
+				AMN.MTALNM,
+				AMN.CTR_ST_DT,
+				AMN.CTR_ED_DT,
+				AMN.CTRW_DRUP_DT,
+				AMN.COLB_COMP_SGNT_DTM, /*바이어 승인 날짜*/
+				AMN.BUYER_APV_DTM, /*협력업체 승인 날짜*/
+				AMN.BUYER_APV_STS, /*바이어 승인 체크*/
+				AMN.STS,
+				AMN.LSCHG_DTM,
+				AMN.BUYER_NM,
+				FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) AS BUYER_NA_TRPL_NM,
+				AMN.BUYER_ENO,
+				CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료'
+					ELSE B.SIMP_CNM
+				END AS STS_NM
+				, CASE WHEN AMN.CANCEL IS NULL THEN '정상'
+					ELSE '해지'
+				END STS_CANCEL
+				, CASE WHEN AMN.CHG_REQ_STAT IS NULL THEN ' '
+					WHEN AMN.CHG_REQ_STAT = 'N' THEN ' '
+					WHEN AMN.CHG_REQ_STAT = 'O' THEN '보류'
+					ELSE '승인신청'
+				END CHG_REQ_STAT
+				, CASE WHEN AMN.MN_CTRW_KD IN ('1', '12', '51', '52') AND AMN.STS != 'A' AND AMN.CTR_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD') THEN 'Y'
+				    ELSE 'N'
+				END STS_EXP
+			FROM CT_ELT_CTRW_AMN AMN ,
+		       TB_TR_TRPL_CIF CIF ,
+		       (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'MN_CTRW_KD') A,
+		       (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+		         UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B
+			WHERE AMN.BUYER_NA_TRPL_C = CIF.NA_TRPL_C
+			AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+			AND AMN.STS = B.SIMP_C(+)
+			AND NVL(AMN.TEMP_YN, 'N') = 'N'
+			AND CIF.BIZ_NUMBER = (SELECT B.BIZ_NUMBER FROM PT_USR_INF A, TB_TR_TRPL_CIF B WHERE A.MB_ID = #{BUYER_ID} AND A.NA_TRPL_C = B.NA_TRPL_C)
+			<if test="BUYER_KD != null and BUYER_KD.length() > 0">
+				<choose>
+					<when test="BUYER_KD == 1">
+						AND AMN.BUYER_ENO = #{BUYER_INFO}
+					</when>
+					<when test="BUYER_KD == 2">
+						AND AMN.BUYER_NM = #{BUYER_INFO}
+					</when>
+				</choose>
+			</if>
+			AND AMN.BUYER_ENO NOT IN  #{BUYER_ID}
+			<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+				<choose>
+					<when test="CBO_CONTDAY == 0">
+						AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 0">
+						AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 1">
+						AND  AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 2">
+						AND  AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+				</choose>
+			</if>
+			<if test="CBO_KD != null and CBO_KD.length() > 0">
+				<choose>
+					<when test="CBO_KD == 1">
+						AND  AMN.MTALNM like  #{EDT_KD}||'%'
+					</when>
+					<when test="CBO_KD == 2">
+						AND  AMN.NA_TRPL_C = #{EDT_KD}
+					</when>
+				</choose>
+			</if>
+			<if test="FV_STS != null and FV_STS.length() > 0">
+				<![CDATA[
+					AND AMN.STS in(SELECT REGEXP_SUBSTR ( #{FV_STS}, '[^.]+', 1, LEVEL ) col
+						FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_STS}, '\.' ) + 1 )
+					]]>
+			</if>
+			<if test="FV_MNCTRWKD != null and FV_MNCTRWKD.length() > 0">
+				<![CDATA[
+					AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{FV_MNCTRWKD}, '[^.]+', 1, LEVEL ) col
+						FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_MNCTRWKD}, '\.' ) + 1 )
+				]]>
+			</if>
+			<if test="BUYER_DSC != null and BUYER_DSC.length() > 0">
+				<![CDATA[
+					AND AMN.MN_CTRW_KD in (SELECT CD_D FROM TB_CD_MAP WHERE CD_TYPE = 'MN_CTRW_KD' AND CD_M=#{BUYER_DSC})
+				]]>
+			</if>
+		) DDD
+		WHERE DDD.CTR_ED_DT <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+		AND DDD.STS NOT IN ('A','8')
+		AND DDD.STS_EXP = 'N'
+		ORDER BY DDD.LSCHG_DTM DESC, DDD.ELT_CTRW_NO DESC , DDD.CHG_SQNO DESC
+	</select>
+
+	<insert id = "insertEltHst" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		INSERT INTO CT_ELT_CTRW_AMN_CHG_HST
+      (ELT_CTRW_NO
+      ,CHG_SQNO
+      ,CHG_HST_SQNO
+      ,NA_TRPL_C
+      ,MN_CTRW_KD
+      ,ADD_CTRW_YN
+      ,PMIW_YN
+      ,SCTRW_YN
+      ,ETC_CTRW_YN
+      ,BZNO
+      ,COPNO
+      ,RRNO
+      ,BUYER_NA_TRPL_C
+      ,TELNO
+      ,MPNO
+      ,EMAIL
+      ,CTRW_STY_CHG_VER_YN
+      ,CTR_ST_DT
+      ,CTR_ED_DT
+      ,CTRW_DRUP_DT
+      ,CEO
+      ,MTALNM
+      ,FZIP
+      ,RZIP
+      ,ZIP_SQNO
+      ,DONGUP
+      ,DONGBW
+      ,BUYER_ENO
+      ,BUYER_BLG
+      ,BUYER_NM
+      ,BUYER_TELNO
+      ,BUYER_MPNO
+      ,BUYER_EMAIL
+      ,CTR_CHRR_MTALNM
+      ,CTR_CHRR_REPMN
+      ,CTR_CHRR
+      ,LA_AGNT
+      ,LA_AGNT_DTYNM
+      ,CTR_CHRR_FZIP
+      ,CTR_CHRR_RZIP
+      ,CTR_CHRR_ZIP_SQNO
+      ,CTR_CHRR_DONGUP
+      ,CTR_CHRR_DONGBW
+      ,RMK
+      ,STS
+      ,COLB_COMP_SGNT
+      ,COLB_COMP_SGNT_DTM
+      ,COLB_COMP_SEAL_APDFLNM
+      ,COLB_COMP_SEAL_SYS_FLNM
+      ,BUYER_APV_STS
+      ,BUYER_APV_DTM
+      ,BUYER_SEAL_APDFLNM
+      ,BUYER_SEAL_SYS_FLNM
+      ,CTR_PRD_AUT_XTN_YN
+      ,FGAT_PRVT_C
+      ,BF_CTR_NO
+      ,STYL_AMM_CHG_CHK
+      ,DCM_APD_CHG_CHK
+      ,CTRW_IDVD_CHG_CHK
+      ,FSRG_DTM
+      ,FS_RGM
+      ,LSCHG_DTM
+      ,LS_CHGM
+      ,CTR_CHRR_REP_DTYNM
+      ,CANCEL
+      ,BUYER_SGNT
+      ,BUYER_SGNT_DTM
+      ,CHG_REQ_STAT
+      ,CHG_DTM
+      ,CHGM)
+SELECT   A.ELT_CTRW_NO
+        ,A.CHG_SQNO
+        ,(
+            SELECT NVL(MAX(CHG_HST_SQNO),0)+1 AS CHG_HST_SQNO
+              FROM CT_ELT_CTRW_AMN_CHG_HST
+             WHERE ELT_CTRW_NO   = A.ELT_CTRW_NO
+               AND CHG_SQNO      = A.CHG_SQNO
+         )
+        ,A.NA_TRPL_C
+        ,A.MN_CTRW_KD
+        ,A.ADD_CTRW_YN
+        ,A.PMIW_YN
+        ,A.SCTRW_YN
+        ,A.ETC_CTRW_YN
+        ,A.BZNO
+        ,A.COPNO
+        ,A.RRNO
+        ,A.BUYER_NA_TRPL_C
+        ,A.TELNO
+        ,A.MPNO
+        ,A.EMAIL
+        ,A.CTRW_STY_CHG_VER_YN
+        ,A.CTR_ST_DT
+        ,A.CTR_ED_DT
+        ,A.CTRW_DRUP_DT
+        ,A.CEO
+        ,A.MTALNM
+        ,A.FZIP
+        ,A.RZIP
+        ,A.ZIP_SQNO
+        ,A.DONGUP
+        ,A.DONGBW
+        ,A.BUYER_ENO
+        ,A.BUYER_BLG
+        ,A.BUYER_NM
+        ,A.BUYER_TELNO
+        ,A.BUYER_MPNO
+        ,A.BUYER_EMAIL
+        ,A.CTR_CHRR_MTALNM
+        ,A.CTR_CHRR_REPMN
+        ,A.CTR_CHRR
+        ,A.LA_AGNT
+        ,A.LA_AGNT_DTYNM
+        ,A.CTR_CHRR_FZIP
+        ,A.CTR_CHRR_RZIP
+        ,A.CTR_CHRR_ZIP_SQNO
+        ,A.CTR_CHRR_DONGUP
+        ,A.CTR_CHRR_DONGBW
+        ,A.RMK
+        ,A.STS
+        ,A.COLB_COMP_SGNT
+        ,A.COLB_COMP_SGNT_DTM
+        ,A.COLB_COMP_SEAL_APDFLNM
+        ,A.COLB_COMP_SEAL_SYS_FLNM
+        ,A.BUYER_APV_STS
+        ,A.BUYER_APV_DTM
+        ,A.BUYER_SEAL_APDFLNM
+        ,A.BUYER_SEAL_SYS_FLNM
+        ,A.CTR_PRD_AUT_XTN_YN
+        ,A.FGAT_PRVT_C
+        ,A.BF_CTR_NO
+        ,A.STYL_AMM_CHG_CHK
+        ,A.DCM_APD_CHG_CHK
+        ,A.CTRW_IDVD_CHG_CHK
+        ,A.FSRG_DTM
+        ,A.FS_RGM
+        ,A.LSCHG_DTM
+        ,A.LS_CHGM
+        ,A.CTR_CHRR_REP_DTYNM
+        ,A.CANCEL
+        ,A.BUYER_SGNT
+        ,A.BUYER_SGNT_DTM
+        ,A.CHG_REQ_STAT
+        ,SYSDATE
+        ,#{BUYER_ENO}
+        FROM CT_ELT_CTRW_AMN A,
+     (SELECT SYSDATE AS TODAY FROM DUAL) B
+       WHERE A.ELT_CTRW_NO = #{ELT_CTRW_NO}
+       AND A.CHG_SQNO =  #{CHG_SQNO}
+	</insert>
+
+	<!-- 전자계약 신청 페이지 로드시에 바이어 소속 구분 -->
+	<!--
+			11	하나로유통 상품본부
+			12	하나로유통 공통
+			13	하나로유통 농산본부
+			14	하나로유통 테넌트
+			15	하나로유통 수산
+			31	농협유통 수산부
+			32	농협유통 축산부
+	 -->
+	<select id="retrieveEltctrwCDList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 SIMP_TPC
+			,SIMP_C
+			,SIMP_CNM
+		 FROM MG_COMN_C_AMN
+			WHERE SIMP_TPC = #{SIMP_TPC}
+			  AND UYN='Y'
+ 		<if test="USR_TPC == null or USR_TPC.length() > 0">
+		    <choose>
+				    <when test = "USR_TPC eq '02'">
+				    	 AND SIMP_C  IN ('11', '12', '13', '14', '15', '16')
+				    </when>
+				    <when test = "USR_TPC eq '03'">
+				    	 AND SIMP_C  IN ('12', '13', '14')
+				    </when>
+		    </choose>
+		</if>
+		ORDER BY SIMP_C
+	</select>
+
+	<!-- 전자계약 신청서 작성 페이지 로드시에 모든 계약서의 데이터셋 가져오기 -->
+	<select id="retrieveEltctrwDSList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 MAP.cd_type
+			,MAP.cd_m
+			,MAP.cd_d
+			,A.SIMP_CNM
+		 FROM TB_CD_MAP MAP, MG_COMN_C_AMN A
+			WHERE  MAP.UYN='Y'
+			  And A.UYN='Y'
+			  AND MAP.CD_TYPE = A.SIMP_TPC
+			  AND MAP.CD_D = A.SIMP_C
+		<if test="CD_TYPE == null">
+			 AND MAP.CD_TYPE  = 'MN_CTRW_KD'
+		</if>
+		<if test="BUYER_DSC != null and BUYER_DSC.length() > 0">
+			AND MAP.CD_M = #{BUYER_DSC}
+		</if>
+		 ORDER BY MAP.CD_M,
+	        ( CASE
+		        when MAP.CD_TYPE='MN_CTRW_KD' then 1
+		        when MAP.CD_TYPE='ADD_CTRW_KDC' then 2
+		        when MAP.CD_TYPE='PMIW_KDC' then 3
+		        when MAP.CD_TYPE='SCTRW_KDC' then 4
+	        	else 5 end
+	        ) ,
+	        CD_D
+	</select>
+
+	<select id="retrieveEltBranchBzplcList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrieveEltBranchBzplcList */
+			A.BIZ_NUMBER
+			, A.CLNTNM
+			<if test="TYPE eq 'D'.toString()">
+				, C.NA_TRPL_C
+				, C.CLNTNM AS CLNTNM2
+			</if>
+		FROM NHVANPTL.PT_BRANCH A
+		<if test="TYPE eq 'D'.toString()">
+			, TB_TR_TRPL_CIF C
+		</if>
+		WHERE A.BRANCH_DSC = '01'
+		<if test="TYPE eq 'D'.toString()">
+	    	AND A.BIZ_NUMBER = C.BIZ_NUMBER(+)
+	    	AND C.DEL_YN != '1'
+    	</if>
+		ORDER BY A.CLNTNM
+		<if test="TYPE eq 'D'.toString()">
+			, C.CLNTNM2
+		</if>
+	</select>
+
+	<!-- 계약상대자 전자계약 상태 업데이트 -->
+	<update id="updateColbCompEltSts" parameterType="java.util.Map">
+		UPDATE CT_ELT_CTRW_AMN
+		SET
+			LSCHG_DTM  = SYSDATE,
+			LS_CHGM = #{LS_CHGM}
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO =  #{CHG_SQNO}
+		AND STS = '1'
+		AND CANCEL IS NULL
+	</update>
+
+	<select id="retrievePopupEltCtrwList" parameterType="java.util.Map" resultType="com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		SELECT /*eltCtrwDAO retrievePopupEltCtrwList */
+			'0' AS ISCHECKED,
+			AMN.ELT_CTRW_NO,
+			AMN.CHG_SQNO,
+			AMN.MN_CTRW_KD,
+			A.SIMP_CNM AS MN_CTRW_KD_NM,
+			AMN.NA_TRPL_C,
+			AMN.MTALNM,
+			AMN.CTR_ST_DT ||' ~ ' || AMN.CTR_ED_DT AS CTR_DT,
+			AMN.BUYER_NM,
+			FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) BUYER_BLG,
+			AMN.STS,
+			CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료'
+                   ELSE C.SIMP_CNM
+			END AS STS_NM
+		FROM
+			CT_ELT_CTRW_AMN AMN
+			, (SELECT SIMP_C, SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC IN('MN_CTRW_KD' ,'MN_CTRW_KDC')) A
+			, (SELECT CD_D FROM TB_CD_MAP WHERE CD_TYPE = 'MN_CTRW_KD' AND CD_D NOT LIKE '9_' AND CD_M = #{BUYER_CD}) B
+			, (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+				UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) C
+		WHERE NVL(AMN.TEMP_YN, 'N') = 'N'
+			AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+			AND AMN.STS = C.SIMP_C(+)
+			AND AMN.MN_CTRW_KD = B.CD_D
+			AND AMN.CANCEL IS NULL
+			AND (
+				(SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = AMN.BUYER_NA_TRPL_C) = (SELECT B.BIZ_NUMBER FROM PT_USR_INF A, TB_TR_TRPL_CIF B WHERE A.MB_ID =  #{BUYER_ID} AND A.NA_TRPL_C = B.NA_TRPL_C)
+				OR EXISTS (
+				    SELECT 1 FROM CT_ELT_CTRW_DTL WHERE ELT_CTRW_NO = AMN.ELT_CTRW_NO
+				    AND CHG_SQNO = AMN.CHG_SQNO
+				    AND '0000000000' = CASE WHEN MN_CTRW_KDC IN ('144', '145') THEN ETC8 WHEN MN_CTRW_KDC IN ('197', '198') THEN ETC31 END
+				  )
+			)
+			<if test="STS != null and STS.length() > 0">
+				AND AMN.STS = #{STS}
+				<if test="STS eq 'A'.toString()">
+					AND TO_CHAR(SYSDATE, 'YYYYMMDD') <![CDATA[<=]]> AMN.CTR_ED_DT
+				</if>
+			</if>
+			<if test="SEARCH_TYPE != null and SEARCH_TYPE.length() > 0 and SEARCH_TEXT != null and SEARCH_TEXT.length() > 0">
+				<choose>
+					<when test="SEARCH_TYPE == 1">
+						AND AMN.ELT_CTRW_NO = #{SEARCH_TEXT}
+					</when>
+					<when test="SEARCH_TYPE == 2">
+						AND AMN.NA_TRPL_C = #{SEARCH_TEXT}
+					</when>
+					<when test="SEARCH_TYPE == 3">
+						AND AMN.MTALNM LIKE '%' || #{SEARCH_TEXT} || '%'
+					</when>
+					<when test="SEARCH_TYPE == 4">
+						AND AMN.BZNO = #{SEARCH_TEXT}
+					</when>
+				</choose>
+			</if>
+			<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+				<choose>
+					<when test="CBO_CONTDAY == 0">
+						AND TO_CHAR(AMN.LSCHG_DTM, 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 1">
+						AND AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+					<when test="CBO_CONTDAY == 2">
+						AND AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+					</when>
+				</choose>
+			</if>
+		ORDER BY AMN.ELT_CTRW_NO DESC, AMN.CHG_SQNO DESC
+	</select>
+
+	<select id="retrieveRelatedEltCtrw" parameterType="java.util.Map" resultType="com.nh.escm.ct.eltctrw.vo.EltCtrwVO">
+		SELECT /*eltCtrwDAO retrieveRelatedEltCtrw */
+			'0' AS ISCHECKED,
+			AMN.ELT_CTRW_NO,
+			AMN.CHG_SQNO,
+			AMN.MN_CTRW_KD,
+			A.SIMP_CNM AS MN_CTRW_KD_NM,
+			AMN.NA_TRPL_C,
+			AMN.MTALNM,
+			AMN.CTR_ST_DT ||' ~ ' || AMN.CTR_ED_DT AS CTR_DT,
+			AMN.BUYER_NM,
+			FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) BUYER_NA_TRPL_NM,
+			AMN.STS,
+			CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[>]]>  AMN.CTR_ED_DT THEN  '계약종료'
+                   ELSE C.SIMP_CNM
+			END AS STS_NM
+		FROM
+			CT_ELT_CTRW_AMN AMN
+			, (SELECT SIMP_C, SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC IN('MN_CTRW_KD' ,'MN_CTRW_KDC')) A
+			, (SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+				UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) C
+		WHERE NVL(AMN.TEMP_YN, 'N') = 'N'
+			AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+			AND AMN.STS = C.SIMP_C(+)
+			AND AMN.CANCEL IS NULL
+			<if test="STS != null and STS.length() > 0">
+				AND AMN.STS = #{STS}
+			</if>
+			AND (
+				(AMN.ELT_CTRW_NO = #{REL_NO}
+				AND AMN.CHG_SQNO = #{REL_SQNO})
+				OR
+				(AMN.BF_CTR_NO = #{REL_NO}
+				AND AMN.BF_CTR_SQNO = #{REL_SQNO})
+			)
+		ORDER BY AMN.ELT_CTRW_NO, AMN.CHG_SQNO
+	</select>
+
+ 	<select id="excelReportEltCtrwList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			AMN.ELT_CTRW_NO,
+			AMN.BUYER_ENO,
+			AMN.BUYER_NM,
+			AMN.LA_AGNT,
+			NTC.LS_CHGM AS LA_AGNT_ENO,
+			(SELECT USR_NM FROM PT_USR_INF WHERE MB_ID = NTC.LS_CHGM) AS LA_AGNT_NM,
+			AMN.CTR_CHRR_REPMN,
+			AMN.MN_CTRW_KD,
+			A.SIMP_CNM AS MN_CTRW_KD_NM,
+			AMN.CTRW_DRUP_DT,
+			AMN.CTR_ST_DT,
+			AMN.CTR_ED_DT,
+			AMN.BZNO,
+			AMN.MTALNM,
+			AMN.DONGUP || ' ' || AMN.DONGBW AS ADDR,
+			AMN.CTR_CHRR,
+			ECL_DECRYPT(AMN.MPNO) AS MPNO,
+			AMN.CLEAN_YN,
+			(SELECT 'Y' FROM NHVANWAS.CT_ELT_CTRW_DCM_APD WHERE ROWNUM=1 AND DCM_NM LIKE '%청렴%' AND APDFLNM IS NOT NULL AND ELT_CTRW_NO = AMN.ELT_CTRW_NO) AS CLEAN,
+			(SELECT 'Y' FROM NHVANWAS.CT_ELT_CTRW_DCM_APD WHERE ROWNUM=1 AND DCM_NM LIKE '%개인정보%' AND APDFLNM IS NOT NULL AND ELT_CTRW_NO = AMN.ELT_CTRW_NO) AS PRVCY
+		FROM CT_ELT_CTRW_AMN AMN,
+			(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC IN('MN_CTRW_KD' ,'MN_CTRW_KDC')) A,
+			TB_TR_TRPL_CIF CIF,
+			(SELECT ELT_CTRW_NO, LS_CHGM, MIN(LS_CHGM) FROM CT_ETC_ELT_NTC WHERE STS = 'A' AND TINM = '계약서 최종서명' GROUP BY ELT_CTRW_NO, LS_CHGM) NTC
+		WHERE 1=1
+		AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+		AND AMN.BUYER_NA_TRPL_C = CIF.NA_TRPL_C
+		AND AMN.ELT_CTRW_NO = NTC.ELT_CTRW_NO(+)
+		AND AMN.STS = 'A'
+		AND NVL(AMN.TEMP_YN, 'N') = 'N'
+		AND AMN.BUYER_ENO = #{BUYER_ID}
+		<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+		    <choose>
+			    <when test="CBO_CONTDAY == 0">
+			    		AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+			    </when>
+				<when test="CBO_CONTDAY == 1">
+						AND  AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+				</when>
+				<when test="CBO_CONTDAY == 2">
+						AND  AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+				</when>
+			</choose>
+		</if>
+		<if test="CBO_KD != null and CBO_KD.length() > 0">
+		    <choose>
+				<when test="CBO_KD == 1">
+						AND  AMN.MTALNM like  #{EDT_KD}||'%'
+				</when>
+				<when test="CBO_KD == 2">
+						AND  AMN.NA_TRPL_C = #{EDT_KD}
+				</when>
+				<when test="CBO_KD == 3">
+						AND  AMN.BZNO = #{EDT_KD}
+				</when>
+			</choose>
+		</if>
+		<if test="FV_MNCTRWKD != null and FV_MNCTRWKD.length() > 0">
+			<![CDATA[
+				AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{FV_MNCTRWKD}, '[^.]+', 1, LEVEL ) col
+					FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_MNCTRWKD}, '\.' ) + 1 )
+				]]>
+		</if>
+ 		<if test="BUYER_DSC != null and BUYER_DSC.length() > 0">
+			<![CDATA[
+				AND AMN.MN_CTRW_KD in (SELECT CD_D FROM TB_CD_MAP WHERE CD_TYPE = 'MN_CTRW_KD' AND CD_M=#{BUYER_DSC})
+			]]>
+		</if>
+		ORDER BY AMN.ELT_CTRW_NO
+	</select>
+
+	<!-- 계약상세조회 양식 (테넌트 우선 적용) -->
+	<select id="excelReportEltDetailList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  /*eltCtrwDAO excelReportEltDetailList */
+			AMN.ELT_CTRW_NO
+			, AMN.MN_CTRW_KD
+			, A.SIMP_CNM AS MN_CTRW_KD_NM
+			, AMN.NA_TRPL_C
+			, AMN.MTALNM
+			, AMN.CTR_CHRR_MTALNM
+			, AMN.CTR_CHRR_REPMN
+			, AMN.CTR_ST_DT
+			, AMN.CTR_ED_DT
+			, AMN.CTRW_DRUP_DT
+			, AMN.BUYER_NM
+			, FN_TRPL_CIF_NM(AMN.BUYER_NA_TRPL_C) AS BUYER_NA_TRPL_NM
+			, AMN.STS
+			, CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') > AMN.CTR_ED_DT THEN  '계약종료' ELSE B.SIMP_CNM END AS STS_NM
+			, CASE
+			  WHEN AMN.BF_CTR_NO IS NULL AND AMN.STS = 'A' THEN (SELECT LISTAGG(ELT_CTRW_NO, ', ') WITHIN GROUP (ORDER BY ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.ELT_CTRW_NO AND BF_CTR_SQNO = AMN.CHG_SQNO)
+			  WHEN AMN.BF_CTR_NO IS NOT NULL THEN AMN.BF_CTR_NO || ', ' || (SELECT LISTAGG(ELT_CTRW_NO, ', ') WITHIN GROUP (ORDER BY ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND ELT_CTRW_NO != AMN.ELT_CTRW_NO AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.BF_CTR_NO AND BF_CTR_SQNO = AMN.BF_CTR_SQNO)
+			  ELSE ''
+			END AS ATCH_CTR_NO
+			, CASE
+			  WHEN AMN.BF_CTR_NO IS NULL AND AMN.STS != 'A' THEN 0
+			  WHEN AMN.BF_CTR_NO IS NULL THEN (SELECT COUNT(ELT_CTRW_NO) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.ELT_CTRW_NO AND BF_CTR_SQNO = AMN.CHG_SQNO)
+			  ELSE (SELECT COUNT(*) FROM CT_ELT_CTRW_AMN WHERE NVL(TEMP_YN, 'N') = 'N' AND MN_CTRW_KD LIKE '9_' AND BF_CTR_NO = AMN.BF_CTR_NO AND BF_CTR_SQNO = AMN.BF_CTR_SQNO)
+			END AS ATCH_CTR_CNT
+			, DTL.CNR_DT, DTL.PSG_MM, DTL.PSG_DD, DTL.ETR_FEE, DTL.PHD_FEERT, DTL.LIG_PLTPE
+			, DTL.MEXP_DD, DTL.RT, DTL.BLM_GRMY, DTL.SCTR_SJT, DTL.WRS_PRM_PY, DTL.GRMY
+			, DTL.WRS_SPYAM, DTL.CTR_CLO, DTL.BIGO, DTL.BRAND_N, DTL.RETURN_DATE
+			, DTL.PHD_FEERT1, DTL.PHD_FEERT2
+			, DTL.ETC1, DTL.ETC2, DTL.ETC3, DTL.ETC4, DTL.ETC5
+			, DTL.ETC6, DTL.ETC7, DTL.ETC8, DTL.ETC9, DTL.ETCA
+			, DTL.ETC10, DTL.ETC11, DTL.ETC12, DTL.ETC13, DTL.ETC14
+			, DTL.ETC15, DTL.ETC16, DTL.ETC17, DTL.ETC18, DTL.ETC19
+			, DTL.ETC20, DTL.ETC21, DTL.ETC22, DTL.ETC23, DTL.ETC24
+			, DTL.ETC25, DTL.ETC26, DTL.ETC27, DTL.ETC28, DTL.ETC29
+			, DTL.ETC30, DTL.ETC31, DTL.ETC32, DTL.ETC33, DTL.ETC34
+			, DTL.ETC35, DTL.ETC36, DTL.ETC37, DTL.ETC38, DTL.ETC39
+			, DTL.ETC40, DTL.ETC41, DTL.ETC42, DTL.ETC43, DTL.ETC44
+			, DTL.ETC45, DTL.ETC46, DTL.ETC47, DTL.ETC48, DTL.ETC51, DTL.ETC52
+		FROM
+			CT_ELT_CTRW_AMN AMN,
+			CT_ELT_CTRW_DTL DTL,
+			TB_TR_TRPL_CIF CIF,
+			PT_USR_INF INF,
+			(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC in('MN_CTRW_KD' ,'MN_CTRW_KDC')) A,
+			(SELECT SIMP_C ,SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'ELT_STS'
+			UNION SELECT '10' AS SIMP_C,'계약종료' AS SIMP_CNM FROM DUAL) B
+		WHERE AMN.BUYER_NA_TRPL_C = CIF.NA_TRPL_C
+		AND AMN.BUYER_ENO = INF.MB_ID
+		AND AMN.ELT_CTRW_NO = DTL.ELT_CTRW_NO
+		AND AMN.CHG_SQNO = DTL.CHG_SQNO
+		AND NVL(AMN.TEMP_YN, 'N') = 'N'
+		AND AMN.MN_CTRW_KD = A.SIMP_C(+)
+		AND AMN.STS = B.SIMP_C(+)
+		<choose>
+			<when test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC eq '99'">
+				/* 최고권한 - 모든계약서 조회 */
+			</when>
+			<when test = "USR_TPC eq '02'">
+				/* 본부회원 - 모든계약서 조회 */
+			</when>
+			<otherwise>
+				AND (
+					AMN.BUYER_ENO = #{BUYER_ID}
+					<if test="BUYER_DSC != null and BUYER_DSC eq '14'">
+						<!-- 테넌트 단기(본부통합) -->
+						OR EXISTS (
+							SELECT 1 FROM CT_ELT_CTRW_DTL
+							WHERE ELT_CTRW_NO = AMN.ELT_CTRW_NO AND CHG_SQNO = AMN.CHG_SQNO
+							AND '0000000000' = CASE WHEN MN_CTRW_KDC IN ('144', '145') THEN ETC8 WHEN MN_CTRW_KDC IN ('197', '198') THEN ETC31 END
+						)
+					</if>
+					OR
+					(
+						INF.USR_TPC = #{USR_TPC}
+						AND (
+							/* 직매장 담당자 */
+							( SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = AMN.BUYER_NA_TRPL_C ) IN ( SELECT BIZ_NUMBER FROM NHVANPTL.PT_BRANCH WHERE CHIEF_ENO = #{BUYER_ID} AND BRANCH_DSC = '01' )
+<!-- 							OR -->
+<!-- 							/* 직매장 담당자(신규관리) */ -->
+<!-- 							( SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = AMN.BUYER_NA_TRPL_C ) IN ( SELECT BIZ_NUMBER FROM NHVANPTL.PT_NH_DEPT_INF WHERE CHIEF_ENO = #{BUYER_ID} AND USE_YN = 'Y' ) -->
+							OR
+							/* 사업자 번호가 같거나   */
+							CIF.BIZ_NUMBER = ( SELECT B.BIZ_NUMBER FROM PT_USR_INF A, TB_TR_TRPL_CIF B WHERE MB_ID =  #{BUYER_ID} AND A.NA_TRPL_C = B.NA_TRPL_C )
+							OR
+							/* GLN 이 같은경우   */
+							AMN.BUYER_NA_TRPL_C = ( SELECT NA_TRPL_C  FROM PT_USR_INF WHERE MB_ID =  #{BUYER_ID} )
+						)
+					)
+					<if  test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC.length() > 0">
+						/* 개별권한 - 특정계약서 조회(유형권한+개별권한) */
+						OR  AMN.MN_CTRW_KD IN (
+							SELECT CD_D
+							FROM TB_CD_MAP
+							WHERE CD_TYPE='MN_CTRW_KD'
+							AND UYN = 'Y'
+							AND CD_M IN (
+								SELECT ELT_AUTH_DSC
+								FROM NHVANPTL.CT_ELT_AUTH
+								WHERE ELT_AUTH_DSC IN ('11','12','13', '14', '15', '16')
+								AND MB_ID = #{BUYER_ID}
+							)
+						)
+					</if>
+				)
+			</otherwise>
+		</choose>
+		<if test= "BUYER_ENO != null and BUYER_ENO.length() > 0">
+			AND AMN.BUYER_ENO = #{BUYER_ENO}
+		</if>
+		<if test= "BUYER_NM != null and BUYER_NM.length() > 0">
+			AND AMN.BUYER_NM = #{BUYER_NM}
+		</if>
+		<if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+		    <choose>
+			    <when test="CBO_CONTDAY == 0">
+			    		AND  TO_CHAR(AMN.LSCHG_DTM , 'YYYYMMDD') BETWEEN #{CAL_FROM} AND #{CAL_TO}
+			    </when>
+				<when test="CBO_CONTDAY == 1">
+						AND  AMN.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+				</when>
+				<when test="CBO_CONTDAY == 2">
+						AND  AMN.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+				</when>
+			</choose>
+		</if>
+		<if test="CBO_KD != null and CBO_KD.length() > 0">
+		    <choose>
+				<when test="CBO_KD == 1">
+						AND  AMN.MTALNM like  #{EDT_KD}||'%'
+				</when>
+				<when test="CBO_KD == 2">
+						AND  AMN.NA_TRPL_C = #{EDT_KD}
+				</when>
+				<when test="CBO_KD == 3">
+						AND  AMN.BZNO = #{EDT_KD}
+				</when>
+			</choose>
+		</if>
+		<if test="FV_STS != null and FV_STS.length() > 0">
+			<![CDATA[
+				AND AMN.STS in(SELECT REGEXP_SUBSTR ( #{FV_STS}, '[^.]+', 1, LEVEL ) col
+					FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_STS}, '\.' ) + 1 )
+			]]>
+		</if>
+		<if test="FV_MNCTRWKD != null and FV_MNCTRWKD.length() > 0">
+			<![CDATA[
+				AND AMN.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{FV_MNCTRWKD}, '[^.]+', 1, LEVEL ) col
+					FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{FV_MNCTRWKD}, '\.' ) + 1 )
+				]]>
+		</if>
+ 		<if test="BUYER_DSC != null and BUYER_DSC.length() > 0">
+			<![CDATA[
+				AND AMN.MN_CTRW_KD in (SELECT CD_D FROM TB_CD_MAP WHERE CD_TYPE = 'MN_CTRW_KD' AND CD_M=#{BUYER_DSC})
+			]]>
+		</if>
+		ORDER BY AMN.MN_CTRW_KD, AMN.ELT_CTRW_NO
+	</select>
+
+	<!-- 첨부서류 DB화 -->
+	<!-- 첨부파일 등록 조회(BLOB) -->
+	<select id="existDcmApd" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO" resultType="java.lang.Integer">
+		SELECT COUNT (*) CNT FROM NHVANPTL.CT_ELT_CTRW_DCM_APD_IN_PRG
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+		AND SQNO = #{SQNO}
+	</select>
+
+	<!-- 첨부파일 저장(BLOB) -->
+	<insert id="insertDcmApdIng" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		INSERT INTO NHVANPTL.CT_ELT_CTRW_DCM_APD_IN_PRG (
+	 		ELT_CTRW_NO,
+	 		CHG_SQNO,
+	 		SQNO,
+	 		APDFL_DATA,
+	 		FSRG_DTM,
+	 		FS_RGM,
+	 		LSCHG_DTM,
+	 		LS_CHGM
+	 	) VALUES (
+			#{ELT_CTRW_NO},
+			#{CHG_SQNO},
+			#{SQNO},
+			#{APDFL_DATA},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM}
+		)
+	</insert>
+
+	<!-- 첨부파일 수정(BLOB) -->
+	<update id="updateDcmApdIng"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		UPDATE NHVANPTL.CT_ELT_CTRW_DCM_APD_IN_PRG SET
+			LSCHG_DTM = SYSDATE,
+			LS_CHGM = #{LS_CHGM},
+			APDFL_DATA = #{APDFL_DATA}
+		WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+		AND SQNO = #{SQNO}
+	</update>
+
+	 <!-- 첨부파일 삭제(BLOB) -->
+	<delete id="deleteDcmApdIng"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+	 	DELETE /*eltCtrwDAO updateDcmApdIng */
+	 	FROM NHVANPTL.CT_ELT_CTRW_DCM_APD_IN_PRG A
+		WHERE A.ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND A.CHG_SQNO = #{CHG_SQNO}
+		<if test="SQNO != null and SQNO.length() > 0">
+			AND A.SQNO = #{SQNO}
+		</if>
+		<if test="APDFL_STS eq 'C'.toString()">
+			AND EXISTS (
+				SELECT 1 FROM
+				NHVANPTL.CT_ELT_CTRW_DCM_APD_CPL
+				WHERE ELT_CTRW_NO = A.ELT_CTRW_NO
+				AND CHG_SQNO = A.CHG_SQNO
+				<if test="SQNO != null and SQNO.length() > 0">
+					AND SQNO = A.SQNO
+				</if>
+			)
+		</if>
+	</delete>
+
+	<!-- 첨부파일 다운로드(BLOB) -->
+	<select id="retrieveDcmApdData"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO" resultType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		SELECT A.ELT_CTRW_NO, A.CHG_SQNO, A.MN_CTRW_KDC, A.SQNO, A.DCM_NM, A.APDFLNM, A.SYS_FLNM, A.APDFL_STS
+		<choose>
+			<when test="APDFL_STS eq 'E'.toString()">
+				, NHVANPTL.F_DEC_BLOB(B.APDFL_DATA, 'CT' || A.ELT_CTRW_NO) AS APDFL_DATA
+			</when>
+			<otherwise>
+				, B.APDFL_DATA
+			</otherwise>
+		</choose>
+		FROM NHVANPTL.CT_ELT_CTRW_DCM_APD A
+		<choose>
+			<when test="APDFL_STS eq 'C'.toString()">
+				, NHVANPTL.CT_ELT_CTRW_DCM_APD_CPL B
+			</when>
+			<when test="APDFL_STS eq 'E'.toString()">
+				, NHVANPTL.CT_ELT_CTRW_DCM_APD_ED B
+			</when>
+			<otherwise>
+				, NHVANPTL.CT_ELT_CTRW_DCM_APD_IN_PRG B
+			</otherwise>
+		</choose>
+		WHERE A.ELT_CTRW_NO = B.ELT_CTRW_NO
+		AND A.CHG_SQNO = B.CHG_SQNO
+		AND A.SQNO = B.SQNO
+		AND A.ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND A.CHG_SQNO = #{CHG_SQNO}
+		<if test="SQNO != null and SQNO.length() > 0">
+			AND A.SQNO = #{SQNO}
+		</if>
+	</select>
+
+	<!-- 첨부파일 보유 테이블 정보 변경 -->
+	<update id="updateDcmApdPosition"  parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		UPDATE NHVANPTL.CT_ELT_CTRW_DCM_APD SET
+			LSCHG_DTM = SYSDATE,
+			LS_CHGM = #{LS_CHGM},
+			APDFL_STS = #{APDFL_STS}
+		WHERE APDFL_STS IS NOT NULL
+		AND ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+	</update>
+
+	<!-- 첨부파일 완료테이블로 이동 -->
+	<insert id="moveDcmApdToCpl" parameterType="com.nh.escm.ct.eltctrw.vo.EltCtrwDcmApdVO">
+		INSERT INTO NHVANPTL.CT_ELT_CTRW_DCM_APD_CPL (
+	 		ELT_CTRW_NO,
+	 		CHG_SQNO,
+	 		SQNO,
+	 		APDFL_DATA,
+	 		FSRG_DTM,
+	 		FS_RGM,
+	 		LSCHG_DTM,
+	 		LS_CHGM
+	 	)
+	 	SELECT
+	 		ELT_CTRW_NO,
+	 		CHG_SQNO,
+	 		SQNO,
+	 		APDFL_DATA,
+	 		FSRG_DTM,
+	 		FS_RGM,
+	 		SYSDATE,
+	 		#{LS_CHGM}
+	 	FROM NHVANPTL.CT_ELT_CTRW_DCM_APD_IN_PRG
+	 	WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}
+		AND CHG_SQNO = #{CHG_SQNO}
+	</insert>
+
+	<select id="retrieveEltCtrwInfoList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrieveEltCtrwInfoList */
+				 BUYER_EMAIL /*바이어 이메일*/
+				,BUYER_NM /*바이어 이름 */
+				,ecl_decrypt(BUYER_MPNO) AS BUYER_MPNO /*바이어 핸드폰*/
+				,EMAIL /*협력업체 이메일*/
+				,MTALNM /*상호 */
+				,CTR_CHRR /*협력업체 담당자*/
+				,CTR_ST_DT /*계약시작일자*/
+				,CTR_ED_DT /*계약종료일자*/
+		FROM CT_ELT_CTRW_AMN
+	    WHERE ELT_CTRW_NO  = #{ELT_CTRW_NO}
+		  AND CHG_SQNO  = #{CHG_SQNO}
+	</select>
+
+	<select id="retrieveEltCtrwMailList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrieveEltCtrwMailList */
+				 CTRW_CNTN
+		FROM CT_ETC_ELT_STYL_AMM
+	    WHERE CTRW_KDC  = 'MAIL'
+	</select>
+
+	<select id="retrieveNotAprvEltCtrwCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM CT_ELT_CTRW_AMN
+		WHERE STS = '9'
+		<if test="CHECK_EXP eq 'Y'.toString()">
+			AND CTR_ST_DT <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+		</if>
+		AND CTR_ED_DT <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+		AND NVL(TEMP_YN, 'N') = 'N'
+		AND MN_CTRW_KD IN (
+			SELECT CD_D FROM TB_CD_MAP
+			WHERE CD_TYPE = 'MN_CTRW_KD'
+			AND CD_M = #{BUYER_DSC}
+			AND UYN = 'Y'
+		)
+	</select>
+
+	<select id="retrieveEltBuyerDsc" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT CD_M AS BUYER_DSC
+		FROM TB_CD_MAP
+		WHERE CD_TYPE = 'MN_CTRW_KD'
+		AND CD_D = #{MN_CTRW_KD}
+		AND UYN = 'Y'
+	</select>
+
+	<select id="retrieveAprvSmsManagerList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT RMK
+		FROM MG_HUR_INF
+		WHERE BSN_DSC = 'ELT_SMS'
+		AND MB_ID = #{BUYER_DSC}
+		AND UYN = 'Y'
+	</select>
+
+</mapper>

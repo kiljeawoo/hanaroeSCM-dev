@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="couponSaleResultDAO">
+	
+	<select id="getCouponSaleResultList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_BZPLC,
+			B.TRPL_ABR_NM,
+			A.CPN_KDC,
+			A.DC_CPN_QT,
+			A.CPN_DC_AM,
+			A.CNT
+		FROM (
+			SELECT
+				A.NA_BZPLC,
+				A.CPN_KDC, 
+				SUM(A.DC_CPN_QT) DC_CPN_QT,
+				SUM(A.CPN_DC_AM) CPN_DC_AM,
+				COUNT(*) CNT 
+			FROM TB_SA_CPN_RZS A
+			WHERE A.SL_DT BETWEEN #{START_DT} AND #{END_DT}
+			<if test="CPN_KDC != null and CPN_KDC != ''">
+			AND A.CPN_KDC = #{CPN_KDC}
+			</if>
+			GROUP BY A.NA_BZPLC,  A.CPN_KDC) A, TB_TR_TRPL_CIF B                        
+		WHERE A.NA_BZPLC= B.NA_TRPL_C                  
+		ORDER BY A.NA_BZPLC, B.TRPL_ABR_NM, A.CPN_KDC	
+	</select>
+	
+	<sql id="sql_getCouponSaleResultDetailList">
+		SELECT
+			A.NA_BZPLC,
+			X.TRPL_ABR_NM,
+			A.CPN_KDC,
+			A.NA_CPN_C,
+			B.CPN_WRSNM,
+			A.NA_WRS_C,
+			C.WRSNM WRS_ABR_NM,
+			SUM(A.DC_CPN_QT) DC_CPN_QT,
+			SUM(A.CPN_DC_AM) CPN_DC_AM 
+		FROM TB_SA_CPN_RZS A, TB_GD_EVENT_CPN B, TB_GD_WRS C, TB_TR_TRPL_CIF X
+		WHERE A.NA_BZPLC = X.NA_TRPL_C 
+		<if test="NA_BZPLC != null and NA_BZPLC != 'all'">
+		AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>
+		AND A.SL_DT BETWEEN #{START_DT} AND #{END_DT}
+		<if test="CPN_KDC != null and CPN_KDC != ''">
+		AND A.CPN_KDC = #{CPN_KDC}
+		</if>  
+		AND A.NA_CPN_C=B.NA_CPN_C(+)
+		AND A.CPN_KDC =B.CPN_KDC(+)
+		AND A.NA_WRS_C=B.DC_NA_WRS_C(+)
+		AND A.SL_DT BETWEEN B.DC_VLD_PRD_ST_DT(+) AND B.DC_VLD_PRD_ED_DT(+)
+		AND A.NA_WRS_C=C.NA_WRS_C
+		GROUP BY A.NA_BZPLC, X.TRPL_ABR_NM, A.CPN_KDC, A.NA_CPN_C, B.CPN_WRSNM, A.NA_WRS_C, C.WRSNM 
+		ORDER BY 1,2,3,4,5,6,7
+	</sql>
+	
+	<select id="getCouponSaleResultDetailList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_getCouponSaleResultDetailList" />
+	</select>
+
+	<select id="getCouponBizPlcList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_BZPLC,
+			X.TRPL_ABR_NM,
+			A.CPN_KDC,
+			X.BIZ_NUMBER,
+			X.REPMNM,
+			X.ATEL||'-'||X.HTEL||'-'||X.STEL AS TEL_NO,
+			X.FZIP||X.RZIP AS NO_ZIP, 
+			X.DONGUP, 
+			X.DONGBW,
+			A.NA_CPN_C_CNT,
+			A.NA_WRS_C_CNT
+		FROM (
+			SELECT 
+				A.NA_BZPLC,
+				A.CPN_KDC,
+				COUNT(DISTINCT A.NA_CPN_C) NA_CPN_C_CNT,
+				COUNT(DISTINCT A.NA_WRS_C) NA_WRS_C_CNT
+			FROM TB_SA_CPN_RZS A
+			WHERE 1=1    
+			<if test="NA_BZPLC != null and NA_BZPLC != 'all'">
+			AND A.NA_BZPLC = #{NA_BZPLC}
+			</if>
+			AND A.SL_DT BETWEEN #{START_DT} AND #{END_DT}
+			<if test="CPN_KDC != null and CPN_KDC != ''">
+			AND A.CPN_KDC = #{CPN_KDC}
+			</if>
+			GROUP BY A.NA_BZPLC, A.CPN_KDC
+		) A, TB_TR_TRPL_CIF X
+		WHERE A.NA_BZPLC = X.NA_TRPL_C
+	</select>
+	
+	<insert id="saveSaleResult" parameterType="com.nh.escm.pds.coupon.vo.TB_DE_CPN_UPLOAD">
+		INSERT INTO TB_DE_CPN_UPLOAD (
+			NA_BZPLC,
+			ADJ_YM,
+			ADJPL_NA_TRPL_C,
+			OCU_DSC,
+			APL_DT,
+			NA_CPN_C,
+			CPN_PBC_NA_TRPL_C,
+			CPN_SC,
+			CPNNM,
+			CPN_UPR,
+			CPN_QT,
+			CPN_AM,
+			CPN_FEE,
+			CPN_FEE_VAT,
+			DIV_CPN_FEE,
+			DIV_CPN_FEE_VAT,
+			ED_MRK_YN,
+			PRC_YN)
+		VALUES (
+			#{NA_BZPLC},
+			#{ADJ_YM},
+			#{ADJPL_NA_TRPL_C},
+			#{OCU_DSC},
+			#{APL_DT},
+			#{NA_CPN_C},
+			#{CPN_PBC_NA_TRPL_C},
+			#{CPN_SC},
+			#{CPNNM},
+			#{CPN_UPR},
+			#{CPN_QT},
+			#{CPN_AM},
+			#{CPN_FEE},
+			#{CPN_FEE_VAT},
+			#{DIV_CPN_FEE},
+			#{DIV_CPN_FEE_VAT},
+			#{ED_MRK_YN},
+			'N')
+	</insert>
+	
+	<sql id="sql_getCouponSaleResultUploadList">
+		SELECT  
+			A.ADJPL_NA_TRPL_C
+			,MAX(B.CLNTNM) CLNTNM
+			,A.PMNY_ADJ_DSC||'-'|| A.PMNY_ADJ_DSC_NM AS PMNY_ADJ_DSC
+      ,SUM(NVL(A.CPN_QT,0)) CPN_QT
+			,SUM(NVL(A.CPN_AM,0)) CPN_AM
+			,SUM(NVL(A.CPN_FEE,0)) CPN_FEE
+			,SUM(NVL(A.CPN_FEE_VAT,0)) CPN_FEE_VAT
+			,SUM(NVL(A.DIV_CPN_FEE,0)) DIV_CPN_FEE
+			,SUM(NVL(A.DIV_CPN_FEE_VAT,0)) DIV_CPN_FEE_VAT
+			,'N' COMPLETE_YN
+		FROM TB_DE_CPN_UPLOAD A, TB_TR_TRPL_CIF B
+		WHERE A.CPN_PBC_NA_TRPL_C = #{CPN_PBC_NA_TRPL_C}
+		AND A.ADJ_YM = #{ADJ_YM}
+    	<if test="ADJPL_NA_TRPL_C != null and ADJPL_NA_TRPL_C != 'all'">
+		AND A.ADJPL_NA_TRPL_C = #{ADJPL_NA_TRPL_C}
+		</if>
+		AND A.ADJPL_NA_TRPL_C = B.NA_TRPL_C(+)
+		GROUP BY A.ADJPL_NA_TRPL_C,A.PMNY_ADJ_DSC||'-'|| A.PMNY_ADJ_DSC_NM
+		ORDER BY A.ADJPL_NA_TRPL_C
+	</sql>
+	
+	<select id="getCouponSaleResultUploadList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_getCouponSaleResultUploadList" />
+	</select>
+	
+	<select id="getCouponSaleResultUploadCouponList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  
+			 A.NA_BZPLC
+			,B.CLNTNM
+			,A.ADJ_YM
+			,A.ADJPL_NA_TRPL_C
+			,A.OCU_DSC||'-'||FN_CM_SIMP_CNM('OCU_DSC',A.OCU_DSC) OCU_DSC
+			,A.APL_DT
+			,A.NA_CPN_C
+			,A.CPN_PBC_NA_TRPL_C
+			,A.CPN_SC,CPNNM
+			,A.CPN_UPR
+			,A.CPN_QT
+			,A.CPN_AM
+			,A.CPN_FEE
+			,A.CPN_FEE_VAT
+			,A.DIV_CPN_FEE
+			,A.DIV_CPN_FEE_VAT
+			,A.ED_MRK_YN
+			,A.DELETE_YN
+			,A.FSRGMN_ENO
+			,A.FSRG_DTM
+			,DECODE(A.PRC_YN,'P','전송중','E','오류','성공') PRC_YN
+			,A.RSP_C_CNTN
+			,A.EDI_IF_ID
+		FROM TB_DE_CPN_UPLOAD A, TB_TR_TRPL_CIF B
+		WHERE A.CPN_PBC_NA_TRPL_C = #{CPN_PBC_NA_TRPL_C}
+		AND A.ADJ_YM = #{ADJ_YM}
+		<if test="ADJPL_NA_TRPL_C != null and ADJPL_NA_TRPL_C != 'all'">
+		AND A.ADJPL_NA_TRPL_C = #{ADJPL_NA_TRPL_C}
+		</if>	
+		AND A.ADJPL_NA_TRPL_C = B.NA_TRPL_C(+)
+		ORDER BY A.ADJPL_NA_TRPL_C, A.OCU_DSC	
+	</select>
+	
+	<select id="getCouponSaleResultListExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_getCouponSaleResultDetailList" />
+	</select>
+	
+	<select id="getCouponSaleResultUploadListExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_getCouponSaleResultUploadList" />
+	</select>
+		
+</mapper>

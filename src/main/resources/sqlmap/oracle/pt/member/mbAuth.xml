@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mbAuthDAO">
+  
+	<!-- 회원권한 목록 -->
+	<select id="retrieveMemberAuth"  parameterType="com.nh.escm.pt.member.vo.MbAuthVO" resultType="java.util.Map">
+		SELECT A.MB_ID
+			, C.USR_NM
+			, A.MENU_ID
+			, B.MENU_NM
+			, B.MENU_PATH
+			, A.UYN
+			, A.FS_RGM
+			, A.FSRG_DTM
+			, A.LS_CHGM
+			, A.LSCHG_DTM
+		FROM PT_USR_PGM_AUTH A
+		LEFT OUTER JOIN PT_MENU_AMN B
+			ON A.MENU_ID = B.MENU_ID
+		LEFT OUTER JOIN PT_USR_INF C
+			ON A.MB_ID = C.MB_ID
+		WHERE 1=1
+		<if test="MB_ID!= null and MB_ID.length() > 0">
+				AND A.MB_ID LIKE #{MB_ID}||'%'
+		</if>
+		<if test="MENU_ID!= null and MENU_ID.length() > 0">
+				AND A.MENU_ID LIKE #{MENU_ID}||'%'
+		</if>
+		<if test="MENU_NM!= null and MENU_NM.length() > 0">
+				AND B.MENU_NM LIKE #{MENU_NM}||'%'
+		</if>
+		<if test="USR_NM!= null and USR_NM.length() > 0">
+				AND C.USR_NM LIKE #{USR_NM}||'%'
+		</if>
+		<if test="UYN != null and UYN.length() > 0">
+				AND A.UYN = #{UYN}
+		</if>
+		ORDER BY A.MB_ID, A.MENU_ID
+	</select>
+	
+	<!-- 기 등록된 회원권한 조회 -->
+	<select id="dupCheckMemberAuth" parameterType="com.nh.escm.pt.member.vo.MbAuthVO" resultType="java.util.Map">  
+	  SELECT (CASE WHEN A.CNT = '0' THEN 'N' ELSE 'Y' END ) AS AUTH_CHECK
+			FROM (
+			    SELECT COUNT(*) CNT FROM PT_USR_PGM_AUTH
+			    WHERE MENU_ID= #{MENU_ID}
+				    AND MB_ID= #{MB_ID}
+					<if test="UYN != null and UYN.length() > 0">
+							AND UYN = #{UYN}
+					</if>
+			) A
+	</select>
+		
+	<!-- 회원권한 등록 -->
+	<insert id="insertMemberAuth"  parameterType="com.nh.escm.pt.member.vo.MbAuthVO" >
+		INSERT INTO PT_USR_PGM_AUTH (
+			MB_ID,
+			MENU_ID,
+			UYN,
+			FS_RGM,
+			FSRG_DTM,
+			LS_CHGM,
+			LSCHG_DTM
+		) VALUES (
+			#{MB_ID}
+			, #{MENU_ID}
+			, #{UYN}
+			, #{FS_RGM}
+			, SYSDATE
+			, #{LS_CHGM}
+			, SYSDATE
+		)
+	</insert>
+	
+	<!-- 회원권한 수정 -->
+	<update id="updateMemberAuth"  parameterType="com.nh.escm.pt.member.vo.MbAuthVO" >
+		UPDATE PT_USR_PGM_AUTH SET
+			UYN = #{UYN}
+			, LS_CHGM = #{LS_CHGM}
+			, LSCHG_DTM = SYSDATE
+		WHERE MB_ID = #{MB_ID}
+			AND MENU_ID = #{MENU_ID}
+	</update>
+	
+	<!-- 회원권한 삭제 -->
+	<delete id="deleteMemberAuth"  parameterType="com.nh.escm.pt.member.vo.MbAuthVO" >
+		DELETE FROM PT_USR_PGM_AUTH
+		WHERE MB_ID = #{MB_ID}
+			AND MENU_ID = #{MENU_ID}
+	</delete>
+	
+	<select id="checkBranch"  parameterType="java.util.Map" resultType="java.util.Map">	
+
+		SELECT CASE 
+		            WHEN COUNT(BIZ_NUMBER) > 0 THEN 'Y'
+		            ELSE 'N'
+		        END AS AUTH_CHECK
+		        
+		  FROM NHVANPTL.PT_BRANCH 
+		 WHERE BRANCH_DSC = #{branch_dsc}
+		   AND BIZ_NUMBER = #{biz_number}
+		
+	
+	
+	</select>
+	
+	<select id="checkStoreChief"  parameterType="java.util.Map" resultType="java.util.Map">	
+
+		SELECT BIZ_NUMBER
+		        
+		  FROM NHVANPTL.PT_BRANCH 
+		 WHERE BRANCH_DSC = #{branch_dsc}
+		   AND CHIEF_ENO = #{mb_id}
+		
+	
+	
+	</select>
+</mapper>

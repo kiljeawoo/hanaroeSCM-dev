@@ -1,0 +1,194 @@
+/*인사말*/
+.ceo_img{
+	float:left;
+	width:220px;
+}
+#ceo_message{
+	float:left;
+	width:440px;
+}
+#ceo_message p{
+	line-height:20px;
+	margin-bottom:20px;
+}
+/*연혁*/
+#history {
+  width:100%;
+  margin:0 auto;
+  background:url('../CTR_IMG/sub102_bg.gif') bottom no-repeat;
+}
+#history p {
+  float:left;
+  width:130px;
+  text-align:center;
+}
+#history table caption, #history2 table caption {
+  display:none;
+}
+#history table {
+  float:left;
+  width:500px;
+  border-top:2px solid #928e62;
+  border-bottom:1px solid #ccc;
+  border-collapse:collapse;
+  margin-bottom:30px;
+}
+#history th {
+  height:30px;
+  border-bottom:1px solid #b0ac83;
+  text-align:center;
+  color:#403b03;
+  background:#f4f3ea;
+}
+.txt_date{width:120px;}
+#history td {
+  padding:5px 0 0 20px;
+  height:20px;
+  border-bottom:1px solid #cdcdcd;
+}
+#history2 table {
+  float:left;
+  width:100%;
+  border-top:2px solid #5c9941;
+  border-bottom:1px solid #ccc;
+  border-collapse:collapse;
+  margin-bottom:30px;
+}
+#history2 th {
+  height:35px;
+  border-bottom:1px solid #5c9941;
+  text-align:center;
+  color:#3d6d28;
+  background:#f6f9e4;
+}
+#history2 td {
+  padding:8px;
+  border-bottom:1px solid #cdcdcd;
+}
+/*약도*/
+#map{
+	padding:20px;
+	margin:15px 0 30px 0; 
+}
+#map dl{
+	padding-bottom:20px;
+}
+#map dt{
+	float:left;
+	width:100px;
+	height:22px;
+  font-weight:bold;
+  padding:5px 0 0 15px;
+  background:url('../CTR_IMG/sub_icon2.gif') 0 7px no-repeat;
+}
+#map dd{
+	height:22px;
+  padding:5px 0 0 15px;
+	border-bottom:1px dotted #eee;
+}
+	
+/*경영*/
+#magagement p{
+	width:600px;
+	line-height:22px;
+  background:url('../CTR_IMG/sub_icon2.gif') 0 7px no-repeat;
+  padding-left:17px;
+  padding-bottom:30px;
+}
+
+#sub1 h3{
+	clear:both;
+	font-size:15px;
+	color:#976611;
+	margin:20px 0 15px 0;
+	padding-left:20px;
+	background:url('../CTR_IMG/sub_icon1.gif') 0px 2px no-repeat;	
+	border-bottom:1px dotted #ccc;
+}
+#sub1 h4{
+	clear:both;
+	font-size:13px;
+	color:#823e0c;
+	margin:0 0 10px 0;
+	padding-left:25px;
+	background:url('../CTR_IMG/sub_icon2.gif') 10px 2px no-repeat;	
+	border:none;
+}
+#sub1 p{
+	padding:0px 0 15px 20px;
+}
+
+#sub1 dl{
+  padding:0px 0 15px 20px;
+}
+
+#sub1 dl dt{
+  font-weight:bold;
+	color:#823e0c;
+	padding:15px 0 0 2px;
+}
+
+#sub1 dl dd{
+  line-height:15px;
+	color:#696969;
+	padding: 2px 0 0 35px;
+}
+.box{
+	padding:30px;
+	border:5px solid #cdcabd;
+}
+
+.box p{
+	color:#b17243;
+	font-size:13px;
+}
+/*40주년*/ 
+#sub107 h3{
+	clear:both;
+	font-size:15px;
+	color:#976611;
+	margin:20px 0 15px 0;
+	padding-left:20px;
+	background:url('../CTR_IMG/sub_icon1.gif') 0px 2px no-repeat;	
+	border-bottom:1px dotted #ccc;
+}
+.movie107{
+	width:330px;
+	height:300px;
+	padding-left:300px;
+	background:url('../CTR_IMG/movie_bg.gif') no-repeat;
+}
+#content107{
+  clear:both;
+	width:600px;
+	height:600px;
+	clear:both;
+	border:1px solid #f00;
+}
+
+#sub107 dl dt{
+	float:left;
+	width:200px;
+	height:100px;
+}
+#sub107 dl dd{
+	height:100px;
+	padding-top:50px;
+	background:url('../CTR_IMG/sub3_1_icon1.gif') 200px 10px no-repeat;
+}
+
+#movie p{
+	width:300px;
+	height:300px;
+	padding-left:250px;
+}
+/*공통*/
+.a_right{
+  text-align:right;
+}
+.a_center{
+  text-align:center;
+}
+.m_bottom20{
+	margin-bottom:20px;
+}

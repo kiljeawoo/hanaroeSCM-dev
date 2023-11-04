@@ -1,0 +1,355 @@
+﻿/******************************************************************************************************/
+/***** PROJECT NAME		: NEXACRO DEFAULT THEME	********/
+/***** CREATION DATES		: 2015.04.13		********/
+/***** DRAFTER 			: TOBESOFT DESIGN TEAM	********/
+/***** DISTRIBUTION DATE 	: 2015.00.00		********/
+/******************************************************************************************************/
+/****************************************** Left Farme Area *******************************************/
+
+
+/***** 검색버튼 *****/
+Button.btn_LF_Search, Button.btn_LF_Search:focused, Button.btn_LF_Search:selected
+{
+	background			: URL('theme://images/btn_LF_Search.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Search:mouseover
+{
+	background			: URL('theme://images/btn_LF_Search.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Search:pushed
+{
+	background			: URL('theme://images/btn_LF_Search_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Search:disabled
+{
+	background			: URL('theme://images/btn_LF_Search_D.png') center middle;
+	border				: 0 none;
+}
+/***** mymenu BTN *****/
+Button.btn_LF_MyMenu
+{
+	background			: URL('theme://images/btn_LF_MyMenu.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #e4e6e7;
+}
+Button.btn_LF_MyMenu:mouseover
+{
+	background			: URL('theme://images/btn_LF_MyMenu.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #ffffff;	
+}
+Button.btn_LF_MyMenu:focused, Button.btn_LF_MyMenu:selected, Button.btn_LF_MyMenu:pushed
+{
+	background			: URL('theme://images/btn_LF_MyMenu_S.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #ffffff;	
+}
+Button.btn_LF_MyMenu:disabled
+{
+	background			: URL('theme://images/btn_LF_MyMenu_D.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #afb4b8;	
+}
+/****** mymenu 선택스타일 ******/
+Button.btn_LF_MyMenuS, Button.btn_LF_MyMenuS:focused, Button.btn_LF_MyMenuS:selected,
+Button.btn_LF_MyMenuS:mouseover, Button.btn_LF_MyMenuS:pushed, Button.btn_LF_MyMenuS:disabled
+{
+	background			: URL('theme://images/btn_LF_MyMenu_S.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #ffffff;
+}
+/***** 2DepthMenu BTN(상품정보) *****/
+Button.btn_LF_2DepthMenu
+{
+	background			: URL('theme://images/btn_LF_2DepthMenu.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #e4e6e7;
+}
+Button.btn_LF_2DepthMenu:mouseover
+{
+	background			: URL('theme://images/btn_LF_2DepthMenu.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #ffffff;	
+}
+Button.btn_LF_2DepthMenu:focused, Button.btn_LF_2DepthMenu:selected, Button.btn_LF_2DepthMenu:pushed
+{
+	background			: URL('theme://images/btn_LF_2DepthMenu_S.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #ffffff;	
+}
+Button.btn_LF_2DepthMenu:disabled
+{
+	background			: URL('theme://images/btn_LF_2DepthMenu_D.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #afb4b8;	
+}
+/****** 2DepthMenu BTN(상품정보) 선택스타일 ******/
+Button.btn_LF_2DepthMenuS, Button.btn_LF_2DepthMenuS:focused, Button.btn_LF_2DepthMenuS:selected,
+Button.btn_LF_2DepthMenuS:mouseover, Button.btn_LF_2DepthMenuS:pushed, Button.btn_LF_2DepthMenuS:disabled
+{
+	background			: URL('theme://images/btn_LF_MyMenu_S.png') stretch 7,7;
+	border				: 0 none;
+	font				: bold 10 Gulim;
+	color				: #ffffff;
+}
+
+/***** LFMenu open/close BTN *****/
+Button.btn_LF_Open, Button.btn_LF_Open:focused, Button.btn_LF_Open:selected, Button.btn_LF_Open:disabled
+{
+	background			: URL('theme://images/btn_LF_Open.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Open:mouseover
+{
+	background			: URL('theme://images/btn_LF_Open_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Open:pushed
+{
+	background			: URL('theme://images/btn_LF_Open_P.png') center middle;
+	border				: 0 none;
+}
+/*******/
+Button.btn_LF_Close, Button.btn_LF_Close:focused, Button.btn_LF_Close:selected, Button.btn_LF_Close:disabled
+{
+	background			: URL('theme://images/btn_LF_Close.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Close:mouseover
+{
+	background			: URL('theme://images/btn_LF_Close_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_LF_Close:pushed
+{
+	background			: URL('theme://images/btn_LF_Close_P.png') center middle;
+	border				: 0 none;
+}
+
+/***** 검색 Edit ******/
+Edit.edt_LF_Search
+{
+	align				: left middle;
+	background			: URL('theme://images/edt_LF_Search.png') stretch 5,5;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #333333;
+	font				: 9 Gulim;
+	padding				: 2 5 0 5;
+	selectbackground 		: #29a5c0;
+	selectcolor			: #ffffff;
+}
+Edit.edt_LF_Search:mouseover, Edit.edt_LF_Search:focused
+{
+	background			: URL('theme://images/edt_LF_Search_O.png') stretch 5,5;
+	border				: 0 none;
+}
+Edit.edt_LF_Search:disabled
+{
+	background			: URL('theme://images/edt_LF_Search_D.png') stretch 5,5;
+	border				: 0 none;
+	color				: #999999;
+}
+
+/****** LeftMenu Grid ******/
+Grid.grd_LF_Menu
+{
+	align				: center middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #4f4c40;
+	font				: 9 Gulim;
+	padding				: 0 5 0 5;
+	treeclosebuttonimage		: URL('theme://images/ico_LF_treeclose.png');
+	treecollapseimage		: ;
+	treeexpandimage			: ;
+	treeitemimage			: URL('theme://images/ico_LF_treeitem.png');
+	treeitemmargin			: ;
+	treeopenbuttonimage		: URL('theme://images/ico_LF_treeopen.png');
+}
+Grid.grd_LF_Menu>#body, Grid.grd_LF_Menu>#body:focused, Grid.grd_LF_Menu>#body:mouseover
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	bordertype			: normal;
+	cellalign			: center middle;
+	cellbackground			: transparent URL('theme://images/grd_LF_Menu_1dpth.png') repeat-x;
+	cellbackground2			: transparent URL('theme://images/grd_LF_Menu_1dpth.png') repeat-x;
+	cellcolor			: #4f4c40;
+	cellcolor2			: #4f4c40;
+	cellline			: 0 none;
+	cellpadding			: 1 3 0 3;
+	selectbackground		: URL('theme://images/grd_LF_Menu_S.png') repeat-x;
+	selectborder			: 0 none;
+	selectcolor			: #ffffff;
+	selectfont			: 9 Gulim; 
+	selectline			: 0 none;
+}
+Grid.grd_LF_Menu>#vscrollbar, Grid.grd_LF_Menu>#vscrollbar:disabled,
+Grid.grd_LF_Menu>#hscrollbar, Grid.grd_LF_Menu>#hscrollbar:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	decbtnsize			: 0;
+	incbtnsize			: 0;
+}
+Grid.grd_LF_Menu>#vscrollbar>#trackbar
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Vscrollbar.png') stretch 10,10;
+	border				: 0 none ;
+	bordertype			: normal;
+}
+Grid.grd_LF_Menu>#vscrollbar>#trackbar:mouseover, Grid.grd_LF_Menu>#vscrollbar>#trackbar:pushed
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Vscrollbar_O.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+Grid.grd_LF_Menu>#vscrollbar>#trackbar:disabled
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Vscrollbar_D.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+/*******/
+Grid.grd_LF_Menu>#hscrollbar>#trackbar
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Hscrollbar.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+Grid.grd_LF_Menu>#hscrollbar>#trackbar:mouseover, Grid.grd_LF_Menu>#hscrollbar>#trackbar:pushed
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Hscrollbar_O.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+Grid.grd_LF_Menu>#hscrollbar>#trackbar:disabled
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Hscrollbar_D.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+/****** My Menu grd ******/
+
+Grid.grd_LF_Mymenu
+{
+	 align              : center middle;
+   background               : #ffffff00;
+   border                   : 0 none;
+   bordertype               : normal 0 0;
+   color                    : #4f4c40;
+   font                     : 9 Gulim;
+   padding                  : 0 5 0 5;
+   treeclosebuttonimage     : URL('theme://images/ico_LF_treeclose.png');
+   treecollapseimage        : URL('theme://images/grd_WF_dummy.png');
+   treeexpandimage          : URL('theme://images/grd_WF_dummy.png');
+   treeitemimage            : URL('theme://images/ico_LF_treeitem.png');
+   treeitemmargin           : ;
+   treeopenbuttonimage      : URL('theme://images/ico_LF_treeopen.png');
+}
+Grid.grd_LF_Mymenu>#body, Grid.grd_LF_Mymenu>#body:focused, Grid.grd_LF_Mymenu>#body:mouseover
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	bordertype			: normal;
+	cellalign			: center middle;
+	cellbackground			: #ffffff00;
+	cellbackground2			: #ffffff00;
+	cellcolor			: #4f4c40;
+	cellcolor2			: #4f4c40;
+	cellline			: 0 none;
+	cellpadding			: 1 3 0 3;
+	selectbackground		: URL('theme://images/grd_LF_Menu_S.png') repeat-x;
+	selectborder			: 0 none;
+	selectcolor			: #ffffff;
+	selectfont			: 9 Gulim; 
+	selectline			: 0 none;
+}
+Grid.grd_LF_Mymenu>#vscrollbar, Grid.grd_LF_Mymenu>#vscrollbar:disabled,
+Grid.grd_LF_Mymenu>#hscrollbar, Grid.grd_LF_Mymenu>#hscrollbar:disabled
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	decbtnsize			: 0;
+	incbtnsize			: 0;
+}
+Grid.grd_LF_Mymenu>#vscrollbar>#trackbar
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Vscrollbar.png') stretch 10,10;
+	border				: 0 none ;
+	bordertype			: normal;
+}
+Grid.grd_LF_Mymenu>#vscrollbar>#trackbar:mouseover, Grid.grd_LF_Mymenu>#vscrollbar>#trackbar:pushed
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Vscrollbar_O.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+Grid.grd_LF_Mymenu>#vscrollbar>#trackbar:disabled
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Vscrollbar_D.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+/*******/
+Grid.grd_LF_Mymenu>#hscrollbar>#trackbar
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Hscrollbar.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+Grid.grd_LF_Mymenu>#hscrollbar>#trackbar:mouseover, Grid.grd_LF_Mymenu>#hscrollbar>#trackbar:pushed
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Hscrollbar_O.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+Grid.grd_LF_Mymenu>#hscrollbar>#trackbar:disabled
+{
+	align				: center middle;
+	background			: URL('theme://images/grd_LF_Hscrollbar_D.png') stretch 10,10;
+	border				: 0 none;
+	bordertype			: normal;
+}
+/*********/
+Static.sta_LF_MenuBg, Static.sta_LF_MenuBg:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #74828b 0,100 #78868f;	
+}
+/****** 그리드 bg ********/
+Static.sta_LF_MenuGrdBg, Static.sta_LF_MenuGrdBg:mouseover
+{
+	background			: URL('theme://images/sta_LF_MenuGrdBg.png') stretch 7,7;
+
+}
+
+
+
+
+

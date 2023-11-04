@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="menuDAO">	
+<!-- 백업쿼리 -->
+<!--      	<select id="retrieveMenuList"  parameterType="java.util.Map" resultType="java.util.Map"> 
+	
+		SELECT /*retrieveMenuList*/
+		       A.MENU_ID, 
+		       A.MENU_LVL AS MENU_LEVEL, 
+		       A.MENU_NM AS MENU_NAME, 
+		       A.MENU_PATH AS FILE_PATH, 
+		       A.UP_MENU_ID, 
+		       A.SVC_GRPNM AS SVC_GROUP, 
+		       A.FLNM AS FILE_NAME , 
+		       A.FL_KD AS FILE_TYPE, 
+		       A.SCRN_MRK_YN , 
+		       A.UYN AS USE_YN, 
+		       A.BRO_UYN, 
+		       CASE #{MBCO_TYPE}
+		            WHEN '1' THEN A.SCRN_MRK_YN
+		            WHEN '2' THEN A.BRO_UYN
+		            ELSE A.SCRN_MRK_YN
+		       END DISPLAY_YN,
+		       NVL((SELECT 'Y' FROM MG_SVC_AUTH_AMN MG, PT_SVC_ENT_AMN PT WHERE MG.SVC_ID=PT.SVC_ID AND PT.NA_TRPL_C=#{NA_TRPL_C} AND MG.MENU_ID=A.MENU_ID AND ROWNUM = 1), 'N') SVC_AUTH,
+		       A.USR_AUTH_DSC AS USR_AUTH,
+		       A.BL_UYN,
+		       A.MENU_GROUP
+		  FROM 
+		       (SELECT 
+		              MENU_ID, 
+		              MENU_LVL, 
+		              MENU_NM, 
+		              MENU_PATH, 
+		              UP_MENU_ID, 
+		              SVC_GRPNM,   /* XFDL 파일의 경로 */
+		              FLNM , 
+		              FL_KD, 
+		              CASE
+						  WHEN #{COMP_TPC} = '1010' AND MENU_ID LIKE '02%' 
+						 							AND MENU_ID IN  ('02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008') THEN 'N'            
+                          WHEN #{COMP_TPC} = '1020' AND (MENU_ID LIKE '01%' OR (MENU_ID LIKE '02%' 
+                                                    AND MENU_ID NOT IN  ('02000000','02008000','02008001','02008002','02008003','02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))) 
+                                               THEN 'N'
+                          WHEN #{COMP_TPC} = '1030' AND (MENU_ID LIKE '02%' OR MENU_ID LIKE '03%' OR MENU_ID LIKE '14%' OR (MENU_ID LIKE '01%' 
+                                                    AND MENU_ID NOT IN  ('01000000', '01003000', '01003001', '01003005', '01003007', '01006000', '01006001'))) 
+                                               THEN 'N'
+		                  WHEN #{XMLUSER_YN} ='Y' 
+		                      AND MENU_ID ='01001001' 
+		                  THEN 'N' 
+		                  ELSE SCRN_MRK_YN 
+		              END 
+		              AS SCRN_MRK_YN, 
+		              CASE
+						  WHEN #{COMP_TPC} = '1010' AND MENU_ID LIKE '02%' 
+						 							AND MENU_ID IN  ('02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008') THEN 'N'                            
+                          WHEN #{COMP_TPC} = '1020' AND (MENU_ID LIKE '01%' OR (MENU_ID LIKE '02%' 
+                                                    AND MENU_ID NOT IN  ('02000000','02008000','02008001','02008002','02008003','02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))) 
+                                               THEN 'N' 
+                          WHEN #{COMP_TPC} = '1030' AND (MENU_ID LIKE '02%' OR MENU_ID LIKE '03%' OR MENU_ID LIKE '14%' OR (MENU_ID LIKE '01%' 
+                                                    AND MENU_ID NOT IN  ('01000000', '01003000', '01003001', '01003005', '01003007', '01006000', '01006001'))) 
+                                               THEN 'N'
+		                  WHEN #{XMLUSER_YN} ='Y' 
+		                      AND MENU_ID ='01001001' 
+		                  THEN 'N' 
+		                  ELSE BRO_UYN 
+		              END 
+		              BRO_UYN , 
+		              UYN,
+		              USR_AUTH_DSC,
+		              USR_TPC,
+		              BL_UYN,
+		              MENU_GROUP  /* 사용자 메뉴권한을 위한 메뉴그룹 */
+		         FROM 
+		              PT_MENU_AMN 
+		       ) A
+		 WHERE A.USR_TPC=#{USR_TPC} 
+		       AND A.SCRN_MRK_YN='Y'
+		       <if test="LIQUOR_YN != null and LIQUOR_YN == '01'">
+		       AND A.MENU_ID <![CDATA[<>]]> '02002007'   			
+		       </if>
+		ORDER BY 
+		       A.MENU_ID 
+	
+	</select> -->
+ 
+ 
+   <select id="retrieveMenuList"  parameterType="java.util.Map" resultType="java.util.Map"> 
+ 		 SELECT /*retrieveMenuList*/
+             A.MENU_ID, 
+             A.MENU_LVL AS MENU_LEVEL, 
+             A.MENU_NM AS MENU_NAME, 
+             A.MENU_PATH AS FILE_PATH, 
+             A.UP_MENU_ID, 
+             A.SVC_GRPNM AS SVC_GROUP, 
+             A.FLNM AS FILE_NAME , 
+             A.FL_KD AS FILE_TYPE, 
+             A.SCRN_MRK_YN , 
+             A.UYN AS USE_YN, 
+             A.BRO_UYN, 
+             CASE '${MBCO_TYPE}'
+                  WHEN '1' THEN A.SCRN_MRK_YN
+                  WHEN '2' THEN A.BRO_UYN
+                  ELSE A.SCRN_MRK_YN
+             END DISPLAY_YN,
+             NVL((SELECT 'Y' FROM MG_SVC_AUTH_AMN MG, PT_SVC_ENT_AMN PT WHERE MG.SVC_ID=PT.SVC_ID AND PT.NA_TRPL_C=#{NA_TRPL_C} AND MG.MENU_ID=A.MENU_ID AND ROWNUM = 1), 'N') SVC_AUTH,
+             A.USR_AUTH_DSC AS USR_AUTH,
+             A.BL_UYN,
+             A.MENU_GROUP
+        FROM 
+             (SELECT 
+                    MENU_ID, 
+                    MENU_LVL, 
+                    MENU_NM, 
+                    MENU_PATH, 
+                    UP_MENU_ID, 
+                    SVC_GRPNM,   /* XFDL 파일의 경로 */
+                    FLNM , 
+                    FL_KD, 
+                    CASE
+                    WHEN '${COMP_TPC}' = '1010' AND (MENU_ID LIKE 'D%' OR (MENU_ID LIKE '02%' 
+                                        AND MENU_ID IN  ('02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))) THEN 'N'
+                                                     
+                          WHEN '${COMP_TPC}' = '1020' AND (MENU_ID LIKE '01%' OR MENU_ID LIKE 'D%' OR (MENU_ID LIKE '02%' 
+                                                    AND MENU_ID NOT IN  ('02000000','02008000','02008001','02008002','02008003','02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))) 
+                                               THEN 'N'
+                                               
+                          WHEN '${COMP_TPC}' = '1030' AND (MENU_ID LIKE '02%' OR MENU_ID LIKE '03%' OR MENU_ID LIKE '14%' OR MENU_ID LIKE 'D%' OR (MENU_ID LIKE '01%' 
+                                                    AND MENU_ID NOT IN  ('01000000', '01003000', '01003001', '01003005', '01003007', '01006000', '01006001'))) 
+                                               THEN 'N'
+                                               
+                          WHEN '${COMP_TPC}' = '1040' and (MENU_ID LIKE '02%' 
+                                        AND MENU_ID IN ('02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))
+                                        THEN 'N'
+                          WHEN '${COMP_TPC}' = '1040' AND MENU_ID LIKE 'D1%'
+                                        THEN 'Y' /* 1040은 not in 방식이아니라 쓸메뉴를 찾아서 Y를 부여하는 방식으로 위쪽과 차이가 있음*/    
+                        WHEN '${XMLUSER_YN}' ='Y' 
+                            AND MENU_ID ='01001001' 
+                        THEN 'N' 
+                        ELSE SCRN_MRK_YN 
+                    END AS SCRN_MRK_YN, 
+                    CASE
+                    WHEN '${COMP_TPC}' = '1010' AND (MENU_ID LIKE 'D%' OR (MENU_ID LIKE '02%' 
+                                        AND MENU_ID IN  ('02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))) THEN 'N'                              
+                          WHEN '${COMP_TPC}' = '1020' AND (MENU_ID LIKE '01%'  OR MENU_ID LIKE 'D%' OR (MENU_ID LIKE '02%' 
+                                                    AND MENU_ID NOT IN  ('02000000','02008000','02008001','02008002','02008003','02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008'))) 
+                                               THEN 'N' 
+                                               
+                          WHEN '${COMP_TPC}' = '1030' AND (MENU_ID LIKE '02%' OR MENU_ID LIKE '03%' OR MENU_ID LIKE '14%' OR MENU_ID LIKE 'D%' OR (MENU_ID LIKE '01%' 
+                                                    AND MENU_ID NOT IN  ('01000000', '01003000', '01003001', '01003005', '01003007', '01006000', '01006001'))) 
+                                               THEN 'N'
+                                               
+                          WHEN '${COMP_TPC}' = '1040' and (MENU_ID LIKE '02%' 
+                                        AND MENU_ID IN  ('02010000','02010001','02010002','02010003','02010004','02010005','02010006','02010007','02010008')) 
+                                        THEN 'N'
+                          WHEN '${COMP_TPC}' = '1040' AND MENU_ID LIKE 'D1%'
+                                        THEN 'Y' /* 1040은 not in 방식이아니라 쓸메뉴를 찾아서 Y를 부여하는 방식으로 위쪽과 차이가 있음*/     
+                        WHEN '${XMLUSER_YN}' ='Y' 
+                            AND MENU_ID ='01001001' 
+                        THEN 'N' 
+                        ELSE BRO_UYN 
+                    END BRO_UYN , 
+                    UYN,
+                    USR_AUTH_DSC,
+                    USR_TPC,
+                    BL_UYN,
+                    MENU_GROUP  /* 사용자 메뉴권한을 위한 메뉴그룹 */
+               FROM 
+                    PT_MENU_AMN 
+             ) A
+        WHERE A.USR_TPC='${USR_TPC}' 
+	   		AND A.SCRN_MRK_YN='Y'
+		    <if test="LIQUOR_YN != null and LIQUOR_YN == '01'">
+		       AND A.MENU_ID <![CDATA[<>]]> '02002007'   			
+		    </if>
+        ORDER BY A.MENU_ID 
+ 	</select>
+
+ 	
+    <select id="retrieveMyMenuList" parameterType="java.util.Map" resultType="java.util.Map">  
+	 
+		SELECT /*retrieveMyMenuList*/
+		   A.MENU_ID,
+	       A.MENU_LVL AS MENU_LEVEL, 
+	       A.MENU_NM AS MENU_NAME, 
+	       A.MENU_PATH AS FILE_PATH, 
+	       A.UP_MENU_ID, 
+	       A.SVC_GRPNM AS SVC_GROUP, 
+	       A.FLNM AS FILE_NAME , 
+	       A.FL_KD AS FILE_TYPE,
+	       A.UYN USE_YN
+	       <if test="USR_TPC != null and USR_TPC == '01'">
+		  , CASE WHEN A.MENU_ID = '11001001' THEN 'N'
+		         WHEN A.MENU_ID = '11001004' THEN 'N'  
+		    	 WHEN A.MENU_ID = '11001009' THEN 'N'
+		         WHEN A.MENU_ID = '11001010' THEN 'N'         
+		         WHEN A.MENU_ID = '11003000' THEN 'N'
+		         WHEN A.MENU_ID = '11003001' THEN 'N'
+		         WHEN A.MENU_ID = '11004000' AND  #{BUILLING_AUTH_YN}  = 'N' THEN 'N'
+		         WHEN A.MENU_ID = '11004001' AND  #{BUILLING_AUTH_YN}  = 'N' THEN 'N'
+		         ELSE 'Y'
+		    END DISPLAY_YN
+	    </if>
+	    <if test="USR_TPC != null and USR_TPC == '02'">
+	      , CASE WHEN A.MENU_ID = '21001002' THEN 'N'
+	    		 WHEN A.MENU_ID = '21003000' THEN 'N'
+	         	 WHEN A.MENU_ID = '21003001' THEN 'N'         
+        	ELSE 'Y'
+    		END DISPLAY_YN	    
+	    </if>
+	    <if test="USR_TPC != null and USR_TPC == '03'">
+	      , CASE WHEN A.MENU_ID = '31001003' THEN 'N'        		 
+        		 WHEN A.MENU_ID = '31003000' THEN 'N'
+        		 WHEN A.MENU_ID = '31003001' THEN 'N'
+        	ELSE 'Y'
+    		END DISPLAY_YN
+	    </if>
+	    <if test="USR_TPC != null and USR_TPC == '04'">
+	      , CASE WHEN A.MENU_ID = '41001001' THEN 'N'        		 
+        		 WHEN A.MENU_ID = '41001004' THEN 'N'
+        		 WHEN A.MENU_ID = '41001005' THEN 'N'
+        		 WHEN A.MENU_ID = '41002000' THEN 'N'
+        		 WHEN A.MENU_ID = '41002001' THEN 'N'
+	    	ELSE 'Y'
+	    	END  DISPLAY_YN 
+	    </if>
+	    <if test="USR_TPC != null and USR_TPC == '05'">
+	      , CASE WHEN A.MENU_ID = '51001001' THEN 'N'        		 
+        		 WHEN A.MENU_ID = '51001004' THEN 'N'
+        		 WHEN A.MENU_ID = '51001005' THEN 'N'
+
+	    	ELSE 'Y'
+	    	END  DISPLAY_YN 
+	    </if>
+	    <if test="USR_TPC != null and USR_TPC == '81'">
+	      , CASE WHEN A.MENU_ID = '62001001' THEN 'N'
+	    	ELSE 'Y'
+	    	END  DISPLAY_YN 
+	    </if>
+		FROM PT_MENU_AMN A 
+		WHERE USR_TPC =#{USR_TPC} AND MENU_ID LIKE #{GUBUN_TYP}||'%'
+    </select>
+    
+    <select id="isXmlUser" parameterType="java.util.Map" resultType="int">
+    	 SELECT /*isXmlUser*/ 
+    		--COUNT(*)
+    		0  
+		 FROM TB_XML_AMN_DOC 
+		 WHERE TRPL_C = (SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = #{NA_TRPL_C})
+		   AND ROWNUM = 1 
+    </select>
+</mapper>

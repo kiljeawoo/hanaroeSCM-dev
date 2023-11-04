@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="idPwInqDAO">
+ 	
+	<select id="getMbId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT MB_ID
+		  FROM PT_USR_INF
+		 WHERE USR_NM    = #{USR_NM}
+		   AND NA_TRPL_C = #{NA_TRPL_C}
+	</select>
+
+	<select id="getMbPw" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT MB_ID
+		     , (SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C=A.NA_TRPL_C) AS MB_PW
+		     , USR_NM
+		     , BIRTH
+		     , ecl_decrypt(USR_MPNO) AS USR_MPNO
+		  FROM PT_USR_INF A
+		 WHERE MB_ID     = #{MB_ID}
+		   AND NA_TRPL_C = #{NA_TRPL_C}
+	</select>
+	
+	<update id="updateMbPw" parameterType="java.util.Map">
+		UPDATE PT_USR_INF
+		   SET MB_PW		= ecl_digest(#{MB_PW})
+		     , LSCHG_DTM	= SYSDATE
+		     , LS_CHGM		= #{MB_ID}
+		     , PW_LSRG_DT	= #{PW_LSRG_DT}
+		     , LGIN_TRY     = '0'
+		     , LOCK_YN		= '0'		/* 잠김여부 (0: 초기비밀번호, 1: 사용자변경, 2: 잠김) */
+		 WHERE MB_ID = #{MB_ID}
+	</update>
+	
+	<update id="updateLockYn" parameterType="java.util.Map">
+		UPDATE PT_USR_INF
+		   SET LOCK_YN		= '0'		/* 잠김여부 (0: 초기비밀번호, 1: 사용자변경, 2: 잠김) */
+		 WHERE MB_ID = #{MB_ID}
+	</update>
+</mapper>

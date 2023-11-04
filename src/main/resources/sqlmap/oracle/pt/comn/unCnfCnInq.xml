@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="unCnfCnInqDAO">
+	
+    <resultMap id="UnCnfCnInqMap" type="com.nh.escm.pt.comn.vo.UnCnfCnInqVO">
+	    <!-- result column="APP_ID"                      	property="APP_ID" / -->
+	</resultMap>
+	
+	<select id= "retrieveUnCnfCnInqCnt1"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT COUNT(*) CNT
+		  FROM TB_OD_ORDER_M
+		 WHERE SPYPL_NA_TRPL_C = #{GLNCODE}	/* 자사 거래처 기준이며 지사포함일 경우 해당 거래처 추가 필요 */
+		   AND ODR_DT BETWEEN #{FROM} AND #{TO}
+		   AND FS_RMS_DT IS NULL
+		   AND VAN_SEQ NOT LIKE 'VAN%'
+		   AND DEL_DTM IS NULL
+	</select>
+	
+	<select id= "retrieveUnCnfCnInqCnt2"  parameterType="java.util.Map" resultType="java.util.Map">	
+		SELECT COUNT(*) CNT
+		  FROM ( SELECT
+						X.ODRPL_NA_TRPL_C
+					  , X.ODRPL_NA_TEAM_C
+					  , X.ODR_DT, X.ODR_SLPNO
+				   FROM TB_OD_ORDER_M X
+					  , TB_OD_ORDER_D Y
+				  WHERE X.SPYPL_NA_TRPL_C = #{GLNCODE} /* 자사 거래처 기준이며 지사포함일 경우 해당 거래처 추가 필요 */
+					AND X.ODR_DT BETWEEN #{FROM} AND #{TO}
+					AND X.ODRPL_NA_TRPL_C = Y.ODRPL_NA_TRPL_C
+					AND X.ODRPL_NA_TEAM_C = Y.ODRPL_NA_TEAM_C
+					AND X.ODR_DT = Y.ODR_DT
+					AND X.ODR_SLPNO = Y.ODR_SLPNO
+					AND X.DEL_DTM IS NULL
+					AND ( Y.NA_DVY_PLASH_SLPNO IS NULL OR Y.NA_DVY_PLASH_SLPNO = '.' ) 
+					AND X.NA_ODR_STS_DSC = '03'							/* 03: 발주상태, 08: 검수확정 */
+				  GROUP BY X.ODRPL_NA_TRPL_C
+						 , X.ODRPL_NA_TEAM_C
+						 , X.ODR_DT
+						 , X.ODR_SLPNO
+						 , NVL(Y.NA_DVY_PLASH_SLPNO, '.')
+			   )		
+	</select>
+	
+	<select id= "retrieveUnCnfCnInqCnt3"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT COUNT(*) CNT FROM TB_BY_BYNG_M
+		WHERE BUYPL_NA_TRPL_C = #{GLNCODE} /* 자사 거래처 기준이며 지사포함일 경우 해당 거래처 추가 필요 */
+		  AND SLP_DT BETWEEN #{FROM} AND #{TO}
+		  AND DOC_NAME = 'CONRET'
+		  AND FS_RMS_DT IS NULL
+	</select>
+	
+	<select id= "retrieveUnCnfCnInqCnt4"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT COUNT(*) CNT 
+		FROM TB_OD_RTNPLN_M A, TB_TR_TRNREL B
+		WHERE A.NA_TRPL_C = B.CSER_NA_TRPL_C
+		AND A.RVOPL_NA_TEAM_C = B.SPLR_NA_TRPL_C
+		AND B.RGD_AMN_DSC='2'
+		AND A.RVOPL_NA_TRPL_C=#{GLNCODE}
+		AND A.RGD_RG_DT BETWEEN #{FROM} AND #{TO}
+		AND A.RTNCNF_DTM IS NULL
+	</select>
+	
+	<select id= "retrieveUnCnfCnInqCnt5"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT COUNT(*) CNT FROM TB_BY_BYNG_M
+		WHERE BUYPL_NA_TRPL_C = #{GLNCODE} /* 자사 거래처 기준이며 지사포함일 경우 해당 거래처 추가 필요 */
+		  AND SLP_DT BETWEEN #{FROM} AND #{TO}
+		  AND DOC_NAME = 'CONADV'
+		  AND FS_RMS_DT IS NULL
+	</select>
+	
+	<select id= "retrieveUnCnfCnInqCnt6"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT COUNT(*) AS CNT
+		  FROM TX_TXBIL A
+		 WHERE A.RPBC_DSC = '2'
+		   AND A.CRT_DT BETWEEN TO_CHAR(SYSDATE-100,'YYYYMMDD') AND TO_CHAR(SYSDATE,'YYYYMMDD')
+		   AND A.TXBIL_STSC IN ('01', '02')
+		   <choose>
+		       <when test='userTPC == "01"'>
+		           AND A.NA_TRPL_C = #{GLNCODE} 
+		       </when>
+		       <when test='userTPC == "04"'>
+		           AND A.NA_TRPL_C = #{GLNCODE} 
+		       </when>
+		       <otherwise>
+		           AND A.NA_BZPLC = #{GLNCODE}
+		       </otherwise>
+		   </choose>
+	</select>
+	
+	<select id= "retrieveUnCnfCnInqCnt7"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT COUNT(*) AS CNT
+		FROM TB_FM_FACORD
+		WHERE NA_TRPL_C = #{GLNCODE}
+		AND ORD_RG_STS <![CDATA[<>]]> '3'
+		AND DEL_YN <![CDATA[<>]]> 'Y'
+		AND DLY_TER BETWEEN #{FROM} AND #{TO}
+	</select>
+	
+</mapper>

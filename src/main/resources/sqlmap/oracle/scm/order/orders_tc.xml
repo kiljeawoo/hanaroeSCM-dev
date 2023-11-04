@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order_tc">
+
+	<!-- TC 수주내역 조회 -->
+	<resultMap id="tcOrdersMap" type="com.nh.escm.scm.order.vo.OrderOrdersTCVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_STD_UNT_C" property="NA_WRS_STD_UNT_C" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="PHD_FCLT_N" property="PHD_FCLT_N" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+	</resultMap>
+		
+	<!-- TC 수주내역 조회 -->
+	<sql id="sql_retrieveTCOrders">
+		SELECT 
+			M.ODRPL_NA_TRPL_C,
+			M.ODRPL_NA_TEAM_C,
+			M.ODR_DT,
+			M.ODR_SLPNO,
+			M.ODR_DSQNO,
+			M.NA_WRS_C,
+			E.WRSNM,
+			DECODE(TRIM(#{NA_USR_SYS_KDC}),'52',C.boxpe_aqz,'54',C.boxpe_aqz, E.boxpe_aqz) AS boxpe_aqz,
+			E.WRS_STDNM,/* 규격 */
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', E.NA_WRS_UNT_C) AS NA_WRS_STD_UNT_C, /* 단위 */
+			'[ ' || M.TXT_DSC || ' ]' || FN_CM_SIMP_CNM('TXT_DSC', M.TXT_DSC) AS TXT_DSC, /* 면과세 */
+			M.ODR_PCS, /* 단가 */
+			NVL(NVL(M.ODR_QT, 0) / DECODE(C.BOXPE_AQZ, 0, NULL, C.BOXPE_AQZ), 0) AS BOX_QT, /* 박스수량*/
+			M.ODR_QT, /* 수주수량 */
+			M.ODR_AM,
+			M.VCBT_AM,
+			C.PHD_FCLT_C AS PHD_FCLT_N, /* 물류기능코드 */
+			'[ ' || M.ODRPL_NA_TRPL_C || ' ]' || FN_TRPL_CIF_NM(M.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			C.SPYPL_NA_TRPL_C AS SPYPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(C.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N
+		FROM (
+		<![CDATA[
+		SELECT /*+ ordered */
+		]]>	
+			A.ODRPL_NA_TRPL_C,
+			A.ODRPL_NA_TEAM_C,
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			A.ODR_DSQNO,
+			A.TXT_DSC,
+			A.ODR_PCS,
+			A.ODR_QT, /* 수주수량 */
+			A.ODR_AM,
+			A.VCBT_AM,
+			A.RVOPL_NA_TRPL_C,
+			A.NA_WRS_C
+		FROM 
+			TB_OD_ORDER_TC A
+		WHERE A.del_dtm IS NULL
+		AND A.rvopl_na_trpl_c = #{ODRPL_NA_TRPL_C} 
+		AND A.SPYPL_NA_TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+			AND A.NA_WRS_C = #{NA_WRS_C}
+		</if>
+		AND A.ODR_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}) M,
+			TB_OD_TRTWRS C,
+			TB_GD_WRS E
+		WHERE M.RVOPL_NA_TRPL_C = C.NA_BZPLC(+)
+		AND M.NA_WRS_C = C.NA_WRS_C(+)
+		AND C.NA_WRS_C = E.NA_WRS_C(+)
+	</sql>
+
+	<select id="retrieveTCOrders" parameterType="java.util.Map"
+		resultMap="tcOrdersMap">
+		<bind name="sortName"
+			value="'ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO, ODR_DSQNO'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveTCOrders" />
+		<include refid="common.paging_end" />
+	</select>
+	
+
+	<select id="excelTCOrders" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		
+		SELECT
+			 M.ODR_DSQNO
+			,M.NA_WRS_C
+			,E.WRSNM
+			,M.CHAF_NA_WRS_C
+			,E.NA_WRS_LCLC
+			,E.NA_WRS_MCLC
+			,E.NA_WRS_SCLC
+			,E.NA_WRS_DTCF_C
+			,E.NA_WRS_UNT_C
+			,E.NA_WRS_PAK_C
+			,E.NA_WRS_SZE_SEX_C
+			,E.NA_WRS_QLT_GRDC
+			,E.WRS_HGHT
+			,E.WRS_LEN_LEN
+			,E.WRS_WDTH_LEN
+			,E.WRS_SDL_DSC
+			,E.WRS_AHL_CN
+			,'' ODR_WRS_CNTN  /* -- 발주상품내용 */
+			,C.PD_YY
+			,C.TXT_DSC
+			,C.BOX_WRS_YN
+			,C.DDLY_YN
+			,M.VCBT_NA_WRS_C
+			,M.VCBT_AM
+			,M.VCBX_AM
+			,M.ODR_PCS
+			,'' ALC_QT       /* -- 할당수량 */
+			,M.ODR_QT
+			,M.ODR_VAT
+			,M.ODR_AM
+			, '' BYNG_DFN_UPR       /* -- 매입확정단가 */
+			, '' BYNG_DFN_QT        /* -- 매입확정수량 */
+			, '' BYNG_DFN_VAT       /* -- 매입확정부가세 */
+			, '' BYNG_DFN_AM        /* -- 매입확정금액 */
+			, '' PDAA_NA_TRPL_C     /* -- 산지경제통합사업장코드 */
+			, '' PDAA_NA_TRPL_NM
+			, '' PDAA_NA_TEAM_C     /* -- 산지경제통합팀코드 */
+			, '' PDAA_NA_TEAM_NM
+			, '' RCPMNM             /* -- 수령인명 */
+			, '' RCPMN_TELNO        /* -- 수령인전화번호 */
+			,M.NA_ODR_STS_DSC
+			,M.RMK_CNTN
+			,'' FSRG_DTM           /* -- 최초등록일시 */
+			,M.FSRGMN_ENO         /* -- 최초등록자개인번호 */
+			,'' LSCHG_DTM          /* -- 최종변경일시 */
+			,M.LS_CMENO           /* -- 최종변경자개인번호 */
+			,M.DEL_DTM            /* -- 삭제일시 */
+			,E.WRS_STDNM
+			,FN_CM_SIMP_CNM('NA_WRS_UNT_C', E.NA_WRS_UNT_C) AS NA_WRS_STD_UNT_C /* 단위 */
+			,C.VCBT_UPR
+			,C.PD_YY_AMN_YN
+			,C.MIN_ODR_QT
+			,C.MAX_ODR_QT
+			,E.VCBT_QT
+			,DECODE(TRIM(#{NA_USR_SYS_KDC}),'52',C.BOXPE_AQZ,'54',C.BOXPE_AQZ, E.BOXPE_AQZ) AS BOXPE_AQZ /* 박스당입수*/
+			--1055(C)물류예약	1056(L)최소발주수량	1057(L)최대발주수량	1058(L)최소발주금액	1059(L)최대발주금액	1060(V)수주상태
+			,'' MART_DIV_BKG_ODR_YN  /* -- 물류예약     */
+			,'' MAX_ODR_QT_A         /* -- 최소발주수량 */
+			,'' MIN_ODR_QT_A         /* -- 최대발주수량 */
+			,'' MAX_ODR_AM           /* -- 최소발주금액 */
+			,'' MIN_ODR_AM           /* -- 최대발주금액 */
+			,'Y:정상수주' AS ORD_STS
+			,E.WRS_TPC
+			,C.CSER_CTR_TPC
+			,C.BUY_BZ_METC
+			,C.SVS_YN
+			,C.SVS_UNT_QT
+			,C.PHD_FCLT_C
+			,M.ODR_QT ODR_QT_A
+			,M.ODRPL_NA_TRPL_C
+			,M.ODRPL_NA_TEAM_C
+			,M.ODR_DT
+			,M.ODR_SLPNO
+			,FN_TRPL_CIF_NM(M.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N
+			,FN_CM_TEAM_NM(M.ODRPL_NA_TRPL_C, M.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N
+			,FN_CM_SIMP_CNM('TXT_DSC', M.TXT_DSC) AS TXT_DSC_N /* 면과세 */
+			,C.SPYPL_NA_TRPL_C
+			,FN_TRPL_CIF_NM(C.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N
+		FROM
+                     (
+		<![CDATA[
+		SELECT /*+ ordered */
+		]]>	
+             A.ODR_DSQNO
+			,A.NA_WRS_C
+			,A.CHAF_NA_WRS_C
+			,A.VCBT_NA_WRS_C
+			,A.VCBT_AM
+			,A.VCBX_AM
+			,A.ODR_PCS
+			,A.ODR_QT
+			,A.ODR_VAT
+			,A.ODR_AM
+			,A.NA_ODR_STS_DSC
+			,A.RMK_CNTN
+			,A.FSRGMN_ENO         /* -- 최초등록자개인번호 */
+			,A.LS_CMENO           /* -- 최종변경자개인번호 */
+			,A.DEL_DTM            /* -- 삭제일시 */
+			,A.ODR_QT ODR_QT_A
+			,A.ODRPL_NA_TRPL_C
+			,A.ODRPL_NA_TEAM_C
+			,A.ODR_DT
+			,A.ODR_SLPNO
+			,A.RVOPL_NA_TRPL_C
+ 			,A.TXT_DSC
+                     FROM 
+						TB_OD_ORDER_TC A
+					WHERE 1=1
+					AND A.del_dtm IS NULL
+					AND A.PRC_YN IN ('R', 'Y')
+                            AND A.rvopl_na_trpl_c = #{ODRPL_NA_TRPL_C} 
+							AND A.SPYPL_NA_TRPL_C IN
+							<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+							</foreach>
+							AND A.ODR_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}) M,
+								TB_OD_TRTWRS C,
+								TB_GD_WRS E
+							WHERE M.RVOPL_NA_TRPL_C = C.NA_BZPLC(+)
+							AND M.NA_WRS_C = C.NA_WRS_C(+)
+							AND C.NA_WRS_C = E.NA_WRS_C(+)
+							ORDER BY ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO, ODR_DSQNO		
+	</select>
+		
+
+	<select id="retrieveTCOrdersCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveTCOrders" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="excelTCOrdersBilling" parameterType="java.util.Map" resultType="int">
+		
+		<![CDATA[
+		SELECT /*+ ordered */
+		]]>	
+             COUNT(*) CNT
+                     FROM 
+						TB_OD_ORDER_TC A
+					WHERE 1=1
+					AND A.del_dtm IS NULL
+					AND A.PRC_YN IN ('R', 'Y')
+                            AND A.rvopl_na_trpl_c = #{ODRPL_NA_TRPL_C} 
+							AND A.SPYPL_NA_TRPL_C IN
+							<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+							</foreach>
+							<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+								AND A.NA_WRS_C = #{NA_WRS_C}
+							</if>
+							AND A.ODR_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}	
+	</select>
+
+</mapper>

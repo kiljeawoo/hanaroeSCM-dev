@@ -1,0 +1,2011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="taxDAO">
+	<resultMap id="taxSlamMasterMap" type="com.nh.escm.pds.pay.vo.TaxSlamMasterVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="BYNG_YM" property="BYNG_YM" />
+		<result column="TXBZ_DFN_DT" property="TXBZ_DFN_DT" />
+		<result column="TXBZ_TOT_RG_SQNO" property="TXBZ_TOT_RG_SQNO" />
+		<result column="CUSNM" property="CUSNM" />
+		<result column="TRPL_RLNO" property="TRPL_RLNO" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="PUC" property="PUC" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="BYNG_VAT" property="BYNG_VAT" />
+		<result column="SMA_AM" property="SMA_AM" />
+		<result column="EXTX_AM" property="EXTX_AM" />
+		<result column="TOTALAM" property="TOTALAM" />
+		<result column="VAT" property="VAT" />
+		<result column="RCCNT" property="RCCNT" />
+		<result column="RCAM" property="RCAM" />
+		<result column="RCVAT" property="RCVAT" />
+		<result column="RCNCNT" property="RCNCNT" />
+	</resultMap>
+	
+	<resultMap id="taxSlamDetailMap" type="com.nh.escm.pds.pay.vo.TaxSlamDetailVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="BYNG_YM" property="BYNG_YM" />
+		<result column="TXBZ_DFN_DT" property="TXBZ_DFN_DT" />
+		<result column="TXBZ_TOT_RG_SQNO" property="TXBZ_TOT_RG_SQNO" />
+		<result column="BZPL_BZNO" property="BZPL_BZNO" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="TRPL_RLNO" property="TRPL_RLNO" />
+		<result column="CUSNM " property="CUSNM " />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="TRPL_NA_TEAM_C" property="TRPL_NA_TEAM_C" />
+		<result column="TR_DT" property="TR_DT" />
+		<result column="NA_SOAC_DSC" property="NA_SOAC_DSC" />
+		<result column="NA_TOT_DSC" property="NA_TOT_DSC" />
+		<result column="NA_TOT_DTI_DSC" property="NA_TOT_DTI_DSC" />
+		<result column="TXBZ_TP_DSC" property="TXBZ_TP_DSC" />
+		<result column="LATCNM" property="LATCNM" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="VAT" property="VAT" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="NA_TR_DSC" property="NA_TR_DSC" />
+		<result column="BZ_METH_DSC" property="BZ_METH_DSC" />
+		<result column="ROTS_CTR_DSC" property="ROTS_CTR_DSC" />
+		<result column="NA_LLED_C" property="NA_LLED_C" />
+		<result column="NA_MLED_C" property="NA_MLED_C" />
+		<result column="TXBZ_PBC_NT" property="TXBZ_PBC_NT" />
+		<result column="TXBZ_PBC_DTM" property="TXBZ_PBC_DTM" />
+		<result column="TXBZ_PBCMN_ENO" property="TXBZ_PBCMN_ENO" />
+		<result column="PBC_RMK_CNTN" property="PBC_RMK_CNTN" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="RC_YN" property="RC_YN" />
+		<result column="RC_TYPE" property="RC_TYPE" />
+		<result column="BLB_SPY_AM" property="BLB_SPY_AM" />
+		<result column="BLB_VAT" property="BLB_VAT" />
+		<result column="DFC_SPY_AM" property="DFC_SPY_AM" />
+		<result column="DFC_VAT" property="DFC_VAT" />
+		<result column="CRC_BLB_SPY_AM" property="CRC_BLB_SPY_AM" />
+		<result column="CRC_BLB_VAT" property="CRC_BLB_VAT" />
+		<result column="CRC_DFC_SPY_AM" property="CRC_DFC_SPY_AM" />
+		<result column="CRC_DFC_VAT" property="CRC_DFC_VAT" />
+		<result column="TRPL_CLNTNM" property="TRPL_CLNTNM" />
+		<result column="TRPL_ADR" property="TRPL_ADR" />
+		<result column="TRPL_BZTPNM" property="TRPL_BZTPNM" />
+		<result column="TRPL_BZCCNM" property="TRPL_BZCCNM" />
+		<result column="TRPL_REPMNM" property="TRPL_REPMNM" />
+		<result column="TRPL_TEL" property="TRPL_TEL" />
+		<result column="BZPL_CLNTNM" property="BZPL_CLNTNM" />
+		<result column="BZPL_ADR" property="BZPL_ADR" />
+		<result column="BZPL_BZTPNM" property="BZPL_BZTPNM" />
+		<result column="BZPL_BZCCNM" property="BZPL_BZCCNM" />
+		<result column="BZPL_REPMNM" property="BZPL_REPMNM" />
+		<result column="BZPL_TEL" property="BZPL_TEL" />		
+	</resultMap>
+	
+	<resultMap id="taxByngMap" type="com.nh.escm.pds.pay.vo.TaxByngVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="BZPL_BZNO" property="BZPL_BZNO" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CUSNM" property="CUSNM" />
+		<result column="TRPL_RLNO" property="TRPL_RLNO" />
+		<result column="TRPL_NA_TEAM_C" property="TRPL_NA_TEAM_C" />
+		<result column="TR_DT" property="TR_DT" />
+		<result column="NA_SOAC_DSC" property="NA_SOAC_DSC" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="VAT" property="VAT" />
+		<result column="PUC" property="PUC" />
+		<result column="NA_TOT_DSC" property="NA_TOT_DSC" />
+		<result column="NA_TOT_DTI_DSC" property="NA_TOT_DTI_DSC" />
+		<result column="TXBZ_TP_DSC" property="TXBZ_TP_DSC" />
+		<result column="LATCNM" property="LATCNM" />
+		<result column="BLB_SPY_AM" property="BLB_SPY_AM" />
+		<result column="BLB_VAT" property="BLB_VAT" />
+		<result column="CRC_BLB_SPY_AM" property="CRC_BLB_SPY_AM" />
+		<result column="CRC_BLB_VAT" property="CRC_BLB_VAT" />
+		<result column="DFC_SPY_AM" property="DFC_SPY_AM" />
+		<result column="DFC_VAT" property="DFC_VAT" />
+		<result column="CRC_DFC_SPY_AM" property="CRC_DFC_SPY_AM" />
+		<result column="CRC_DFC_VAT" property="CRC_DFC_VAT" />
+		<result column="BZ_METH_DSC" property="BZ_METH_DSC" />
+		<result column="ROTS_CTR_DSC" property="ROTS_CTR_DSC" />
+		<result column="NA_LLED_C" property="NA_LLED_C" />
+		<result column="NA_MLED_C" property="NA_MLED_C" />
+		<result column="PBC_RMK_CNTN" property="PBC_RMK_CNTN" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="TXBZ_TOT_RG_SQNO" property="TXBZ_TOT_RG_SQNO" />		
+		<result column="DSPC_INCD_YN" property="DSPC_INCD_YN" />
+	</resultMap>
+	
+	
+	<resultMap id="taxByngPrintMap" type="com.nh.escm.pds.pay.vo.TaxByngPrintVO">
+		<result column="TXBZ_TOT_RG_SQNO" property="TXBZ_TOT_RG_SQNO" />
+		<result column="JOIN_GLN" property="JOIN_GLN" />
+		<result column="BIZ_NUMBER_B" property="BIZ_NUMBER_B" />
+		<result column="CLNTNM_B" property="CLNTNM_B" />
+		<result column="REPMNM_B" property="REPMNM_B" />
+		<result column="ADDRESS_B" property="ADDRESS_B" />
+		<result column="BZTPNM_B" property="BZTPNM_B" />
+		<result column="BZCCNM_B" property="BZCCNM_B" />
+		<result column="BIZ_NUMBER_C" property="BIZ_NUMBER_C" />
+		<result column="CLNTNM_C" property="CLNTNM_C" />
+		<result column="REPMNM_C" property="REPMNM_C" />
+		<result column="ADDRESS_C" property="ADDRESS_C" />
+		<result column="BZTPNM_C" property="BZTPNM_C" />
+		<result column="BZCCNM_C" property="BZCCNM_C" />
+		<result column="TR_DT" property="TR_DT" />
+		<result column="SLP_DT" property="SLP_DT" />
+		<result column="LATCNM" property="LATCNM" />
+		<result column="SPY_AM" property="SPY_AM" />
+		<result column="VAT" property="VAT" />
+		<result column="SUM_VALUE" property="SUM_VALUE" />
+		<result column="CLNTNM_BZ" property="CLNTNM_BZ" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="CLNTNM_CZ" property="CLNTNM_CZ" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="NA_TR_DSC" property="NA_TR_DSC" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="RG_SQNO" property="RG_SQNO" />
+		<result column="PBC_RMK_CNTN" property="PBC_RMK_CNTN" />
+		<result column="JOIN_GLN_NM" property="JOIN_GLN_NM" />
+	</resultMap>
+	
+
+	<!-- 실적_세무자료_매출 마스터 -->
+	<select id="retrieveSlamMasterList" parameterType="java.util.Map" resultMap="taxSlamMasterMap">
+		SELECT 
+			C.CLNTNM AS CUSNM /*거래명         */
+			, NVL(A.ORG_TRPL_RLNO, C.BIZ_NUMBER) AS TRPL_RLNO 
+			, A.* 
+			FROM (
+						SELECT 
+							A.TRPL_RLNO AS ORG_TRPL_RLNO                                                          /*사업자번호     */						
+							, A.NA_TRPL_C                                                          /*거래처코드     */
+							, COUNT(A.RC_YN) AS PUC                                                 /*매입매수       */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020', 0,
+							(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )), 0)) AS SPY_AM  /*과세매입       */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020', 0,
+							(A.BLB_VAT  +A.CRC_BLB_VAT  )
+							-(A.DFC_VAT  +A.CRC_DFC_VAT  )), 0)) AS BYNG_VAT          /*매입부가세     */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020',
+							(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ),0), 0)) AS SMA_AM     /*영세율매입     */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'2', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS EXTX_AM /*면세매입     */
+							, SUM((A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )) AS TOTALAM                     /*총매입액       */
+							, SUM((A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )) AS VAT    /*부가세  */
+							, SUM(DECODE(A.RC_YN, '1', 1, 0)) AS RCCNT                              /*접수매수       */
+							, SUM(DECODE(A.RC_YN, '1', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS RCAM  /*접수금액 */
+							, SUM(DECODE(A.RC_YN, '1', (A.BLB_VAT  +A.CRC_BLB_VAT  )
+							-(A.DFC_VAT  +A.CRC_DFC_VAT  ), 0)) AS RCVAT   /*접수세액    */
+							, SUM(DECODE(A.RC_YN, '1', 0, 1)) AS RCNCNT                             /*미접수매수     */
+						FROM TB_TX_TH_DAY_SUPP     A
+						WHERE 1=1
+							<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+							  AND A.NA_BZPLC = #{NA_BZPLC}				
+							</if>
+							<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+							  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+							</if>
+							<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+							  AND A.NA_TEAM_C = #{NA_TEAM_C}
+							</if>
+							AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+							AND A.NA_TRPL_C IN
+							<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+							#{item}
+							</foreach>
+							AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+							<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/							
+							<choose>
+								<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+								AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+								</when>
+								<otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/
+									 AND A.NA_TOT_DSC         IN ('01','03')
+								    <!-- 
+								    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+								    </if>
+								     -->
+								</otherwise>
+							</choose>
+							<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+							AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+							</if>	
+							<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+							AND A.RC_YN = #{RC_YN}
+							</if>
+							/*확정사업장 유무*/
+							AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+							AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+							OR A.NA_TOT_DSC = '03'
+							OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+							OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+							)
+							)
+							OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+							AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+							AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+							AND A.NA_TRPL_APL_YN = '1')
+							)
+							OR A.NA_TOT_DSC = '03'
+							OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+							OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+							)
+							)
+							)
+							AND A.TXBZ_TOT_YN      = '0' /*세무집계여부*/
+							AND A.SOAC_PBC_APL_YN  = '1' /*계산서발행적용여부*/
+							AND A.BRK_DEL_YN       = '0' /*내역삭제여부*/
+						GROUP BY  A.NA_TRPL_C,  A.TRPL_RLNO
+			) A, TB_TR_TRPL_CIF C
+			WHERE A.NA_TRPL_C        = C.NA_TRPL_C(+)
+			ORDER BY  A.NA_TRPL_C, C.CLNTNM,  C.BIZ_NUMBER
+	</select>
+	
+	<!-- 실적_세무자료_매출 디테일 -->
+	<select id="retrieveSlamDetailList" parameterType="java.util.Map" resultMap="taxSlamDetailMap">
+		WITH T1 AS (
+		SELECT
+		A.NA_BZPLC
+		, A.BZPL_BZNO
+		, A.NA_TRPL_C
+		, A.TRPL_RLNO
+		, A.NA_TEAM_C
+		, A.TRPL_NA_TEAM_C
+		, A.TR_DT
+		, A.NA_SOAC_DSC
+		, A.NA_TOT_DSC
+		, A.NA_TOT_DTI_DSC
+		, A.TXBZ_TP_DSC
+		, A.LATCNM
+		, A.NA_SLPNO
+		, A.BZ_METH_DSC
+		, A.ROTS_CTR_DSC
+		, A.NA_LLED_C
+		, A.NA_MLED_C
+		, A.TXBZ_PBC_NT
+		, A.TXBZ_PBC_DTM
+		, A.TXBZ_PBCMN_ENO
+		, A.RC_RMK_CNTN
+		, A.RMK_CNTN
+		, A.RC_YN
+		, A.BLB_SPY_AM
+		, A.BLB_VAT
+		, A.DFC_SPY_AM
+		, A.DFC_VAT
+		, A.CRC_BLB_SPY_AM
+		, A.CRC_BLB_VAT
+		, A.CRC_DFC_SPY_AM
+		, A.CRC_DFC_VAT
+		, A.RG_SQNO
+		, A.RC_DT
+		, A.TXBZ_BRK_TP_DSC
+		, A.BUYPL_RAPV_YN
+		, A.TXBZ_BRK_TOT_TP_YN
+		, A.NA_TR_DSC
+		, A.TXBZ_TOT_RG_SQNO
+		, A.RG_STS_DSC
+		, A.ELT_TXBIL_PRC_YN
+		, A.SLPL_APV_YN
+		, A.RPBC_YN
+		FROM TB_TX_TH_DAY_SUPP  A
+		WHERE 1=1
+		<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+		  AND A.NA_BZPLC = #{NA_BZPLC}				
+		</if>
+		<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+		  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+		</if>
+		<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+		  AND A.NA_TEAM_C = #{NA_TEAM_C}
+		</if>
+		AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+		<!-- AND A.NA_TRPL_C = '8801052000015' -->
+		AND A.NA_TRPL_C IN
+		<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")"> /*거래처실명번호*/
+		#{item}
+		</foreach>
+		AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+		AND A.TRPL_RLNO = #{TRPL_RLNO}
+		<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/	
+		<choose>
+		  <when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+		  AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+		  </when>
+		  <otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/		    
+		    AND A.NA_TOT_DSC         IN ('01','03')
+		    <!-- 
+		    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+		    </if>
+		     -->			
+		  </otherwise>
+		</choose>
+		<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+		AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+		</if>
+		<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+		AND A.RC_YN = #{RC_YN}
+		</if>
+		/*확정사업장 유무*/
+		AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+		AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+		OR A.NA_TOT_DSC = '03'
+		OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+		OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+		)
+		)
+		OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+		AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+		AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+		AND A.NA_TRPL_APL_YN = '1')
+		)
+		OR A.NA_TOT_DSC = '03'
+		OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+		OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+		)
+		)
+		)
+		
+		
+		AND A.TXBZ_TOT_YN = '0'          /*세무집계여부 */
+		AND A.SOAC_PBC_APL_YN  = '1'
+		AND A.BRK_DEL_YN = '0'
+		)
+		SELECT
+		A.NA_BZPLC                                         /* 사업장코드            */		
+		<!-- , A.BZPL_BZNO                                        /* 사업자등록번호            */ -->		
+		, B1.BIZ_NUMBER AS BZPL_BZNO                      /* 사업장사업자등록번호            */
+		, B1.CLNTNM                                          /* 사업장명              */
+		, A.NA_TRPL_C                                        /* 거래처코드            */
+		<!-- , A.TRPL_RLNO                                        /* 거래처실명번호        */ -->
+		, NVL(A.TRPL_RLNO, B2.BIZ_NUMBER) AS TRPL_RLNO                      /* 거래처 실명번호       */
+		, NVL( B2.CLNTNM, (SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.NA_TRPL_C)) AS CUSNM /*거래명   */
+		, '['|| A.NA_TEAM_C||']'||' '||G1.TEAMNM AS NA_TEAM_C              /* 사업장팀              */
+		, '['|| A.TRPL_NA_TEAM_C ||']'||' '||G2.TEAMNM AS TRPL_NA_TEAM_C        /* 거래처팀              */
+		, A.TR_DT                                            /* 일자                  */
+		, DECODE(A.NA_SOAC_DSC, '1', '세금계산서','2','계산서','3','입금표','') AS NA_SOAC_DSC /*계산서구분             */		
+		, '['||A.NA_TOT_DSC ||']'||F1.TXBZ_IDVD_CNM AS NA_TOT_DSC          /*집계구분               */
+		, '['||A.NA_TOT_DTI_DSC||']'||F2.TXBZ_IDVD_CNM AS NA_TOT_DTI_DSC       /*집계상세구분           */
+		, '['||A.TXBZ_TP_DSC||']'||F3.TXBZ_IDVD_CNM AS TXBZ_TP_DSC          /*세무유형구분           */		
+		, DECODE (K.TXBZ_TP_LATCNM,'',A.LATCNM,K.TXBZ_TP_LATCNM) AS LATCNM /*품목명              */		
+		, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )  SPY_AM        /* 순공급액              */
+		, (A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )  VAT               /* 순부가세              */
+		, A.NA_SLPNO                                         /* 전표번호              */
+		
+		<!-- , '['||A.NA_TR_DSC  ||']'||L.TR_DSNM  AS NA_TR_DSC               /* 수불구분              */ -->
+		, '['||A.NA_TR_DSC||']'||DECODE(SUBSTR(A.NA_TR_DSC,0,2),'IB','매입',SUBSTR(A.NA_TR_DSC,0,2)) AS NA_TR_DSC /* 수불구분              */
+				
+		, '['||A.BZ_METH_DSC  ||']'|| H1.SIMP_CNM AS BZ_METH_DSC            /* 사업방식              */
+		, '['||A.ROTS_CTR_DSC ||']'|| H2.SIMP_CNM AS ROTS_CTR_DSC            /* 계통계약구분          */
+		, '['||A.NA_LLED_C ||']'|| J1.WRS_LCLFNM AS NA_LLED_C            /*대분류                 */
+		, '['||A.NA_MLED_C ||']'|| J2.WRS_MCLFNM AS NA_MLED_C           /*중분류                 */
+		, NVL(A.TXBZ_PBC_NT, 0) AS TXBZ_PBC_NT                             /*발행횟수               */
+		, TO_CHAR(A.TXBZ_PBC_DTM,'YYYY-MM-DD HH:MM:SS')	 AS TXBZ_PBC_DTM	/*발행일시               */
+		, DECODE(A.TXBZ_PBCMN_ENO,'','', '['||A.TXBZ_PBCMN_ENO||']'||'발행자') AS TXBZ_PBCMN_ENO/*발행자 */
+		, DECODE(A.BUYPL_RAPV_YN, '1', '자사업장승인', DECODE (A.SLPL_APV_YN, '1', '타사업장승인',DECODE(A.ELT_TXBIL_PRC_YN, '1', '전자세금',DECODE(A.RPBC_YN , '1', '역발행','일반' )))) AS PBC_RMK_CNTN /*접수방법               */
+		, A.RMK_CNTN                                        /*참조                   */
+		, A.RC_YN                                            /*접수여부               */
+		, DECODE(A.RC_YN, '0', '미접수','접수') AS RC_TYPE
+		, A.BLB_SPY_AM                                       /*훅자매입액             */
+		, A.BLB_VAT                                          /*흑자부가세             */
+		, A.DFC_SPY_AM                                       /*적자공급금액           */
+		, A.DFC_VAT                                          /*적자부가세             */
+		, A.CRC_BLB_SPY_AM                                   /*정정흑자공급금액       */
+		, A.CRC_BLB_VAT                                      /*정정흑자부가세         */
+		, A.CRC_DFC_SPY_AM                                   /*정정적자공급금액       */
+		, A.CRC_DFC_VAT                                      /*정정적자부가세         */
+		, B2.CLNTNM  AS TRPL_CLNTNM                                         /*거래처명               */
+		, B2.DONGUP||' '||B2.DONGBW AS TRPL_ADR                          /*거래처주소             */
+		, B2.BZTPNM AS TRPL_BZTPNM                                       /*거래처업태             */
+		, B2.BZCCNM AS TRPL_BZCCNM                                         /*거래처종목             */
+		, B2.REPMNM AS TRPL_REPMNM                                         /*거래처대표자           */
+		, B2.ATEL||B2.HTEL||B2.STEL AS TRPL_TEL                       /*거래처전화             */
+		, B1.CLNTNM AS BZPL_CLNTNM                                         /*사업장명               */
+		, B1.DONGUP||' '||B1.DONGBW AS BZPL_ADR                       /*사업장주소             */
+		, B1.BZTPNM AS BZPL_BZTPNM                                         /*사업장업태             */
+		, B1.BZCCNM AS BZPL_BZCCNM                                        /*사업장종목             */
+		, B1.REPMNM AS BZPL_REPMNM                                        /*사업장대표자           */
+		, B1.ATEL||B1.HTEL||B1.STEL AS BZPL_TEL                          /*사업장전화             */
+		, A.RG_SQNO                                          /*등록일련번호           */
+		, A.RC_DT                                            /*접수일자               */
+		, A.TXBZ_BRK_TP_DSC                                  /*세무내역유형구분       */
+		, A.BUYPL_RAPV_YN                                    /* 승인여부              */
+		, A.TXBZ_BRK_TOT_TP_YN                               /*세무내역집계성여부     */
+		, A.NA_TR_DSC                                        /*경제통합거래구분코드   */
+		, ''                                                 /*DM우편번호             */
+		, ''                                                 /*DM 주소                */
+		, ''                                                 /* DM 안내문구           */
+		, A.NA_TOT_DSC                                       /* 집계구분코드          */
+		, K.TXBZ_TP_LATCNM                                   /*세무유형품목명         */
+		, A.TXBZ_TOT_RG_SQNO                                 /*세무집계등록일련번호   */
+		, A.RG_SQNO                                          /*신규등록일련번호       */
+		, A.RG_STS_DSC                                       /*등록상태구분코드       */
+		, DECODE(A.BUYPL_RAPV_YN, '1', '1', DECODE (A.SLPL_APV_YN, '1', '1', DECODE(A.ELT_TXBIL_PRC_YN, '1', '1','0'))) /*수정삭제가능여부 0:가능, 1: 불가능*/
+		FROM
+		T1                         A
+		, TB_TR_TRPL_CIF           B1
+		, TB_TR_TRPL_CIF           B2		
+		, TB_TX_TM_IDVDC          F1
+		, TB_TX_TM_IDVDC          F2
+		, TB_TX_TM_IDVDC          F3
+		, TB_CM_TEAM        G1  /*거래처관리_사업장팀기본*/
+		, TB_CM_TEAM        G2
+		, TB_CM_SIMPC          H1 /*공통관리_단순통합코드내역*/
+		, TB_CM_SIMPC          H2
+		, TB_GD_WRS_CLF        J1 /*상품관리_상품분류코드*/
+		, TB_GD_WRS_CLF        J2
+		
+		<!-- , TB_NA_LD_IC_TRA            L /*정보관리_거래구분코드*/		
+		, VW_NA_OM_UM_IN_USR         O /*?*/ -->
+		
+		, TB_TX_TH_TAX_KIND_PBC   K /*세무관리_유형발행관리내역*/
+		WHERE 1=1
+		AND A.NA_BZPLC           = B1.NA_TRPL_C		
+		AND NVL(A.NA_TRPL_C, '0000000000000')    = B2.NA_TRPL_C(+)
+		<!-- AND A.BZPL_BZNO          = B1.BIZ_NUMBER
+		AND A.TRPL_RLNO          = B2.BIZ_NUMBER(+) -->		
+		AND A.NA_TOT_DSC         = F1.TXBZ_IDVDC(+)
+		AND F1.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DSC'
+		AND A.NA_TOT_DTI_DSC         = F2.TXBZ_IDVDC(+)
+		AND F2.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DTI_DSC'
+		AND A.TXBZ_TP_DSC         = F3.TXBZ_IDVDC(+)
+		AND F3.TXBZ_IDVD_TPC(+)     = 'TXBZ_TP_DSC'		
+		AND A.NA_BZPLC           = G1.NA_BZPLC(+)
+		AND A.NA_TEAM_C          = G1.NA_TEAM_C(+)
+		AND NVL(A.NA_TRPL_C  , '')               = G2.NA_BZPLC(+)
+		AND NVL(A.TRPL_NA_TEAM_C  , '')          = G2.NA_TEAM_C(+)
+		AND A.BZ_METH_DSC        = H1.SIMP_C(+)
+		AND H1.SIMP_TPC(+)       = 'BZ_METH_DSC'
+		AND A.ROTS_CTR_DSC       = H2.SIMP_C(+)
+		AND H2.SIMP_TPC(+)       = 'ROTS_CTR_DSC'
+		AND A.NA_LLED_C          = J1.NA_WRS_LCLC(+)
+		AND '000'                = J1.NA_WRS_MCLC(+)
+		AND '000'                = J1.NA_WRS_SCLC(+)
+		AND '000'                = J1.NA_WRS_DTCF_C(+)
+		AND A.NA_LLED_C          = J2.NA_WRS_LCLC(+)
+		AND A.NA_MLED_C          = J2.NA_WRS_MCLC(+)
+		AND '000'                = J2.NA_WRS_SCLC(+)
+		AND '000'                = J2.NA_WRS_DTCF_C(+)
+		<!--  
+		AND A.NA_TR_DSC          = L.NA_TR_DSC(+)
+		AND A.TXBZ_PBCMN_ENO = O.USRID(+) /*세무발행자개인번호*/
+		-->
+		AND A.NA_BZPLC           = K.NA_BZPLC(+)
+		AND A.NA_TEAM_C          = K.NA_TEAM_C(+)
+		AND A.TXBZ_TP_DSC        = K.TXBZ_TP_DSC(+)		
+		ORDER BY A.NA_BZPLC ,  A.NA_TRPL_C, G1.TEAMNM, A.TR_DT DESC	
+	</select>
+	
+	
+	<!-- 세무매출 엑셀 마스터 다운로드 -->
+	<select id="downloadExcelSlamMaster" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT 
+			NVL(C.CLNTNM, (SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.NA_TRPL_C_M)) AS CUSNM /*거래명         */
+			, NVL(A.ORG_TRPL_RLNO, C.BIZ_NUMBER) AS TRPL_RLNO_M
+			, A.* 
+			FROM (
+					SELECT 
+						A.TRPL_RLNO AS ORG_TRPL_RLNO                                                          /*사업자번호     */						
+						,A.NA_TRPL_C AS NA_TRPL_C_M                                                          /*거래처코드     */
+						, COUNT(A.RC_YN) AS PUC_M                                                 /*매입매수       */
+						, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+						DECODE(A.TXBZ_TP_DSC, '020', 0,
+						(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+						-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )), 0)) AS SPY_AM_M  /*과세매입       */
+						, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+						DECODE(A.TXBZ_TP_DSC, '020', 0,
+						(A.BLB_VAT  +A.CRC_BLB_VAT  )
+						-(A.DFC_VAT  +A.CRC_DFC_VAT  )), 0)) AS BYNG_VAT_M          /*매입부가세     */
+						, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+						DECODE(A.TXBZ_TP_DSC, '020',
+						(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+						-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ),0), 0)) AS SMA_AM_M     /*영세율매입     */
+						, SUM(DECODE(A.NA_SOAC_DSC ,'2', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+						-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS EXTX_AM_M /*면세매입     */
+						, SUM((A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+						-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )) AS TOTALAM_M                     /*총매입액       */
+						, SUM((A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )) AS VAT_M    /*부가세  */
+						, SUM(DECODE(A.RC_YN, '1', 1, 0)) AS RCCNT_M                              /*접수매수       */
+						, SUM(DECODE(A.RC_YN, '1', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+						-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS RCAM_M  /*접수금액 */
+						, SUM(DECODE(A.RC_YN, '1', (A.BLB_VAT  +A.CRC_BLB_VAT  )
+						-(A.DFC_VAT  +A.CRC_DFC_VAT  ), 0)) AS RCVAT_M   /*접수세액    */
+						, SUM(DECODE(A.RC_YN, '1', 0, 1)) AS RCNCNT_M                             /*미접수매수     */
+					FROM TB_TX_TH_DAY_SUPP     A
+					WHERE 1=1
+						<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+						  AND A.NA_BZPLC = #{NA_BZPLC}				
+						</if>
+						<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+						  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+						</if>
+						<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+						  AND A.NA_TEAM_C = #{NA_TEAM_C}
+						</if>
+						AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+						
+						<!-- AND A.NA_TRPL_C = '8801052000015' -->
+						AND A.NA_TRPL_C IN
+						<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")"> /*거래처실명번호*/
+						#{item}
+						</foreach>
+						
+						
+						AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+						<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/							
+						<choose>
+							<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+							AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+							</when>
+							<otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/
+								 AND A.NA_TOT_DSC         IN ('01','03')
+							    <!-- 
+							    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+							    </if>
+							     -->
+							</otherwise>
+						</choose>
+						<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+						AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+						</if>	
+						<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+						AND A.RC_YN = #{RC_YN}
+						</if>
+						/*확정사업장 유무*/
+						AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+						AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+						OR A.NA_TOT_DSC = '03'
+						OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+						OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+						)
+						)
+						OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+						AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+						AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+						AND A.NA_TRPL_APL_YN = '1')
+						)
+						OR A.NA_TOT_DSC = '03'
+						OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+						OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+						)
+						)
+						)
+						AND A.TXBZ_TOT_YN      = '0'
+						AND A.SOAC_PBC_APL_YN  = '1'
+						AND A.BRK_DEL_YN       = '0'
+						GROUP BY  A.NA_TRPL_C,  A.TRPL_RLNO
+			) A, TB_TR_TRPL_CIF C
+			WHERE A.NA_TRPL_C_M        = C.NA_TRPL_C(+)
+			<!-- AND A.TRPL_RLNO_M        = C.BIZ_NUMBER(+) -->
+			ORDER BY  A.NA_TRPL_C_M, C.CLNTNM,  C.BIZ_NUMBER
+	</select>
+	
+	<select id="downloadExcelSlamMaster_backup" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT GRDM.*
+		,GRDD.NA_BZPLC 
+		,GRDD.BZPL_BZNO
+		,GRDD.CLNTNM
+		,GRDD.NA_TRPL_C_D
+		,GRDD.TRPL_RLNO_D
+		,GRDD.CUSNM 
+		,GRDD.NA_TEAM_C
+		,GRDD.TRPL_NA_TEAM_C
+		,GRDD.TR_DT
+		,GRDD.NA_SOAC_DSC
+		,GRDD.NA_TOT_DSC_NM
+		,GRDD.NA_TOT_DSC
+		,GRDD.NA_TOT_DTI_DSC
+		,GRDD.TXBZ_TP_DSC
+		,GRDD.LATCNM
+		,GRDD.SPY_AM
+		,GRDD.VAT
+		,GRDD.NA_SLPNO
+		,GRDD.NA_TR_DSC
+		,GRDD.BZ_METH_DSC
+		,GRDD.ROTS_CTR_DSC
+		,GRDD.NA_LLED_C
+		,GRDD.NA_MLED_C
+		,GRDD.TXBZ_PBC_NT
+		,GRDD.TXBZ_PBC_DTM
+		,GRDD.TXBZ_PBCMN_ENO
+		,GRDD.PBC_RMK_CNTN
+		,GRDD.RMK_CNTN
+		,GRDD.RC_YN
+		,GRDD.RC_TYPE
+		,GRDD.BLB_SPY_AM
+		,GRDD.BLB_VAT
+		,GRDD.DFC_SPY_AM
+		,GRDD.DFC_VAT
+		,GRDD.CRC_BLB_SPY_AM
+		,GRDD.CRC_BLB_VAT
+		,GRDD.CRC_DFC_SPY_AM
+		,GRDD.CRC_DFC_VAT
+		,GRDD.TRPL_CLNTNM
+		,GRDD.TRPL_ADR
+		,GRDD.TRPL_BZTPNM
+		,GRDD.TRPL_BZCCNM
+		,GRDD.TRPL_REPMNM
+		,GRDD.TRPL_TEL
+		,GRDD.BZPL_CLNTNM
+		,GRDD.BZPL_ADR
+		,GRDD.BZPL_BZTPNM
+		,GRDD.BZPL_BZCCNM
+		,GRDD.BZPL_REPMNM
+		,GRDD.BZPL_TEL
+		FROM
+		(SELECT 
+			NVL(C.CLNTNM, (SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.NA_TRPL_C_M)) AS CUSNM /*거래명         */
+			, C.BIZ_NUMBER AS TRPL_RLNO_M
+			, A.* 
+			FROM (
+						SELECT 
+							<!-- A.TRPL_RLNO                                                          /*사업자번호     */						
+							, -->		
+							A.NA_TRPL_C AS NA_TRPL_C_M                                                          /*거래처코드     */
+							, COUNT(A.RC_YN) AS PUC_M                                                 /*매입매수       */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020', 0,
+							(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )), 0)) AS SPY_AM_M  /*과세매입       */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020', 0,
+							(A.BLB_VAT  +A.CRC_BLB_VAT  )
+							-(A.DFC_VAT  +A.CRC_DFC_VAT  )), 0)) AS BYNG_VAT_M          /*매입부가세     */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020',
+							(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ),0), 0)) AS SMA_AM_M     /*영세율매입     */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'2', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS EXTX_AM_M /*면세매입     */
+							, SUM((A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )) AS TOTALAM_M                     /*총매입액       */
+							, SUM((A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )) AS VAT_M    /*부가세  */
+							, SUM(DECODE(A.RC_YN, '1', 1, 0)) AS RCCNT_M                              /*접수매수       */
+							, SUM(DECODE(A.RC_YN, '1', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS RCAM_M  /*접수금액 */
+							, SUM(DECODE(A.RC_YN, '1', (A.BLB_VAT  +A.CRC_BLB_VAT  )
+							-(A.DFC_VAT  +A.CRC_DFC_VAT  ), 0)) AS RCVAT_M   /*접수세액    */
+							, SUM(DECODE(A.RC_YN, '1', 0, 1)) AS RCNCNT_M                             /*미접수매수     */
+						FROM TB_TX_TH_DAY_SUPP     A
+						WHERE 1=1
+							<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+							  AND A.NA_BZPLC = #{NA_BZPLC}				
+							</if>
+							<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+							  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+							</if>
+							<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+							  AND A.NA_TEAM_C = #{NA_TEAM_C}
+							</if>
+							AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+							
+							<!-- AND A.NA_TRPL_C = '8801052000015' -->
+							AND A.NA_TRPL_C IN
+							<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")"> /*거래처실명번호*/
+							#{item}
+							</foreach>
+							
+							
+							AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+							<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/							
+							<choose>
+								<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+								AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+								</when>
+								<otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/
+									 AND A.NA_TOT_DSC         IN ('01','03')
+								    <!-- 
+								    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+								    </if>
+								     -->
+								</otherwise>
+							</choose>
+							<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+							AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+							</if>	
+							<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+							AND A.RC_YN = #{RC_YN}
+							</if>
+							/*확정사업장 유무*/
+							AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+							AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+							OR A.NA_TOT_DSC = '03'
+							OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+							OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+							)
+							)
+							OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+							AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+							AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+							AND A.NA_TRPL_APL_YN = '1')
+							)
+							OR A.NA_TOT_DSC = '03'
+							OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+							OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+							)
+							)
+							)
+							AND A.TXBZ_TOT_YN      = '0'
+							AND A.SOAC_PBC_APL_YN  = '1'
+							AND A.BRK_DEL_YN       = '0'
+						GROUP BY  A.NA_TRPL_C,  A.TRPL_RLNO
+			) A, TB_TR_TRPL_CIF C
+			WHERE A.NA_TRPL_C_M        = C.NA_TRPL_C(+)
+			<!-- AND A.TRPL_RLNO_M        = C.BIZ_NUMBER(+) -->
+			ORDER BY  A.NA_TRPL_C_M, C.CLNTNM,  C.BIZ_NUMBER
+			) GRDM
+			, (WITH T1 AS (
+									SELECT
+									A.NA_BZPLC
+									, A.BZPL_BZNO
+									, A.NA_TRPL_C
+									, A.TRPL_RLNO
+									, A.NA_TEAM_C
+									, A.TRPL_NA_TEAM_C
+									, A.TR_DT
+									, A.NA_SOAC_DSC
+									, A.NA_TOT_DSC
+									, A.NA_TOT_DTI_DSC
+									, A.TXBZ_TP_DSC
+									, A.LATCNM
+									, A.NA_SLPNO
+									, A.BZ_METH_DSC
+									, A.ROTS_CTR_DSC
+									, A.NA_LLED_C
+									, A.NA_MLED_C
+									, A.TXBZ_PBC_NT
+									, A.TXBZ_PBC_DTM
+									, A.TXBZ_PBCMN_ENO
+									, A.RC_RMK_CNTN
+									, A.RMK_CNTN
+									, A.RC_YN
+									, A.BLB_SPY_AM
+									, A.BLB_VAT
+									, A.DFC_SPY_AM
+									, A.DFC_VAT
+									, A.CRC_BLB_SPY_AM
+									, A.CRC_BLB_VAT
+									, A.CRC_DFC_SPY_AM
+									, A.CRC_DFC_VAT
+									, A.RG_SQNO
+									, A.RC_DT
+									, A.TXBZ_BRK_TP_DSC
+									, A.BUYPL_RAPV_YN
+									, A.TXBZ_BRK_TOT_TP_YN
+									, A.NA_TR_DSC
+									, A.TXBZ_TOT_RG_SQNO
+									, A.RG_STS_DSC
+									, A.ELT_TXBIL_PRC_YN
+									, A.SLPL_APV_YN
+									, A.RPBC_YN
+									FROM TB_TX_TH_DAY_SUPP  A
+									WHERE 1=1
+									
+									
+									<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+									  AND A.NA_BZPLC = #{NA_BZPLC}				
+									</if>
+									<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+									  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+									</if>
+									<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+									  AND A.NA_TEAM_C = #{NA_TEAM_C}
+									</if>
+									AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+									<!-- AND A.NA_TRPL_C = '8801052000015' -->
+									AND A.NA_TRPL_C IN
+									<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")"> /*거래처실명번호*/
+									#{item}
+									</foreach>
+									AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+									<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/	
+									<choose>
+									  <when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+									  AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+									  </when>
+									  <otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/		    
+									    AND A.NA_TOT_DSC         IN ('01','03')
+									    <!-- 
+									    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+									    </if>
+									     -->			
+									  </otherwise>
+									</choose>
+									<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+									AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+									</if>
+									<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+									AND A.RC_YN = #{RC_YN}
+									</if>
+									/*확정사업장 유무*/
+									AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+									AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+									OR A.NA_TOT_DSC = '03'
+									OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+									OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+									)
+									)
+									OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+									AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+									AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+									AND A.NA_TRPL_APL_YN = '1')
+									)
+									OR A.NA_TOT_DSC = '03'
+									OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+									OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+									)
+									)
+									)
+									
+									
+									AND A.TXBZ_TOT_YN = '0'          /*세무집계여부 */
+									AND A.SOAC_PBC_APL_YN  = '1'
+									AND A.BRK_DEL_YN = '0'
+									)
+									SELECT
+									A.NA_BZPLC                                         /* 사업장코드            */		
+									<!-- , A.BZPL_BZNO                                        /* 사업자등록번호            */ -->		
+									, B1.BIZ_NUMBER AS BZPL_BZNO                      /* 사업장사업자등록번호            */
+									, B1.CLNTNM                                          /* 사업장명              */
+									
+									, A.NA_TRPL_C AS NA_TRPL_C_D                                       /* 거래처코드            */
+									, B2.BIZ_NUMBER AS TRPL_RLNO_D                                       /* 거래처실명번호        */
+																		
+									, NVL( B2.CLNTNM, (SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.NA_TRPL_C)) AS CUSNM /*거래명   */
+									, '['|| A.NA_TEAM_C||']'||' '||G1.TEAMNM AS NA_TEAM_C              /* 사업장팀              */
+									, '['|| A.TRPL_NA_TEAM_C ||']'||' '||G2.TEAMNM AS TRPL_NA_TEAM_C        /* 거래처팀              */
+									, A.TR_DT                                            /* 일자                  */
+									, DECODE(A.NA_SOAC_DSC, '1', '세금계산서','2','계산서','3','입금표','') AS NA_SOAC_DSC /*계산서구분             */		
+									, '['||A.NA_TOT_DSC ||']'||F1.TXBZ_IDVD_CNM AS NA_TOT_DSC_NM          /*집계구분               */
+									, '['||A.NA_TOT_DTI_DSC||']'||F2.TXBZ_IDVD_CNM AS NA_TOT_DTI_DSC       /*집계상세구분           */
+									, '['||A.TXBZ_TP_DSC||']'||F3.TXBZ_IDVD_CNM AS TXBZ_TP_DSC          /*세무유형구분           */		
+									, DECODE (K.TXBZ_TP_LATCNM,'',A.LATCNM,K.TXBZ_TP_LATCNM) AS LATCNM /*품목명              */		
+									, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )  SPY_AM        /* 순공급액              */
+									, (A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )  VAT               /* 순부가세              */
+									, A.NA_SLPNO                                         /* 전표번호              */
+																		
+									, '['||A.NA_TR_DSC||']'||DECODE(SUBSTR(A.NA_TR_DSC,0,2),'IB','매입',SUBSTR(A.NA_TR_DSC,0,2)) AS NA_TR_DSC /* 수불구분              */
+									
+									, '['||A.BZ_METH_DSC  ||']'|| H1.SIMP_CNM AS BZ_METH_DSC            /* 사업방식              */
+									, '['||A.ROTS_CTR_DSC ||']'|| H2.SIMP_CNM AS ROTS_CTR_DSC            /* 계통계약구분          */
+									, '['||A.NA_LLED_C ||']'|| J1.WRS_LCLFNM AS NA_LLED_C            /*대분류                 */
+									, '['||A.NA_MLED_C ||']'|| J2.WRS_MCLFNM AS NA_MLED_C           /*중분류                 */
+									, NVL(A.TXBZ_PBC_NT, 0) AS TXBZ_PBC_NT                             /*발행횟수               */
+									, TO_CHAR(A.TXBZ_PBC_DTM,'YYYY-MM-DD HH:MM:SS')	 AS TXBZ_PBC_DTM	/*발행일시               */
+									, DECODE(A.TXBZ_PBCMN_ENO,'','', '['||A.TXBZ_PBCMN_ENO||']'||'발행자') AS TXBZ_PBCMN_ENO/*발행자 */
+									, DECODE(A.BUYPL_RAPV_YN, '1', '자사업장승인', DECODE (A.SLPL_APV_YN, '1', '타사업장승인',DECODE(A.ELT_TXBIL_PRC_YN, '1', '전자세금',DECODE(A.RPBC_YN , '1', '역발행','일반' )))) AS PBC_RMK_CNTN /*접수방법               */
+									, A.RMK_CNTN                                        /*참조                   */
+									, A.RC_YN                                            /*접수여부               */
+									, DECODE(A.RC_YN, '0', '미접수','접수') AS RC_TYPE
+									, A.BLB_SPY_AM                                       /*훅자매입액             */
+									, A.BLB_VAT                                          /*흑자부가세             */
+									, A.DFC_SPY_AM                                       /*적자공급금액           */
+									, A.DFC_VAT                                          /*적자부가세             */
+									, A.CRC_BLB_SPY_AM                                   /*정정흑자공급금액       */
+									, A.CRC_BLB_VAT                                      /*정정흑자부가세         */
+									, A.CRC_DFC_SPY_AM                                   /*정정적자공급금액       */
+									, A.CRC_DFC_VAT                                      /*정정적자부가세         */
+									, B2.CLNTNM  AS TRPL_CLNTNM                                         /*거래처명               */
+									, B2.DONGUP||' '||B2.DONGBW AS TRPL_ADR                          /*거래처주소             */
+									, B2.BZTPNM AS TRPL_BZTPNM                                       /*거래처업태             */
+									, B2.BZCCNM AS TRPL_BZCCNM                                         /*거래처종목             */
+									, B2.REPMNM AS TRPL_REPMNM                                         /*거래처대표자           */
+									, B2.ATEL||B2.HTEL||B2.STEL AS TRPL_TEL                       /*거래처전화             */
+									, B1.CLNTNM AS BZPL_CLNTNM                                         /*사업장명               */
+									, B1.DONGUP||' '||B1.DONGBW AS BZPL_ADR                       /*사업장주소             */
+									, B1.BZTPNM AS BZPL_BZTPNM                                         /*사업장업태             */
+									, B1.BZCCNM AS BZPL_BZCCNM                                        /*사업장종목             */
+									, ecl_decrypt(B1.REPMNM) AS BZPL_REPMNM                                        /*사업장대표자           */
+									, B1.ATEL||B1.HTEL||B1.STEL AS BZPL_TEL                          /*사업장전화             */
+									, A.RG_SQNO                                          /*등록일련번호           */
+									, A.RC_DT                                            /*접수일자               */
+									, A.TXBZ_BRK_TP_DSC                                  /*세무내역유형구분       */
+									, A.BUYPL_RAPV_YN                                    /* 승인여부              */
+									, A.TXBZ_BRK_TOT_TP_YN                               /*세무내역집계성여부     */
+									<!-- , A.NA_TR_DSC                                        /*경제통합거래구분코드   */ -->
+									, ''                                                 /*DM우편번호             */
+									, ''                                                 /*DM 주소                */
+									, ''                                                 /* DM 안내문구           */
+									, A.NA_TOT_DSC                                       /* 집계구분코드          */
+									, K.TXBZ_TP_LATCNM                                   /*세무유형품목명         */
+									, A.TXBZ_TOT_RG_SQNO                                 /*세무집계등록일련번호   */
+									, A.RG_SQNO                                          /*신규등록일련번호       */
+									, A.RG_STS_DSC                                       /*등록상태구분코드       */
+									, DECODE(A.BUYPL_RAPV_YN, '1', '1', DECODE (A.SLPL_APV_YN, '1', '1', DECODE(A.ELT_TXBIL_PRC_YN, '1', '1','0'))) /*수정삭제가능여부 0:가능, 1: 불가능*/
+									FROM
+									T1                         A
+									, TB_TR_TRPL_CIF           B1
+									, TB_TR_TRPL_CIF           B2		
+									, TB_TX_TM_IDVDC          F1
+									, TB_TX_TM_IDVDC          F2
+									, TB_TX_TM_IDVDC          F3
+									, TB_CM_TEAM        G1  /*거래처관리_사업장팀기본*/
+									, TB_CM_TEAM        G2
+									, TB_CM_SIMPC          H1 /*공통관리_단순통합코드내역*/
+									, TB_CM_SIMPC          H2
+									, TB_GD_WRS_CLF        J1 /*상품관리_상품분류코드*/
+									, TB_GD_WRS_CLF        J2
+									
+									<!-- , TB_NA_LD_IC_TRA            L /*정보관리_거래구분코드*/		
+									, VW_NA_OM_UM_IN_USR         O /*?*/ -->
+									
+									, TB_TX_TH_TAX_KIND_PBC   K /*세무관리_유형발행관리내역*/
+									WHERE 1=1
+									AND A.NA_BZPLC           = B1.NA_TRPL_C		
+									AND NVL(A.NA_TRPL_C, '0000000000000')    = B2.NA_TRPL_C(+)
+									<!-- AND A.BZPL_BZNO          = B1.BIZ_NUMBER
+									AND A.TRPL_RLNO          = B2.BIZ_NUMBER(+) -->		
+									AND A.NA_TOT_DSC         = F1.TXBZ_IDVDC(+)
+									AND F1.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DSC'
+									AND A.NA_TOT_DTI_DSC         = F2.TXBZ_IDVDC(+)
+									AND F2.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DTI_DSC'
+									AND A.TXBZ_TP_DSC         = F3.TXBZ_IDVDC(+)
+									AND F3.TXBZ_IDVD_TPC(+)     = 'TXBZ_TP_DSC'		
+									AND A.NA_BZPLC           = G1.NA_BZPLC(+)
+									AND A.NA_TEAM_C          = G1.NA_TEAM_C(+)
+									AND NVL(A.NA_TRPL_C  , '')               = G2.NA_BZPLC(+)
+									AND NVL(A.TRPL_NA_TEAM_C  , '')          = G2.NA_TEAM_C(+)
+									AND A.BZ_METH_DSC        = H1.SIMP_C(+)
+									AND H1.SIMP_TPC(+)       = 'BZ_METH_DSC'
+									AND A.ROTS_CTR_DSC       = H2.SIMP_C(+)
+									AND H2.SIMP_TPC(+)       = 'ROTS_CTR_DSC'
+									AND A.NA_LLED_C          = J1.NA_WRS_LCLC(+)
+									AND '000'                = J1.NA_WRS_MCLC(+)
+									AND '000'                = J1.NA_WRS_SCLC(+)
+									AND '000'                = J1.NA_WRS_DTCF_C(+)
+									AND A.NA_LLED_C          = J2.NA_WRS_LCLC(+)
+									AND A.NA_MLED_C          = J2.NA_WRS_MCLC(+)
+									AND '000'                = J2.NA_WRS_SCLC(+)
+									AND '000'                = J2.NA_WRS_DTCF_C(+)
+									<!--  
+									AND A.NA_TR_DSC          = L.NA_TR_DSC(+)
+									AND A.TXBZ_PBCMN_ENO = O.USRID(+) /*세무발행자개인번호*/
+									-->
+									AND A.NA_BZPLC           = K.NA_BZPLC(+)
+									AND A.NA_TEAM_C          = K.NA_TEAM_C(+)
+									AND A.TXBZ_TP_DSC        = K.TXBZ_TP_DSC(+)		
+									ORDER BY A.NA_BZPLC ,  A.NA_TRPL_C, G1.TEAMNM, A.TR_DT DESC
+		) GRDD
+		WHERE 1=1
+		AND GRDM.NA_TRPL_C_M = GRDD.NA_TRPL_C_D
+		AND GRDM.TRPL_RLNO_M = GRDD.TRPL_RLNO_D
+		ORDER BY GRDM.NA_TRPL_C_M,GRDM.TRPL_RLNO_M,GRDD.TR_DT
+	</select>
+	
+	<!-- 세무매출 엑셀 디테일 다운로드 -->
+	<select id="downloadExcelSlamDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT GRDM.*
+		,GRDD.NA_BZPLC 
+		,GRDD.BZPL_BZNO
+		,GRDD.CLNTNM
+		,GRDD.NA_TRPL_C_D
+		,GRDD.TRPL_RLNO_D
+		,GRDD.CUSNM 
+		,GRDD.NA_TEAM_C
+		,GRDD.TRPL_NA_TEAM_C
+		,GRDD.TR_DT
+		,GRDD.NA_SOAC_DSC
+		,GRDD.NA_TOT_DSC_NM
+		,GRDD.NA_TOT_DSC		
+		,GRDD.NA_TOT_DTI_DSC
+		,GRDD.TXBZ_TP_DSC
+		,GRDD.LATCNM
+		,GRDD.SPY_AM
+		,GRDD.VAT
+		,GRDD.NA_SLPNO
+		,GRDD.NA_TR_DSC
+		,GRDD.BZ_METH_DSC
+		,GRDD.ROTS_CTR_DSC
+		,GRDD.NA_LLED_C
+		,GRDD.NA_MLED_C
+		,GRDD.TXBZ_PBC_NT
+		,GRDD.TXBZ_PBC_DTM
+		,GRDD.TXBZ_PBCMN_ENO
+		,GRDD.PBC_RMK_CNTN
+		,GRDD.RMK_CNTN
+		,GRDD.RC_YN
+		,GRDD.RC_TYPE
+		,GRDD.BLB_SPY_AM
+		,GRDD.BLB_VAT
+		,GRDD.DFC_SPY_AM
+		,GRDD.DFC_VAT
+		,GRDD.CRC_BLB_SPY_AM
+		,GRDD.CRC_BLB_VAT
+		,GRDD.CRC_DFC_SPY_AM
+		,GRDD.CRC_DFC_VAT
+		,GRDD.TRPL_CLNTNM
+		,GRDD.TRPL_ADR
+		,GRDD.TRPL_BZTPNM
+		,GRDD.TRPL_BZCCNM
+		,GRDD.TRPL_REPMNM
+		,GRDD.TRPL_TEL
+		,GRDD.BZPL_CLNTNM
+		,GRDD.BZPL_ADR
+		,GRDD.BZPL_BZTPNM
+		,GRDD.BZPL_BZCCNM
+		,GRDD.BZPL_REPMNM
+		,GRDD.BZPL_TEL
+		FROM		
+		(SELECT 
+			C.CLNTNM AS CUSNM /*거래명         */
+			, NVL(A.ORG_TRPL_RLNO, C.BIZ_NUMBER) AS TRPL_RLNO_M
+			, A.* 
+			FROM (
+						SELECT 
+							A.TRPL_RLNO AS ORG_TRPL_RLNO                                                          /*사업자번호     */						
+							, A.NA_TRPL_C AS NA_TRPL_C_M                                                          /*거래처코드     */
+							, COUNT(A.RC_YN) AS PUC_M                                                 /*매입매수       */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020', 0,
+							(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )), 0)) AS SPY_AM_M  /*과세매입       */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020', 0,
+							(A.BLB_VAT  +A.CRC_BLB_VAT  )
+							-(A.DFC_VAT  +A.CRC_DFC_VAT  )), 0)) AS BYNG_VAT_M          /*매입부가세     */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'1',
+							DECODE(A.TXBZ_TP_DSC, '020',
+							(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ),0), 0)) AS SMA_AM_M     /*영세율매입     */
+							, SUM(DECODE(A.NA_SOAC_DSC ,'2', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS EXTX_AM_M /*면세매입     */
+							, SUM((A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )) AS TOTALAM_M                     /*총매입액       */
+							, SUM((A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )) AS VAT_M    /*부가세  */
+							, SUM(DECODE(A.RC_YN, '1', 1, 0)) AS RCCNT_M                              /*접수매수       */
+							, SUM(DECODE(A.RC_YN, '1', (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )
+							-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ), 0)) AS RCAM_M  /*접수금액 */
+							, SUM(DECODE(A.RC_YN, '1', (A.BLB_VAT  +A.CRC_BLB_VAT  )
+							-(A.DFC_VAT  +A.CRC_DFC_VAT  ), 0)) AS RCVAT_M   /*접수세액    */
+							, SUM(DECODE(A.RC_YN, '1', 0, 1)) AS RCNCNT_M                             /*미접수매수     */
+						FROM TB_TX_TH_DAY_SUPP     A
+						WHERE 1=1
+							<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+							  AND A.NA_BZPLC = #{NA_BZPLC}				
+							</if>
+							<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+							  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+							</if>
+							<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+							  AND A.NA_TEAM_C = #{NA_TEAM_C}
+							</if>
+							AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+							
+							<!-- AND A.NA_TRPL_C = '8801052000015' -->
+							AND A.NA_TRPL_C IN
+							<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")"> /*거래처실명번호*/
+							#{item}
+							</foreach>
+							
+							AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+							AND A.TRPL_RLNO = #{TRPL_RLNO}
+							<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/							
+							<choose>
+								<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+								AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+								</when>
+								<otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/
+									 AND A.NA_TOT_DSC         IN ('01','03')
+								    <!-- 
+								    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+								    </if>
+								     -->
+								</otherwise>
+							</choose>
+							<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+							AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+							</if>	
+							<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+							AND A.RC_YN = #{RC_YN}
+							</if>
+							/*확정사업장 유무*/
+							AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+							AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+							OR A.NA_TOT_DSC = '03'
+							OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+							OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+							)
+							)
+							OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+							AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+							AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+							AND A.NA_TRPL_APL_YN = '1')
+							)
+							OR A.NA_TOT_DSC = '03'
+							OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+							OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+							)
+							)
+							)
+							AND A.TXBZ_TOT_YN      = '0'
+							AND A.SOAC_PBC_APL_YN  = '1'
+							AND A.BRK_DEL_YN       = '0'
+						GROUP BY  A.NA_TRPL_C,  A.TRPL_RLNO
+			) A, TB_TR_TRPL_CIF C
+			WHERE A.NA_TRPL_C_M        = C.NA_TRPL_C(+)			
+			ORDER BY  A.NA_TRPL_C_M, C.CLNTNM,  C.BIZ_NUMBER
+			) GRDM
+			, (WITH T1 AS (
+									SELECT
+									A.NA_BZPLC
+									, A.BZPL_BZNO
+									, A.NA_TRPL_C
+									, A.TRPL_RLNO
+									, A.NA_TEAM_C
+									, A.TRPL_NA_TEAM_C
+									, A.TR_DT
+									, A.NA_SOAC_DSC
+									, A.NA_TOT_DSC
+									, A.NA_TOT_DTI_DSC
+									, A.TXBZ_TP_DSC
+									, A.LATCNM
+									, A.NA_SLPNO
+									, A.BZ_METH_DSC
+									, A.ROTS_CTR_DSC
+									, A.NA_LLED_C
+									, A.NA_MLED_C
+									, A.TXBZ_PBC_NT
+									, A.TXBZ_PBC_DTM
+									, A.TXBZ_PBCMN_ENO
+									, A.RC_RMK_CNTN
+									, A.RMK_CNTN
+									, A.RC_YN
+									, A.BLB_SPY_AM
+									, A.BLB_VAT
+									, A.DFC_SPY_AM
+									, A.DFC_VAT
+									, A.CRC_BLB_SPY_AM
+									, A.CRC_BLB_VAT
+									, A.CRC_DFC_SPY_AM
+									, A.CRC_DFC_VAT
+									, A.RG_SQNO
+									, A.RC_DT
+									, A.TXBZ_BRK_TP_DSC
+									, A.BUYPL_RAPV_YN
+									, A.TXBZ_BRK_TOT_TP_YN
+									, A.NA_TR_DSC
+									, A.TXBZ_TOT_RG_SQNO
+									, A.RG_STS_DSC
+									, A.ELT_TXBIL_PRC_YN
+									, A.SLPL_APV_YN
+									, A.RPBC_YN
+									FROM TB_TX_TH_DAY_SUPP  A
+									WHERE 1=1
+									<if test="NA_BZPLC != null and NA_BZPLC.length() >  0"> /*사업장코드 */
+									  AND A.NA_BZPLC = #{NA_BZPLC}				
+									</if>
+									<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0"> /*사업장코드 */
+									  AND A.NA_BZPLC = #{CENTER_NA_BZPLC}				
+									</if>
+									<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0"> /*팀코드*/
+									  AND A.NA_TEAM_C = #{NA_TEAM_C}
+									</if>
+									AND A.TR_DT BETWEEN #{FROM_DATE} AND #{TO_DATE} /*거래일자*/
+									<!-- AND A.NA_TRPL_C = '8801052000015' -->
+									AND A.NA_TRPL_C IN
+									<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")"> /*거래처실명번호*/
+									#{item}
+									</foreach>
+									AND LENGTH(A.TRPL_RLNO)=10 /*개인사업자제외*/
+									AND A.TRPL_RLNO = #{TRPL_RLNO}
+									<![CDATA[AND A.BZPL_BZNO <> A.TRPL_RLNO]]> /*동일사업장간 거래 조회불가*/	
+									<choose>
+									  <when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0"> /*집계구분*/
+									  AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+									  </when>
+									  <otherwise> /*사업유형 '05','08','10','11','12' 일 경우 집계구분02 제외*/		    
+									    AND A.NA_TOT_DSC         IN ('01','03')
+									    <!-- 
+									    <if test="NA_BZ_TPC == '05' OR NA_BZ_TPC == '08' OR NA_BZ_TPC == '10' OR NA_BZ_TPC == '11' OR NA_BZ_TPC == '12' OR NA_BZ_TPC == '03'">
+									    </if>
+									     -->			
+									  </otherwise>
+									</choose>
+									<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()"> /*계산서구분*/
+									AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+									</if>
+									<if test="RC_YN != null and RC_YN.length() > 0 and RC_YN != '2'.toString()"> /*접수여부 전체-2*/
+									AND A.RC_YN = #{RC_YN}
+									</if>
+									/*확정사업장 유무*/
+									AND (( NOT EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+									AND (  NOT EXISTS ( SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+									OR A.NA_TOT_DSC = '03'
+									OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+									OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+									)
+									)
+									OR( EXISTS ( SELECT E1.NA_BZPLC FROM TB_CM_BZPL E1 WHERE E1.NA_BZPLC = A.NA_BZPLC)
+									AND (( NOT EXISTS (SELECT E2.NA_BZPLC FROM TB_CM_BZPL E2 WHERE E2.NA_BZPLC = A.NA_TRPL_C)
+									AND NOT EXISTS ( SELECT E3.NA_BZPLC FROM TB_CM_BZPL E3 WHERE E3.NA_BZPLC = A.NA_TRPL_C
+									AND A.NA_TRPL_APL_YN = '1')
+									)
+									OR A.NA_TOT_DSC = '03'
+									OR (A.RC_YN = '1' AND A.SLPL_APV_YN = '1')
+									OR (A.RC_YN = '1' AND A.BUYPL_RAPV_YN = '1')
+									)
+									)
+									)
+									AND A.TXBZ_TOT_YN = '0'          /*세무집계여부 */
+									AND A.SOAC_PBC_APL_YN  = '1'
+									AND A.BRK_DEL_YN = '0'
+									)
+									SELECT
+									A.NA_BZPLC                                         /* 사업장코드            */		
+									<!-- , A.BZPL_BZNO                                        /* 사업자등록번호            */ -->		
+									, B1.BIZ_NUMBER AS BZPL_BZNO                      /* 사업장사업자등록번호            */
+									, B1.CLNTNM                                          /* 사업장명              */
+									
+									, A.NA_TRPL_C AS NA_TRPL_C_D                                       /* 거래처코드            */
+									, NVL(A.TRPL_RLNO, B2.BIZ_NUMBER) AS TRPL_RLNO_D                                       /* 거래처실명번호        */
+									, NVL( B2.CLNTNM, (SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.NA_TRPL_C)) AS CUSNM /*거래명   */
+									, '['|| A.NA_TEAM_C||']'||' '||G1.TEAMNM AS NA_TEAM_C              /* 사업장팀              */
+									, '['|| A.TRPL_NA_TEAM_C ||']'||' '||G2.TEAMNM AS TRPL_NA_TEAM_C        /* 거래처팀              */
+									, A.TR_DT                                            /* 일자                  */
+									, DECODE(A.NA_SOAC_DSC, '1', '세금계산서','2','계산서','3','입금표','') AS NA_SOAC_DSC /*계산서구분             */		
+									, '['||A.NA_TOT_DSC ||']'||F1.TXBZ_IDVD_CNM AS NA_TOT_DSC_NM          /*집계구분               */
+									, '['||A.NA_TOT_DTI_DSC||']'||F2.TXBZ_IDVD_CNM AS NA_TOT_DTI_DSC       /*집계상세구분           */
+									, '['||A.TXBZ_TP_DSC||']'||F3.TXBZ_IDVD_CNM AS TXBZ_TP_DSC          /*세무유형구분           */		
+									, DECODE (K.TXBZ_TP_LATCNM,'',A.LATCNM,K.TXBZ_TP_LATCNM) AS LATCNM /*품목명              */		
+									, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM )  SPY_AM        /* 순공급액              */
+									, (A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  )  VAT               /* 순부가세              */
+									, A.NA_SLPNO                                         /* 전표번호              */
+									
+									, '['||A.NA_TR_DSC||']'||DECODE(SUBSTR(A.NA_TR_DSC,0,2),'IB','매입',SUBSTR(A.NA_TR_DSC,0,2)) AS NA_TR_DSC /* 수불구분              */
+									
+									, '['||A.BZ_METH_DSC  ||']'|| H1.SIMP_CNM AS BZ_METH_DSC            /* 사업방식              */
+									, '['||A.ROTS_CTR_DSC ||']'|| H2.SIMP_CNM AS ROTS_CTR_DSC            /* 계통계약구분          */
+									, '['||A.NA_LLED_C ||']'|| J1.WRS_LCLFNM AS NA_LLED_C            /*대분류                 */
+									, '['||A.NA_MLED_C ||']'|| J2.WRS_MCLFNM AS NA_MLED_C           /*중분류                 */
+									, NVL(A.TXBZ_PBC_NT, 0) AS TXBZ_PBC_NT                             /*발행횟수               */
+									, TO_CHAR(A.TXBZ_PBC_DTM,'YYYY-MM-DD HH:MM:SS')	 AS TXBZ_PBC_DTM	/*발행일시               */
+									, DECODE(A.TXBZ_PBCMN_ENO,'','', '['||A.TXBZ_PBCMN_ENO||']'||'발행자') AS TXBZ_PBCMN_ENO/*발행자 */
+									, DECODE(A.BUYPL_RAPV_YN, '1', '자사업장승인', DECODE (A.SLPL_APV_YN, '1', '타사업장승인',DECODE(A.ELT_TXBIL_PRC_YN, '1', '전자세금',DECODE(A.RPBC_YN , '1', '역발행','일반' )))) AS PBC_RMK_CNTN /*접수방법               */
+									, A.RMK_CNTN                                        /*참조                   */
+									, A.RC_YN                                            /*접수여부               */
+									, DECODE(A.RC_YN, '0', '미접수','접수') AS RC_TYPE
+									, A.BLB_SPY_AM                                       /*훅자매입액             */
+									, A.BLB_VAT                                          /*흑자부가세             */
+									, A.DFC_SPY_AM                                       /*적자공급금액           */
+									, A.DFC_VAT                                          /*적자부가세             */
+									, A.CRC_BLB_SPY_AM                                   /*정정흑자공급금액       */
+									, A.CRC_BLB_VAT                                      /*정정흑자부가세         */
+									, A.CRC_DFC_SPY_AM                                   /*정정적자공급금액       */
+									, A.CRC_DFC_VAT                                      /*정정적자부가세         */
+									, B2.CLNTNM  AS TRPL_CLNTNM                                         /*거래처명               */
+									, B2.DONGUP||' '||B2.DONGBW AS TRPL_ADR                          /*거래처주소             */
+									, B2.BZTPNM AS TRPL_BZTPNM                                       /*거래처업태             */
+									, B2.BZCCNM AS TRPL_BZCCNM                                         /*거래처종목             */
+									, B2.REPMNM AS TRPL_REPMNM                                         /*거래처대표자           */
+									, B2.ATEL||B2.HTEL||B2.STEL AS TRPL_TEL                       /*거래처전화             */
+									, B1.CLNTNM AS BZPL_CLNTNM                                         /*사업장명               */
+									, B1.DONGUP||' '||B1.DONGBW AS BZPL_ADR                       /*사업장주소             */
+									, B1.BZTPNM AS BZPL_BZTPNM                                         /*사업장업태             */
+									, B1.BZCCNM AS BZPL_BZCCNM                                        /*사업장종목             */
+									, B1.REPMNM AS BZPL_REPMNM                                        /*사업장대표자           */
+									, B1.ATEL||B1.HTEL||B1.STEL AS BZPL_TEL                          /*사업장전화             */
+									, A.RG_SQNO                                          /*등록일련번호           */
+									, A.RC_DT                                            /*접수일자               */
+									, A.TXBZ_BRK_TP_DSC                                  /*세무내역유형구분       */
+									, A.BUYPL_RAPV_YN                                    /* 승인여부              */
+									, A.TXBZ_BRK_TOT_TP_YN                               /*세무내역집계성여부     */
+									<!-- , A.NA_TR_DSC                                        /*경제통합거래구분코드   */ -->
+									, ''                                                 /*DM우편번호             */
+									, ''                                                 /*DM 주소                */
+									, ''                                                 /* DM 안내문구           */
+									, A.NA_TOT_DSC                                       /* 집계구분코드          */
+									, K.TXBZ_TP_LATCNM                                   /*세무유형품목명         */
+									, A.TXBZ_TOT_RG_SQNO                                 /*세무집계등록일련번호   */
+									, A.RG_SQNO                                          /*신규등록일련번호       */
+									, A.RG_STS_DSC                                       /*등록상태구분코드       */
+									, DECODE(A.BUYPL_RAPV_YN, '1', '1', DECODE (A.SLPL_APV_YN, '1', '1', DECODE(A.ELT_TXBIL_PRC_YN, '1', '1','0'))) /*수정삭제가능여부 0:가능, 1: 불가능*/
+									FROM
+									T1                         A
+									, TB_TR_TRPL_CIF           B1
+									, TB_TR_TRPL_CIF           B2		
+									, TB_TX_TM_IDVDC          F1
+									, TB_TX_TM_IDVDC          F2
+									, TB_TX_TM_IDVDC          F3
+									, TB_CM_TEAM        G1  /*거래처관리_사업장팀기본*/
+									, TB_CM_TEAM        G2
+									, TB_CM_SIMPC          H1 /*공통관리_단순통합코드내역*/
+									, TB_CM_SIMPC          H2
+									, TB_GD_WRS_CLF        J1 /*상품관리_상품분류코드*/
+									, TB_GD_WRS_CLF        J2
+									
+									<!-- , TB_NA_LD_IC_TRA            L /*정보관리_거래구분코드*/		
+									, VW_NA_OM_UM_IN_USR         O /*?*/ -->
+									
+									, TB_TX_TH_TAX_KIND_PBC   K /*세무관리_유형발행관리내역*/
+									WHERE 1=1
+									AND A.NA_BZPLC           = B1.NA_TRPL_C		
+									AND NVL(A.NA_TRPL_C, '0000000000000')    = B2.NA_TRPL_C(+)
+									<!-- AND A.BZPL_BZNO          = B1.BIZ_NUMBER
+									AND A.TRPL_RLNO          = B2.BIZ_NUMBER(+) -->		
+									AND A.NA_TOT_DSC         = F1.TXBZ_IDVDC(+)
+									AND F1.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DSC'
+									AND A.NA_TOT_DTI_DSC         = F2.TXBZ_IDVDC(+)
+									AND F2.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DTI_DSC'
+									AND A.TXBZ_TP_DSC         = F3.TXBZ_IDVDC(+)
+									AND F3.TXBZ_IDVD_TPC(+)     = 'TXBZ_TP_DSC'		
+									AND A.NA_BZPLC           = G1.NA_BZPLC(+)
+									AND A.NA_TEAM_C          = G1.NA_TEAM_C(+)
+									AND NVL(A.NA_TRPL_C  , '')               = G2.NA_BZPLC(+)
+									AND NVL(A.TRPL_NA_TEAM_C  , '')          = G2.NA_TEAM_C(+)
+									AND A.BZ_METH_DSC        = H1.SIMP_C(+)
+									AND H1.SIMP_TPC(+)       = 'BZ_METH_DSC'
+									AND A.ROTS_CTR_DSC       = H2.SIMP_C(+)
+									AND H2.SIMP_TPC(+)       = 'ROTS_CTR_DSC'
+									AND A.NA_LLED_C          = J1.NA_WRS_LCLC(+)
+									AND '000'                = J1.NA_WRS_MCLC(+)
+									AND '000'                = J1.NA_WRS_SCLC(+)
+									AND '000'                = J1.NA_WRS_DTCF_C(+)
+									AND A.NA_LLED_C          = J2.NA_WRS_LCLC(+)
+									AND A.NA_MLED_C          = J2.NA_WRS_MCLC(+)
+									AND '000'                = J2.NA_WRS_SCLC(+)
+									AND '000'                = J2.NA_WRS_DTCF_C(+)
+									<!--  
+									AND A.NA_TR_DSC          = L.NA_TR_DSC(+)
+									AND A.TXBZ_PBCMN_ENO = O.USRID(+) /*세무발행자개인번호*/
+									-->
+									AND A.NA_BZPLC           = K.NA_BZPLC(+)
+									AND A.NA_TEAM_C          = K.NA_TEAM_C(+)
+									AND A.TXBZ_TP_DSC        = K.TXBZ_TP_DSC(+)		
+									ORDER BY A.NA_BZPLC ,  A.NA_TRPL_C, G1.TEAMNM, A.TR_DT DESC
+		) GRDD
+		WHERE 1=1
+		AND GRDM.NA_TRPL_C_M = GRDD.NA_TRPL_C_D
+		AND GRDM.TRPL_RLNO_M = GRDD.TRPL_RLNO_D		
+		ORDER BY GRDM.NA_TRPL_C_M,GRDM.TRPL_RLNO_M,GRDD.TR_DT
+	</select>	
+		
+	<!-- 실적_세무자료_매입 마스터 -->	
+	<sql id="sql_retrieveByngList">
+		WITH T1 AS (                                                                        
+		SELECT                                                        
+		A.na_bzplc                                                              
+		, A.bzpl_bzno                                                             
+		, A.na_trpl_c                                                             
+		, A.trpl_rlno                                                             
+		, A.na_team_c                                                             
+		, A.trpl_na_team_c                                        
+		, A.txbz_dfn_dt                                                           
+		, A.na_soac_dsc                                                           
+		, A.na_tot_dsc                                                            
+		, A.na_tot_dti_dsc                                                        
+		, A.txbz_tp_dsc                                                           
+		, to_single_byte(A.latcnm)  latcnm                                        
+		, A.bz_meth_dsc                                                           
+		, A.rots_ctr_dsc                                                          
+		, A.na_lled_c                                                             
+		, A.na_mled_c                                                             
+		, A.txbz_pbc_nt                                                           
+		, A.txbz_pbc_dtm                                                          
+		, A.txbz_pbcmn_eno                                                        
+		, A.blb_spy_am                                                            
+		, A.blb_vat                                                               
+		, A.dfc_spy_am                                                            
+		, A.dfc_vat                                                               
+		, A.crc_blb_spy_am                                                        
+		, A.crc_blb_vat                                                           
+		, A.crc_dfc_spy_am                                                        
+		, A.crc_dfc_vat                                                           
+		, A.txbz_brk_tp_dsc                                                       
+		, A.txbz_tot_rg_sqno                                                      
+		, A.buypl_rapv_yn                                                         
+		, A.puc                                                                  
+		, to_single_byte(A.dspc_incd_yn) dspc_incd_yn                       			 
+		, A.rmk_cntn
+		, to_single_byte(a.pbc_rmk_cntn)    pbc_rmk_cntn
+		FROM TB_TX_TH_CUST A
+		WHERE 1=1
+		<if test="NA_BZPLC != null and NA_BZPLC.length() >  0">
+			AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>
+		<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0">
+			AND A.NA_BZPLC = #{CENTER_NA_BZPLC}
+		</if>
+			AND A.TXBZ_DFN_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}	
+			AND A.NA_TRPL_C IN
+		<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0">
+			AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+		</if>
+		<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()">
+			AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+		</if>
+		<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+			AND A.NA_TEAM_C = #{NA_TEAM_C}
+		</if>
+		<if test="TXBZ_TP_DSC != null and TXBZ_TP_DSC.length() > 0">
+			AND A.TXBZ_TP_DSC = #{TXBZ_TP_DSC}
+		</if>
+		AND A.BRK_DEL_YN = '0'                                                           
+		)
+		SELECT                                                             
+		A.NA_BZPLC                                       /* 사업장코드            */ 
+		, B1.CLNTNM                                        /* 사업장명              */ 
+		, A.BZPL_BZNO              /* 사업자번호            */ 
+		, G1.TEAMNM AS NA_TEAM_C                            /* 사업장팀              */ 
+		, A.NA_TRPL_C                                      /* 거래처코드            */ 
+<!-- 		, NVL( B2.CLNTNM, (SELECT C.CLNTNM FROM  TB_TR_TRPL_CIF C                      
+		                           WHERE  C.BIZ_NUMBER = A.TRPL_RLNO
+									AND C.UP_NA_TRPL_C IN
+									<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+										#{item}
+									</foreach>
+									AND C.NA_TRPL_C = C.UP_NA_TRPL_C)) AS CUSNM /*거래명   */ -->
+		, NVL( B2.CLNTNM, (SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.NA_TRPL_C)) AS CUSNM /*거래명   */
+		, A.TRPL_RLNO               /* 거래처실명번호        */ 
+		,'['||A.TRPL_NA_TEAM_C ||']'|| G2.TEAMNM AS TRPL_NA_TEAM_C /* 거래처팀              */ 
+		, A.TXBZ_DFN_DT AS TR_DT                                    /* 일자                  */ 
+		, DECODE(A.NA_SOAC_DSC, '1', '세금계산서','2', '계산서','3','입금표','') AS NA_SOAC_DSC    /*계산서구분            */ 
+		, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ) AS SPY_AM           /* 순공급액              */ 
+		, (A.BLB_VAT  +A.CRC_BLB_VAT  )-(A.DFC_VAT  +A.CRC_DFC_VAT  ) AS VAT              /* 순부가세              */ 
+		, A.PUC                                            /* 매수                  */		
+		, '['||A.NA_TOT_DSC ||']'||F1.TXBZ_IDVD_CNM AS NA_TOT_DSC        /*집계구분               */ 
+		, '['||A.NA_TOT_DTI_DSC ||']'||F2.TXBZ_IDVD_CNM AS NA_TOT_DTI_DSC    /*집계상세구분           */ 
+		, '['||A.TXBZ_TP_DSC ||']'||F3.TXBZ_IDVD_CNM AS TXBZ_TP_DSC       /*세무유형구분           */		 
+		, A.LATCNM                                         /*품목명                 */ 
+		, A.BLB_SPY_AM                                     /*훅자매입액             */ 
+		, A.BLB_VAT                                        /*흑자부가세             */ 
+		, A.CRC_BLB_SPY_AM                                 /*정정흑자공급금액       */ 
+		, A.CRC_BLB_VAT                                    /*정정흑자부가세         */ 
+		, A.DFC_SPY_AM                                     /*적자공급금액           */ 
+		, A.DFC_VAT                                        /*적자부가세             */ 
+		, A.CRC_DFC_SPY_AM                                 /*정정적자공급금액       */ 
+		, A.CRC_DFC_VAT                                    /*정정적자부가세         */ 
+		, '['||A.BZ_METH_DSC ||']'|| H1.SIMP_CNM AS BZ_METH_DSC /*사업방식               */ 
+		, '['||A.ROTS_CTR_DSC ||']'|| H2.SIMP_CNM AS ROTS_CTR_DSC /*계통계약구분           */ 
+		, '['||A.NA_LLED_C ||']'|| J1.WRS_LCLFNM AS NA_LLED_C    /*대분류                 */ 
+		, '['||A.NA_MLED_C ||']'|| J2.WRS_MCLFNM AS NA_MLED_C   /*중분류                 */ 
+		, A.RMK_CNTN AS PBC_RMK_CNTN                           /* 발행비비고내용        */
+		, A.PBC_RMK_CNTN AS RMK_CNTN /* 비고내용              */
+		, A.TXBZ_TOT_RG_SQNO                               /* 세무집계등록일련번호  */ 
+		, A.DSPC_INCD_YN                                   /* 상세내역포함여부      */ 
+		FROM T1                   A                                                     
+		, TB_TR_TRPL_CIF     B1                                                    
+		, TB_TR_TRPL_CIF     B2                                                    
+		, TB_TX_TM_IDVDC    F1  /*세무관리_개별코드내역*/                                                  
+		, TB_TX_TM_IDVDC    F2                                                    
+		, TB_TX_TM_IDVDC    F3                                                    
+		, TB_CM_TEAM  G1  /*거래처관리_사업장팀기본*/                                                  
+		, TB_CM_TEAM  G2                                                    
+		, TB_CM_SIMPC    H1 /*공통관리_단순통합코드내역*/                                                   
+		, TB_CM_SIMPC    H2                                                    
+		, TB_GD_WRS_CLF  J1 /*상품관리_상품분류코드*/                                                  
+		, TB_GD_WRS_CLF  J2                                                    
+		<!-- , TB_NA_TX_TM_DFN_BZPL K  /*세무관리_세무자료확정사업장기본*/ -->
+		, TB_TR_TRPL_CIF L                                                         
+		WHERE                                                       
+		A.NA_BZPLC           = B1.NA_TRPL_C                                          
+		<!-- AND A.BZPL_BZNO          = B1.BIZ_NUMBER  -->                                          
+		AND NVL(A.NA_TRPL_C, '0000000000000')    = B2.NA_TRPL_C(+)                       
+		AND A.TRPL_RLNO          = B2.BIZ_NUMBER(+)                                        
+		AND A.NA_TOT_DSC         = F1.TXBZ_IDVDC(+)                                      
+		AND F1.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DSC'                                       
+		AND A.NA_TOT_DTI_DSC         = F2.TXBZ_IDVDC(+)                                  
+		AND F2.TXBZ_IDVD_TPC(+)     = 'NA_TOT_DTI_DSC'                                   
+		AND A.TXBZ_TP_DSC         = F3.TXBZ_IDVDC(+)                                     
+		AND F3.TXBZ_IDVD_TPC(+)     = 'TXBZ_TP_DSC'                                      
+		AND A.NA_BZPLC           = G1.NA_BZPLC(+)                                        
+		AND A.NA_TEAM_C          = G1.NA_TEAM_C(+)                                       
+		AND NVL(A.NA_TRPL_C  , '')          = G2.NA_BZPLC(+)                             
+		AND NVL(A.TRPL_NA_TEAM_C  , '')          = G2.NA_TEAM_C(+)                       
+		AND A.BZ_METH_DSC        = H1.SIMP_C(+)                                          
+		AND H1.SIMP_TPC(+)          = 'BZ_METH_DSC'                                      
+		AND A.ROTS_CTR_DSC       = H2.SIMP_C(+)                                          
+		AND H2.SIMP_TPC(+)          = 'ROTS_CTR_DSC'                                     
+		AND A.NA_LLED_C          = J1.NA_WRS_LCLC(+)                                     
+		AND '000'                = J1.NA_WRS_MCLC(+)                                     
+		AND '000'                = J1.NA_WRS_SCLC(+)                                     
+		AND '000'                = J1.NA_WRS_DTCF_C(+)                                   
+		AND A.NA_LLED_C          = J2.NA_WRS_LCLC(+)                                     
+		AND A.NA_MLED_C          = J2.NA_WRS_MCLC(+)                                     
+		AND '000'                = J2.NA_WRS_SCLC(+)                                     
+		AND '000'                = J2.NA_WRS_DTCF_C(+)                                   
+		<!-- AND A.NA_TRPL_C          = K.NA_BZPLC(+) -->                                         
+		AND A.NA_BZPLC           = L.NA_TRPL_C(+)
+		<!-- ORDER BY A.NA_BZPLC ,  A.NA_TRPL_C, G1.TEAMNM, A.TXBZ_DFN_DT DESC -->
+	</sql>
+	
+	<!-- 실적_세무자료_매입 마스터 페이지 추가 쿼리 -->	
+	<select id="retrieveByngList" parameterType="java.util.Map" resultMap="taxByngMap">
+		<bind name="sortName" value="'NA_BZPLC,NA_TRPL_C,NA_TEAM_C,TR_DT'" />
+		<bind name="sortType" value="'desc'" />		
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveByngList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 실적_세무자료_매입 마스터 총 카운트 -->
+	<select id="getByngListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveByngList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 실적_세무자료_매입 마스터 총 합계 수량/금액 -->
+	<select id="getByngListTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.SPY_AM), 0) AS TOTAL_SPY_AM
+		  , NVL(SUM(LIST.VAT), 0) AS TOTAL_VAT
+		  , NVL(SUM(LIST.PUC), 0) AS TOTAL_PUC		  
+		  , NVL(SUM(LIST.BLB_SPY_AM), 0) AS TOTAL_BLB_SPY_AM
+		  , NVL(SUM(LIST.BLB_VAT), 0) AS TOTAL_BLB_VAT
+		  , NVL(SUM(LIST.CRC_BLB_SPY_AM), 0) AS TOTAL_CRC_BLB_SPY_AM
+		  , NVL(SUM(LIST.CRC_BLB_VAT), 0) AS TOTAL_CRC_BLB_VAT
+		  , NVL(SUM(LIST.DFC_SPY_AM), 0) AS TOTAL_DFC_SPY_AM
+		  , NVL(SUM(LIST.DFC_VAT), 0) AS TOTAL_DFC_VAT
+		  , NVL(SUM(LIST.CRC_DFC_SPY_AM), 0) AS TOTAL_CRC_DFC_SPY_AM
+		  , NVL(SUM(LIST.CRC_DFC_VAT), 0) AS TOTAL_CRC_DFC_VAT	   
+		FROM
+		(
+		<include refid="sql_retrieveByngList" />
+		) LIST
+	</select>
+	
+	<select id="retrieveByngList_back" parameterType="java.util.Map" resultMap="taxByngMap">
+		SELECT
+			A.NA_BZPLC AS NA_BZPLC,
+			A.BYNG_YM AS BYNG_YM,
+			A.TXBZ_DFN_DT AS TXBZ_DFN_DT,
+			B1.CLNTNM AS CLNTNM,
+			A.BZPL_BZNO AS BZPL_BZNO,
+			A.NA_TEAM_C AS NA_TEAM_C,
+			A.NA_TRPL_C AS NA_TRPL_C,
+			NVL( B2.CLNTNM,(SELECT C.CLNTNM FROM TB_TR_TRPL_CIF C WHERE C.NA_TRPL_C = A.TRPL_RLNO)) AS CUSNM,
+			A.TRPL_RLNO AS TRPL_RLNO,
+			'['||A.TRPL_NA_TEAM_C ||']'|| 'TEMNM' AS TRPL_NA_TEAM_C,
+			A.TXBZ_DFN_DT AS TR_DT,
+			DECODE(A.NA_SOAC_DSC, '1', '세금계산서','2', '계산서','3','입금표','') AS NA_SOAC_DSC,
+			(A.BLB_SPY_AM +A.CRC_BLB_SPY_AM ) -(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ) AS SPY_AM,
+			(A.BLB_VAT +A.CRC_BLB_VAT ) -(A.DFC_VAT +A.CRC_DFC_VAT ) AS VAT,
+			A.PUC AS PUC,
+			'['||A.NA_TOT_DSC ||']'||'TXBZ_IDVD_CNM' AS NA_TOT_DSC,
+			'['||A.NA_TOT_DTI_DSC||']'||'TXBZ_IDVD_CNM' AS NA_TOT_DTI_DSC,
+			'['||A.TXBZ_TP_DSC||']'||'TXBZ_IDVD_CNM' AS TXBZ_TP_DSC,
+			A.LATCNM AS LATCNM,
+			A.BLB_SPY_AM AS BLB_SPY_AM,
+			A.BLB_VAT AS BLB_VAT,
+			A.CRC_BLB_SPY_AM AS CRC_BLB_SPY_AM,
+			A.CRC_BLB_VAT AS CRC_BLB_VAT,
+			A.DFC_SPY_AM AS DFC_SPY_AM,
+			A.DFC_VAT AS DFC_VAT,
+			A.CRC_DFC_SPY_AM AS CRC_DFC_SPY_AM,
+			A.CRC_DFC_VAT AS CRC_DFC_VAT,
+			'['||A.BZ_METH_DSC ||']'|| H1.SIMP_CNM AS BZ_METH_DSC,
+			'['||A.ROTS_CTR_DSC ||']'|| H2.SIMP_CNM AS ROTS_CTR_DSC,
+			'['||A.NA_LLED_C ||']'|| J1.WRS_LCLFNM AS NA_LLED_C,
+			'['||A.NA_MLED_C ||']'|| J2.WRS_MCLFNM AS NA_MLED_C,
+			A.PBC_RMK_CNTN AS PBC_RMK_CNTN,
+	<choose>
+		<when test="BYNG_SLAM_TYPE == '1'.toString()">			      
+			A.RMK_CNTN AS RMK_CNTN,
+		</when>			    
+		<otherwise>
+			A.RMK_CNTN AS RMK_CNTN,
+		</otherwise>
+	</choose>
+			A.TXBZ_TOT_RG_SQNO AS TXBZ_TOT_RG_SQNO,
+			A.DSPC_INCD_YN AS DSPC_INCD_YN        
+		FROM TB_TX_TH_SUPP_CUST A , 
+			TB_TR_TRPL_CIF B1 , 
+			TB_TR_TRPL_CIF B2 , 
+			TB_CM_SIMPC H1 , 
+			TB_CM_SIMPC H2 , 
+			TB_GD_WRS_CLF J1 , 
+			TB_GD_WRS_CLF J2 
+		WHERE A.NA_BZPLC = B1.NA_TRPL_C 
+			<!--AND A.BZPL_BZNO = B1.NA_TRPL_C--> 
+			AND NVL(A.NA_TRPL_C, '0000000000000') = B2.NA_TRPL_C(+) 
+			AND A.TRPL_RLNO = B2.NA_TRPL_C(+) 
+			AND A.BZ_METH_DSC = H1.SIMP_C(+) 
+			AND H1.SIMP_TPC(+) = 'BZ_METH_DSC' 
+			AND A.ROTS_CTR_DSC = H2.SIMP_C(+) 
+			AND H2.SIMP_TPC(+) = 'ROTS_CTR_DSC' 
+			AND A.NA_LLED_C = J1.NA_WRS_LCLC(+) 
+			AND '000' = J1.NA_WRS_MCLC(+) 
+			AND '000' = J1.NA_WRS_SCLC(+) 
+			AND '000' = J1.NA_WRS_DTCF_C(+) 
+			AND A.NA_LLED_C = J2.NA_WRS_LCLC(+) 
+			AND A.NA_MLED_C = J2.NA_WRS_MCLC(+) 
+			AND '000' = J2.NA_WRS_SCLC(+) 
+			AND '000' = J2.NA_WRS_DTCF_C(+)
+		<if test="NA_BZPLC != null and NA_BZPLC.length() >  0">
+			AND A.NA_BZPLC = #{NA_BZPLC}
+		</if>
+			AND A.TXBZ_DFN_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+		<if test="CENTER_NA_BZPLC != null and CENTER_NA_BZPLC.length() >  0">
+			AND A.NA_BZPLC = #{CENTER_NA_BZPLC}
+		</if>
+		<if test="ROTS_CTR_DSC != null and ROTS_CTR_DSC.length() >  0">
+			AND A.ROTS_CTR_DSC = #{ROTS_CTR_DSC}
+		</if>
+		<if test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0">
+			AND A.NA_TOT_DSC = #{NA_TOT_DSC}
+		</if>
+		<if test="NA_SOAC_DSC != null and NA_SOAC_DSC.length() > 0 and NA_SOAC_DSC != '0'.toString()">
+			AND A.NA_SOAC_DSC = #{NA_SOAC_DSC}
+		</if>
+		<if test="TXBZ_TP_DSC != null and TXBZ_TP_DSC.length() > 0">
+			AND A.TXBZ_TP_DSC = #{TXBZ_TP_DSC}
+		</if>		
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+		ORDER BY A.NA_BZPLC,A.NA_TRPL_C,A.NA_TEAM_C,A.TXBZ_DFN_DT DESC
+	</select>
+	
+	<select id="printByngList_back" parameterType="java.util.Map" resultMap="taxByngMap">
+		SELECT
+			, C2.BIZ_NUMBER /*00 거래처실명번호          */
+			, C2.CLNTNM /*01 거래처명                */
+			, C1.BIZ_NUMBER /*02 사업장실명번호          */
+			, C1.CLNTNM /*03 사업장명                */
+			, A.TR_DT /*04 거래일자                */
+			--, DECODE(:SFINDATA.PBC_TYPE,'U',A.LATCNM,DECODE (K.TXBZ_TP_LATCNM,'',A.LATCNM,K.TXBZ_TP_LATCNM))
+			--, DECODE('U','U',A.LATCNM,DECODE (K.TXBZ_TP_LATCNM,'',A.LATCNM,K.TXBZ_TP_LATCNM)) /*세무유형품목명*/ /*05 품목명                  */
+			, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ) /*06 순공급금액              */
+			, (A.BLB_VAT+A.CRC_BLB_VAT)-(A.DFC_VAT  +A.CRC_DFC_VAT) /*07 순부가세                */
+			,'' /*08 합계                    */
+			, C2.REPMNM /*09 거래처대표자명          */
+			, C2.BZTPNM /*10 거래처업태명            */
+			, C2.BZCCNM /*11 거래처업종명            */
+			, C2.DONGUP||' '||C2.DONGBW /*12 거래처주소              */
+			, C2.ATEL||C2.HTEL||C2.STEL /*13 거래처전화번호          */
+			, C1.REPMNM /*14 사업장대표자명          */
+			, C1.BZTPNM /*15 사업장업태명            */
+			, C1.BZCCNM /*16 사업장업종명            */
+			, C1.DONGUP||' '||C1.DONGBW /*17 사업장주소              */
+			, C1.ATEL||C1.HTEL||C1.STEL /*18 사업장전화번호          */
+			, A.TXBZ_TOT_RG_SQNO /*19 세무집계등록일련번호    */
+			, '['||A.NA_BZPLC||'/'||A.NA_TRPL_C||']' /*20 사업자/거래처GLN        */
+			, DECODE(A.NA_TEAM_C,'00','',A.NA_TEAM_C||' '||NVL(G1.TEAMNM, '대표팀')) /*21 사업장팀                */
+			, A.TXBZ_PBC_NT /*22 세무발행횟수            */
+			, DECODE(NVL(C2.FZIP, ''), '',C2.FZIP||C2.RZIP, C2.FZIP||C2.RZIP) /*23 DM우편번호              */
+			, DECODE(NVL(C2.DONGUP, ''), '',C2.DONGUP||' '||C2.DONGBW  ,C2.DONGUP ||' '||C2.DONGBW) /*24 DM주소                  */
+			--, P.DM_GDC_PHR_CNTN /*DM안내문구내용*/
+			, A.NA_BZPLC /*26 경제통합사업장코드      */
+			--, A.SLP_DT /*27 전표일자                */
+			, A.NA_TR_DSC /*28 경제통합거래구분코드    */
+			, A.NA_SLPNO /*29 경제통합전표번호        */
+			, A.RG_SQNO /*30 등록일련번호            */
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, ''
+			, NVL(C2.CLNTNM,C2.CLNTNM) /*CLNTNM - 거래처명*/ /*58 거래처GLN명             */
+			, NVL(C1.CLNTNM,C1.CLNTNM) /*59 사업장GLN명             */
+			, NVL( A.SLV_BZPL_SQNO, '0000')
+			, NVL( A.SLV_TRPL_SQNO, '0000')
+			, ( CASE WHEN A.TXBZ_TP_DSC = '030' THEN '1' ELSE '0' END )
+			, A.NA_TRPL_C /* 거래처코드      */
+			, A.TRPL_NA_TEAM_C||' '||NVL(G2.TEAMNM, '대표팀')
+			--, A.PBC_RMK_CNTN /*   비고내용
+		FROM
+			( SELECT TR_DT
+			, TO_SINGLE_BYTE(LATCNM) LATCNM
+			, BLB_SPY_AM
+			, CRC_BLB_SPY_AM
+			, DFC_SPY_AM
+			, CRC_DFC_SPY_AM
+			, BLB_VAT
+			, CRC_BLB_VAT
+			, DFC_VAT
+			, CRC_DFC_VAT
+			, TXBZ_TOT_RG_SQNO
+			, NA_TRPL_C
+			, NA_TEAM_C
+			, TXBZ_PBC_NT
+			, NA_BZPLC
+			--, SLP_DT
+			, NA_TR_DSC
+			, NA_SLPNO
+			, RG_SQNO
+			, SLV_BZPL_SQNO
+			, SLV_TRPL_SQNO
+			, TXBZ_TP_DSC
+			, TRPL_NA_TEAM_C
+			--, TO_SINGLE_BYTE(PBC_RMK_CNTN) PBC_RMK_CNTN
+			, TRPL_RLNO
+			, BZPL_BZNO
+			, BRK_DEL_YN
+			, TXBZ_TOT_YN
+			, TXBZ_BRK_TOT_TP_YN
+			FROM TB_TX_TH_DAY_SUPP
+			WHERE '1' = '0'
+			UNION ALL
+			SELECT TR_DT
+			, TO_SINGLE_BYTE(LATCNM) LATCNM
+			, BLB_SPY_AM
+			, CRC_BLB_SPY_AM
+			, DFC_SPY_AM
+			, CRC_DFC_SPY_AM
+			, BLB_VAT
+			, CRC_BLB_VAT
+			, DFC_VAT
+			, CRC_DFC_VAT
+			, TXBZ_TOT_RG_SQNO
+			, NA_TRPL_C
+			, NA_TEAM_C
+			, TXBZ_PBC_NT
+			, NA_BZPLC
+			--, SLP_DT
+			, NA_TR_DSC
+			, NA_SLPNO
+			, RG_SQNO
+			, SLV_BZPL_SQNO
+			, SLV_TRPL_SQNO
+			, TXBZ_TP_DSC
+			, TRPL_NA_TEAM_C
+			--, TO_SINGLE_BYTE(PBC_RMK_CNTN) PBC_RMK_CNTN
+			, TRPL_RLNO
+			, BZPL_BZNO
+			, BRK_DEL_YN
+			, TXBZ_TOT_YN
+			, TXBZ_BRK_TOT_TP_YN
+			FROM TB_TX_TH_DAY_SUPP
+			WHERE '1' <![CDATA[<>]]> '0' ) A
+			, TB_TR_TRPL_CIF         C1 /*TB_NA_TX_TM_TRPL - 세무관리_세무거래처기본*/    
+			, TB_TR_TRPL_CIF         C2
+			, TB_CM_TEAM      G1    
+			, TB_CM_TEAM      G2
+			
+			--, TB_NA_TX_TM_PBC_PHR      P  /*세무관리_세무발행문구기본*/
+			--, TB_NA_TX_TH_TAX_KIND_PBC K /*세무관리_유형발행관리내역*/
+		WHERE 1=1 
+			--AND A.NA_BZPLC                        = 'NA_BZPLC'
+			--AND A.TXBZ_TOT_RG_SQNO                = 'TXBZ_TOT_RG_SQNO'
+			AND A.TXBZ_BRK_TOT_TP_YN              = '1'
+			AND A.TXBZ_TOT_YN                     = '0'
+			AND A.BRK_DEL_YN                      = '0'
+			AND A.NA_BZPLC                        = C1.NA_TRPL_C(+)
+			AND A.BZPL_BZNO = C1.BIZ_NUMBER(+)
+			AND NVL(A.NA_TRPL_C, '0000000000000') = C2.NA_TRPL_C(+)
+			AND A.TRPL_RLNO = C2.BIZ_NUMBER(+)
+			AND A.NA_BZPLC                        = G1.NA_BZPLC(+)
+			AND A.NA_TEAM_C                       = G1.NA_TEAM_C(+)
+			AND A.NA_TRPL_C                       = G2.NA_BZPLC(+)
+			AND A.TRPL_NA_TEAM_C                  = G2.NA_TEAM_C(+)
+			--AND A.NA_BZPLC                        = P.NA_BZPLC(+)
+			--AND A.NA_TEAM_C                       = P.NA_TEAM_C(+)
+			--AND A.NA_BZPLC                        = K.NA_BZPLC(+)
+			--AND A.NA_TEAM_C                       = K.NA_TEAM_C(+)
+			--AND A.TXBZ_TP_DSC                     = K.TXBZ_TP_DSC(+)
+		</select>
+		
+	<select id="printByngList" parameterType="java.util.Map" resultMap="taxByngPrintMap">	
+		SELECT
+			A.TXBZ_TOT_RG_SQNO /* 세무집계등록일련번호    */
+			, '['||A.NA_BZPLC||'/'||A.NA_TRPL_C||']' AS JOIN_GLN  /* 사업자/거래처GLN        */
+			     
+			, A.BZPL_BZNO AS BIZ_NUMBER_B /* 사업장실명번호          */
+			, C1.CLNTNM AS CLNTNM_B /* 사업장명                */
+			, C1.REPMNM AS REPMNM_B /* 사업장대표자명          */
+			, C1.DONGUP||' '||C1.DONGBW AS ADDRESS_B /* 사업장주소              */
+			, C1.BZTPNM AS BZTPNM_B /* 사업장업태명            */
+			, C1.BZCCNM AS BZCCNM_B/* 사업장업종명            */			
+					
+			, A.TRPL_RLNO AS BIZ_NUMBER_C /* 거래처실명번호          */
+			, C2.CLNTNM AS CLNTNM_C /* 거래처명                */
+			, C2.REPMNM AS REPMNM_C /* 거래처대표자명          */
+			, C2.DONGUP||' '||C2.DONGBW AS ADDRESS_C /* 거래처주소              */
+			, C2.BZTPNM AS BZTPNM_C /* 거래처업태명            */
+			, C2.BZCCNM AS BZCCNM_C /* 거래처업종명            */     
+					
+			, A.TR_DT /* 거래일자                */
+			, A.SLP_DT /*27 전표일자                */		
+			, DECODE('U','U',TO_SINGLE_BYTE(A.LATCNM),DECODE (K.TXBZ_TP_LATCNM,'',TO_SINGLE_BYTE(A.LATCNM),K.TXBZ_TP_LATCNM)) AS LATCNM /* 품목명*/     
+			, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ) AS SPY_AM  /* 순공급금액              */
+			, (A.BLB_VAT+A.CRC_BLB_VAT)-(A.DFC_VAT+A.CRC_DFC_VAT) AS VAT /* 순부가세                */
+			, '' AS SUM_VALUE /* 합계                    */			      			
+			               
+			, NVL(C1.CLNTNM,C1.CLNTNM) AS CLNTNM_BZ /* 사업장GLN명             */
+			, A.NA_BZPLC /* 경제통합사업장코드      */      
+			, NVL(C2.CLNTNM,C2.CLNTNM) AS CLNTNM_CZ /*  거래처GLN명             */
+			, A.NA_TRPL_C /* 거래처코드      */
+						
+			, A.NA_TR_DSC /*28 경제통합거래구분코드    */
+			, A.NA_SLPNO /*29 경제통합전표번호        */
+			, A.RG_SQNO /*30 등록일련번호            */      
+			, TO_SINGLE_BYTE(PBC_RMK_CNTN) PBC_RMK_CNTN /*   비고내용*/
+			, '[ '||NVL(C1.CLNTNM,C1.CLNTNM)||' '||A.NA_BZPLC||' / '||NVL(C2.CLNTNM,C2.CLNTNM)||' '||A.NA_TRPL_C||']' AS JOIN_GLN_NM  /* 사업자/거래처GLN 명      */
+		FROM
+				TB_TX_TH_DAY_CUST A				
+				, TB_TR_TRPL_CIF         C1 /*TB_NA_TX_TM_TRPL - 세무관리_세무거래처기본*/    
+				, TB_TR_TRPL_CIF         C2
+				, TB_CM_TEAM      G1    
+				, TB_CM_TEAM      G2
+				
+				, TB_TX_TM_PBC_PHR      P  /*세무관리_세무발행문구기본*/
+				, TB_TX_TH_TAX_KIND_PBC K /*세무관리_유형발행관리내역*/
+			WHERE 1=1 
+				AND A.NA_BZPLC                        = #{NA_BZPLC}
+				AND A.TXBZ_TOT_RG_SQNO                = #{TXBZ_TOT_RG_SQNO}
+				AND A.TXBZ_BRK_TOT_TP_YN              = '1'
+				AND A.TXBZ_TOT_YN                     = '0'
+				AND A.BRK_DEL_YN                      = '0'
+				AND A.NA_BZPLC                        = C1.NA_TRPL_C(+)
+				<!-- AND A.BZPL_BZNO = C1.BIZ_NUMBER(+) -->
+				AND NVL(A.NA_TRPL_C, '0000000000000') = C2.NA_TRPL_C(+)
+				<!-- AND A.TRPL_RLNO = C2.BIZ_NUMBER(+) -->
+				AND A.NA_BZPLC                        = G1.NA_BZPLC(+)
+				AND A.NA_TEAM_C                       = G1.NA_TEAM_C(+)
+				AND A.NA_TRPL_C                       = G2.NA_BZPLC(+)
+				AND A.TRPL_NA_TEAM_C                  = G2.NA_TEAM_C(+)
+				AND A.NA_BZPLC                        = P.NA_BZPLC(+)
+				AND A.NA_TEAM_C                       = P.NA_TEAM_C(+)
+				AND A.NA_BZPLC                        = K.NA_BZPLC(+)
+				AND A.NA_TEAM_C                       = K.NA_TEAM_C(+)
+				AND A.TXBZ_TP_DSC                     = K.TXBZ_TP_DSC(+)
+	</select>
+	
+	<select id="printByngList_back2" parameterType="java.util.Map" resultMap="taxByngPrintMap">	
+		SELECT
+			A.TXBZ_TOT_RG_SQNO /* 세무집계등록일련번호    */
+			, '['||A.NA_BZPLC||'/'||A.NA_TRPL_C||']' AS JOIN_GLN  /* 사업자/거래처GLN        */
+			     
+			, C1.BIZ_NUMBER AS BIZ_NUMBER_B /* 사업장실명번호          */
+			, C1.CLNTNM AS CLNTNM_B /* 사업장명                */
+			, C1.REPMNM AS REPMNM_B /* 사업장대표자명          */
+			, C1.DONGUP||' '||C1.DONGBW AS ADDRESS_B /* 사업장주소              */
+			, C1.BZTPNM AS BZTPNM_B /* 사업장업태명            */
+			, C1.BZCCNM AS BZCCNM_B/* 사업장업종명            */			
+					
+			, C2.BIZ_NUMBER AS BIZ_NUMBER_C /* 거래처실명번호          */
+			, C2.CLNTNM AS CLNTNM_C /* 거래처명                */
+			, C2.REPMNM AS REPMNM_C /* 거래처대표자명          */
+			, C2.DONGUP||' '||C2.DONGBW AS ADDRESS_C /* 거래처주소              */
+			, C2.BZTPNM AS BZTPNM_C /* 거래처업태명            */
+			, C2.BZCCNM AS BZCCNM_C /* 거래처업종명            */     
+					
+			, A.TR_DT /* 거래일자                */
+			, A.SLP_DT /*27 전표일자                */		
+			, DECODE('U','U',A.LATCNM,DECODE (K.TXBZ_TP_LATCNM,'',A.LATCNM,K.TXBZ_TP_LATCNM)) AS LATCNM /* 품목명*/     
+			, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ) AS SPY_AM  /* 순공급금액              */
+			, (A.BLB_VAT+A.CRC_BLB_VAT)-(A.DFC_VAT+A.CRC_DFC_VAT) AS VAT /* 순부가세                */
+			, '' AS SUM_VALUE /* 합계                    */			      			
+			               
+			, NVL(C1.CLNTNM,C1.CLNTNM) AS CLNTNM_BZ /* 사업장GLN명             */
+			, A.NA_BZPLC /* 경제통합사업장코드      */      
+			, NVL(C2.CLNTNM,C2.CLNTNM) AS CLNTNM_CZ /*  거래처GLN명             */
+			, A.NA_TRPL_C /* 거래처코드      */
+						
+			, A.NA_TR_DSC /*28 경제통합거래구분코드    */
+			, A.NA_SLPNO /*29 경제통합전표번호        */
+			, A.RG_SQNO /*30 등록일련번호            */      
+			, A.PBC_RMK_CNTN /*   비고내용*/
+			, '[ '||NVL(C1.CLNTNM,C1.CLNTNM)||' '||A.NA_BZPLC||' / '||NVL(C2.CLNTNM,C2.CLNTNM)||' '||A.NA_TRPL_C||']' AS JOIN_GLN_NM  /* 사업자/거래처GLN 명      */
+		FROM
+				( SELECT TR_DT
+				, TO_SINGLE_BYTE(LATCNM) LATCNM
+				, BLB_SPY_AM
+				, CRC_BLB_SPY_AM
+				, DFC_SPY_AM
+				, CRC_DFC_SPY_AM
+				, BLB_VAT
+				, CRC_BLB_VAT
+				, DFC_VAT
+				, CRC_DFC_VAT
+				, TXBZ_TOT_RG_SQNO
+				, NA_TRPL_C
+				, NA_TEAM_C
+				, TXBZ_PBC_NT
+				, NA_BZPLC
+				, SLP_DT
+				, NA_TR_DSC
+				, NA_SLPNO
+				, RG_SQNO
+				, SLV_BZPL_SQNO
+				, SLV_TRPL_SQNO
+				, TXBZ_TP_DSC
+				, TRPL_NA_TEAM_C
+				, TO_SINGLE_BYTE(PBC_RMK_CNTN) PBC_RMK_CNTN
+				, TRPL_RLNO
+				, BZPL_BZNO
+				, BRK_DEL_YN
+				, TXBZ_TOT_YN
+				, TXBZ_BRK_TOT_TP_YN
+				FROM TB_TX_TH_DAY_CUST
+				WHERE '1' = '0'
+				UNION ALL
+				SELECT TR_DT
+				, TO_SINGLE_BYTE(LATCNM) LATCNM
+				, BLB_SPY_AM
+				, CRC_BLB_SPY_AM
+				, DFC_SPY_AM
+				, CRC_DFC_SPY_AM
+				, BLB_VAT
+				, CRC_BLB_VAT
+				, DFC_VAT
+				, CRC_DFC_VAT
+				, TXBZ_TOT_RG_SQNO
+				, NA_TRPL_C
+				, NA_TEAM_C
+				, TXBZ_PBC_NT
+				, NA_BZPLC
+				, SLP_DT
+				, NA_TR_DSC
+				, NA_SLPNO
+				, RG_SQNO
+				, SLV_BZPL_SQNO
+				, SLV_TRPL_SQNO
+				, TXBZ_TP_DSC
+				, TRPL_NA_TEAM_C
+				, TO_SINGLE_BYTE(PBC_RMK_CNTN) PBC_RMK_CNTN
+				, TRPL_RLNO
+				, BZPL_BZNO
+				, BRK_DEL_YN
+				, TXBZ_TOT_YN
+				, TXBZ_BRK_TOT_TP_YN
+				FROM TB_TX_TH_DAY_CUST
+				WHERE '1' <![CDATA[<>]]> '0' ) A
+				, TB_TR_TRPL_CIF         C1 /*TB_NA_TX_TM_TRPL - 세무관리_세무거래처기본*/    
+				, TB_TR_TRPL_CIF         C2
+				, TB_CM_TEAM      G1    
+				, TB_CM_TEAM      G2
+				
+				, TB_TX_TM_PBC_PHR      P  /*세무관리_세무발행문구기본*/
+				, TB_TX_TH_TAX_KIND_PBC K /*세무관리_유형발행관리내역*/
+			WHERE 1=1 
+				AND A.NA_BZPLC                        = #{NA_BZPLC}
+				AND A.TXBZ_TOT_RG_SQNO                = #{TXBZ_TOT_RG_SQNO}
+				AND A.TXBZ_BRK_TOT_TP_YN              = '1'
+				AND A.TXBZ_TOT_YN                     = '0'
+				AND A.BRK_DEL_YN                      = '0'
+				AND A.NA_BZPLC                        = C1.NA_TRPL_C(+)
+				<!-- AND A.BZPL_BZNO = C1.BIZ_NUMBER(+) -->
+				AND NVL(A.NA_TRPL_C, '0000000000000') = C2.NA_TRPL_C(+)
+				<!-- AND A.TRPL_RLNO = C2.BIZ_NUMBER(+) -->
+				AND A.NA_BZPLC                        = G1.NA_BZPLC(+)
+				AND A.NA_TEAM_C                       = G1.NA_TEAM_C(+)
+				AND A.NA_TRPL_C                       = G2.NA_BZPLC(+)
+				AND A.TRPL_NA_TEAM_C                  = G2.NA_TEAM_C(+)
+				AND A.NA_BZPLC                        = P.NA_BZPLC(+)
+				AND A.NA_TEAM_C                       = P.NA_TEAM_C(+)
+				AND A.NA_BZPLC                        = K.NA_BZPLC(+)
+				AND A.NA_TEAM_C                       = K.NA_TEAM_C(+)
+				AND A.TXBZ_TP_DSC                     = K.TXBZ_TP_DSC(+)
+	</select>
+		
+	<select id="downloadByngList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'NA_BZPLC,NA_TRPL_C,NA_TEAM_C,TR_DT'" />
+		<bind name="sortType" value="'desc'" />		
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveByngList" />
+		<include refid="common.paging_end" />
+	</select>	
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="smartpdaInspection">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->
+
+	<sql id="sql_mainSelect">
+		SELECT A.NA_BZPLC, A.NA_TEAM_C,A.DVY_PLA_DT, A.NA_WRS_C, A.BUYPL_NA_TRPL_C,A.WRS_IMG_NM_01, B.Wrsnm AS WRS_NM FROM TB_PD_BYNG_WRS_IMG A	
+	          , Tb_Gd_Wrs B
+	    <where>
+	   		 A.na_wrs_c = B.Na_Wrs_C
+          	 AND A.DVY_PLA_DT BETWEEN #{FROM_DATE:VARCHAR} AND #{TO_DATE:VARCHAR}
+        	<if test="BUYPL_NA_TRPL_C != null and BUYPL_NA_TRPL_C.length() > 0">
+				AND A.BUYPL_NA_TRPL_C = #{BUYPL_NA_TRPL_C:VARCHAR}
+        	</if>
+        	<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND A.NA_BZPLC = #{NA_BZPLC:VARCHAR}
+        	</if>
+      	</where>
+	</sql>
+	
+	<!-- 검수 리스트 총 카운트 -->
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 검수 마스터 리스트 -->
+	<select id="mainSelectList" parameterType="Map" resultType="java.util.HashMap">
+	 <bind name="sortName" value="'NA_BZPLC, NA_TEAM_C, DVY_PLA_DT, NA_WRS_C desc'"/> 
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	
+	<!-- 검수내역 헤더 정보 -->
+	<select id="selectMaster" parameterType="Map" resultType="java.util.HashMap">
+	SELECT A.NA_BZPLC, A.NA_TEAM_C,A.DVY_PLA_DT, A.NA_WRS_C, A.BUYPL_NA_TRPL_C,A.WRS_IMG_NM_01, A.WRS_IMG_NM_02, A.WRS_IMG_NM_03, B.Wrsnm AS WRS_NM FROM TB_PD_BYNG_WRS_IMG A	
+	          , Tb_Gd_Wrs B
+	    <where>
+	   		 A.na_wrs_c = B.Na_Wrs_C
+          	 AND A.DVY_PLA_DT = #{dvy_dt:VARCHAR}
+        	<if test="BUYPL_NA_TRPL_C != null and BUYPL_NA_TRPL_C.length() > 0">
+				AND A.BUYPL_NA_TRPL_C = #{BUYPL_NA_TRPL_C:VARCHAR}
+        	</if>
+        	<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND A.NA_BZPLC = #{NA_BZPLC:VARCHAR}
+        	</if>
+        	<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+				AND A.NA_TEAM_C = #{NA_TEAM_C:VARCHAR}
+        	</if>
+        	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND A.NA_WRS_C = #{NA_WRS_C:VARCHAR}
+        	</if>
+      	</where>
+	</select>
+</mapper>

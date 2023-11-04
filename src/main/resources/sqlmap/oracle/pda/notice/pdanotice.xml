@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pdaNotice">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->
+	
+	<sql id="sql_mainSelect">
+      SELECT (SELECT COUNT(*) 
+                FROM TB_PD_NOTICE A
+               WHERE #{FROM_DATE:VARCHAR} <![CDATA[<=]]> A.NOTICE_ED_DTM
+                OR #{TO_DATE:VARCHAR} <![CDATA[>=]]> A.NOTICE_ST_DTM ) AS TOT_ROW_CNT,
+                ( SELECT MAX(NOTICE_SQNO+1)  FROM TB_PD_NOTICE) AS NOTICE_MAX_SQNO,   /* 총건수 */
+             PAGE.* 
+        FROM (
+         SELECT ROW_NUMBER() OVER(ORDER BY PAGE.NOTICE_SQNO) AS SEQ,  /* 순번 */ 
+                PAGE.* 
+           FROM (
+            SELECT A.NOTICE_SQNO 
+             , A.NOTICE_SUBJECT
+             , A.NOTICE_ST_DTM
+             , A.NOTICE_ED_DTM
+             , A.FS_RGM
+             , A.LS_CHGM
+             , A.PUSH_USE_YN
+             , A.PUSH_SEND_DTM
+          FROM TB_PD_NOTICE A
+          WHERE #{FROM_DATE:VARCHAR} <![CDATA[<=]]> A.NOTICE_ED_DTM
+          OR #{TO_DATE:VARCHAR} <![CDATA[>=]]> A.NOTICE_ST_DTM
+         ) PAGE
+      ) PAGE
+	</sql>
+	
+	<!-- PDA공지사항 리스트 총 카운트 -->
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- PDA공지사항 리스트 -->
+	<select id="mainSelectList" parameterType="Map" resultType="java.util.HashMap">
+	 <bind name="sortName" value="'NOTICE_SQNO ASC'"/>
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- PDA공지사항 상세 리스트 -->
+	<select id="selectDetail" parameterType="Map" resultType="java.util.HashMap">
+		SELECT A.NOTICE_SQNO
+				, A.NOTICE_ST_DTM
+				, A.NOTICE_ED_DTM
+				, A.NOTICE_SUBJECT
+				, A.NOTICE_CNTN
+				, A.PUSH_USE_YN
+				, A.PUSH_PRC_ST
+				, A.PUSH_SEND_DTM
+				, A.PUSH_SEND_RESULT
+				, A.FS_RGM
+				, A.FSRG_DTM
+				, A.LS_CHGM
+				, A.LSCHG_DTM
+		  FROM TB_PD_NOTICE A
+		 WHERE A.NOTICE_SQNO = #{NOTICE_SQNO:VARCHAR}
+	</select>
+	
+	<!-- PDA공지사항 삭제 -->
+	<delete id="deletePdaNotice" parameterType="java.util.Map">
+		DELETE FROM TB_PD_NOTICE
+		 WHERE NOTICE_SQNO = #{NOTICE_SQNO}
+	</delete>
+	
+	<!-- PDA공지사항 수정 -->
+	<update id="updatePdaNotice" parameterType="java.util.Map">
+		UPDATE TB_PD_NOTICE
+		   SET NOTICE_ST_DTM = #{NOTICE_ST_DTM}
+		     , NOTICE_ED_DTM = #{NOTICE_ED_DTM}
+		     , NOTICE_SUBJECT = #{NOTICE_SUBJECT}
+		     , NOTICE_CNTN = #{NOTICE_CNTN}
+		     , PUSH_USE_YN = #{PUSH_USE_YN}
+		     , PUSH_PRC_ST = #{PUSH_PRC_ST}
+		     , PUSH_SEND_DTM = #{PUSH_SEND_DTM}
+		     , PUSH_SEND_RESULT = #{PUSH_SEND_RESULT}
+		     , FS_RGM = #{FS_RGM}
+		     , FSRG_DTM = #{FSRG_DTM}
+		     , LS_CHGM = #{LS_CHGM}
+		     , LSCHG_DTM = TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+		 WHERE NOTICE_SQNO = #{NOTICE_SQNO}
+	</update>
+	
+	<!-- PDA공지사항 등록 -->
+	<insert id="insertPdaNotice" parameterType="java.util.Map">
+		INSERT INTO TB_PD_NOTICE (
+		    NOTICE_SQNO
+			, NOTICE_ST_DTM
+			, NOTICE_ED_DTM
+			, NOTICE_SUBJECT
+			, NOTICE_CNTN
+			, PUSH_USE_YN
+			, PUSH_PRC_ST
+			, PUSH_SEND_DTM
+			, PUSH_SEND_RESULT
+			, FS_RGM
+			, FSRG_DTM
+			, LS_CHGM
+			, LSCHG_DTM
+			)VALUES
+			(
+			   #{NOTICE_SQNO}
+			 , TO_CHAR(SYSDATE,'YYYYMMDDHH')
+			 , #{NOTICE_ED_DTM}
+			 , #{NOTICE_SUBJECT}
+			 , #{NOTICE_CNTN}
+			 , #{PUSH_USE_YN}
+			 , #{PUSH_PRC_ST}
+			 , #{PUSH_SEND_DTM}
+			 , #{PUSH_SEND_RESULT}
+			 , #{FS_RGM}
+			 , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+			 , #{LS_CHGM}
+			 , TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+			)		
+	</insert>
+	
+	<!-- MAX NOTICE_SQNO  -->
+	<select id="maxSqnoSelect" parameterType="Map" resultType="java.util.HashMap">
+	       SELECT MAX(NOTICE_SQNO+1) AS NOTICE_MAX_SQNO FROM TB_PD_NOTICE
+	</select>
+
+</mapper>

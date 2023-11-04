@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<resultMap id="userMap" type="com.nh.escm.vo.User">
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="AUTHORITY" property="authority" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.nh.escm.vo.User">
+		INSERT INTO USER_INFO (
+			USER_ID, USER_NAME, PASSWORD, EMAIL, PHONE, MOBILE, AUTHORITY
+		) VALUES (
+			#{userId:VARCHAR},
+			#{userName:VARCHAR},
+			#{password:VARCHAR},
+			#{email:VARCHAR},
+			#{phone:VARCHAR},
+			#{mobile:VARCHAR},
+			#{authority:VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.nh.escm.vo.User">
+		UPDATE USER_INFO
+		SET USER_NAME = #{userName:VARCHAR},
+		<if test="password != null and password.length() > 0">
+			PASSWORD = #{password:VARCHAR},
+		</if>
+			EMAIL = #{email:VARCHAR},
+			PHONE = #{phone:VARCHAR},
+			MOBILE = #{mobile:VARCHAR},
+			AUTHORITY = #{authority:VARCHAR}
+		WHERE USER_ID = #{userId:VARCHAR}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM USER_INFO WHERE USER_ID = #{userId:VARCHAR}
+	</delete>
+
+	<select id="select" resultMap="userMap">
+		SELECT *
+		FROM USER_INFO
+		WHERE USER_ID = #{userId:VARCHAR}
+	</select>
+
+	<sql id="sql_selectList">
+		SELECT *
+		FROM USER_INFO
+		<where>
+			<if test="searchValue != null and searchValue.length() > 0">
+				<choose>
+				<when test="searchType == 'userId'">
+					AND UPPER(USER_ID) LIKE UPPER(#{searchValue})
+				</when>
+				<when test="searchType == 'userName'">
+					AND UPPER(USER_NAME) LIKE UPPER(#{searchValue})
+				</when>
+				<when test="searchType == 'email'">
+					AND UPPER(EMAIL) LIKE UPPER(#{searchValue})
+				</when>
+				<when test="searchType == 'phone'">
+					AND UPPER(PHONE) LIKE UPPER(#{searchValue})
+				</when>
+				<when test="searchType == 'mobile'">
+					AND UPPER(MOBILE) LIKE UPPER(#{searchValue})
+				</when>
+				</choose>
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectList" parameterType="java.util.Map" resultMap="userMap">
+		<include refid="sql_selectList" />
+		ORDER BY USER_ID ASC
+	</select>
+
+	<select id="selectPageList" parameterType="java.util.Map" resultMap="userMap">
+		<bind name="sortName" value="'USER_ID'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_selectList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="countList" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_selectList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<select id="countByUserId" resultType="int">
+		SELECT COUNT(*)
+		FROM USER_INFO
+		WHERE USER_ID = #{userId:VARCHAR}
+	</select>
+</mapper>

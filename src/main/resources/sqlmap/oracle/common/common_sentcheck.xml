@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sentcheck">
+	
+	<select id="coupon_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SUM(TOTAL) TOTAL, SUM(ERROR) ERROR, SUM(YES) YES, MAX(RSP_C_CNTN) RSP_C_CNTN FROM (
+		  SELECT COUNT(*) TOTAL, 0 ERROR, 0 YES, '' RSP_C_CNTN FROM TB_GD_EVENT_CPN A, TB_GD_EVENT_CPN_TEMP B 
+		  WHERE A.CPN_KDC = B.CPN_KDC
+		  AND A.NA_CPN_C = B.NA_CPN_C
+		  AND A.DC_NA_WRS_C = B.DC_NA_WRS_C
+		  AND A.CPN_SC_NO = B.CPN_SC_NO
+		  AND B.TEMP_SEQ =#{TEMP_SEQ}
+		  UNION ALL
+		  SELECT 0 TOTAL, COUNT(*) ERROR, 0 YES, '' RSP_C_CNTN  FROM TB_GD_EVENT_CPN A, TB_GD_EVENT_CPN_TEMP B 
+		  WHERE A.CPN_KDC = B.CPN_KDC
+		  AND A.NA_CPN_C = B.NA_CPN_C
+		  AND A.DC_NA_WRS_C = B.DC_NA_WRS_C
+		  AND A.CPN_SC_NO = B.CPN_SC_NO
+		  AND B.TEMP_SEQ =#{TEMP_SEQ}
+		  AND A.PRC_YN = 'E'
+		  UNION ALL
+		  SELECT 0 TOTAL, 0 ERROR, COUNT(*) YES, '' RSP_C_CNTN  FROM TB_GD_EVENT_CPN A, TB_GD_EVENT_CPN_TEMP B 
+		  WHERE A.CPN_KDC = B.CPN_KDC
+		  AND A.NA_CPN_C = B.NA_CPN_C
+		  AND A.DC_NA_WRS_C = B.DC_NA_WRS_C
+		  AND A.CPN_SC_NO = B.CPN_SC_NO
+		  AND B.TEMP_SEQ =#{TEMP_SEQ}
+		  AND A.PRC_YN = 'Y'
+		  UNION ALL
+		  SELECT 0 TOTAL, 0 ERROR, 0 YES, A.RSP_C_CNTN RSP_C_CNTN  FROM TB_GD_EVENT_CPN A, TB_GD_EVENT_CPN_TEMP B 
+		  WHERE A.CPN_KDC = B.CPN_KDC
+		  AND A.NA_CPN_C = B.NA_CPN_C
+		  AND A.DC_NA_WRS_C = B.DC_NA_WRS_C
+		  AND A.CPN_SC_NO = B.CPN_SC_NO
+		  AND B.TEMP_SEQ =#{TEMP_SEQ}
+		  AND A.PRC_YN = 'E'
+		  AND ROWNUM = 1
+		  )
+	</select>
+
+	<select id="coupon_sale_result_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SUM(TOTAL) TOTAL, SUM(ERROR) ERROR, SUM(YES) YES, MAX(RSP_C_CNTN) RSP_C_CNTN FROM (
+			SELECT COUNT(*) TOTAL, 0 ERROR, 0 YES, '' RSP_C_CNTN FROM TB_DE_CPN_UPLOAD A 
+			WHERE A.ADJ_YM=#{ADJ_YM} 
+			AND A.ADJPL_NA_TRPL_C=#{ADJPL_NA_TRPL_C}
+			AND A.CPN_SC=#{CPN_SC}
+			UNION ALL
+			SELECT 0 TOTAL, COUNT(*) ERROR, 0 YES, '' RSP_C_CNTN  FROM TB_DE_CPN_UPLOAD A 
+			WHERE A.ADJ_YM=#{ADJ_YM} 
+			AND A.ADJPL_NA_TRPL_C=#{ADJPL_NA_TRPL_C}
+			AND A.CPN_SC=#{CPN_SC}
+			AND A.PRC_YN = 'E'
+			UNION ALL
+			SELECT 0 TOTAL, 0 ERROR, COUNT(*) YES, '' RSP_C_CNTN  FROM TB_DE_CPN_UPLOAD A 
+			WHERE A.ADJ_YM=#{ADJ_YM} 
+			AND A.ADJPL_NA_TRPL_C=#{ADJPL_NA_TRPL_C}
+			AND A.CPN_SC=#{CPN_SC}
+			AND A.PRC_YN = 'Y'
+			UNION ALL
+			SELECT 0 TOTAL, 0 ERROR, 0 YES, A.RSP_C_CNTN RSP_C_CNTN  FROM TB_DE_CPN_UPLOAD A 
+			WHERE A.ADJ_YM=#{ADJ_YM} 
+			AND A.ADJPL_NA_TRPL_C=#{ADJPL_NA_TRPL_C}
+			AND A.CPN_SC=#{CPN_SC}
+			AND A.PRC_YN = 'E'
+			AND ROWNUM = 1
+		)
+	</select>
+
+
+	<select id="order_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RSP_C_CNTN
+		,A.ODR_SLPNO
+		,FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_NM
+		,A.SPYPL_NA_TRPL_C
+		,FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) SPYPL_NA_TRPL_NM
+		,A.DVY_RQR_DT
+		FROM TB_OD_ORDER_M A
+		WHERE A.ODRPL_NA_TRPL_C=#{ODRPL_NA_TRPL_C}
+		AND A.ODRPL_NA_TEAM_C=#{ODRPL_NA_TEAM_C}
+		AND A.ODR_DT=#{ODR_DT}
+		AND A.VAN_SEQ=#{ODR_SLPNO}
+	</select>
+
+	<select id="dlvpnsht_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RES_DESC, A.RES_CODE
+		,A.NA_DVY_PLASH_SLPNO
+		,A.ODRPL_NA_TRPL_C
+		,FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_NM
+		,A.SPYPL_NA_TRPL_C
+		,FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) SPYPL_NA_TRPL_NM
+		,A.DVY_PLA_DT
+		FROM 
+		TB_OD_DLVPNSHT_M A
+		WHERE A.SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+		AND A.DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+		AND A.NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}
+		<if test="DVY_PLA_DT != null and DVY_PLA_DT != ''">
+			AND A.DVY_PLA_DT=#{DVY_PLA_DT}
+		</if>
+	</select>
+	
+	
+	<select id="wrsREQ_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RSP_C_CNTN FROM TB_GD_WRS_RG_REQ A
+		WHERE A.VAN_C_RQ_NO=#{VAN_C_RQ_NO}
+	</select>
+
+	<select id="RTNCNF_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RSP_C_CNTN FROM TB_BY_RTNCNF_M A
+		WHERE NA_TRPL_C =#{NA_TRPL_C}
+		AND NA_TEAM_C=#{NA_TEAM_C}
+		AND DRUP_DT=#{DRUP_DT}
+		AND RGD_PLA_NO=#{RGD_PLA_NO}
+	</select>
+	
+	<select id="STPNLT_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RSP_C_CNTN FROM TB_LG_STPNLT A
+		WHERE A.NA_BZPLC =#{NA_BZPLC}
+		AND A.STR_PLA_DT =#{STR_PLA_DT}
+		AND A.SLPNO =#{SLPNO}
+		AND A.NA_TRPL_C =#{NA_TRPL_C}
+		AND A.NA_WRS_C =#{NA_WRS_C}
+		AND A.NA_TEAM_C =#{NA_TEAM_C}
+	</select>
+
+	<select id="VHCBKG_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RSP_C_CNTN FROM TB_LG_VHCBKG_M A
+		WHERE A.PHD_NA_BZPLC =#{PHD_NA_BZPLC}
+		AND A.VHC_BKG_PHD_IDVD_NO =#{VHC_BKG_PHD_IDVD_NO}
+		AND A.NA_TRPL_C =#{NA_TRPL_C}
+		AND A.VHC_BKG_DT =#{VHC_BKG_DT}
+	</select>
+
+	<select id="dlvpnshtBAT_checkSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SUM(TOTAL) TOTAL, SUM(ERROR) ERROR, SUM(YES) YES, MAX(RSP_C_CNTN) RSP_C_CNTN FROM (
+			SELECT COUNT(*) TOTAL, 0 ERROR, 0 YES, '' RSP_C_CNTN
+			FROM TB_OD_DLVPNSHT_M A, TB_OD_DLVPNSHT_TEMP_M B 
+			WHERE A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND A.DVY_PLA_DT = B.DVY_PLA_DT
+			AND B.TEMP_SEQ=#{TEMP_SEQ}
+			UNION ALL
+			SELECT 0 TOTAL, COUNT(*) ERROR, 0 YES, '' RSP_C_CNTN
+			FROM TB_OD_DLVPNSHT_M A, TB_OD_DLVPNSHT_TEMP_M B 
+			WHERE A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND A.DVY_PLA_DT = B.DVY_PLA_DT
+			AND B.TEMP_SEQ=#{TEMP_SEQ}
+			AND A.PRC_YN = 'E'
+			UNION ALL
+			SELECT 0 TOTAL, 0 ERROR, COUNT(*) YES, '' RSP_C_CNTN
+			FROM TB_OD_DLVPNSHT_M A, TB_OD_DLVPNSHT_TEMP_M B 
+			WHERE A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND A.DVY_PLA_DT = B.DVY_PLA_DT
+			AND B.TEMP_SEQ=#{TEMP_SEQ}
+			AND A.PRC_YN = 'Y'
+			UNION ALL
+			SELECT 0 TOTAL, 0 ERROR, 0 YES, A.RES_DESC RSP_C_CNTN
+			FROM TB_OD_DLVPNSHT_M A, TB_OD_DLVPNSHT_TEMP_M B 
+			WHERE A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND A.DVY_PLA_DT = B.DVY_PLA_DT
+			AND B.TEMP_SEQ=#{TEMP_SEQ}
+			AND A.PRC_YN = 'E'
+			AND ROWNUM = 1
+		)
+	</select>
+
+
+	<select id="TRHARAROCheckSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SUM(TOTAL) TOTAL, SUM(ERROR) ERROR, SUM(YES) YES, MAX(RSP_C_CNTN) RSP_C_CNTN FROM (
+			SELECT COUNT(*) TOTAL, 0 ERROR, 0 YES, '' RSP_C_CNTN FROM TB_TR_HANARO_REQ_M A 
+			WHERE 1=1 
+			AND A.VAN_RQ_NO IN 
+			<foreach collection="vanNolist" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+			</foreach>
+			UNION ALL
+			SELECT 0 TOTAL, COUNT(*) ERROR, 0 YES, '' RSP_C_CNTN  FROM TB_TR_HANARO_REQ_M A 
+			WHERE 1=1 
+			AND A.VAN_RQ_NO IN 
+			<foreach collection="vanNolist" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+			</foreach>
+			AND A.PRC_YN = 'E'
+			UNION ALL
+			SELECT 0 TOTAL, 0 ERROR, COUNT(*) YES, '' RSP_C_CNTN  FROM TB_TR_HANARO_REQ_M A 
+			WHERE 1=1 
+			AND A.VAN_RQ_NO IN 
+			<foreach collection="vanNolist" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+			</foreach>
+			AND A.PRC_YN = 'Y'
+			UNION ALL
+			SELECT 0 TOTAL, 0 ERROR, 0 YES, A.RSP_C_CNTN RSP_C_CNTN  FROM TB_TR_HANARO_REQ_M A 
+			WHERE 1=1 
+			AND A.VAN_RQ_NO IN 
+			<foreach collection="vanNolist" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+			</foreach>
+			AND A.PRC_YN = 'E'
+			AND ROWNUM = 1
+		)
+	</select>
+	
+	<select id="TRFLEXCheckSendState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.PRC_YN, A.RSP_C_CNTN FROM TB_TR_FLEX_REQ_M A
+  		WHERE A.VAN_RQ_NO =#{vanNO}
+	</select>
+</mapper>

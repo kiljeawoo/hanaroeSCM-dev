@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mobAppDAO">
+	
+	<select id="retrieveAppDvic" parameterType="com.nh.escm.pt.comn.vo.MblAppVO" resultType="com.nh.escm.pt.comn.vo.MblAppVO">
+		SELECT
+			APP_ID
+			, DVIC_ID
+			, MODEL
+			, OS_TYPE
+			, OS_VER
+			, TOKEN
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+		FROM MPLUG.NH_APP_DVIC
+		WHERE 1=1
+		AND APP_ID = 'ESCM'
+		AND DVIC_ID = #{DVIC_ID}
+	 </select>
+	
+	<insert id="insertAppDvic" parameterType="com.nh.escm.pt.comn.vo.MblAppVO">
+		MERGE INTO MPLUG.NH_APP_DVIC
+		USING DUAL ON (
+			DVIC_ID = #{DVIC_ID}
+		)
+		WHEN MATCHED THEN
+			UPDATE SET
+				MODEL = #{MODEL}
+				, OS_TYPE = #{OS_TYPE}
+				, OS_VER = #{OS_VER}
+				, TOKEN = #{TOKEN}
+				, LSCHG_DTM = SYSDATE
+				, LS_CHGM = #{USER_ID}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				APP_ID
+				, DVIC_ID
+				, MODEL
+				, OS_TYPE
+				, OS_VER
+				, TOKEN
+				, FSRG_DTM
+				, FS_RGM
+			) VALUES (
+				'ESCM'
+				, #{DVIC_ID}
+				, #{MODEL}
+				, #{OS_TYPE}
+				, #{OS_VER}
+				, #{TOKEN}
+				, SYSDATE
+				, #{USER_ID}
+			)
+	</insert>
+	
+	<select id="retrieveAppUserDvic" parameterType="com.nh.escm.pt.comn.vo.MblAppVO" resultType="com.nh.escm.pt.comn.vo.MblAppVO">
+		SELECT
+			APP_ID
+			, DVIC_ID
+			, USER_ID
+			, FSRG_DTM
+			, FS_RGM
+			, LSCHG_DTM
+			, LS_CHGM
+		FROM MPLUG.NH_APP_USER_DVIC
+		WHERE 1=1
+		AND APP_ID = 'ESCM'
+		AND USER_ID = #{USER_ID}
+		<if test="DVIC_ID != null and DVIC_ID.length() > 0">
+			AND DVIC_ID = #{DVIC_ID}
+		</if>
+	 </select>
+	
+	<insert id="insertAppUserDvic" parameterType="com.nh.escm.pt.comn.vo.MblAppVO">
+		MERGE INTO MPLUG.NH_APP_USER_DVIC
+		USING DUAL ON (
+			USER_ID = #{USER_ID}
+		)
+		WHEN MATCHED THEN
+			UPDATE SET
+				DVIC_ID = #{DVIC_ID}
+				, LSCHG_DTM = SYSDATE
+				, LS_CHGM = #{USER_ID}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				APP_ID
+				, DVIC_ID
+				, USER_ID
+				, FSRG_DTM
+				, FS_RGM
+			) VALUES (
+				'ESCM'
+				, #{DVIC_ID}
+				, #{USER_ID}
+				, SYSDATE
+				, #{USER_ID}
+			)
+	</insert>
+	
+	<select id="retrieveAppMsg" parameterType="com.nh.escm.pt.comn.vo.MblAppVO" resultType="com.nh.escm.pt.comn.vo.MblAppVO">
+		SELECT
+			APP_ID
+			, MSG_ID
+			, MSG_TYPE
+			, MSG
+			, TARGET
+			, OS_TYPE
+			, SEND_DATE
+		FROM MPLUG.NH_APP_MSG
+		WHERE 1=1
+		AND APP_ID = 'ESCM'
+		AND USER_ID = #{USER_ID}
+		<if test="DVIC_ID != null and DVIC_ID.length() > 0">
+			AND DVIC_ID = #{DVIC_ID}
+		</if>
+	 </select>
+</mapper>

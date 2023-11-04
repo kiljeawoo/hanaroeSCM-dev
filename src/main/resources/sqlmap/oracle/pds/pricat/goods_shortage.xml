@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shortage">
+	<select id="getShortageOrder" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 A.NA_BZPLC
+			,NVL(FN_TRPL_CIF_NM(A.NA_BZPLC), FN_CM_BZPL_NM(A.NA_BZPLC)) BZPLCNM
+			,A.NA_WRS_C
+			,S.WRSNM
+			,S.WRS_STDNM
+			,A.APL_DT
+			,A.ODR_QT
+			,A.STR_QT
+			,A.UN_STR_QT
+			,A.UN_STR_RSNC
+			,A.ODR_DT
+			,A.ODR_SLPNO
+			,A.ODR_DSQNO
+			,A.RMK_CNTN
+			,A.ROTS_SPY_PSB_DT
+			,D.ODR_AM
+			,D.ODR_VAT
+			,A.ODR_FBID_YN
+			,A.NA_SPYPL_C SPYPL_NA_TRPL_C
+			,A.NA_SPYPL_C
+			,FN_TRPL_CIF_NM(A.NA_SPYPL_C) SPYPL_NA_TRPL_NM
+			,TO_CHAR(A.FSRG_DTM,'YYYYMMDD')||'/'||TO_CHAR(A.LSCHG_DTM,'YYYYMMDD')||'/'||TO_CHAR(A.DEL_DTM,'YYYYMMDD') DTM
+			,A.UN_STR_CNTN
+			,DECODE(A.WK_DS,'D','1','0')DEL_YN
+			,A.LS_CMENO
+			,A.CTCPL_TELNO
+			,A.RQ_CNTN
+		FROM TB_OD_GOODDQPD A, TB_OD_ORDER_D D, TB_GD_WRS S
+		WHERE D.ODRPL_NA_TRPL_C = A.NA_BZPLC
+		AND D.ODR_DT  = A.ODR_DT
+		AND D.ODR_SLPNO  = A.ODR_SLPNO
+		AND D.ODR_DSQNO = A.ODR_DSQNO
+		AND D.NA_WRS_C = S.NA_WRS_C	  
+		AND A.NA_BZPLC = #{NA_BZPLC}
+		<if test="WRS_SEARCH != null and WRS_SEARCH.length() > 0">
+		<choose>
+			<when test="WRS_GUBUN == '1'.toString()">
+				AND A.NA_WRS_C = #{WRS_SEARCH}
+			</when>
+			<otherwise>
+				AND S.WRSNM LIKE #{WRS_SEARCH} || '%'
+			</otherwise>
+		</choose>
+		</if>
+		AND A.NA_SPYPL_C = #{TRPL_C[0]}
+		AND A.APL_DT = #{APL_DT}	
+		AND A.ODR_SLPNO = #{ODR_SLPNO}		
+	</select>
+	
+	<!-- 1570 결품등록 -->
+	<insert id="insertShortageOrder" parameterType="com.nh.escm.pds.pricat.vo.ProductNewGoodVO">
+		INSERT INTO TB_OD_GOODDQPD (
+			 NA_BZPLC
+		    ,NA_WRS_C
+		    ,NA_SPYPL_C
+		    ,APL_DT
+		    ,FSRG_DTM
+		    ,FSRGMN_ENO
+		    ,LSCHG_DTM
+		    ,LS_CMENO
+		    ,CTCPL_TELNO
+		    ,RQ_CNTN
+		    ,ODR_DT
+		    ,ODR_SLPNO
+		    ,ODR_DSQNO
+		    ,ODR_QT
+		    ,STR_QT
+		    ,UN_STR_QT
+		    ,UN_STR_RSNC
+		    ,RMK_CNTN
+		    ,ROTS_SPY_PSB_DT
+		    ,WK_DS
+			,PRC_YN
+			,WUSRID
+			,WNA_BZPLC
+			,WRSNM
+			,WRS_STDNM
+			,ODR_AM
+			,ODR_VAT
+			,ODR_FBID_YN
+			,DTM
+			,UN_STR_CNTN
+			)
+		VALUES (
+			 #{NA_BZPLC}
+		    ,#{NA_WRS_C}
+		    ,#{NA_SPYPL_C}
+		    ,#{APL_DT}
+		    ,SYSDATE
+		    ,#{FSRGMN_ENO}
+		    ,SYSDATE
+		    ,#{LS_CMENO}
+		    ,#{CTCPL_TELNO}
+		    ,#{RQ_CNTN}
+		    ,#{ODR_DT}
+		    ,#{ODR_SLPNO}
+		    ,#{ODR_DSQNO}
+		    ,#{ODR_QT}
+		    ,#{STR_QT}
+		    ,#{UN_STR_QT}
+		    ,#{UN_STR_RSNC}
+		    ,#{RMK_CNTN}
+		    ,#{ROTS_SPY_PSB_DT}
+		    ,'I'
+			,'N'
+			,#{WUSRID}
+			,#{WNA_BZPLC}
+			,#{WRSNM}
+			,#{WRS_STDNM}
+			,#{ODR_AM}
+			,#{ODR_VAT}
+			,'0'
+			,#{DTM}
+			,#{UN_STR_CNTN}
+		)
+	</insert>
+
+
+	<!-- 1570 결품등록 -->
+	<update id="updateShortageOrder" parameterType="com.nh.escm.pds.pricat.vo.ProductNewGoodVO">
+		UPDATE TB_OD_GOODDQPD SET 
+			  LSCHG_DTM = SYSDATE
+			, LS_CMENO = #{LS_CMENO}
+			, CTCPL_TELNO = #{CTCPL_TELNO}
+			, RQ_CNTN = #{RQ_CNTN}
+			, ODR_QT = #{ODR_QT}
+			, STR_QT = #{STR_QT}
+			, UN_STR_QT = #{UN_STR_QT}
+			, UN_STR_RSNC = #{UN_STR_RSNC}
+			, RMK_CNTN = #{RMK_CNTN}
+			, ROTS_SPY_PSB_DT = #{ROTS_SPY_PSB_DT}
+			, UN_STR_CNTN = #{UN_STR_CNTN}
+			, WK_DS = #{WORK_DS}
+			, PRC_YN = 'N'
+			, RSP_C_CNTN = null
+			, EDI_IF_ID = null
+			<if test="DEL_YN != null and DEL_YN == '1'.toString()">
+			, DEL_DTM = SYSDATE
+			</if>
+		WHERE 1=1	  
+		AND NA_BZPLC = #{NA_BZPLC}
+		AND NA_WRS_C = #{NA_WRS_C}
+		AND NA_SPYPL_C = #{NA_SPYPL_C}
+		AND APL_DT = #{APL_DT}
+		AND ODR_DT = #{ODR_DT}
+		AND ODR_SLPNO = #{ODR_SLPNO}
+		AND ODR_DSQNO = #{ODR_DSQNO}
+					
+	</update>
+	
+		
+	<!-- 1571 결품등록내역 조회 -->
+	<select id="getShortageOrderPopup" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			LIST.*, '' PRCNM
+		FROM
+		(
+			SELECT
+				A.NA_BZPLC,		/* 경제통합사업장코드 */
+				FN_CM_BZPL_NM(A.NA_BZPLC) BZPLCNM,	/* 사업장명 */
+				A.APL_DT,		/* 적용일자 */
+				A.NA_SPYPL_C,	/* 공급처코드 */
+				FN_TRPL_CIF_NM(A.NA_SPYPL_C) CLNTNM,/* 공급처명 */
+				A.ODR_DT,		/* 발주일자 */
+				A.ODR_SLPNO,	/* 발주전표번호 */
+				COUNT(A.NA_SPYPL_C) SPYCOUNT		/* 등록건수 */
+			FROM 
+				TB_OD_GOODDQPD A
+			WHERE
+				A.NA_BZPLC = #{odrpl_trpl_c}
+				AND A.NA_SPYPL_C = #{TRPL_C}
+				AND A.APL_DT = #{apl_date}
+				<if test="odr_slpno != null and odr_slpno.length() > 0">
+					AND ODR_SLPNO = #{odr_slpno}
+				</if>
+				AND A.FSRG_DTM BETWEEN TO_DATE(#{from_date} || '000000','YYYYMMDDHH24MISS')
+		  		AND TO_DATE(#{to_date} || '235959','YYYYMMDDHH24MISS')
+		  		GROUP BY A.NA_BZPLC,A.APL_DT,A.NA_SPYPL_C,A.ODR_DT,A.ODR_SLPNO
+		  ) LIST
+	</select>
+
+	<!-- 1572 팝업 -->
+	<select id="getWRSInfoForShortage" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_WRS_C,		/* 상품코드 */
+			REPLACE(A.WRSNM,',',' ') WRSNM, 		/* 상품명 */
+			B.WRS_STDNM,	/* 규격 */
+			A.SPYPL_NA_TRPL_C, 	/* 공급자사업장 코드  */
+			FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) AS TRPL_NM,	/* 공급자사업장명 */
+			A.BYNG_UPR,
+			C.PRGR_C,		/* 센터입고 */
+			FN_CM_SIMP_CNM('QSLPR_TPC',C.PRGR_C) AS PRGRNM,
+			C.COMP_FEERT,
+			C.AMN_FEERT,
+			C.TROT_FEERT,
+			C.PHD_FEERT,
+			C.DDLY_PHD_FEERT,
+			A.NA_BZPLC,
+			FN_CM_BZPL_NM(A.NA_BZPLC) AS BZPLCNM,
+			'//' DTM,
+      		C.LS_CMENO
+		FROM TB_OD_TRTWRS A,TB_GD_WRS B,TB_GD_PRGR_GOODLOG C
+		WHERE
+	      	A.NA_WRS_C = B.NA_WRS_C
+	        AND A.NA_WRS_C = C.NA_WRS_C
+	        AND A.NA_BZPLC = C.NA_BZPLC
+	        AND A.NA_TEAM_C = C.NA_TEAM_C
+	        AND B.NA_WRS_C = C.NA_WRS_C
+	        AND C.APL_ST_DT <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+	      	AND C.APL_ED_DT <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+	        AND C.PRGR_C = '00'
+	      	AND A.SPYPL_NA_TRPL_C = #{TRPL_C}
+	        AND A.NA_BZPLC = #{BZPLC}
+	        <if test="searchText != null and searchText.length() > 0">
+	        	<if test="cbo_trt == '1'.toString()">
+		        	AND A.NA_WRS_C = #{searchText}
+		        </if>
+		        <if test="cbo_trt == '2'.toString()">
+		        	AND A.WRSNM LIKE #{searchText} || '%'
+		        </if>
+	        </if>
+	</select>
+
+
+	<select id="getWRSforShortageList" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT
+	    	     M.ODRPL_NA_TRPL_C NA_BZPLC
+				,NVL(FN_TRPL_CIF_NM(M.ODRPL_NA_TRPL_C), FN_CM_BZPL_NM(M.ODRPL_NA_TRPL_C)) BZPLCNM
+				,D.NA_WRS_C
+				,WRS.WRSNM
+				,WRS.WRS_STDNM
+				,TO_CHAR(SYSDATE,'YYYYMMDD') APL_DT
+				,ODR_QT
+				,0 STR_QT
+				,ODR_QT UN_STR_QT
+				,'01' UN_STR_RSNC
+				,D.ODR_DT
+				,D.ODR_SLPNO
+				,D.ODR_DSQNO
+				,D.RMK_CNTN
+				,TO_CHAR(SYSDATE+1,'YYYYMMDD') ROTS_SPY_PSB_DT
+				,D.ODR_AM
+				,D.ODR_VAT
+				,'0' ODR_FBID_YN
+				,M.RVOPL_NA_TRPL_C SPYPL_NA_TRPL_C
+				, M.RVOPL_NA_TRPL_C NA_SPYPL_C
+				,FN_TRPL_CIF_NM(M.RVOPL_NA_TRPL_C) SPYPL_NA_TRPL_NM
+				,'//' DTM
+				,'' UN_STR_CNTN
+				,'0' DEL_YN
+				,'' LS_CMENO
+				,(SELECT ecl_decrypt(A.USR_MPNO) as CHRR_MPNO FROM PT_USR_INF A WHERE A.MB_ID=#{MB_ID}) CTCPL_TELNO
+				,'' RQ_CNTN
+				,'I' WORK_DS
+	    FROM TB_OD_ORDER_M M, TB_OD_ORDER_D D, TB_GD_WRS WRS,(
+			SELECT
+				D.ODRPL_NA_TRPL_C,
+				D.ODR_DT,
+				D.ODR_SLPNO,
+				D.ODR_DSQNO
+			FROM  TB_OD_ORDER_M M, TB_OD_ORDER_D D
+			WHERE 1=1
+			AND M.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND M.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND M.RVOPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND M.ODR_SLPNO = #{ODR_SLPNO}
+			AND M.ODRPL_NA_TRPL_C = #{NA_BZPLC}
+			AND M.ODR_DT=#{ODR_DT}
+			AND M.ODR_DT = D.ODR_DT
+			AND M.ODR_SLPNO = D.ODR_SLPNO
+			MINUS
+			SELECT 
+				NA_BZPLC,
+				ODR_DT,
+				ODR_SLPNO,
+				ODR_DSQNO 
+			FROM TB_OD_GOODDQPD A
+			WHERE NA_BZPLC = #{NA_BZPLC}
+			AND NA_SPYPL_C =#{SPYPL_NA_TRPL_C}
+		) Z
+	    WHERE 
+	        M.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+	        AND M.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+	        AND D.NA_WRS_C = WRS.NA_WRS_C
+	        AND M.RVOPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+	        AND M.ODR_SLPNO = #{ODR_SLPNO}
+	        AND M.ODRPL_NA_TRPL_C = #{NA_BZPLC}
+	        AND M.ODR_DT=#{ODR_DT}
+	        AND M.ODR_DT = D.ODR_DT
+	        AND M.ODR_SLPNO = D.ODR_SLPNO
+	        AND D.DEL_DTM IS NULL
+	        AND Z.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND Z.ODR_DT = D.ODR_DT
+			AND Z.ODR_SLPNO = D.ODR_SLPNO
+			AND Z.ODR_DSQNO = D.ODR_DSQNO
+	</select>
+		
+	<!-- 1573 발주번호상품코드조회 -->
+	<select id="getWRSCodeForShortageOrder" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT DISTINCT
+			M.ODR_DT, 
+			M.ODR_SLPNO, 
+			M.CSER_CTR_TPC, 
+			FN_CM_SIMP_CNM('CSER_CTR_TPC',M.CSER_CTR_TPC) CSER_CTR_TPC_N,
+			M.ODRPL_NA_TRPL_C, 
+			FN_TRPL_CIF_NM(M.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_NM,
+			M.ODRPL_NA_TEAM_C, 
+			(SELECT TEAMNM FROM TB_CM_TEAM 
+				WHERE NA_BZPLC = M.ODRPL_NA_TRPL_C
+				AND NA_TEAM_C = M.ODRPL_NA_TEAM_C) ODRPL_NA_TEAM_NM,
+			'' DLV_TYPE, 		/* 배송구분 */
+			M.SPY_TPC,  
+			M.DVY_RQR_DT, 
+			M.ODR_SAM, 
+			M.VATTT, 
+			M.VCBT_AM, 
+			M.VCBX_AM,
+			'' DLV_EDT_YN, 		/* 납품서편집가능 */
+			D.DDLY_YN, 
+			M.NA_ODR_STS_DSC, 
+			M.RVOPL_NA_TRPL_C, 
+			FN_TRPL_CIF_NM(M.RVOPL_NA_TRPL_C) RVOPL_NA_TRPL_NM,
+			M.RVOPL_NA_TEAM_C,
+			(SELECT ecl_decrypt(A.USR_MPNO) as CHRR_MPNO FROM PT_USR_INF A WHERE A.MB_ID=#{MB_ID}) CTCPL_TELNO,
+			NVL((SELECT TEAMNM FROM TB_CM_TEAM 
+				WHERE NA_BZPLC = M.RVOPL_NA_TRPL_C
+				AND NA_TEAM_C = M.RVOPL_NA_TEAM_C),'팀없음') RVOPL_NA_TEAM_NM
+		<if test="isall != null and isall == '1'.toString()">
+			,DECODE(D.DEL_DTM, NULL, '0', '1') DEL_DTM,
+			D.NA_WRS_C, 
+			(SELECT WRSNM FROM TB_GD_WRS WHERE NA_WRS_C = D.NA_WRS_C) NA_WRS_NM,
+			WRS.WRS_STDNM, 
+			D.ODR_QT, 
+			D.ODR_VAT, 
+			D.ODR_AM,
+			D.ODR_DSQNO
+		</if>
+		FROM TB_OD_ORDER_M M, TB_OD_ORDER_D D, TB_GD_WRS WRS,(
+			SELECT
+				D.ODRPL_NA_TRPL_C,
+				D.ODR_DT,
+				D.ODR_SLPNO,
+				D.ODR_DSQNO
+			FROM  TB_OD_ORDER_M M, TB_OD_ORDER_D D
+			WHERE 1=1
+			AND M.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND M.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND M.RVOPL_NA_TRPL_C = #{TRPL_C[0]}
+			<if test="odr_slpno != null and odr_slpno.length() > 0">
+			AND M.ODR_SLPNO = #{odr_slpno}
+			</if>
+			AND M.ODRPL_NA_TRPL_C = #{odr_trpl_c}
+			AND M.DVY_RQR_DT BETWEEN #{rqr_dt_from} AND #{rqr_dt_to}
+			AND M.ODR_DT = D.ODR_DT
+			AND M.ODR_SLPNO = D.ODR_SLPNO
+			MINUS
+			SELECT 
+				NA_BZPLC,
+				ODR_DT,
+				ODR_SLPNO,
+				ODR_DSQNO 
+			FROM TB_OD_GOODDQPD A
+			WHERE NA_BZPLC = #{odr_trpl_c}
+			AND NA_SPYPL_C =#{TRPL_C[0]}
+		) Z
+		WHERE 
+			M.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND M.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND D.NA_WRS_C = WRS.NA_WRS_C
+			AND M.RVOPL_NA_TRPL_C = #{TRPL_C[0]}
+		<if test="odr_slpno != null and odr_slpno.length() > 0">
+			AND M.ODR_SLPNO = #{odr_slpno}
+		</if>
+			AND M.ODRPL_NA_TRPL_C = #{odr_trpl_c}
+			AND M.DVY_RQR_DT BETWEEN #{rqr_dt_from} AND #{rqr_dt_to}
+		<if test="wrs_c != null and wrs_c.length() > 0">
+			AND D.NA_WRS_C = #{wrs_c}
+		</if>
+			AND M.ODR_DT = D.ODR_DT
+			AND M.ODR_SLPNO = D.ODR_SLPNO
+			AND Z.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND Z.ODR_DT = D.ODR_DT
+			AND Z.ODR_SLPNO = D.ODR_SLPNO
+			AND Z.ODR_DSQNO = D.ODR_DSQNO
+			ORDER BY M.ODR_DT, M.ODR_SLPNO
+			<if test="isall != null and isall == '1'.toString()">
+			, D.ODR_DSQNO
+			</if>
+	</select>
+	
+	<sql id="sql_shortageOrderMaseter">
+		SELECT
+			A.NA_SPYPL_C
+		    , A.APL_DT
+		    , A.NA_WRS_C 
+		    , A.NA_BZPLC 
+		    , A.ODR_DT
+		    , A.ODR_SLPNO
+		    , A.ODR_DSQNO
+		    , A.ODR_QT
+		    , A.STR_QT
+		    , A.UN_STR_QT
+            , (SELECT NA_TRPL_C FROM PT_USR_INF WHERE MB_ID=A.FSRGMN_ENO) FSRGMN_NA_BZPLC
+            , FN_TRPL_CIF_NM(FSRGMN_NA_BZPLC) FSRGMN_NA_BZPLC_NM
+		    , TO_CHAR(A.FSRG_DTM,'YYYY-MM-DD HH24:MI:SS') AS FSRG_DTM
+		    , A.FSRGMN_ENO
+		    , (SELECT NA_TRPL_C FROM PT_USR_INF WHERE MB_ID=A.LS_CMENO) LSCGMN_NA_BZPLC
+            , FN_TRPL_CIF_NM(LSCGMN_NA_BZPLC) LSCGMN_NA_BZPLC_NM  
+            , TO_CHAR(A.LSCHG_DTM,'YYYY-MM-DD HH24:MI:SS') AS LSCHG_DTM
+		    , A.LS_CMENO 
+		    , A.NA_C_RQ_STSC   
+		    , A.CTCPL_TELNO    
+		    , A.RQ_CNTN   
+		    , A.RMK_CNTN 
+		    , '['||A.UN_STR_RSNC||'] '||FN_CM_SIMP_CNM('UN_STR_RSNC',A.UN_STR_RSNC)  UN_STR_RSNC
+		    , A.ROTS_SPY_PSB_DT
+		    , FN_TRPL_CIF_NM(A.NA_SPYPL_C) AS NA_SPYPL_C_NM
+		    , FN_CM_BZPL_NM(A.NA_BZPLC) AS NA_BZPLC_NM
+		    , WRS.WRSNM
+		    , FN_CM_SIMP_CNM('NA_C_RQ_STSC',A.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM
+		    , FN_CM_SIMP_CNM('UN_STR_RSNC',A.UN_STR_RSNC) AS UN_STR_RSNC_NM
+		    , TO_CHAR(A.DEL_DTM,'YYYY-MM-DD HH24:MI:SS') AS DEL_DTM 
+		    , A.WUSRID DLMN_ENO
+		    , A.WNA_BZPLC DLMN_NA_BZPLC
+		FROM
+			TB_OD_GOODDQPD A,
+			TB_GD_WRS WRS
+		WHERE
+			A.NA_BZPLC  = #{cbo_bzplc}
+			AND A.NA_SPYPL_C IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			AND A.NA_WRS_C = WRS.NA_WRS_C(+)
+			<if test="searchText != null and searchText.length() > 0">
+				<choose>
+					<when test="wrs_gubun == '1'.toString()">
+						AND WRS.NA_WRS_C = #{searchText}
+					</when>
+					<otherwise>
+						AND WRS.WRSNM LIKE #{searchText} || '%'
+					</otherwise>
+				</choose>
+			</if>
+			AND A.APL_DT BETWEEN #{apl_from} AND #{apl_to}
+			ORDER BY
+			A.NA_SPYPL_C
+			, A.APL_DT
+			, A.NA_WRS_C
+			, A.NA_BZPLC
+			, A.ODR_DT
+			, A.ODR_SLPNO
+			, A.ODR_DSQNO	
+	</sql>
+	
+	<!-- 1590 마스터화면 -->
+	<select id="getShortageOrderMaseter" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_shortageOrderMaseter" />
+	</select>
+	
+	<sql id="sql_shortageOrderDetail">
+			SELECT
+			A.NA_SPYPL_C
+		    , A.APL_DT
+		    , A.NA_WRS_C 
+		    , A.NA_BZPLC 
+		    , A.ODR_DT
+		    , A.ODR_SLPNO
+		    , A.ODR_DSQNO
+		    , A.ODR_QT
+		    , A.STR_QT
+		    , A.UN_STR_QT
+            , (SELECT NA_TRPL_C FROM PT_USR_INF WHERE MB_ID=A.FSRGMN_ENO) FSRGMN_NA_BZPLC
+            , FN_TRPL_CIF_NM(FSRGMN_NA_BZPLC) FSRGMN_NA_BZPLC_NM
+		    , TO_CHAR(A.FSRG_DTM,'YYYY-MM-DD HH24:MI:SS') AS FSRG_DTM
+		    , A.FSRGMN_ENO
+		    , (SELECT NA_TRPL_C FROM PT_USR_INF WHERE MB_ID=A.LS_CMENO) LSCGMN_NA_BZPLC
+            , FN_TRPL_CIF_NM(LSCGMN_NA_BZPLC) LSCGMN_NA_BZPLC_NM  
+            , TO_CHAR(A.LSCHG_DTM,'YYYY-MM-DD HH24:MI:SS') AS LSCHG_DTM
+		    , A.LS_CMENO 
+		    , A.NA_C_RQ_STSC   
+		    , A.CTCPL_TELNO    
+		    , A.RQ_CNTN   
+		    , A.RMK_CNTN 
+		    , '['||A.UN_STR_RSNC||'] '||FN_CM_SIMP_CNM('UN_STR_RSNC',A.UN_STR_RSNC)  UN_STR_RSNC
+		    , A.ROTS_SPY_PSB_DT
+		    , FN_TRPL_CIF_NM(A.NA_SPYPL_C) AS NA_SPYPL_C_NM
+		    , FN_CM_BZPL_NM(A.NA_BZPLC) AS NA_BZPLC_NM
+		    , WRS.WRSNM
+		    , FN_CM_SIMP_CNM('NA_C_RQ_STSC',A.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM
+		    , FN_CM_SIMP_CNM('UN_STR_RSNC',A.UN_STR_RSNC) AS UN_STR_RSNC_NM
+		    , TO_CHAR(A.DEL_DTM,'YYYY-MM-DD HH24:MI:SS') AS DEL_DTM 
+		    , A.WUSRID DLMN_ENO
+		    , A.WNA_BZPLC DLMN_NA_BZPLC
+		FROM
+			TB_OD_GOODDQPD A,
+			TB_GD_WRS WRS
+		WHERE A.NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.NA_BZPLC   = #{NA_BZPLC}		
+			AND A.NA_SPYPL_C = #{NA_SPYPL_C}
+			AND A.APL_DT     = #{APL_DT}
+			AND A.NA_WRS_C   = #{NA_WRS_C}
+			AND A.ODR_DT     = #{ODR_DT}
+			AND A.ODR_SLPNO  = #{ODR_SLPNO}
+			AND A.ODR_DSQNO  = #{ODR_DSQNO}
+	</sql>
+
+	<!-- 1590 디테일화면 -->
+	<select id="getShortageOrderDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_shortageOrderDetail" />
+	</select>
+	
+	<!-- 결품등록 대상 파일 -->
+	<select id="getShortagedOrdersFile" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT ROWNUM, A.* FROM (
+			SELECT
+			 D.ODRPL_NA_TRPL_C, D.NA_WRS_C, S.WRSNM
+			,M.RVOPL_NA_TRPL_C, FN_TRPL_CIF_NM(M.RVOPL_NA_TRPL_C) RVOPL_NA_TRPL_NM
+			,'' CTCPL_TELNO
+			,'' RQ_CNTN
+			,D.ODR_DT, D.ODR_SLPNO, D.ODR_DSQNO
+			,D.ODR_QT,D.ODR_AM
+			,0 STR_QT
+			,0 UN_STR_QT
+			,'00' UN_STR_RSNC
+			,TO_CHAR(SYSDATE, 'YYYYMMDD') ROTS_SPY_PSB_DT
+			FROM TB_OD_ORDER_M M, TB_OD_ORDER_D D, TB_GD_WRS S
+			WHERE 1=1 
+			AND M.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND M.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND M.ODR_DT = D.ODR_DT
+			AND M.ODR_SLPNO = D.ODR_SLPNO
+			AND D.NA_WRS_C = S.NA_WRS_C
+			AND M.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND M.ODR_DT=#{ODR_DT}
+			<if test="TRPL_C.length == 1">
+			AND M.RVOPL_NA_TRPL_C=#{TRPL_C[0]}
+			</if>
+			<if test="TRPL_C.length > 1"> 
+			AND M.RVOPL_NA_TRPL_C IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE UP_NA_TRPL_C= #{TRPL_C[0]})
+			</if>
+			AND D.DEL_DTM IS NULL
+			ORDER BY NA_WRS_C) A
+
+	</select>
+		
+	<select id="downloadExcelShortageOrderMaster" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_shortageOrderMaseter" />
+	</select>
+	
+	<select id="downloadExcelShortageOrderDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_shortageOrderDetail" />
+	</select>		
+</mapper>

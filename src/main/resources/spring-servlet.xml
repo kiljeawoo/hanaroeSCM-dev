@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven />
+	 
+	<context:component-scan base-package="com.nh.escm" use-default-filters="false">
+		<context:include-filter type="aspectj" expression="com.nh..controller.*Controller" />
+	</context:component-scan>
+	
+	<!-- 모든 URL 에 interceptor 적용 -->
+	<!--
+	<mvc:interceptors>
+		<bean class="com.esum.appetizer.common.RequestInterceptor" />
+	</mvc:interceptors>
+	-->
+
+	<!-- 특정 패턴의 URL 에만 interceptor 적용 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/rest/**" />
+			<!-- 
+			<mvc:exclude-mapping path="/ref/**" />
+			<mvc:exclude-mapping path="/test.nh" />
+			 -->
+			<bean class="com.esum.appetizer.common.RequestInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 1048576 Byte = 1MB -->
+ 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 	    <property name="maxUploadSize" value="20971520" /> <!-- 20MB -->
+ 	</bean>
+ 	
+  	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+    <constructor-arg>
+        <bean class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+            <property name="connectTimeout" value="10000" />
+            <property name="readTimeout" value="420000" />
+        </bean>
+    </constructor-arg>
+    </bean>
+</beans>

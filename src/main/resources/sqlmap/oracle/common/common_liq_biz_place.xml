@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LiqBizPlaceSelectDao">
+    <select id="get_gds_alcoholic_drink_biz_place" resultType="java.util.Map">
+        SELECT DISTINCT A.NA_BZPLC, B.CLNTNM
+        FROM TB_FD_IM_TRPL  A
+           , TB_TR_TRPL_CIF B
+        WHERE 1 = 1
+          AND A.NA_BZPLC = B.NA_TRPL_C
+          AND A.NA_TRPL_C IN (SELECT DISTINCT NA_TRPL_C FROM TB_FD_IM_TRPL WHERE DDLY_AGCY_DSC = '1')
+          AND B.NA_USR_SYS_KDC IN ('54', '52')
+    </select>
+</mapper>

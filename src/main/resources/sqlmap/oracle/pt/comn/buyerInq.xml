@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="buyerInqDAO">
+	
+	<resultMap id="rcBzplMap" type="com.nh.escm.pt.comn.vo.BuyerInqVO">
+		<result column="ISCHECKED" property="ISCHECKED" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="USR_TP" property="USR_TP" />
+		<result column="BUYER_ENO" property="BUYER_ENO" />
+		<result column="BUYER_NM" property="BUYER_NM" />
+		<result column="DEPTNM" property="DEPTNM" />
+		<result column="CHRG_BSNNM" property="CHRG_BSNNM" />
+		<result column="BUYER_TELNO" property="BUYER_TELNO" />
+	</resultMap>
+	
+	<sql id="sql_retrieveBzplList">
+		SELECT /* sql_retrieveBzplList */
+		       '0' AS ISCHECKED
+		     , NA_BZPLC     /* 경제통합사업장코드 */
+		     , SHRT_BZPLNM  /* 사업장명 */
+		     , USR_TP       /* 사용자유형 */
+		     , BUYER_ENO    /* 바이어개인번호 */
+		     , BUYER_NM     /* 바이어명 */
+		     , DEPTNM       /* 부서명 */
+		     , CHRG_BSNNM   /* 담당업무 */
+		     , ecl_decrypt(BUYER_TELNO) AS BUYER_TELNO  /* 전화번호 */
+		  FROM (
+		           SELECT B.NA_BZPLC
+		                , FN_TRPL_CIF_NM(B.NA_BZPLC) AS SHRT_BZPLNM
+		                , U.USR_TPC AS USR_TP
+		                , B.BUYER_ENO
+		                , B.BUYER_NM
+		                , B.DEPTNM
+		                , B.CHRG_BSNNM
+		                , B.MPNO AS BUYER_TELNO
+		             FROM TB_CM_BUYER B
+		                  LEFT OUTER JOIN PT_USR_INF U
+		                          ON B.BUYER_ENO = U.MB_ID
+		            WHERE B.NA_BZPLC = '8808983000015'  /* 상품본부 바이어정보만 사용 */
+		              AND B.NA_TEAM_C = '00'
+		           /* AND B.DEL_DTM IS NULL 삭제여부 사용안함 */
+		       )
+		 WHERE 1=1
+		<if test="SHRT_BZPLNM != null and SHRT_BZPLNM.length() > 0">
+		   AND UPPER(SHRT_BZPLNM) LIKE '%' || UPPER(#{SHRT_BZPLNM}) || '%' ESCAPE '\'  /* 사업장명 */
+		</if>
+		<if test="BUYER_NM != null and BUYER_NM.length() > 0">
+		   AND UPPER(BUYER_NM) LIKE '%' || UPPER(#{BUYER_NM}) || '%' ESCAPE '\'  /* 담당자명 */
+		</if>
+		<if test="CHRG_BSNNM != null and CHRG_BSNNM.length() > 0">
+		   AND UPPER(CHRG_BSNNM) LIKE '%' || UPPER(#{CHRG_BSNNM}) || '%' ESCAPE '\'  /* 담당업무명 */
+		</if>
+	</sql>
+	
+	<select id="retrieveBuyerInqList" parameterType="java.util.Map" resultMap="rcBzplMap">
+		<bind name="decrypt" value="{'BUYER_TELNO'}" />
+		<bind name="sortName" value="'BUYER_NM, BUYER_ENO'" />
+		<bind name="sortType" value="'null'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveBzplList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveBuyerInqCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveBzplList" />
+		<include refid="common.count_end" />
+	</select>
+	
+</mapper>

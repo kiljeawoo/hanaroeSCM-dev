@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mdInfMgr">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->
+	
+	<sql id="sql_mainSelect">
+		SELECT /* retrieveMdInfList */
+		       MD.MD_RGST_TM,
+		       CIF.CLNTNM,
+		       NVL(USR1.USR_NM, MD.MD_USR_ID) AS USR_NM,
+		       MD.MD_WRS_C,
+		       MD.MD_WRS_ABR_NM,
+		       MD.MD_SL_UPR,
+		       MD.MD_PRICE,
+		       MD.MD_RATE,
+		       RSN.SIMP_CNM AS MD_RSN_CD,
+		       STT.SIMP_CNM AS MD_STAT_CD,
+		       NVL(USR2.USR_NM, MD.MD_CHRG_ID) AS CHGR_NM,
+		       MD.MD_APPR_TM,
+		       RJT.SIMP_CNM AS MD_RJT_CD,
+		       MD.MD_PRNT_CNT
+		  FROM TB_PD_MD_MKDN_INF MD,
+		       TB_TR_TRPL_CIF CIF,
+		       PT_USR_INF USR1,
+		       PT_USR_INF USR2,
+		       (SELECT SIMP_C, SIMP_CNM
+		          FROM NHVANPTL.MG_COMN_C_AMN
+		         WHERE SIMP_TPC = 'MD_RSN_CD') RSN,
+		       (SELECT SIMP_C, SIMP_CNM
+		          FROM NHVANPTL.MG_COMN_C_AMN
+		         WHERE SIMP_TPC = 'MD_STAT_CD') STT,
+		       (SELECT SIMP_C, SIMP_CNM
+		          FROM NHVANPTL.MG_COMN_C_AMN
+		         WHERE SIMP_TPC = 'MD_RJT_CD') RJT
+	    <where>
+ 				   1 = 1
+		       AND MD.MD_TRPL_C = CIF.NA_TRPL_C
+		       AND MD.MD_USR_ID = USR1.MB_ID(+)
+		       AND MD.MD_RSN_CD = RSN.SIMP_C(+)
+		       AND MD.MD_STAT_CD = STT.SIMP_C(+)
+		       AND MD.MD_CHRG_ID = USR2.MB_ID(+)
+		       AND MD.MD_RJT_CD = RJT.SIMP_C(+)
+			<if test="TRPL_C != null and TRPL_C.length() > 0">
+			   AND MD.MD_TRPL_C LIKE '%${TRPL_C}%'
+			</if>
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+			   AND CIF.CLNTNM LIKE '%${CLNTNM}%'
+			</if>
+        	<if test="MD_ID != null and MD_ID.length() > 0">
+				<if test='CHID_CD != null and CHID_CD == 0'>
+			   AND MD.MD_USR_ID = #{MD_ID:VARCHAR}
+				</if>
+				<if test='CHID_CD != null and CHID_CD == 1'>
+			   AND MD.MD_CHRG_ID = #{MD_ID:VARCHAR}
+				</if>
+        	</if>
+        	<if test="MD_NM != null and MD_NM.length() > 0">
+				<if test='CHNM_CD != null and CHNM_CD == 0'>
+			   AND USR1.USR_NM = #{MD_NM:VARCHAR}
+				</if>
+				<if test='CHNM_CD != null and CHNM_CD == 1'>
+			   AND USR2.USR_NM = #{MD_NM:VARCHAR}
+				</if>
+        	</if>
+			<if test="WRS_CD != null and WRS_CD.length() > 0">
+			   AND MD.MD_WRS_C LIKE '%${WRS_CD}%'
+			</if>
+			<if test="WRS_NM != null and WRS_NM.length() > 0">
+			   AND MD.MD_WRS_ABR_NM LIKE '%${WRS_NM}%'
+			</if>
+			<if test="FM_RATE != null and FM_RATE.length() > 0">
+			   AND MD.MD_RATE <![CDATA[ > ]]>= #{FM_RATE:INTEGER}
+			</if>
+			<if test="TO_RATE != null and TO_RATE.length() > 0">
+			   AND MD.MD_RATE <![CDATA[ < ]]>= #{TO_RATE:INTEGER}
+			</if>
+			<if test="FM_PCNT != null and FM_PCNT.length() > 0">
+			   AND MD.MD_PRNT_CNT <![CDATA[ > ]]>= #{FM_PCNT:INTEGER}
+			</if>
+			<if test="TO_PCNT != null and TO_PCNT.length() > 0">
+			   AND MD.MD_PRNT_CNT <![CDATA[ < ]]>= #{TO_PCNT:INTEGER}
+			</if>
+			<if test="FROM_DT != null and FROM_DT.length() > 0">
+				<if test="TO_DT != null and TO_DT.length() > 0">
+		       AND MD.MD_RGST_TM BETWEEN #{FROM_DT:VARCHAR} || '000000' AND #{TO_DT:VARCHAR} || '235959'
+		    	</if>		    		
+			</if>
+			<if test="STAT_CD != null and STAT_CD.length() > 0">
+			   AND MD.MD_STAT_CD = #{STAT_CD:VARCHAR}
+			</if>
+      	</where>
+	</sql>
+	
+	<!-- 가격할인 이력정보 총 카운트 -->
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 가격할인 이력정보 리스트 -->
+	<select id="mainSelectList" parameterType="Map" resultType="java.util.HashMap">
+	 <bind name="sortName" value="'MD_RGST_TM, USR_NM, MD_WRS_ABR_NM'"/> 
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<!-- 결재목록 조회 -->
+	<select id="getApproval" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+		WITH SEL_TITLE /* getApproval */
+		     AS (SELECT TITLE 
+		           FROM NHVANPTL.PT_USR_MRKDN_SIG
+		          WHERE MB_ID = #{MB_ID:VARCHAR} ORDER BY SIG_ORD)
+		SELECT TITLE AS APPROVAL_NM FROM SEL_TITLE
+		UNION ALL
+		    SELECT 'dummy'
+		      FROM DUAL
+		     WHERE NOT EXISTS (SELECT '1' FROM SEL_TITLE)
+		CONNECT BY LEVEL <= 5
+	]]>
+	</select>
+
+	<!-- 협력업체 조회 팝업 -->
+	<select id="searchWRS" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* searchWRS */
+			NA_WRS_C,
+			WRS_ABR_NM
+		FROM TB_GD_WRS
+		<where>
+			<if test="searchType != null and searchType == 'code'">
+				AND NA_WRS_C = #{searchText}
+			</if>
+			<if test="searchType != null and searchType == 'name'">
+				AND WRS_ABR_NM = #{searchText}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 가격할인 이력정보 리스트 -->
+	<select id="downloadExcelMdInfList" parameterType="Map" resultType="java.util.HashMap" fetchSize="1000">
+	 <bind name="sortName" value="'MD_RGST_TM, USR_NM, MD_WRS_ABR_NM'"/> 
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+</mapper>

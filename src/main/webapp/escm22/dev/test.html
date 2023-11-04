@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="viewport" content="user-scalable=1, initial-scale=1.0, width=device-width, target-densitydpi=device-dpi" />
+	
+	<title>하나로 eSCM 개발툴</title>
+	<script src="../nexacro14lib/component/ExtAPI/jquery-1.10.2.js"></script>
+	<script>
+		var last = 0;
+		function testMenuOpenKey(fileNm) {
+			var path = $("select#testPath").val();
+			window.localStorage.setItem("lastTestMenu",  path+"|"+fileNm);
+			parent.testMenuOpen(path, fileNm, fileNm);
+			showhide(false);
+		}
+		
+		var openMenuList;
+		function getFormList() {
+			$("select#formList > option").remove();
+			$("select#formList").append("<option value=''>메뉴 선택</option>");
+			//$("ul#dslist > li").remove();
+			var cnt = 0;
+			openMenuList = new Array();
+			
+			// 열린 메뉴
+			var openList = parent.application.mainframe.frame.frames.HFrameSet0.VFrameSet1.FrameSet0.frames;
+			if (openList.length > 0) {
+				for (var i=0; i<openList.length; i++) {
+					console.log(cnt + " : "+ openList[i].form.sId + " / " + openList[i].form.sNm);
+					openMenuList.push({
+						id:openList[i].form.sId,
+						name:openList[i].form.sNm,
+						form:openList[i].form.div_work
+					});
+					
+					var dom = "<option value='"+cnt+"'>"+openList[i].form.sNm+"</option>";
+					$("select#formList").append(dom);
+					cnt++;
+				}
+			}
+			
+			// 열린 팝업
+			var openList2 = parent.application.popupframes;
+			for (var i=0; i<openList2.length; i++) {
+				console.log(cnt + " : "+ openList2[i].form.name + " / " + openList2[i].form.titletext);
+				openMenuList.push({
+					id:"popup"+i,
+					name:"[POPUP] "+openList2[i].form.titletext,
+					form:openList2[i].form
+				});
+				
+				var dom = "<option value='"+cnt+"'>[POPUP] "+openList2[i].form.titletext+"</option>";
+				$("select#formList").append(dom);
+				cnt++;
+			}
+		}
+		
+		function getFormDataset(formIdx) {
+			$("select#dataList > option").remove();
+			if (formIdx != undefined && formIdx != "") {
+				$("button#refds").show();
+				$("select#dataList").show().append("<option value=''>DataSet 선택</option>");
+				var dsList = new Array();
+				var keys = Object.keys(openMenuList[formIdx].form);
+				for(var i in keys) {
+					if (keys[i].indexOf("ds_") != -1) {
+						console.log(keys[i]);
+						dsList.push(keys[i]);
+						var dom = "<option value='"+keys[i]+"'>"+keys[i]+"</option>";
+						$("select#dataList").append(dom);
+					}
+				}
+			} else {
+				$("select#dataList").hide();
+				$("button#refds").hide();
+			}
+		}
+		
+		function refreshDataset() {
+			showDataset($("select#dataList").val());
+		}
+		
+		var testDs;
+		function showDataset(name) {
+			if (name == undefined || name == "") return;
+			
+			var frm = openMenuList[$("select#formList").val()].form;
+			try {
+				var ds = eval("frm." + name);
+				if (ds != undefined) {
+					var dataset = new Array();
+					var datacol = new Array();
+					for (var i=0; i<ds.getRowCount(); i++) {
+						var datasetItem = {};
+						for (var j=0; j<ds.colinfos.length; j++) {
+							var cols = ds.colinfos[j].id;
+							datasetItem[cols] = ds.getColumn(i, cols);
+							if (i==0){ datacol.push(cols); }
+						}
+						dataset.push(datasetItem);
+					}
+
+					var datamaster = {};
+					datamaster['name'] = name;
+					datamaster['data'] = dataset;
+					datamaster['col'] = datacol;
+					datamaster['count'] = ds.getRowCount();
+					
+					parent.showDatasetRecord(datamaster);
+				}
+			} catch(e) {
+				console.error("dataset parsing error");
+			}
+		}
+				
+		function showPopup() {
+			var popUrl = "testpop.html";
+			var popOption = "width=1280px, height=768px, resizable=no, location=no;"
+			window.open(popUrl, "하나로eSCM 웹개발 툴 ", popOption);
+// 			window.open(popUrl);
+		}
+
+		function hideAll() {
+			$("div#test_div").toggle();
+		}
+
+		$(document).ready(function() {
+			var saved = window.localStorage.getItem("lastTestMenu");
+			if (saved != null && saved != "") {
+				var sp = saved.split("|")
+				$("select#testPath", "div#test_div").val(sp[0]);
+				$("input#filenm", "div#test_div").val(sp[1]);
+			}
+
+			$("body").on("contextmenu", function(e) {
+				e.preventDefault();
+				hideAll();
+			});
+			
+			applySelectToggle();
+		});
+
+		function applySelectToggle() {
+			var saved = window.localStorage.getItem("selectToggle");
+			if (saved == "Y") {
+				$("span#tog").removeClass("off");
+				parent.nexacro._stopSysEvent = function(sysevt) {
+					sysevt.stopped = true;
+					return true;
+				};
+			} else {
+				$("span#tog").addClass("off");
+				parent.nexacro._stopSysEvent = function(sysevt) {
+		            sysevt.preventDefault();
+		            sysevt.stopPropagation();
+		            sysevt.stopped = true;
+		            return false;
+		        };
+			}
+		}
+
+		function toggleSelect() {
+			var saved = window.localStorage.getItem("selectToggle");
+			if (saved != null && saved != "N") {
+				window.localStorage.setItem("selectToggle",  "N");
+			} else {
+				window.localStorage.setItem("selectToggle",  "Y");
+			}
+			applySelectToggle();
+		}
+	</script>
+	<style>
+		html, body { width: 100%; height: 100%; font-family: 'Malgun Gothic'; }
+		body { margin:0; padding:0; outline:0; font-size:10px; overflow: none; }
+		select::-ms-expand { display: none; }
+
+		div#test_div > * {
+		    float: left;
+		}
+		
+		div#test_div {line-height: 24px;box-sizing: border-box;padding: 0 5px; display: inline-block; user-select:none; }
+		
+		div#test_div:after {content: '';display: block;clear: both;}
+		
+		div#test_div > span#title {
+		    color: #fff;
+		    font-size: 1.2em;
+		    font-weight: bold;
+		    padding: 0 10px;
+		    cursor: pointer;
+		    background: #007295;
+		    border-radius: 0 0 0 5px;
+		}
+		
+		div#test_div > span#tog {
+		    width: 40px;
+		    height: 24px;
+		    cursor: pointer;
+		    background: #003c4e url(hand.png) center no-repeat;
+		    background-size: 14px !important;
+		    border-radius: 0 0 5px 0;
+		    position: relative;
+		}
+		div#test_div > span#tog.off {
+			background: #003c4e url(hand_off.png) center no-repeat;
+		}
+		
+/* 		div#test_div > span#tog.off:before {content: '';width: 2px;height: 24px;position: absolute;background-color: #ffffff;border: 1px solid #003c4e;border-width: 0 0px 0 2px;display: inline-block;left: 20px;top: 0px;transform: rotate(-45deg);} */
+		
+		div#test_div > span#data {
+		    font-size: 1.2em;
+		    padding: 3px 6px;
+		    background: #00315a;
+		    line-height: 18px;
+		    margin-left: 10px;
+		    color: #fff;
+		    border-radius: 3px 0 0 3px;
+		}
+		
+		div#test_div > select {
+		    font-size: 1.2em;
+		    height: 24px;
+		    border: 1px solid #00315a;
+		    color: #00315a;
+		    padding: 0 6px;
+		}
+	</style>
+</head>
+<body>
+	<div id="test_div">
+		<span id="title" onclick="showPopup()">dev Tool</span>
+		<span id="tog" class="off" onclick="toggleSelect()"></span>
+		<!-- 
+		<span id="data" onclick="getFormList()">열린메뉴보기</span>
+		<select id="formList" onchange="getFormDataset(this.value)">
+			<option value=''>메뉴 선택</option>
+		</select>
+		<select id="dataList" onchange="showDataset(this.value)">
+			<option>데이터셋 선택</option>
+		</select>
+		 -->
+	</div>
+</body>
+</html>

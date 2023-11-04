@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="seq">
+
+	 <select id="getSequence"  parameterType="java.util.Map" resultType="java.util.Map">
+   	 	  <!-- <if test="SQ_NAME != null and SQ_NAME.equals('SQ_BBRD')">
+        		SELECT SQ_BBRD.NEXTVAL AS SEQ FROM DUAL
+        </if>
+         <if test="SQ_NAME != null and SQ_NAME.equals('SQ_APDFL')">
+        		SELECT SQ_APDFL.NEXTVAL AS SEQ FROM DUAL
+        </if>
+        <if test="SQ_NAME != null and SQ_NAME.equals('SQ_CSLT')">
+        		SELECT SQ_CSLT.NEXTVAL AS SEQ FROM DUAL
+        </if>
+        <if test="SQ_NAME != null and SQ_NAME.equals('SQ_ELT')">
+        		SELECT SQ_ELT.NEXTVAL AS SEQ FROM DUAL
+        </if>		        			        			    
+        <if test="SQ_NAME != null and SQ_NAME.equals('SQ_MENU')">
+        		SELECT SQ_MENU.NEXTVAL AS SEQ FROM DUAL
+        </if> -->
+         SELECT CONCAT( TO_CHAR(SYSDATE, 'YYYYMMDD'), LPAD(F_GET_DLY_SQNO(#{TABLE_NAME}), 6, '0')) SEQ  
+		 FROM DUAL       			        			        			        	
+	</select>
+	
+	
+	<select id="getSmsSequence"  parameterType="java.util.Map" resultType="java.util.Map">
+   	 	  <if test="TYPE != null and TYPE.equals('SMS')">
+        		SELECT SDK_SMS_SEQ.NEXTVAL AS SEQ FROM DUAL
+        </if>
+        <if test="TYPE != null and TYPE.equals('MMS')">
+        		SELECT SDK_MMS_SEQ.NEXTVAL AS SEQ FROM DUAL
+        </if>                  
+	</select>
+	
+	<select id="getMmsSequence"  parameterType="java.util.Map" resultType="java.util.Map">
+        <if test="TYPE != null and TYPE.equals('MMS')">
+        		SELECT SDK_MMS_SEQ.NEXTVAL AS SEQ FROM DUAL
+        </if>                  
+	</select>
+	
+	<select id="getEmailSequence"  parameterType="java.util.Map" resultType="java.util.Map">
+   	 	  <if test="TYPE != null and TYPE.equals('EMAIL')">
+        		SELECT IM_SEQ_DMAIL_INFO_1.NEXTVAL AS SEQ FROM DUAL
+        </if>         
+	</select>	
+	
+	<select id="getVrAcSequence"  parameterType="java.util.Map" resultType="java.util.Map">
+   	 	  <if test="TYPE != null and TYPE.equals('VR_AC')">
+				SELECT VR_ACNO
+				FROM (
+				SELECT /*+ INDEX(A PK_BL_VR_AC_AMN) */ VR_ACNO
+				FROM NHVANPTL.BL_VR_AC_AMN
+				WHERE UYN='N'
+				)
+				WHERE ROWNUM=1
+        </if>         
+	</select>
+	
+	<update id="updateVrAcSequence" parameterType="java.util.Map">
+			UPDATE NHVANPTL.BL_VR_AC_AMN
+			SET UYN='Y', LSCHG_DTM=SYSDATE
+			WHERE VR_ACNO=#{VR_ACNO}
+	</update>
+		
+</mapper>

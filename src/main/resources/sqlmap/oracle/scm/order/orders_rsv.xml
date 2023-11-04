@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order_rsv">
+	
+	<!-- 수주내역조회 소속사업장별 조회 First -->
+	
+	<select id="getOrderRSVMaster" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+                A.RVOPL_NA_TRPL_C,
+                E.CLNTNM AS RVOPL_NA_TRPL_N,
+                A.SPYPL_NA_TRPL_C,
+                F.CLNTNM AS SPYPL_NA_TRPL_N,
+                COUNT(*) AS ODR_WRS_CNT,
+                SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+                 CASE 
+                    WHEN MIN(D.na_usr_sys_kdc) = '63'  THEN
+                      ROUND(SUM(NVL( B.boxpe_aqz, 1) * A.odr_qt), 1)
+                    ELSE 
+                        ROUND(SUM(DECODE( B.boxpe_aqz, 0, A.odr_qt, '', A.odr_qt, A.odr_qt/B.boxpe_aqz)),1) 
+                 END AS BOXPE_AQZ,
+                SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+                SUM(NVL(A.ODR_VAT, 0)) AS ODR_VAT,
+                SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+                COUNT(DISTINCT A.ODRPL_NA_TRPL_C||A.ODRPL_NA_TEAM_C||A.ODR_DT||A.ODR_SLPNO) AS ODR_CNT/* 수주건수 */
+                
+            FROM
+                TB_OD_ORDRSV A,
+                TB_GD_WRS B,
+                TB_TR_TRPL_CIF D,
+                TB_TR_RGN R1,
+                TB_TR_RGN R2,
+                TB_OD_TRTWRS TW,
+                TB_TR_TRPL_CIF E,
+                TB_TR_TRPL_CIF F
+            WHERE 1=1
+                AND A.NA_WRS_C = B.NA_WRS_C
+                AND A.ODRPL_NA_TRPL_C = D.NA_TRPL_C
+                AND D.NA_RGN_C = R1.NA_RGN_C
+                AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+                AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+                AND A.NA_WRS_C = TW.NA_WRS_C(+)
+                AND A.RVOPL_NA_TRPL_C = E.NA_TRPL_C
+                AND A.SPYPL_NA_TRPL_C = F.NA_TRPL_C
+                AND A.DEL_DTM IS NULL
+                <choose>
+					<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+							AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+					</when>
+					<otherwise>
+							AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+					</otherwise>
+				</choose>
+				AND A.SPYPL_NA_TRPL_C IN 
+				<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+		 			#{item}
+				</foreach>				
+				<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+							AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+				</if>
+				<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+							AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+				</if>                
+            GROUP BY 	
+                A.RVOPL_NA_TRPL_C,
+                E.CLNTNM,
+                A.SPYPL_NA_TRPL_C,
+                F.CLNTNM
+	</select>
+
+	<!-- 소속사업장별 조회  Scd-->
+	<select id="getOrderRSVDetail" parameterType="java.util.Map" resultType="java.util.Map">
+
+		SELECT
+			D.ODR_DT,
+			D.ODR_SLPNO,
+			D.ODRPL_NA_TRPL_C,
+			F.CLNTNM AS ODRPL_NA_TRPL_N,
+			CASE
+				WHEN D.ODRPL_NA_TEAM_C = '00'	THEN '[00] 팀없음'
+				ELSE '['|| D.ODRPL_NA_TEAM_C ||'] ' || G.TEAMNM
+			END AS ODRPL_NA_TEAM_N,
+			D.ODRPL_NA_TEAM_C,
+			D.ODR_WRS_CNT,
+			D.DVY_RQR_DT,
+			D.ODR_QT,
+			D.ODR_AM,
+			D.VCBT_AM,
+			DECODE(D.DDLY_YN,'1','여','부') DDLY_YN,
+			'[' || R1.NA_RGN_C || '] ' || R1.RGN_CNM || '/' || R2.RGN_CNM  AS NA_RGN_N,
+			D.DVYAA_NA_TRPL_C,
+			I.CLNTNM AS DVYAA_NA_TRPL_N,
+			D.DVYAA_NA_TEAM_C,
+			CASE
+				WHEN D.DVYAA_NA_TEAM_C = '00'	THEN '[00] 팀없음'
+				ELSE '['|| D.DVYAA_NA_TEAM_C ||'] ' || J.TEAMNM
+			END AS DVYAA_NA_TEAM_N,
+			'[' || D.ROGO_INF_CRT_DSC || ']' || FN_CM_SIMP_CNM('ROGO_INF_CRT_DSC', D.ROGO_INF_CRT_DSC) AS ROGO_INF_CRT_DSC , 
+            D.LGQT_TR_YN, 
+            CASE
+                WHEN NVL(D.LGQT_TR_YN, '0') = '1'   THEN '대량'
+                ELSE ''
+            END AS LGQT_TR_NM
+            
+		FROM
+		(
+			SELECT
+					A.ODRPL_NA_TRPL_C,
+					A.ODRPL_NA_TEAM_C,
+					A.ODR_DT,
+					A.ODR_SLPNO,
+		            A.DVYAA_NA_TRPL_C,
+		            A.DVYAA_NA_TEAM_C,
+		            A.RVOPL_NA_TRPL_C,
+		            A.ROGO_INF_CRT_DSC,
+		            A.DDLY_YN,
+		            A.DVY_RQR_DT,
+		            A.LGQT_TR_YN,
+		            COUNT(*) AS ODR_WRS_CNT,
+					SUM(NVL(B.BOXPE_AQZ, 1)) AS BOXPE_AQZ,
+					SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+					SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+					SUM(NVL(A.ODR_QT, 0)) AS ODR_QT
+			FROM
+					TB_OD_ORDRSV A,
+					TB_GD_WRS B,
+					TB_OD_TRTWRS TW
+			WHERE 1=1
+				AND A.NA_WRS_C = B.NA_WRS_C
+				AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+				AND A.NA_WRS_C = TW.NA_WRS_C(+)
+				AND A.RVOPL_NA_TRPL_C = #{rvoplNaTrplC}
+				AND A.SPYPL_NA_TRPL_C = #{spyplNaTrplC}
+				AND A.DEL_DTM IS NULL
+			<choose>
+				<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+						AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+				</when>
+				<otherwise>
+						AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+				</otherwise>
+			</choose>                
+		GROUP BY
+					A.ODRPL_NA_TRPL_C,
+					A.ODRPL_NA_TEAM_C,
+					A.ODR_DT,
+					A.ODR_SLPNO,
+		            A.DVYAA_NA_TRPL_C,
+		            A.DVYAA_NA_TEAM_C,
+		            A.RVOPL_NA_TRPL_C,
+		            A.ROGO_INF_CRT_DSC,
+		            A.DDLY_YN,
+		            A.DVY_RQR_DT,
+		            A.LGQT_TR_YN
+			) D 
+			, TB_TR_TRPL_CIF F
+			, TB_CM_TEAM G
+			, TB_TR_TRPL_CIF H
+			, TB_TR_TRPL_CIF I
+			, TB_CM_TEAM J
+			, TB_TR_RGN R1
+			, TB_TR_RGN R2
+			
+		WHERE 1=1
+			AND D.ODRPL_NA_TRPL_C = F.NA_TRPL_C
+			AND D.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+			AND D.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+			AND D.RVOPL_NA_TRPL_C = H.NA_TRPL_C
+			AND D.DVYAA_NA_TRPL_C = I.NA_TRPL_C
+			AND D.DVYAA_NA_TRPL_C = J.NA_BZPLC(+)
+			AND D.DVYAA_NA_TEAM_C = J.NA_TEAM_C(+)
+			AND F.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+					AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+					AND R1.NA_RGN_C = #{htLovRgnC} /* 시 */
+		</if>			
+			ORDER BY ODR_DT DESC, ODRPL_NA_TRPL_N ASC
+	</select>
+
+	<!-- 수주내역조회  소속사업장별 조회 Third  -->
+	<select id="getOrderRSVThird" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_STDNM, /* 규격 */
+			CASE 
+				WHEN LENGTH(B.NA_WRS_UNT_C)= 1 
+					THEN  FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+				WHEN LENGTH(B.NA_WRS_UNT_C)= 2 
+					THEN  FN_CM_SIMP_CNM('NA_WRS_UNT_C', '0'||B.NA_WRS_UNT_C)
+				ELSE 
+					FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C)
+			END AS NA_WRS_UNT_C, /* 단위 */
+			NVL(B.BOXPE_AQZ, 1) AS BOXPE_AQZ,/* 박스당 입수 */ 
+			NVL(A.ODR_PCS, 0) AS ODR_PCS, /* 발주단가 */
+			NVL(A.ODR_QT, 0) AS ODR_QT, /* 수주량 */
+			CASE 
+				WHEN CIF.NA_USR_SYS_KDC = '63' THEN
+                     ROUND(NVL( B.BOXPE_AQZ, 1) * A.ODR_QT, 1) 
+				ELSE 
+					ROUND(DECODE(TW.SVS_YN,'1',A.ODR_QT/NVL(TW.SVS_UNT_QT,1),DECODE( B.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/B.BOXPE_AQZ)),1)
+			END AS BOX_QT, /* BOX수량 */
+			NVL(A.ODR_AM, 0) AS ODR_AM, /* 수주금액 */
+			NVL(A.ODR_VAT, 0) AS ODR_VAT, /* 부가세액 */
+			NVL(A.VCBT_AM, 0) AS VCBT_AM /* 공병금액 */
+		FROM
+			TB_OD_ORDRSV A,
+			TB_GD_WRS B,
+			TB_OD_TRTWRS TW,
+			TB_TR_TRPL_CIF CIF
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+) 
+			AND A.NA_WRS_C = TW.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C 
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT = #{ODR_DT}
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+			AND A.SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+			AND A.DEL_DTM IS NULL
+	</select>
+	
+	<select id="downloadExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT A.ODRPL_NA_TRPL_C,
+		       A.ODRPL_NA_TEAM_C,
+		       FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_N,
+		       A.ODR_DT,
+		       A.ODR_SLPNO,
+		       A.NA_WRS_C,
+		       T.WRSNM,
+		       A.RVOPL_NA_TRPL_C,
+		       A.RVOPL_NA_TEAM_C,
+		       A.SPYPL_NA_TRPL_C,
+		       A.SPYPL_NA_TEAM_C,
+		       A.ROGO_INF_CRT_DSC,
+		       A.CSER_CTR_TPC,
+		       A.DVY_RQR_DT,
+		       A.DVYAA_NA_TRPL_C,
+		       A.DVYAA_NA_TEAM_C,
+		       FN_TRPL_CIF_NM(A.DVYAA_NA_TRPL_C) DVYAA_NA_TRPL_N,
+		       A.DDLY_YN,
+		       A.CHAF_NA_WRS_C,
+		       A.TXT_DSC,
+		       A.VCBT_NA_WRS_C,
+		       A.VCBT_AM,
+		       A.VCBX_AM,
+		       A.ODR_PCS,
+		       A.ODR_QT,
+		       A.ODR_VAT,
+		       A.ODR_AM,
+               A.LGQT_TR_YN, 
+               CASE
+                   WHEN NVL(A.LGQT_TR_YN, '0') = '1'   THEN '대량'
+                   ELSE ''
+               END AS LGQT_TR_NM
+		  FROM TB_OD_ORDRSV A
+			, TB_TR_RGN R1
+			, TB_TR_RGN R2
+			, TB_TR_TRPL_CIF I
+			, TB_OD_TRTWRS T
+		  WHERE 1=1
+		  AND A.ODRPL_NA_TRPL_C = I.NA_TRPL_C(+)
+			AND I.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+			AND A.DEL_DTM IS NULL
+			AND T.NA_BZPLC = A.ODRPL_NA_TRPL_C
+	        AND T.NA_BZPLC = I.NA_TRPL_C
+	        AND T.NA_WRS_C = A.NA_WRS_C
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+					AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+					AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+			AND A.SPYPL_NA_TRPL_C IN 
+		<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+ 			#{item}
+		</foreach>				
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+					AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+					AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+	</select>	
+</mapper>

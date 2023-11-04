@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="couponDAO">
+
+	<insert id="insertTemp" parameterType="com.nh.escm.pds.coupon.vo.TB_GD_EVENT_CPN">
+	    INSERT INTO TB_GD_EVENT_CPN_TEMP (
+			TEMP_SEQ,
+			CPN_KDC,
+			NA_CPN_C,
+			DC_NA_WRS_C,
+			CPN_SC_NO,
+			DC_VLD_PRD_ST_DT,
+			DC_VLD_PRD_ED_DT,
+			CPN_WRSNM,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_BZPLC,
+			CPN_EFOC_MBDC,
+			CPN_DC_TPC,
+			CPN_MED_C,
+			CPN_APL_PUC,
+			DC_BAS_QT,
+			DC_BAS_BUY_AM,
+			DC_AM,
+			TRT_FEE,
+			MFT_CONM,
+			FSRG_DTM,
+			FSRGMN_NA_BZPLC,
+			LSCHG_DTM,
+			LSCGMN_NA_BZPLC,
+			LS_CMENO,
+			SUCCESS_YN
+		)
+		VALUES (
+			#{TEMP_SEQ},
+			#{CPN_KDC},
+			#{NA_CPN_C},
+			#{DC_NA_WRS_C},
+			#{CPN_SC_NO},
+			#{DC_VLD_PRD_ST_DT},
+			#{DC_VLD_PRD_ED_DT},
+			#{CPN_WRSNM},
+			#{MNGT_NA_TRPL_C},
+			#{MNGT_NA_BZPLC},
+			#{CPN_EFOC_MBDC},
+			#{CPN_DC_TPC},
+			#{CPN_MED_C},
+			#{CPN_APL_PUC},
+			#{DC_BAS_QT},
+			#{DC_BAS_BUY_AM},
+			#{DC_AM},
+			#{TRT_FEE},
+			#{MFT_CONM},
+			SYSDATE,
+			#{FSRGMN_NA_BZPLC},
+			SYSDATE,
+			#{LSCGMN_NA_BZPLC},
+			#{LS_CMENO},
+			'N'
+		)
+	</insert>
+		
+	<insert id="insertEventCPN" parameterType="Map">
+		INSERT INTO TB_GD_EVENT_CPN(
+			CPN_KDC,
+			NA_CPN_C,
+			DC_NA_WRS_C,
+			CPN_SC_NO,
+			DC_VLD_PRD_ST_DT,
+			DC_VLD_PRD_ED_DT,
+			CPN_WRSNM,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_BZPLC,
+			CPN_EFOC_MBDC,
+			CPN_DC_TPC,
+			CPN_MED_C,
+			CPN_APL_PUC,
+			DC_BAS_QT,
+			DC_BAS_BUY_AM,
+			DC_AM,
+			TRT_FEE,
+			MFT_CONM,
+			PRC_YN,
+			FSRG_DTM,
+			LSCHG_DTM,
+			LSCGMN_NA_BZPLC,
+			LS_CMENO
+		)
+		SELECT 
+			CPN_KDC,
+			NA_CPN_C,
+			DC_NA_WRS_C,
+			CPN_SC_NO,
+			DC_VLD_PRD_ST_DT,
+			DC_VLD_PRD_ED_DT,
+			CPN_WRSNM,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_BZPLC,
+			CPN_EFOC_MBDC,
+			CPN_DC_TPC,
+			CPN_MED_C,
+			CPN_APL_PUC,
+			DC_BAS_QT,
+			DC_BAS_BUY_AM,
+			DC_AM,
+			TRT_FEE,
+			MFT_CONM,
+			'N' PRC_YN,
+			FSRG_DTM,
+			LSCHG_DTM,
+			LSCGMN_NA_BZPLC,
+			LS_CMENO			
+		FROM TB_GD_EVENT_CPN_TEMP A 
+		WHERE A.TEMP_SEQ=#{TEMP_SEQ}
+		AND A.SUCCESS_YN='Y'
+	</insert>
+	
+	<update id="setSuccessMark" parameterType="Map">
+	    UPDATE TB_GD_EVENT_CPN_TEMP SET SUCCESS_YN='Y'WHERE TEMP_SEQ=#{TEMP_SEQ}
+	</update>
+	
+	<select id="getCouponList" parameterType="java.util.Map" resultType="com.nh.escm.pds.coupon.vo.TB_GD_EVENT_CPN">
+	    SELECT
+			( SELECT clntnm FROM TB_TR_TRPL_CIF WHERE na_trpl_c = A.mngt_na_trpl_c ) clntnm
+			, A.na_cpn_c
+			, A.dc_na_wrs_c
+			, A.cpn_wrsnm
+			, A.cpn_sc_no
+			, A.cpn_kdc
+			, FN_CM_SIMP_CNM('CPN_MED_C',A.cpn_med_c) cpn_med_c 
+			, dc_vld_prd_st_dt
+			, dc_vld_prd_ed_dt
+			, A.mngt_na_trpl_c
+			, A.mngt_na_bzplc
+			, A.cpn_efoc_mbdc
+			, A.cpn_dc_tpc
+			, A.dc_bas_qt
+			, A.dc_bas_buy_am
+			, A.dc_am
+			, A.trt_fee
+			, A.mft_conm
+			, A.FSRG_DTM
+			, A.LSCHG_DTM
+			, A.LSCGMN_NA_BZPLC
+			, A.LS_CMENO
+			, A.PRC_YN
+			, '' AS PRC_TEXT
+			, A.RSP_C_CNTN
+		FROM TB_GD_EVENT_CPN A
+		WHERE A.MNGT_NA_TRPL_C = #{MNGT_NA_TRPL_C}
+		<if test="CPN_KDC != 'all'">
+		AND A.CPN_KDC = #{CPN_KDC}
+		</if>	
+		<if test="NA_CPN_C != null and NA_CPN_C != ''">
+		AND A.NA_CPN_C = #{NA_CPN_C}
+		</if>
+		<if test="CPN_WRSNM != null and CPN_WRSNM != ''">
+		AND A.CPN_WRSNM LIKE '${CPN_WRSNM}%'
+		</if>
+		<if test="CPN_SC_NO != null and CPN_SC_NO != ''">
+		AND A.CPN_SC_NO = #{CPN_SC_NO}
+		</if>
+		AND A.CPN_MED_C = #{CPN_MED_C}
+		<![CDATA[
+		AND A.DC_VLD_PRD_ST_DT = #{DC_VLD_PRD_ST_DT}
+		AND A.DC_VLD_PRD_ED_DT = #{DC_VLD_PRD_ED_DT}
+		]]>
+		ORDER BY A.MNGT_NA_TRPL_C, A.NA_CPN_C
+	</select>
+	
+	<update id="updateCouponList" parameterType="com.nh.escm.pds.coupon.vo.TB_GD_EVENT_CPN">
+		UPDATE TB_GD_EVENT_CPN
+		SET PRC_YN = 'N'
+		WHERE
+			CPN_KDC = #{CPN_KDC}
+			AND NA_CPN_C = #{NA_CPN_C}
+			AND DC_NA_WRS_C = #{DC_NA_WRS_C}
+			AND CPN_SC_NO = #{CPN_SC_NO}
+	</update>
+	
+	<select id="getCouponDetailList" parameterType="java.util.Map" resultType="com.nh.escm.pds.coupon.vo.TB_GD_EVENT_CPN">
+		SELECT
+			(SELECT clntnm FROM TB_TR_TRPL_CIF WHERE na_trpl_c = A.mngt_na_trpl_c) clntnm
+			, A.na_cpn_c
+			, A.cpn_wrsnm
+			, A.dc_na_wrs_c
+			, (SELECT wrsnm FROM TB_GD_WRS  WHERE na_wrs_c = A.dc_na_wrs_c ) as wrsnm
+			, A.cpn_sc_no
+			, A.cpn_kdc
+			, A.cpn_med_c
+			, dc_vld_prd_st_dt
+			, dc_vld_prd_ed_dt
+			, A.mngt_na_trpl_c
+			, A.mngt_na_bzplc
+			, A.cpn_efoc_mbdc
+			, A.cpn_dc_tpc
+			, A.dc_bas_qt
+			, A.dc_bas_buy_am
+			, A.dc_am
+			, A.trt_fee
+			, A.mft_conm
+			, A.FSRG_DTM
+			, A.LSCHG_DTM
+			, A.LSCGMN_NA_BZPLC
+			, A.LS_CMENO
+		FROM TB_GD_EVENT_CPN A
+		WHERE A.MNGT_NA_TRPL_C = #{MNGT_NA_TRPL_C}
+		AND A.CPN_KDC = #{CPN_KDC}
+		AND A.NA_CPN_C = #{NA_CPN_C}
+		ORDER BY A.MNGT_NA_BZPLC, A.CPN_KDC, A.NA_CPN_C 
+	</select>
+	
+	<select id="getCouponErrorList" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT '0' AS CHK
+			, ( SELECT CLNTNM FROM TB_TR_TRPL_CIF WHERE na_trpl_c = A.mngt_na_trpl_c ) AS CLNTNM
+			, A.na_cpn_c
+			, A.dc_na_wrs_c
+			, A.cpn_wrsnm
+			, A.cpn_sc_no
+			, A.cpn_kdc
+			, FN_CM_SIMP_CNM('CPN_MED_C',A.cpn_med_c) cpn_med_c 
+			, dc_vld_prd_st_dt
+			, dc_vld_prd_ed_dt
+			, A.mngt_na_trpl_c
+			, A.mngt_na_bzplc
+			, A.cpn_efoc_mbdc
+			, A.cpn_dc_tpc
+			, A.dc_bas_qt
+			, A.dc_bas_buy_am
+			, A.dc_am
+			, A.trt_fee
+			, A.mft_conm
+			, A.FSRG_DTM
+			, A.LSCHG_DTM
+			, A.LSCGMN_NA_BZPLC
+			, A.LS_CMENO
+			, A.PRC_YN
+			, '' AS PRC_TEXT
+			, A.RSP_C_CNTN
+		FROM TB_GD_EVENT_CPN A
+		WHERE A.PRC_YN = 'E'
+		AND A.MNGT_NA_TRPL_C = #{MNGT_NA_TRPL_C}
+		<if test="CPN_KDC != 'all'">
+		AND A.CPN_KDC = #{CPN_KDC}
+		</if>	
+		<if test="NA_CPN_C != null and NA_CPN_C != ''">
+		AND A.NA_CPN_C = #{NA_CPN_C}
+		</if>
+		<if test="CPN_WRSNM != null and CPN_WRSNM != ''">
+		AND A.CPN_WRSNM LIKE '${CPN_WRSNM}%'
+		</if>
+		<if test="CPN_SC_NO != null and CPN_SC_NO != ''">
+		AND A.CPN_SC_NO = #{CPN_SC_NO}
+		</if>
+		AND A.CPN_MED_C = #{CPN_MED_C}
+		<![CDATA[
+		AND A.DC_VLD_PRD_ST_DT = #{DC_VLD_PRD_ST_DT}
+		AND A.DC_VLD_PRD_ED_DT = #{DC_VLD_PRD_ED_DT}
+		]]>
+		ORDER BY A.MNGT_NA_TRPL_C, A.NA_CPN_C
+	</select>
+	
+	<update id="resendCouponErrorList">
+		UPDATE TB_GD_EVENT_CPN
+		   SET PRC_YN = 'N'
+		     , LSCHG_DTM = SYSDATE
+		     , LS_CMENO = #{userId}
+		 WHERE CPN_KDC = #{CPN_KDC}
+		   AND NA_CPN_C = #{NA_CPN_C}
+		   AND DC_NA_WRS_C = #{DC_NA_WRS_C}
+		   AND CPN_SC_NO = #{CPN_SC_NO}
+	</update>
+	
+	<delete id="deleteCouponErrorList">
+		DELETE TB_GD_EVENT_CPN
+		 WHERE CPN_KDC = #{CPN_KDC}
+		   AND NA_CPN_C = #{NA_CPN_C}
+		   AND DC_NA_WRS_C = #{DC_NA_WRS_C}
+		   AND CPN_SC_NO = #{CPN_SC_NO}
+	</delete>
+</mapper>

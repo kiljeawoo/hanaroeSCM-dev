@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="IntelligenceDAO">
+	
+	<sql id="sql_monthlyAverage">
+		SELECT
+			SL_YM AS YMD, 
+			SUM(SL_QT) AS QTY,
+    		TRUNC(SUM(SL_AM)/1000,0) AS AMOUNT
+		FROM
+			IAS_SL_MM_AVG_ALL
+		WHERE 
+			SL_YM BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, -6), 'YYYYMM') AND TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYYMM')
+			AND TRPL_C IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			GROUP BY SL_YM
+			ORDER BY SL_YM DESC
+	</sql>
+	
+	<!-- 1700 -->
+	<select id="monthlyAverage" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_monthlyAverage" />
+	</select>
+	
+	<sql id="sql_totalChanges">
+		SELECT
+		    YMD, 
+		    SUM(QTY) OVER(ORDER BY YMD) QTY,
+		    SUM(AMOUNT) OVER(ORDER BY YMD) AMOUNT
+		FROM(
+			SELECT
+				SL_YM AS YMD, 
+			    SUM(SL_QT) AS QTY,
+			    TRUNC(SUM(SL_AM)/1000,0) AS AMOUNT
+			FROM
+				IAS_SL_MM_ALL
+			WHERE
+				SL_YM BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, -6), 'YYYYMM') AND TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYYMM')
+				AND TRPL_C IN
+				<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		    		#{item}
+				</foreach>
+			GROUP BY SL_YM		
+		)ORDER BY YMD DESC
+	</sql>
+	
+	<!-- 1710 -->
+	<select id="totalChanges" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_totalChanges" />
+	</select>
+	
+	<sql id="sql_topStoreAverage">
+		SELECT
+			CODE,
+			NAME,
+			QTY,
+			TRUNC(AMOUNT/1000,0) AS AMOUNT
+		FROM
+		(
+			SELECT
+				BZPLC AS CODE,
+				BZPLCNM AS NAME,
+				SUM(SL_QT) AS QTY,
+				SUM(SL_AM) AS AMOUNT
+			FROM
+				IAS_SL_MM_AVG_BZPLC
+			WHERE
+				SL_YM LIKE #{ymd} || '%'
+	  			AND TRPL_C IN
+	  			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		    		#{item}
+				</foreach>
+				GROUP BY BZPLC,BZPLCNM
+	  			ORDER BY AMOUNT DESC
+		) WHERE ROWNUM <![CDATA[<]]> 11
+	</sql>
+	
+	<!-- 1720 -->
+	<select id="topStoreAverage" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_topStoreAverage" />
+	</select>
+	
+	<sql id="sql_topSkuAverage">
+		SELECT * FROM(
+			SELECT
+				RANK() OVER (ORDER BY AMOUNT DESC) AS RK,
+				WRS_C AS CODE,
+				WRSNM AS NAME,
+				QTY,
+				TRUNC(AMOUNT/1000,0) AS AMOUNT
+			FROM(
+				SELECT
+					WRS_C,
+					WRSNM,
+					SUM(SL_QT) QTY,
+            		SUM(SL_AM) AMOUNT
+				FROM
+					IAS_SL_MM_AVG_WRS_C
+				WHERE
+					SL_YM LIKE #{ymd} || '%'
+					AND TRPL_C IN
+			        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					GROUP BY WRS_C,WRSNM
+			)ORDER BY AMOUNT DESC
+		)WHERE RK <![CDATA[<]]> 11
+	</sql>
+	
+	<!-- 1730 -->
+	<select id="topSkuAverage" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_topSkuAverage" />
+	</select>
+	
+	<sql id="sql_topMonthlyDivision">
+		SELECT * FROM(
+			SELECT
+				RANK() OVER (ORDER BY AMOUNT DESC) AS RK,
+				CODE,
+				NAME,
+				QTY,
+				TRUNC(AMOUNT/1000,0) AS AMOUNT
+			FROM(
+				SELECT
+					LCLC AS CODE,
+					LCLCNM AS NAME,
+				    SUM(SL_QT) AS QTY,
+                	SUM(SL_AM) AS AMOUNT
+				FROM
+					IAS_SL_MM_AVG_CLS
+				WHERE
+					SL_YM = #{eDate}
+			    	AND TRPL_C IN
+			        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					GROUP BY LCLC,LCLCNM	
+			)ORDER BY AMOUNT DESC
+		) WHERE RK <![CDATA[<]]> 11
+	</sql>
+	
+	<!-- 1740 -->
+	<select id="topMonthlyDivision" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_topMonthlyDivision" />
+	</select>
+	
+	<sql id="sql_topStore">
+		SELECT 
+		    *
+		FROM
+		(
+			SELECT
+				RANK() OVER (ORDER BY AMOUNT DESC) AS RK,
+			    CODE,
+			    NAME,
+			    QTY,
+			    AMOUNT
+			FROM(
+				SELECT
+					WRS_C CODE,
+					WRSNM NAME,
+					SUM(SL_QT) AS QTY,
+					TRUNC(SUM(SL_AM)/1000,0) AS AMOUNT
+				FROM IAS_SL_MM_WRS_C 
+				WHERE 
+					SL_YM = #{eDate}
+					AND TRPL_C IN
+			        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					GROUP BY WRS_C,WRSNM
+			) ORDER BY AMOUNT DESC
+		) WHERE RK <![CDATA[<]]> 11
+	</sql>
+	
+	<!-- 1750 -->
+	<select id="topStore" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_topStore" />
+	</select>
+	
+	<sql id="sql_topSku">
+		SELECT 
+		    *
+		FROM
+		(
+			SELECT 
+			    RANK() OVER (ORDER BY AMOUNT DESC) AS RK,
+			    CODE,
+			    NAME,
+			    QTY,
+			    AMOUNT
+			FROM(
+				SELECT
+					BZPLC CODE,
+					BZPLCNM NAME,
+					SUM(SL_QT) AS QTY,
+					TRUNC(SUM(SL_AM)/1000,0) AS AMOUNT
+				FROM IAS_SL_MM_BZPLC 
+				WHERE 
+					SL_YM = #{eDate}
+					AND TRPL_C IN
+			        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					GROUP BY BZPLC,BZPLCNM
+			) ORDER BY AMOUNT DESC
+		) WHERE RK <![CDATA[<]]> 11
+	</sql>
+	
+	<!-- 1760 -->
+	<select id="topSku" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_topSku" />
+	</select>
+	
+	<!-- 1770 -->
+	<sql id="sql_topDivision">
+		SELECT
+			*
+		FROM
+		(
+			SELECT
+				RANK() OVER (ORDER BY AMOUNT DESC) AS RK,
+				CODE,
+				NAME,
+				QTY,
+				AMOUNT
+			FROM(
+					SELECT 
+						LCLC AS CODE,
+						LCLCNM AS NAME,
+						SUM(SL_QT) AS QTY,
+						TRUNC(SUM(SL_AM)/1000,0) AS AMOUNT
+					FROM IAS_SL_MM_CLS
+					WHERE
+						SL_YM = #{eDate}
+						AND TRPL_C IN
+						<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				    		#{item}
+						</foreach>
+						GROUP BY LCLC,LCLCNM
+			) ORDER BY AMOUNT DESC 
+		) WHERE RK <![CDATA[<]]> 11
+	</sql>
+	
+	<!-- 1760 -->
+	<select id="topDivision" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_topDivision" />
+	</select>
+	
+	<select id="downloadExcelMonthlyAverageChange" parameterType="java.util.Map" resultType="java.util.Map"  fetchSize="1000">
+		<include refid="sql_monthlyAverage" />
+	</select>
+	
+	<select id="downloadExcelTotalChanges" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_totalChanges" />
+	</select>
+	
+	<select id="downloadExcelTopStoreAverage" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_topStoreAverage" />
+	</select>
+	
+	<select id="downloadExcelTopSkuAverage" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_topSkuAverage" />
+	</select>
+	
+	<select id="downloadExcelTopMonthlyDivision" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_topMonthlyDivision" />
+	</select>
+	
+	<select id="downloadExcelTopStore" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_topStore" />
+	</select>
+	
+	<select id="downloadExcelTopsku" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_topSku" />
+	</select>
+	 
+	<select id="downloadExcelTopDivision" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_topDivision" />
+	</select>
+</mapper>

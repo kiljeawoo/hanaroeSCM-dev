@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="companyDAO">
+	<resultMap id="companyMap" type="com.nh.escm.pds.company.vo.CompanyVO">
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="NA_TRPL_DSC" property="NA_TRPL_DSC" />
+		<result column="NAAC_DSC" property="NAAC_DSC" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="TRPL_ABR_NM" property="TRPL_ABR_NM" />
+		<result column="NA_MBCO_DSC" property="NA_MBCO_DSC" />
+		<result column="UP_NA_TRPL_C" property="UP_NA_TRPL_C" />
+		<result column="UP_NA_TRPL_NM" property="UP_NA_TRPL_NM" />
+		<result column="FZIP" property="FZIP" />
+		<result column="RZIP" property="RZIP" />
+		<result column="ZIP_SQNO" property="ZIP_SQNO" />
+		<result column="DONGUP" property="DONGUP" />
+		<result column="DONGBW" property="DONGBW" />
+		<result column="NA_RGN_C" property="NA_RGN_C" />
+		<result column="TEL_NAT_NO" property="TEL_NAT_NO" />
+		<result column="ATEL" property="ATEL" />
+		<result column="HTEL" property="HTEL" />
+		<result column="STEL" property="STEL" />
+		<result column="FAX_RGNO" property="FAX_RGNO" />
+		<result column="HFAX" property="HFAX" />
+		<result column="FAX_SQNO" property="FAX_SQNO" />
+		<result column="MPSVNO" property="MPSVNO" />
+		<result column="MPHNO" property="MPHNO" />
+		<result column="MPSQNO" property="MPSQNO" />
+		<result column="FMACH_PATS_TRT_YN" property="FMACH_PATS_TRT_YN" />
+		<result column="NA_BZPL_TXBZ_RPT_FORM_C" property="NA_BZPL_TXBZ_RPT_FORM_C" />
+		<result column="NA_USR_SYS_KDC" property="NA_USR_SYS_KDC" />
+		<result column="ELT_TXBIL_UYN" property="ELT_TXBIL_UYN" />
+		<result column="TR_STOP_YN" property="TR_STOP_YN" />
+		<result column="TR_STOP_RSNC" property="TR_STOP_RSNC" />
+		<result column="TR_STOP_NM" property="TR_STOP_NM" />
+		<result column="TR_STOP_DT" property="TR_STOP_DT" />
+		<result column="COPNO_CIF_NO" property="COPNO_CIF_NO" />
+		<result column="REPMNM" property="REPMNM" />
+		<result column="BZCCNM" property="BZCCNM" />
+		<result column="BZTPNM" property="BZTPNM" />
+		<result column="LIQ_SEL_RPT_NO" property="LIQ_SEL_RPT_NO" />
+		<result column="LIQ_WHSL_COMP_C" property="LIQ_WHSL_COMP_C" />
+		<result column="LIQ_RTL_COMP_C" property="LIQ_RTL_COMP_C" />
+		<result column="NA_TXBZ_DSC" property="NA_TXBZ_DSC" />
+		<result column="BIZ_NUMBER" property="BIZ_NUMBER" />
+		<result column="CHG_YN" property="CHG_YN" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LS_NA_BZPLC" property="LS_NA_BZPLC" />
+		<result column="UP_RGN_CNM" property="UP_RGN_CNM"/>
+		<result column="RGN_CNM" property="RGN_CNM"/>
+		<result column="NA_TRPL_SEAL_FLNM" property="NA_TRPL_SEAL_FLNM"/>
+		<result column="DEL_YN" property="DEL_YN"/>
+	</resultMap>
+	
+	
+	<!-- 신규거래처 등록: 전자계약  -->
+	<insert id="insertCompany" parameterType="com.nh.escm.pds.company.vo.CompanyVO">
+
+			INSERT INTO TB_TR_TRPL_CIF 
+			(
+			      NA_TRPL_C                        -- 경제통합거래처코드            
+			    , NA_TRPL_DSC                      -- 경제통합거래처구분코드        
+			    , NAAC_DSC                         -- 중앙회조합구분코드            
+			    , CLNTNM                           -- 거래처명                      
+			    , TRPL_ABR_NM                      -- 거래처약어명                  
+			    , NA_MBCO_DSC                      -- 경제통합본지사구분코드        
+			    , UP_NA_TRPL_C                     -- 상위경제통합거래처코드        
+			    , FZIP                             -- 앞자리우편번호                
+			    , RZIP                             -- 뒷자리우편번호                
+			    , ZIP_SQNO                         -- 우편번호일련번호              
+			    , DONGUP                           -- 동이상주소                    
+			    , DONGBW                           -- 동이하주소                    
+			    , NA_RGN_C                         -- 경제통합지역코드              
+			    , TEL_NAT_NO                       -- 전화국가번호                  
+			    , ATEL                             -- 전화지역번호                  
+			    , HTEL                             -- 전화국번호                    
+			    , STEL                             -- 전화일련번호                  
+			    , FAX_RGNO                         -- 팩스지역번호                  
+			    , HFAX                             -- 팩스국번호                    
+			    , FAX_SQNO                         -- 팩스일련번호
+			    , FMACH_PATS_TRT_YN                -- 농기계부품취급여부                     
+			    , NA_USR_SYS_KDC                   -- 경제통합사용자시스템종류코드  
+			    , ELT_TXBIL_UYN                    -- 전자세금계산서사용여부        
+			    , TR_STOP_YN                       -- 거래중지여부 
+			    , COPNO_CIF_NO                     -- 법인등록번호                  
+			    , REPMNM                           -- 대표자명                      
+			    , BZCCNM                           -- 업종코드명                    
+			    , BZTPNM                           -- 업태명                                   
+			    , BIZ_NUMBER                       -- 사업자등록번호                                     
+			    , LS_CMENO                         -- 최종변경자개인번호            
+			    , LS_NA_BZPLC                      -- 최종변경자사업장코드          
+			    , DEL_YN                           -- 삭제여부                      
+			    , USR_SYS_C                        --                               
+			    , LSCHG_DTM                        -- 최종변경일시                            
+			    , FSRG_DTM                         -- 최초등록일시                  
+			    , FSRGMN_ENO                       -- 최초등록자개인번호            		    
+			)
+			
+			VALUES
+			(
+			      #{NA_TRPL_C              }         -- 경제통합거래처코드            
+			    , #{NA_TRPL_DSC            }         -- 경제통합거래처구분코드        
+			    , #{NAAC_DSC               }         -- 중앙회조합구분코드            
+			    , #{CLNTNM                 }         -- 거래처명                      
+			    , #{TRPL_ABR_NM            }         -- 거래처약어명                  
+			    , #{NA_MBCO_DSC            }         -- 경제통합본지사구분코드        
+			    , #{UP_NA_TRPL_C           }         -- 상위경제통합거래처코드        
+			    , #{FZIP                   }         -- 앞자리우편번호                
+			    , #{RZIP                   }         -- 뒷자리우편번호                
+			    , #{ZIP_SQNO               }         -- 우편번호일련번호              
+			    , #{DONGUP                 }         -- 동이상주소                    
+			    , #{DONGBW                 }         -- 동이하주소                    
+			    , #{NA_RGN_C               }         -- 경제통합지역코드              
+			    , #{TEL_NAT_NO             }         -- 전화국가번호                  
+			    , #{ATEL                   }         -- 전화지역번호                  
+			    , #{HTEL                   }         -- 전화국번호                    
+			    , #{STEL                   }         -- 전화일련번호                  
+			    , #{FAX_RGNO               }         -- 팩스지역번호                  
+			    , #{HFAX                   }         -- 팩스국번호                    
+			    , #{FAX_SQNO               }         -- 팩스일련번호                  
+			    , #{FMACH_PATS_TRT_YN      }         -- 농기계부품취급여부   
+			    , #{NA_USR_SYS_KDC         }         -- 경제통합사용자시스템종류코드  
+			    , #{ELT_TXBIL_UYN          }         -- 전자세금계산서사용여부        
+			    , #{TR_STOP_YN             }         -- 거래중지여부 
+			    , #{COPNO_CIF_NO           }         -- 법인등록번호                  
+			    , #{REPMNM                 }         -- 대표자명                      
+			    , #{BZCCNM                 }         -- 업종코드명                    
+			    , #{BZTPNM                 }         -- 업태명                                 
+			    , #{BIZ_NUMBER             }         -- 사업자등록번호                
+			    , #{LS_CMENO               }         -- 최종변경자개인번호            
+			    , #{LS_NA_BZPLC            }         -- 최종변경자사업장코드          
+			    , #{DEL_YN                 }         -- 삭제여부                      
+			    , #{USR_SYS_C              }         --                               
+			    , SYSDATE                           -- 최종변경일시                                                       
+			    , SYSDATE                            -- 최초등록일시                  
+			    , #{FSRGMN_ENO             }         -- 최초등록자개인번호            
+
+			)
+
+	</insert>
+	
+	<select id="selectComp" parameterType="java.util.Map" resultMap="companyMap">
+		SELECT
+			A.NA_TRPL_C,
+			A.NA_TRPL_DSC,
+			A.NAAC_DSC,
+			A.CLNTNM,
+			A.TRPL_ABR_NM,
+			A.NA_MBCO_DSC,
+			A.UP_NA_TRPL_C,
+			(
+				SELECT CLNTNM FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = A.UP_NA_TRPL_C
+			) UP_NA_TRPL_NM,
+			A.FZIP,
+			A.RZIP,
+			A.ZIP_SQNO,
+			A.DONGUP,
+			A.DONGBW,
+			A.NA_RGN_C,
+			(
+			SELECT RGN_CNM FROM TB_TR_RGN BB WHERE BB.NA_RGN_C = B.UP_NA_RGN_C
+			) UP_RGN_CNM,
+			B.RGN_CNM,
+			A.TEL_NAT_NO,
+			A.ATEL,
+			A.HTEL,
+			A.STEL,
+			A.FAX_RGNO,
+			A.HFAX,
+			A.FAX_SQNO,
+			ecl_decrypt(A.MPSVNO) as MPSVNO,
+			ecl_decrypt(A.MPHNO) as MPHNO,
+			ecl_decrypt(A.MPSQNO) as MPSQNO,
+			A.FMACH_PATS_TRT_YN,
+			A.NA_BZPL_TXBZ_RPT_FORM_C,
+			A.NA_USR_SYS_KDC,
+			A.ELT_TXBIL_UYN,
+			A.TR_STOP_YN,
+			A.TR_STOP_RSNC,
+			A.TR_STOP_DT,
+			A.COPNO_CIF_NO,
+			A.REPMNM,
+			A.BZCCNM,
+			A.BZTPNM,
+			A.LIQ_SEL_RPT_NO,
+			A.LIQ_WHSL_COMP_C,
+			A.LIQ_RTL_COMP_C,
+			A.NA_TXBZ_DSC,
+			A.BIZ_NUMBER,
+			A.CHG_YN,
+			A.LS_CMENO,
+			A.LS_NA_BZPLC,
+			A.PRC_YN,
+			A.RSP_C_CNTN,
+			A.EDI_IF_ID
+		FROM
+			TB_TR_TRPL_CIF A, TB_TR_RGN B
+		WHERE
+			1=1
+			AND A.NA_RGN_C = B.NA_RGN_C
+			AND NA_TRPL_C = #{TRPL_C}
+	</select>
+	
+	<select id="selectUser" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.MB_ID,
+			A.MB_PW,
+			A.USR_TPC,
+			A.COMP_TPC,
+			A.USR_NM,
+			A.BIRTH,
+			A.SEX_DSC,
+			A.USR_TELNO,
+			ecl_decrypt(A.USR_MPNO) as USR_MPNO,
+			A.USR_EMAIL,
+			A.SMS_RMS_YN,
+			A.EMAIL_RMS_YN,
+			A.NA_TRPL_C,
+			B.CLNTNM,
+			A.BZNO,
+			A.ENT_PRG_STSC,
+			A.FSRG_DTM,
+			A.FS_RGM,
+			A.LSCHG_DTM,
+			A.CHRG_BSNNM,
+			A.HOFF_APV_YN,
+			A.LS_CHGM,
+			A.PW_LSRG_DT,
+			A.MB_CV_DSC,
+			A.ENT_PRG_CNTN,
+			B.FZIP||B.RZIP AS ZIP,
+			B.DONGUP,
+			(
+				SELECT 
+				SUBSTR(MAX(LGIN_DTM), 0, 8) LGIN_DT 
+				FROM PT_LGIN_HST WHERE MB_ID = A.MB_ID
+			)LGIN_DTM
+		FROM PT_USR_INF A, TB_TR_TRPL_CIF B
+		WHERE
+			A.NA_TRPL_C = B.NA_TRPL_C
+			AND A.NA_TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			<if test="EDT_NM != null and EDT_NM.length() > 0">
+				<if test="RDO_CHK == 1">
+					AND A.MB_ID LIKE #{EDT_NM} || '%%'
+				</if>
+				<if test="RDO_CHK == 2">
+					AND	A.USR_NM LIKE #{EDT_NM} || '%%'
+				</if>
+			</if>
+			ORDER BY B.NA_MBCO_DSC, A.NA_TRPL_C, A.MB_ID
+	</select>
+	
+	<select id="downloadExcelCompanyUsers" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			A.MB_ID,
+			A.MB_PW,
+			A.USR_TPC,
+			A.COMP_TPC,
+			A.USR_NM,
+			A.BIRTH,
+			A.SEX_DSC,
+			A.USR_TELNO,
+			ecl_decrypt(A.USR_MPNO) as USR_MPNO,
+			A.USR_EMAIL,
+			A.SMS_RMS_YN,
+			A.EMAIL_RMS_YN,
+			A.NA_TRPL_C,
+			B.CLNTNM,
+			A.BZNO,
+			CASE A.ENT_PRG_STSC
+				WHEN '0' THEN '진행중'
+				WHEN '1' THEN '신청완료'
+				WHEN '2' THEN '가입신청거절'
+				WHEN '3' THEN '수정요청중'
+				WHEN '4' THEN '수정요청거절'
+				WHEN '5' THEN '해지'
+			END AS ENT_PRG_STSC,
+			A.FSRG_DTM,
+			A.FS_RGM,
+			A.LSCHG_DTM,
+			A.CHRG_BSNNM,
+			DECODE(A.HOFF_APV_YN, 'Y', '승인', '미승인') AS HOFF_APV_YN,
+			A.LS_CHGM,
+			A.PW_LSRG_DT,
+			A.MB_CV_DSC,
+			A.ENT_PRG_CNTN,
+			B.FZIP||B.RZIP AS ZIP,
+			B.DONGUP,
+			(
+				SELECT 
+				SUBSTR(MAX(LGIN_DTM), 0, 8) LGIN_DT 
+				FROM PT_LGIN_HST WHERE MB_ID = A.MB_ID
+			)LGIN_DTM
+		FROM PT_USR_INF A, TB_TR_TRPL_CIF B
+		WHERE
+			A.NA_TRPL_C = B.NA_TRPL_C
+			AND A.NA_TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			<if test="EDT_NM != null and EDT_NM.length() > 0">
+				<if test="RDO_CHK == 1">
+					AND A.MB_ID LIKE #{EDT_NM} || '%%'
+				</if>
+				<if test="RDO_CHK == 2">
+					AND	A.USR_NM LIKE #{EDT_NM} || '%%'
+				</if>
+			</if>
+			ORDER BY B.NA_MBCO_DSC, A.NA_TRPL_C, A.MB_ID
+	</select>
+	
+	<update id="updateUser" parameterType="com.nh.escm.pds.company.vo.CompanyInfVO">
+		UPDATE PT_USR_INF
+		SET HOFF_APV_YN = #{HOFF_APV_YN}
+		WHERE MB_ID = #{MB_ID}
+	</update>
+	
+	<select id="selectSearch" parameterType="java.util.Map" resultMap="companyMap">
+		SELECT
+			A.NA_TRPL_C, 			/* 거래처코드 */
+			A.CLNTNM, 				/* 거래처명 */
+			A.NA_MBCO_DSC, 			/* 본지사 구분코드 */
+			A.TR_STOP_YN, 			/* 거래중지여부 */
+			A.TR_STOP_RSNC, 		/* 거래중지사유코드 */
+			(SELECT SIMP_CNM FROM TB_CM_SIMPC 
+			WHERE SIMP_TPC = 'TR_STOP_RSNC' AND SIMP_C = A.TR_STOP_RSNC
+			) TR_STOP_NM,			/* 거래중지사유명 */
+			DEL_YN,
+			DECODE(NA_TRPL_SEAL_FLNM, NULL, 'N', 'Y') AS NA_TRPL_SEAL_FLNM
+		FROM
+			TB_TR_TRPL_CIF A
+		WHERE
+			UP_NA_TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			OR A.NA_TRPL_C IN
+	        <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			ORDER BY NA_MBCO_DSC, NA_TRPL_C
+	</select>
+	
+	<select id="selectSearch_sub" parameterType="java.util.Map" resultMap="companyMap">
+		SELECT
+			B.NA_TRPL_C, 			/* 거래처코드 */
+			B.CLNTNM, 				/* 거래처명 */
+			B.NA_MBCO_DSC, 			/* 본지사 구분코드 */
+			B.TR_STOP_YN, 			/* 거래중지여부 */
+			B.TR_STOP_RSNC, 		/* 거래중지사유코드 */
+			(SELECT SIMP_CNM FROM TB_CM_SIMPC WHERE SIMP_TPC = 'TR_STOP_RSNC' AND SIMP_C = B.TR_STOP_RSNC
+			) TR_STOP_NM			/* 거래중지사유명 */,
+			DECODE(B.NA_TRPL_SEAL_FLNM, NULL, 'N', 'Y') AS NA_TRPL_SEAL_FLNM
+		FROM
+			(SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF B WHERE NA_TRPL_C = #{mbcocode})A,
+			TB_TR_TRPL_CIF B
+		WHERE B.NA_TRPL_C = A.UP_NA_TRPL_C
+		UNION ALL
+		SELECT
+			C.NA_TRPL_C,
+			C.CLNTNM,
+			C.NA_MBCO_DSC,
+			C.TR_STOP_YN,
+			C.TR_STOP_RSNC,
+			(SELECT SIMP_CNM FROM TB_CM_SIMPC WHERE SIMP_TPC = 'TR_STOP_RSNC' AND SIMP_C = C.TR_STOP_RSNC
+			) TR_STOP_NM,				/* 거래중지사유명 */
+			DECODE(C.NA_TRPL_SEAL_FLNM, NULL, 'N', 'Y') AS NA_TRPL_SEAL_FLNM
+		FROM 
+			TB_TR_TRPL_CIF C
+		WHERE C.NA_TRPL_C = #{mbcocode}
+		ORDER BY NA_MBCO_DSC, NA_TRPL_C
+	</select>
+	
+	<!-- 사용자 메뉴권한 저장 -->
+	<insert id="mergeUsrMenuAuth" parameterType="java.util.Map">
+		MERGE INTO PT_USR_MENU_AUTH /* mergeUsrMenuAuth */
+		USING DUAL
+		   ON (MB_ID = #{MB_ID} AND MENU_GROUP = #{MENU_GROUP})  /* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET AUTH_F    = #{AUTH_F}
+		           , LSCHG_DTM = SYSDATE
+		           , LS_CHGM   = #{modifier}
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             MB_ID       /* 회원ID */
+		           , MENU_GROUP  /* 메뉴그룹 */
+		           , AUTH_F      /* 권한여부 (1: 권한있음, 0: 권한없음) */
+		           , FSRG_DTM    /* 최초등록일시 */
+		           , FS_RGM      /* 최초등록자 */
+		           , LSCHG_DTM   /* 최종변경일시 */
+		           , LS_CHGM     /* 최종변경자 */
+		      ) VALUES (
+		             #{MB_ID}
+		           , #{MENU_GROUP}
+		           , #{AUTH_F}
+		           , SYSDATE
+		           , #{modifier}
+		           , SYSDATE
+		           , #{modifier}
+		      )
+	</insert>
+	
+	<!-- 사용자 메뉴권한 목록 조회 -->
+	<select id="retrieveUsrMenuAuthList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveUsrMenuAuthList */
+		       A.MB_ID
+		     , A.USR_NM
+		     , NVL((SELECT 'Y' FROM PT_USR_AUTH C WHERE C.MB_ID = A.MB_ID AND C.USR_AUTH_DSC = '1'), 'N') AS BL_AUTH_YN  /* 빌링권한여부 */
+		     , A.NA_TRPL_C
+		     , B.CLNTNM
+		     , A.SCM_ORDER_F
+		     , A.SCM_DELIVERY_F
+		     , A.SCM_RECADV_F
+		     , A.PDS_OUTER_F
+		     , A.PDS_SALES_F
+		     , A.ANL_MARKET_F
+		  FROM (
+		           SELECT /* 각 메뉴그룹에 대한 권한여부를 구한다. (기본값: 1) */
+		                  A.MB_ID
+		                , A.USR_NM
+		                , A.NA_TRPL_C
+		                , MIN(CASE WHEN B.MENU_GROUP = 'SCM.ORDER'    AND B.AUTH_F = '0' THEN '0' ELSE '1' END) AS SCM_ORDER_F     /* 수주업무 */
+		                , MIN(CASE WHEN B.MENU_GROUP = 'SCM.DELIVERY' AND B.AUTH_F = '0' THEN '0' ELSE '1' END) AS SCM_DELIVERY_F  /* 배송업무 */
+		                , MIN(CASE WHEN B.MENU_GROUP = 'SCM.RECADV'   AND B.AUTH_F = '0' THEN '0' ELSE '1' END) AS SCM_RECADV_F    /* 검수업무 */
+		                , MIN(CASE WHEN B.MENU_GROUP = 'PDS.OUTER'    AND B.AUTH_F = '0' THEN '0' ELSE '1' END) AS PDS_OUTER_F     /* 출고정보 */
+		                , MIN(CASE WHEN B.MENU_GROUP = 'PDS.SALES'    AND B.AUTH_F = '0' THEN '0' ELSE '1' END) AS PDS_SALES_F     /* 부가정보 */
+		                , MIN(CASE WHEN B.MENU_GROUP = 'ANALYSIS.MARKET' AND B.AUTH_F = '0' THEN '0' ELSE '1' END) AS ANL_MARKET_F /* 카테고리 판매정보 */
+		             FROM PT_USR_INF A
+		                  LEFT OUTER JOIN PT_USR_MENU_AUTH B
+		                          ON A.MB_ID = B.MB_ID
+		            WHERE A.NA_TRPL_C IN
+		                  <foreach item="item" collection="TRPL_C_ARR" open="(" close=")" separator=",">
+		                      #{item}
+		                  </foreach>
+		              <if test="RDO_CHK == 1 and EDT_NM != null and EDT_NM.length() > 0">
+		                  AND UPPER(A.MB_ID) LIKE '%' || UPPER(#{EDT_NM}) || '%' ESCAPE '\'   /* 회원ID */
+		              </if>
+		              <if test="RDO_CHK == 2 and EDT_NM != null and EDT_NM.length() > 0">
+		                  AND UPPER(A.USR_NM) LIKE '%' || UPPER(#{EDT_NM}) || '%' ESCAPE '\'  /* 사용자명 */
+		              </if>
+		              AND A.ENT_PRG_STSC IN ('1', '3', '4')  /* 가입진행상태 (0: 진행중, 1: 신청완료, 2: 가입신청거절, 3: 수정요청중, 4: 수정요청거절, 5: 해지) */
+		            GROUP BY A.MB_ID, A.USR_NM, A.NA_TRPL_C
+		       ) A
+		       INNER JOIN TB_TR_TRPL_CIF B
+		               ON A.NA_TRPL_C = B.NA_TRPL_C
+		 ORDER BY B.NA_MBCO_DSC, A.NA_TRPL_C, A.MB_ID
+	</select>
+	
+	
+	<!-- 거래처 수정요청 -->
+	<insert id="insertCompanyModReq" parameterType="com.nh.escm.pds.company.vo.CompanyReqVO">
+		INSERT INTO NHVANINF.TB_GD_TRPLTP_RG_MOD_REQ (
+			  VAN_C_RQ_NO
+			, NA_C_RQ_OBJ_DSC
+			, CTCPL_TELNO
+			, RQ_CNTN
+			, APV_RQ_NA_TRPLC
+			, FSRGMN_ENO
+			, FSRGMN_NA_TRPLC
+			, NA_TRPL_DSC
+			, NA_TRPL_C
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+				, CLNTNM
+			</if>
+			<if test="TRPL_ABR_NM != null and TRPL_ABR_NM.length() > 0">
+				, TRPL_ABR_NM
+			</if>
+			<if test="TEL_NAT_NO != null and TEL_NAT_NO.length() > 0">
+				, TEL_NAT_NO
+			</if>
+			<if test="ATEL != null and ATEL.length() > 0">
+				, ATEL
+			</if>
+			<if test="HTEL != null and HTEL.length() > 0">
+				, HTEL
+			</if>
+			<if test="STEL != null and STEL.length() > 0">
+				, STEL
+			</if>
+			<if test="FAX_RGNO != null and FAX_RGNO.length() > 0">
+				, FAX_RGNO
+			</if>
+			<if test="HFAX != null and HFAX.length() > 0">
+				, HFAX
+			</if>
+			<if test="FAX_SQNO != null and FAX_SQNO.length() > 0">
+				, FAX_SQNO
+			</if>
+			<if test="MPSVNO != null and MPSVNO.length() > 0">
+				, MPSVNO
+			</if>
+			<if test="MPHNO != null and MPHNO.length() > 0">
+				, MPHNO
+			</if>
+			<if test="MPSQNO != null and MPSQNO.length() > 0">
+				, MPSQNO
+			</if>
+			<if test="NA_RGN_C != null and NA_RGN_C.length() > 0">
+				, NA_RGN_C
+			</if>
+			<if test="NA_MBCO_DSC != null and NA_MBCO_DSC.length() > 0">
+				, NA_MBCO_DSC
+			</if>
+			<if test="UP_NA_TRPL_C != null and UP_NA_TRPL_C.length() > 0">
+				, UP_NA_TRPL_C
+			</if>
+			<choose>
+				<when test="OLD_NEW_ADR_DSC != null and OLD_NEW_ADR_DSC == '1'.toString()">
+					, OLD_NEW_ADR_DSC
+					<if test="FZIP != null and FZIP.length() > 0 and RZIP != null and RZIP.length() > 0">
+						, ZIP
+					</if>
+					<if test="ZIP_SQNO != null and ZIP_SQNO.length() > 0">
+						, ZIP_SQNO
+					</if>
+					<if test="DONGUP != null and DONGUP.length() > 0">
+						, DONGUP
+					</if>
+					<if test="DONGBW != null and DONGBW.length() > 0">
+						, DONGBW
+					</if>
+				</when>
+				<when test="OLD_NEW_ADR_DSC != null and OLD_NEW_ADR_DSC == '2'.toString()">
+					, OLD_NEW_ADR_DSC
+					<if test="BLD_AMNNO != null and BLD_AMNNO.length() > 0">
+						, BLD_SQNO
+					</if>
+					<if test="FZIP != null and FZIP.length() > 0 and RZIP != null and RZIP.length() > 0">
+						, RODNM_ZIP
+					</if>
+					<if test="ZIP_SQNO != null and ZIP_SQNO.length() > 0">
+						, RODNM_POST_SQNO
+					</if>
+					<if test="DONGUP != null and DONGUP.length() > 0">
+						, RODNM_DONGUP
+					</if>
+					<if test="DONGBW != null and DONGBW.length() > 0">
+						, RODNM_DONGBW
+					</if>
+				</when>
+			</choose>
+			, FSRG_DTM
+			, LSCHG_DTM
+			, LS_CHGM
+		) VALUES (
+			  #{VAN_C_RQ_NO}
+			, #{NA_C_RQ_OBJ_DSC}
+			, #{CTCPL_TELNO}
+			, #{RQ_CNTN}
+			, ' '
+			, #{FSRGMN_ENO}
+			, #{FSRGMN_NA_TRPLC}
+			, ' ' <!-- #{NA_TRPL_DSC} -->
+			, #{NA_TRPL_C}
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+				, #{CLNTNM}
+			</if>
+			<if test="TRPL_ABR_NM != null and TRPL_ABR_NM.length() > 0">
+				, #{TRPL_ABR_NM}
+			</if>
+			<if test="TEL_NAT_NO != null and TEL_NAT_NO.length() > 0">
+				, #{TEL_NAT_NO}
+			</if>
+			<if test="ATEL != null and ATEL.length() > 0">
+				, #{ATEL}
+			</if>
+			<if test="HTEL != null and HTEL.length() > 0">
+				, #{HTEL}
+			</if>
+			<if test="STEL != null and STEL.length() > 0">
+				, #{STEL}
+			</if>
+			<if test="FAX_RGNO != null and FAX_RGNO.length() > 0">
+				, #{FAX_RGNO}
+			</if>
+			<if test="HFAX != null and HFAX.length() > 0">
+				,#{HFAX}
+			</if>
+			<if test="FAX_SQNO != null and FAX_SQNO.length() > 0">
+				, #{FAX_SQNO}
+			</if>
+			<if test="MPSVNO != null and MPSVNO.length() > 0">
+				, #{MPSVNO}
+			</if>
+			<if test="MPHNO != null and MPHNO.length() > 0">
+				, #{MPHNO}
+			</if>
+			<if test="MPSQNO != null and MPSQNO.length() > 0">
+				, #{MPSQNO}
+			</if>
+			<if test="NA_RGN_C != null and NA_RGN_C.length() > 0">
+				, #{NA_RGN_C}
+			</if>
+			<if test="NA_MBCO_DSC != null and NA_MBCO_DSC.length() > 0">
+				, #{NA_MBCO_DSC}
+			</if>
+			<if test="UP_NA_TRPL_C != null and UP_NA_TRPL_C.length() > 0">
+				, #{UP_NA_TRPL_C}
+			</if>
+			<choose>
+				<when test="OLD_NEW_ADR_DSC != null and OLD_NEW_ADR_DSC == '1'.toString()">
+					, #{OLD_NEW_ADR_DSC}
+					<if test="FZIP != null and FZIP.length() > 0 and RZIP != null and RZIP.length() > 0">
+						, #{FZIP}||#{RZIP}
+					</if>
+					<if test="ZIP_SQNO != null and ZIP_SQNO.length() > 0">
+						, #{ZIP_SQNO}
+					</if>
+					<if test="DONGUP != null and DONGUP.length() > 0">
+						, #{DONGUP}
+					</if>
+					<if test="DONGBW != null and DONGBW.length() > 0">
+						, #{DONGBW}
+					</if>
+				</when>
+				<when test="OLD_NEW_ADR_DSC != null and OLD_NEW_ADR_DSC == '2'.toString()">
+					, #{OLD_NEW_ADR_DSC}
+					<if test="BLD_AMNNO != null and BLD_AMNNO.length() > 0">
+						, #{BLD_AMNNO}
+					</if>
+					<if test="FZIP != null and FZIP.length() > 0 and RZIP != null and RZIP.length() > 0">
+						, #{FZIP}||#{RZIP}
+					</if>
+					<if test="ZIP_SQNO != null and ZIP_SQNO.length() > 0">
+						, #{ZIP_SQNO}
+					</if>
+					<if test="DONGUP != null and DONGUP.length() > 0">
+						, #{DONGUP}
+					</if>
+					<if test="DONGBW != null and DONGBW.length() > 0">
+						, #{DONGBW}
+					</if>
+				</when>
+			</choose>
+			, SYSDATE
+			, SYSDATE
+			, #{LS_CHGM}
+		)
+	</insert>
+	
+	
+	<!-- 거래처 수정신청 내역 조회 페이징 -->
+	<select id="retrieveCompanyModReqCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveCompanyModReq"/>				
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 거래처 수정신청 내역 조회 -->
+	<select id="retrieveCompanyModReq" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'FSRG_DTM DESC'" />
+		<bind name="sortType" value="'DSC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveCompanyModReq"/>				
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 거래처 수정신청 내역 조회 -->
+	<sql id="sql_retrieveCompanyModReq">
+		SELECT /* retrieveCompanyModReq */
+			 A.VAN_C_RQ_NO
+			, A.NA_C_RQ_NO
+			,'수정' AS GBN /* 수정만 가능하므로 */
+			,CASE WHEN A.PRC_YN IN ('Y', 'R') THEN '정상'
+				 WHEN A.PRC_YN IS NULL THEN ''
+				 WHEN A.PRC_YN IN ('N', 'P')  THEN '전송중'
+				 ELSE '오류'
+		 	 END RES_CODE
+			,A.NA_TRPL_C
+			,A.FSRG_DTM
+			,TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS REQ_DT
+			,FN_TRPL_CIF_NM(A.FSRGMN_NA_TRPLC) AS FSRGMN_NA_TRPL_NM
+			,A.FSRGMN_ENO
+			,A.CLNTNM
+			,A.TRPL_ABR_NM
+			,A.NA_MBCO_DSC
+			,A.UP_NA_TRPL_C
+			,DECODE(A.OLD_NEW_ADR_DSC, '1', A.DONGUP || ' ' || A.DONGBW, A.RODNM_DONGUP || ' ' || A.RODNM_DONGBW) AS ADDR
+			,DECODE(A.OLD_NEW_ADR_DSC, NULL, '', '1', '부', '여') AS OLD_NEW_ADR_DSC
+			,A.ATEL || A.HTEL || A.STEL AS TEL
+			,A.FAX_RGNO || A.HFAX || A.FAX_SQNO AS FAX
+<!-- 			,DECODE(NA_RGN_C, NULL, '', (SELECT RGN_CNM FROM TB_TR_RGN BB WHERE BB.NA_RGN_C = NA_RGN_C)) AS NA_RGN_C -->
+			,A.CNF_DMT AS RES_DT
+			,A.CNF_ENO AS BUYER_ENO
+			,A.CNF_NAME AS BUYER_NM
+			,A.REQ_RESULT
+			,DECODE(D.FILE_SYSTEM_NAME, NULL, 0, 1) AS ATCH_CNT
+			,D.FILE_SEQ
+			,D.FILE_NAME AS ORGFNAME
+			,D.FILE_SYSTEM_NAME AS SYSTEMFILENAME
+			,'reqCmpy' AS SEAL
+		FROM NHVANINF.TB_GD_TRPLTP_RG_MOD_REQ A, TB_TR_TRPL_CIF C, NHVANINF.TB_GD_TRPLTP_RG_REQ_FILE D 
+		WHERE A.NA_TRPL_C = C.NA_TRPL_C
+		AND A.VAN_C_RQ_NO = D.VAN_C_RQ_NO(+)
+		<if test="TRPL_C != null and TRPL_C.length > 0">
+			AND A.NA_TRPL_C IN 
+			<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		<if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+			AND TO_CHAR(A.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+		</if>
+		<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+			<choose>
+				<when test="CBO_RESDSC == '1'.toString()">
+					
+				</when>
+				<when test="CBO_RESDSC == '2'.toString()">
+					
+				</when>
+			</choose>
+		</if>
+		<if test="CBO_CORPDSC != null and CBO_CORPDSC != 'all' and EDT_CORP != null and EDT_CORP.length() > 0">
+			<choose>
+				<when test="CBO_CORPDSC == 'GLN'.toString()">
+					AND A.FSRGMN_NA_TRPLC = #{EDT_CORP}
+				</when>
+				<when test="CBO_CORPDSC == 'NAME'.toString()">
+					AND C.CLNTNM LIKE '%' || #{EDT_CORP} || '%'
+				</when>
+				<when test="CBO_CORPDSC == 'CORP'.toString()">
+					AND C.BIZ_NUMBER = #{EDT_CORP}
+				</when>
+			</choose>
+		</if>
+		<if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+			<choose>
+				<when test="CBO_BUYERDSC == 'ENO'.toString()">
+					AND A.CNF_ENO = #{EDT_BUYER}
+				</when>
+				<when test="CBO_BUYERDSC == 'NAME'.toString()">
+					AND A.CNF_NAME = #{EDT_BUYER}
+				</when>
+			</choose>
+		</if>
+		AND A.CUD_DSC != 'D'
+	</sql>
+	
+	<!-- 거래처 수정신청 내역 조회(삭제신청) -->
+	<select id="retrieveCompanyModReqExist" parameterType="com.nh.escm.pds.company.vo.CompanyReqVO" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM NHVANINF.TB_GD_TRPLTP_RG_MOD_REQ WHERE NA_C_RQ_NO = #{NA_C_RQ_NO}
+	</select>
+	
+	<!-- 거래처 수정 취소 요청 -->
+	<insert id="insertCompanyDelReq" parameterType="com.nh.escm.pds.company.vo.CompanyReqVO">
+		INSERT INTO NHVANINF.TB_GD_TRPLTP_DEL_RQ (
+			  NA_C_RQ_NO
+			, FSRGMN_ENO
+			, FSRGMN_NA_BZPLC
+		) VALUES (
+			  #{NA_C_RQ_NO}
+			, #{FSRGMN_ENO}
+			, #{FSRGMN_NA_TRPLC}
+		)
+	</insert>
+	
+	<!-- 거래처 수정 파일첨부 -->
+	<insert id="fileReqIn" parameterType="com.nh.escm.pds.company.vo.CompanyReqFile">
+		INSERT INTO NHVANINF.TB_GD_TRPLTP_RG_REQ_FILE
+		(
+			VAN_C_RQ_NO,
+			FILE_SEQ,
+			FILE_NAME,
+			FILE_SYSTEM_NAME,
+			FILE_SIZE
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{FILE_SEQ},
+			#{FILE_NAME},
+			#{FILE_SYSTEM_NAME},
+			#{FILE_SIZE}
+		)
+	</insert>	
+</mapper>

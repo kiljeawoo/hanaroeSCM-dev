@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html style="height:100%">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css"/>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://121.156.58.242/ozhtml5viewer/ui.dynatree.css" type="text/css"/>
+<script type="text/javascript" src="http://121.156.58.242/ozhtml5viewer/jquery.dynatree.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://121.156.58.242/ozhtml5viewer/OZJSViewer.js" charset="utf-8"></script>
+<script>
+var colDiv = "^";
+var rowDiv = "//ROW//";
+var endDiv = "//END//";
+var csvData = "";
+var CONTEXT_PATH = "http://121.156.58.242/escm/oz/";
+
+$(document).ready(function(){
+	
+	var sId = getQuerystring('sId'); //화면 아이디
+	var sUrl = getQuerystring('sUrl'); //서비스 호출 주소
+	var paramType = getQuerystring('paramType'); // 데이터타입
+	var sParam = getQuerystring('sParam'); // 파라미터
+	console.log('Start---------------------------------------------');
+	console.log('sId> '+ sId);
+	console.log('sUrl> '+sUrl);
+	console.log('paramType> '+paramType);
+	console.log('sParam> '+sParam);
+	ajaxReq();
+});
+
+function getQuerystring(paramName){
+	 
+    var _tempUrl = decodeURIComponent(window.location.search.substring(1));
+    
+    var _tempArray = _tempUrl.split('&');
+    
+    if(!$.isArray(_tempArray)){
+    	alert('Parameter type is wrong!');
+    	return;
+    }
+    
+    var paramValue = "";
+    
+    for(var i = 0; i < _tempArray.length; i++) {
+    	
+        var _keyValuePair = _tempArray[i].split('=');
+        if(_keyValuePair[0] == paramName){
+        	paramValue = _keyValuePair[1];
+        	break;
+        }
+    }
+    if(paramValue){
+    	return paramValue;	
+    }else{
+    	alert(paramName+'  is not found!');	
+    	return;
+    }
+}
+
+function SetOZParamters_OZViewer(){	   
+	   var oz;
+	   oz = document.getElementById("OZViewer");
+	   oz.sendToActionScript("connection.servlet", "http://121.156.58.242/oz60/server");
+	   oz.sendToActionScript("connection.reportname", "/elt/"+getQuerystring('sId')+".ozr");
+	   oz.sendToActionScript("viewer.configmode", "html");
+	   oz.sendToActionScript("viewer.isframe", "false");
+	   oz.sendToActionScript("information.debug", "true");
+	   oz.sendToActionScript("connection.pcount", "4");
+	   oz.sendToActionScript("connection.args1", "csvdata="+csvData);
+	   oz.sendToActionScript("connection.args2", "coldiv="+colDiv);
+	   oz.sendToActionScript("connection.args3", "rowdiv="+rowDiv);		   
+	   oz.sendToActionScript("connection.args4", "enddiv="+endDiv);
+	   return true;
+}	
+
+var ozViewerRun = function(){
+	
+	
+	start_ozjs("OZViewer", "http://121.156.58.242/ozhtml5viewer/");
+};
+
+var ajaxReq = function(){
+	
+	var sId = getQuerystring('sId');
+	var sUrl = getQuerystring('sUrl');
+	var paramType = getQuerystring('paramType');
+	var sParam = getQuerystring('sParam');
+	
+	if(paramType == 'csv'){ //sParam이 실제 데이터
+		
+		csvData = getCsvDataSet(sId, getRestParam(sParam));
+		console.log('convert csv-------------------------------------');
+		console.log(csvData);
+		ozViewerRun();
+		return;
+	}
+	
+	$.ajax({
+		url: sUrl, 
+		type: 'post',
+		dataType: 'json',
+		data: getRestParam(sParam),
+		beforeSend: function(){
+    		processingDialog.open();
+    		
+    	},
+		success: function(result) {
+			
+			if (result.code != 'SUCCESS') { //실패
+				
+				alert(result.message);
+			
+			} else {
+				//alert('result.code    :' +result.code);
+				console.log('1.데이터 로딩완료');
+				var data = result.data;				
+				console.log('org data obj-------------------------------------');
+				console.log(data);
+				
+				csvData = getCsvDataSet(sId, data);				
+				console.log('convert csv-------------------------------------');
+				console.log(csvData);
+				
+				ozViewerRun();
+			}
+		},
+		error: function(jqXHR, status, error) {
+			
+			alert(status + ' : ' + error);
+		},
+		complete : function (){
+			processingDialog.close();
+        }
+	});
+	
+};
+
+//String -> Json (key1:value1;key2:value2)
+var getRestParam = function(param){
+		
+	var json = {};
+	var arr = param.split(';');
+	
+	for(var i = 0 ; i < arr.length ; i++){
+		var name = arr[i].split(':')[0];
+		var value = arr[i].split(':')[1];
+		json[name] = value;
+	}	
+	return json;
+}
+
+var getCsvDataSet = function(sId, rData){
+	
+	var data = [];
+	
+	if(!$.isArray(rData)){
+	  	data.push(rData)
+	}else{
+		data = rData;
+	}
+	
+	var csv = "";
+	
+	for(var i = 0; i < data.length; i++){
+		
+		var _data = data[i];
+		
+		if($.isArray(_data)){
+			
+			for(var j = 0; j < _data.length; j++){
+				
+				var json = _data[j];
+				if(j == 0){
+					csv += jsonToCsv(json, true) + rowDiv;				
+				}else{				
+					csv += jsonToCsv(json) + rowDiv;
+				}
+			}
+			//new Dataset
+			csv += endDiv;
+			if(i != data.length -1) csv += rowDiv;
+			
+		}else{
+			var json = _data;
+			if(i == 0){
+				csv += jsonToCsv(json, true) + rowDiv;				
+			}else{				
+				csv += jsonToCsv(json) + rowDiv;
+			}
+		}
+	}
+	return csv;
+};
+
+var jsonToCsv = function(json, isHeadMake){
+	
+	var head = "";
+	var body = "";
+	var colName = "";
+	
+	for(var keys in json ){
+		head += keys + colDiv;
+		body += json[keys] + colDiv;
+		colName += keys + '\n';
+	}
+	console.log('colName--------------------------------------');
+	console.log(colName);
+	head = head.substring(0, head.length-colDiv.length);
+	body = body.substring(0, body.length-colDiv.length);
+	if(isHeadMake) return head + rowDiv + body;
+	else return body;
+}
+
+
+var processingDialog = {
+	id: 'processing-dialog',
+	open: function() {
+		var div = $('#' + this.id);
+
+		if (div.length < 1) {
+			
+			div = $('<div id="' + this.id + '" style="display: none; text-align: center;">'
+					+ '<br /><img src="' + CONTEXT_PATH + 'loading.gif" /><br /><br />'
+					+ '요청하신 작업을 처리중입니다.' // TODO : 이미지 및 메시지 교체
+					+ '</div>');
+			$('body').append(div);
+			
+		}
+		div.dialog({
+			modal: true,
+			width: 240,
+			height: 120,
+			close: function() {
+				$(this).dialog('destroy');
+			}
+		});
+		
+		div.parents('.ui-dialog:first').find('.ui-dialog-titlebar').remove();
+	},
+	close: function() {
+		
+		try {
+			$('#' + this.id).dialog('close');
+		} catch (e) {} // ignore
+	}
+};
+</script>
+</head>
+<body style="width:98%;height:98%">
+<form id="ozForm">
+	<input type="hidden" name="sId" id="sId" value="">	
+	<input type="hidden" name="sUrl" id="sUrl" value="">
+	<input type="hidden" name="sParam" id="sParam" value="">
+</form>
+<div id="OZViewer" style="width:98%;height:98%"></div>
+</body>
+</html>

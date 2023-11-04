@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csltRqHstDAO">
+	
+	<select id="retrieveCsltRqHstList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveCsltRqHstList*/
+		       (
+		           SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'CTR_STS' AND SIMP_C = N.STS
+		       ) AS STS_NM          /* 진행상태명 */
+		     , N.TINM               /* 제목 */
+		     , N.BLOCK_YN           /* 차단여부 */
+		     , TO_CHAR(N.FSRG_DTM ,'YYYYMMDD') AS RQ_DT  /* 신청날짜 */
+		     , DECODE(N.USR_TPC, '01', R.CHRRNM, (
+		           SELECT USR_NM FROM PT_USR_INF WHERE MB_ID = N.FS_RGM
+		       )) AS CHRG_BUYER_NM  /* 등록자 */
+		     , N.CNTN               /* 내용 */
+		     , DECODE(N.RLTM_NTC_SMS, '0', '없음', '사용') AS RLTM_NTC_SMS         /* 문자 상태 */
+		     , DECODE(N.RLTM_NTC_SMS, '1', MM.DELIVER_DATE, '') AS SMS_SEND_DATE  /* 전달 시간 */
+		     , DECODE(N.RLTM_NTC_SMS, '1', MM.READ_TIME, '') AS SMS_READ_TIME     /* 수신자 확인 시간 */
+		     , DECODE(N.RLTM_NTC_SMS, '1', DECODE(MM.RESULT, 0, '전송 대기중', 1, '전송 대기중', 2, '전송 성공', 3, '전송실패', '기타사항'), '') AS SMS_STS
+		     , DECODE(N.RLTM_NTC_EMAIL, '0', '없음', '사용') ASRLTM_NTC_EMAIL      /* 이메일 상태 */
+		     , DECODE(N.RLTM_NTC_EMAIL, '1', MA.SDATE, '') AS EMAIL_SEND_DATE
+		     , DECODE(N.RLTM_NTC_EMAIL, '1', MA.ODATE, '') AS EMAIL_READ_DATE
+		     , DECODE(N.RLTM_NTC_EMAIL, '1', DECODE(MI.MSGFLAG , 0, '발송대기', 1, '처리중', 99, '성공', '에러'), '') AS EMAIL_STS
+		  FROM BT_CTR_CSLT_NTC N
+		       INNER JOIN BT_CTR_CSLT_RQ R
+		               ON N.CSLT_RQ_NO = R.CSLT_RQ_NO
+		       --LEFT OUTER JOIN SDK_MMS_REPORT_DETAIL MM
+			   LEFT OUTER JOIN SDK_MMS_REPORT_DETAIL@dn_smsmail MM
+		               ON N.SMS_NATV_NO = MM.MSG_ID
+		       --LEFT OUTER JOIN IM_RESULT_SEND MA
+			   LEFT OUTER JOIN IM_RESULT_SEND@dn_smsmail MA
+		               ON N.EMAIL_NATV_NO = MA.SEQIDX
+		       --LEFT OUTER JOIN IM_DMAIL_INFO_1 MI
+			   LEFT OUTER JOIN IM_DMAIL_INFO_1@dn_smsmail MI
+		               ON N.EMAIL_NATV_NO = MI.SEQIDX
+		 WHERE N.CSLT_RQ_NO = #{CSLT_RQ_NO}
+		<!--if test="USERTYPE == null">
+		   AND NVL(N.BLOCK_YN, '0') = '0'  /* 차단여부 (0: 정상, 1: 차단) */
+		</if-->
+		 ORDER BY N.SQNO DESC
+	</select>
+	
+</mapper>

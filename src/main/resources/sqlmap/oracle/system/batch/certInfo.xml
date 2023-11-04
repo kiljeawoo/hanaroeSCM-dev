@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="certInfoDao">
+
+	<resultMap id="certInfoMap" type="com.nh.escm.system.vo.CertInfoVO">	        
+		<result column="BSN_DSC"       property="BSN_DSC"       />
+		<result column="CERT_ID"       property="CERT_ID"       />
+		<result column="CERT_NAME"     property="CERT_NAME"     />
+		<result column="SYS_NAME"      property="SYS_NAME"      />
+		<result column="CERT_TYPE"     property="CERT_TYPE"     />
+		<result column="SSL_URL"       property="SSL_URL"       />
+		<result column="CN"            property="CN"            />
+		<result column="CERT_PATH"     property="CERT_PATH"     />
+		<result column="NOT_BEFORE"    property="NOT_BEFORE"    />
+		<result column="NOT_AFTER"     property="NOT_AFTER"     />
+		<result column="NOTIFICATION"  property="NOTIFICATION"  />
+		<result column="HOST_NAME"     property="HOST_NAME"     />
+		<result column="IP_ADDRESS"    property="IP_ADDRESS"    />
+		<result column="MP_1"          property="MP_1"          />
+		<result column="EMAIL_1"       property="EMAIL_1"       />
+		<result column="MP_2"          property="MP_2"          />
+		<result column="EMAIL_2"       property="EMAIL_2"       />
+		
+		<result column="RMK"           property="RMK"           />
+		<result column="FSRG_DTM"      property="FSRG_DTM"      />
+		<result column="FS_RGM"        property="FS_RGM"        />
+		<result column="LSCHG_DTM"     property="LSCHG_DTM"     />
+		<result column="LS_CHGM"       property="LS_CHGM"       />
+	</resultMap>
+ 
+    <select id="retrieveCertInfoList" parameterType="java.util.Map" resultType="com.nh.escm.system.vo.CertInfoVO">
+    
+        SELECT 
+                 '0' AS ISCHECKED
+                , BSN_DSC
+                , CERT_ID
+                , CERT_NAME 
+                , SYS_NAME  
+                , CERT_TYPE 
+                , SSL_URL   
+                , CN        
+                , CERT_PATH 
+                , NOT_BEFORE
+                , NOT_AFTER 
+                , NVL(NOTIFICATION, '0') AS NOTIFICATION
+                , MP_1
+                , EMAIL_1
+                , MP_2
+                , EMAIL_2
+                , HOST_NAME 
+                , IP_ADDRESS
+                , RMK       
+                , TO_CHAR(FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS FSRG_DTM 
+                , FS_RGM
+                , TO_CHAR(LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS LSCHG_DTM
+                , LS_CHGM
+          FROM
+                NHVANPTL.PT_CERT_INFO
+                
+      ORDER BY    BSN_DSC
+                , NOT_AFTER DESC
+
+    </select>
+    
+    <!--  
+              WHERE NVL(NOTIFICATION, '0') = '1'
+     -->
+     
+	<!-- 인증서 정보  등록 -->
+	<insert id="insertCertInfo" parameterType="com.nh.escm.system.vo.CertInfoVO" >
+	
+        INSERT INTO NHVANPTL.PT_CERT_INFO
+        (   
+           BSN_DSC
+         , CERT_ID
+         , CERT_NAME 
+         , SYS_NAME
+         , CERT_TYPE 
+         , SSL_URL   
+         , CN        
+         , CERT_PATH 
+         , NOT_BEFORE
+         , NOT_AFTER 
+         , HOST_NAME 
+         , IP_ADDRESS
+         , FSRG_DTM 
+         , FS_RGM
+         , LSCHG_DTM 
+         , LS_CHGM
+        )
+        VALUES
+        (
+           #{BSN_DSC   }
+         , #{CERT_ID }
+         , #{CERT_NAME }
+         , #{SYS_NAME  }
+         , #{CERT_TYPE }
+         , #{SSL_URL   }
+         , #{CN        }
+         , #{CERT_PATH }
+         , #{NOT_BEFORE}
+         , #{NOT_AFTER }
+         , #{HOST_NAME }
+         , #{IP_ADDRESS}
+         , SYSDATE
+         , #{FS_RGM    }
+         , SYSDATE
+         , #{LS_CHGM   }
+        )
+	</insert>
+	
+    <insert id="insertCertInfoByParam" parameterType="java.util.Map">
+
+        INSERT INTO NHVANPTL.PT_CERT_INFO
+        (   
+           BSN_DSC
+         , CERT_ID
+         , CERT_NAME 
+         , SYS_NAME
+         , CERT_TYPE 
+         , SSL_URL   
+         , CN        
+         , CERT_PATH 
+         , NOT_BEFORE
+         , NOT_AFTER 
+         , HOST_NAME 
+         , IP_ADDRESS
+         , FSRG_DTM 
+         , FS_RGM
+         , LSCHG_DTM 
+         , LS_CHGM
+        )
+        VALUES
+        (
+           #{BSN_DSC   }
+         , #{CERT_ID }
+         , #{CERT_NAME }
+         , #{SYS_NAME  }
+         , #{CERT_TYPE }
+         , #{SSL_URL   }
+         , #{CN        }
+         , #{CERT_PATH }
+         , #{NOT_BEFORE}
+         , #{NOT_AFTER }
+         , #{HOST_NAME }
+         , #{IP_ADDRESS}
+         , SYSDATE
+         , #{FS_RGM    }
+         , SYSDATE
+         , #{LS_CHGM   }
+        )
+    </insert>
+
+    <update id="updateCertInfo" parameterType="com.nh.escm.system.vo.CertInfoVO" >
+
+        UPDATE NHVANPTL.PT_CERT_INFO 
+        SET 
+           SYS_NAME      = #{SYS_NAME  }
+         , CERT_NAME     = #{CERT_NAME } 
+         , CERT_TYPE     = #{CERT_TYPE } 
+         , SSL_URL       = #{SSL_URL   } 
+         , CN            = #{CN        } 
+         , CERT_PATH     = #{CERT_PATH } 
+         , NOT_BEFORE    = #{NOT_BEFORE} 
+         , NOT_AFTER     = #{NOT_AFTER } 
+         , NOTIFICATION  = #{NOTIFICATION }
+         , HOST_NAME     = #{HOST_NAME } 
+         , IP_ADDRESS    = #{IP_ADDRESS} 
+         , LSCHG_DTM     = SYSDATE       
+         , LS_CHGM       = #{LS_CHGM   } 
+
+        WHERE BSN_DSC    = #{BSN_DSC } 
+          AND CERT_ID    = #{CERT_ID  } 
+
+    </update>
+
+
+    <update id="updateCertInfoByParam" parameterType="java.util.Map">
+
+        UPDATE NHVANPTL.PT_CERT_INFO 
+        SET 
+           SYS_NAME   = #{SYS_NAME  }
+         , CERT_NAME  = #{CERT_NAME } 
+         , CERT_TYPE  = #{CERT_TYPE } 
+         , SSL_URL    = #{SSL_URL   } 
+         , CN         = #{CN        } 
+         , CERT_PATH  = #{CERT_PATH } 
+         , NOT_BEFORE = #{NOT_BEFORE} 
+         , NOT_AFTER  = #{NOT_AFTER } 
+         , HOST_NAME  = #{HOST_NAME } 
+         , IP_ADDRESS = #{IP_ADDRESS} 
+         , LSCHG_DTM  = SYSDATE       
+         , LS_CHGM    = #{LS_CHGM   } 
+
+        WHERE BSN_DSC  = #{BSN_DSC } 
+          AND CERT_ID  = #{CERT_ID  } 
+
+    </update>
+
+
+    <insert id="deleteCertInfo" parameterType="java.util.Map">
+
+        DELETE FROM NHVANPTL.PT_CERT_INFO 
+
+        WHERE BSN_DSC    = #{BSN_DSC   } 
+          AND SYS_NAME   = #{SYS_NAME  }
+          AND CERT_NAME  = #{CERT_NAME } 
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,12 @@
+﻿{
+	"name": "ExPlugin",
+	"version": "1.0.0.0",
+	"description": "FSPMobile interface for nexacro platform",
+	"license": "",
+	"scripts": [
+		"ExPlugin/interface/FSPMobileP.js",
+		"ExPlugin/interface/LGUtilsP.js",
+		"ExPlugin/ExFsp.js"
+	]
+}
+//@ sourceURL=FSPMobile.json

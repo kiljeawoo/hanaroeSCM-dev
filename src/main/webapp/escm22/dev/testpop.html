@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="viewport" content="user-scalable=1, initial-scale=1.0, width=device-width, target-densitydpi=device-dpi" />
+	
+	<title>쉿...</title>
+	<link rel="stylesheet" media="all" href="test.css">
+	<script src="../nexacro14lib/component/ExtAPI/jquery-1.10.2.js"></script>
+	<script src="testpop.js"></script>
+</head>
+<body>
+	<header class="clear">
+		<h1 id="title">
+			<span class="fD">eSCM DE<span id="vv" class="fD">V</span>iewer</span>
+		</h1>
+		<div id="user" class="fD">
+			LOGIN :
+			<span id="id">GUEST</span>
+			<span id="name"></span>
+		</div>
+	</header>
+	<!-- 메뉴 영역 -->
+	<div id="test_div">
+		<ul id="menu">
+			<li class="sub clear">
+				<span>＃ Open Nexacro</span>
+				<button type="button" id="btn_help" onclick="helpNexa()"></button>
+			</li>
+			<li>
+				<select id="testPath">
+					<option value="OMG/PT">OMG/PT</option>
+					<option value="OMG/MG">OMG/MG</option>
+					<option value="OMG/TX">OMG/TX</option>
+					<option value="OMG/CT">OMG/CT</option>
+					<option value="OMG/BL">OMG/BL</option>
+					<option value="OMG/BT">OMG/BT</option>
+					<option value="SCM/ORDER">SCM/ORDER</option>
+					<option value="SCM/DELIVERY">SCM/DELIVERY</option>
+					<option value="SCM/RECADV">SCM/RECADV</option>
+					<option value="SCM/RESERVE">SCM/RESERVE</option>
+					<option value="SCM/RETANN">SCM/RETANN</option>
+					<option value="SCM/EVENAT">SCM/EVENAT</option>
+					<option value="PDS/BALANCE">PDS/BALANCE</option>
+					<option value="PDS/BAS">PDS/BAS</option>
+					<option value="PDS/COMPANY">PDS/COMPANY</option>
+					<option value="PDS/OUTER">PDS/OUTER</option>
+					<option value="PDS/COUPON">PDS/COUPON</option>
+					<option value="PDS/PARTNER">PDS/PARTNER</option>
+					<option value="PDS/PAY">PDS/PAY</option>
+					<option value="PDS/PRICAT">PDS/PRICAT</option>
+					<option value="PDS/RECADV">PDS/RECADV</option>
+					<option value="PDS/SALES">PDS/SALES</option>
+					<option value="PDS/STOCK">PDS/STOCK</option>
+					<option value="MDS/DELIVERY">MDS/DELIVERY</option>
+				</select>
+			</li>
+			<li>
+				<input type="text" id="filenm" placeholder="파일명 + Enter" onkeyup="if(event.keyCode==13){ testMenuOpenKey(this.value); return false;}"/>
+			</li>
+			<li class="sub clear">
+				<span>＃Select Menu</span>
+				<button type="button" id="btn_load" onclick="getFormList()"></button>
+			</li>
+			<li>
+				<select id="formList" onchange="getFormDataset(this.value)">
+					<option value="">없음</option>
+				</select>
+			</li>
+			<li>
+				<button type="button" id="btn_scene" onclick="showConsole()">CONSOLE</button>
+			</li>
+			<li class="sub clear">
+				<span>＃Show Dataset</span>
+			</li>
+			<li class="formdata">
+				<ul id="dslist" class="scr1">
+					<li>없음</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<!-- 컨텐츠 영역 -->
+	<div id="dsshow" class="contdiv">
+		<h1 class="fD">Not Selected</h1>
+		<button type="button" id="btndetail" onclick="showDsXml()" class="fD">XML</button>
+		<div id="tblwrap" class="scr1">
+			<table id="tblds" class="srt">
+				<tbody><tr><td class="empty fD">Empty Dataset</td></tr></tbody>
+			</table>
+		</div>
+	</div>
+	<div id="csshow" class="contdiv">
+		<h1 class="fD">Not Selected</h1>
+		<div id="div_key">
+			<ul id="key_list" class="scr1">
+			</ul>
+		</div>
+	</div>
+	<!-- 데이터셋 상세(XML) 팝업 -->
+	<div id="dsdetail">
+		<button type="button" id="dclose" class="fD" onclick="closeDsXml()">CLOSE</button>
+		<div id="dname" class="fD">Not Selected</div>
+		<div id="dcont" class="scr1"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sms">
+
+	<select id="gerRecordId" resultType="string">
+		SELECT
+			MAX(RECORD_ID) AS RECORD_ID
+		FROM
+			TB_DB_ERR_SMS_SEND_INF
+		WHERE 1=1
+	</select>
+	
+	<select  id="retrieveDbErrorLog" parameterType="map" resultType="map">
+		SELECT
+			 LIST.RECORD_ID AS RECORD_ID
+			,LIST.HOST_ID AS HOST_ID
+			,LIST.HOST_ADDRESS AS HOST_ADDRESS
+			,LIST.MESSAGE_TEXT AS MESSAGE_TEXT
+      		,LIST.REG_DT AS REG_DT
+		FROM
+			(
+				SELECT  
+					 RECORD_ID
+					,HOST_ID
+					,HOST_ADDRESS
+					,ORIGINATING_TIMESTAMP
+					,TO_CHAR(ORIGINATING_TIMESTAMP, 'yyyymmddhh24missff') AS REG_DT
+					,MESSAGE_TEXT
+				FROM
+					ALERT_VIEW
+				WHERE 1=1
+					AND MESSAGE_TEXT LIKE '%ORA%'
+			) LIST
+		WHERE 1=1
+		<choose>
+			<when test="RECORD_ID != null and RECORD_ID.length() > 0">
+				AND LIST.RECORD_ID <![CDATA[>]]> #{RECORD_ID}
+			</when>
+			<otherwise>
+				AND LIST.REG_DT <![CDATA[>=]]> #{REG_DT}
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<insert id="insertSmsSend" parameterType="com.nh.escm.common.scheduling.sms.vo.SdkSmsVO" >
+	 	INSERT INTO /*insertSmsSend*/ SDK_SMS_SEND (	
+	 			 MSG_ID 
+				,USER_ID
+				,SCHEDULE_TYPE 
+				,SUBJECT
+				,SMS_MSG
+				,SEND_DATE
+				,DEST_TYPE
+				,DEST_COUNT
+				,DEST_INFO
+				,SEND_STATUS
+				,SEND_COUNT
+				,SEND_RESULT
+				,CALLBACK
+		)VALUES (
+				#{MSG_ID},
+				#{USER_ID},
+				#{SCHEDULE_TYPE},
+				#{SUBJECT},
+				#{SMS_MSG},
+				#{SEND_DATE},
+				#{DEST_TYPE},
+				#{DEST_COUNT},
+				#{DEST_INFO},
+				#{SEND_STATUS},
+				#{SEND_COUNT},
+				#{SEND_RESULT}, 
+				#{CALLBACK}
+		)	 
+	 </insert>
+	
+	<insert id="insertDbSmsSendInf" parameterType="map">
+		INSERT INTO TB_DB_ERR_SMS_SEND_INF
+			(
+				 RECORD_ID
+				,HOST_ID
+				,HOST_ADDRESS
+				,MESSAGE_TEXT
+				,REG_DT
+				,SEND_YN
+			)
+		VALUES
+			(
+				 #{RECORD_ID}
+				,#{HOST_ID}
+				,#{HOST_ADDRESS}
+				,#{MESSAGE_TEXT}
+				,#{REG_DT}
+				,#{SEND_YN}
+			)
+	</insert>
+	
+	<select id="getSmsSequence" resultType="java.lang.String">
+		SELECT SDK_SMS_SEQ.NEXTVAL AS SEQ FROM DUAL
+	</select>
+	
+	<update id="updateSendYn" parameterType="map">
+		UPDATE TB_DB_ERR_SMS_SEND_INF
+		SET
+			SEND_YN = #{SEND_YN}
+		WHERE 1=1
+			AND RECORD_ID = #{RECORD_ID} 
+	</update>
+</mapper>

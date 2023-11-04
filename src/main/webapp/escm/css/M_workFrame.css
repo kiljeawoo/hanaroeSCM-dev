@@ -1,0 +1,779 @@
+﻿/******************************************************************************************************/
+/***** PROJECT NAME		: NEXACRO DEFAULT THEME	********/
+/***** CREATION DATES		: 2015.05.04		********/
+/***** DRAFTER 			: TOBESOFT DESIGN TEAM	********/
+/***** DISTRIBUTION DATE 	: 2015.		********/
+/******************************************************************************************************/
+/****************************************** WorkFarme Area ********************************************/
+
+/**** 기본 Spin 컴퍼넌트(디자인상 컴퍼넌트 조합으로) ******/
+/***** spin prev/next BTN *****/
+Button.btn_WF_SpinPrev, Button.btn_WF_SpinPrev:focused, Button.btn_WF_SpinPrev:selected, Button.btn_WF_SpinPrev:mouseover
+{
+	background			: URL('M_img::btn_WF_SpinPrev.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WF_SpinPrev:pushed
+{
+	background			: URL('M_img::btn_WF_SpinPrev_P.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WF_SpinPrev:disabled
+{
+	background			: URL('M_img::btn_WF_SpinPrev_D.png') center middle;
+	border				: 0 none;
+}
+/***** 기본 Spin 컴퍼넌트 필수입력 스타일 버튼 *******/
+Button.btn_WF_SpinPrevessential, Button.btn_WF_SpinPrevessential:focused, Button.btn_WF_SpinPrevessential:selected, Button.btn_WF_SpinPrevessential:mouseover
+{
+	background			: URL('M_img::btn_WF_SpinPrev_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WF_SpinPrevessential:pushed
+{
+	background			: URL('M_img::btn_WF_SpinPrev_P.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WF_SpinPrevessential:disabled
+{
+	background			: URL('M_img::btn_WF_SpinPrev_D.png') center middle;
+	border				: 0 none;
+}
+/******/
+Button.btn_WF_SpinNext, Button.btn_WF_SpinNext:focused, Button.btn_WF_SpinNext:selected, Button.btn_WF_SpinNext:mouseover
+{
+	background			: URL('M_img::btn_WF_SpinNext.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WF_SpinNext:pushed
+{
+	background			: URL('M_img::btn_WF_SpinNext_P.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WF_SpinNext:disabled
+{
+	background			: URL('M_img::btn_WF_SpinNext_D.png') center middle;
+	border				: 0 none;
+}
+/***** 기본 Spin 컴퍼넌트 필수입력 스타일 버튼 *******/
+Button.btn_WF_WF_SpinNextessential, Button.btn_WF_WF_SpinNextessential:focused, Button.btn_WF_WF_SpinNextessential:selected, Button.btn_WF_WF_SpinNextessential:mouseover
+{
+	background			: URL('M_img::btn_WF_SpinNext_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_WF_WF_SpinNextessential:pushed
+{
+	background			: URL('M_img::btn_WF_SpinNext_P.png') center middle;
+	border				: 0 none;	
+}
+Button.btn_WF_WF_SpinNextessential:disabled
+{
+	background			: URL('M_img::btn_WF_SpinNext_D.png') center middle;
+	border				: 0 none;
+}
+/******/
+MaskEdit.msk_WF_Basic, MaskEdit.msk_WF_Basic:mouseover, MaskEdit.msk_WF_Basic:focused	
+{
+	padding				: 2 58 0 12;
+}
+MaskEdit.msk_WF_Basic:disabled
+{
+
+}
+/*****/
+/**** CRUD BTN ****/
+Button.btn_WF_CRUD, Button.btn_WF_CRUD:focused, Button.btn_WF_CRUD:selected, Button.btn_WF_CRUD:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #848484 0,100 #6d6d6d;
+	border				: 1 solid #6d6d6d;
+	bordertype			: round 3 3;
+	color				: #ffffff;
+}
+Button.btn_WF_CRUD:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #5d5d5d 0,100 #929292;
+	border				: 1 solid #6d6d6d;
+	bordertype			: round 3 3;	
+	color				: #ffffff;	
+}
+Button.btn_WF_CRUD:disabled
+{
+	background			: #a4a4a4;
+	border				: 1 solid #6d6d6d;
+	bordertype			: round 3 3;	
+	color				: #e3e3e3;
+}
+/**** Grid module BTN ****/
+Button.btn_WF_GridBtn, Button.btn_WF_GridBtn:focused, Button.btn_WF_GridBtn:selected, Button.btn_WF_GridBtn:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #70b0b9 0,100 #4f8f9b;
+	border				: 1 solid #25535b;
+	bordertype			: round 3 3;
+	color				: #ffffff;
+}
+Button.btn_WF_GridBtn:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #397888 0,100 #84c4cb;
+	border				: 1 solid #25535b;
+	bordertype			: round 3 3;	
+	color				: #ffffff;	
+}
+Button.btn_WF_GridBtn:disabled
+{
+	background			: #538994;
+	border				: 1 solid #365e65;
+	bordertype			: round 3 3;	
+	color				: #9ebcc3;
+}
+/**** Search BTN ****/
+Button.btn_WF_SearchBtn, Button.btn_WF_SearchBtn:focused, Button.btn_WF_SearchBtn:selected, Button.btn_WF_SearchBtn:mouseover
+{
+	bordertype			: normal;	
+	image				: URL('M_img::btn_WF_Searchbtn.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_SearchBtn:pushed
+{
+	bordertype			: normal;
+	image				: URL('M_img::btn_WF_Searchbtn.png');
+	imagealign			: center middle;			
+}
+Button.btn_WF_SearchBtn:disabled
+{
+	bordertype			: normal;
+	image				: URL('M_img::btn_WF_Searchbtn_D.png');
+	imagealign			: center middle;		
+}
+/**** Search BTN ****/
+Button.btn_WFSA_SearchBtn, Button.btn_WFSA_SearchBtn:focused, Button.btn_WFSA_SearchBtn:selected, Button.btn_WFSA_SearchBtn:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #8d9d9f 0,100 #6b7f81;
+	border				: 1 solid #596b6c;
+	bordertype			: round 3 3;
+	color				: #ffffff;
+	font				: bold 17 Helvetica;
+	image				: URL('M_img::btn_WFSA_Searchbtn.png');
+	imagealign			: left middle;	
+}
+Button.btn_WFSA_SearchBtn:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #5d7174 0,100 #9baaab;
+	border				: 1 solid #596b6c;
+	bordertype			: round 3 3;	
+	color				: #ffffff;
+	font				: bold 17 Helvetica;	
+	image				: URL('M_img::btn_WFSA_Searchbtn.png');
+	imagealign			: left middle;			
+}
+Button.btn_WFSA_SearchBtn:disabled
+{
+	background			: #919fa1;
+	border				: 1 solid #758384;
+	bordertype			: round 3 3;	
+	color				: #c6cdcd;
+	font				: bold 17 Helvetica;	
+	image				: URL('M_img::btn_WFSA_Searchbtn_D.png');
+	imagealign			: left middle;
+			
+}
+/**** add BTN ****/
+Button.btn_WF_InputControlBtn, Button.btn_WF_InputControlBtn:focused, Button.btn_WF_InputControlBtn:selected, Button.btn_WF_InputControlBtn:mouseover
+{
+	background			: URL('M_img::btn_WF_InputControlbtn.png') stretch 5,33;
+	border				: 0 none;
+	bordertype			: normal;	
+	color				: #ffffff;
+	font				: 14 Helvetica;
+	image				: URL('M_img::img_WF_InputControlbtn.png');
+	imagealign			: left middle;	
+	padding				: 0 0 0 0;	
+}
+Button.btn_WF_InputControlBtn:pushed
+{
+	background			: URL('M_img::btn_WF_InputControlbtn_P.png') stretch 5,33;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #ffffff;
+	font				: 14 Helvetica;	
+	image				: URL('M_img::img_WF_InputControlbtn.png');
+	imagealign			: left middle;			
+}
+Button.btn_WF_InputControlBtn:disabled
+{
+	background			: URL('M_img::btn_WF_InputControlbtn_D.png') stretch 5,33;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #dbdbdb;
+	font				: 14 Helvetica;	
+	image				: URL('M_img::img_WF_InputControlbtn_D.png');
+	imagealign			: left middle;		
+}
+
+/**** Search fold/unfond BTN ****/
+Button.btn_WF_SearchControlBtn, Button.btn_WF_SearchControlBtn:focused, Button.btn_WF_SearchControlBtn:selected, Button.btn_WF_SearchControlBtn:mouseover
+{
+	background			: URL('M_img::btn_WF_SearchControlbtn.png') stretch 5,16;
+	border				: 0 none;
+	bordertype			: normal;	
+	image				: URL('M_img::img_WF_SearchControlbtn.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_SearchControlBtn:pushed
+{
+	background			: URL('M_img::btn_WF_SearchControlbtn_P.png') stretch 5,16;
+	border				: 0 none;
+	bordertype			: normal;
+	image				: URL('M_img::img_WF_SearchControlbtn.png');
+	imagealign			: center middle;			
+}
+Button.btn_WF_SearchControlBtn:disabled
+{
+	background			: URL('M_img::btn_WF_SearchControlbtn_D.png') stretch 5,16;
+	border				: 0 none;
+	bordertype			: normal;
+	image				: URL('M_img::img_WF_SearchControlbtn_D.png');
+	imagealign			: center middle;		
+}
+/***** popup close BTN *****/
+Button.btn_POP_Closebtn, Button.btn_POP_Closebtn:focused, Button.btn_POP_Closebtn:selected, Button.btn_POP_Closebtn:mouseover
+{
+	background			: URL('M_img::btn_POP_Closebtn.png') center middle ;
+	border				: 0 none;
+}
+Button.btn_POP_Closebtn:pushed
+{
+	background			: URL('M_img::btn_POP_Closebtn_P.png') center middle ;
+	border				: 0 none;
+}
+Button.btn_POP_Closebtn:disabled
+{
+	background			: URL('M_img::btn_POP_Closebtn_D.png') center middle ;
+	border				: 0 none;
+}
+/**** 월력 버튼 *****/
+Button.btn_POP_Calendarmm, Button.btn_POP_Calendarmm:focused, Button.btn_POP_Calendarmm:selected, Button.btn_POP_Calendarmm:mouseover, Button.btn_POP_Calendarmm:disabled
+{
+	background			: #ffffff ;
+	border				: 1 solid #a9b0b4;
+	color				: #555555;
+	font				: bold 25 Helvetica;
+}
+Button.btn_POP_Calendarmm:pushed
+{
+	background			: URL('M_img::btn_POP_Calendarmm_P.png') stretch 12,12;
+	border				: 0 none;
+	color				: #ffffff;
+	font				: bold 25 Helvetica;
+}
+/****** 월력 prev/next ********/
+Button.btn_POP_Calendaryearprev, Button.btn_POP_Calendaryearprev:focused, Button.btn_POP_Calendaryearprev:selected, Button.btn_POP_Calendaryearprev:mouseover
+{
+	background			: URL('M_img::btn_prev_N.png') center middle;
+	border				: 0 none;
+}
+Button.btn_POP_Calendaryearprev:pushed
+{
+	background			: URL('M_img::btn_prev_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_POP_Calendaryearprev:disabled
+{
+	background			: URL('M_img::btn_prev_D.png') center middle;
+	border				: 0 none;
+}
+/********/
+Button.btn_POP_Calendaryearnext, Button.btn_POP_Calendaryearnext:focused, Button.btn_POP_Calendaryearnext:selected, Button.btn_POP_Calendaryearnext:mouseover
+{
+	background			: URL('M_img::btn_next_N.png') center middle;
+	border				: 0 none;
+}
+Button.btn_POP_Calendaryearnext:pushed
+{
+	background			: URL('M_img::btn_next_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_POP_Calendaryearnext:disabled
+{
+	background			: URL('M_img::btn_next_D.png') center middle;
+	border				: 0 none;
+}
+
+/***** paging BTN ******/
+Button.btn_WF_PagePreviousP, Button.btn_WF_PagePreviousP:focused, Button.btn_WF_PagePreviousP:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PagePreviousP.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePreviousP:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePreviousP_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePreviousP:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePreviousP_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PagePreviousP:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PagePreviousP_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_PageNextP, Button.btn_WF_PageNextP:focused, Button.btn_WF_PageNextP:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PageNextP.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNextP:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNextP_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNextP:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNextP_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PageNextP:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PageNextP_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_PagePrevious, Button.btn_WF_PagePrevious:focused, Button.btn_WF_PagePrevious:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PagePrevious.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePrevious:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePrevious_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PagePrevious:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PagePrevious_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PagePrevious:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PagePrevious_D.png');
+	imagealign			: center middle;		
+}
+/******/
+Button.btn_WF_PageNext, Button.btn_WF_PageNext:focused, Button.btn_WF_PageNext:selected
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fefefe 0,100 #f0f0f0;	
+	border				: 1 solid #aeaeae;
+	image				: URL('theme://images/btn_WF_PageNext.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNext:mouseover 
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #fafafa 0,100 #dcdcdc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNext_O.png');
+	imagealign			: center middle;
+}
+Button.btn_WF_PageNext:pushed
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #dadada 0,100 #fcfcfc;	
+	border				: 1 solid #29a5c0;
+	image				: URL('theme://images/btn_WF_PageNext_O.png');
+	imagealign			: center middle;	
+}
+Button.btn_WF_PageNext:disabled
+{
+	background			: #f0f0f0;
+	border				: 1 solid #bababa;	
+	image				: URL('theme://images/btn_WF_PageNext_D.png');
+	imagealign			: center middle;		
+}
+/********/
+Div.div_Pop_Bg
+{
+	background         		: #ffffff;
+	border				: 15 solid #666666;	
+}
+/****** search div *****/
+Div.div_WFSA_Searchbg
+{
+	background         		: URL('M_img::div_WFSA_Searchbg.png') stretch 7 50;	
+}
+/******* 합계스타일 그리드 *****/
+Grid.grd_Wf_SumData
+{
+	align				: center middle;
+	background			: #3a7781;
+	border				: 1 solid #32666f, 0 none, 1 solid #30626b, 0 none;
+}
+Grid.grd_Wf_SumData>#head, Grid.grd_Wf_SumData>#head:mouseover, Grid.grd_Wf_SumData>#head:focused
+{
+	background			: #3a7781;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	cellalign			: center miidle;
+	cellbackground			: #3a7781;
+	cellbackground2			: #3a7781;
+	cellcolor			: #ffffff;
+	cellcolor2			: #ffffff;
+	cellfont			: 15 Helvetica;
+	cellline			: 1 solid #356c76;
+	cellpadding			: 3 3 3 3;
+}
+Grid>#body, Grid>#body:focused, Grid>#body:mouseover
+{
+
+}
+Grid.grd_Wf_SumData>#summ
+{
+
+	
+}
+Grid.grd_Wf_SumData>#summary
+{
+
+
+}
+
+/****** 조회라벨 *****/
+Static.sta_WFSA_Label, Static.sta_WFSA_Label:mouseover
+{
+	background			: URL('M_img::sta_WFSA_Label.png') left middle;
+	color				: #000000;
+	font				: 15 Helvetica;	
+	padding				: 0 23 0 18;		
+}
+/**** output/input 라벨 ****/
+Static.sta_WF_Label, Static.sta_WF_Label:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #efefef 0,100 #e5e5e5;	
+	border				: 1 solid #cecece, 1 solid #cecece, 1 solid #cecece, 0 none;	
+	padding				: 0 15 0 16;
+	color				: #000000;
+	font				: 15 Helvetica;		
+}
+/**** output 라벨 bg ****/
+Static.sta_WF_LabelBg, Static.sta_WF_LabelBg:mouseover
+{
+	background			: #f4f4f4;
+	border				: 1 solid #dbdbdb, 0 none;	
+	padding				: 0 13 0 13;
+	color				: #333333;
+	font				: 15 Helvetica;
+}
+/***** CRUD btn bg *****/
+Static.sta_WF_CRUDbg, Static.sta_WF_CRUDbg:mouseover
+{
+	background			: @gradation;
+	gradation			: linear 0,0 #cdcdcd 0,100 #c1c1c1;	
+	border				: 0 none, 0 none, 1 solid #adadad, 0 none;	
+	color				: #141414;
+	font				: bold 15 Helvetica;	
+	padding				: 0 0 0 22;	
+}
+/***** grid btn bg *****/
+Static.sta_WF_Gridbg, Static.sta_WF_Gridbg:mouseover
+{
+	background			: #3a7781;
+	border				: 1 solid #32666f, 0 none, 1 solid #356c76, 0 none;	
+}
+/******/
+Static.sta_WF_GridCount01, Static.sta_WF_GridCount01:mouseover
+{
+	font				: bold 15 Helvetica;
+	color				: #ffffff;
+	padding				: 0 0 0 22;
+}
+/******* popup title *******/
+Static.sta_POP_Title, Static.sta_POP_Title:mouseover
+{
+	background			: #3f3f3f;
+	border				: 0 none;	
+	color				: #ffffff;
+	font				: bold 18 Helvetica;
+	align				: center middle;
+}
+
+/***** 월력 bg ******/
+Static.sta_POP_CalendarYearBg, Static.sta_POP_CalendarYearBg:mouseover
+{
+	background			: #ffffff;
+	border				: 1 solid #6e7a82;	
+}
+/***** 월력 title ******/
+Static.sta_POP_Calendaryeartitlebg, Static.sta_POP_Calendaryeartitlebg:mouseover
+{
+	background			: #6e7a82;
+	border				: 0 none;	
+	color				: #ffffff;
+	font				: bold 25 Helvetica;
+	align				: center middle;
+}
+/***** 팝업 텍스트 ******/
+Static.sta_POP_Txt, Static.sta_POP_Txt:mouseover
+{
+	font				: 15 Helvetica;
+	align				: center middle;
+}
+/*************************/
+/***** paging number *****/
+Static.sta_WF_Page, Static.sta_WF_Page:mouseover
+{
+	align				: center middle;	
+}
+Static.sta_WF_PageS, Static.sta_WF_PageS:mouseover
+{
+	font				: bold underline 17 Helvetica;
+	color				: #29a5c0;	
+	align				: center middle;
+	padding				: 0 0 1 0;	
+}
+/********/
+/**** head font *****/
+.Cellgrd_WF_Head
+{
+	font				: bold 13 Helvetica;
+	color				: #122c2f;
+}	
+/**** body font ******/
+.Cellgrd_WF_txt
+{
+	font				: 14 Helvetica;
+	color				: #000000;
+	selectfont			: 14 Helvetica;
+}
+/***** 그리드 헤드 필수입력 스타일 *****/
+.Cellgrd_WF_HeadEssential
+{
+	background			: URL('theme://images/grd_WF_HeadEssential.png') left top:	
+}
+/************************* 필수입력 스타일 ***************************/
+Edit.edt_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Edit.edt_WF_Essential:mouseover, Edit.edt_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+/******/
+MaskEdit.msk_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+MaskEdit.msk_WF_Essential:mouseover, MaskEdit.msk_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+/***스핀컴퍼넌트(버튼과의 조합으로 maskedit로 사용)***/
+MaskEdit.spn_WF_Essential, MaskEdit.spn_WF_Essential:mouseover, MaskEdit.spn_WF_Essential:focused	
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+	padding				: 2 58 0 12;
+}
+MaskEdit.spn_WF_Essential:disabled
+{
+
+}
+/******/
+TextArea.txt_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+TextArea.txt_WF_Essential:mouseover, TextArea.txt_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+/******/
+Calendar.cal_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Calendar.cal_WF_Essential:mouseover, Calendar.cal_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+Calendar.cal_WF_Essential>#dropbutton, Calendar.cal_WF_Essential>#dropbutton:mouseover
+{
+	image				: URL('M_img::btn_M_CalDrop_P.png');
+}
+/******/
+Combo.cmb_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+}
+Combo.cmb_WF_Essential:mouseover, Combo.cmb_WF_Essential:focused
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+}
+Combo.cmb_WF_Essential>#dropbutton, Combo.cmb_WF_Essential>#dropbutton:mouseover
+{
+	image				: URL('M_img::btn_M_drop_P.png');
+}
+Combo.cmb_WF_Essential>#combolist
+{
+	background			: #f0fafc;
+	border				: 1 solid #7ec3d2;
+	itembackground			: #f0fafc;
+}
+Combo.cmb_WF_Essential>#combolist:selected
+{
+	itembackground			: #4197aa;
+}
+/*****/
+ListBox.lst_WF_Essential
+{
+	background			: #f0fafc;
+	border				: 1 solid #4197aa;
+	itembackground			: #f0fafc;	
+}
+ListBox.lst_WF_Essential:mouseover
+{
+	border				: 1 solid #4197aa;
+	itembackground			: #e4e4e4;
+}
+ListBox.lst_WF_Essential:selected
+{
+	itembackground			: #4197aa;
+}
+/************************* readonly 스타일 ***************************/
+Edit.edt_WF_Readonly, Edit.edt_WF_Readonly:mouseover, Edit.edt_WF_Readonly:pushed, Edit.edt_WF_Readonly:focused, Edit.edt_WF_Readonly:selected, Edit.edt_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+/******/
+MaskEdit.msk_WF_Readonly, MaskEdit.msk_WF_Readonly:mouseover, MaskEdit.msk_WF_Readonly:pushed, MaskEdit.msk_WF_Readonly:focused, MaskEdit.msk_WF_Readonly:selected, Edit.msk_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;	
+}
+/***스핀컴퍼넌트(버튼과의 조합으로 maskedit로 사용)***/
+MaskEdit.spn_WF_Readonly, MaskEdit.spn_WF_Readonly:mouseover, MaskEdit.spn_WF_Readonly:pushed, MaskEdit.spn_WF_Readonly:focused, MaskEdit.spn_WF_Readonly:selected, Edit.spn_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+	padding				: 2 58 0 12;	
+}
+/******/
+TextArea.txt_WF_Readonly, TextArea.txt_WF_Readonly:mouseover, TextArea.txt_WF_Readonly:pushed, TextArea.txt_WF_Readonly:focused, TextArea.txt_WF_Readonly:selected, TextArea.txt_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+/******/
+Combo.cmb_WF_Readonly, Combo.cmb_WF_Readonly:mouseover, Combo.cmb_WF_Readonly:pushed, Combo.cmb_WF_Readonly:focused, Combo.cmb_WF_Readonly:selected, Combo.cmb_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+Combo.cmb_WF_Readonly>#dropbutton, Combo.cmb_WF_Readonly>#dropbutton:mouseover, Combo.cmb_WF_Readonly>#dropbutton:pushed
+{
+	image				: URL('M_img::btn_M_drop_D.png');
+}
+/******/
+Calendar.cal_WF_Readonly, Calendar.cal_WF_Readonly:mouseover, Calendar.cal_WF_Readonly:pushed, Calendar.cal_WF_Readonly:focused, Calendar.cal_WF_Readonly:selected, Calendar.cal_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+}
+Calendar.cal_WF_Readonly>#dropbutton, Calendar.cal_WF_Readonly>#dropbutton:mouseover, Calendar.cal_WF_Readonly>#dropbutton:pushed
+{
+	image				: URL('M_img::btn_M_CalDrop_D.png');
+}
+/******/
+ListBox.lst_WF_Readonly, ListBox.lst_WF_Readonly:mouseover, ListBox.lst_WF_Readonly:pushed, ListBox.lst_WF_Readonly:focused, ListBox.lst_WF_Readonly:selected, ListBox.lst_WF_Readonly:disabled
+{
+	background			: #ececec;
+	border				: 1 solid #c2c2c2;
+	color				: #333333;	
+	itembackground			: #ececec;
+}
+/**************************** 가이드 Start ******************************/
+Static.sta_GID_Title, Static.sta_GID_Title:mouseover
+{
+	align        			: center middle;
+	background     			: #edeee6;
+	border         			: 1 solid #c6c6c5;
+	color         			: #444444;
+	font         			: bold antialias 9 Tahoma;  
+}
+Static.sta_GID_txt, Static.sta_GID_txt:mouseover
+{
+	color         			: #00779b;
+	font				: 8 Gulim;
+}
+Static.sta_GID_txt02, Static.sta_GID_txt02:mouseover
+{
+	color         			: #999999;
+	font				: 8 Gulim;	
+}
+Static.sta_GID_line, Static.sta_GID_line:mouseover
+{
+	background     			: #c6c6c5;		
+}
+/***********/
+Static.sta_WF_Subtitle, Static.sta_WF_Subtitle:mouseover
+{
+	background			: URL('M_img::sta_WF_Subtitle.png') left middle;
+	color				: #222222;
+	font				: bold 9 Gulim;	
+	padding				: 0 0 1 14;		
+}
+/**************************** 가이드 End ******************************/

@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blbdDAO">
+	<resultMap id="BlbdMap" type="com.nh.escm.pt.blbd.vo.BlbdVO">
+	    <result column="ISCHECKED"                      property="ISCHECKED" />   
+		<result column="BLBD_ID"                        property="BLBD_ID" />                       
+		<result column="BBRD_ID"                        property="BBRD_ID" />                       
+		<result column="BBRD_TI"                        property="BBRD_TI" />                       
+		<result column="BBRD_CNTN"                      property="BBRD_CNTN" />                     
+		<result column="BLTN_ST_DTM"                    property="BLTN_ST_DTM" />                   
+		<result column="BLTN_ED_DTM"                    property="BLTN_ED_DTM" />                   
+		<result column="CKNL_DSC"                       property="CKNL_DSC" />                      
+		<result column="BBRD_DEL_YN"                    property="BBRD_DEL_YN" />                   
+		<result column="BBRD_INQ_CN"                    property="BBRD_INQ_CN" />                   
+		<result column="BBRD_RGM_NM"                    property="BBRD_RGM_NM" />       
+		<result column="PRET_BBRD_ID"                   property="PRET_BBRD_ID" />               
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />                      
+		<result column="FS_RGM"                         property="FS_RGM" />                        
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />                      
+		<result column="LS_CHGM"                        property="LS_CHGM" /> 
+		<result column="NEWEST"                         property="NEW" />  
+		
+		<result column="UPLOAD_DT"                      property="UPLOAD_DT" /> 
+		<result column="PAY_TRPL_C"                     property="PAY_TRPL_C" /> 
+		<result column="BLBD_UG_AM"                     property="BLBD_UG_AM" />
+		<result column="FRAMENAME"                      property="FRAMENAME" />
+		<result column="BBRD_PUP_SYS_FLNM"              property="BBRD_PUP_SYS_FLNM" />
+		<result column="PICTURE"                        property="PICTURE" />
+		<result column="BBRD_NAMO_FLNM"            		property="BBRD_NAMO_FLNM" />
+		
+		<result column="BBRD_CLOSED_YN"                 property="BBRD_CLOSED_YN" />
+		<result column="PRET_CLOSED_YN"                 property="PRET_CLOSED_YN" />
+		<result column="PRET_FS_RGM"                 	property="PRET_FS_RGM" />
+		<result column="CLNTNM"                 		property="CLNTNM" />
+		<result column="FS_CLNTNM"                 		property="FS_CLNTNM" />
+	</resultMap>
+	
+	<resultMap id="BlbdApdflMap" type="com.nh.escm.pt.blbd.vo.BlbdApdflVO">
+	    <result column="CHK"                            property="CHK" />    
+	    <result column="BLBD_ID"                        property="BLBD_ID" />                       
+		<result column="BBRD_ID"                        property="BBRD_ID" />                       
+		<result column="APDFL_ID"                       property="APDFL_ID" />                      
+		<result column="APDFLNM"                        property="APDFLNM" />                       
+		<result column="APDFL_PATHNM"                   property="APDFL_PATHNM" />                  
+		<result column="APDFL_SZE"                      property="APDFL_SZE" />                     
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />                      
+		<result column="FS_RGM"                         property="FS_RGM" />                        
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />                     
+		<result column="LS_CHGM"                        property="LS_CHGM" />  
+		<result column="ORGFNAME"                       property="ORGFNAME" />                        
+		<result column="SYSTEMFILENAME"                 property="SYSTEMFILENAME" />                     
+		<result column="FILESIZE"                       property="FILESIZE" />  
+		<result column="FILENAME"                       property="FILENAME" />
+	</resultMap>
+	
+	
+	<select id="getBlbdID" parameterType="java.util.Map" resultMap="BlbdMap">
+	    SELECT A.BLBD_ID
+		  FROM PT_BLBD_MAIN A
+		 WHERE A.BLBD_SKIN = #{SKIN}
+	 </select>
+	 
+	
+	<select id="retrieveBlbdList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'BBRD_ID DESC'" />
+		<bind name="sortType" value="'null'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveBlbdList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveBlbdListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveBlbdList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<sql id = "sql_retrieveBlbdList">
+		SELECT '0' AS ISCHECKED
+			 , A.BLBD_ID
+			 , A.BBRD_ID
+			 , A.BBRD_TI
+			 , A.BLTN_ST_DTM
+			 , A.BLTN_ED_DTM
+			 , A.CKNL_DSC
+			 , A.BBRD_DEL_YN
+			 , A.BBRD_INQ_CN
+			 , A.BBRD_RGM_NM
+			 , A.PRET_BBRD_ID
+			 , TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS FSRG_DTM
+			 , A.FS_RGM
+			 , B.USR_NM
+			 , TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD') AS LSCHG_DTM
+			 , A.LS_CHGM
+			 , DECODE(C.BBRD_CLOSED_YN, 'Y', 'Y', A.BBRD_CLOSED_YN) AS BBRD_CLOSED_YN  /* 비공개여부 (Y: 비공개, N: 공개) - 부모가 비공개면, 답글 비공개 */
+			 , C.BBRD_CLOSED_YN AS PRET_CLOSED_YN  /* 부모 비공개여부 */
+			 , C.FS_RGM AS PRET_FS_RGM             /* 부모 작성자ID */
+			 , SYSDATE - A.LSCHG_DTM AS NEWEST
+			 , (SELECT DECODE(COUNT(APDFL_ID), 0, 'N', 'Y') FROM PT_BLBD_APDFL WHERE BBRD_ID = A.BBRD_ID AND APDFL_PATHNM <![CDATA[<>]]> 'namo') AS APDFL_YN
+			 <if test="BLBD_ID == '201506090010'.toString()">
+			 , A.BBRD_PUP_APDFLNM
+			 </if>
+			 <if test="BLBD_ID == '202107010001'.toString()">
+			 , A.BBRD_PUP_YN
+			 </if>
+		  FROM PT_BLBD_CNTN A
+			 , PT_USR_INF B
+			 , PT_BLBD_CNTN C
+			 <if test="BLBD_ID == '202107010001'.toString()">
+			 , TB_TR_TRPL_CIF D
+			 </if>
+		 WHERE A.FS_RGM = B.MB_ID(+)
+		   AND A.PRET_BBRD_ID = C.BBRD_ID(+) /* 부모 조회 */
+		   AND A.BLBD_ID = #{BLBD_ID}
+		   AND A.BBRD_DEL_YN = 'N'
+		   AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS') BETWEEN A.BLTN_ST_DTM AND A.BLTN_ED_DTM
+		<!-- 1:1 상담게시판(201506090009)인 경우 자신의 글과 관리자의 댓글만 확인할 수 있도록 한다. -->
+		<if test="BLBD_ID == '201506090009'.toString() and @org.apache.commons.lang.StringUtils@isNotEmpty(usrTpc) and usrTpc != '99'.toString()">
+		   AND ( A.FS_RGM = #{usrId} OR A.PRET_BBRD_ID IN ( SELECT BBRD_ID FROM PT_BLBD_CNTN WHERE FS_RGM = #{usrId} ) )
+		</if>
+		<choose>
+			<when test="CONDITION == 1">
+				<if test="SEARCH != null and SEARCH.length() > 0">
+		   AND A.BBRD_TI LIKE '%' || #{SEARCH} || '%'
+				</if>
+			</when>
+			<when test="CONDITION == 2">
+				<if test="SEARCH != null and SEARCH.length() > 0">
+		   AND A.BBRD_CNTN LIKE '%' || #{SEARCH} || '%'
+				</if>
+			</when>
+			<when test="CONDITION == 3">
+				<if test="SEARCH != null and SEARCH.length() > 0">
+		   AND A.BBRD_RGM_NM LIKE '%' || #{SEARCH} || '%'
+				</if>
+			</when>
+			<when test="CONDITION == 4">
+				<if test="SEARCH != null and SEARCH.length() > 0">
+		   AND A.BBRD_ID LIKE '%' || #{SEARCH} || '%'
+				</if>
+			</when>
+		</choose>
+		<if test="BLBD_ID == '202107010001'.toString()">
+		   AND A.BBRD_PUP_SYS_FLNM = D.NA_TRPL_C
+			<choose>
+				<when test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC eq '99'">
+					/* 최고권한 - 모두 조회 */
+				</when>
+				<when test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC eq 'A5'">
+					/* 조회권한 - 소속사업장 조회 */
+					AND (
+						D.BIZ_NUMBER = (SELECT B.BIZ_NUMBER FROM PT_USR_INF A, TB_TR_TRPL_CIF B WHERE MB_ID = #{usrId} AND A.NA_TRPL_C = B.NA_TRPL_C)
+						OR A.FS_RGM = #{usrId}
+					)
+				</when>
+				<when test = "ELT_AUTH_DSC != null and ELT_AUTH_DSC eq 'CF'">
+					/* 조회권한 - 담당사업장 조회 */
+					AND (
+						D.BIZ_NUMBER = (SELECT BIZ_NUMBER FROM NHVANPTL.PT_BRANCH WHERE CHIEF_ENO = #{usrId} AND BRANCH_DSC = '01')
+						OR A.FS_RGM = #{usrId}
+					)
+				</when>
+				<otherwise>
+					AND A.FS_RGM = #{usrId}
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+
+
+	<select id="retrieveBlbdOfancMainList" parameterType="java.util.Map" resultMap="BlbdMap">
+	    SELECT A.BLBD_ID
+			 , A.BBRD_ID
+			 , A.BBRD_TI
+			 , A.FSRG_DTM
+			 , A.LSCHG_DTM
+			 , A.CKNL_DSC
+		  FROM (
+				SELECT BLBD_ID
+		             , BBRD_ID
+					 , BBRD_TI
+					 , CKNL_DSC
+					 , TO_CHAR(FSRG_DTM, 'YYYY-MM-DD') AS FSRG_DTM
+			         , FS_RGM
+			         , TO_CHAR(LSCHG_DTM, 'YYYY-MM-DD') AS LSCHG_DTM
+			         , LS_CHGM
+				  FROM PT_BLBD_CNTN
+				 WHERE BLBD_ID = '201506090001'
+				   AND BBRD_DEL_YN = 'N'
+				   AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS') BETWEEN BLTN_ST_DTM AND BLTN_ED_DTM  
+				 ORDER BY CKNL_DSC desc, BBRD_ID desc
+			   ) A
+		 WHERE rownum &lt;= 10
+	 </select>
+	 
+	 	 <select id="retrieveBlbdPopUpList" parameterType="java.util.Map" resultMap="BlbdMap">
+			SELECT  /* retrieveBlbdPopUpList */
+			 CONCAT(TO_CHAR(SYSDATE , 'YYYYMMDD') , CONCAT('-', TO_CHAR(LSCHG_DTM,'HH24MMDD') ) ) AS FRAMENAME , 
+			 			 CONCAT('N', BBRD_ID) AS BBRD_ID,
+						 NVL(BBRD_PUP_SYS_FLNM,'N') AS BBRD_PUP_SYS_FLNM , 
+						 NVL(BBRD_CNTN , 'N') AS BBRD_CNTN,
+						 NVL((SELECT APDFLNM FROM PT_BLBD_APDFL WHERE BBRD_ID = A.BBRD_ID AND APDFL_PATHNM = 'namo' AND ROWNUM = 1), 'N') AS BBRD_NAMO_FLNM 
+					FROM PT_BLBD_CNTN A
+						WHERE BBRD_PUP_YN = '1'
+						  AND BLBD_ID = '201506090001'
+						AND BBRD_DEL_YN = 'N'
+							AND TO_CHAR(SYSDATE , 'YYYYMMDD') BETWEEN BBRD_PUP_ST_DT AND BBRD_PUP_ED_DT
+	 </select>
+	 
+	 <select id="retrieveBlbdPopUpOfancList" parameterType="java.util.Map" resultMap="BlbdMap">
+			SELECT  /* retrieveBlbdPopUpList */
+			 CONCAT('P',CONCAT(TO_CHAR(SYSDATE , 'YYYYMMDD') , CONCAT('-', SUBSTR( LSCHG_DTM,9) ) ) )AS FRAMENAME , 
+			 			 CONCAT('P', BBRD_SQNO) AS BBRD_ID, 
+						 NVL(OFANC_CNTN ,'N') AS BBRD_CNTN 
+					FROM PT_OFANC_MST 
+						WHERE BBRD_PUP_YN = '1'
+							AND BBRD_DEL_YN = '0'
+							AND TO_CHAR(SYSDATE , 'YYYYMMDD') BETWEEN BBRD_PUP_ST_DT AND BBRD_PUP_ED_DT    
+	 </select>
+	 
+	 
+	<select id="getCountPretBbrdId" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT COUNT(*) AS CNT_PRET_BBRD_ID
+		  FROM PT_BLBD_CNTN
+		 WHERE PRET_BBRD_ID = #{PRET_BBRD_ID}
+	</select>
+	
+	
+	<select id="retrieveBlbd" parameterType="java.util.Map" resultMap="BlbdMap">
+		<if test="BLBD_ID == '202107010001'.toString()">
+			SELECT D.*, E.CLNTNM, F.CLNTNM FS_CLNTNM FROM (
+		</if>
+		SELECT /* retrieveBlbd */
+		       A.BLBD_ID
+		     , A.BBRD_ID
+		     , A.BBRD_TI
+		     , A.BBRD_CNTN
+		     , A.BLTN_ST_DTM
+		     , A.BLTN_ED_DTM
+		     , A.CKNL_DSC
+		     , A.BBRD_DEL_YN
+		     , A.BBRD_INQ_CN
+		     , A.PRET_BBRD_ID
+		     , A.FS_RGM || '(' ||  B.USR_NM || ')' AS BBRD_RGM_NM
+		     , A.BBRD_PUP_ST_DT
+		     , A.BBRD_PUP_ED_DT
+		     , A.BBRD_PUP_YN
+		     <choose>
+				<when test ="BLBD_ID == '202107010001'.toString()">
+					, A.BBRD_PUP_SYS_FLNM
+				</when>
+				<otherwise>
+					, NVL(A.BBRD_PUP_SYS_FLNM,'N') AS BBRD_PUP_SYS_FLNM
+				</otherwise>
+			</choose>
+		     , A.BBRD_PUP_APDFLNM
+		     <choose>
+				<when test ="BLBD_ID == '202107010001'.toString()">
+					, TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS FSRG_DTM
+				</when>
+				<otherwise>
+					, TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD HH24:MI:DD') AS FSRG_DTM
+				</otherwise>
+			</choose>
+		     , A.FS_RGM
+		     , TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:DD') AS LSCHG_DTM
+		     , A.LS_CHGM || '(' ||  B.USR_NM || ')' AS LS_CHGM
+		     , DECODE(C.BBRD_CLOSED_YN, 'Y', 'Y', A.BBRD_CLOSED_YN) AS BBRD_CLOSED_YN  /* 비공개여부 (Y: 비공개, N: 공개) - 부모가 비공개면, 답글 비공개 */
+		     , C.BBRD_CLOSED_YN AS PRET_CLOSED_YN  /* 부모 비공개여부 */
+		     , C.FS_RGM AS PRET_FS_RGM             /* 부모 작성자ID */
+		  FROM PT_BLBD_CNTN A
+		     , PT_USR_INF B
+		     , PT_BLBD_CNTN C
+		 WHERE A.FS_RGM = B.MB_ID(+)
+		   AND A.PRET_BBRD_ID = C.BBRD_ID(+) /* 부모 조회 */
+		   AND A.BBRD_ID = #{BBRD_ID}
+		   AND A.BLBD_ID = #{BLBD_ID}
+		<if test="BLBD_ID == '202107010001'.toString()">
+	       )D
+	       , TB_TR_TRPL_CIF E
+	       , TB_TR_TRPL_CIF F
+	       WHERE D.BBRD_PUP_APDFLNM = E.NA_TRPL_C
+	         AND D.BBRD_PUP_SYS_FLNM = F.NA_TRPL_C
+       	</if>
+	</select>
+	
+	<select id="retrieveBlbdPrc" parameterType="java.util.Map" resultMap="BlbdMap">
+		 SELECT UPLOAD_DT
+		      , PAY_TRPL_C
+		      , BBRD_ID
+		      , BLBD_UG_AM
+		      , TO_CHAR(FSRG_DTM, 'YYYY-MM-DD HH24:MI:DD') AS FSRG_DTM
+		      , FS_RGM
+		      , TO_CHAR(LSCHG_DTM, 'YYYY-MM-DD HH24:MI:DD') AS LSCHG_DTM
+		      , LS_CHGM
+		   FROM BL_BLBD_UGQT
+		  WHERE BBRD_ID = #{BBRD_ID}
+	</select>
+	
+	<insert id="insertBlbd" parameterType="com.nh.escm.pt.blbd.vo.BlbdVO">
+	     INSERT 
+		   INTO PT_BLBD_CNTN
+		      ( BBRD_ID
+		      , BLBD_ID
+		      , BBRD_TI
+		      , BBRD_CNTN
+		      , BLTN_ST_DTM
+		      , BLTN_ED_DTM
+		      , CKNL_DSC
+		      , BBRD_DEL_YN
+		      , BBRD_INQ_CN
+		      , BBRD_RGM_NM
+		      , PRET_BBRD_ID
+		      , FSRG_DTM
+		      , FS_RGM
+		      , LSCHG_DTM
+		      , LS_CHGM
+		      , BBRD_CLOSED_YN
+		      , BBRD_PUP_ST_DT
+		      , BBRD_PUP_ED_DT
+		      , BBRD_PUP_YN
+		      , BBRD_PUP_SYS_FLNM
+		      , BBRD_PUP_APDFLNM
+			  )
+		 VALUES 
+			  ( 
+			    #{BBRD_ID}
+		      , #{BLBD_ID}
+		      , #{BBRD_TI} 
+		      , #{BBRD_CNTN}
+		      , TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+		      , '99991231240000'
+		      , #{CKNL_DSC}
+		      , 'N'
+		      , 0
+		      , #{BBRD_RGM_NM}
+		      , #{PRET_BBRD_ID}
+		      , SYSDATE
+		      , #{FS_RGM}
+		      , SYSDATE
+		      , #{LS_CHGM}
+		      , #{BBRD_CLOSED_YN}  /* 비공개여부 (Y: 비공개, N: 공개) */
+		      , #{BBRD_PUP_ST_DT}
+		      , #{BBRD_PUP_ED_DT}
+		      , #{BBRD_PUP_YN}
+		      , #{BBRD_PUP_SYS_FLNM}
+		      , #{BBRD_PUP_APDFLNM}
+		      )
+	</insert>
+	
+	<insert id="insertBlbdPrc" parameterType="java.util.Map">
+	     INSERT 
+		   INTO BL_BLBD_UGQT
+		      ( UPLOAD_DT
+			  , PAY_TRPL_C
+			  , BBRD_ID
+			  , BLBD_UG_AM
+			  , FSRG_DTM
+			  , FS_RGM
+			  , LSCHG_DTM
+			  , LS_CHGM
+			  )
+		 VALUES 
+			  ( 
+			    #{UPLOAD_DT}
+		      , #{PAY_TRPL_C}
+		      , #{BBRD_ID} 
+		      , #{PRC}
+		      , SYSDATE
+		      , #{FS_RGM}
+		      , SYSDATE
+		      , #{LS_CHGM}
+		      )
+	</insert>
+	
+	<select id="getUsrGlnCode" parameterType="java.util.Map"  resultType="java.util.Map">
+	    SELECT NA_TRPL_C 
+			       FROM PT_USR_INF 
+			      WHERE MB_ID = (
+								SELECT FS_RGM
+								  FROM PT_BLBD_CNTN
+								 WHERE BBRD_ID = #{pretBbrdId}
+								)
+	</select>
+	
+	<update id = "updateBlbdPrc" parameterType="java.util.Map">
+	    UPDATE BL_BLBD_UGQT
+		   SET UPLOAD_DT = #{UPLOAD_DT}
+		   	 , BLBD_UG_AM = #{PRC}
+		   	 , LSCHG_DTM = SYSDATE
+		     , LS_CHGM = #{LS_CHGM}
+		 WHERE BBRD_ID = #{BBRD_ID}
+	</update>
+	
+	<update id = "updateInqCn" parameterType="java.util.Map">
+	    UPDATE PT_BLBD_CNTN
+		   SET BBRD_INQ_CN = ( SELECT BBRD_INQ_CN + 1
+			                     FROM PT_BLBD_CNTN 
+			                    WHERE BBRD_ID = #{BBRD_ID}
+			                      AND BLBD_ID =  #{BLBD_ID}
+		                     )
+		 WHERE BBRD_ID = #{BBRD_ID} 
+		   AND BLBD_ID = #{BLBD_ID}
+	</update>
+	
+	<update id = "updateblbdCntn" parameterType="com.nh.escm.pt.blbd.vo.BlbdVO">
+	    UPDATE PT_BLBD_CNTN
+		   SET BBRD_TI   = #{BBRD_TI}
+		     , BBRD_CNTN = #{BBRD_CNTN}
+		<if test="BLBD_ID == '202107010001'.toString()">
+			 , BBRD_PUP_ST_DT = #{BBRD_PUP_ST_DT}
+			 , BBRD_PUP_ED_DT = #{BBRD_PUP_ED_DT}
+			 , BBRD_PUP_APDFLNM = #{BBRD_PUP_APDFLNM}
+			 , BBRD_PUP_YN = #{BBRD_PUP_YN}
+		</if>	 
+			 , LSCHG_DTM = SYSDATE
+		     , LS_CHGM = #{LS_CHGM}
+		     , BBRD_CLOSED_YN = #{BBRD_CLOSED_YN}  /* 비공개여부 (Y: 비공개, N: 공개) */
+		 WHERE BBRD_ID = #{BBRD_ID} 
+		   AND BLBD_ID = #{BLBD_ID}
+	</update>
+	
+	
+	<update id = "deleteBlbd" parameterType="java.util.Map">
+	    UPDATE PT_BLBD_CNTN
+		   SET BLTN_ED_DTM = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MMSS')
+             , BBRD_DEL_YN = 'Y'
+		 WHERE BBRD_ID = #{BBRD_ID} 
+		   AND BLBD_ID = #{BLBD_ID}
+	</update>
+	
+	<select id="retrieveApdflList" parameterType="java.util.Map" resultMap="BlbdApdflMap">
+		SELECT 
+		      '0' AS CHK 
+		     , A.BLBD_ID
+			 , A.BBRD_ID
+			 , A.APDFL_ID      AS FILENAME
+			 , A.APDFLNM       AS ORGFNAME
+			 , A.APDFL_PATHNM  AS SYSTEMFILENAME
+			 , A.APDFL_SZE     AS FILESIZE
+			 , TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS FSRG_DTM
+		     , FS_RGM
+		     , TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD') AS LSCHG_DTM
+		     , LS_CHGM
+		  FROM PT_BLBD_APDFL A
+		 WHERE A.BBRD_ID = #{BBRD_ID}
+		   AND A.BLBD_ID = #{BLBD_ID}
+	</select>
+	
+	
+	<insert id="insertApdfl" parameterType="com.nh.escm.pt.blbd.vo.BlbdApdflVO">
+	     INSERT 
+		   INTO PT_BLBD_APDFL
+		      (   BLBD_ID
+				, BBRD_ID
+				, APDFL_ID
+				, APDFLNM
+				, APDFL_PATHNM
+				, APDFL_SZE
+				, FSRG_DTM
+				, FS_RGM
+				, LSCHG_DTM
+				, LS_CHGM
+			  )
+		 VALUES 
+			  ( 
+			    #{BLBD_ID}
+		      , #{BBRD_ID}
+		      , #{APDFL_ID} 
+		      , #{APDFLNM}
+		      , #{APDFL_PATHNM}
+		      , #{APDFL_SZE}
+		      , SYSDATE
+		      , #{FS_RGM}
+		      , SYSDATE
+		      , #{LS_CHGM}
+		      )
+	</insert>
+	
+	
+	<select id="getBbrdId" resultType="java.util.Map">
+		SELECT CASE WHEN MAX(BBRD_ID) IS NULL
+		       THEN TO_CHAR(SYSDATE,'YYYYMMDD') || '0010'
+		       ELSE TO_CHAR(TO_NUMBER(MAX(BBRD_ID)) +10)
+		        END BBRD_ID
+		  FROM PT_BLBD_CNTN 
+		 WHERE BBRD_ID LIKE TO_CHAR(SYSDATE, 'YYYYMMDD') || '%'
+	</select>
+	
+	<delete id = "deleteApdfl"  parameterType="com.nh.escm.pt.blbd.vo.BlbdApdflVO">
+	    DELETE 
+	      FROM PT_BLBD_APDFL
+	     WHERE APDFL_PATHNM = #{APDFL_PATHNM}
+	       AND BLBD_ID = #{BLBD_ID}
+	       AND BBRD_ID = #{BBRD_ID}
+	</delete>
+	
+	<select id="canDelete" parameterType="java.util.Map" resultType="int">
+	    SELECT COUNT(*) AS CNT
+		  FROM PT_BLBD_CNTN
+		 WHERE PRET_BBRD_ID = #{BBRD_ID}
+		   AND BBRD_DEL_YN = 'N'
+	</select>
+	
+	
+	
+	
+	<select id="retrieveCostQnAList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'BBRD_ID DESC'" />
+		<bind name="sortType" value="'null'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveCostQnAList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveCostQnAListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveCostQnAList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<sql id = "sql_retrieveCostQnAList">
+	    SELECT '0' AS ISCHECKED
+		     , A.BLBD_ID
+		     , A.BBRD_ID
+		     , A.BBRD_TI
+		     , A.BLTN_ST_DTM
+		     , A.BLTN_ED_DTM
+		     , A.CKNL_DSC
+		     , A.BBRD_DEL_YN
+		     , A.BBRD_INQ_CN
+		     , A.BBRD_RGM_NM
+		     , A.PRET_BBRD_ID
+		     , TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS FSRG_DTM
+		     , A.FS_RGM
+		     , B.USR_NM
+		     , TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD') AS LSCHG_DTM
+		     , A.LS_CHGM
+		     , SYSDATE - A.LSCHG_DTM AS NEWEST
+		     , (SELECT DECODE(COUNT(APDFL_ID), 0, 'N', 'Y') FROM PT_BLBD_APDFL WHERE BBRD_ID = A.BBRD_ID) AS APDFL_YN
+		  FROM 
+		  (
+		  	SELECT * FROM 
+		  		PT_BLBD_CNTN M1 
+		  	WHERE 1=1 
+		  		AND M1.FS_RGM = #{MB_ID}
+		  	UNION ALL 
+		  	SELECT * FROM 
+		  		PT_BLBD_CNTN M2 
+		  	WHERE 1=1 
+		  		AND M2.PRET_BBRD_ID IN 
+		  		(
+		  		SELECT
+		  			BBRD_ID 
+		  		FROM  PT_BLBD_CNTN WHERE FS_RGM = #{MB_ID}
+		  		)
+		  ) 
+		  A
+		     , PT_USR_INF B
+	     WHERE A.FS_RGM = B.MB_ID(+)
+   		   AND A.BLBD_ID = #{BLBD_ID}
+		   AND A.BBRD_DEL_YN = 'N'
+		   AND TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS') BETWEEN A.BLTN_ST_DTM AND A.BLTN_ED_DTM	       
+		    <choose>
+				<when test="CONDITION == 1">
+				    <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.BBRD_TI LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+				<when test="CONDITION == 2">
+				     <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.BBRD_CNTN LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+				<when test="CONDITION == 3">
+				     <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.BBRD_RGM_NM LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+				<when test="CONDITION == 4">
+				    <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.BBRD_ID LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+			</choose>	
+	</sql>
+	
+</mapper>

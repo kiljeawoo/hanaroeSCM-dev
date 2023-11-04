@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nacfOfancDAO">
+	<resultMap id="NacfOfancMap" type="com.nh.escm.pt.blbd.vo.NacfOfancVO">
+	    <result column="ISCHECKED"                      property="ISCHECKED" />  
+		<result column="BBRD_SQNO"                      property="BBRD_SQNO" />                     
+		<result column="BLTN_ST_DTM"                    property="BLTN_ST_DTM" />                   
+		<result column="BLTN_ED_DTM"                    property="BLTN_ED_DTM" />                   
+		<result column="OFANC_TINM"                     property="OFANC_TINM" />                    
+		<result column="OFANC_CNTN"                     property="OFANC_CNTN" />                    
+		<result column="OFANC_PRU_NT"                   property="OFANC_PRU_NT" />                  
+		<result column="BBRD_DEL_YN"                    property="BBRD_DEL_YN" />                   
+		<result column="CKNL_DSC"                       property="CKNL_DSC" />                      
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />                      
+		<result column="FS_RGM"                         property="FS_RGM" />                        
+		<result column="FSRGMN_BZPLC"                   property="FSRGMN_BZPLC" /> 
+	</resultMap>
+	
+	<resultMap id="NacfOfancApdflMap" type="com.nh.escm.pt.blbd.vo.NacfOfancApdflVO">
+	    <result column="ISCHECKED"                      property="ISCHECKED" />    
+	    <result column="BBRD_SQNO"                      property="BBRD_SQNO" />                     
+		<result column="APDFL_SQNO"                     property="APDFL_SQNO" />                    
+		<result column="BBRD_DSC"                       property="BBRD_DSC" />                      
+		<result column="APDFLNM"                        property="APDFLNM" />                       
+		<result column="APDFL_PATHNM"                   property="APDFL_PATHNM" />                  
+		<result column="APDFL_XCRNM"                    property="APDFL_XCRNM" />                   
+		<result column="APDFL_SZE"                      property="APDFL_SZE" /> 
+		<result column="ORGFNAME"                       property="ORGFNAME" />                        
+		<result column="SYSTEMFILENAME"                 property="SYSTEMFILENAME" />                     
+		<result column="FILESIZE"                       property="FILESIZE" />  
+		<result column="FILENAME"                       property="FILENAME" />
+	</resultMap>
+	
+	
+	<select id="retrieveNacfOfancList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'FSRG_DTM2 DESC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveNacfOfancList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveNacfOfancListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveNacfOfancList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<sql id = "sql_retrieveNacfOfancList">
+	   SELECT
+	   		DISTINCT 
+	   			'0' AS ISCHECKED
+		    , A.BBRD_SQNO
+		    , A.BLTN_ST_DTM
+		    , A.BLTN_ED_DTM
+		    , A.OFANC_TINM
+		    , A.OFANC_CNTN
+		    , A.OFANC_PRU_NT
+		    , A.BBRD_DEL_YN
+		    , A.CKNL_DSC
+		    , TO_CHAR(TO_DATE(A.FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD') AS FSRG_DTM
+		    , A.FSRG_DTM FSRG_DTM2
+		    , NVL(C.BUYER_NM, A.FS_RGM) AS FS_RGM
+		    , A.FSRGMN_BZPLC
+		    , B.CLNTNM 
+		    , (SELECT DECODE(COUNT(APDFL_SQNO), 0, 'N', 'Y')
+		         FROM PT_OFANC_APDFL
+		        WHERE BBRD_SQNO = A.BBRD_SQNO) AS APDFL_YN
+		 FROM PT_OFANC_MST A
+		    , TB_TR_TRPL_CIF B 
+		    , TB_CM_BUYER C 
+		WHERE A.FSRGMN_BZPLC=B.NA_TRPL_C(+)
+		  AND A.FS_RGM=C.BUYER_ENO(+)
+		  AND A.BBRD_DEL_YN = '0'
+		    <choose>
+				<when test="CONDITION == 1">
+				    <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.OFANC_TINM LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+				<when test="CONDITION == 2">
+				     <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.OFANC_CNTN LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+				<when test="CONDITION == 3">
+				     <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND ( A.FS_RGM LIKE '%' || #{SEARCH} || '%' OR C.BUYER_NM LIKE '%' || #{SEARCH} || '%')
+				    </if>
+				</when>
+				<when test="CONDITION == 4">
+				    <if test="SEARCH != null and SEARCH.length() > 0">
+				    AND A.BBRD_SQNO LIKE '%' || #{SEARCH} || '%'
+				    </if>
+				</when>
+			</choose>
+	</sql>
+	
+	<select id="retrieveNacfOfancMainList" parameterType="java.util.Map" resultMap="NacfOfancMap">
+	    SELECT A.BBRD_SQNO
+		     , A.OFANC_TINM
+		     , A.BLTN_ST_DTM
+		     , TO_CHAR(TO_DATE(A.FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD') AS FSRG_DTM
+		  FROM 
+		     ( SELECT BBRD_SQNO
+		            , OFANC_TINM
+		            , BLTN_ST_DTM 
+		            , FSRG_DTM
+		         FROM PT_OFANC_MST
+		        WHERE BBRD_DEL_YN = '0'
+		          AND CKNL_DSC = '1'
+		        ORDER BY FSRG_DTM DESC
+		     ) A
+	  	 WHERE rownum &lt;= 4
+	</select>
+	
+	
+	<select id="retrieveNacfOfanc" parameterType="java.util.Map" resultMap="NacfOfancMap">
+		SELECT A.BBRD_SQNO
+		     , A.BLTN_ST_DTM
+		     , A.BLTN_ED_DTM
+		     , A.OFANC_TINM
+		     , A.OFANC_CNTN
+		     , A.OFANC_PRU_NT
+		     , A.BBRD_DEL_YN
+		     , A.CKNL_DSC
+		     , TO_CHAR(TO_DATE(A.FSRG_DTM, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI:DD') AS FSRG_DTM
+		     , NVL(C.BUYER_NM, A.FS_RGM) AS FS_RGM
+		     , A.FSRGMN_BZPLC
+		  FROM PT_OFANC_MST A
+		     , TB_CM_BUYER C
+		 WHERE A.FS_RGM=C.BUYER_ENO(+)
+		   AND A.BBRD_DEL_YN = '0' 
+		   AND A.BBRD_SQNO = #{BBRD_SQNO}
+	</select>
+	
+	<select id="retrieveNacfOfancForOz" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+				DISTINCT 
+				A.BBRD_SQNO
+		     , A.BLTN_ST_DTM
+		     , A.BLTN_ED_DTM
+		     , A.OFANC_TINM
+		     , A.OFANC_CNTN
+		     , A.OFANC_PRU_NT
+		     , A.BBRD_DEL_YN
+		     , A.CKNL_DSC
+		     , TO_CHAR(TO_DATE(A.FSRG_DTM, 'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI:DD') AS FSRG_DTM
+		     , A.FS_RGM || ' ' || C.BUYER_NM AS FS_RGM
+		     , A.FSRGMN_BZPLC || ' ' || B.CLNTNM AS FSRGMN_BZPLC
+		  FROM PT_OFANC_MST A
+		  	 , TB_TR_TRPL_CIF B 
+		     , TB_CM_BUYER C
+		 WHERE A.FS_RGM=C.BUYER_ENO(+)
+		   AND A.FSRGMN_BZPLC=B.NA_TRPL_C(+)
+		   AND A.BBRD_DEL_YN = '0' 
+		   AND A.BBRD_SQNO = #{BBRD_SQNO}
+	</select>
+	
+	<update id = "updateCount" parameterType="java.util.Map">
+	   UPDATE PT_OFANC_MST
+		  SET OFANC_PRU_NT = (
+		  					   SELECT OFANC_PRU_NT + 1 
+		                         FROM PT_OFANC_MST 
+		                        WHERE BBRD_SQNO = #{BBRD_SQNO}
+		                     )
+		WHERE BBRD_SQNO = #{BBRD_SQNO}
+	</update>
+	
+	<select id="retrieveOfancApdflList" parameterType="java.util.Map" resultMap="NacfOfancApdflMap">
+		SELECT '0' AS ISCHECKED
+		     , A.BBRD_SQNO 
+		     , A.APDFL_SQNO
+		     , A.BBRD_DSC
+		     , A.APDFLNM   AS ORGFNAME       /*첨부파일명*/
+		     , A.STRG_FLNM AS SYSTEMFILENAME /*저장파일명*/
+		     , A.APDFL_XCRNM
+		     , A.APDFL_SZE    AS FILESIZE
+		  FROM PT_OFANC_APDFL A
+		 WHERE A.STRG_FL_YN = 'Y'
+		   AND A.BBRD_SQNO = #{BBRD_SQNO}
+	</select>
+</mapper>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="code">
+
+	<resultMap id="TbCmBzplMap" type="com.nh.escm.common.vo.TbCmBzplVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="BZPL_TPC" property="BZPL_TPC" />
+		<result column="BZPL_DTI_TPC" property="BZPL_DTI_TPC" />
+		<result column="BZPL_TPNM" property="BZPL_TPNM" />
+		<result column="BZPL_DTI_TPNM" property="BZPL_DTI_TPNM" />
+		<result column="NA_USR_SYS_KDC" property="NA_USR_SYS_KDC" />
+	</resultMap>
+		
+	<select id="getCodeList" parameterType="java.util.Map" resultType="Map">
+		select 
+			simp_c, simp_cnm, simp_c_expl
+		from TB_CM_SIMPC 
+		where simp_tpc=#{codeKey} 
+		and use_yn='Y'
+		and del_yn='0'
+		<if test="where != null and where != ''">
+			AND ${where}
+		</if>
+		order by simp_c_sort_sq, simp_c
+	</select>
+
+	
+	<select id="getNABizPlace" parameterType="java.util.Map" resultMap="TbCmBzplMap">
+		SELECT /*+ index(a idx_cm_bzpl_01) use_nl(a b) */
+			A.NA_BZPLC, 
+			<!-- A.SHRT_BZPLNM , -->
+			D.CLNTNM AS SHRT_BZPLNM, 
+			A.BZPL_TPC, 
+			A.BZPL_DTI_TPC, 
+			B.BZPL_TPNM, 
+			B.BZPL_DTI_TPNM,
+			D.NA_USR_SYS_KDC
+		FROM
+			TB_CM_BZPL A, 
+			TB_TR_BZPL_TP B
+		<if test="SEARCH_TYPE != null and SEARCH_TYPE == 'added'">
+		, TB_TR_TRNREL C
+		</if>
+		, TB_TR_TRPL_CIF D
+		WHERE A.BZPL_TPC = B.BZPL_TPC
+		AND A.BZPL_DTI_TPC = B.BZPL_DTI_TPC
+		AND A.NA_BZPLC = D.NA_TRPL_C
+		<if test="SEARCH_TYPE != null and SEARCH_TYPE == 'added'">
+			AND A.NA_BZPLC = C.CSER_NA_TRPL_C
+			AND A.BZPL_TPC IN ( '504' , '505')
+			AND C.SPLR_NA_TRPL_C = #{SPLR_NA_TRPL_C}
+			AND C.DEL_DTM is null
+		</if>
+		<if test="SEARCH_TYPE != null and SEARCH_TYPE == 'default'">
+			AND A.BZPL_TPC = '504'
+		</if>
+		<if test="DEL_YN != null">
+			AND A.DEL_DTM is null
+		</if>
+		AND B.DEL_YN = '0'
+		ORDER BY A.BZPL_TPC, A.BZPL_DTI_TPC, A.NA_BZPLC
+	</select>
+	
+		<!-- 권한사업장 조회 -->
+	<select id="getRightsBizPlace" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			NA_TRPL_C,  '['||NA_TRPL_C||'] '||CLNTNM CLNTNM, NA_MBCO_DSC     
+		FROM TB_TR_TRPL_CIF                                        
+		WHERE na_trpl_c  = #{NA_TRPL_C}
+		AND DEL_YN='0'                    
+		UNION                                                         
+		SELECT 
+			na_trpl_c,  '['||NA_TRPL_C||'] '||CLNTNM CLNTNM, na_mbco_dsc     
+		FROM TB_TR_TRPL_CIF                                        
+		WHERE na_mbco_dsc  in ( '2', '5' )                                      
+		AND up_na_trpl_c = #{NA_TRPL_C}
+		AND DEL_YN='0'                 
+		UNION                                                         
+		SELECT ' ', '-----사업장없음-----', ''    
+		  FROM DUAL                                                    
+		 WHERE NOT EXISTS (
+			SELECT 'T' 
+			FROM TB_TR_TRPL_CIF 
+			WHERE na_trpl_c = #{NA_TRPL_C}
+			AND DEL_YN='0'
+		    UNION ALL                                                  
+		    SELECT 'T' 
+			FROM TB_TR_TRPL_CIF 
+			WHERE na_mbco_dsc = '2' 
+			AND na_trpl_c = #{NA_TRPL_C}
+			AND DEL_YN='0')
+			
+		 ORDER BY na_mbco_dsc, na_trpl_c
+	</select>
+
+	<!-- 주류공급업체의 권한사업장 조회 -->
+	<select id="getRightsBizPlaceLiq" parameterType="java.util.Map" resultType="java.util.Map">
+	
+		SELECT NA_TRPL_C,  CLNTNM, NA_MBCO_DSC 
+		FROM
+		 (
+		 SELECT 
+		       DISTINCT A.NA_TRPL_C,  '['||A.NA_TRPL_C||'] '||B.CLNTNM CLNTNM, B.NA_MBCO_DSC 
+		  FROM TB_FD_IM_TRPL A
+		     , TB_TR_TRPL_CIF B
+		 WHERE A.NA_TRPL_C = B.NA_TRPL_C
+		   AND B.UP_NA_TRPL_C = '${NA_TRPL_C}' /* '8801021000213' */         
+		   AND A.DDLY_AGCY_DSC = '1' /* 직송 여부 : '1' (여), '2' (부)*/
+		   AND B.DEL_YN='0'
+		 )
+		   
+		   UNION                                                         
+		  SELECT ' ', '-----사업장없음-----', ''    
+		    FROM DUAL                                                    
+		    WHERE NOT EXISTS 
+		    (
+		      SELECT 'T' 
+		      FROM TB_TR_TRPL_CIF 
+		      WHERE NA_TRPL_C = '${NA_TRPL_C}'
+		      AND DEL_YN='0'
+		     )
+		 ORDER BY NA_MBCO_DSC, NA_TRPL_C
+	</select>
+	
+	<!-- 권한사업장 조회 (위탁대리점인 경우, 상위거래처 조회) -->
+	<select id="getRightsBizPlaceForTruAgcy" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*getRightsBizPlaceForTruAgcy*/
+		       B.NA_TRPL_C, '['||B.NA_TRPL_C||'] '||B.CLNTNM CLNTNM, B.NA_MBCO_DSC
+		  FROM TB_TR_TRPL_CIF A, TB_TR_TRPL_CIF B
+		 WHERE A.UP_NA_TRPL_C = B.NA_TRPL_C  /* 위탁대리점의 상위거래처코드 */
+		   AND A.NA_TRPL_C  = #{NA_TRPL_C}     /* 위탁대리점의 거래처코드 */
+		   AND A.NA_MBCO_DSC = '5'             /* 위탁대리점 */
+		   AND A.DEL_YN = '0'
+		   AND B.DEL_YN = '0'
+		 UNION
+		SELECT ' ', '-----사업장없음-----', ''
+		  FROM DUAL
+		 WHERE NOT EXISTS (
+		           SELECT B.NA_TRPL_C
+		             FROM TB_TR_TRPL_CIF A, TB_TR_TRPL_CIF B
+		            WHERE A.UP_NA_TRPL_C = B.NA_TRPL_C
+		              AND A.NA_TRPL_C  = #{NA_TRPL_C}
+		              AND A.NA_MBCO_DSC = '5'
+		              AND A.DEL_YN = '0'
+		              AND B.DEL_YN = '0'
+		       )
+	</select>
+		
+	<select id="getPortalCodeList" parameterType="java.util.Map" resultType="Map">
+		SELECT   SIMP_C
+		       , SIMP_CNM
+		       , SIMP_C_EXPL
+		        
+		FROM MG_TPC_AMN A, MG_COMN_C_AMN B
+		WHERE A.SIMP_TPC = #{codeKey}
+			AND A.SIMP_TPC = B.SIMP_TPC
+			AND A.UYN='Y'
+			AND B.UYN='Y'
+		<if test="codeKey == 'ELT_STS'">
+		UNION 
+		SELECT '10' AS SIMP_C
+		      ,'계약종료' AS SIMP_CNM
+		      ,'전자계약상태'  AS SIMP_C_EXPL
+		  FROM DUAL
+		</if>
+		<if test="codeKey != 'ELT_STS'">
+		ORDER BY B.SIMP_C_SORT_SQ
+		</if>		
+	</select>
+
+	<select id="getMenuVersion" parameterType="java.util.Map" resultType="java.util.Map">
+	    SELECT FLNM, VERSION FROM PT_MENU_AMN A
+ 		WHERE A.FLNM IS NOT NULL
+	</select>
+	
+	<update id="setMenuVersion" parameterType="java.util.Map">
+	    UPDATE PT_MENU_AMN SET version=#{VERSION}
+ 		WHERE FLNM IS NOT NULL
+	</update>
+	
+	<select id="getRgnCode" parameterType="java.util.Map" resultType="java.util.Map">
+	   SELECT NA_RGN_C SIMP_C
+	         ,RGN_CNM SIMP_CNM
+	 	 FROM TB_TR_RGN
+		WHERE UP_NA_RGN_C IS NULL
+		ORDER BY NA_RGN_C
+	</select>
+	
+	<select id="getRgnCodeD" parameterType="java.util.Map" resultType="java.util.Map">
+	   SELECT NA_RGN_C SIMP_C
+	         ,RGN_CNM SIMP_CNM
+	 	 FROM TB_TR_RGN
+		WHERE UP_NA_RGN_C = #{SIMP_C}
+		ORDER BY NA_RGN_C
+	</select>
+</mapper>

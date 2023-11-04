@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Quartz Scheduler -->
+<!-- 
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+			</props>
+		</property>
+		<property name="triggers">
+			<list>
+
+				<ref bean="cron_tempFile" />
+				<ref bean="cron_messageSender" />
+				<ref bean="cron_messageResender" />
+				<ref bean="cron_dbErrorMsgSmsSender" />
+				<ref bean="cron_ntsErrorSmsSender" />
+				<ref bean="cron_csltRqSmsSendingJob_day" />
+				<ref bean="cron_csltRqSmsSendingJob_min" />
+				<ref bean="cron_certInfoSmsSender" />
+			</list>
+		</property>
+	</bean>
+ -->
+ 
+<!-- 	<bean id="messageSenderService" class="com.nh.escm.common.message.service.MessageSenderService"/> -->
+<!-- 	<bean id="sequenceKeyService"   class="com.nh.escm.common.service.SequenceKeyService"/> -->
+<!-- 	<bean id="tempFile"            class="com.nh.escm.common.scheduling.file.TempFileJob"/> -->
+<!-- 	<bean id="messageSender"       class="com.nh.escm.common.scheduling.message.MessageSendingJob"/> -->
+<!-- 	<bean id="messageResender"     class="com.nh.escm.common.scheduling.message.PushErrorReSendingJob"/> -->
+	<!-- 
+	<bean id="dbErrorMsgSmsSender" class="com.nh.escm.common.scheduling.sms.DBErrorSmsSendingJob"/>
+	 -->
+<!-- 	<bean id="csltRqSmsSendingJob" class="com.nh.escm.common.scheduling.sms.CsltRqSmsSendingJob"/> -->
+<!-- 	<bean id="certInfoSmsSender" class="com.nh.escm.common.scheduling.sms.CertInfoSmsSendingJob"/> -->
+	
+	<!-- 
+	<bean id="ntsErrorSmsSender"   class="com.nh.escm.common.scheduling.sms.NtsErrorSmsSendingJob"/>
+	-->
+
+	<!--  
+	<bean id="job_tempFile" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="tempFile" />
+		<property name="targetMethod" value="start" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_messageSender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="messageSender" />
+		<property name="targetMethod" value="start" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_messageResender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="messageResender" />
+		<property name="targetMethod" value="start" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_dbErrorMsgSmsSender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dbErrorMsgSmsSender" />
+		<property name="targetMethod" value="start" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_ntsErrorSmsSender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ntsErrorSmsSender" />
+		<property name="targetMethod" value="start" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_csltRqSmsSendingJob_day" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="csltRqSmsSendingJob" />
+		<property name="targetMethod" value="start_day" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_csltRqSmsSendingJob_min" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="csltRqSmsSendingJob" />
+		<property name="targetMethod" value="start_min" />
+		<property name="concurrent" value="false" />
+	</bean>
+	 -->
+	
+<!-- 	<bean id="job_certInfoSmsSender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="certInfoSmsSender" /> -->
+<!-- 		<property name="targetMethod" value="start" /> -->
+<!-- 		<property name="concurrent" value="false" /> -->
+<!-- 	</bean> -->
+	
+	<!-- 
+	<bean id="cron_tempFile" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_tempFile" />
+		<property name="cronExpression" value="0 0 */1 * * ?" />
+	</bean>
+
+	<bean id="cron_messageSender" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_messageSender" />
+		<property name="cronExpression" value="*/30 * * * * ?" />
+	</bean>
+	<bean id="cron_messageResender" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_messageResender" />
+		<property name="cronExpression" value="0 */1 * * * ?" />
+	</bean>
+	<bean id="cron_dbErrorMsgSmsSender" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_dbErrorMsgSmsSender" />
+		<property name="cronExpression" value="0 */1 * * * ?" />
+	</bean>
+	<bean id="cron_ntsErrorSmsSender" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_ntsErrorSmsSender" />
+		<property name="cronExpression" value="0 */1 * * * ?" />
+	</bean>
+
+	<bean id="cron_csltRqSmsSendingJob_day" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_csltRqSmsSendingJob_day" />
+		<property name="cronExpression" value="0 0 9 ? * MON-FRI" />
+	</bean>
+	
+	<bean id="cron_csltRqSmsSendingJob_min" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job_csltRqSmsSendingJob_min" />
+		<property name="cronExpression" value="0 1-59 9-18 ? * MON-FRI" />
+	</bean>
+	 -->
+
+<!-- 	<bean id="cron_certInfoSmsSender" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="job_certInfoSmsSender" /> -->
+<!-- 		<property name="cronExpression" value="0 30 09 ? * MON-FRI" /> -->
+<!-- 	</bean> -->
+	
+	<!--  
+	
+	
+	-->
+
+</beans>

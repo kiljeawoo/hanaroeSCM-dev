@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="billing">
+	<update id="markUp" parameterType="java.util.Map">
+		UPDATE
+		     ${TABLE_NAME}
+		SET
+		      FS_RMS_DT    = DECODE(FS_RMS_DT, NULL, TO_CHAR(SYSDATE,'YYYYMMDD'), FS_RMS_DT)
+		     ,FS_RMS_HR    = DECODE(FS_RMS_DT, NULL, TO_CHAR(SYSDATE,'HH24MISS'), FS_RMS_HR)
+		     ,LS_RMS_DT    = TO_CHAR(SYSDATE,'YYYYMMDD')
+		     ,LS_RMS_HR    = TO_CHAR(SYSDATE,'HH24MISS')
+		     ,INQ_CN       = DECODE(INQ_CN, NULL, 1, INQ_CN+1)
+		     ,RMS_SPYPL_C  = #{GLN}
+		     ,MB_ID        = #{MB_ID}
+		     ,DOC_RMS_LOC_DSC	= 'WEB'
+		Where 1=1     
+		<if test="PK_MAP != null">
+			<foreach item="value" index="key" collection="PK_MAP" open="AND" separator=" AND" close="">
+	        	${key}=#{value}
+	  		</foreach>
+  		</if>
+  		<if test="DT_MAP != null and DT_MAP.DT_NAME !=null and DT_MAP.START_DT != null and DT_MAP.END_DT != null">
+  			AND ${DT_MAP.DT_NAME} BETWEEN #{DT_MAP.START_DT} AND #{DT_MAP.END_DT}
+  		</if>
+  		<if test="STRING_WHERER != null">
+	        AND ${STRING_WHERER}
+  		</if>
+		   
+	</update>
+	
+	<select id="markUpP" statementType="CALLABLE" parameterType="java.util.Map">
+		CALL NHVANINF.PR_BIL_EDI_LOG(#{SPYPL_NA_TRPL_C}, #{DVYAA_NA_TRPL_C}, #{NA_DVY_PLASH_SLPNO}, #{DVY_PLA_DT}, #{GLN}, #{MB_ID})
+	</select>
+	
+	<!--
+	       
+	       카테고리판매정보 월별 판매정보 다운로드
+	    
+	   
+	 -->
+	<select id="markUpClsSalesMonExcel" statementType="CALLABLE" parameterType="java.util.Map">
+
+		MERGE INTO NHVANPTL.BL_SL_RMS_LOG LOG
+		USING 
+		(
+				SELECT   
+		            DISTINCT 
+		            TO_CHAR(SYSDATE, 'YYYYMMDD') AS DN_DT
+		           , G.TRPL_C
+		           , A.SL_YM AS SL_YM
+		           , #{DT_DSC} AS DT_DSC
+		           , A.WRS_C    
+		           , SYSDATE FSRG_DTM
+		           , 'system' FS_RGM
+		           , SYSDATE LSCHG_DTM
+		           , 'system' LS_CHGM
+		
+				  FROM
+		             NHVANSTS.IAS_SL_MM_BZPLC_WRS A
+		           , NHVANINF.TB_GD_WRS B
+		           , NHVANINF.TB_TR_TRPL_CIF C
+		           , NHVANINF.TB_GD_WRS_CLF D
+		           , NHVANPTL.PT_USR_CONSENT E
+		           , NHVANINF.TB_CM_BZPL F
+		           , NHVANINF.TB_TR_TRPL_CIF H
+		           , NHVANSTS.IAS_CLS_INTE_WRS G
+		           
+				 WHERE 
+		               A.WRS_C         = B.NA_WRS_C
+		           AND B.MFT_NA_TRPL_C = C.NA_TRPL_C
+		           AND B.NA_WRS_LCLC   = D.NA_WRS_LCLC  
+		           AND B.NA_WRS_MCLC   = D.NA_WRS_MCLC 
+		           AND B.NA_WRS_SCLC   = D.NA_WRS_SCLC 
+		           AND B.NA_WRS_DTCF_C = D.NA_WRS_DTCF_C 
+		           AND C.UP_NA_TRPL_C  = E.NA_TRPL_C 
+		           AND A.BZPLC         = F.NA_BZPLC 
+		           AND F.NA_BZPLC      = H.NA_TRPL_C 
+		           AND B.NA_WRS_C      = G.WRS_C
+		           AND A.SL_YM         = #{SL_YM}
+		           AND E.BSN_DSC       = 'sales_price'
+		           -- AND E.CONSENT_YN    = 'Y'
+		           AND G.TRPL_C        = #{TRPL_C}
+		           
+				<if test="BZPLC != null and BZPLC.length() > 0">
+		           AND A.BZPLC         =  #{BZPLC}
+				</if>
+	
+				<if test="LCLC != null and LCLC.length() > 0">
+		           AND B.NA_WRS_LCLC         =  #{LCLC}
+				</if>
+				
+				<if test="MCLC != null and MCLC.length()  > 0">
+		           AND B.NA_WRS_MCLC         =  #{MCLC}
+				</if>
+				
+				<if test="SCLC != null and SCLC.length()  > 0">
+		           AND B.NA_WRS_SCLC         =  #{SCLC}
+				</if>
+				
+				<if test="DTCF_C != null and SCLC.length()  > 0">
+		           AND B.NA_WRS_DTCF_C         =  #{DTCF_C}
+				</if>
+				
+		    ORDER BY 1, 2, 3, 4
+		) SLS
+		ON (
+		        LOG.TRPL_C = SLS.TRPL_C
+		    AND LOG.SL_YM  = SLS.SL_YM
+		    -- AND LOG.DT_DSC  = SLS.DT_DSC
+		    AND LOG.WRS_C  =  SLS.WRS_C
+		    AND LOG.DN_DT  >  TO_CHAR(SYSDATE - 31, 'YYYYMMDD')
+		)
+		WHEN MATCHED THEN
+		  UPDATE SET   LOG.LSCHG_DTM = SYSDATE
+		             , LOG.LS_CHGM   = #{MB_ID}
+		WHEN NOT MATCHED THEN
+		INSERT (
+		          LOG.DN_DT 
+		        , LOG.TRPL_C
+		        , LOG.SL_YM
+		        , LOG.DT_DSC
+		        , LOG.WRS_C
+		        , LOG.SQWW
+		        , LOG.FSRG_DTM
+		        , LOG.FS_RGM
+		        , LOG.LSCHG_DTM
+		        , LOG.LS_CHGM
+		       )
+		VALUES (      
+		      TO_CHAR(SYSDATE, 'YYYYMMDD')
+		    , SLS.TRPL_C
+		    , SLS.SL_YM
+		    ,  #{DT_DSC}
+		    , SLS.WRS_C
+		    , #{SL_YM}
+		    , SLS.FSRG_DTM
+		    , #{MB_ID}
+		    , SLS.LSCHG_DTM
+		    , #{MB_ID}
+		    )
+
+	</select>
+	
+	
+	<!--
+	       
+	       카테고리판매정보주별 판매정보 다운로드
+	    
+	   
+	 -->
+	<select id="markUpClsSalesWeekExcel" statementType="CALLABLE" parameterType="java.util.Map">
+
+		MERGE INTO NHVANPTL.BL_SL_RMS_LOG LOG
+		USING 
+		(
+				SELECT   
+		            DISTINCT 
+		            TO_CHAR(SYSDATE, 'YYYYMMDD') AS DN_DT
+		           , G.TRPL_C
+		           , (SELECT SUBSTR(SQWW, 1, 4)||SQ_MM AS SL_YM FROM IAS_SQWW WHERE SQWW = A.SQWW ) AS SL_YM
+		           , #{DT_DSC} AS DT_DSC
+		           , A.WRS_C    
+		           , SYSDATE FSRG_DTM
+		           , 'system' FS_RGM
+		           , SYSDATE LSCHG_DTM
+		           , 'system' LS_CHGM
+		
+				  FROM
+		             NHVANSTS.IAS_SL_WW_BZPLC_WRS A
+		           , NHVANINF.TB_GD_WRS B
+		           , NHVANINF.TB_TR_TRPL_CIF C
+		           , TB_GD_WRS_CLF D
+		           , NHVANPTL.PT_USR_CONSENT E
+		           , NHVANINF.TB_CM_BZPL F
+		           , NHVANINF.TB_TR_TRPL_CIF H
+		           , NHVANSTS.IAS_CLS_INTE_WRS G
+		           
+				 WHERE 
+		               A.WRS_C         = B.NA_WRS_C
+		           AND B.MFT_NA_TRPL_C = C.NA_TRPL_C
+		           AND B.NA_WRS_LCLC   = D.NA_WRS_LCLC  
+		           AND B.NA_WRS_MCLC   = D.NA_WRS_MCLC 
+		           AND B.NA_WRS_SCLC   = D.NA_WRS_SCLC 
+		           AND B.NA_WRS_DTCF_C = D.NA_WRS_DTCF_C 
+		           AND C.UP_NA_TRPL_C  = E.NA_TRPL_C 
+		           AND A.BZPLC         = F.NA_BZPLC 
+		           AND F.NA_BZPLC      = H.NA_TRPL_C 
+		           AND B.NA_WRS_C      = G.WRS_C
+		           AND A.SQWW         = #{SL_YM}
+		           AND E.BSN_DSC       = 'sales_price'
+		           -- AND E.CONSENT_YN    = 'Y'
+		           AND G.TRPL_C        = #{TRPL_C}
+		           
+				<if test="BZPLC != null and BZPLC.length() > 0">
+		           AND A.BZPLC         =  #{BZPLC}
+				</if>
+	
+				<if test="LCLC != null and LCLC.length() > 0">
+		           AND B.NA_WRS_LCLC         =  #{LCLC}
+				</if>
+				
+				<if test="MCLC != null and MCLC.length()  > 0">
+		           AND B.NA_WRS_MCLC         =  #{MCLC}
+				</if>
+				
+				<if test="SCLC != null and SCLC.length()  > 0">
+		           AND B.NA_WRS_SCLC         =  #{SCLC}
+				</if>
+				
+				<if test="DTCF_C != null and SCLC.length()  > 0">
+		           AND B.NA_WRS_DTCF_C         =  #{DTCF_C}
+				</if>
+				
+		    ORDER BY 1, 2, 3, 4
+		) SLS
+		ON (
+		        LOG.TRPL_C = SLS.TRPL_C
+		    AND LOG.SL_YM  = SLS.SL_YM
+		  --  AND LOG.DT_DSC  = SLS.DT_DSC
+		    AND LOG.WRS_C  =  SLS.WRS_C
+		    AND LOG.DN_DT  >  TO_CHAR(SYSDATE - 31, 'YYYYMMDD')
+		)
+		WHEN MATCHED THEN
+		  UPDATE SET   LOG.LSCHG_DTM = SYSDATE
+		             , LOG.LS_CHGM   = #{MB_ID}
+		WHEN NOT MATCHED THEN
+		INSERT (
+		          LOG.DN_DT 
+		        , LOG.TRPL_C
+		        , LOG.SL_YM
+		        , LOG.DT_DSC
+		        , LOG.WRS_C
+		        , LOG.SQWW
+		        , LOG.FSRG_DTM
+		        , LOG.FS_RGM
+		        , LOG.LSCHG_DTM
+		        , LOG.LS_CHGM
+		       )
+		VALUES (      
+		      TO_CHAR(SYSDATE, 'YYYYMMDD')
+		    , SLS.TRPL_C
+		    , SLS.SL_YM
+		    , #{DT_DSC}
+		    , SLS.WRS_C
+		    , #{SL_YM}
+		    , SLS.FSRG_DTM
+		    , #{MB_ID}
+		    , SLS.LSCHG_DTM
+		    , #{MB_ID}
+		    )
+
+	</select>
+	
+</mapper>

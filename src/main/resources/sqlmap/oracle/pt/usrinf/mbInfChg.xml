@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mbInfChgDAO">
+  
+  	<select id="isExistUser"  parameterType="java.util.Map" resultType="int">
+		SELECT /*isExistUser*/ 
+				COUNT (*) 
+		FROM PT_USR_INF
+			WHERE MB_ID = #{MB_ID}
+	         AND MB_PW = ECL_DIGEST(#{MB_PW})
+	</select>
+	
+	<select id="retrieveMB"   parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveMB*/ 
+			A.NA_TRPL_C ,
+            SUBSTR(B.BIZ_NUMBER,0,3) BZNO1, 
+	        SUBSTR(B.BIZ_NUMBER,4,2) BZNO2, 
+	        SUBSTR(B.BIZ_NUMBER,6,5) BZNO3,
+	        SUBSTR(A.BZNO,0,3) BRC_BZNO1, 
+	        SUBSTR(A.BZNO,4,2) BRC_BZNO2, 
+	        SUBSTR(A.BZNO,6,5) BRC_BZNO3,  
+            B.REPMNM AS REPMNM,
+            B.FZIP , 
+		    B.RZIP ,
+            B.ATEL, 
+            B.HTEL ,  
+            B.STEL,             
+        	A.MB_ID,
+            B.CLNTNM ,
+        	B.DONGUP , B.DONGBW ,
+        	A.USR_TELNO,
+            ECL_DECRYPT(A.USR_MPNO) AS USR_MPNO ,
+			A.USR_NM ,  A.SMS_RMS_YN ,  
+		    A.EMAIL_RMS_YN  , 
+            CASE WHEN A.COMP_TPC IS NULL THEN '1010' ELSE A.COMP_TPC END AS COMP_TPC,             
+       		SUBSTR(A.USR_EMAIL,1,(INSTR(USR_EMAIL, '@')-1))   AS USR_EMAIL01,
+       		SUBSTR(A.USR_EMAIL,(INSTR(USR_EMAIL, '@')+1))     AS USR_EMAIL02,
+            A.BIRTH, A.SEX_DSC,
+            A.ENT_PRG_STSC,
+            A.ENT_PRG_CNTN,
+            B.NA_MBCO_DSC,
+            A.CHRG_BSNNM ,
+            A.BL_CHG_YN,
+            A.SVC_CHG_YN,
+            A.AUTH_CHG_YN,
+            A.DEPT_ID,
+            D.DEPT_NAME
+		FROM PT_USR_INF A ,TB_TR_TRPL_CIF B, NHVANPTL.PT_NH_DEPT_INF D
+		WHERE A.MB_ID=#{MB_ID}
+		<if test="MB_PW != null and MB_PW.length() > 0">
+			AND A.MB_PW = ECL_DIGEST(#{MB_PW})
+		</if>
+		AND A.NA_TRPL_C = B.NA_TRPL_C
+		AND A.DEPT_ID = D.DEPT_ID(+)
+	</select>
+	
+	<!-- TB_PD_MD_USR_INF 사용 update -->
+	<update id = "updateTbpdmd"  parameterType="java.util.Map">
+		UPDATE /*updateTbpdmd*/
+			TB_PD_MD_USR_INF
+			<if test = " check == 0 ">
+		   SET MD_USE_CD = '0'
+		   </if>
+		   
+		   <if test = " check == 1 ">
+		   SET MD_USE_CD = '1'
+		   </if>
+		   ,LSCHG_DTM = SYSDATE
+		   ,LS_CHGM   = #{MB_ID}
+		 WHERE MD_ID  = #{MB_ID}
+	</update>
+	
+	<!-- TB_PD_MD_USR_INF insert -->
+	<insert id = "insertTbpdmdUSr" parameterType="com.nh.escm.pt.usrinf.vo.MbInfChgVO">
+		INSERT INTO TB_PD_MD_USR_INF /* insertTbpdmdUSr */
+								( MD_ID,
+								  MD_MNGR_CD,
+								  MD_CHGR_CD,
+						          MD_USE_CD,
+	                              FSRG_DTM,
+	                              FS_RGM
+	                              )
+	         VALUES(#{MB_ID},
+	         		'0',
+	         		'0',
+	         		'1',
+	                SYSDATE,
+	                #{MB_ID}
+	        		 )
+	</insert>
+
+	<update id="updatePtUsrInf"  parameterType="com.nh.escm.pt.usrinf.vo.MbInfChgVO" >
+		UPDATE /*updatePtUsrInf*/
+			PT_USR_INF
+		SET LSCHG_DTM = SYSDATE 
+			, LS_CHGM =#{MB_ID}	
+			, REQ_DT = #{REQ_DT}		
+		<if test="SVC_CHG_YN!= null and SVC_CHG_YN.length() > 0">
+			, SVC_CHG_YN = #{SVC_CHG_YN}
+		</if>
+		<if test="AUTH_CHG_YN!= null and AUTH_CHG_YN.length() > 0">
+			, AUTH_CHG_YN = #{AUTH_CHG_YN}
+		</if>
+		<if test="BL_CHG_YN!= null and BL_CHG_YN.length() > 0">
+			, BL_CHG_YN = #{BL_CHG_YN}
+		</if>
+		<if test="BIRTH!= null and BIRTH.length() > 0">
+			, BIRTH = #{BIRTH}
+		</if>
+		<if test="MB_PW!= null and MB_PW.length() > 0">
+			, MB_PW = ecl_digest(#{MB_PW})
+		</if>						
+		<if test="SEX_DSC!= null and SEX_DSC.length() > 0">
+			, SEX_DSC = #{SEX_DSC}
+		</if>			
+		<if test="COMP_TPC!= null and COMP_TPC.length() > 0">
+			, COMP_TPC = #{COMP_TPC}
+		</if>		
+		<if test="USR_NM!= null and USR_NM.length() > 0">
+			, USR_NM = #{USR_NM}
+		</if>
+		<if test="USR_MPNO!= null and USR_MPNO.length() > 0">
+			, USR_MPNO = ecl_encrypt(#{USR_MPNO})
+		</if>				
+		<if test="SMS_RMS_YN!= null and SMS_RMS_YN.length() > 0">
+			, SMS_RMS_YN = #{SMS_RMS_YN}
+		</if>		
+		<if test="EMAIL_RMS_YN!= null and EMAIL_RMS_YN.length() > 0">
+			, EMAIL_RMS_YN = #{EMAIL_RMS_YN}
+		</if>
+		<if test="USR_EMAIL!= null and USR_EMAIL.length() > 0">
+			, USR_EMAIL = #{USR_EMAIL}
+		</if>
+		<if test="PW_LSRG_DT!= null and PW_LSRG_DT.length() > 0">
+			, PW_LSRG_DT = #{PW_LSRG_DT}
+		</if>	
+		<if test="ENT_PRG_STSC!= null and ENT_PRG_STSC.length() > 0">
+			, ENT_PRG_STSC = #{ENT_PRG_STSC}
+		</if>
+		<if test="CHRG_BSNNM!= null and CHRG_BSNNM.length() > 0">
+			, CHRG_BSNNM = #{CHRG_BSNNM}
+		</if>
+		<if test="BZNO!= null and BZNO.length() > 0">
+			, BZNO = #{BZNO}
+		</if>
+		<if test="HOFF_APV_YN!= null and HOFF_APV_YN.length() > 0">
+			, HOFF_APV_YN = #{HOFF_APV_YN}
+		</if>	
+		<choose>
+			<when test = "USR_TELNO!= null and USR_TELNO.length() > 0">
+			, USR_TELNO = #{USR_TELNO}
+			</when>
+			<otherwise>
+			, USR_TELNO = NULL
+			</otherwise>
+		</choose>
+		WHERE MB_ID = #{MB_ID}
+	</update>
+	
+	<select id="retrieveUsrAuthLst"   parameterType="java.util.Map" resultType="java.util.Map">	     
+		SELECT /* retrieveUsrAuthLst */
+		       MB_ID
+		     , USR_AUTH_DSC
+		     , AUTH_RG_DTM
+		     , ENT_PRG_STSC
+		     , RQ_DSC
+		  FROM PT_USR_AUTH_HST A
+		 WHERE MB_ID = #{MB_ID}
+		   AND AUTH_RG_DTM = (
+		           SELECT MAX(AUTH_RG_DTM) FROM PT_USR_AUTH_HST WHERE MB_ID = A.MB_ID
+		       )
+		   AND ENT_PRG_STSC IN ('0', '3')  /* 최근이력 중 가입신청/수정요청 상태만 사용 */
+		 UNION
+		SELECT MB_ID
+		     , USR_AUTH_DSC
+		     , TO_CHAR(LSCHG_DTM, 'YYYYMMDDHH24MISS') AS AUTH_RG_DTM
+		     , '1' AS ENT_PRG_STSC
+		     , '1' AS RQ_DSC
+		  FROM PT_USR_AUTH B
+		 WHERE MB_ID = #{MB_ID}
+		   AND NOT EXISTS (                /* 가입신청/수정요청 상태가 아닌 경우, 마스터 정보 사용 */
+		           SELECT 1
+		             FROM PT_USR_AUTH_HST A
+		            WHERE MB_ID = #{MB_ID}
+		              AND AUTH_RG_DTM = (
+		                      SELECT MAX(AUTH_RG_DTM) FROM PT_USR_AUTH_HST WHERE MB_ID = A.MB_ID
+		                  )
+		              AND ENT_PRG_STSC IN ('0', '3')  /* 최근이력 중 가입신청/수정요청 상태만 사용 */
+		              AND A.USR_AUTH_DSC = B.USR_AUTH_DSC
+		       )
+		 ORDER BY USR_AUTH_DSC
+	</select>
+	
+	<select id="retrieveUsrAuthMstLst"   parameterType="java.util.Map" resultType="java.util.Map">	     
+	     SELECT /*retrieveUsrAuthMstLst*/
+	     		MB_ID,
+		       	USR_AUTH_DSC,
+		       	1 RQ_DSC ,
+		       	1 ENT_PRG_STSC				
+		 FROM PT_USR_AUTH
+		 WHERE MB_ID =#{MB_ID}			     
+	</select>
+	
+	<sql id="sql_ctgrInfLst">
+	    SELECT /*retriveCtgrInfLst*/
+	    	ROWNUM AS RN ,A.NA_TRPL_C, A.CRGR_SEQ, A.NA_WRS_LCLC,  A.NA_WRS_MCLC, A.NA_WRS_SCLC, A.LS_CHGM ,
+       		B.WRS_LCLFNM, B.WRS_MCLFNM, B.WRS_SCLFNM , A.SVC_ST_DT, A.SVC_ED_DT, C.USR_NM LS_CHGM_NM
+		FROM 
+		(SELECT *
+		  FROM PT_OCMA_CRGR
+		 WHERE NA_TRPL_C = #{NA_TRPL_C}
+			AND 
+		 		(NA_WRS_LCLC, NA_WRS_MCLC, NA_WRS_SCLC, CRGR_SEQ) IN
+		          (  SELECT NA_WRS_LCLC,
+		                    NA_WRS_MCLC,
+		                    NA_WRS_SCLC,
+		                    MAX (CRGR_SEQ)
+		               FROM PT_OCMA_CRGR
+		              WHERE NA_TRPL_C = #{NA_TRPL_C}
+		           GROUP BY NA_WRS_LCLC, NA_WRS_MCLC, NA_WRS_SCLC) 
+		 )A,
+		 (SELECT NA_WRS_LCLC,  NA_WRS_MCLC, NA_WRS_SCLC,WRS_LCLFNM,WRS_MCLFNM,WRS_SCLFNM
+			FROM TB_GD_WRS_CLF
+		GROUP BY NA_WRS_LCLC,  NA_WRS_MCLC, NA_WRS_SCLC,WRS_LCLFNM,WRS_MCLFNM,WRS_SCLFNM
+		) B ,
+		PT_USR_INF C
+		WHERE A.NA_WRS_LCLC = B.NA_WRS_LCLC
+			AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
+		    AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
+		    AND A.LS_CHGM = C.MB_ID (+)   	
+		    <if test="WRS_SCLFNM != null and WRS_SCLFNM.length() > 0">
+		    	AND B.WRS_SCLFNM LIKE #{WRS_SCLFNM} || '%'		    	
+		    </if>		    	
+	</sql> 
+	
+	<select id="retriveCtgrInfLst"   parameterType="java.util.Map" resultType="java.util.Map">	     
+		<include refid="sql_ctgrInfLst" />
+	</select>
+	
+	
+	<update id="updateCtgrInf"  parameterType="java.util.Map">
+		UPDATE PT_OCMA_CRGR
+		SET SVC_ED_DT =#{SVC_ED_DT}
+		  , LSCHG_DTM = SYSDATE
+		  , LS_CHGM = #{LS_CHGM}
+		 WHERE NA_TRPL_C =#{NA_TRPL_C}
+		 AND CRGR_SEQ = #{CRGR_SEQ}
+		 AND NA_WRS_LCLC=#{NA_WRS_LCLC}
+		 AND NA_WRS_MCLC = #{NA_WRS_MCLC}
+		 AND NA_WRS_SCLC = #{NA_WRS_SCLC}
+	</update>
+	
+	
+	
+	<insert id="insertCtgrInf"  parameterType="java.util.Map">		
+		<if test="STATUS != null and STATUS.equalsIgnoreCase('R')">
+	        INSERT /*updateCtgrInfTypeReInsert*/
+	        	 INTO PT_OCMA_CRGR 
+			SELECT NA_TRPL_C , 
+			 		( SELECT MAX(CRGR_SEQ) +1 FROM PT_OCMA_CRGR WHERE NA_TRPL_C =#{NA_TRPL_C} AND NA_WRS_LCLC = #{NA_WRS_LCLC} AND NA_WRS_MCLC =#{NA_WRS_MCLC} AND NA_WRS_SCLC = #{NA_WRS_SCLC}) ,
+			        NA_WRS_LCLC, 
+			        NA_WRS_MCLC, 
+			        NA_WRS_SCLC,
+			        #{SVC_ED_DT},
+					NULL,
+			        SYSDATE,
+			        #{LS_CHGM},
+			        SYSDATE,
+			        #{LS_CHGM}
+			 FROM PT_OCMA_CRGR 
+			 WHERE NA_TRPL_C =#{NA_TRPL_C} AND CRGR_SEQ =#{CRGR_SEQ} AND NA_WRS_LCLC =#{NA_WRS_LCLC} AND NA_WRS_MCLC =#{NA_WRS_MCLC} AND NA_WRS_SCLC = #{NA_WRS_SCLC}
+	    </if>    
+	    
+	    <if test="STATUS != null and STATUS.equalsIgnoreCase('I')">
+	        INSERT /*updateCtgrInfTypeInsert*/	        
+				INTO PT_OCMA_CRGR 
+			VALUES ( #{NA_TRPL_C},#{CRGR_SEQ},#{NA_WRS_LCLC}, #{NA_WRS_MCLC},#{NA_WRS_SCLC},#{SVC_ED_DT},NULL ,SYSDATE ,#{LS_CHGM} ,SYSDATE ,#{LS_CHGM})
+	    </if>		
+	</insert>
+	
+	<select id="existCtgr"  parameterType="java.util.Map" resultType="int">
+		SELECT /*existCtgr*/ 
+				COUNT (*) 
+		FROM PT_OCMA_CRGR
+			WHERE NA_TRPL_C = #{NA_TRPL_C}
+	          AND CRGR_SEQ = #{CRGR_SEQ}
+	          AND NA_WRS_LCLC = #{NA_WRS_LCLC}
+	          AND NA_WRS_MCLC = #{NA_WRS_MCLC}
+	          AND NA_WRS_SCLC = #{NA_WRS_SCLC}
+	</select>
+	
+	<select id="retrieveBranchBzno" parameterType="String" resultType="com.nh.escm.pt.usrinf.vo.BranchBznoVO">
+		SELECT /* retrieveBranchBzno */
+		       A.NA_TRPL_C
+		     , CASE WHEN B.CLNTNM IS NULL THEN A.CLNTNM ELSE B.CLNTNM END AS CLNTNM
+		     , CASE WHEN B.BZNO IS NULL THEN A.BIZ_NUMBER ELSE B.BZNO END AS BZNO
+		     , CASE WHEN B.REPMNM IS NULL THEN A.REPMNM ELSE B.REPMNM END AS REPMNM
+		     , CASE WHEN B.ZIP IS NULL THEN A.FZIP || A.RZIP ELSE B.ZIP END AS ZIP
+		     , CASE WHEN B.DONGUP IS NULL THEN A.DONGUP ELSE B.DONGUP END AS DONGUP
+		     , CASE WHEN B.DONGUP IS NULL THEN A.DONGBW ELSE B.DONGBW END AS DONGBW
+		     , CASE WHEN B.BZCCNM IS NULL THEN A.BZCCNM ELSE B.BZCCNM END AS BZCCNM
+		     , CASE WHEN B.BZTPNM IS NULL THEN A.BZTPNM ELSE B.BZTPNM END AS BZTPNM
+		     , B.TX_REG
+		  FROM TB_TR_TRPL_CIF A
+		       LEFT OUTER JOIN PT_BRANCH_BZNO B
+		               ON A.NA_TRPL_C = B.NA_TRPL_C
+		 WHERE A.NA_TRPL_C = #{NA_TRPL_C}
+	</select>
+	
+	<insert id="mergeBranchBzno" parameterType="com.nh.escm.pt.usrinf.vo.BranchBznoVO">
+		MERGE INTO NHVANPTL.PT_BRANCH_BZNO  /* mergeBranchBzno */
+		USING DUAL 
+		   ON (NA_TRPL_C = #{NA_TRPL_C})
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET BZNO       = #{BZNO}
+		           , REPMNM     = #{REPMNM}
+		           , ZIP        = #{ZIP}
+		           , DONGUP     = #{DONGUP}
+		           , DONGBW     = #{DONGBW}
+		           , BZCCNM     = #{BZCCNM}
+		           , BZTPNM     = #{BZTPNM}
+		           , LSCHG_DTM  = SYSDATE
+		           , LS_CHGM    = #{MB_ID}
+		           , CLNTNM     = #{CLNTNM}
+		           , TX_REG     = #{TX_REG}
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             NA_TRPL_C
+		           , BZNO
+		           , REPMNM
+		           , ZIP
+		           , DONGUP
+		           , DONGBW
+		           , BZCCNM
+		           , BZTPNM
+		           , FSRG_DTM
+		           , FS_RGM
+		           , LSCHG_DTM
+		           , LS_CHGM
+		           , CLNTNM
+		           , TX_REG
+		      ) VALUES (
+		             #{NA_TRPL_C}
+		           , #{BZNO}
+		           , #{REPMNM}
+		           , #{ZIP}
+		           , #{DONGUP}
+		           , #{DONGBW}
+		           , #{BZCCNM}
+		           , #{BZTPNM}
+		           , SYSDATE    /* FSRG_DTM */
+		           , #{MB_ID}
+		           , SYSDATE    /* LSCHG_DTM */
+		           , #{MB_ID}
+		           , #{CLNTNM}  /* CLNTNM */
+		           , #{TX_REG}
+		      )
+	</insert>
+	
+	<insert id="insertBranchBznoHst" parameterType="com.nh.escm.pt.usrinf.vo.BranchBznoVO">
+		INSERT INTO NHVANPTL.PT_BRANCH_HST (
+		       NA_TRPL_C
+		     , CHGM_DTM
+		     , BZNO
+		     , CLNTNM
+		     , REPMNM
+		     , ZIP
+		     , DONGUP
+		     , DONGBW
+		     , BZCCNM
+		     , BZTPNM
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		     , TX_REG
+		) VALUES (
+		       #{NA_TRPL_C}
+		     , #{currentDTM}
+		     , #{BZNO}
+		     , #{CLNTNM}  /* CLNTNM */
+		     , #{REPMNM}
+		     , #{ZIP}
+		     , #{DONGUP}
+		     , #{DONGBW}
+		     , #{BZCCNM}
+		     , #{BZTPNM}
+		     , SYSDATE    /* FSRG_DTM */
+		     , #{MB_ID}
+		     , SYSDATE    /* LSCHG_DTM */
+		     , #{MB_ID}
+		     , #{TX_REG}
+		)
+	</insert>
+
+	<select id="retrieveUsrConsent"   parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveUsrConsent*/ 
+                BSN_DSC
+              , NA_TRPL_C
+              , MB_ID
+              , CONSENT_YN
+              , FSRG_DTM
+              , FS_RGM
+              , LSCHG_DTM
+              , LS_CHGM
+		FROM NHVANPTL.PT_USR_CONSENT
+		WHERE TRIM(BSN_DSC) = #{BSN_DSC}
+	      AND NA_TRPL_C =#{NA_TRPL_C}
+	
+	</select>
+	
+	<select id="retrieveUsrConsentCount"   parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveUsrConsent*/ 
+               COUNT( NA_TRPL_C) CONSENT_COUNT
+
+		FROM NHVANPTL.PT_USR_CONSENT
+		WHERE TRIM(BSN_DSC) = #{BSN_DSC}
+	      AND NA_TRPL_C =#{NA_TRPL_C}
+	
+	</select>
+	
+	<insert id="insertUsrConsent"   parameterType="map" >
+		INSERT INTO PT_USR_CONSENT
+		(
+              BSN_DSC
+            , NA_TRPL_C
+            , MB_ID
+            , CONSENT_YN
+            , FSRG_DTM
+            , FS_RGM
+            , LSCHG_DTM
+            , LS_CHGM
+        )
+        VALUES
+		(
+              #{BSN_DSC      }    
+            , #{NA_TRPL_C    }
+            , #{MB_ID        }
+            , #{CONSENT_YN   }
+            , SYSDATE           /* FSRG_DTM  */
+            , #{MB_ID        }  /* FS_RGM    */
+            , SYSDATE           /* LSCHG_DTM */
+            , #{MB_ID        }  /* LS_CHGM   */ 
+        )
+
+	
+	</insert>
+	<!-- TB_PD_MD_USR_INF에 존재 하는지 체크 -->
+	<select id = "checkM" parameterType="java.util.Map" resultType="int">
+	  SELECT COUNT(*)
+        FROM TB_PD_MD_USR_INF
+       WHERE MD_ID = #{MB_ID}
+	</select>
+	
+	<select id="downloadExcelRetriveCtgrInfLst"   parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">	     
+		<include refid="sql_ctgrInfLst" />
+	</select>
+		
+	<!-- 내 현 소속 정보 조회(회원변경 관련) -->
+	<select id="retriveMyNhInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			U.USER_ID
+			, U.USER_NAME
+			, U.DEPT_ID
+			, U.POS
+			, U.GRADE
+			, D.DEPT_NAME
+			, D.DEPT_DSC
+			, D.NA_BZPLC
+			, D.BIZ_NUMBER
+			, I.MB_ID
+		FROM NHVANPTL.PT_NH_USR_INF U, NHVANPTL.PT_NH_DEPT_INF D, PT_USR_INF I
+		WHERE U.DEPT_ID = D.DEPT_ID
+		AND U.USER_ID = #{USERID}
+		AND U.USER_ID = I.MB_ID(+)
+	</select>
+	
+	<!-- 소속사업장 정보 조회(회원가입/변경 관련) -->
+	<select id="retriveNhUserBzplc" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			AA.USRID, AA.NA_BZPLC, AA.CLNTNM, AA.BIZ_NUMBER, AA.DEPT_ID, AA.DEPT_NAME, AA.DEPT_DSC,
+			CASE WHEN AA.DEPT_DSC = '03' THEN 'Y' /* 범농협 */
+			WHEN AA.DEPT_DSC != '03' AND BB.DEPT_ID IS NOT NULL AND AA.DEPT_ID != BB.DEPT_ID THEN 'P' /* 하나로유통 사용자, 부서코드 불일치 */
+			WHEN AA.DEPT_DSC != '03' AND BB.USER_ID IS NULL THEN 'N' /* 하나로유통 사용자 아님 */
+			ELSE 'Y' END AS JOIN_YN
+	    FROM (
+	    SELECT DISTINCT A.USRID, A.NA_BZPLC, B.CLNTNM, B.BIZ_NUMBER, NVL(C.DEPT_ID, '99999') DEPT_ID, C.DEPT_NAME, NVL(C.DEPT_DSC, '03') DEPT_DSC
+			FROM PT_NA_BZPL_AMN A, TB_TR_TRPL_CIF B,
+			(SELECT DEPT_ID, DEPT_NAME, DEPT_DSC, NVL(BLG_NA_BZPLC, NA_BZPLC) NA_BZPLC FROM (
+				SELECT DISTINCT DEPT_ID, DEPT_NAME, DEPT_DSC, NA_BZPLC, REGEXP_SUBSTR(BLG_NA_BZPLC, '[^,]+', 1, LEVEL) BLG_NA_BZPLC
+				FROM NHVANPTL.PT_NH_DEPT_INF WHERE USE_YN = 'Y' CONNECT BY LEVEL <![CDATA[<=]]> REGEXP_COUNT(BLG_NA_BZPLC, '[^,]+')+1
+			)) C
+			WHERE A.NA_BZPLC = B.NA_TRPL_C
+			AND A.NA_BZPLC = C.NA_BZPLC(+)
+			AND A.USRID = #{USERID}
+	    ) AA, NHVANPTL.PT_NH_USR_INF BB
+	    WHERE AA.USRID = BB.USER_ID(+)
+		ORDER BY AA.DEPT_DSC, AA.NA_BZPLC
+	</select>
+	
+	<!-- 본부/사업장 회원 소속 변경 -->
+	 <update id="updateNhUsrBzplc" parameterType="java.util.Map">
+		UPDATE PT_USR_INF SET
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+				NA_TRPL_C = #{NA_TRPL_C},
+				BZNO = #{BZNO},
+			</if>
+			DEPT_ID = #{DEPT_ID},
+			<if test="USR_TPC != null and USR_TPC.length() > 0">
+				USR_TPC = #{USR_TPC},
+			</if>
+			LSCHG_DTM = SYSDATE,
+			LS_CHGM = #{MB_ID}
+		WHERE MB_ID= #{MB_ID}
+		AND USR_TPC IN ('02', '03')
+	 </update>
+	 
+	 <insert id ="insertNhUserHistory" parameterType="java.util.Map">
+		INSERT INTO PT_USR_INF_HST (
+			MB_ID, HST_RG_DTM, MB_PW, USR_TPC, COMP_TPC, USR_NM, BIRTH, SEX_DSC, USR_TELNO, USR_MPNO, USR_EMAIL, SMS_RMS_YN, EMAIL_RMS_YN,
+			NA_TRPL_C, BZNO, BEFORE_USR_TPC, ENT_PRG_STSC, CHRG_BSNNM, PW_LSRG_DT, MB_CV_DSC, ENT_PRG_CNTN, HOFF_APV_YN, BL_CHG_YN, APV_MB_ID,
+			SVC_CHG_YN, AUTH_CHG_YN, REQ_DT, APV_DT, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM, CH_HST, DEPT_ID, BEFORE_DEPT_ID
+		)
+		SELECT
+			MB_ID,
+			TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'),
+			MB_PW,
+			<choose>
+				<when test="USR_TPC != null and USR_TPC.length() > 0">
+					#{USR_TPC},
+				</when>
+				<otherwise>
+					USR_TPC,
+				</otherwise>
+			</choose>
+			COMP_TPC,
+			USR_NM,
+			BIRTH,
+			SEX_DSC,
+			USR_TELNO,
+			USR_MPNO,
+			USR_EMAIL,
+			SMS_RMS_YN,
+			EMAIL_RMS_YN,
+			<choose>
+				 <when test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+					  #{NA_TRPL_C},
+					  #{BZNO},
+				 </when>
+				 <otherwise>
+					  NA_TRPL_C,
+					  BZNO,
+				 </otherwise>
+			</choose>
+			USR_TPC,
+			ENT_PRG_STSC,
+			CHRG_BSNNM,
+			PW_LSRG_DT,
+			MB_CV_DSC,
+			'내정보 회원유형변경',
+			HOFF_APV_YN,
+			BL_CHG_YN,
+			APV_MB_ID,
+			SVC_CHG_YN,
+			AUTH_CHG_YN,
+			REQ_DT,
+			APV_DT,
+			FSRG_DTM,
+			FS_RGM,
+			LSCHG_DTM,
+			#{MB_ID},
+			'MYINFO',
+			#{DEPT_ID},
+			DEPT_ID
+		FROM PT_USR_INF
+		WHERE MB_ID = #{MB_ID}
+	 </insert>
+	 
+	 <!-- 하나로유통 임직원 데이터 수정 -->
+	<update id="updateHanaroUserData" parameterType="java.util.Map" >
+    	UPDATE NHVANPTL.PT_NH_USR_INF SET
+			DEPT_ID = #{DEPT_ID},
+			DEPT_NAME = #{DEPT_NAME},
+			LSCHG_DTM = SYSDATE,
+			LS_CHGM = #{USER_ID}
+    	WHERE USER_ID = #{USER_ID} 
+	</update>
+	
+	<!-- 하나로유통 임직원 데이터 이력 등록 -->
+	<insert id="insertHanaroUserDataHst" parameterType="java.util.Map" >
+		INSERT INTO NHVANPTL.PT_NH_USR_HST(
+			USER_ID, HST_RG_DTM, USER_NAME, DEPT_ID, DEPT_NAME, POS, GRADE, WK_DS, CHG_CNTN, APL_YN, APL_DESC, FSRG_DTM, FS_RGM
+		) 
+		SELECT
+			USER_ID, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'), USER_NAME, DEPT_ID, DEPT_NAME, POS, GRADE, 'U', 'DEPT_ID|DEPT_NAME', 'Y', 'SUCCESS', SYSDATE, #{USER_ID}
+		FROM NHVANPTL.PT_NH_USR_INF
+		WHERE USER_ID = #{USER_ID}
+	</insert>
+	
+	<!-- MSGR_USER : 사용자 수정 -->
+	<update id="updateHanaroUserMsgr" parameterType="java.util.Map">
+		UPDATE MSGR_USER SET
+			DEPT_ID = #{DEPT_ID}
+			, DEPT_NAME = #{DEPT_NAME}
+	   	WHERE USER_ID = #{USER_ID}
+	</update>
+</mapper>

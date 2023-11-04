@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mbEntDAO">
+  	<!-- select 문  -->
+  	<select id="retriveNaTrplCList" parameterType="java.util.Map" resultType="java.util.Map">	
+		SELECT /*retriveNaTrplCList*/
+			   CIF.NA_TRPL_C
+			 , '[' || CIF.NA_TRPL_C || '] ' || CLNTNM AS CLNTNM
+			 , INF.USR_TPC
+		  FROM TB_TR_TRPL_CIF CIF
+			   LEFT OUTER JOIN ( SELECT DISTINCT NA_TRPL_C
+									  , USR_TPC
+								   FROM PT_USR_INF
+								  WHERE BZNO = #{BZNO}
+								    AND USR_TPC != '05' /* 전자계약전용은 모든 가입유형에 대응되어 제외 */
+							   ) INF
+							ON CIF.NA_TRPL_C = INF.NA_TRPL_C
+		 WHERE CIF.BIZ_NUMBER = #{BZNO}
+		   AND CIF.DEL_YN = '0'
+		<if test="USR_TPC != null and (USR_TPC == '01' or USR_TPC == '04' or USR_TPC == '81' or USR_TPC == '05')">
+		   AND CIF.USR_SYS_C IN ('21','91','95','96')
+		</if>
+		<if test="USR_TPC != null and USR_TPC != '05'">
+			AND CIF.NA_TRPL_DSC != '50' /* 전자계약전용일 때만 임시거래처코드 조회 */
+		</if>
+		ORDER BY NA_TRPL_C
+	</select>
+	
+	<select id="retrieveOfficeInfo"  parameterType="java.util.Map" resultType="java.util.Map">
+		 SELECT /*retrieveOfficeInfo*/
+	 		NA_TRPL_C, 
+	 		REPMNM, 
+	 		CLNTNM , 
+	 		FZIP , 
+	 		RZIP , 
+	 		ATEL AS TEL1 , 
+	 		HTEL AS TEL2, 
+	 		STEL AS TEL3, 
+	 		ECL_DECRYPT(MPSQNO) AS MPSQNO , 
+	 		NA_MBCO_DSC,
+	 		DONGUP , 
+	 		DONGBW , 
+	 		NAAC_DSC ,
+	 		USR_SYS_C,
+	 		SUBSTR(BIZ_NUMBER, 0, 3) AS BZNO1, 
+	 		SUBSTR(BIZ_NUMBER, 4, 2) AS BZNO2, 
+	 		SUBSTR(BIZ_NUMBER, 6, 5) AS BZNO3,
+	 		BZCCNM,
+      		BZTPNM  
+		FROM TB_TR_TRPL_CIF 
+		WHERE NA_TRPL_C =#{NA_TRPL_C}
+		<if test="BZNO != null and BZNO.length() > 0">
+			AND BIZ_NUMBER = #{BZNO}		
+		</if>
+		<if test="USR_TPC != null and (USR_TPC == '01' or USR_TPC == '04' or USR_TPC == '81')">
+			AND USR_SYS_C IN ('21','91','95','96')		
+		</if>
+	 </select>
+	 
+	 <select id="retrieveNaTrplCAuthLst"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveNaTrplCAuthLst*/ 
+			A.MB_ID, 
+			B.USR_NM,  
+			A.USR_AUTH_DSC 
+		FROM PT_USR_AUTH A, PT_USR_INF B
+		WHERE A.MB_ID = B.MB_ID
+			AND A.USR_AUTH_DSC IN  ('1','3')
+    		AND B.NA_TRPL_C =#{NA_TRPL_C}
+	 </select>
+	
+	<select id="retriveEntSvcList" parameterType="java.util.Map" resultType="java.util.Map">		
+		SELECT /* retriveEntSvcList */
+		       SVC_ID
+		     , SVC_ENT_DTM
+		     , ENT_PRG_STSC
+		     , RQ_DSC
+		  FROM PT_SVC_ENT_HST A
+		 WHERE NA_TRPL_C = #{NA_TRPL_C}
+		   AND SVC_ENT_DTM IN (
+		           SELECT MAX(SVC_ENT_DTM) FROM PT_SVC_ENT_HST WHERE NA_TRPL_C = A.NA_TRPL_C
+		       )
+		   AND ENT_PRG_STSC IN ('0', '3')  /* 최근이력 중 가입신청/수정요청 상태만 사용 */
+		 UNION
+		SELECT SVC_ID
+		     , TO_CHAR(LSCHG_DTM, 'YYYYMMDDHH24MISS') AS SVC_ENT_DTM
+		     , '1' AS ENT_PRG_STSC
+		     , '1' AS RQ_DSC
+		  FROM PT_SVC_ENT_AMN B
+		 WHERE NA_TRPL_C = #{NA_TRPL_C}
+		   AND NOT EXISTS (                /* 가입신청/수정요청 상태가 아닌 경우, 마스터 정보 사용 */
+		           SELECT 1
+		             FROM PT_SVC_ENT_HST A
+		            WHERE NA_TRPL_C = #{NA_TRPL_C}
+		              AND SVC_ENT_DTM IN (
+		                      SELECT MAX(SVC_ENT_DTM) FROM PT_SVC_ENT_HST WHERE NA_TRPL_C = A.NA_TRPL_C
+		                  )
+		              AND ENT_PRG_STSC IN ('0', '3')  /* 최근이력 중 가입신청/수정요청 상태만 사용 */
+		              AND A.SVC_ID = B.SVC_ID
+		       )
+		 ORDER BY SVC_ID
+	</select>
+	
+	
+	<select id="retriveEntSvcMstList" parameterType="java.util.Map" resultType="java.util.Map">		
+		SELECT /*retriveEntSvcMstList*/
+		       SVC_ID,
+		       1 ENT_PRG_STSC,
+		       1 RQ_DSC
+		FROM PT_SVC_ENT_AMN
+		WHERE NA_TRPL_C =#{NA_TRPL_C}			 
+		
+	</select>
+	
+	
+	<select id="retrievePayInfoMst" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrievePayInfoMst*/ 	
+			STL_METH_DSC,
+		    HOP_DRW_DD,
+		    DPRNM,
+		    PSCRP_DSC,
+		    DPR_NO,
+		    BNK_C,
+		    ACNO,
+		    BB_FLNM,
+		    BB_FL_TMPNM,
+		    BZ_RGWRRT_FLNM,
+		    BZ_RGWRRT_FL_TMPNM,
+		    FL_PATHNM,
+		    DRW_FTR_AGR_YN,
+		    FNC_TR_INF_OFR_AGR_YN,
+		    null AS ELSG_CNTN,
+		    NVL(TO_CHAR(FSRG_DTM, 'yyyymmdd'),'00000000') FSRG_DTM
+		FROM PT_PAY_INF
+		WHERE NA_TRPL_C =#{NA_TRPL_C}					
+	</select>
+	
+	<select id="retrievePayInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrievePayInfo*/
+        	STL_METH_DSC,
+		    HOP_DRW_DD,
+		    DPRNM,
+		    PSCRP_DSC,
+		    DPR_NO,
+		    BNK_C,
+		    ACNO,
+		    BB_FLNM,
+		    BB_FL_TMPNM,
+		    BZ_RGWRRT_FLNM,
+		    BZ_RGWRRT_FL_TMPNM,
+		    FL_PATHNM,
+		    DRW_FTR_AGR_YN,
+		    FNC_TR_INF_OFR_AGR_YN,
+		     (SELECT ELSG_CNTN
+		        FROM PT_PAY_INF_ELSG IA
+		       WHERE IA.ELSG_DTM = (
+							     SELECT MAX(ELSG_DTM) AS ELSG_DTM
+							       FROM PT_PAY_INF_ELSG
+							      WHERE NA_TRPL_C=#{NA_TRPL_C} 
+							       )
+				 AND IA.NA_TRPL_C = #{NA_TRPL_C}
+		     ) AS ELSG_CNTN        	
+        FROM ( SELECT MAX(PAY_INF_RG_DTM) PAY_INF_RG_DTM FROM PT_PAY_INF_HST WHERE NA_TRPL_C=#{NA_TRPL_C}) A, PT_PAY_INF_HST B
+        WHERE A.PAY_INF_RG_DTM  = B.PAY_INF_RG_DTM 
+          AND B.NA_TRPL_C=#{NA_TRPL_C}			
+	</select>
+	
+	 <select id="retrieveSvcAuthIng" parameterType="java.util.Map" resultType="java.util.Map">
+	 	SELECT /*retrieveSvcAuthIng*/
+			CASE WHEN SUM(BILING) > 0 THEN 'Y' ELSE 'N' END BILING_ING,
+    		CASE WHEN SUM(TAX) > 0 THEN 'Y' ELSE 'N' END 	TAX_ING
+		FROM (
+		SELECT    
+			 CASE WHEN USR_AUTH_DSC  =  '1' THEN '1' END BILING,
+		     CASE WHEN USR_AUTH_DSC  =  '3' THEN '1' END TAX      
+		FROM PT_USR_INF  A, PT_USR_AUTH_HST B
+		WHERE A.ENT_PRG_STSC = B.ENT_PRG_STSC
+			AND A.MB_ID = B.MB_ID
+		    AND A.ENT_PRG_STSC IN ('0','3')
+		    AND B.USR_AUTH_DSC IN ('1','3')
+		    AND A.NA_TRPL_C = #{NA_TRPL_C}
+		)	 
+	 </select>
+	 
+	 <!-- insert 문  -->
+	 <insert id="insertPtUsrAuthHst"  parameterType="java.util.Map" >
+ 		INSERT /*insertPtUsrAuthHst*/ INTO PT_USR_AUTH_HST  (MB_ID, USR_AUTH_DSC, AUTH_RG_DTM, ENT_PRG_STSC, NA_TRPL_C, RQ_DSC, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM)
+ 		VALUES ( #{MB_ID}, #{USR_AUTH_DSC},#{AUTH_RG_DTM},#{ENT_PRG_STSC}, #{NA_TRPL_C}, #{RQ_DSC}, SYSDATE, #{MB_ID}, SYSDATE, #{MB_ID} )
+ 	</insert>
+ 	
+	<insert id="insertPtSealAmnHst"  parameterType="java.util.Map" >
+ 		INSERT /*insertPtSealAmnHst*/ 
+ 			INTO PT_SEAL_AMN_HST
+ 		  	(NA_TRPL_C, SEAL_RG_DTM, SEAL_FL_TMPNM, SEAL_FLNM, SEAL_FL_PATHNM, ENT_PRG_STSC, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM)
+ 		VALUES (
+ 			 #{NA_TRPL_C}, #{SEAL_RG_DTM},#{SEAL_FL_TMPNM},#{SEAL_FLNM} ,#{SEAL_FL_PATHNM},#{ENT_PRG_STSC}, SYSDATE, #{MB_ID}, SYSDATE, #{MB_ID} 
+ 		)
+ 	</insert>
+ 	
+	 <insert id="insertPtUsrInf"  parameterType="com.nh.escm.pt.usrinf.vo.MbEntVO" >
+	 	INSERT INTO /*insertPtUsrInf*/ PT_USR_INF(
+	 		MB_ID, MB_PW , PW_LSRG_DT, MB_CV_DSC, USR_TPC, COMP_TPC, USR_NM, BIRTH, SEX_DSC, USR_MPNO, CHRG_BSNNM, HOFF_APV_YN, BL_CHG_YN, REQ_DT, AUTH_CHG_YN ,SVC_CHG_YN, 
+			USR_EMAIL, SMS_RMS_YN, EMAIL_RMS_YN,  NA_TRPL_C, BZNO, ENT_PRG_STSC, FSRG_DTM, FS_RGM, 	LSCHG_DTM, 	LS_CHGM, USR_TELNO, DEPT_ID
+	 	)VALUES (
+	 		#{MB_ID}, ecl_digest(#{MB_PW}), #{PW_LSRG_DT}, #{MB_CV_DSC}, #{USR_TPC}, #{COMP_TPC}, #{USR_NM}, #{BIRTH}, #{SEX_DSC}, ecl_encrypt(#{USR_MPNO}), #{CHRG_BSNNM}, #{HOFF_APV_YN}, #{BL_CHG_YN} ,#{REQ_DT},#{AUTH_CHG_YN},#{SVC_CHG_YN}
+			,#{USR_EMAIL}, #{SMS_RMS_YN}, #{EMAIL_RMS_YN}, #{NA_TRPL_C}, #{BZNO}, #{ENT_PRG_STSC}, SYSDATE	,#{MB_ID}, SYSDATE, #{MB_ID}, #{USR_TELNO}, #{DEPT_ID} )	 
+	 </insert>
+	 
+	 <insert id="insertPtPayInfHst" parameterType="com.nh.escm.pt.usrinf.vo.PayVO" >
+	 INSERT INTO /*insertPtPayInfHst*/ PT_PAY_INF_HST
+		 (NA_TRPL_C
+		 ,ENT_PRG_STSC
+		 ,PAY_INF_RG_DTM
+		 ,STL_METH_DSC
+		 ,HOP_DRW_DD
+		 ,DPRNM
+		 ,PSCRP_DSC
+		 ,DPR_NO
+		 ,BNK_C
+		 ,ACNO
+		 ,BB_FLNM
+		 ,BB_FL_TMPNM
+		 ,BZ_RGWRRT_FLNM
+		 ,BZ_RGWRRT_FL_TMPNM
+		 ,FL_PATHNM
+		 ,DRW_FTR_AGR_YN
+		 ,FNC_TR_INF_OFR_AGR_YN	 
+		 ,FSRG_DTM
+		 ,FS_RGM
+		 ,LSCHG_DTM
+		 ,LS_CHGM
+	 ) VALUES (
+		 #{NA_TRPL_C}
+		 ,#{ENT_PRG_STSC}
+		 ,#{PAY_INF_RG_DTM}
+		 ,#{STL_METH_DSC}
+		 ,#{HOP_DRW_DD}
+		 ,#{DPRNM}
+		 ,#{PSCRP_DSC}
+		 ,#{DPR_NO}
+		 ,#{BNK_C}
+		 ,#{ACNO}
+		 ,#{BB_FLNM}
+		 ,#{BB_FL_TMPNM}
+		 ,#{BZ_RGWRRT_FLNM}
+		 ,#{BZ_RGWRRT_FL_TMPNM}
+		 ,#{FL_PATHNM}
+		 ,#{DRW_FTR_AGR_YN}
+		 ,#{FNC_TR_INF_OFR_AGR_YN}
+		 ,SYSDATE
+		 ,#{MB_ID}
+		 ,SYSDATE
+		 ,#{MB_ID}
+	 )
+	 </insert>
+	 
+	<insert id="insertPtPayInfElsg" parameterType="java.util.Map" >
+	 INSERT INTO /*insertPtPayInfElsg*/ PT_PAY_INF_ELSG 
+		(NA_TRPL_C,ELSG_DTM,ELSG_CNTN,ENT_PRG_STSC,MB_ID,FSRG_DTM,FS_RGM,LSCHG_DTM,LS_CHGM)
+	 VALUES
+	 	(#{NA_TRPL_C},#{ELSG_DTM},#{ELSG_CNTN},#{ENT_PRG_STSC},#{MB_ID},SYSDATE,#{MB_ID},SYSDATE,#{MB_ID})	 
+	</insert> 
+	 
+	 <insert id="insertPtSvcEntHst" parameterType="java.util.Map" >
+		INSERT /*insertPtSvcEntHst*/ INTO PT_SVC_ENT_HST (NA_TRPL_C,SVC_ID, SVC_ENT_DTM, ENT_PRG_STSC, RQ_DSC, FSRG_DTM, FS_RGM, LSCHG_DTM , LS_CHGM)
+		VALUES ( #{NA_TRPL_C}, #{SVC_ID}, #{SVC_ENT_DTM}, #{ENT_PRG_STSC}, #{RQ_DSC}, SYSDATE,  #{MB_ID}, SYSDATE , #{MB_ID})
+	</insert> 
+	
+	<select id="retrieveBuyerOfficeInfo"  parameterType="java.util.Map" resultType="java.util.Map">		
+		SELECT /*retrieveBuyerOfficeInfo*/ 	
+			C.NA_TRPL_C, 
+            C.CLNTNM, 
+            C.FZIP,
+            C.RZIP, 
+            C.ATEL AS TEL1, 
+            C.HTEL AS TEL2, 
+            C.STEL AS TEL3,
+		    C.DONGUP , 
+            C.DONGBW,
+			SUBSTR(BIZ_NUMBER, 0, 3) AS BZNO1,
+			SUBSTR(BIZ_NUMBER, 4, 2) AS BZNO2,
+			SUBSTR(BIZ_NUMBER, 6, 5) AS BZNO3,
+<!--            SUBSTR(c.BIZ_NUMBER, 2, 3) AS BZNO1,-->
+<!--			SUBSTR(c.BIZ_NUMBER, 5, 2) AS BZNO2, -->
+<!--            SUBSTR(c.BIZ_NUMBER, 9, 5) AS BZNO3,-->
+		    B.USER_NAME USR_NM ,
+		    B.USER_ID MB_ID,
+		    B.DEPT_ID
+		FROM MSGR_DEPT A, MSGR_USER B , TB_TR_TRPL_CIF C
+		WHERE
+			A.DEPT_ID = B.DEPT_ID
+			AND A.NA_BZPLC = C.NA_TRPL_C
+			AND A.NA_BZPLC= #{NA_TRPL_C}
+			AND B.USER_ID =#{MB_ID}
+            AND C.DEL_YN ='0'			
+	</select>
+	
+	
+	<select id="existBasicSvc"  parameterType="java.util.Map" resultType="int">
+		SELECT /*existBasicSvc*/
+			COUNT(*) 
+		FROM PT_SVC_ENT_AMN
+		WHERE NA_TRPL_C =#{NA_TRPL_C}
+	</select>	
+	
+	<select id="isExistNaBzPlAmn"  parameterType="java.util.Map" resultType="int">
+		SELECT /*isExistNaBzPlAmn*/
+			COUNT(*) 
+		FROM PT_NA_BZPL_AMN
+		WHERE USRID =#{MB_ID}  
+		  AND NA_BZPLC =#{NA_TRPL_C}
+	</select>
+	
+	<select id="isExistBuillingAuth"  parameterType="java.util.Map" resultType="int">
+	SELECT /*isExistBuillingAuth*/ 
+		COUNT(*) 
+	FROM PT_USR_INF A, PT_USR_AUTH B
+	WHERE A.MB_ID = B.MB_ID 
+		AND A.NA_TRPL_C =#{NA_TRPL_C}
+		AND B.USR_AUTH_DSC =#{USR_AUTH_DSC}
+	</select>	
+	
+	
+	<select id="retrieveAuthCnt"  parameterType="java.util.Map" resultType="int">
+		SELECT /*retrieveAuthCnt*/
+			COUNT(*) 
+		FROM PT_USR_AUTH A, PT_USR_INF B
+		WHERE A.MB_ID =B.MB_ID (+)
+		AND A.USR_AUTH_DSC =#{USR_AUTH_DSC}
+		AND B.NA_TRPL_C =#{NA_TRPL_C}
+	</select>	
+	
+	<select id="retrieveEntSvcCnt"  parameterType="java.util.Map" resultType="int">
+		SELECT /*retrieveEntSvcCnt*/
+			COUNT(*) 
+		FROM PT_SVC_ENT_AMN
+		WHERE NA_TRPL_C =#{NA_TRPL_C}
+	</select>	
+	
+	<select id="checkMbIdDup"  parameterType="java.util.Map" resultType="int">
+		SELECT /*checkMbIdDup*/ 	COUNT(*) FROM PT_USR_INF
+				WHERE MB_ID = #{MB_ID}
+
+	</select>
+	
+	<select id="checkMbIdDupB"  parameterType="java.util.Map" resultType="int">
+		SELECT /*checkMbIdDupB*/ 	COUNT(*) FROM (
+					SELECT MB_ID FROM PT_USR_INF
+							WHERE MB_ID = #{MB_ID}
+	<if test="USR_TPC != null and (USR_TPC == '01' or USR_TPC == '04' or USR_TPC == '81' or USR_TPC == '05')">
+			UNION ALL
+					SELECT USRID AS MB_ID  FROM PT_NA_BZPL_AMN
+					WHERE USRID  = #{MB_ID}
+			UNION ALL
+					SELECT USER_ID AS MB_ID  FROM MSGR_USER
+					WHERE USER_ID  = #{MB_ID}		
+	</if>
+				)
+	</select>
+	
+	<delete id="deletePtSvcEntAmn"  parameterType="com.nh.escm.pt.usrinf.vo.SvcVO" >
+	DELETE /*deletePtSvcEntAmn*/
+		PT_SVC_ENT_AMN
+	WHERE NA_TRPL_C=#{NA_TRPL_C}
+		AND SVC_ID IN
+		<foreach collection="str" item="item" open="(" close=")" separator=",">
+	   		#{item}
+	   </foreach>
+	</delete>
+	 
+	 <delete id="deletePtUsrAuth"  parameterType="com.nh.escm.pt.usrinf.vo.SvcVO" >
+	DELETE /*deletePtUsrAuth*/
+		PT_USR_AUTH
+	WHERE MB_ID = #{MB_ID}
+		AND USR_AUTH_DSC IN
+		<foreach collection="str" item="item" open="(" close=")" separator=",">
+	   		#{item}
+	   </foreach>
+	</delete>
+	
+	<insert id="insertPtSvcEntAmn" parameterType="java.util.Map" >
+	INSERT INTO /*insertPtSvcEntAmn*/ PT_SVC_ENT_AMN
+		 (NA_TRPL_C , SVC_ID , FSRG_DTM , FS_RGM , LSCHG_DTM , LS_CHGM )
+	 VALUES ( #{NA_TRPL_C} , #{SVC_ID} , SYSDATE , #{MB_ID} , SYSDATE , #{MB_ID})
+	</insert> 
+	 
+	<insert id="insertPtUsrAuth"  parameterType="java.util.Map" >
+ 		INSERT /*insertPtUsrAuth*/ INTO PT_USR_AUTH  (MB_ID, USR_AUTH_DSC, FSRG_DTM, FS_RGM, LSCHG_DTM, LS_CHGM)
+ 		VALUES ( #{MB_ID}, #{USR_AUTH_DSC}, SYSDATE, #{MB_ID}, SYSDATE, #{MB_ID} )
+ 	</insert>
+ 	
+	<insert id="insertMbPushAncAmn" parameterType="java.util.Map" >
+			MERGE INTO MB_PUSH_ANC_AMN  /* insertMbPushAncAmn */
+	 USING DUAL ON(MB_ID = #{MB_ID} )
+    WHEN MATCHED THEN
+	    UPDATE SET 
+	         PUSH_STSC_B =#{STATUS}
+             ,PUSH_STSC_C =#{STATUS}
+             ,PUSH_STSC_D =#{STATUS}
+             ,PUSH_STSC_E =#{STATUS}
+             ,PUSH_STSC_F =#{STATUS}
+    WHEN NOT MATCHED THEN     
+	    INSERT (MB_ID,PUSH_STSC_A,PUSH_STSC_B,PUSH_STSC_C,PUSH_STSC_D,PUSH_STSC_E,PUSH_STSC_F)
+	        VALUES ( #{MB_ID} , #{STATUS} , #{STATUS} , #{STATUS} , #{STATUS} , #{STATUS}, #{STATUS}) 
+	
+	</insert> 
+	
+	<!-- USR_AUTH_DSC R : 가격할인 으로 들어왔을때 -->
+	<insert id = "insertPrice" parameterType="java.util.Map">
+	INSERT INTO TB_PD_MD_USR_INF /* insertPrice */
+							( MD_ID,
+							  MD_MNGR_CD,
+							  MD_CHGR_CD,
+							  MD_USE_CD,
+                              FSRG_DTM,
+                              FS_RGM
+                              )
+         VALUES(#{MB_ID},
+		         '0',
+		         '0',
+		         '1',
+                 SYSDATE,
+                 #{MB_ID}
+        		 )
+	</insert>
+	
+	<insert id="insertSmsSend"  parameterType="java.util.Map" >
+	 	INSERT INTO /*insertSmsSend*/ SDK_SMS_SEND (	
+	 			 MSG_ID 
+				,USER_ID
+				,SCHEDULE_TYPE 
+				,SUBJECT
+				,SMS_MSG
+				,SEND_DATE
+				,DEST_TYPE
+				,DEST_COUNT
+				,DEST_INFO
+				,SEND_STATUS
+				,SEND_COUNT
+				,SEND_RESULT
+				,CALLBACK
+		)VALUES (
+				#{MSG_ID},
+				#{USER_ID},
+				#{SCHEDULE_TYPE},
+				#{SUBJECT},
+				#{SMS_MSG},
+				#{SEND_DATE},
+				#{DEST_TYPE},
+				#{DEST_COUNT},
+				#{DEST_INFO},
+				#{SEND_STATUS},
+				#{SEND_COUNT},
+				#{SEND_RESULT}, 
+				#{CALLBACK}
+		)	 
+	 </insert>
+	 	 <insert id="insertMmsSend"  parameterType="java.util.Map" >
+	 	INSERT INTO /*insertSmsSend*/ SDK_MMS_SEND (	
+	 			 MSG_ID 
+				,USER_ID
+				,SCHEDULE_TYPE 
+				,SUBJECT
+				,MMS_MSG
+				,NOW_DATE
+				,SEND_DATE
+				,MSG_TYPE
+				,DEST_COUNT
+				,DEST_INFO
+				,CONTENT_COUNT
+				,SEND_STATUS
+				,SEND_COUNT
+				,SEND_RESULT
+				,CALLBACK
+		)VALUES (
+				#{MSG_ID},
+				#{USER_ID},
+				#{SCHEDULE_TYPE},
+				#{SUBJECT},
+				#{MMS_MSG},
+				#{NOW_DATE},
+				#{SEND_DATE},
+				#{MSG_TYPE},
+				#{DEST_COUNT},
+				#{DEST_INFO},
+				#{CONTENT_COUNT},
+				#{SEND_STATUS},
+				#{SEND_COUNT},
+				#{SEND_RESULT}, 
+				#{CALLBACK}
+		)	 
+	 </insert>
+	 
+	 <insert id="insertEmailSend"  parameterType="java.util.Map" >
+	 	INSERT INTO /*insertEmailSend*/ IM_DMAIL_INFO_1 (	
+	 			SEQIDX
+				,SUBJECT
+				,QRY
+				,REJECT_SLIST_IDX
+				,BLOCK_GROUP_IDX
+				,MAILFROM
+				,MAILTO
+				,REPLYTO
+				,ERRORSTO
+				,HTML
+				,ENCODING
+				,CHARSET
+				,SDATE
+				,TDATE
+				,DURATION_SET
+				,CLICK_SET
+				,SITE_SET
+				,ATC_SET
+				,RNAME
+				,MTYPE
+				,U_IDX
+				,G_IDX
+				,MSGFLAG
+				,MAILIDX
+				,CONTENT
+		)VALUES (
+				#{SEQIDX},
+				#{SUBJECT},
+				#{QRY},
+				'0',
+				'0',
+				#{MAILFROM},
+				#{MAILTO},
+				#{REPLYTO},
+				#{ERRORSTO},
+				#{HTML},				
+				'0',
+				'utf-8',
+				#{SDATE},
+				#{TDATE},
+				'1',
+				'1',
+				'0',
+				#{ATC_SET},
+				#{RNAME},
+				#{MTYPE},
+				'1',
+				'1',
+				'0',
+				#{MAILIDX},
+				#{CONTENT}
+		)	 
+	 </insert>
+	 
+	 <insert id="insertMsgrUser"  parameterType="java.util.Map" >	 	
+		INSERT INTO /*insertMsgrUser*/ 
+		MSGR_USER  (USER_ID, DEPT_ID, USER_NAME, DEPT_NAME, MOBILE, EMAIL)
+		SELECT #{USER_ID} AS USER_ID, #{DEPT_ID} AS DEPT_ID, #{USER_NAME} AS USER_NAME, #{DEPT_NAME} AS DEPT_NAME, #{MOBILE} AS MOBILE, #{EMAIL} AS EMAIL
+		FROM DUAL
+		 WHERE NOT EXISTS (
+		    SELECT 1
+		    FROM MSGR_USER A
+		    WHERE A.USER_ID= #{USER_ID}     
+		                      
+		   )
+	 </insert> 			
+	 
+	 		<select id="isExistMbId"  parameterType="java.util.Map" resultType="int">
+			SELECT /*isExistMbId*/
+				COUNT(*) 
+			FROM MSGR_USER
+			WHERE USER_ID =#{MB_ID}  
+	</select>
+	<select id="selectPayRepSeq" resultType="String">
+		SELECT LPAD(NVL(MAX(SEQ),'0')+1,4,'0')
+		  FROM PT_PAY_REP_HIS
+		 WHERE YEAR = TO_CHAR(SYSDATE,'YYYY')
+	</select>
+	<select id="selectSeq" resultType="String" parameterType="java.util.Map">
+		SELECT NVL(MAX(SEQ),'0000')
+		  FROM PT_PAY_REP_HIS
+		 WHERE NA_TRPL_C = #{NA_TRPL_C}
+	</select>
+	<insert id="insertPayReqHis" parameterType="java.util.Map">
+		INSERT INTO PT_PAY_REP_HIS
+		VALUES(#{NA_TRPL_C}
+			 , #{SEQ}
+			 , TO_CHAR(SYSDATE,'YYYY')
+			 , SYSDATE)
+	</insert>
+	
+	<update id = "updateReststscout" parameterType ="com.nh.escm.pt.usrinf.vo.MbEntVO">
+		UPDATE PT_USR_INF
+		   SET ENT_PRG_STSC ='1'
+          , ENT_PRG_CNTN = '휴면계정 복구'
+          , LSCHG_DTM = SYSDATE
+          , LS_CHGM = 'admin'
+          where MB_ID = #{MB_ID}
+            AND USR_NM = #{USR_NM}
+	</update>
+	
+	<insert id  = "insertUserAuthHst"  parameterType ="com.nh.escm.pt.usrinf.vo.MbEntVO">
+		INSERT INTO PT_USR_INF_HST
+		 ( 
+		  MB_ID
+		, HST_RG_DTM
+		, NA_TRPL_C
+		, ENT_PRG_STSC
+		, USR_NM
+		, FSRG_DTM
+		, FS_RGM
+		, LSCHG_DTM
+		, LS_CHGM
+		, CH_HST
+		, BEFORE_ENT_PRG_STSC
+		)VALUES
+		(
+		 #{MB_ID}
+		, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		, (SELECT NA_TRPL_C 
+		    FROM PT_USR_INF 
+		   WHERE MB_ID = #{MB_ID})
+		, '1'
+		, #{USR_NM}
+		, SYSDATE
+		, 'admin'
+		, SYSDATE
+		, 'admin'
+		, 'STSC'
+		, #{ENT_PRG_STSC}
+		)
+	</insert>
+</mapper>   

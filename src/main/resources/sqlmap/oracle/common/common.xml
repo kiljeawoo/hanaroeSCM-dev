@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common">
+
+	<sql id="paging_start">
+		SELECT
+		<if test="decrypt != null">
+		<foreach collection="decrypt" item="item" index="index" separator="," open="" close=",">
+		ECL_DECRYPT(page.${item}) AS ${item} 
+		</foreach>
+		</if>
+		PAGE.* FROM (
+			SELECT ROW_NUMBER() OVER(ORDER BY ${sortName} , #{sortType}) AS RN, PAGE.* FROM (
+	</sql>
+
+	<sql id="paging_end">
+			) PAGE
+		) PAGE
+		<if test="start > -1 and end > -1">
+		<![CDATA[
+		WHERE PAGE.RN >= #{start} AND PAGE.RN <= #{end}
+		]]>
+		</if>
+	</sql>
+
+	<sql id="count_start">
+		SELECT COUNT(*) FROM (
+	</sql>
+
+	<sql id="count_end">
+		) CNT
+	</sql>
+
+
+	<select id="getCIFList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="common.paging_start" />
+		SELECT
+			A.NA_TRPL_C,
+       		A.NA_TRPL_DSC,
+       		A.MPHNO
+  		FROM TB_TR_TRPL_CIF A
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 년주차 등록 -->
+	<insert id="insertSQWW" parameterType="map">
+		MERGE INTO IAS_SQWW AA
+		USING( 
+				SELECT 
+				B.CURRENT_YEAR||LPAD(B.WEEK_OF_YEAR, 2, '0') AS WEEK_OF_YEAR 
+				--,LPAD(B.WEEK_OF_YEAR2, 2, '0') AS WEEK_OF_YEAR2
+				,B.WEEK_START
+				,B.WEEK_END
+				,B.MONTH_OF_YEAR
+				,B.WEEK_OF_MONTH
+				FROM(
+				with ISO as
+				(
+				    select
+				        to_char(WEEK_START, 'YYYYMMDD') WEEK_START
+				        ,to_char(WEEK_END, 'YYYYMMDD') WEEK_END
+				        ,to_char(WEEK_START, 'YYYY') CURRENT_YEAR
+				        ,to_char(WEEK_START, 'WW') WEEK_OF_YEAR
+				        ,to_char(WEEK_START, 'MM') MONTH_OF_YEAR
+				        ,to_char(WEEK_START, 'W') WEEK_OF_MONTH
+				    from
+				    (
+				        select
+				        	<if test="dayOfWeek == 'SUN'">
+					             trunc(START_DT + LEVEL, 'D') WEEK_START
+					            ,trunc(START_DT + LEVEL, 'D') + 6 WEEK_END
+				            </if>
+				            <if test="dayOfWeek == 'MON'">
+					             trunc(START_DT + LEVEL, 'D') + 1 WEEK_START
+					            ,trunc(START_DT + LEVEL, 'D') + 7 WEEK_END
+				            </if>
+				        from
+				        (
+				            select
+				                 to_date(#{year}||'0101', 'YYYYMMDD') - 1 START_DT
+				                ,to_date(#{year}||'1231', 'YYYYMMDD') END_DT
+				            from DUAL
+				        )
+				        <![CDATA[
+				        connect by LEVEL <= END_DT - START_DT
+				        ]]>
+				    )
+				    group by WEEK_START, WEEK_END
+				    order by week_start
+				)
+				select 
+				     rownum as WEEK_OF_YEAR2, a.*
+				from ISO a)B)BB
+		ON (AA.SQWW = BB.WEEK_OF_YEAR)
+		WHEN NOT MATCHED THEN
+			INSERT (SQWW,SQWW_ST_DT,SQWW_ED_DT,SQ_MM,SQ_MM_TRCN)
+			VALUES (
+				BB.WEEK_OF_YEAR
+				,BB.WEEK_START
+				,BB.WEEK_END
+				,BB.MONTH_OF_YEAR
+				,BB.WEEK_OF_MONTH
+			)
+	</insert>
+	
+	<update id="updateFileNm" parameterType="map">
+		UPDATE	TB_TR_TRPL_CIF
+		SET 
+			NA_TRPL_SEAL_FLNM = #{NA_TRPL_SEAL_FLNM}
+		WHERE 1=1
+			AND NA_TRPL_C = #{NA_TRPL_C}
+	</update>
+	
+	<update id="deleteFileNm" parameterType="map">
+		UPDATE	TB_TR_TRPL_CIF
+		SET 
+			NA_TRPL_SEAL_FLNM = NULL
+		WHERE 1=1
+			AND NA_TRPL_C = #{NA_TRPL_C}
+	</update>
+	
+	<insert id="insertUserAccessLog" parameterType="com.nh.escm.common.vo.UserAccessLogVO">
+		INSERT INTO COM_USR_ACS_LOG (
+		       MB_ID, LGIN_IDADR, SVC_URL, ETC_1, ETC_2, ETC_3, ETC_4, ETC_5
+		) VALUES (
+		       #{MB_ID},
+		       #{LGIN_IDADR},
+		       #{SVC_URL},
+		       #{ETC_1},
+		       #{ETC_2},
+		       #{ETC_3},
+		       #{ETC_4},
+		       #{ETC_5}
+		)
+	</insert>
+	
+</mapper>

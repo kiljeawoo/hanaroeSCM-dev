@@ -1,0 +1,10 @@
+﻿{
+	"name": "ExtAPI",
+	"version": "1.10.2",
+	"description": "nexacro platform 14 Unified Framework Library",
+	"license": "",
+	"scripts": [
+			"ExtAPI/jquery-1.10.2.js"
+	]
+}
+//@ sourceURL=ExtAPI.json

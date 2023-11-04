@@ -1,0 +1,4610 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 수주업무 -->
+<mapper namespace="order.ordersDAO">
+
+	<!-- 수주번호 팝업 조회 리스트 -->
+	<resultMap id="orderVanSeqListMap" type="com.nh.escm.scm.order.vo.OrderOrdersVanSeqVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="TEAMNM" property="TEAMNM" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="VAN_SEQ" property="VAN_SEQ" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="DVY_VHC_DSC" property="DVY_VHC_DSC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="DLVPNSHT_TEMP_YN" property="DLVPNSHT_TEMP_YN" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+	</resultMap>
+
+	<!-- 수주등록 Master -->
+	<resultMap id="orderMasterMap" type="com.nh.escm.scm.order.vo.OrderOrdersMasterVO">
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="VAN_SEQ" property="VAN_SEQ" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="TEAMNM" property="TEAMNM" />
+		<result column="DVYAA_C" property="DVYAA_C" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="DVY_VHC_DSC" property="DVY_VHC_DSC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="DVY_RQR_CNTN" property="DVY_RQR_CNTN" />
+		<result column="TOTAL_VCBT_AM " property="TOTAL_VCBT_AM " />
+		<result column="TOTAL_VCBX_AM " property="TOTAL_VCBX_AM " />
+		<result column="EMRG_ODR_YN " property="EMRG_ODR_YN " />
+		<result column="GRS_SOJU_YN " property="GRS_SOJU_YN " />
+		<result column="NA_WRS_LCLC " property="NA_WRS_LCLC " />
+		<result column="NA_WRS_MCLC " property="NA_WRS_MCLC " />
+		<result column="CSER_CTR_TPC " property="CSER_CTR_TPC " />
+		<result column="GRS_SOJU_YN " property="GRS_SOJU_YN " />
+		<result column="TEMP_YN" property="TEMP_YN" />
+	</resultMap>
+
+	<!-- 수주등록 상품정보 List -->
+	<resultMap id="orderDetailMap" type="com.nh.escm.scm.order.vo.OrderOrdersDetailVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="VAN_SEQ" property="VAN_SEQ" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_UPR" property="VCBT_UPR" />
+		<result column="VCBX_UPR" property="VCBX_UPR" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VCBX_AM" property="VCBX_AM" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="MIN_ODR_QT" property="MIN_ODR_QT" />
+		<result column="DEL_YN" property="DEL_YN" />
+	</resultMap>
+
+	<!-- 수주내역조회_일자별 조회 First -->
+	<resultMap id="orderDailyFstMap" type="com.nh.escm.scm.order.vo.OrderOrdersDailyFstVO">
+		<result column="RN" property="RN" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="TXT_AM" property="TXT_AM" />
+		<result column="EXTX_AM" property="EXTX_AM" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역조회_일자별 조회 Second -->
+	<resultMap id="orderDailyScdMap" type="com.nh.escm.scm.order.vo.OrderOrdersDailyScdVO">
+		<result column="RN" property="RN" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="TEAMNM" property="TEAMNM" />
+		<result column="NA_RGN_C" property="NA_RGN_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="EDIRG_DTM" property="EDIRG_DTM" />
+		<result column="FS_RMS_DTM" property="FS_RMS_DTM" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+		<result column="ODR_QTTT" property="ODR_QTTT" />
+		<result column="DLVPNSHT_TEMP_YN" property="DLVPNSHT_TEMP_YN" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="ROGO_INF_CRT_C" property="ROGO_INF_CRT_C" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+	</resultMap>
+
+	<!-- 수주내역조회_일자별 조회 Third -->
+	<resultMap id="orderDailyTrdMap" type="com.nh.escm.scm.order.vo.OrderOrdersDailyTrdVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역조회 발주처별 조회 First -->
+	<resultMap id="orderOdrplFstMap" type="com.nh.escm.scm.order.vo.OrderOrdersOdrplFstVO">
+		<result column="RN" property="RN" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="RVOPL_NA_TEAM_N" property="RVOPL_NA_TEAM_N" />
+		<result column="ODR_CNT" property="ODR_CNT" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역조회 발주처별 조회 Second -->
+	<resultMap id="orderOdrplScdMap" type="com.nh.escm.scm.order.vo.OrderOrdersOdrplScdVO">
+		<result column="RN" property="RN" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TRPL_N" property="MNGT_NA_TRPL_N" />
+		<result column="EDIRG_DTM" property="EDIRG_DTM" />
+		<result column="FS_RMS_DTM" property="FS_RMS_DTM" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+	</resultMap>
+
+	<!-- 수주내역조회 발주처별 조회 Third -->
+	<resultMap id="orderOdrplTrdMap" type="com.nh.escm.scm.order.vo.OrderOrdersOdrplTrdVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+	</resultMap>
+
+	<!-- 수주내역조회 소속사업장별 조회 First -->
+	<resultMap id="orderRvoplFstMap" type="com.nh.escm.scm.order.vo.OrderOrdersRvoplFstVO">
+		<result column="RN" property="RN" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="ODR_WRS_CNT" property="ODR_WRS_CNT" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="ODR_CNT" property="ODR_CNT" />
+		<result column="VHCNO" property="VHCNO" />
+	</resultMap>
+
+	<!-- 수주내역조회 소속사업장별 조회 Second -->
+	<resultMap id="orderRvoplScdMap" type="com.nh.escm.scm.order.vo.OrderOrdersRvoplScdVO">
+		<result column="RN" property="RN" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="EDIRG_DTM" property="EDIRG_DTM" />
+		<result column="FS_RMS_DTM" property="FS_RMS_DTM" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="DLVPNSHT_TEMP_YN" property="DLVPNSHT_TEMP_YN" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="NA_RGN_N" property="NA_RGN_N" />
+		<result column="DLVST_EDIT_PSB_YN" property="DLVST_EDIT_PSB_YN" />
+		<result column="XML_CHANGE_NM" property="XML_CHANGE_NM" />
+		<result column="XML_ODR_NO" property="XML_ODR_NO" />
+		<result column="XML_SEND_DT" property="XML_SEND_DT" />
+		<result column="XML_OFFER_ODR_NO" property="XML_OFFER_ODR_NO" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="E.LS_CMENO" property="E.LS_CMENO" />
+		<result column="DEL_TEM" property="DEL_TEM" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="DVYAA_NA_TEAM_C" property="DVYAA_NA_TEAM_C" />
+		<result column="DVYAA_NA_TEAM_N" property="DVYAA_NA_TEAM_N" />
+		<result column="GRS_SOJU_YN" property="GRS_SOJU_YN" />
+		<result column="ROGO_INF_CRT_DSC" property="ROGO_INF_CRT_DSC" />
+		<result column="ROGO_INF_CRT_C" property="ROGO_INF_CRT_C" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="XML_CHDOC_NO" property="XML_CHDOC_NO" />
+		<result column="XML_ODRW_NO" property="XML_ODRW_NO" />
+		<result column="XML_DOC_TMS_DT" property="XML_DOC_TMS_DT" />
+		<result column="SRA_WRS_DSC" property="SRA_WRS_DSC" />
+		<result column="DDL_WRS_KDC" property="DDL_WRS_KDC" />
+		<result column="PRGR_C" property="PRGR_C" />
+	</resultMap>
+
+	<!-- 수주내역조회 소속사업장별 조회 Third -->
+	<resultMap id="orderRvoplTrdMap" type="com.nh.escm.scm.order.vo.OrderOrdersRvoplTrdVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+		<result column="PHD_FCLT_C" property="PHD_FCLT_C" />
+		<result column="SVS_YN" property="SVS_YN" />
+		<result column="SVS_UNT_QT" property="SVS_UNT_QT" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="OGN_ODRPL_NA_TRPL_C"  property="OGN_ODRPL_NA_TRPL_C" />
+		<result column="OGN_ODRPL_NA_TRPL_NM" property="OGN_ODRPL_NA_TRPL_NM" />
+		<result column="OGN_ODRPL_NA_TEAM_C" property="OGN_ODRPL_NA_TEAM_C" />
+		
+	</resultMap>
+
+	<!-- 수주내역조회 상품별 조회 First -->
+	<resultMap id="orderWrsFstMap" type="com.nh.escm.scm.order.vo.OrderOrdersWrsFstVO">
+		<result column="RN" property="RN" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="ODR_CNT" property="ODR_CNT" />
+		<result column="VHCNO" property="VHCNO" />
+	</resultMap>
+
+	<!-- 수주내역조회 상품별 조회 Second -->
+	<resultMap id="orderWrsScdMap" type="com.nh.escm.scm.order.vo.OrderOrdersWrsScdVO">
+		<result column="RN" property="RN" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VHCNO" property="VHCNO" />
+	</resultMap>
+
+	<resultMap id="orderWrsTrdMap" type="com.nh.escm.scm.order.vo.OrderOrdersWrsTrdVO">
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="MNGT_NA_TRPL_C " property="MNGT_NA_TRPL_C " />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+	</resultMap>
+
+	<!-- TC 수주내역 조회 -->
+	<resultMap id="tcOrdersMap" type="com.nh.escm.scm.order.vo.OrderOrdersTCVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_STD_UNT_C" property="NA_WRS_STD_UNT_C" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="PHD_FCLT_N" property="PHD_FCLT_N" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+	</resultMap>
+
+	<!-- 수주내역조회 일자별 엑셀 다운로드 -->
+	<resultMap id="excelDailyMap" type="com.nh.escm.scm.order.vo.OrderOrdersDailyExcelVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="TXT_AM" property="TXT_AM" />
+		<result column="EXTX_AM" property="EXTX_AM" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="B_ODRPL_NA_TRPL_C" property="B_ODRPL_NA_TRPL_C" />
+		<result column="B_ODRPL_NA_TEAM_C" property="B_ODRPL_NA_TEAM_C" />
+		<result column="B_ODR_DT" property="B_ODR_DT" />
+		<result column="B_ODR_SLPNO" property="B_ODR_SLPNO" />
+		<result column="B_SHRT_BZPLNM" property="B_SHRT_BZPLNM" />
+		<result column="B_DVY_RQR_DT" property="B_DVY_RQR_DT" />
+		<result column="B_BOXPE_AQZ" property="B_BOXPE_AQZ" />
+		<result column="B_ODR_AM" property="B_ODR_AM" />
+		<result column="B_VCBT_AM" property="B_VCBT_AM" />
+		<result column="B_SPY_TPC" property="B_SPY_TPC" />
+		<result column="B_NA_ODR_STS_DSC" property="B_NA_ODR_STS_DSC" />
+		<result column="B_FSRGMN_ENO" property="B_FSRGMN_ENO" />
+		<result column="B_TEAMNM" property="B_TEAMNM" />
+		<result column="B_NA_RGN_C" property="B_NA_RGN_C" />
+		<result column="B_RVOPL_NA_TRPL_C" property="B_RVOPL_NA_TRPL_C" />
+		<result column="B_CLNTNM" property="B_CLNTNM" />
+		<result column="B_RVOPL_NA_TEAM_C" property="B_RVOPL_NA_TEAM_C" />
+		<result column="B_EDIRG_DTM" property="B_EDIRG_DTM" />
+		<result column="B_FS_RMS_DTM" property="B_FS_RMS_DTM" />
+		<result column="B_ODR_QTTT" property="B_ODR_QTTT" />
+		<result column="C_ODRPL_NA_TRPL_C" property="C_ODRPL_NA_TRPL_C" />
+		<result column="C_ODRPL_NA_TEAM_C" property="C_ODRPL_NA_TEAM_C" />
+		<result column="C_ODR_DT" property="C_ODR_DT" />
+		<result column="C_ODR_SLPNO" property="C_ODR_SLPNO" />
+		<result column="C_NA_WRS_C" property="C_NA_WRS_C" />
+		<result column="C_WRSNM" property="C_WRSNM" />
+		<result column="C_WRS_STDNM" property="C_WRS_STDNM" />
+		<result column="C_NA_WRS_UNT_C" property="C_NA_WRS_UNT_C" />
+		<result column="C_BOXPE_AQZ" property="C_BOXPE_AQZ" />
+		<result column="C_ODR_PCS" property="C_ODR_PCS" />
+		<result column="C_ODR_QT" property="C_ODR_QT" />
+		<result column="C_BOX_QT" property="C_BOX_QT" />
+		<result column="C_ODR_AM" property="C_ODR_AM" />
+		<result column="C_VCBT_AM" property="C_VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역조회 발주처별 엑셀 다운로드 -->
+	<resultMap id="excelOdrplMap" type="com.nh.escm.scm.order.vo.OrderOrdersOdrplExcelVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="SPYPL_NA_TEAM_N" property="SPYPL_NA_TEAM_N" />
+		<result column="ODR_CNT" property="ODR_CNT" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="B_ODRPL_NA_TRPL_C" property="B_ODRPL_NA_TRPL_C" />
+		<result column="B_ODRPL_NA_TEAM_C" property="B_ODRPL_NA_TEAM_C" />
+		<result column="B_ODR_DT" property="B_ODR_DT" />
+		<result column="B_ODR_SLPNO" property="B_ODR_SLPNO" />
+		<result column="B_SPYPL_NA_TRPL_C" property="B_SPYPL_NA_TRPL_C" />
+		<result column="B_SPYPL_NA_TEAM_C" property="B_SPYPL_NA_TEAM_C" />
+		<result column="B_MNGT_NA_TRPL_C" property="B_MNGT_NA_TRPL_C" />
+		<result column="B_MNGT_NA_TRPL_N" property="B_MNGT_NA_TRPL_N" />
+		<result column="D_EDIRG_DTM" property="D_EDIRG_DTM" />
+		<result column="B_FS_RMS_DTM" property="B_FS_RMS_DTM" />
+		<result column="B_DVY_RQR_DT" property="B_DVY_RQR_DT" />
+		<result column="B_ODR_AM" property="B_ODR_AM" />
+		<result column="B_VCBT_AM" property="B_VCBT_AM" />
+		<result column="B_SPY_TPC" property="B_SPY_TPC" />
+		<result column="B_NA_ODR_STS_DSC" property="B_NA_ODR_STS_DSC" />
+		<result column="B_FSRGMN_ENO" property="B_FSRGMN_ENO" />
+		<result column="B_DDLY_YN" property="B_DDLY_YN" />
+		<result column="B_FSRG_DTM" property="B_FSRG_DTM" />
+		<result column="B_LSCHG_DTM" property="B_LSCHG_DTM" />
+		<result column="B_LS_CMENO" property="B_LS_CMENO" />
+		<result column="B_DEL_DTM" property="B_DEL_DTM" />
+		<result column="C_ODRPL_NA_TRPL_C" property="C_ODRPL_NA_TRPL_C" />
+		<result column="C_ODRPL_NA_TEAM_C" property="C_ODRPL_NA_TEAM_C" />
+		<result column="C_ODR_DT" property="C_ODR_DT" />
+		<result column="C_ODR_SLPNO" property="C_ODR_SLPNO" />
+		<result column="C_SPYPL_NA_TRPL_C" property="C_SPYPL_NA_TRPL_C" />
+		<result column="C_SPYPL_NA_TEAM_C" property="C_SPYPL_NA_TEAM_C" />
+		<result column="C_NA_WRS_C" property="C_NA_WRS_C" />
+		<result column="C_WRSNM" property="C_WRSNM" />
+		<result column="C_WRS_STDNM" property="C_WRS_STDNM" />
+		<result column="C_NA_WRS_UNT_C" property="C_NA_WRS_UNT_C" />
+		<result column="C_BOXPE_AQZ" property="C_BOXPE_AQZ" />
+		<result column="C_ODR_PCS" property="C_ODR_PCS" />
+		<result column="C_ODR_QT" property="C_ODR_QT" />
+		<result column="C_BOX_QT" property="C_BOX_QT" />
+		<result column="C_ODR_AM" property="C_ODR_AM" />
+		<result column="C_ODR_VAT" property="C_ODR_VAT" />
+		<result column="C_VCBT_AM" property="C_VCBT_AM" />
+		<result column="C_FSRGMN_ENO" property="C_FSRGMN_ENO" />
+		<result column="C_FSRG_DTM" property="C_FSRG_DTM" />
+		<result column="C_LS_CMENO" property="C_LS_CMENO" />
+		<result column="C_LSCHG_DTM" property="C_LSCHG_DTM" />
+		<result column="C_DEL_DTM" property="C_DEL_DTM" />
+	</resultMap>
+
+	<!-- 수주내역조회 소속사업장별 조회 엑셀 다운로드 -->
+	<resultMap id="excelWrsMap" type="com.nh.escm.scm.order.vo.OrderOrdersWrsExcelVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="ODR_CNT" property="ODR_CNT" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="B_ODRPL_NA_TRPL_C" property="B_ODRPL_NA_TRPL_C" />
+		<result column="B_ODRPL_NA_TRPL_N" property="B_ODRPL_NA_TRPL_N" />
+		<result column="B_ODRPL_NA_TEAM_C" property="B_ODRPL_NA_TEAM_C" />
+		<result column="B_NA_WRS_C" property="B_NA_WRS_C" />
+		<result column="B_ODR_PCS" property="B_ODR_PCS" />
+		<result column="B_ODR_QT" property="B_ODR_QT" />
+		<result column="B_BOXPE_AQZ" property="B_BOXPE_AQZ" />
+		<result column="B_ODR_AM" property="B_ODR_AM" />
+		<result column="B_ODR_VAT" property="B_ODR_VAT" />
+		<result column="B_VCBT_AM" property="B_VCBT_AM" />
+		<result column="B_VHCNO" property="B_VHCNO" />
+		<result column="C_ODRPL_NA_TRPL_C" property="C_ODRPL_NA_TRPL_C" />
+		<result column="C_ODRPL_NA_TEAM_C" property="C_ODRPL_NA_TEAM_C" />
+		<result column="C_ODR_DT" property="C_ODR_DT" />
+		<result column="C_ODR_SLPNO" property="C_ODR_SLPNO" />
+		<result column="C_VHCNO" property="C_VHCNO" />
+		<result column="C_NA_WRS_C" property="C_NA_WRS_C" />
+		<result column="C_MNGT_NA_TRPL_C" property="C_MNGT_NA_TRPL_C" />
+		<result column="C_CLNTNM" property="C_CLNTNM" />
+		<result column="C_ODR_QT" property="C_ODR_QT" />
+		<result column="C_ODR_AM" property="C_ODR_AM" />
+		<result column="C_ODR_VAT" property="C_ODR_VAT" />
+		<result column="C_VCBT_AM" property="C_VCBT_AM" />
+		<result column="C_SPY_TPC" property="C_SPY_TPC" />
+		<result column="C_NA_ODR_STS_DSC" property="C_NA_ODR_STS_DSC" />
+	</resultMap>
+
+	<!-- 수주내역 조회 일자별 Master Print -->
+	<resultMap id="printDailyOrderMasterMap" type="com.nh.escm.scm.order.vo.OrderOrdersDailyMasterPrintVO">
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="NA_ODR_STS_DSC_N" property="NA_ODR_STS_DSC_N" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_QTTT" property="ODR_QTTT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_SAM" property="ODR_SAM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역 조회 일자별 Detail Print -->
+	<resultMap id="printDailyOrderDetailMap" type="com.nh.escm.scm.order.vo.OrderOrdersDailyDetailPrintVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_STD_UNT_N" property="NA_WRS_STD_UNT_N" />
+		<result column="NA_WRS_UNT_N" property="NA_WRS_UNT_N" />
+		<result column="B_BOXPE_AQZ" property="B_BOXPE_AQZ" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="B_VCBT_AM" property="B_VCBT_AM" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+	</resultMap>
+
+	<!-- 수주내역 조회 발주처별 Master Print -->
+	<resultMap id="printOdrplOrderMasterMap" type="com.nh.escm.scm.order.vo.OrderOrdersOdrplMasterPrintVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="NA_ODR_STS_DSC_N" property="NA_ODR_STS_DSC_N" />
+		<result column="ODR_QTTT" property="ODR_QTTT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_SAM" property="ODR_SAM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역 조회 발주처별 Print Detail -->
+	<resultMap id="printOdrplOrderDetailMap" type="com.nh.escm.scm.order.vo.OrderOrdersOdrplDetailPrintVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_STD_UNT_N" property="NA_WRS_STD_UNT_N" />
+		<result column="NA_WRS_UNT_N" property="NA_WRS_UNT_N" />
+		<result column="B_BOXPE_AQZ" property="B_BOXPE_AQZ" />
+		<result column="ODR_PCS" property="BYNG_UPR" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="B_VCBT_AM" property="B_VCBT_AM" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+	</resultMap>
+
+
+	<!-- 수주내역 조회 소속사업장별 Master Print -->
+	<resultMap id="printRvoplOrderMasterMap" type="com.nh.escm.scm.order.vo.OrderOrdersRvoplMasterPrintVO">
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="NA_ODR_STS_DSC_N" property="NA_ODR_STS_DSC_N" />
+		<result column="ODR_QTTT" property="ODR_QTTT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_SAM" property="ODR_SAM" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+	</resultMap>
+
+	<!-- 수주내역 조회 소속사업장별 Detail Print -->
+	<resultMap id="printRvoplOrderDetailMap" type="com.nh.escm.scm.order.vo.OrderOrdersRvoplDetailPrintVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_STD_UNT_N" property="NA_WRS_STD_UNT_N" />
+		<result column="NA_WRS_UNT_N" property="NA_WRS_UNT_N" />
+		<result column="B_BOXPE_AQZ" property="B_BOXPE_AQZ" />
+		<result column="ODR_PCS" property="BYNG_UPR" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="B_VCBT_AM" property="B_VCBT_AM" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="OGN_ODRPL_NA_TRPL_C"  property="OGN_ODRPL_NA_TRPL_C" />
+		<result column="OGN_ODRPL_NA_TRPL_NM" property="OGN_ODRPL_NA_TRPL_NM" />
+		<result column="OGN_ODRPL_NA_TEAM_C" property="OGN_ODRPL_NA_TEAM_C" />
+	</resultMap>
+
+	<!-- 수주내역조회 상품별 Detail -->
+	<resultMap id="printWrsOrderDetail" type="com.nh.escm.scm.order.vo.OrderOrdersWrsDetailPrintVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+	</resultMap>
+
+	<!-- 거래관계 정보조회 팝업(발주처 조회 팝업) -->
+	<resultMap id="TrnrelOdrplMap" type="com.nh.escm.scm.order.vo.OrderOrdersTrnrelOdrplVO">
+		<result column="CSER_NA_TRPL_C" property="CSER_NA_TRPL_C" />
+		<result column="CSER_NA_TRPL_N" property="CSER_NA_TRPL_N" />
+		<result column="CSER_NA_TEAM_C" property="CSER_NA_TEAM_C" />
+		<result column="CSER_NA_TEAM_N" property="CSER_NA_TEAM_N" />
+		<result column="SPLR_NA_TRPL_C" property="SPLR_NA_TRPL_C" />
+		<result column="SPLR_NA_TRPL_N" property="SPLR_NA_TRPL_N" />
+		<result column="SPLR_NA_TEAM_C" property="SPLR_NA_TEAM_C" />
+		<result column="DONGUP" property="DONGUP" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="CSER_CTR_TPC_N" property="CSER_CTR_TPC_N" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="SPY_TPC_N" property="SPY_TPC_N" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TRPL_N" property="MNGT_NA_TRPL_N" />
+		<result column="MNGT_NA_TEAM_C" property="MNGT_NA_TEAM_C" />
+		<result column="MNGT_NA_TR_TPC" property="MNGT_NA_TR_TPC" />
+		<result column="MNGT_NA_TR_TPC_N" property="MNGT_NA_TR_TPC_N" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="CSER_NA_USR_SYS_KDC" property="CSER_NA_USR_SYS_KDC" />
+		<result column="SPLR_NA_USR_SYS_KDC" property="SPLR_NA_USR_SYS_KDC" />
+		<result column="CTR_ST_DT" property="CTR_ST_DT" />
+		<result column="CTR_ED_DT" property="CTR_ED_DT" />
+		<result column="CTR_STOP_DT" property="CTR_STOP_DT" />
+		<result column="CTR_CLO_DT" property="CTR_CLO_DT" />
+		<result column="NA_RGN_N" property="NA_RGN_N" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="CSER_ADJPL_NA_TRPL_C" property="CSER_ADJPL_NA_TRPL_C" />
+		<result column="CSER_ADJPL_NA_TEAM_C" property="CSER_ADJPL_NA_TEAM_C" />
+		<result column="MNGT_TR_REL_AMNNO" property="MNGT_TR_REL_AMNNO" />
+		<result column="CSER_TR_REL_AMNNO" property="CSER_TR_REL_AMNNO" />
+		<result column="ACTL_SPYPL_NA_TRPL_C" property="ACTL_SPYPL_NA_TRPL_C" />
+		<result column="PGNM" property="PGNM" />
+		<result column="MNGT_NA_USR_SYS_KDC" property="MNGT_NA_USR_SYS_KDC" />
+		<result column="ROTS_FLEX_PR_APL_YN" property="ROTS_FLEX_PR_APL_YN" />
+		<result column="BYNG_UPR_MOD_YN" property="BYNG_UPR_MOD_YN" />
+	</resultMap>
+
+	<!-- 사무소 조회 팝업 -->
+	<resultMap id="BrMap" type="com.nh.escm.scm.order.vo.OrderOrdersBrVO">
+		<result column="NAAC_DSC_N" property="NAAC_DSC_N" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="NA_TRPL_N" property="NA_TRPL_N" />
+		<result column="BZPL_TPC" property="BZPL_TPC" />
+		<result column="BZPL_DTI_TPC_N" property="BZPL_DTI_TPC_N" />
+		<result column="BZPL_TPNM" property="BZPL_TPNM" />
+		<result column="BIZ_NUMBER" property="BIZ_NUMBER" />
+		<result column="NA_RGN_C" property="NA_RGN_C" />
+		<result column="RGN_CNM" property="RGN_CNM" />
+		<result column="TEL" property="TEL" />
+		<result column="NA_BZ_TPC" property="NA_BZ_TPC" />
+		<result column="NA_BZ_TPNM" property="NA_BZ_TPNM" />
+		<result column="TR_STOP_YN" property="TR_STOP_YN" />
+	</resultMap>
+	
+	<!--상품조회 조회 팝업 -->
+	<resultMap id="wrsMap" type="com.nh.escm.scm.order.vo.OrderOrdersWrsVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="SIMP_CNM" property="SIMP_CNM" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="VCBX_NA_WRS_C" property="VCBX_NA_WRS_C" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="NA_WRS_STD_UNT_C" property="NA_WRS_STD_UNT_C" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="VCBT_UPR" property="VCBT_UPR" />
+		<result column="VCBX_UPR" property="VCBX_UPR" />
+		<result column="PD_YY_AMN_YN" property="PD_YY_AMN_YN" />
+		<result column="PD_YY" property="PD_YY" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="DDLY_ST_DT" property="DDLY_ST_DT" />
+		<result column="DDLY_ED_DT" property="DDLY_ED_DT" />
+		<result column="DDLY_BAS_QT" property="DDLY_BAS_QT" />
+		<result column="MIN_ODR_QT" property="MIN_ODR_QT" />
+		<result column="MAX_ODR_QT" property="MAX_ODR_QT" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="PHD_FCLT_C" property="PHD_FCLT_C" />
+		<result column="VCBT_QT" property="VCBT_QT" />
+		<result column="ODR_FBID_YN" property="ODR_FBID_YN" />
+		<result column="UP_TRPL_C" property="UP_TRPL_C" />
+		<result column="UP_SPYPL_NA_TRPL_C" property="UP_SPYPL_NA_TRPL_C" />
+		<result column="NA_USR_SYS_KDC" property="NA_USR_SYS_KDC" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+	</resultMap>
+
+
+
+
+	<!-- 수주등록 Master 등록 -->
+	<insert id="insertOrderMaster" parameterType="com.nh.escm.scm.order.vo.OrderOrdersMasterVO">
+		INSERT INTO TB_OD_ORDER_M
+		(
+		ODRPL_NA_TRPL_C /* 발주처 코드 */
+		, ODRPL_NA_TEAM_C /* 발주처 팀코드 */
+		, RVOPL_NA_TRPL_C /*수주처 코드*/
+		, RVOPL_NA_TEAM_C /* 수주처팀코드 */
+		, SPYPL_NA_TRPL_C
+		, SPYPL_NA_TEAM_C
+		, DVYAA_NA_TRPL_C
+		, DVYAA_NA_TEAM_C
+		, ODR_DT /* 발주일자 */
+		, ODR_SLPNO /* 발주전표번호 */
+		, VAN_SEQ /* 수주번호 */
+		, NA_ODR_STS_DSC /* 경제통합발주상태구분코드 */
+		, DVYAA_C /* 배송지 */
+		, DVY_RQR_DT /* 배송요청일자 */
+		, DDLY_YN /* 직송여부 */
+		, DVY_VHC_DSC /* 배송차량 구분 */
+		, SPY_TPC /* 공급유형 */
+		, VHCNO /* 차량번호 */
+		, DVY_RQR_CNTN /* 배송요청내용 */
+		, EMRG_ODR_YN /* 긴급발주여부 */
+		, GRS_SOJU_YN /* 지방소주여부 */
+		, ODR_DSC /* 발주구분코드 */
+		, NA_WRS_LCLC /* 상품대분류 */
+		, NA_WRS_MCLC/* 상품중분류 */
+		, FS_RMS_DT
+		, FS_RMS_HR
+		, LS_RMS_DT
+		, LS_RMS_HR
+		, CSER_CTR_TPC /* 계약유형 */
+		, ODR_QTTT
+		, ODR_SAM
+		, VATTT
+		, VCBT_AM
+		, VCBX_AM
+		, FSRG_DTM /* 최초생성일자 */
+		, MNGT_NA_TR_TPC /*주관경제통합거래유형코드*/
+		, MNGT_NA_TRPL_C /*주관경제통합거래처코드*/
+		, MNGT_NA_TEAM_C /*주관경제통합팀코드*/
+		, SCRN_IDNM
+		, CSER_TR_REL_AMNNO
+		, FSRGMN_ENO
+		, PRGR_C
+		, MNGT_TR_REL_AMNNO
+		, ROGO_INF_CRT_DSC
+		, PRC_YN
+		, TEMP_YN /* 임시저장여부 */
+		)
+		VALUES
+		(
+			#{ODRPL_NA_TRPL_C}
+		  , #{ODRPL_NA_TEAM_C}
+		  , #{RVOPL_NA_TRPL_C}
+		  , #{RVOPL_NA_TEAM_C}
+		  , #{SPYPL_NA_TRPL_C}
+		  , #{SPYPL_NA_TEAM_C}
+		  , #{DVYAA_NA_TRPL_C}
+		  , #{DVYAA_NA_TEAM_C}
+		  , #{ODR_DT}
+		  , #{ODR_SLPNO}
+		  , #{VAN_SEQ}
+		  , '03'
+		  , #{DVYAA_C}
+		  , #{DVY_RQR_DT}
+		  , #{DDLY_YN}
+		  , #{DVY_VHC_DSC}
+		  , #{SPY_TPC}
+		  , #{VHCNO}
+		  , #{DVY_RQR_CNTN}
+		  , #{EMRG_ODR_YN}
+		  , #{GRS_SOJU_YN}
+		  , #{ODR_DSC}
+		  , #{NA_WRS_LCLC}
+		  , #{NA_WRS_MCLC}
+		  , #{FS_RMS_DT}
+		  , #{FS_RMS_HR}
+		  , #{LS_RMS_DT}
+		  , #{LS_RMS_HR}
+		  , #{CSER_CTR_TPC}
+		  , #{TOTAL_ODR_QT}
+		  , #{TOTAL_ODR_AM}
+		  , #{TOTAL_ODR_VAT}
+		  , #{TOTAL_VCBT_AM}
+		  , #{TOTAL_VCBX_AM}
+		  , SYSDATE
+		  , #{MNGT_NA_TR_TPC}
+		  , #{MNGT_NA_TRPL_C}
+		  , #{MNGT_NA_TEAM_C}
+		  , 'VAN_DS_SC_0100'  
+		  , #{CSER_TR_REL_AMNNO}
+		  , #{MB_ID}
+		  , (SELECT PRGR_C FROM TB_TR_TRNREL WHERE CSER_NA_TRPL_C = #{ODRPL_NA_TRPL_C} AND CSER_NA_TEAM_C = #{ODRPL_NA_TEAM_C} AND SPLR_NA_TRPL_C = #{RVOPL_NA_TRPL_C} AND SPLR_NA_TEAM_C = #{RVOPL_NA_TEAM_C} AND CSER_CTR_TPC = #{CSER_CTR_TPC} AND SPY_TPC = #{SPY_TPC})
+		  <choose>
+		  	<when test="CSER_CTR_TPC != null and CSER_CTR_TPC == '4'.toString() or CSER_CTR_TPC == '5'.toString() ">
+		  , #{MNGT_TR_REL_AMNNO}		  	
+		  	</when>
+		  	<otherwise>
+		  , '0'
+		  	</otherwise>
+		  </choose> 
+		  , #{ROGO_INF_CRT_DSC}
+		  <choose>
+		  	<when test="TEMP_YN == 'N'.toString()">/* PRC_YN 작성완료 */
+		  ,'N'	
+		  	</when>
+		  	<otherwise>/* 임시저장 */
+		  ,'T'
+		  	</otherwise>
+		  </choose>
+		  , #{TEMP_YN}
+		)
+	</insert>
+
+	<!-- 수주등록 Master 조회 -->
+	<select id="getOrderMaster" parameterType="java.util.Map" resultMap="orderMasterMap">
+		SELECT
+		A.ODR_DT /* 발주일자 */
+		, A.ODR_SLPNO /* 발주전표번호 */
+		, A.VAN_SEQ /* 수주번호 */
+		, A.ODRPL_NA_TRPL_C /* 발주처 코드 */
+		,FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS SHRT_BZPLNM
+		, A.ODRPL_NA_TEAM_C /* 발주처 팀코드 */
+		, FN_CM_TEAM_NM(A.ODRPL_NA_TRPL_C, A.ODRPL_NA_TEAM_C) AS TEAMNM
+		, A.DVYAA_C /* 배송지 */
+		, A.DVY_RQR_DT /* 배송요청일자 */
+		, A.DDLY_YN /* 직송여부 */
+		, A.DVY_VHC_DSC /* 배송차량 구분 */
+		, A.SPY_TPC /* 공급유형 */
+		, A.VHCNO /* 차량번호 */
+		, A.DVY_RQR_CNTN /* 배송요청내용 */
+		, NVL(A.VCBT_AM, 0) AS TOTAL_VCBT_AM /* 공병금액 */
+		, NVL(A.VCBX_AM, 0) AS TOTAL_VCBX_AM /* 공상자금액 */
+		, NVL(A.EMRG_ODR_YN, '0') AS EMRG_ODR_YN /* 긴급발주여부 */
+		, NVL(A.GRS_SOJU_YN, '0') AS GRS_SOJU_YN/* 지방소주여부 */
+		, A.NA_WRS_LCLC /* 상품대분류 */
+		, A.NA_WRS_MCLC /* 상품중분류 */
+		, A.CSER_CTR_TPC
+		, B.MNGT_NA_TRPL_C
+		, B.MNGT_NA_TEAM_C
+		, B.MNGT_NA_TR_TPC
+		, A.GRS_SOJU_YN
+		, B.ROTS_FLEX_PR_APL_YN /* 탄력가격적용여부 */
+		, NVL(A.TEMP_YN, 'N') AS TEMP_YN /* 임시저장여부 */
+		FROM
+		TB_OD_ORDER_M A,
+		TB_TR_TRNREL B
+		WHERE 1=1
+		AND A.ODRPL_NA_TRPL_C = B.CSER_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = B.CSER_NA_TEAM_C
+		AND A.SPYPL_NA_TRPL_C = B.SPLR_NA_TRPL_C
+		AND A.SPYPL_NA_TEAM_C = B.SPLR_NA_TEAM_C
+		AND A.SPY_TPC = B.SPY_TPC
+		AND A.CSER_CTR_TPC = B.CSER_CTR_TPC
+		AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND A.ODR_DT = #{ODR_DT}
+		AND A.VAN_SEQ = #{VAN_SEQ}
+	</select>
+
+
+
+	<!-- 수주등록 Master 수정 -->
+	<update id="updateOrderMaster" parameterType="com.nh.escm.scm.order.vo.OrderOrdersMasterVO">
+		UPDATE TB_OD_ORDER_M
+		<set>
+			<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+				ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C},
+			</if>
+			<if test="ODRPL_NA_TEAM_C != null and ODRPL_NA_TEAM_C.length() > 0">
+				ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C},
+			</if>
+			<if test="DVYAA_C != null and DVYAA_C.length() > 0 ">
+				DVYAA_C = #{DVYAA_C}, /* 배송지 */
+			</if>
+			<if test="DVY_RQR_DT != null and DVY_RQR_DT.length() > 0 ">
+				DVY_RQR_DT = #{DVY_RQR_DT}, /* 배송요청일자 */
+			</if>
+			<if test="DDLY_YN != null and DDLY_YN.length() > 0 ">
+				DDLY_YN = #{DDLY_YN}, /* 직송여부 */
+			</if>
+			<if test="DVY_VHC_DSC != null and DVY_VHC_DSC.length() > 0 ">
+				DVY_VHC_DSC = #{DVY_VHC_DSC}, /* 배송차량 구분 */
+			</if>
+			<if test="SPY_TPC != null and SPY_TPC.length() > 0 ">
+				SPY_TPC = #{SPY_TPC}, /* 공급유형 */
+			</if>
+			<if test="VHCNO != null and VHCNO.length() > 0 ">
+				VHCNO = #{VHCNO}, /* 차량번호 */
+			</if>
+			<if test="DVY_RQR_CNTN != null and DVY_RQR_CNTN.length() > 0 ">
+				DVY_RQR_CNTN = #{DVY_RQR_CNTN}, /* 배송요청내용 */
+			</if>
+			<if test="EMRG_ODR_YN != null and EMRG_ODR_YN.length() > 0 ">
+				EMRG_ODR_YN = #{EMRG_ODR_YN}, /* 긴급발주여부 */
+			</if>
+			<if test="GRS_SOJU_YN != null and GRS_SOJU_YN.length() > 0 ">
+				GRS_SOJU_YN = #{GRS_SOJU_YN}, /* 지방소주여부 */
+			</if>
+			<if test="TOTAL_VCBT_AM != null ">
+				VCBT_AM = #{TOTAL_VCBT_AM}, /* 공병금액 */
+			</if>
+			<if test="TOTAL_VCBX_AM != null ">
+				VCBX_AM = #{TOTAL_VCBX_AM}, /* 공상자금액 */
+			</if>
+			<if test="TOTAL_ODR_QT != null">
+				ODR_QTTT = #{TOTAL_ODR_QT}, /* 총발주수량 */
+			</if>
+			<if test="TOTAL_ODR_AM != null">
+				ODR_SAM = #{TOTAL_ODR_AM}, /* 총발주금액 */
+			</if>
+			<if test="TOTAL_ODR_VAT != null">
+				VATTT = #{TOTAL_ODR_VAT}, /* 총발주부가세액 */
+			</if>
+			<if test="TEMP_YN != null and TEMP_YN == 'N'.toString()">
+				FS_RMS_DT = #{FS_RMS_DT},
+				FS_RMS_HR = #{FS_RMS_HR},
+				LS_RMS_DT = #{LS_RMS_DT},
+				LS_RMS_HR = #{LS_RMS_HR},
+			</if>
+			<if test="TEMP_YN != null and TEMP_YN == 'N'.toString()">
+				PRC_YN = 'N',
+			</if>
+			<if test="TEMP_YN != null and TEMP_YN.length() > 0 ">
+				TEMP_YN = #{TEMP_YN} /* 임시저장여부 */
+			</if>
+		</set>
+		WHERE 1=1
+		AND ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND ODR_DT = #{ODR_DT}
+		AND VAN_SEQ = #{VAN_SEQ}
+	</update>
+
+	<!-- 수주등록 Master 수주총액 -->
+	<select id="getOrderMasterTotalAmAndVat" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+		NVL(SUM(ODR_AM), 0) AS TOTAL_ODR_AM
+		,NVL(SUM(ODR_VAT), 0) AS TOTAL_ODR_VAT
+		FROM
+		TB_OD_ORDER_M A,
+		TB_OD_ORDER_D B
+		WHERE 1=1
+		AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+		AND A.ODR_DT = B.ODR_DT
+		AND A.ODR_SLPNO = B.ODR_SLPNO
+		AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND A.ODR_DT = #{ODR_DT}
+		AND A.VAN_SEQ = #{VAN_SEQ}
+
+	</select>
+
+	<!-- 수주등록 상품정보 List -->
+	<select id="retrieveOrderDetail" parameterType="java.util.Map" resultMap="orderDetailMap">
+		SELECT
+		A.ODRPL_NA_TRPL_C /* 발주처 */
+		, A.ODRPL_NA_TEAM_C /* 발주처팀코드 */
+		, A.ODR_DT /* 발주일자 */
+		, A.ODR_SLPNO /* 발주전표번호 */
+		, A.ODR_DSQNO/* 발주상세일련번호 */
+		, A.VAN_SEQ /* VAN생성일련번호 */
+		, A.NA_WRS_C /* 상품코드 */
+		, B.WRSNM /* 상품명 */
+		, B.BOXPE_AQZ /* 박스입수 */
+		, B.WRS_STDNM /* 규격 */
+		, FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C) AS NA_WRS_UNT_C/* 단위
+		*/
+		, A.ODR_QT /* 수주량 */
+		<choose>
+			<when test="DVY_RQR_DT != null and DVY_RQR_DT.length() > 0 ">
+				, SP_NA_DP_WRSPR_UT(FN_PCSGUBUN(E.CSER_CTR_TPC, E.CSER_NA_TRPL_C,
+				E.MNGT_NA_TRPL_C), #{DVY_RQR_DT}, C.SPYPL_NA_TRPL_C ,
+				C.SPYPL_NA_TEAM_C, C.ODRPL_NA_TRPL_C, C.ODRPL_NA_TEAM_C,
+				C.MNGT_NA_TRPL_C, C.MNGT_NA_TEAM_C, D.CTR_TPC, C.SPY_TPC,
+				C.MNGT_NA_TR_TPC, A.NA_WRS_C, D.PD_YY, E.SPLR_NA_USR_SYS_KDC,
+				E.CSER_NA_USR_SYS_KDC, F.NA_USR_SYS_KDC, C.DDLY_YN ) AS ODR_PCS
+			</when>
+			<otherwise>
+				, A.ODR_PCS /* 수주원가 */
+			</otherwise>
+		</choose>
+		, A.ODR_VAT /* 수주부가세 */
+		, A.ODR_AM /* 수주금액 */
+		, NVL(D.VCBT_UPR, 0) AS VCBT_UPR /* 공병단가 */
+		, NVL(D.VCBX_UPR, 0) AS VCBX_UPR /* 공상자단가 */
+		, NVL(A.VCBT_AM, 0) AS VCBT_AM /* 공병금액 */
+		, NVL(A.VCBX_AM, 0) AS VCBX_AM /* 공상자금액 */
+		, D.NA_WRS_LCLC
+		, D.NA_WRS_MCLC
+		, D.NA_WRS_SCLC
+		, D.NA_WRS_DTCF_C
+		, D.TXT_DSC
+		, D.VCBT_NA_WRS_C
+		, D.MIN_ODR_QT
+		, '' AS DEL_YN /* 삭제여부 */
+		FROM
+		TB_OD_ORDER_D A,
+		TB_GD_WRS B,
+		TB_OD_ORDER_M C,
+		TB_OD_TRTWRS D,
+		TB_TR_TRNREL E,
+		TB_TR_TRPL_CIF F
+		WHERE 1=1
+		AND A.DEL_DTM IS NULL
+		AND C.DEL_DTM IS NULL
+		AND A.NA_WRS_C = B.NA_WRS_C(+)
+		AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+		AND A.ODR_DT = C.ODR_DT
+		AND A.ODR_SLPNO = C.ODR_SLPNO
+		AND A.ODRPL_NA_TRPL_C = D.NA_BZPLC(+)
+		AND A.NA_WRS_C = D.NA_WRS_C(+)
+		AND C.ODRPL_NA_TRPL_C = E.CSER_NA_TRPL_C(+)
+		AND C.ODRPL_NA_TEAM_C = E.CSER_NA_TEAM_C(+)
+		AND C.SPYPL_NA_TRPL_C = E.SPLR_NA_TRPL_C(+)
+		AND C.SPYPL_NA_TEAM_C = E.SPLR_NA_TEAM_C(+)
+		AND C.CSER_CTR_TPC = E.CSER_CTR_TPC(+)
+		AND C.SPY_TPC = E.SPY_TPC(+)
+		AND C.MNGT_NA_TRPL_C = E.MNGT_NA_TRPL_C(+)
+		AND C.MNGT_NA_TEAM_C = E.MNGT_NA_TEAM_C(+)
+		AND C.MNGT_NA_TR_TPC = E.MNGT_NA_TR_TPC(+)
+		AND C.MNGT_NA_TRPL_C = F.NA_TRPL_C
+		AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND A.ODR_DT = #{ODR_DT}
+		AND A.VAN_SEQ = #{VAN_SEQ}
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+
+	<insert id="insertOrderDetail" parameterType="com.nh.escm.scm.order.vo.OrderOrdersDetailVO">
+		INSERT INTO
+		TB_OD_ORDER_D
+		(
+		ODRPL_NA_TRPL_C
+		, ODRPL_NA_TEAM_C
+		, ODR_DT
+		, ODR_SLPNO
+		, ODR_DSQNO
+		, VAN_SEQ
+		, NA_WRS_C
+		, ODR_QT
+		, ODR_PCS
+		, ODR_VAT
+		, ODR_AM
+		, VCBT_AM
+		, VCBX_AM
+		, NA_ODR_STS_DSC
+		, FSRGMN_ENO
+		, LS_CMENO
+		, DDLY_YN
+		, NA_WRS_LCLC
+		, NA_WRS_MCLC
+		, NA_WRS_SCLC
+		, NA_WRS_DTCF_C
+		, TXT_DSC
+		, VCBT_NA_WRS_C
+		, BOXPE_AQZ
+		, NA_WRS_UNIT_C
+		)
+		VALUES
+		(
+		#{ODRPL_NA_TRPL_C}
+		, #{ODRPL_NA_TEAM_C}
+		, #{ODR_DT}
+		, #{ODR_SLPNO}
+		, (
+		SELECT
+		DECODE(COUNT(ODR_DSQNO), 0, 1, MAX(ODR_DSQNO) + 1)
+		FROM TB_OD_ORDER_D
+		WHERE 1=1
+		AND ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND ODR_DT = #{ODR_DT}
+		AND ODR_SLPNO = #{ODR_SLPNO}
+		)
+		, #{VAN_SEQ}
+		, #{NA_WRS_C}
+		, #{ODR_QT}
+		, #{ODR_PCS}
+		, #{ODR_VAT}
+		, #{ODR_AM}
+		, #{VCBT_AM}
+		, #{VCBX_AM}
+		, '03'
+		, #{MB_ID}
+		, #{MB_ID}
+		, '0'
+		, (SELECT NA_WRS_LCLC FROM TB_GD_WRS A WHERE A.NA_WRS_C=#{NA_WRS_C})
+		, (SELECT NA_WRS_MCLC FROM TB_GD_WRS A WHERE A.NA_WRS_C=#{NA_WRS_C})
+		, (SELECT NA_WRS_SCLC FROM TB_GD_WRS A WHERE A.NA_WRS_C=#{NA_WRS_C})
+		, (SELECT NA_WRS_DTCF_C FROM TB_GD_WRS A WHERE A.NA_WRS_C=#{NA_WRS_C})
+		, #{TXT_DSC}
+		, #{VCBT_NA_WRS_C}
+		, #{BOXPE_AQZ}
+		, #{UNT_C}
+		)
+	</insert>
+
+	<update id="updateOrderDetail" parameterType="com.nh.escm.scm.order.vo.OrderOrdersDetailVO">
+		UPDATE TB_OD_ORDER_D
+		<set>
+			<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				NA_WRS_C = #{NA_WRS_C},
+			</if>
+			<if test="ODR_QT != null">
+				ODR_QT = #{ODR_QT},
+			</if>
+			<if test="ODR_PCS != null">
+				ODR_PCS = #{ODR_PCS},
+			</if>
+			<if test="ODR_VAT != null">
+				ODR_VAT = #{ODR_VAT},
+			</if>
+			<if test="ODR_AM != null">
+				ODR_AM = #{ODR_AM},
+			</if>
+			<if test="VCBT_AM != null">
+				VCBT_AM = #{VCBT_AM},
+			</if>
+			<if test="VCBX_AM != null">
+				VCBX_AM = #{VCBX_AM}
+			</if>
+		</set>
+		WHERE 1=1
+		AND ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND ODR_DT = #{ODR_DT}
+		AND ODR_SLPNO = #{ODR_SLPNO}
+	</update>
+
+	<delete id="deleteOrderDetail" parameterType="com.nh.escm.scm.order.vo.OrderOrdersDetailVO">
+		DELETE FROM
+		TB_OD_ORDER_D
+		WHERE 1=1
+		AND ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND ODR_DT = #{ODR_DT}
+		AND ODR_SLPNO = #{ODR_SLPNO}
+		AND ODR_DSQNO = #{ODR_DSQNO}
+	</delete>
+
+	<delete id="deleteOrderDetailAll" parameterType="java.util.Map">
+		DELETE FROM
+		TB_OD_ORDER_D
+		WHERE 1=1
+		AND ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		AND ODR_DT = #{ODR_DT}
+		AND ODR_SLPNO = #{ODR_SLPNO}
+	</delete>
+
+	<!-- 수주번호 팝업 조회 -->
+	<sql id="sql_retrieveVanSeq">
+		SELECT
+		E.ODR_DT /* 발주일자 */
+		, E.ODRPL_NA_TRPL_C /* 발주처코드 */
+		, E.SHRT_BZPLNM /* 발주처명 */
+		, E.ODRPL_NA_TEAM_C /* 발주처팀코드 */
+		, E.TEAMNM /* 발주처팀명 */
+		, E.ODR_SLPNO /* 발주전표번호 */
+		, E.VAN_SEQ /* VAN 생성 일련번호 */
+		, FN_CM_SIMP_CNM('DVY_VHC_DSC',	E.DVY_VHC_DSC) AS DVY_VHC_DSC /* 배송구분 */
+		, FN_CM_SIMP_CNM('SPY_TPC',	E.SPY_TPC) AS SPY_TPC /* 공급구분 */
+		, E.DVY_RQR_DT /* 배송요청일 */
+		, E.ODR_QTTT AS ODR_QT /* 발주수량 */
+		, E.ODR_SAM AS ODR_AM/* 발주금액 */
+		, E.DVYAA_NA_TRPL_C 	/* 배송지 거래처코드 */
+		, F.NA_DVY_PLASH_SLPNO /* 배송예정서전표번호 */
+		, DECODE(NVL(E.TEMP_YN,'N'), 'N', DECODE(E.NA_ODR_STS_DSC,'03','X','N'),'Y') AS DLVPNSHT_TEMP_YN /* 배송예정서작성여부 */
+		, E.SPYPL_NA_TRPL_C /*공급처 거래처 코드 */
+		, E.SPYPL_NA_TEAM_C /* 공급처 팀코드*/
+		FROM
+		(
+		  SELECT
+				A.NA_ODR_STS_DSC,
+				A.TEMP_YN,
+				A.ODR_DT ,
+				A.ODRPL_NA_TRPL_C ,
+				A.ODR_SLPNO ,
+				FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS SHRT_BZPLNM,
+				A.ODRPL_NA_TEAM_C ,
+				A.VAN_SEQ ,
+				FN_CM_TEAM_NM(A.ODRPL_NA_TRPL_C, A.ODRPL_NA_TEAM_C) AS TEAMNM,
+				A.DVY_VHC_DSC ,
+				A.SPY_TPC ,
+				A.DVY_RQR_DT ,
+				A.DVYAA_NA_TRPL_C ,
+				A.SPYPL_NA_TRPL_C ,
+				A.SPYPL_NA_TEAM_C ,
+				A.ODR_QTTT,
+				A.ODR_SAM,
+				A.FSRG_DTM
+		   FROM TB_OD_ORDER_M A
+		  WHERE 1=1
+		<if test="ODR_SLPNO != null and ODR_SLPNO.length() > 0">
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+		</if>
+		<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		</if>
+		<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+			AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+		</if>
+		<if test="RVOPL_NA_TEAM_C != null and RVOPL_NA_TEAM_C.length() > 0">
+			AND A.RVOPL_NA_TEAM_C = #{RVOPL_NA_TEAM_C}
+		</if>
+		<if
+			test="DVY_RQR_DT_FR != null and DVY_RQR_DT_FR.length() > 0 and DVY_RQR_DT_TO != null and DVY_RQR_DT_TO.length() > 0">
+			AND A.ODR_DT BETWEEN #{DVY_RQR_DT_FR} AND #{DVY_RQR_DT_TO}
+		</if>
+		<if test="TEMP_YN != null and TEMP_YN == 'N'.toString()">
+			AND (A.TEMP_YN IS NULL OR A.TEMP_YN = 'N')
+		</if>
+		<if test="DDLY_YN != null and DDLY_YN.length() > 0">
+			AND DDLY_YN = #{DDLY_YN}
+		</if>
+		    AND PRC_YN IN ('R','T', 'Y')
+		    AND A.DEL_DTM IS NULL
+		) E,
+		(
+		SELECT
+				ODRPL_NA_TRPL_C,
+				ODRPL_NA_TEAM_C,
+				ODR_DT,
+				ODR_SLPNO,
+				NA_DVY_PLASH_SLPNO
+		  FROM
+				TB_OD_ORDER_D
+		 WHERE DEL_DTM IS NULL
+		 GROUP BY
+				ODRPL_NA_TRPL_C,
+				ODRPL_NA_TEAM_C,
+				ODR_DT,
+				ODR_SLPNO,
+				NA_DVY_PLASH_SLPNO
+		) F
+		WHERE 1=1
+		AND E.ODRPL_NA_TRPL_C = F.ODRPL_NA_TRPL_C
+		AND E.ODRPL_NA_TEAM_C = F.ODRPL_NA_TEAM_C
+		AND E.ODR_DT = F.ODR_DT
+		AND E.ODR_SLPNO = F.ODR_SLPNO
+		AND DECODE(NVL(E.TEMP_YN,'N'), 'N', DECODE(E.NA_ODR_STS_DSC,'03','X', 'N'),'Y') IN ('Y', 'X')
+		ORDER BY E.FSRG_DTM DESC
+	</sql>
+
+	<select id="retrieveVanSeq" parameterType="java.util.Map" resultMap="orderVanSeqListMap">
+		<choose>
+			<when test="DLVPNSHT_TEMP_YN == 'X'.toString()">
+				SELECT
+				LIST.*
+				FROM(
+				<include refid="sql_retrieveVanSeq" />
+				) LIST
+				WHERE 1=1
+				AND LIST.DLVPNSHT_TEMP_YN = 'X'<!-- 배송예정서 미작성 -->
+			</when>
+			<otherwise>
+				<include refid="sql_retrieveVanSeq" />
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 수주내역조회_일자별 조회 First 01 -->
+	<sql id="sql_retrieveOrderDailyM">
+		SELECT
+			A.ODR_DT,
+			SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+			SUM(
+				CASE WHEN D.NA_USR_SYS_KDC = '63' THEN	ROUND(NVL( C.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+					 WHEN D.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(DECODE( C.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/C.MIN_ODR_QT), 2)
+					 ELSE ROUND(DECODE( F.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/F.BOXPE_AQZ), 2)
+				END
+				) AS BOXPE_AQZ,
+			SUM(NVL(A.ODR_VAT, 0)) AS TXT_AM,
+			SUM(A.ODR_AM)-SUM(A.ODR_VAT) AS EXTX_AM,
+			SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+			SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM
+		FROM
+			TB_OD_ORDER_D A,
+			TB_OD_ORDER_M B,
+			TB_OD_TRTWRS C,
+			TB_TR_TRPL_CIF D,
+			TB_GD_WRS F
+		WHERE 1=1
+			AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+			AND A.ODR_DT 		  = B.ODR_DT
+			AND A.ODR_SLPNO 	  = B.ODR_SLPNO
+			AND B.ODRPL_NA_TRPL_C = D.NA_TRPL_C
+			AND A.NA_WRS_C 		  = C.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = C.NA_BZPLC(+)
+			AND A.NA_WRS_C		  = F.NA_WRS_C(+) 
+			AND B.PRC_YN IN ('R','T', 'Y')
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+<!-- 			AND B.RVOPL_NA_TRPL_C IN
+			<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach> -->
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND B.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND B.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND B.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		<choose>
+			<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+				AND B.DDLY_YN = #{ddlyYn}
+				AND B.SPYPL_NA_TRPL_C IN
+			</when>
+			<otherwise>
+				AND B.RVOPL_NA_TRPL_C IN
+			</otherwise>
+		</choose>
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		GROUP BY A.ODR_DT
+	</sql>
+
+
+	<select id="retrieveOrderDailyFst" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderDailyFstMap">
+		<bind name="sortName" value="'ODR_DT'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderDailyM" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderDailyCountFst" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderDailyM" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 수주내역조회_일자별 조회 Second 01 -->
+	<sql id="sql_retrieveOrderDailyScd">
+		SELECT
+			D.ODRPL_NA_TRPL_C, /* 발주처코드 */
+			D.ODRPL_NA_TEAM_C,/* 발주처팀코드 */
+			D.ODR_DT,/* 발주처일자 */
+			D.ODR_SLPNO,/* 발주전표번호 */
+			F.SHRT_BZPLNM, /* 발주처명 */
+			E.DVY_RQR_DT, /* 배송요청일 */
+			D.BOXPE_AQZ, /* BOX수량 */
+			D.ODR_AM, /* 수주금액 */
+			D.VCBT_AM, /* 공병금액 */
+			FN_CM_SIMP_CNM('SPY_TPC', E.SPY_TPC) AS SPY_TPC, /* 수주유형(공급유형코드) */
+			'['||E.NA_ODR_STS_DSC||']'|| FN_CM_SIMP_CNM('NA_ODR_STS_DSC', E.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC, /* 발주상태 */
+			'' AS FSRGMN_ENO, /* 발주자 */
+			'['||D.ODRPL_NA_TEAM_C||']'|| G.TEAMNM AS TEAMNM, /* 발주처팀명 */
+			(R2.RGN_CNM||'/'||R1.RGN_CNM) AS NA_RGN_C,
+			E.RVOPL_NA_TRPL_C, /* 수주처코드 */
+			H.CLNTNM, /* 수주처명 */
+			'['||E.RVOPL_NA_TEAM_C||']' || FN_CM_TEAM_NM(E.RVOPL_NA_TRPL_C, E.RVOPL_NA_TEAM_C) AS RVOPL_NA_TEAM_C, /* 수주처팀코드 */
+			TO_CHAR(E.EDIRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS EDIRG_DTM, /* 배달일시 */
+			TO_CHAR(TO_DATE(E.FS_RMS_DT || E.FS_RMS_HR, 'YYYYMMDD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS') AS FS_RMS_DTM, /* 수신일 */
+			TO_CHAR(E.DEL_DTM, 'YYYY-MM-DD HH24:MI:SS') AS DEL_DTM, /* 삭제일시 */
+			D.ODR_QTTT, /* 수주량 */
+			CASE
+				WHEN E.DDLY_YN ='1' AND E.NA_ODR_STS_DSC = '03' AND E.ROGO_INF_CRT_DSC = '245' THEN
+				'미작성'
+				WHEN E.DDLY_YN ='1' THEN
+	 			'작성'<!--'직송' -->
+				WHEN E.NA_ODR_STS_DSC = '03' THEN
+				'미작성'
+				ELSE
+				'작성'
+			END AS DLVPNSHT_TEMP_YN,
+			E.SPYPL_NA_TRPL_C,
+			E.ROGO_INF_CRT_DSC AS ROGO_INF_CRT_C,
+			E.DDLY_YN
+		FROM
+		(
+		SELECT	A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.ODR_DT,
+				A.ODR_SLPNO,
+				SUM(
+			    	CASE WHEN CIF.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( B.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+						 WHEN CIF.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(DECODE( B.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/B.MIN_ODR_QT), 2)
+						 ELSE ROUND(DECODE( F.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/F.BOXPE_AQZ), 2)
+					 END /* BOX수량 */
+		    	) AS BOXPE_AQZ,
+				SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+				SUM(NVL(A.ODR_QT, 0)) AS ODR_QTTT,
+				SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM
+		  FROM  TB_OD_ORDER_D A,
+				TB_OD_TRTWRS B,
+				TB_OD_ORDER_M C,
+    			TB_TR_TRPL_CIF CIF,
+    			TB_GD_WRS F
+		 WHERE 1=1
+		   AND A.NA_WRS_C 		 = B.NA_WRS_C(+)
+		   AND A.ODRPL_NA_TRPL_C = B.NA_BZPLC(+)
+		   AND A.NA_WRS_C		 = F.NA_WRS_C(+)
+		   AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+		   AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+		   AND A.ODR_DT 		 = C.ODR_DT
+		   AND A.ODR_SLPNO 		 = C.ODR_SLPNO
+		   AND A.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C
+		   AND C.PRC_YN IN ('R', 'Y')
+		   AND A.DEL_DTM IS NULL
+		   AND C.DEL_DTM IS NULL
+		   <choose>
+		   		<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+					AND C.DDLY_YN = #{ddlyYn}
+					AND C.SPYPL_NA_TRPL_C IN
+				</when>
+				<otherwise>
+					AND C.RVOPL_NA_TRPL_C IN
+				</otherwise>
+			</choose>
+			<foreach collection="trplC" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		   AND A.ODR_DT = #{odrDt}
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND '0' = DECODE(#{calFrom}, '', '0', '0')
+				AND '0' =
+				DECODE(#{calTo}, '', '0', '0')
+			</when>
+			<otherwise>
+				AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		GROUP BY A.ODRPL_NA_TRPL_C,
+				 A.ODRPL_NA_TEAM_C,
+				 A.ODR_DT,
+				 A.ODR_SLPNO
+		) D ,
+		TB_OD_ORDER_M E,
+		TB_CM_BZPL F,
+		TB_CM_TEAM G,
+		TB_TR_TRPL_CIF H,
+		TB_TR_TRPL_CIF I,
+		TB_TR_RGN R1,
+		TB_TR_RGN R2
+		WHERE 1=1
+		AND D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+		AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+		AND D.ODR_DT = E.ODR_DT
+		AND D.ODR_SLPNO = E.ODR_SLPNO
+		AND D.ODRPL_NA_TRPL_C = F.NA_BZPLC(+)
+		AND D.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+		AND D.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+		AND E.RVOPL_NA_TRPL_C = H.NA_TRPL_C(+)
+		AND D.ODRPL_NA_TRPL_C = I.NA_TRPL_C(+)
+		AND I.NA_RGN_C = R1.NA_RGN_C
+		AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+		ORDER BY D.ODR_DT DESC, D.ODRPL_NA_TRPL_C ASC
+	</sql>
+
+	<select id="retrieveOrderDailyScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultMap="orderDailyScdMap">
+		<bind name="sortName" value="'ODR_DT, ODR_SLPNO, ODRPL_NA_TRPL_C'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderDailyScd" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderDailyCountScd" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderDailyScd" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 수주내역조회_일자별 조회 Third 01 -->
+	<select id="retrieveOrderDailyTrd" parameterType="java.util.Map" resultMap="orderDailyTrdMap">
+		SELECT
+				A.NA_WRS_C,
+				D.WRSNM,
+				D.WRS_STDNM, /* 규격 */
+				CASE
+					WHEN LENGTH(D.NA_WRS_UNT_C)= 1 THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||D.NA_WRS_UNT_C)
+					WHEN LENGTH(D.NA_WRS_UNT_C)= 2 THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||D.NA_WRS_UNT_C)
+				ELSE
+					FN_CM_SIMP_CNM('NA_WRS_UNT_C', D.NA_WRS_UNT_C)
+				END AS NA_WRS_UNT_C ,/* 단위 */
+				CASE WHEN C.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( B.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+					 WHEN C.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(DECODE( B.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/B.MIN_ODR_QT), 2)
+					 ELSE ROUND(DECODE( D.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/D.BOXPE_AQZ), 2)
+				 END AS BOX_QT,
+				CASE 
+					WHEN C.NA_USR_SYS_KDC = '63' THEN B.BOXPE_AQZ 
+					WHEN C.NA_USR_SYS_KDC IN ('52','54') THEN B.MIN_ODR_QT 
+					ELSE D.BOXPE_AQZ
+       			 END AS BOXPE_AQZ,
+				NVL(A.ODR_PCS, 0) AS ODR_PCS, /* 발주단가 */
+				NVL(A.ODR_QT, 0) AS ODR_QT, /* 수주량 */
+<!-- 				ROUND((NVL(A.ODR_QT, 0) / NVL(B.MIN_ODR_QT, 1)), 2) AS BOX_QT, /* BOX수량 */ -->
+				NVL(A.ODR_AM, 0) AS ODR_AM, /* 수주금액 */
+				NVL(A.VCBT_AM, 0) AS VCBT_AM /* 공병금액 */
+		FROM
+				TB_OD_ORDER_D A,
+				TB_OD_TRTWRS B,
+				TB_TR_TRPL_CIF C,
+				TB_GD_WRS D 
+		WHERE 1=1
+				AND A.NA_WRS_C 		  = B.NA_WRS_C(+)
+				AND A.ODRPL_NA_TRPL_C = B.NA_BZPLC
+				AND A.ODRPL_NA_TRPL_C = C.NA_TRPL_C
+				AND A.DEL_DTM IS NULL
+				AND A.NA_WRS_C		  = D.NA_WRS_C
+				AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+				AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+				AND A.ODR_DT		  = #{ODR_DT}
+				AND A.ODR_SLPNO 	  = #{ODR_SLPNO}
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+	<!-- 수주내역조회_발주처별 조회 First 01 -->
+	<sql id="sql_retrieveOrderOdrplFst">
+		SELECT
+			A.ODRPL_NA_TRPL_C,
+			D.CLNTNM AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C,
+			'[' || A.ODRPL_NA_TEAM_C || ']' || G.TEAMNM AS ODRPL_NA_TEAM_N,
+			B.SPYPL_NA_TRPL_C,
+			F.CLNTNM AS SPYPL_NA_TRPL_N,
+			B.SPYPL_NA_TEAM_C,
+			'[' ||B.SPYPL_NA_TEAM_C|| ']' || NVL(H.TEAMNM,'팀없음') AS SPYPL_NA_TEAM_N,
+			COUNT(a.ODRPL_NA_TRPL_C||a.ODRPL_NA_TEAM_C||a.ODR_DT||a.ODR_SLPNO) AS ODR_CNT,
+			SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+			SUM(
+				CASE WHEN D.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( C.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+					 WHEN D.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(DECODE(C.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/C.MIN_ODR_QT), 2)
+					 ELSE ROUND(DECODE( I.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/I.BOXPE_AQZ), 2)
+				 END
+			   ) AS BOXPE_AQZ,
+			SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+			SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM
+		FROM
+			TB_OD_ORDER_D A,
+			TB_OD_ORDER_M B,
+			TB_OD_TRTWRS C,
+			TB_TR_TRPL_CIF D,
+			TB_TR_TRPL_CIF F,
+			TB_CM_TEAM G,
+			TB_CM_TEAM H,
+			TB_GD_WRS I
+		WHERE 1=1
+		AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+		AND A.ODR_DT 		  = B.ODR_DT
+		AND A.ODR_SLPNO 	  = B.ODR_SLPNO
+		AND A.NA_WRS_C 		  = C.NA_WRS_C(+)
+		AND A.ODRPL_NA_TRPL_C = C.NA_BZPLC(+)
+		AND A.NA_WRS_C        = I.NA_WRS_C(+)
+		AND A.ODRPL_NA_TRPL_C = D.NA_TRPL_C(+)
+		AND B.SPYPL_NA_TRPL_C = F.NA_TRPL_C(+)
+		AND A.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+		AND A.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+		AND B.SPYPL_NA_TRPL_C = H.NA_BZPLC(+)
+		AND B.SPYPL_NA_TEAM_C = H.NA_TEAM_C(+)
+		AND A.DEL_DTM IS NULL
+		AND B.DEL_DTM IS NULL
+		AND B.PRC_YN IN ('R', 'Y')
+		AND B.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="odrplNaTrplC != null and odrplNaTrplC.length() > 0">
+			AND A.ODRPL_NA_TRPL_C = #{odrplNaTrplC}
+			AND A.ODRPL_NA_TEAM_C = #{odrplNaTeamC}
+		</if>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND B.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND B.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+		AND B.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		GROUP BY
+			A.ODRPL_NA_TRPL_C,
+			D.CLNTNM,
+			A.ODRPL_NA_TEAM_C,
+			G.TEAMNM,
+			B.SPYPL_NA_TRPL_C,
+			F.CLNTNM,
+			B.SPYPL_NA_TEAM_C,
+			H.TEAMNM
+	</sql>
+
+
+	<select id="retrieveOrderOdrplFst" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderOdrplFstMap">
+		<bind name="sortName"
+			value="'ODRPL_NA_TRPL_C,ODRPL_NA_TRPL_N,ODRPL_NA_TEAM_C, ODRPL_NA_TEAM_N,SPYPL_NA_TRPL_C,SPYPL_NA_TRPL_N,SPYPL_NA_TEAM_C,SPYPL_NA_TEAM_N'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderOdrplFst" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderOdrplCountFst" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderOdrplFst" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 수주내역조회_발주처별 조회 Scd -->
+	<sql id="sql_retrieveOrderOdrplScd">
+		  SELECT
+				A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.ODR_DT,
+				A.ODR_SLPNO,
+				A.MNGT_NA_TRPL_C, /* 정산처 코드 */
+				C.CLNTNM AS MNGT_NA_TRPL_N, /*정산처명*/
+				TO_CHAR(A.EDIRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS EDIRG_DTM,/* 배달일시 */
+				TO_CHAR(TO_DATE(A.FS_RMS_DT || A.FS_RMS_HR, 'YYYYMMDD HH24:MI:SS'),
+				'YYYY-MM-DD HH24:MI:SS') AS FS_RMS_DTM, /* 수신일 */
+				A.DVY_RQR_DT,/* 배송요청일 */
+				B.ODR_AM,/* 수주금액 */
+				B.VCBT_AM,/* 공병금액 */
+				FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) SPY_TPC,/* 수주유형 */
+				'['||A.NA_ODR_STS_DSC||']'||FN_CM_SIMP_CNM('NA_ODR_STS_DSC',
+				A.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC, /* 발주상태 */
+				'' AS FSRGMN_ENO, /* 발주자 */
+				A.DDLY_YN, /* 직송여부 */
+				TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS FSRG_DTM, /* 최종등록일시 */
+				TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS LSCHG_DTM, /* 최종변경일시	*/
+				A.LS_CMENO, /* 최종변경자개인번호 */
+				TO_CHAR(A.DEL_DTM, 'YYYY-MM-DD HH24:MI:SS') AS DEL_DTM/* 삭제일시 */
+		   FROM	TB_OD_ORDER_M A,
+				(
+				SELECT
+					ODRPL_NA_TRPL_C,
+					ODRPL_NA_TEAM_C,
+					ODR_DT,
+					ODR_SLPNO,
+					SUM(NVL(ODR_AM, 0)) AS ODR_AM,
+					SUM(NVL(VCBT_AM, 0)) AS VCBT_AM
+				FROM TB_OD_ORDER_D
+				WHERE 1=1
+				AND DEL_DTM IS NULL
+				GROUP BY ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO
+				) B,
+		TB_TR_TRPL_CIF C
+		WHERE 1=1
+		AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+		AND A.ODR_DT = B.ODR_DT
+		AND A.ODR_SLPNO = B.ODR_SLPNO
+		AND A.DEL_DTM IS NULL
+		AND A.PRC_YN IN ('R', 'Y')
+		AND A.MNGT_NA_TRPL_C = C.NA_TRPL_C(+)
+		AND A.ODRPL_NA_TRPL_C = #{odrplNaTrplC}
+		AND A.ODRPL_NA_TEAM_C = #{odrplNaTeamC}
+		AND A.SPYPL_NA_TRPL_C = #{spyplNaTrplC}
+		AND A.SPYPL_NA_TEAM_C = #{spyplNaTeamC}
+		AND A.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+		AND A.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+	</sql>
+
+
+	<select id="retrieveOrderOdrplScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderOdrplScdMap">
+		<bind name="sortName" value="'ODR_DT, MNGT_NA_TRPL_C, ODR_SLPNO'" />
+		<bind name="sortType" value="'DESC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderOdrplScd" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderOdrplCountScd" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderOdrplScd" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 수주내역조회 발주처별 조회 Third -->
+	<select id="retrieveOrderOdrplTrd" parameterType="java.util.Map" resultMap="orderOdrplTrdMap">
+		SELECT
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_STDNM, /* 규격 */
+			CASE WHEN LENGTH(B.NA_WRS_UNT_C)= 1 THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+				 WHEN LENGTH(B.NA_WRS_UNT_C)= 2	THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+				 ELSE FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C)
+			 END AS NA_WRS_UNT_C, /* 단위 */
+			CASE WHEN E.NA_USR_SYS_KDC = '63' THEN B.BOXPE_AQZ
+				 WHEN E.NA_USR_SYS_KDC IN ('52','54') THEN F.MIN_ODR_QT
+				 ELSE B.BOXPE_AQZ
+			 END AS BOXPE_AQZ, /* BOX입수 */
+			CASE WHEN E.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( B.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+				 WHEN E.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(DECODE( F.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/F.MIN_ODR_QT), 2)
+				 ELSE ROUND(DECODE( B.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/B.BOXPE_AQZ), 2)
+			 END AS BOX_QT, /* BOX수량 */
+			NVL(A.ODR_PCS, 0) AS ODR_PCS, /* 발주단가 */
+			NVL(A.ODR_QT, 0) AS ODR_QT, /* 수주량 */
+			NVL(A.ODR_AM, 0) AS ODR_AM, /* 수주금액 */
+			NVL(A.ODR_VAT, 0) AS ODR_VAT, /* 부가세액 */
+			NVL(A.VCBT_AM, 0) AS VCBT_AM, /* 공병금액 */
+			'' AS FSRGMN_ENO,/* 최초등록자 개인번호 */
+			'' AS FSRG_DTM,/* 최종등록일시 */
+			'' AS LS_CMENO, /* 최초변경자 개인번호 */
+			'' AS LSCHG_DTM, /* 최종변경일시 */
+			'' AS DEL_DTM /* 삭제일시 */
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M D,
+			TB_TR_TRPL_CIF E,
+			TB_OD_TRTWRS F
+		WHERE 1=1
+			AND A.NA_WRS_C 		  = B.NA_WRS_C(+)
+			AND A.NA_WRS_C		  = F.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = F.NA_BZPLC(+) 
+			AND A.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND A.ODR_DT 		  = D.ODR_DT
+			AND A.ODR_SLPNO 	  = D.ODR_SLPNO
+			AND A.ODRPL_NA_TRPL_C = E.NA_TRPL_C
+			AND D.PRC_YN IN ('R', 'Y')
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT 		  = #{ODR_DT}
+			AND A.ODR_SLPNO 	  = #{ODR_SLPNO}
+			AND D.DEL_DTM IS NULL
+			AND A.DEL_DTM IS NULL
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+	<!-- 수주내역조회 소속사업장별 조회 First -->
+	<sql id="sql_retrieveOrderRvoplFst">
+		SELECT
+				C.RVOPL_NA_TRPL_C,
+				E.CLNTNM AS RVOPL_NA_TRPL_N,
+				C.SPYPL_NA_TRPL_C,
+				F.CLNTNM AS SPYPL_NA_TRPL_N,
+				COUNT(*) AS ODR_WRS_CNT,
+				SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+				SUM(
+					CASE WHEN D.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( B.BOXPE_AQZ, 1) * A.ODR_QT, 2) 
+						 WHEN D.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(A.ODR_QT/DECODE(TW.MIN_ODR_QT, 0,1,TW.MIN_ODR_QT),2)
+						 ELSE ROUND(A.ODR_QT/DECODE(B.BOXPE_AQZ, 0,1,B.BOXPE_AQZ),2) 
+					END
+				   ) AS BOXPE_AQZ,
+				SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+				SUM(NVL(A.ODR_VAT, 0)) AS ODR_VAT,
+				SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+				COUNT(DISTINCT C.ODRPL_NA_TRPL_C||C.ODRPL_NA_TEAM_C||C.ODR_DT||C.ODR_SLPNO) AS
+				ODR_CNT,/* 수주건수 */
+				C.VHCNO AS VHCNO
+		FROM
+				TB_OD_ORDER_D A,
+				TB_GD_WRS B,
+				TB_OD_ORDER_M C,
+				TB_TR_TRPL_CIF D,
+				TB_TR_RGN R1,
+				TB_TR_RGN R2,
+				TB_OD_TRTWRS TW,
+				TB_TR_TRPL_CIF E,
+				TB_TR_TRPL_CIF F
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = C.ODR_DT
+			AND A.ODR_SLPNO = C.ODR_SLPNO
+			AND A.ODRPL_NA_TRPL_C = D.NA_TRPL_C
+			AND D.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+			AND A.NA_WRS_C = TW.NA_WRS_C(+)
+			AND C.RVOPL_NA_TRPL_C = E.NA_TRPL_C
+			AND C.SPYPL_NA_TRPL_C = F.NA_TRPL_C
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.PRC_YN IN ('R', 'Y')
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		
+		<choose>
+			<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+				AND C.DDLY_YN = #{ddlyYn}
+				AND C.SPYPL_NA_TRPL_C IN
+			</when>
+			<otherwise>
+				AND C.RVOPL_NA_TRPL_C IN
+			</otherwise>
+		</choose>
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		<!-- 축산R2 직송 조건(축산조회에서만 동작) -->
+		<if test="r2DdlyYn != null and r2DdlyYn.length() > 0">
+			<choose>
+				<when test="r2DdlyYn == '1'.toString()">
+					AND C.ROGO_INF_CRT_DSC IN ('462', '463')
+				</when>
+				<otherwise>
+					AND C.ROGO_INF_CRT_DSC NOT IN ('462', '463')
+				</otherwise>
+			</choose>
+		</if>
+		GROUP BY
+			C.RVOPL_NA_TRPL_C,
+			E.CLNTNM,
+			C.SPYPL_NA_TRPL_C,
+			F.CLNTNM,
+			VHCNO
+		ORDER BY C.RVOPL_NA_TRPL_C,C.SPYPL_NA_TRPL_C ASC
+	</sql>
+
+
+	<select id="retrieveOrderRvoplFst" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderRvoplFstMap">
+		<bind name="sortName" value="'1, 2, 3, 4, 5' " />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderRvoplFst" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderRvoplCountFst" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderRvoplFst" />
+		<include refid="common.count_end" />
+	</select>
+
+
+	<!-- 수주내역조회 소속사업장별 조회 Second -->
+	<sql id="sql_retrieveOrderRvoplScd">
+		SELECT
+		
+		/*
+			CASE
+				WHEN E.DDLY_YN ='1' AND E.NA_ODR_STS_DSC = '03' AND E.ROGO_INF_CRT_DSC = '245' THEN
+				'1'
+				WHEN E.DDLY_YN ='1' THEN
+	 			'0'<!--'직송' -->
+				WHEN E.NA_ODR_STS_DSC = '03' THEN
+				'1'
+				ELSE
+				'0'
+			END AS ISCHECKED, 	
+			*/
+			'0' AS ISCHECKED, 
+			D.ODR_DT,
+			D.ODR_SLPNO,
+			D.ODRPL_NA_TRPL_C,
+			F.CLNTNM AS ODRPL_NA_TRPL_N,
+			CASE
+			WHEN D.ODRPL_NA_TEAM_C = '00' THEN '[00] 팀없음'
+			ELSE '['|| D.ODRPL_NA_TEAM_C ||'] ' || G.TEAMNM
+			END AS ODRPL_NA_TEAM_N,
+			D.ODRPL_NA_TEAM_C,
+			E.DVY_RQR_DT,
+			TO_CHAR(E.EDIRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS EDIRG_DTM,
+			TO_CHAR(TO_DATE(E.FS_RMS_DT || E.FS_RMS_HR, 'YYYYMMDD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS') AS
+			FS_RMS_DTM,
+			D.ODR_QT,
+			D.ODR_AM,
+			D.VCBT_AM,
+			CASE
+				WHEN E.DDLY_YN ='1' AND E.NA_ODR_STS_DSC = '03' AND E.ROGO_INF_CRT_DSC = '245' THEN
+				'미작성'
+				WHEN E.DDLY_YN ='1' THEN
+	 			'작성'<!--'직송' -->
+				WHEN E.NA_ODR_STS_DSC = '03' THEN
+				'미작성'
+				ELSE
+				'작성'
+			END AS DLVPNSHT_TEMP_YN,
+			'['||E.NA_ODR_STS_DSC||']'||FN_CM_SIMP_CNM('NA_ODR_STS_DSC',
+			E.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC,
+			E.DDLY_YN,
+			FN_CM_SIMP_CNM('SPY_TPC', E.SPY_TPC) AS SPY_TPC,
+			'[' || R1.NA_RGN_C || '] ' || R1.RGN_CNM || '/' || R2.RGN_CNM AS
+			NA_RGN_N,
+			'' AS DLVST_EDIT_PSB_YN,
+			'' AS XML_CHANGE_NM,
+			'' AS XML_ODR_NO,
+			'' AS XML_SEND_DT,
+			'' AS XML_OFFER_ODR_NO,
+			'' AS FSRGMN_ENO,
+			TO_CHAR(E.FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS FSRG_DTM,
+			TO_CHAR(E.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS LSCHG_DTM,
+			E.LS_CMENO,
+			TO_CHAR(E.DEL_DTM, 'YYYY-MM-DD HH24:MI:SS') AS DEL_TEM,
+			E.DVYAA_NA_TRPL_C,
+			I.CLNTNM AS DVYAA_NA_TRPL_N,
+			E.DVYAA_NA_TEAM_C,
+			'['|| E.DVYAA_NA_TEAM_C || ']' || J.TEAMNM AS DVYAA_NA_TEAM_N,
+			E.GRS_SOJU_YN,
+			'[' || E.ROGO_INF_CRT_DSC || ']' || FN_CM_SIMP_CNM('ROGO_INF_CRT_DSC',
+			E.ROGO_INF_CRT_DSC) AS ROGO_INF_CRT_DSC,
+			E.ROGO_INF_CRT_DSC AS ROGO_INF_CRT_C,
+			E.VHCNO,
+			E.SPYPL_NA_TRPL_C,
+			E.XML_CHDOC_NO,
+			E.XML_ODRW_NO,
+			E.XML_DOC_TMS_DT,
+			'['|| E.SRA_WRS_DSC || ']' || FN_CM_SIMP_CNM('SRA_WRS_DSC', E.SRA_WRS_DSC) AS SRA_WRS_DSC,
+			'['|| E.DDL_WRS_KDC || ']' || FN_CM_SIMP_CNM('DDL_WRS_KDC', E.DDL_WRS_KDC) AS DDL_WRS_KDC,
+			E.PRGR_C,
+			CASE WHEN E.ROGO_INF_CRT_DSC = '243' OR E.ROGO_INF_CRT_DSC = '244' OR E.ROGO_INF_CRT_DSC = '800' OR E.ROGO_INF_CRT_DSC = '801' OR E.ROGO_INF_CRT_DSC = '802' THEN '002'
+			WHEN E.ROGO_INF_CRT_DSC = '245' AND (E.PRGR_C = '70' OR E.PRGR_C = '80') THEN '002'
+			ELSE '001' END AS DVY_PLASH_CRT_DSC
+		  FROM ( SELECT
+						A.ODRPL_NA_TRPL_C,
+						A.ODRPL_NA_TEAM_C,
+						A.ODR_DT,
+						A.ODR_SLPNO,
+						SUM(NVL(B.BOXPE_AQZ, 1)) AS BOXPE_AQZ,
+						SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+						SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+						SUM(NVL(A.ODR_QT, 0)) AS ODR_QT
+					FROM
+						TB_OD_ORDER_D A,
+						TB_GD_WRS B,
+						TB_OD_ORDER_M C,
+						TB_OD_TRTWRS TW
+					WHERE 1=1
+						AND A.NA_WRS_C = B.NA_WRS_C(+)
+						AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+						AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+						AND A.ODR_DT = C.ODR_DT
+						AND A.ODR_SLPNO = C.ODR_SLPNO
+						AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+						AND A.NA_WRS_C = TW.NA_WRS_C(+)
+						AND A.DEL_DTM IS NULL
+						AND C.DEL_DTM IS NULL
+						AND C.PRC_YN IN ('R', 'Y')
+						AND C.RVOPL_NA_TRPL_C = #{rvoplNaTrplC}
+						AND C.SPYPL_NA_TRPL_C = #{spyplNaTrplC}
+						AND #{vhcno} = NVL(C.VHCNO,'0000')  
+					<if
+						test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+						AND TW.PHD_FCLT_C = #{phdFcltC}
+					</if>
+					<choose>
+						<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+							AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+						</when>
+						<otherwise>
+							AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+						</otherwise>
+					</choose>
+					<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+						AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+					</if>
+					GROUP BY
+					A.ODRPL_NA_TRPL_C,
+					A.ODRPL_NA_TEAM_C,
+					A.ODR_DT,
+					A.ODR_SLPNO
+			   ) D
+			 , TB_OD_ORDER_M E
+			 , TB_TR_TRPL_CIF F
+			 , TB_CM_TEAM G
+			 , TB_TR_TRPL_CIF H
+			 , TB_TR_TRPL_CIF I
+			 , TB_CM_TEAM J
+			 , TB_TR_RGN R1
+			 , TB_TR_RGN R2
+		 WHERE D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+		   AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+		   AND D.ODR_DT = E.ODR_DT
+		   AND D.ODR_SLPNO = E.ODR_SLPNO
+		   AND D.ODRPL_NA_TRPL_C = F.NA_TRPL_C
+		   AND D.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+		   AND D.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+		   AND E.RVOPL_NA_TRPL_C = H.NA_TRPL_C
+		   AND E.DVYAA_NA_TRPL_C = I.NA_TRPL_C
+		   AND E.DVYAA_NA_TRPL_C = J.NA_BZPLC(+)
+		   AND E.DVYAA_NA_TEAM_C = J.NA_TEAM_C(+)
+		   AND F.NA_RGN_C = R1.NA_RGN_C
+		   AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+		   AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+		   AND R1.NA_RGN_C = #{htLovRgnC} /* 시 */
+		</if>
+		<!-- 축산R2 직송 조건(축산조회에서만 동작) -->
+		<if test="r2DdlyYn != null and r2DdlyYn.length() > 0">
+			<choose>
+				<when test="r2DdlyYn == '1'.toString()">
+					AND E.ROGO_INF_CRT_DSC IN ('462', '463')
+				</when>
+				<otherwise>
+					AND E.ROGO_INF_CRT_DSC NOT IN ('462', '463')
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+
+	<!-- 소속사업장별 조회 Scd -->
+	<select id="retrieveOrderRvoplScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderRvoplScdMap">
+		<bind name="sortName" value="'ODR_DT DESC, ODRPL_NA_TRPL_C, DVY_PLASH_CRT_DSC DESC' " />
+		<bind name="sortType" value="'ASC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderRvoplScd" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderRvoplCountScd" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderRvoplScd" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 소속사업장별 조회 Scd 합계 -->
+	<select id="retrieveOrderRvoplTotalScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultType="java.util.Map">
+		SELECT
+		NVL(SUM(LIST.ODR_QT), 0) AS TOTAL_ODR_QT,
+		NVL(SUM(LIST.ODR_AM), 0) AS TOTAL_ODR_AM,
+		NVL(SUM(LIST.VCBT_AM), 0) AS TOTAL_VCBT_AM
+		FROM(
+		<include refid="sql_retrieveOrderRvoplScd" />
+		) LIST
+	</select>
+
+	<!-- 수주내역조회 소속사업장별 조회 Third -->
+	<select id="retrieveOrderRvoplTrd" parameterType="java.util.Map" resultMap="orderRvoplTrdMap">
+		SELECT
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_STDNM, /* 규격 */
+			CASE
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 1
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 2
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '0'||B.NA_WRS_UNT_C)
+			ELSE
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C)
+			END AS NA_WRS_UNT_C, /* 단위 */
+			CASE WHEN CIF.NA_USR_SYS_KDC = '63' THEN B.BOXPE_AQZ
+				 WHEN CIF.NA_USR_SYS_KDC IN ('52','54') THEN TW.BOXPE_AQZ
+				 ELSE B.BOXPE_AQZ 
+			END AS BOXPE_AQZ, /* BOX입수 */
+			NVL(A.ODR_PCS, 0) AS ODR_PCS, /* 발주단가 */
+			NVL(A.ODR_QT, 0) AS ODR_QT, /* 수주량 */
+			CASE WHEN CIF.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( TW.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+				 WHEN CIF.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(A.ODR_QT/DECODE(TW.MIN_ODR_QT, 0,1,TW.MIN_ODR_QT),2)
+				 ELSE ROUND(A.ODR_QT/DECODE(B.BOXPE_AQZ, 0,1,B.BOXPE_AQZ),2) 
+			END AS BOX_QT, /* BOX수량 */
+			NVL(A.ODR_AM, 0) AS ODR_AM, /* 수주금액 */
+			NVL(A.ODR_VAT, 0) AS ODR_VAT, /* 부가세액 */
+			NVL(A.VCBT_AM, 0) AS VCBT_AM, /* 공병금액 */
+			'' AS FSRGMN_ENO,/* 최초등록자 개인번호 */
+			'' AS FSRG_DTM,/* 최종등록일시 */
+			'' AS LSCHG_DTM, /* 최종변경일시 */
+			'' AS LS_CMENO, /* 최초변경자 개인번호 */
+			'' AS DEL_DTM, /* 삭제일시 */
+			TW.PHD_FCLT_C, /* 물류기능코드 */
+			NVL(TW.SVS_YN, '0') AS SVS_YN, /* 소분여부 */
+			TW.SVS_UNT_QT, /* 소분단위수량 */
+            A.OGN_ODRPL_NA_TRPL_C,	             /* 경제통합 원발주처경제통합거래처코드  */
+            E.CLNTNM AS OGN_ODRPL_NA_TRPL_NM,    /* 경제통합 원발주처경제통합거래처명    */
+            A.OGN_ODRPL_NA_TEAM_C                /* 경제통합 원발주처경제통합팀코드      */
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M D,
+			TB_OD_TRTWRS TW,
+			TB_TR_TRPL_CIF CIF,
+			TB_TR_TRPL_CIF  E 
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = D.ODR_DT
+			AND A.ODR_SLPNO = D.ODR_SLPNO
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+			AND A.NA_WRS_C = TW.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C
+		    AND A.OGN_ODRPL_NA_TRPL_C	 = E.NA_TRPL_C(+)
+			AND A.DEL_DTM IS NULL
+			AND D.DEL_DTM IS NULL
+			AND D.PRC_YN IN ('R', 'Y')
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT = #{ODR_DT}
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+			AND D.DEL_DTM IS NULL
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+	<!-- 수주내역조회 상품별 조회 First -->
+	<sql id="sql_retrieveOrderWrsFst">
+		SELECT 
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_STDNM,
+			CASE WHEN LENGTH(B.NA_WRS_UNT_C)= 1 THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+				 WHEN LENGTH(B.NA_WRS_UNT_C)= 2 THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '0'||B.NA_WRS_UNT_C)
+				 ELSE FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C)
+			 END AS NA_WRS_UNT_C,
+			CASE WHEN MIN(Z.NA_USR_SYS_KDC) = '63' THEN B.BOXPE_AQZ
+				 WHEN MIN(Z.NA_USR_SYS_KDC) IN ('52','54') THEN TW.MIN_ODR_QT
+				 ELSE B.BOXPE_AQZ
+			 END AS BOXPE_AQZ,
+			A.ODR_PCS,
+			SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+			SUM(
+				CASE WHEN Z.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( B.BOXPE_AQZ, 1) * A.ODR_QT , 2)
+					 WHEN Z.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(DECODE(TW.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/TW.MIN_ODR_QT), 2)
+					 ELSE ROUND(A.ODR_QT/DECODE(B.BOXPE_AQZ,0, TW.BOXPE_AQZ,B.BOXPE_AQZ), 2) 
+				 END 
+			   ) AS BOX_QT,
+			SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+			SUM(NVL(A.ODR_VAT, 0)) AS ODR_VAT,
+			SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+			COUNT(DISTINCT A.ODRPL_NA_TRPL_C||A.ODRPL_NA_TEAM_C||A.ODR_DT||A.ODR_SLPNO) AS ODR_CNT,
+			TRIM(C.VHCNO) AS VHCNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M C,
+			TB_TR_TRPL_CIF X,
+			TB_TR_TRPL_CIF Y,
+			TB_TR_TRPL_CIF Z,
+			TB_OD_TRTWRS TW,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = C.ODR_DT
+			AND A.ODR_SLPNO = C.ODR_SLPNO
+			AND C.RVOPL_NA_TRPL_C = X.NA_TRPL_C
+			AND C.SPYPL_NA_TRPL_C = Y.NA_TRPL_C
+			AND C.ODRPL_NA_TRPL_C = Z.NA_TRPL_C
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+			AND A.NA_WRS_C = TW.NA_WRS_C(+)
+			AND Z.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.PRC_YN IN ('R', 'Y')
+		<if test="naWrsC != null and naWrsC.length() > 0">
+			AND A.NA_WRS_C = #{naWrsC}
+		</if>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		AND C.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if
+			test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		GROUP BY A.NA_WRS_C,
+		B.WRSNM,
+		B.WRS_STDNM,
+		B.BOXPE_AQZ,
+		A.ODR_PCS,
+		B.NA_WRS_UNT_C,
+		VHCNO,
+        TW.MIN_ODR_QT
+	</sql>
+
+
+	<select id="retrieveOrderWrsFst" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderWrsFstMap">
+		<bind name="sortName" value="'NA_WRS_C, TRIM(VHCNO)' " />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderWrsFst" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderWrsCountFst" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderWrsFst" />
+		<include refid="common.count_end" />
+	</select>
+
+
+
+	<!-- 수주내역조회 상품별 조회 Second -->
+	<sql id="sql_retrieveOrderWrsScd">
+		SELECT DISTINCT
+			A.ODRPL_NA_TRPL_C,
+			F.CLNTNM AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C,
+			'[' || A.ODRPL_NA_TEAM_C || ']' || FN_CM_TEAM_NM(A.ODRPL_NA_TRPL_C, A.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N,
+			SUM(A.ODR_QT) AS ODR_QT,
+			CASE WHEN MIN(F.na_usr_sys_kdc) = '63' THEN ROUND(SUM(NVL( B.boxpe_aqz, 1) * A.odr_qt), 2)
+				 WHEN MIN(F.na_usr_sys_kdc) IN ('52','54') THEN ROUND(SUM(DECODE( TW.MIN_ODR_QT, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/TW.MIN_ODR_QT)), 2)
+				 ELSE ROUND(SUM(A.ODR_QT/DECODE(TW.BOXPE_AQZ,0,B.BOXPE_AQZ,TW.BOXPE_AQZ)), 2)  
+			 END AS BOXPE_AQZ,
+			SUM(A.ODR_AM) AS ODR_AM,
+			SUM(A.ODR_VAT) AS ODR_VAT,
+			SUM(A.VCBT_AM) AS VCBT_AM,
+			TRIM(C.VHCNO) AS VHCNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M C,
+			TB_TR_TRPL_CIF F,
+			TB_OD_TRTWRS TW,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+		WHERE 1=1
+		AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+		AND A.ODR_DT = C.ODR_DT
+		AND A.ODR_SLPNO = C.ODR_SLPNO
+		AND A.NA_WRS_C = B.NA_WRS_C(+)
+		AND A.ODRPL_NA_TRPL_C = F.NA_TRPL_C
+		AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+		AND A.NA_WRS_C = TW.NA_WRS_C(+)
+		AND F.NA_RGN_C = R1.NA_RGN_C
+		AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+		AND C.PRC_YN IN ('R', 'Y')
+		AND A.NA_WRS_C = #{naWrsC}
+		AND A.ODR_PCS = #{odrPcs}
+		AND A.DEL_DTM IS NULL
+		AND C.DEL_DTM IS NULL
+		<choose>
+			<when test="vhcno != null  and vhcno.length() > 0 ">
+				AND  #{vhcno}  = NVL(C.VHCNO, '0000')
+			</when>
+			<otherwise>
+				AND (
+				(C.VHCNO = #{vhcno})
+				OR (C.VHCNO IS NOT NULL AND C.VHCNO LIKE #{vhcno}||'%')
+				OR (C.VHCNO IS NULL)
+				)
+			</otherwise>
+		</choose>
+
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		AND C.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if	test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		GROUP BY A.ODRPL_NA_TRPL_C, F.CLNTNM, A.ODRPL_NA_TEAM_C, TRIM(C.VHCNO)
+	</sql>
+
+
+	<select id="retrieveOrderWrsScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="orderWrsScdMap">
+		<bind name="sortName" value="'ODRPL_NA_TRPL_N' " />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveOrderWrsScd" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<select id="retrieveOrderWrsCountScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveOrderWrsScd" />
+		<include refid="common.count_end" />
+	</select>
+
+	<select id="retrieveOrderWrsTotalScd" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.ODR_QT), 0) AS TOTAL_ODR_QT,
+			NVL(SUM(LIST.BOXPE_AQZ), 0) AS TOTAL_BOX_QT,
+			NVL(SUM(LIST.ODR_AM), 0) AS TOTAL_ODR_AM,
+			NVL(SUM(LIST.ODR_VAT), 0) AS TOTAL_ODR_VAT,
+			NVL(SUM(LIST.VCBT_AM), 0) AS TOTAL_VCBT_AM
+		FROM(
+		<include refid="sql_retrieveOrderWrsScd" />
+		) LIST
+	</select>
+
+
+
+
+	<!-- 수주내역조회 상품별 조회 Third -->
+	<select id="retrieveOrderWrsTrd" parameterType="java.util.Map"
+		resultMap="orderWrsTrdMap">
+		SELECT
+			A.ODR_DT
+			,A.ODR_SLPNO
+			,A.MNGT_NA_TRPL_C
+			,B.CLNTNM
+			,SUM(C.ODR_QT) AS ODR_QT
+			,SUM(C.ODR_AM) AS ODR_AM
+			,SUM(C.ODR_VAT) AS ODR_VAT
+			,SUM(C.VCBT_AM) AS VCBT_AM
+			,FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) AS SPY_TPC /*공급유형코드*/
+			,FN_CM_SIMP_CNM('NA_ODR_STS_DSC',A.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC
+		FROM
+			TB_OD_ORDER_M A
+			,TB_TR_TRPL_CIF B
+			,TB_OD_ORDER_D C
+			,TB_GD_WRS D
+		WHERE 1=1
+			AND A.MNGT_NA_TRPL_C=B.NA_TRPL_C(+)
+			AND A.ODRPL_NA_TRPL_C=C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C=C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT=C.ODR_DT
+			AND A.ODR_SLPNO=C.ODR_SLPNO
+			AND C.NA_WRS_C=D.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND A.PRC_YN IN ('R', 'Y')
+			AND A.ODRPL_NA_TRPL_C = #{odrplNaTrplC}
+			AND A.ODRPL_NA_TEAM_C = #{odrplNaTeamC}
+			AND C.NA_WRS_C = #{naWrsC}
+		<choose>
+			<when test="vhcno != null and vhcno.length() > 0 ">
+				AND A.VHCNO = #{vhcno}
+			</when>
+			<otherwise>
+				AND (
+				(A.VHCNO = #{vhcno})
+				OR (A.VHCNO IS NOT NULL AND A.VHCNO LIKE #{vhcno}||'%')
+				OR (A.VHCNO IS NULL)
+				)
+			</otherwise>
+		</choose>
+
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		AND A.RVOPL_NA_TRPL_C IN
+		<foreach collection="trpl_c" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		GROUP BY A.ODR_DT,
+			A.ODR_SLPNO,
+			A.MNGT_NA_TRPL_C,
+			B.CLNTNM,
+			A.SPY_TPC,
+			A.NA_ODR_STS_DSC
+	</select>
+
+	<!-- 수주내역조회 소속상품별 print -->
+	<select id="printWrsOrderMaster" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultMap="orderWrsFstMap">
+		<include refid="sql_retrieveOrderWrsFst" />
+	</select>
+	
+	
+	<!-- TC 수주내역 조회 -->
+	<sql id="sql_retrieveTCOrders">
+		SELECT 
+			M.ODRPL_NA_TRPL_C,
+			M.ODRPL_NA_TEAM_C,
+			M.ODR_DT,
+			M.ODR_SLPNO,
+			M.ODR_DSQNO,
+			M.NA_WRS_C,
+			E.WRSNM,
+			DECODE(TRIM(#{NA_USR_SYS_KDC}),'52',C.boxpe_aqz,'54',C.boxpe_aqz, E.boxpe_aqz) AS boxpe_aqz,
+			E.WRS_STDNM,/* 규격 */
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', E.NA_WRS_UNT_C) AS NA_WRS_STD_UNT_C, /* 단위 */
+			'[ ' || M.TXT_DSC || ' ]' || FN_CM_SIMP_CNM('TXT_DSC', M.TXT_DSC) AS TXT_DSC, /* 면과세 */
+			M.ODR_PCS, /* 단가 */
+			NVL(M.ODR_QT / DECODE(C.BOXPE_AQZ, 0, 1, C.BOXPE_AQZ), 1) AS BOX_QT, /* 박스수량*/
+			M.ODR_QT, /* 수주수량 */
+			M.ODR_AM,
+			M.VCBT_AM,
+			C.PHD_FCLT_C AS PHD_FCLT_N, /* 물류기능코드 */
+			'[ ' || M.ODRPL_NA_TRPL_C || ' ]' || FN_TRPL_CIF_NM(M.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			C.SPYPL_NA_TRPL_C AS SPYPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(C.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N
+		FROM (
+		<![CDATA[
+		SELECT /*+ ordered */
+		]]>	
+				A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.ODR_DT,
+				A.ODR_SLPNO,
+				B.ODR_DSQNO,
+				B.TXT_DSC,
+				B.ODR_PCS,
+				B.ODR_QT, /* 수주수량 */
+				B.ODR_AM,
+				B.VCBT_AM,
+				A.RVOPL_NA_TRPL_C,
+				B.NA_WRS_C
+		FROM 
+			TB_OD_ORDER_M A,
+			TB_OD_ORDER_D B,
+			TB_OD_TRTWRS F
+		WHERE A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+		AND A.ODR_DT = B.ODR_DT
+		AND A.ODR_SLPNO = B.ODR_SLPNO   
+		AND A.RVOPL_NA_TRPL_C = F.NA_BZPLC
+		AND B.NA_WRS_C = F.NA_WRS_C
+		AND F.PHD_FCLT_C = 'TC'
+		AND A.DEL_DTM IS NULL
+		AND B.DEL_DTM IS NULL
+		AND A.PRC_YN IN ('R', 'Y')
+		AND A.RVOPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C} 
+		AND F.NA_BZPLC = #{ODRPL_NA_TRPL_C}
+		AND F.SPYPL_NA_TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		AND A.ODR_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}) M,
+			TB_OD_TRTWRS C,
+			TB_GD_WRS E
+		WHERE M.RVOPL_NA_TRPL_C = C.NA_BZPLC(+)
+		AND M.NA_WRS_C = C.NA_WRS_C(+)
+		AND M.NA_WRS_C = E.NA_WRS_C(+)
+		AND C.PD_YY = '0000'
+		AND C.CSER_CTR_TPC = '0'
+		AND C.BUY_TXT_DSC = '0'
+		AND C.BUY_BZ_METC = '00'
+	</sql>
+
+	<select id="retrieveTCOrders" parameterType="java.util.Map" resultMap="tcOrdersMap">
+		<bind name="sortName"
+			value="'ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO, ODR_DSQNO'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveTCOrders" />
+		<include refid="common.paging_end" />
+	</select>
+	
+
+	<select id="excelTCOrders" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 M.ODR_DSQNO
+			,M.NA_WRS_C
+			,E.WRSNM
+			,M.CHAF_NA_WRS_C
+			,E.NA_WRS_LCLC
+			,E.NA_WRS_MCLC
+			,E.NA_WRS_SCLC
+			,E.NA_WRS_DTCF_C
+			,E.NA_WRS_UNT_C
+			,E.NA_WRS_PAK_C
+			,E.NA_WRS_SZE_SEX_C
+			,E.NA_WRS_QLT_GRDC
+			,E.WRS_HGHT
+			,E.WRS_LEN_LEN
+			,E.WRS_WDTH_LEN
+			,E.WRS_SDL_DSC
+			,E.WRS_AHL_CN
+			,'' ODR_WRS_CNTN  /* -- 발주상품내용 */
+			,C.PD_YY
+			,C.TXT_DSC
+			,C.BOX_WRS_YN
+			,C.DDLY_YN
+			,M.VCBT_NA_WRS_C
+			,M.VCBT_AM
+			,M.VCBX_AM
+			,M.ODR_PCS
+			,'' ALC_QT       /* -- 할당수량 */
+			,M.ODR_QT
+			,M.ODR_VAT
+			,M.ODR_AM
+			, '' BYNG_DFN_UPR       /* -- 매입확정단가 */
+			, '' BYNG_DFN_QT        /* -- 매입확정수량 */
+			, '' BYNG_DFN_VAT       /* -- 매입확정부가세 */
+			, '' BYNG_DFN_AM        /* -- 매입확정금액 */
+			, '' PDAA_NA_TRPL_C     /* -- 산지경제통합사업장코드 */
+			, '' PDAA_NA_TRPL_NM
+			, '' PDAA_NA_TEAM_C     /* -- 산지경제통합팀코드 */
+			, '' PDAA_NA_TEAM_NM
+			, '' RCPMNM             /* -- 수령인명 */
+			, '' RCPMN_TELNO        /* -- 수령인전화번호 */
+			,M.NA_ODR_STS_DSC
+			,M.RMK_CNTN
+			,'' FSRG_DTM           /* -- 최초등록일시 */
+			,M.FSRGMN_ENO         /* -- 최초등록자개인번호 */
+			,'' LSCHG_DTM          /* -- 최종변경일시 */
+			,M.LS_CMENO           /* -- 최종변경자개인번호 */
+			,M.DEL_DTM            /* -- 삭제일시 */
+			,E.WRS_STDNM
+			,FN_CM_SIMP_CNM('NA_WRS_UNT_C', E.NA_WRS_UNT_C) AS NA_WRS_STD_UNT_C /* 단위 */
+			,C.VCBT_UPR
+			,C.PD_YY_AMN_YN
+			,C.MIN_ODR_QT
+			,C.MAX_ODR_QT
+			,E.VCBT_QT
+			,DECODE(TRIM(#{NA_USR_SYS_KDC}),'52',C.BOXPE_AQZ,'54',C.BOXPE_AQZ, E.BOXPE_AQZ) AS BOXPE_AQZ /* 박스당입수*/
+			--1055(C)물류예약	1056(L)최소발주수량	1057(L)최대발주수량	1058(L)최소발주금액	1059(L)최대발주금액	1060(V)수주상태
+			,'' MART_DIV_BKG_ODR_YN  /* -- 물류예약     */
+			,'' MAX_ODR_QT_A         /* -- 최소발주수량 */
+			,'' MIN_ODR_QT_A         /* -- 최대발주수량 */
+			,'' MAX_ODR_AM           /* -- 최소발주금액 */
+			,'' MIN_ODR_AM           /* -- 최대발주금액 */
+			,'Y:정상수주' AS ORD_STS
+			,E.WRS_TPC
+			,C.CSER_CTR_TPC
+			,C.BUY_BZ_METC
+			,C.SVS_YN
+			,C.SVS_UNT_QT
+			,C.PHD_FCLT_C
+			,M.ODR_QT ODR_QT_A
+			,M.ODRPL_NA_TRPL_C
+			,M.ODRPL_NA_TEAM_C
+			,M.ODR_DT
+			,M.ODR_SLPNO
+			,FN_TRPL_CIF_NM(M.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N
+			,FN_CM_TEAM_NM(M.ODRPL_NA_TRPL_C, M.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N
+			,FN_CM_SIMP_CNM('TXT_DSC', M.TXT_DSC) AS TXT_DSC_N /* 면과세 */
+			,C.SPYPL_NA_TRPL_C
+			,FN_TRPL_CIF_NM(C.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N
+		FROM
+                     (
+                     SELECT 
+                            /*+ ordered */ 
+                         B.ODR_DSQNO
+			,B.NA_WRS_C
+			,B.CHAF_NA_WRS_C
+			,B.VCBT_NA_WRS_C
+			,B.VCBT_AM
+			,B.VCBX_AM
+			,B.ODR_PCS
+			,B.ODR_QT
+			,B.ODR_VAT
+			,B.ODR_AM
+			,A.NA_ODR_STS_DSC
+			,B.RMK_CNTN
+			,B.FSRGMN_ENO         /* -- 최초등록자개인번호 */
+			,B.LS_CMENO           /* -- 최종변경자개인번호 */
+			,B.DEL_DTM            /* -- 삭제일시 */
+			,B.ODR_QT ODR_QT_A
+			,A.ODRPL_NA_TRPL_C
+			,A.ODRPL_NA_TEAM_C
+			,A.ODR_DT
+			,A.ODR_SLPNO
+			,A.RVOPL_NA_TRPL_C
+ 			,B.TXT_DSC
+                     FROM 
+                            TB_OD_ORDER_M A, 
+                            TB_OD_ORDER_D B, 
+                            TB_OD_TRTWRS F 
+                     WHERE 
+                            A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C 
+                            AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C 
+                            AND A.ODR_DT = B.ODR_DT 
+                            AND A.ODR_SLPNO = B.ODR_SLPNO 
+                            AND A.rvopl_na_trpl_c = F.na_bzplc 
+                            AND B.NA_WRS_C = F.NA_WRS_C 
+                            AND F.PHD_FCLT_C = 'TC' 
+                            AND A.DEL_DTM IS NULL
+                            AND B.DEL_DTM IS NULL 
+                            AND A.PRC_YN IN('R', 'Y') 
+                            AND A.rvopl_na_trpl_c = #{ODRPL_NA_TRPL_C} 
+							AND F.NA_BZPLC = #{ODRPL_NA_TRPL_C}
+							AND F.SPYPL_NA_TRPL_C IN
+							<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+							</foreach>
+							AND A.ODR_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}) M,
+								TB_OD_TRTWRS C,
+								TB_GD_WRS E
+							WHERE M.RVOPL_NA_TRPL_C = C.NA_BZPLC(+)
+							AND M.NA_WRS_C = C.NA_WRS_C(+)
+							AND M.NA_WRS_C = E.NA_WRS_C
+							AND C.PD_YY = '0000'
+							AND C.CSER_CTR_TPC = '0'
+							AND C.BUY_TXT_DSC = '0'
+							AND C.BUY_BZ_METC = '00'
+							ORDER BY ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO, ODR_DSQNO		
+	</select>
+		
+
+	<select id="retrieveTCOrdersCount" parameterType="java.util.Map"
+		resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveTCOrders" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 배송지 조회 팝업 -->
+	<select id="searchDVYAA" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+		DISTINCT
+		A.DVYAA_C,
+		A.DVYAA_SCF_CNTN,
+		A.DONGUP || ' ' || DONGBW || ' ' || ' ' || FZIP || '-' || RZIP AS ADDRESS
+		FROM
+		TB_TR_DVYAA A
+		WHERE 1=1
+		AND A.NA_BZPLC = #{trplC}
+		<if test="searchType != null and searchType == 'code'">
+			AND A.DVYAA_C like '${searchText}%'
+		</if>
+		<if test="searchType != null and searchType == 'name'">
+			AND A.DVYAA_SCF_CNTN like '${searchText}%'
+		</if>
+	</select>
+
+	<!-- 상품 조회 팝업 -->
+	<select id="searchWRS" parameterType="java.util.Map" resultMap="wrsMap">
+		SELECT
+			DISTINCT
+			LIST.NA_WRS_C AS NA_WRS_C, 
+				LIST.WRSNM AS WRSNM, 
+				LIST.BOXPE_AQZ AS BOXPE_AQZ, 
+				LIST.SIMP_CNM AS SIMP_CMN, 
+				LIST.VCBT_NA_WRS_C AS VCBT_NA_WRS_C, 
+				LIST.VCBX_NA_WRS_C AS VCBX_NA_WRS_C, 
+				LIST.WRS_STDNM AS WRS_STDNM, 
+				LIST.TXT_DSC AS TXT_DSC, 
+				LIST.NA_WRS_UNT_C AS NA_WRS_UNT_C, 
+				LIST.NA_WRS_STD_UNT_C AS NA_WRS_STD_UNT_C, 
+				LIST.ODR_PCS AS ODR_PCS, 
+				/* LIST.ODR_FBID_YN AS ODR_FBID_YN, */ 
+
+								CASE 
+												WHEN LIST.TXT_DSC = '1' 
+												THEN NVL(TRUNC((LIST.ODR_PCS / (110 / 10))), 0) 
+												ELSE 0 
+								END
+				 AS ODR_VAT, 
+				LIST.VCBT_UPR AS VCBT_UPR, 
+				/* 공병단가 */ 
+				LIST.VCBX_UPR AS VCBX_UPR, 
+				/* 공상자 단가 */ 
+				LIST.PD_YY_AMN_YN AS PD_YY_AMN_YN, 
+				/* 생산년도관리여부 */ 
+				LIST.PD_YY AS PD_YY, 
+				/*생산년도*/ 
+				LIST.NA_WRS_LCLC AS NA_WRS_LCLC, 
+				LIST.NA_WRS_MCLC AS NA_WRS_MCLC, 
+				LIST.NA_WRS_SCLC AS NA_WRS_SCLC, 
+				LIST.NA_WRS_DTCF_C AS NA_WRS_DTCF_C, 
+				LIST.DDLY_ST_DT AS DDLY_ST_DT, 
+				/* 직송시작일자 */ 
+				LIST.DDLY_ED_DT AS DDLY_ED_DT, 
+				/* 직송종료일자*/ 
+				LIST.DDLY_BAS_QT AS DDLY_BAS_QT, 
+				/* 직송기준수량 */ 
+				LIST.MIN_ODR_QT AS MIN_ODR_QT, 
+				/* 최소발주수량 */ 
+				LIST.MAX_ODR_QT AS MAX_ODR_QT, 
+				/* 최대발주수량 */ 
+				LIST.PRGR_C AS PRGR_C, 
+				LIST.PHD_FCLT_C AS PHD_FCLT_C, 
+				/* 물류기능코드 */ 
+				LIST.VCBT_QT AS VCBT_QT, 
+				LIST.ODR_FBID_YN AS ODR_FBID_YN, /* 발주금지여부 */ 
+				(SELECT NA_USR_SYS_KDC FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = #{inTrplO}) AS NA_USR_SYS_KDC,
+				<choose>
+					<when test="DDLY_YN = '0'">
+						(SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = #{trplC}) AS UP_TRPL_C,	
+					</when>
+					<otherwise>
+						(SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = #{ORGIN_TRPL_S}) AS UP_TRPL_C,
+					</otherwise>
+				</choose>
+				(SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = LIST.SPYPL_NA_TRPL_C) AS UP_SPYPL_NA_TRPL_C,
+				(SELECT CLNTNM FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = LIST.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N
+		FROM
+			(
+		SELECT
+			WRS.NA_WRS_C,
+			REPLACE(WRS.WRSNM,',','') WRSNM,
+			CASE
+			WHEN D.DDLY_YN = '1' THEN
+                       WRS.BOXPE_AQZ 
+			WHEN C.CSER_NA_USR_SYS_KDC IN ('52','54') THEN
+					   D.MIN_ODR_QT
+<!-- 	            ( SELECT G.MIN_ODR_QT -->
+<!-- 	                FROM TB_OD_TRTWRS G -->
+<!-- 	               WHERE G.NA_BZPLC =  #{ODRPL_NA_TRPL_C}           -->
+<!-- 	                 AND G.NA_WRS_C = WRS.NA_WRS_C            -->
+<!-- 	                 AND ROWNUM = 1) -->
+   			ELSE WRS.BOXPE_AQZ END AS BOXPE_AQZ,
+			CODE.SIMP_CNM,
+			WRS.VCBT_NA_WRS_C,
+			WRS.VCBX_NA_WRS_C,
+			REPLACE(WRS.WRS_STDNM,',','') WRS_STDNM,/* 규격 */
+			WRS.TXT_DSC,/* 과세구분 */
+			WRS.NA_WRS_UNT_C,
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS NA_WRS_STD_UNT_C,	/* 단위 */
+			SP_NA_DP_WRSPR_UT(
+			FN_PCSGUBUN( #{inCtrTpc},					/* 7.[거래관계]수요자계약유형 */
+						 #{inTrplO},					/* 4.[거래관계]발주처 */
+						 #{inTrplM}						/* 5.[거래관계]주관사업장 */
+						), 
+				#{CHK_DATE}, 
+				#{inTrplR},								/* 2.[거래관계]수주처 */
+				#{inTeamR},								/* 3.[거래관계]수주처팀 */
+				#{inTrplO},								/* 4.[거래관계]발주처 */
+				#{inTeamO},								/* 5.[거래관계]발주처팀 */
+				#{inTrplM},								/* 5.[거래관계]주관사업장 */
+				#{inTeamM},								/* 6.[거래관계]주관사업장팀 */
+				#{inCtrTpc},							/* 7.[거래관계]수요자계약유형 */
+				#{inSpyTpc},							/* 8.[거래관계]공급유형코드 */
+				#{inTrTpcM},							/* 9.[거래관계]주관경제통합거래유형 */
+				D.NA_WRS_C, 
+				#{inYear},								/* 11.생산년도 (가공사업/유통양곡) */
+				#{inUseSysR},							/* 12.[수주처]사용시스템 */
+				#{inUseSysO},							/* 13.[발주처]사용시스템 */
+				#{inUseSysM},							/* 14.[주관처]사용시스템 */
+				#{inDdlyYN}								/* 15.직송여부 */
+			) AS ODR_PCS,
+			FN_ODR_FBID_YN(
+				FN_PCSGUBUN( #{inCtrTpc},				/* 7.[거래관계]수요자계약유형 */
+							 #{inTrplO},				/* 4.[거래관계]발주처 */
+							 #{inTrplM}					/* 5.[거래관계]주관사업장 */
+							), 
+				#{CHK_DATE}, 
+				#{inTrplR},								/* 2.[거래관계]수주처 */
+				#{inTeamR},								/* 3.[거래관계]수주처팀 */
+				#{inTrplO},								/* 4.[거래관계]발주처 */
+				#{inTeamO},								/* 5.[거래관계]발주처팀 */
+				#{inTrplM},								/* 5.[거래관계]주관사업장 */
+				#{inTeamM},								/* 6.[거래관계]주관사업장팀 */
+				#{inCtrTpc},							/* 7.[거래관계]수요자계약유형 */
+				#{inSpyTpc},							/* 8.[거래관계]공급유형코드 */
+				#{inTrTpcM},							/* 9.[거래관계]주관경제통합거래유형 */
+				D.NA_WRS_C, 
+				#{inYear},								/* 11.생산년도 (가공사업/유통양곡) */
+				#{inUseSysR},							/* 12.[수주처]사용시스템 */
+				#{inUseSysO},							/* 13.[발주처]사용시스템 */
+				#{inUseSysM},							/* 14.[주관처]사용시스템 */
+				#{inDdlyYN}								/* 15.직송여부 */
+			) AS ODR_FBID_YN, /* 발주금지여부	 */
+			NVL(D.VCBT_UPR, 0) AS VCBT_UPR,
+			/* 공병단가 */
+			NVL(D.VCBX_UPR, 0) AS VCBX_UPR, /* 공상자 단가 */
+			D.PD_YY_AMN_YN, /* 생산년도관리여부 */
+			D.PD_YY, /*생산년도*/
+			D.NA_WRS_LCLC ,
+			D.NA_WRS_MCLC ,
+			D.NA_WRS_SCLC ,
+			D.NA_WRS_DTCF_C,
+			D.DDLY_ST_DT, /* 직송시작일자 */
+			D.DDLY_ED_DT, /* 직송종료일자*/
+			D.DDLY_BAS_QT, /* 직송기준수량 */
+			D.MIN_ODR_QT, /* 최소발주수량 */
+			D.MAX_ODR_QT,
+			D.PHD_FCLT_C, /* 물류기능코드 */
+			/*C.PRGR_C,*/
+			DECODE(C.PRGR_C, NULL, '00', C.PRGR_C) AS PRGR_C,
+			DECODE(NVL(WRS.VCBT_QT, '1'), '0', 1, WRS.VCBT_QT) AS VCBT_QT,
+			D.SPYPL_NA_TRPL_C
+		FROM 
+			TB_GD_WRS WRS,
+			TB_CM_SIMPC CODE,
+			TB_TR_TRNREL C,
+			<choose>
+				<when test="inCtrTpc == '1'.toString() or inCtrTpc == '2'.toString() or inCtrTpc == '3'.toString() or DDLY_YN == '1'.toString()">
+					(SELECT  TW.*
+						FROM TB_OD_TRTWRS TW, TB_TR_TRNREL TRN
+						WHERE 1=1
+							AND TRN.CSER_NA_TRPL_C=TW.NA_BZPLC
+							AND TW.DEL_DTM IS NULL 
+					<if test="inUseSysO == '52' and inUseSysO == '54' ">
+							AND TW.ODR_PSB_YN = '1'
+					</if>
+					<choose>
+						<when test="DDLY_YN != null and (DDLY_YN == '1'.toString() or inDdlyYN == '1'.toString())"> /* 직송 */ 
+							AND TW.NA_BZPLC = #{trplC}/* 수주처 */
+							AND TW.SPYPL_NA_TRPL_C = #{ORGIN_TRPL_S} /* 권한사업장 */
+							<!--   AND TW.DDLY_YN = '1' -->
+						</when>
+						<otherwise>/* 일반 */
+							<choose>
+								<when test="inCtrTpc == '1'.toString() or inCtrTpc == '2'.toString() or inCtrTpc == '3'.toString()">
+							AND TW.NA_BZPLC = #{inTrplM}/* 계통계약인경우 주관사업장이 취급 */
+								</when>
+								<otherwise>
+							AND TW.NA_BZPLC = #{ODRPL_NA_TRPL_C}
+								</otherwise>
+							</choose>
+							AND SUBSTR(TRN.SPLR_NA_TRPL_C, 1, 7) = SUBSTR((SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF A WHERE A.NA_TRPL_C=#{trplC}), 1, 7)
+							AND TRN.CSER_CTR_TPC = #{inCtrTpc} 
+							<!-- AND SPYPL_NA_TRPL_C = (SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF A WHERE A.NA_TRPL_C=#{trplC}) -->
+							AND (TW.DDLY_YN = '0'         
+							OR (TW.DDLY_YN = '1' AND (TW.DDLY_ST_DT IS NULL AND TW.DDLY_ED_DT IS NULL) OR (#{CHK_DATE} NOT BETWEEN TW.DDLY_ST_DT AND TW.DDLY_ED_DT)))
+						</otherwise>
+					</choose>
+					<if test="searchtype != null and searchtype == 'code'">
+						<if test='like == "Y"'>
+							AND TW.NA_WRS_C like #{searchtext} || '%'
+						</if>
+						<if test='like != "Y"'>
+							AND TW.NA_WRS_C = #{searchtext}
+						</if>
+					</if>	
+					<if test="searchtype != null and searchtype == 'name'">
+							AND TW.WRSNM like  #{searchtext} || '%'
+					</if>
+					<if test="searchtype == null">
+						AND 1=1
+					</if>
+					) D
+				</when>
+				<otherwise>
+					(SELECT TW.*
+						FROM TB_OD_TRTWRS TW, TB_TR_TRNREL TRN
+						WHERE 1=1
+							AND TRN.CSER_NA_TRPL_C=TW.NA_BZPLC
+							AND TW.DEL_DTM IS NULL
+					<if test="inUseSysO == '52' and inUseSysO == '54' ">
+							AND TW.ODR_PSB_YN = '1'
+					</if>
+							AND TW.NA_BZPLC = #{ODRPL_NA_TRPL_C}
+							AND TRN.SPLR_NA_TRPL_C = #{trplC}
+							AND TRN.CSER_CTR_TPC = #{inCtrTpc} 
+							AND (TW.DDLY_YN = '0'         
+							OR (TW.DDLY_YN = '1' AND (TW.DDLY_ST_DT IS NULL AND TW.DDLY_ED_DT IS NULL) OR (#{CHK_DATE} NOT BETWEEN TW.DDLY_ST_DT AND TW.DDLY_ED_DT)))
+					<if test="searchtype != null and searchtype == 'code'">
+						<if test='like == "Y"'>
+							AND TW.NA_WRS_C like #{searchtext} || '%'
+						</if>
+						<if test='like != "Y"'>
+							AND TW.NA_WRS_C = #{searchtext}
+						</if>
+					</if>
+					<if test="searchtype != null and searchtype == 'name'">
+							AND TW.WRSNM like  #{searchtext} || '%'
+					</if>
+					<if test="searchtype == null">
+						AND 1=1
+					</if>
+					) D
+				</otherwise>
+			</choose>
+			,
+			TB_TR_TRPL_CIF E
+		WHERE 1=1
+			AND CODE.SIMP_TPC = 'TXT_DSC'
+			AND CODE.SIMP_C = WRS.TXT_DSC
+			AND WRS.NA_WRS_C = D.NA_WRS_C
+			AND C.CSER_NA_TRPL_C = D.NA_BZPLC
+			AND C.CSER_NA_TEAM_C = D.NA_TEAM_C
+			AND C.SPLR_NA_TRPL_C = D.SPYPL_NA_TRPL_C
+			AND C.SPLR_NA_TEAM_C = D.SPYPL_NA_TEAM_C
+			AND C.CSER_CTR_TPC = D.CTR_TPC
+			AND C.MNGT_NA_TRPL_C = E.NA_TRPL_C
+			AND D.CTR_TPC = #{inCtrTpc}
+		<choose>
+			<when test="inCtrTpc != null and inCtrTpc == '4'.toString() or  inCtrTpc == '5'.toString()">
+			/* AND C.PRGR_C IS NULL */
+			</when>
+			<otherwise>
+			/* AND C.PRGR_C IS NOT NULL */
+			</otherwise>
+		</choose>
+		) LIST
+		WHERE 1=1
+		ORDER BY LIST.WRSNM
+	</select>
+	
+	
+	<select id="retrieveWrsCtrTpc" parameterType="java.util.Map" resultType="string">
+		 SELECT
+	       	 CTR_TPC
+       FROM 
+       	TB_OD_TRTWRS A,
+       	TB_GD_WRS B
+       WHERE 1=1
+		AND A.NA_WRS_C = B.NA_WRS_C(+)       	
+       	AND A.NA_BZPLC 	= #{ODRPL_NA_TRPL_C}
+        AND A.CTR_TPC 	!= #{CSER_CTR_TPC}
+         <choose>
+         	<when test="searchtype != null and searchtype == 'code' ">
+         		AND A.NA_WRS_C 	= #{searchtext}		
+         	</when>
+         	<when test="searchtype != null and searchtype == 'name'">
+         		AND B.WRSNM 	= #{searchtext}
+         	</when>
+         	<otherwise>
+         		AND 1=1
+         	</otherwise>
+         </choose>
+	</select>
+
+	<!-- 수주내역조회 일자별 엑셀다운로드 -->
+	<select id="downloadExcelDaily" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultMap="excelDailyMap">
+		SELECT
+		AA.ODRPL_NA_TRPL_C,
+		AA.ODRPL_NA_TEAM_C,
+		AA.ODR_DT,
+		AA.ODR_SLPNO,
+		AA.ODR_QT,
+		AA.BOXPE_AQZ,
+		AA.TXT_AM,
+		AA.EXTX_AM,
+		AA.ODR_AM,
+		AA.VCBT_AM,
+		BB.ODRPL_NA_TRPL_C AS B_ODRPL_NA_TRPL_C,
+		BB.ODRPL_NA_TEAM_C AS B_ODRPL_NA_TEAM_C,
+		BB.ODR_DT AS B_ODR_DT,
+		BB.ODR_SLPNO AS B_ODR_SLPNO,
+		BB.SHRT_BZPLNM AS B_SHRT_BZPLNM,
+		BB.DVY_RQR_DT AS B_DVY_RQR_DT,
+		BB.BOXPE_AQZ AS B_BOXPE_AQZ,
+		BB.ODR_AM AS B_ODR_AM,
+		BB.VCBT_AM AS B_VCBT_AM,
+		BB.SPY_TPC AS B_SPY_TPC,
+		BB.NA_ODR_STS_DSC AS B_NA_ODR_STS_DSC,
+		BB.FSRGMN_ENO AS B_FSRGMN_ENO,
+		BB.TEAMNM AS B_TEAMNM,
+		BB.NA_RGN_C AS B_NA_RGN_C,
+		BB.RVOPL_NA_TRPL_C AS B_RVOPL_NA_TRPL_C,
+		BB.CLNTNM AS B_CLNTNM,
+		BB.RVOPL_NA_TEAM_C AS B_RVOPL_NA_TEAM_C,
+		BB.EDIRG_DTM AS B_EDIRG_DTM,
+		BB.FS_RMS_DTM AS B_FS_RMS_DTM,
+		BB.ODR_QTTT AS B_ODR_QTTT,
+		CC.ODRPL_NA_TRPL_C AS C_ODRPL_NA_TRPL_C,
+		CC.ODRPL_NA_TEAM_C AS C_ODRPL_NA_TEAM_C,
+		CC.ODR_DT AS C_ODR_DT,
+		CC.ODR_SLPNO AS C_ODR_SLPNO,
+		CC.NA_WRS_C AS C_NA_WRS_C,
+		CC.WRSNM AS C_WRSNM,
+		CC.WRS_STDNM AS C_WRS_STDNM,
+		CC.NA_WRS_UNT_C AS C_NA_WRS_UNT_C,
+		CC.BOXPE_AQZ AS C_BOXPE_AQZ,
+		CC.ODR_PCS AS C_ODR_PCS,
+		CC.ODR_QT AS C_ODR_QT,
+		CC.BOX_QT AS C_BOX_QT,
+		CC.ODR_AM AS C_ODR_AM,
+		CC.VCBT_AM AS C_VCBT_AM
+		FROM
+		(
+		SELECT
+			A.ODRPL_NA_TRPL_C,
+			A.ODRPL_NA_TEAM_C,
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			NVL(A.ODR_QT, 0) AS ODR_QT,
+			NVL(C.BOXPE_AQZ, 0) AS BOXPE_AQZ,
+			NVL(A.ODR_VAT, 0) AS TXT_AM,
+			A.ODR_AM- A.ODR_VAT AS EXTX_AM,
+			NVL(A.ODR_AM, 0) AS ODR_AM,
+			NVL(A.VCBT_AM, 0) AS VCBT_AM
+		FROM
+			TB_OD_ORDER_D A,
+			TB_OD_ORDER_M B,
+			TB_GD_WRS C
+		WHERE 1=1
+			AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = B.ODR_DT
+			AND A.ODR_SLPNO = B.ODR_SLPNO
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+			AND B.PRC_YN IN ('R', 'Y')
+			AND A.NA_WRS_C = C.NA_WRS_C(+)
+			AND B.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND B.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND B.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		) AA,
+		(
+		SELECT
+			D.ODRPL_NA_TRPL_C, /* 발주처코드 */
+			D.ODRPL_NA_TEAM_C,/* 발주처팀코드 */
+			D.ODR_DT,/* 발주처일자 */
+			D.ODR_SLPNO,/* 발주전표번호 */
+			F.SHRT_BZPLNM, /* 발주처명 */
+			E.DVY_RQR_DT, /* 배송요청일 */
+			D.BOXPE_AQZ,/* BOX수량 */
+			D.ODR_AM, /* 수주금액 */
+			D.VCBT_AM, /* 공병금액 */
+			FN_CM_SIMP_CNM('SPY_TPC', E.SPY_TPC) AS SPY_TPC, /* 수주유형(공급유형코드) */
+			'['||E.NA_ODR_STS_DSC||']'|| FN_CM_SIMP_CNM('NA_ODR_STS_DSC',
+			E.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC, /* 발주상태 */
+			'XXX' AS FSRGMN_ENO, /* 발주자 */
+			'['||D.ODRPL_NA_TEAM_C||']'|| G.TEAMNM AS TEAMNM, /* 발주처팀명 */
+			I.NA_RGN_C, /* 지역코드 */
+			E.RVOPL_NA_TRPL_C, /* 수주처코드 */
+			H.CLNTNM, /* 수주처명 */
+			'['||E.RVOPL_NA_TEAM_C||']' AS RVOPL_NA_TEAM_C, /* 수주처팀코드 */
+			TO_CHAR(E.EDIRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS EDIRG_DTM,/* 배달일시 */
+			TO_CHAR(TO_DATE(E.FS_RMS_DT || E.FS_RMS_HR, 'YYYYMMDD HH24:MI:SS'),
+			'YYYY-MM-DD HH24:MI:SS') AS FS_RMS_DTM, /* 수신일 */
+			D.ODR_QTTT /* 수주량 */
+		FROM
+			(
+			SELECT
+				A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.ODR_DT,
+				A.ODR_SLPNO,
+				SUM(NVL(B.BOXPE_AQZ, 1)) AS BOXPE_AQZ,
+				SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+				SUM(NVL(A.ODR_QT, 0)) AS ODR_QTTT,
+				SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM
+			FROM
+				TB_OD_ORDER_D A,
+				TB_GD_WRS B,
+				TB_OD_ORDER_M C
+			WHERE 1=1
+				AND A.NA_WRS_C = B.NA_WRS_C(+)
+				AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+				AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+				AND A.ODR_DT = C.ODR_DT
+				AND A.DEL_DTM IS NULL
+				AND C.DEL_DTM IS NULL
+				AND C.PRC_YN IN ('R', 'Y')
+				AND A.ODR_SLPNO = C.ODR_SLPNO
+			GROUP BY A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.ODR_DT,
+				A.ODR_SLPNO
+			) D , 
+		TB_OD_ORDER_M E, 
+		TB_CM_BZPL F, 
+		TB_CM_TEAM G, 
+		TB_TR_TRPL_CIF H,
+		TB_TR_TRPL_CIF I
+		WHERE 1=1
+			AND D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+			AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+			AND D.ODR_DT = E.ODR_DT
+			AND D.ODR_SLPNO = E.ODR_SLPNO
+			AND D.ODRPL_NA_TRPL_C = F.NA_BZPLC(+)
+			AND D.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+			AND D.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+			AND E.RVOPL_NA_TRPL_C = H.NA_TRPL_C(+)
+			AND D.ODRPL_NA_TRPL_C = I.NA_TRPL_C(+)
+		) BB,
+		(
+		SELECT
+			A.ODRPL_NA_TRPL_C,
+			A.ODRPL_NA_TEAM_C,
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_STDNM, /* 규격 */
+			CASE
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 1
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 2
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+			ELSE
+			B.NA_WRS_UNT_C
+			END AS NA_WRS_UNT_C ,/* 단위 */
+			NVL(B.BOXPE_AQZ, 1) AS BOXPE_AQZ,/* 입수 */
+			NVL(A.ODR_PCS, 0) AS ODR_PCS, /* 발주단가 */
+			NVL(A.ODR_QT, 0) AS ODR_QT, /* 수주량 */
+			ROUND((NVL(A.ODR_QT, 0) / DECODE(NVL(B.BOXPE_AQZ, 0), 0, 1, B.BOXPE_AQZ)), 2) AS BOX_QT, /* BOX수량 */
+			NVL(A.ODR_AM, 0) AS ODR_AM, /* 수주금액 */
+			NVL(A.VCBT_AM, 0) AS VCBT_AM /* 공병금액 */
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+		) CC
+		WHERE 1=1
+			AND BB.ODRPL_NA_TRPL_C = CC.ODRPL_NA_TRPL_C
+			AND BB.ODRPL_NA_TEAM_C = CC.ODRPL_NA_TEAM_C
+			AND BB.ODR_DT = CC.ODR_DT
+			AND BB.ODR_SLPNO = CC.ODR_SLPNO
+			AND AA.ODRPL_NA_TRPL_C = BB.ODRPL_NA_TRPL_C
+			AND AA.ODRPL_NA_TEAM_C = BB.ODRPL_NA_TEAM_C
+			AND AA.ODR_DT = BB.ODR_DT
+			AND AA.ODR_SLPNO = BB.ODR_SLPNO
+	</select>
+
+	<!-- 수주내역조회 발주처별 엑셀다운로드 -->
+	<select id="downloadExcelOdrpl" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultMap="excelOdrplMap">
+		SELECT BB.*, CC.* FROM (
+		
+		AND B.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND B.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND B.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND A.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		GROUP BY
+			A.ODRPL_NA_TRPL_C,
+			D.CLNTNM,
+			A.ODRPL_NA_TEAM_C,
+			G.TEAMNM,
+			B.SPYPL_NA_TRPL_C,
+			F.CLNTNM,
+			B.SPYPL_NA_TEAM_C,
+			H.TEAMNM
+		) AA,
+		(
+		SELECT
+			A.ODRPL_NA_TRPL_C AS B_ODRPL_NA_TRPL_C,
+			A.ODRPL_NA_TEAM_C AS B_ODRPL_NA_TEAM_C,
+			A.ODR_DT AS B_ODR_DT,
+			A.ODR_SLPNO AS B_ODR_SLPNO,
+			A.SPYPL_NA_TRPL_C AS B_SPYPL_NA_TRPL_C,
+			A.SPYPL_NA_TEAM_C AS B_SPYPL_NA_TEAM_C,
+			A.MNGT_NA_TRPL_C AS B_MNGT_NA_TRPL_C, /* 정산처 코드 */
+			C.CLNTNM AS B_MNGT_NA_TRPL_N, /*정산처명*/
+			TO_CHAR(A.EDIRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS D_EDIRG_DTM,/* 배달일시 */
+			TO_CHAR(TO_DATE(A.FS_RMS_DT || A.FS_RMS_HR, 'YYYYMMDD HH24:MI:SS'),
+			'YYYY-MM-DD HH24:MI:SS') AS B_FS_RMS_DTM, /* 수신일 */
+			A.DVY_RQR_DT AS B_DVY_RQR_DT,/* 배송요청일 */
+			B.ODR_AM AS B_ODR_AM,/* 수주금액 */
+			B.VCBT_AM AS B_VCBT_AM,/* 공병금액 */
+			A.SPY_TPC AS B_SPY_TPC,/* 수주유형 */
+			'['||A.NA_ODR_STS_DSC||']'||FN_CM_SIMP_CNM('NA_ODR_STS_DSC',
+			A.NA_ODR_STS_DSC) AS B_NA_ODR_STS_DSC, /* 발주상태 */
+			'XXX' AS B_FSRGMN_ENO, /* 발주자 */
+			A.DDLY_YN AS B_DDLY_YN, /* 직송여부 */
+			TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_FSRG_DTM, /* 최종등록일시 */
+			TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_LSCHG_DTM, /*
+			최종변경일시 */
+			A.LS_CMENO AS B_LS_CMENO, /* 최종변경자개인번호 */
+			TO_CHAR(A.DEL_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_DEL_DTM/* 삭제일시 */
+		FROM
+		TB_OD_ORDER_M A,
+		(
+		SELECT
+			ODRPL_NA_TRPL_C,
+			ODRPL_NA_TEAM_C,
+			ODR_DT,
+			ODR_SLPNO,
+			SUM(NVL(ODR_AM, 0)) AS ODR_AM,
+			SUM(NVL(VCBT_AM, 0)) AS VCBT_AM
+			FROM TB_OD_ORDER_D
+			GROUP BY ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO
+			) B,
+			TB_TR_TRPL_CIF C
+			WHERE 1=1
+			AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = B.ODR_DT
+			AND A.ODR_SLPNO = B.ODR_SLPNO
+			AND A.DEL_DTM IS NULL
+			AND A.PRC_YN IN ('R', 'Y')
+			AND A.MNGT_NA_TRPL_C = C.NA_TRPL_C(+)
+		) BB,
+		(
+		SELECT
+			D.ODRPL_NA_TRPL_C AS C_ODRPL_NA_TRPL_C,
+			D.ODRPL_NA_TEAM_C AS C_ODRPL_NA_TEAM_C,
+			D.ODR_DT AS C_ODR_DT,
+			D.ODR_SLPNO AS C_ODR_SLPNO,
+			D.SPYPL_NA_TRPL_C AS C_SPYPL_NA_TRPL_C,
+			D.SPYPL_NA_TEAM_C AS C_SPYPL_NA_TEAM_C,
+			A.NA_WRS_C AS C_NA_WRS_C,
+			B.WRSNM AS C_WRSNM,
+			B.WRS_STDNM AS C_WRS_STDNM, /* 규격 */
+			CASE
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 1
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 2
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+			ELSE
+			B.NA_WRS_UNT_C
+			END AS C_NA_WRS_UNT_C, /* 단위 */
+			NVL(B.BOXPE_AQZ, 1) AS C_BOXPE_AQZ,
+			NVL(A.ODR_PCS, 0) AS C_ODR_PCS, /* 발주단가 */
+			NVL(A.ODR_QT, 0) AS C_ODR_QT, /* 수주량 */
+			ROUND((A.ODR_QT / DECODE(NVL(B.BOXPE_AQZ, 0), 0, 1, B.BOXPE_AQZ)), 2) AS C_BOX_QT, /* BOX수량 */
+			NVL(A.ODR_AM, 0) AS C_ODR_AM, /* 수주금액 */
+			NVL(A.ODR_VAT, 0) AS C_ODR_VAT, /* 부가세액 */
+			NVL(A.VCBT_AM, 0) AS C_VCBT_AM, /* 공병금액 */
+			'XXX' AS C_FSRGMN_ENO,/* 최초등록자 개인번호 */
+			'20000101' AS C_FSRG_DTM,/* 최종등록일시 */
+			'XXX' AS C_LS_CMENO, /* 최초변경자 개인번호 */
+			'20000101' AS C_LSCHG_DTM, /* 최종변경일시 */
+			'' AS C_DEL_DTM /* 삭제일시 */
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M D
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = D.ODR_DT
+			AND A.ODR_SLPNO = D.ODR_SLPNO
+			AND D.DEL_DTM IS NULL
+			AND A.DEL_DTM IS NULL
+			AND D.PRC_YN IN ('R', 'Y')
+		) CC
+		WHERE 1=1
+			AND AA.ODRPL_NA_TRPL_C = BB.B_ODRPL_NA_TRPL_C
+			AND AA.ODRPL_NA_TEAM_C = BB.B_ODRPL_NA_TEAM_C
+			AND AA.SPYPL_NA_TRPL_C = BB.B_SPYPL_NA_TRPL_C
+			AND AA.SPYPL_NA_TEAM_C = BB.B_SPYPL_NA_TEAM_C
+			AND BB.B_ODRPL_NA_TRPL_C = CC.C_ODRPL_NA_TRPL_C
+			AND BB.B_ODRPL_NA_TEAM_C = CC.C_ODRPL_NA_TEAM_C
+			AND BB.B_ODR_DT = CC.C_ODR_DT
+			AND BB.B_ODR_SLPNO = CC.C_ODR_SLPNO
+	</select>
+	
+	<sql id="sql_downloadExcelRvopl">
+		SELECT BB.*, CC.* FROM (
+		SELECT
+			D.ODR_DT AS B_ODR_DT,
+			D.ODR_SLPNO AS B_ODR_SLPNO,
+			D.ODRPL_NA_TRPL_C AS B_ODRPL_NA_TRPL_C,
+			F.CLNTNM AS B_ODRPL_NA_TRPL_N,
+			E.RVOPL_NA_TRPL_C AS B_RVOPL_NA_TRPL_C,
+		    FN_TRPL_CIF_NM(E.RVOPL_NA_TRPL_C) AS B_RVOPL_NA_TRPL_NM,
+			E.SPYPL_NA_TRPL_C AS B_SPYPL_NA_TRPL_C,
+		    FN_TRPL_CIF_NM(E.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_NM,
+			CASE
+			WHEN D.ODRPL_NA_TEAM_C = '00' THEN '[00] 팀없음'
+			ELSE '['|| D.ODRPL_NA_TEAM_C ||'] ' || G.TEAMNM
+			END AS B_ODRPL_NA_TEAM_N,
+			D.ODRPL_NA_TEAM_C AS B_ODRPL_NA_TEAM_C,
+			E.DVY_RQR_DT AS B_DVY_RQR_DT,
+			TO_CHAR(E.EDIRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_EDIRG_DTM,
+			TO_CHAR(TO_DATE(E.FS_RMS_DT || E.FS_RMS_HR, 'YYYYMMDD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS') AS B_FS_RMS_DTM,
+			D.ODR_QT AS B_ODR_QT,
+			D.ODR_AM AS B_ODR_AM,
+			D.VCBT_AM AS B_VCBT_AM,
+			'['||E.NA_ODR_STS_DSC||']'||FN_CM_SIMP_CNM('NA_ODR_STS_DSC', E.NA_ODR_STS_DSC) AS B_NA_ODR_STS_DSC, E.DDLY_YN AS B_DDLY_YN,
+			FN_CM_SIMP_CNM('SPY_TPC', E.SPY_TPC) AS SPY_TPC,
+			'[' || R1.NA_RGN_C || '] ' || R1.RGN_CNM || '/' || R2.RGN_CNM AS B_NA_RGN_N,
+			TO_CHAR(E.FSRG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_FSRG_DTM,
+			TO_CHAR(E.LSCHG_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_LSCHG_DTM,
+			E.LS_CMENO AS B_LS_CMENO,
+			TO_CHAR(D.DEL_DTM, 'YYYY-MM-DD HH24:MI:SS') AS B_DEL_DTM,
+			E.DVYAA_NA_TRPL_C AS B_DVYAA_NA_TRPL_C,
+			I.CLNTNM AS B_DVYAA_NA_TRPL_N,
+			E.DVYAA_NA_TEAM_C AS B_DVYAA_NA_TEAM_C,
+			'['|| E.DVYAA_NA_TEAM_C || ']' || J.TEAMNM AS B_DVYAA_NA_TEAM_N,
+			CASE E.GRS_SOJU_YN
+				 WHEN '0' THEN '부'
+				 WHEN '1' THEN '여'
+				 ELSE ''
+			END AS B_GRS_SOJU_YN,
+			'[' || E.ROGO_INF_CRT_DSC || ']' || FN_CM_SIMP_CNM('ROGO_INF_CRT_DSC', E.ROGO_INF_CRT_DSC) AS B_ROGO_INF_CRT,
+			E.VHCNO AS B_VHCNO,
+			E.XML_CHDOC_NO B_XML_CHDOC_NO,
+            E.XML_ODRW_NO B_XML_ODRW_NO,
+            E.XML_DOC_TMS_DT B_XML_DOC_TMS_DT,
+			R1.NA_RGN_C,
+			R1.RGN_CNM
+		FROM (
+	          SELECT
+		          A.ODRPL_NA_TRPL_C,
+		          A.ODRPL_NA_TEAM_C,
+		          A.ODR_DT,
+		          A.ODR_SLPNO,
+		          SUM(NVL(B.BOXPE_AQZ, 1)) AS BOXPE_AQZ,
+		          SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+		          SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+		          SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+		          A.DEL_DTM
+	          FROM
+		          TB_OD_ORDER_D A,
+		          TB_GD_WRS B,
+		          TB_OD_ORDER_M C,
+		          TB_OD_TRTWRS TW
+	          WHERE 1=1
+		          AND A.NA_WRS_C = B.NA_WRS_C(+)
+		          AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+		          AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+		          AND A.ODR_DT = C.ODR_DT
+		          AND A.ODR_SLPNO = C.ODR_SLPNO
+		          AND C.PRC_YN IN ('R', 'Y')
+		          AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+		          AND A.NA_WRS_C = TW.NA_BZPLC(+)
+		          AND A.DEL_DTM IS NULL
+		          AND C.DEL_DTM IS NULL
+			<choose>
+				<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+					AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+				</when>
+				<otherwise>
+					AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+				</otherwise>
+			</choose>
+			<if test="odrplNaTrplC != null and odrplNaTrplC.length() > 0">
+				AND A.ODRPL_NA_TRPL_C = #{odrplNaTrplC}
+				AND A.ODRPL_NA_TEAM_C = #{odrplNaTeamC}
+			</if>
+			<choose>
+				<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+					AND C.DDLY_YN = #{ddlyYn}
+					AND C.SPYPL_NA_TRPL_C IN
+				</when>
+				<otherwise>
+					AND C.RVOPL_NA_TRPL_C IN
+				</otherwise>
+			</choose>
+			<foreach collection="trplC" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if	test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+				AND TW.PHD_FCLT_C = #{phdFcltC}
+			</if>
+			<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+				AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+			</if>
+	          GROUP BY
+	          A.ODRPL_NA_TRPL_C,
+	          A.ODRPL_NA_TEAM_C,
+	          A.ODR_DT,
+	          A.ODR_SLPNO,
+	          A.DEL_DTM
+			) D , 
+			TB_OD_ORDER_M E,
+			TB_TR_TRPL_CIF F, 
+			TB_CM_TEAM G,
+			TB_TR_TRPL_CIF H,
+			TB_TR_TRPL_CIF I, 
+			TB_CM_TEAM J,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+		WHERE 1=1
+			AND D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+			AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+			AND D.ODR_DT = E.ODR_DT
+			AND D.ODR_SLPNO = E.ODR_SLPNO
+			AND E.PRC_YN IN ('R', 'Y')
+			AND D.ODRPL_NA_TRPL_C = F.NA_TRPL_C(+)
+			AND D.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+			AND D.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+			AND E.RVOPL_NA_TRPL_C = H.NA_TRPL_C(+)
+			AND E.DVYAA_NA_TRPL_C = I.NA_TRPL_C(+)
+			AND E.DVYAA_NA_TRPL_C = J.NA_BZPLC(+)
+			AND E.DVYAA_NA_TEAM_C = J.NA_TEAM_C(+)
+			AND F.NA_RGN_C = R1.NA_RGN_C(+)
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C(+)
+			<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+				AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+			</if>
+			<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+				AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+			</if>) BB
+			
+			, (
+			SELECT
+		      A.ODRPL_NA_TRPL_C AS C_ODRPL_NA_TRPL_C,
+		      A.ODRPL_NA_TEAM_C AS C_ODRPL_NA_TEAM_C,
+		      A.ODR_DT AS C_ODR_DT,
+		      A.ODR_SLPNO AS C_ODR_SLPNO,
+		      A.NA_WRS_C AS C_NA_WRS_C,
+		      B.WRSNM AS C_WRSNM,
+		      B.WRS_STDNM AS C_WRS_STDNM, /* 규격 */
+		      CASE
+		      WHEN LENGTH(B.NA_WRS_UNT_C)= 1
+		      THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+		      WHEN LENGTH(B.NA_WRS_UNT_C)= 2
+		      THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '0'||B.NA_WRS_UNT_C)
+		      ELSE
+		      FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C)
+		      END AS C_NA_WRS_UNT_C, /* 단위 */
+		      CASE WHEN CIF.NA_USR_SYS_KDC = '63'
+		      	   THEN B.BOXPE_AQZ
+				   WHEN CIF.NA_USR_SYS_KDC IN ('52','54')
+				   THEN TW.BOXPE_AQZ
+				   ELSE B.BOXPE_AQZ
+		      END AS C_BOXPE_AQZ, /* BOX입수 */
+		      NVL(A.ODR_PCS, 0) AS C_ODR_PCS, /* 발주단가 */
+		      NVL(A.ODR_QT, 0) AS C_ODR_QT, /* 수주량 */
+		      CASE WHEN CIF.NA_USR_SYS_KDC = '63'
+		      	   THEN ROUND(NVL( TW.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+				   WHEN CIF.NA_USR_SYS_KDC IN ('52','54')
+				   THEN ROUND(A.ODR_QT / DECODE(TW.MIN_ODR_QT, 0, 1, TW.MIN_ODR_QT), 2)
+				   ELSE ROUND(A.ODR_QT / DECODE(B.BOXPE_AQZ, 0, 1, B.BOXPE_AQZ), 2) 
+		      END AS C_BOX_QT, /* BOX수량 */
+		      NVL(A.ODR_AM, 0) AS C_ODR_AM, /* 수주금액 */
+		      NVL(A.ODR_VAT, 0) AS C_ODR_VAT, /* 부가세액 */
+		      NVL(A.VCBT_AM, 0) AS C_VCBT_AM, /* 공병금액 */
+		      TW.PHD_FCLT_C AS C_PHD_FCLT_C, /* 물류기능코드 */
+		      TW.SVS_YN AS C_SVS_YN, /* 소분여부 */
+		      TW.SVS_UNT_QT AS C_SVS_UNIT_QT,/* 소분단위수량 */
+		      A.ODR_DSQNO,
+		      CASE WHEN CIFD.NA_USR_SYS_KDC IN ('52','54') /* 경제통합사용자시스템종류코드(52: 경제통합-물류시스템, 54: 경제통합-평택물류시스템) */
+				  THEN (SELECT CASE
+				      WHEN G.PHD_FCLT_C = 'DC' /* 물류기능코드(DC: 보관, TC: 경유) */
+				      THEN 'DC'
+				      WHEN G.PHD_FCLT_C = 'TC' AND G.SRTR_PRC_YN = '1' /* 물류기능코드(DC: 보관, TC: 경유), 소터처리여부(0: non-sorter, 1: sorter) */
+				      THEN 'TS'
+				      WHEN G.PHD_FCLT_C = 'TC' AND G.SRTR_PRC_YN = '0'
+				      THEN 'TB'
+				      ELSE ''
+				    END
+				  FROM TB_FD_GM_GOOD_WH G
+				  WHERE G.NA_BZPLC = A.ODRPL_NA_TRPL_C
+				  AND G.NA_WRS_C   = A.NA_WRS_C
+				  AND ROWNUM       = 1
+				  )
+				ELSE ''
+				END AS BKG_EVT_DSC,
+				
+                A.OGN_ODRPL_NA_TRPL_C,	             /* 경제통합 원발주처경제통합거래처코드  */
+                E.CLNTNM AS OGN_ODRPL_NA_TRPL_NM,    /* 경제통합 원발주처경제통합거래처명    */
+                A.OGN_ODRPL_NA_TEAM_C                /* 경제통합 원발주처경제통합팀코드      */
+          
+		      FROM
+		      TB_OD_ORDER_D A,
+		      TB_GD_WRS B,
+		      TB_OD_ORDER_M D,
+		      TB_OD_TRTWRS TW,
+		      TB_TR_TRPL_CIF CIF,
+		      TB_TR_TRPL_CIF CIFD, 
+              TB_TR_TRPL_CIF  E 
+              
+		      WHERE 1=1
+		      AND A.NA_WRS_C = B.NA_WRS_C(+)
+		      AND A.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+		      AND A.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+		      AND A.ODR_DT = D.ODR_DT
+		      AND A.ODR_SLPNO = D.ODR_SLPNO
+		      AND D.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C
+		      AND D.DVYAA_NA_TRPL_C = CIFD.NA_TRPL_C
+		      AND D.PRC_YN IN ('R', 'Y')
+		      AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+		      AND A.NA_WRS_C = TW.NA_WRS_C(+)
+		      AND A.OGN_ODRPL_NA_TRPL_C	 = E.NA_TRPL_C(+)
+		      AND A.DEL_DTM IS NULL
+		      AND D.DEL_DTM IS NULL
+			<choose>
+				<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+					AND D.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+				</when>
+				<otherwise>
+					AND D.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+					AND D.DDLY_YN = #{ddlyYn}
+					AND D.SPYPL_NA_TRPL_C IN
+				</when>
+				<otherwise>
+					AND D.RVOPL_NA_TRPL_C IN
+				</otherwise>
+			</choose>
+			<foreach collection="trplC" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if
+				test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+				AND TW.PHD_FCLT_C = #{phdFcltC}
+			</if>			
+			) CC
+		WHERE 1=1
+		AND BB.B_ODRPL_NA_TRPL_C = CC.C_ODRPL_NA_TRPL_C
+		AND BB.B_ODRPL_NA_TEAM_C = CC.C_ODRPL_NA_TEAM_C
+		AND BB.B_ODR_DT = CC.C_ODR_DT
+		AND BB.B_ODR_SLPNO = CC.C_ODR_SLPNO
+		ORDER BY C_ODR_DT, CC.C_ODR_SLPNO, CC.ODR_DSQNO
+	</sql>
+	
+	<!-- 수주내역조회 소속사업장별 엑셀다운로드 -->
+	<select id="downloadExcelRvopl" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_downloadExcelRvopl" />
+	</select>
+	
+	<!-- 수주내역조회 상품별 엑셀다운로드 -->
+	<select id="downloadExcelWrs" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO"
+		resultMap="excelWrsMap">
+		SELECT
+		AA.*, BB.*, CC.*
+		FROM
+		(
+		SELECT
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_STDNM,
+			CASE
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 1
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '00'||B.NA_WRS_UNT_C)
+			WHEN LENGTH(B.NA_WRS_UNT_C)= 2
+			THEN FN_CM_SIMP_CNM('NA_WRS_UNT_C', '0'||B.NA_WRS_UNT_C)
+			ELSE
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C)
+			END AS NA_WRS_UNT_C,
+			SUM(NVL(B.BOXPE_AQZ, 1)) AS BOXPE_AQZ,
+			ROUND(AVG(NVL(A.ODR_PCS, 0)), 1) AS ODR_PCS,
+			SUM(NVL(A.ODR_QT, 0)) AS ODR_QT,
+			SUM(RUOND((NVL(A.ODR_QT, 0) / NVL(B.BOXPE_AQZ, 1)), 1),2) AS BOX_QT,
+			SUM(NVL(A.ODR_AM, 0)) AS ODR_AM,
+			SUM(NVL(A.ODR_VAT, 0)) AS ODR_VAT,
+			SUM(NVL(A.VCBT_AM, 0)) AS VCBT_AM,
+			COUNT(distinct a.ODRPL_NA_TRPL_C||a.ODRPL_NA_TEAM_C||a.ODR_DT||a.ODR_SLPNO) AS
+			ODR_CNT,
+			TRIM(C.VHCNO) AS VHCNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M C,
+			TB_TR_TRPL_CIF X,
+			TB_TR_TRPL_CIF Y,
+			TB_TR_TRPL_CIF Z,
+			TB_OD_TRTWRS TW,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = C.ODR_DT
+			AND A.ODR_SLPNO = C.ODR_SLPNO
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.PRC_YN IN ('R', 'Y')
+			AND C.RVOPL_NA_TRPL_C = X.NA_TRPL_C
+			AND C.SPYPL_NA_TRPL_C = Y.NA_TRPL_C
+			AND C.ODRPL_NA_TRPL_C = Z.NA_TRPL_C
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC
+			AND A.NA_WRS_C = TW.NA_WRS_C
+			AND Z.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+			AND C.DEL_DTM IS NULL
+			AND A.NA_WRS_C = #{naWrsC}
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="spyplType != null and spyplType == '1'.toString() ">
+				AND C.RVOPL_NA_TRPL_C IN
+				<foreach collection="trplC" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				AND C.SPYPL_NA_TRPL_C = C.RVOPL_NA_TRPL_C
+			</when>
+			<when test="spyplType != null and spyplType == '2'.toString() ">
+				AND C.RVOPL_NA_TRPL_C IN
+				<foreach collection="trplC" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				AND C.SPYPL_NA_TRPL_C <![CDATA[<>]]>
+				C.RVOPL_NA_TRPL_C
+			</when>
+			<when test="spyplType != null and spyplType == '3'.toString() ">
+				AND C.SPYPL_NA_TRPL_C IN
+				<foreach collection="trplC" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				AND C.SPYPL_NA_TRPL_C <![CDATA[<>]]>
+				C.RVOPL_NA_TRPL_C
+			</when>
+			<otherwise>
+				AND C.RVOPL_NA_TRPL_C IN
+				<foreach collection="trplC" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				AND C.SPYPL_NA_TRPL_C = C.RVOPL_NA_TRPL_C
+			</otherwise>
+		</choose>
+
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if
+			test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		GROUP BY A.NA_WRS_C, B.WRSNM, B.WRS_STDNM, B.NA_WRS_UNT_C, VHCNO
+		) AA,
+		(
+		SELECT
+			A.ODRPL_NA_TRPL_C AS B_ODRPL_NA_TRPL_C,
+			F.CLNTNM AS B_ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C AS B_ODRPL_NA_TEAM_C,
+			A.NA_WRS_C AS B_NA_WRS_C,
+			A.ODR_PCS AS B_ODR_PCS,
+			SUM(A.ODR_QT) AS B_ODR_QT,
+			SUM(B.BOXPE_AQZ) AS B_BOXPE_AQZ,
+			SUM(A.ODR_AM) AS B_ODR_AM,
+			SUM(A.ODR_VAT) AS B_ODR_VAT,
+			SUM(A.VCBT_AM) AS B_VCBT_AM,
+			TRIM(C.VHCNO) AS B_VHCNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M C,
+			TB_TR_TRPL_CIF F,
+			TB_OD_TRTWRS TW,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+		WHERE 1=1
+			AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = C.ODR_DT
+			AND A.ODR_SLPNO = C.ODR_SLPNO
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.PRC_YN IN ('R', 'Y')
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = F.NA_TRPL_C
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC
+			AND A.NA_WRS_C = TW.NA_WRS_C
+			AND F.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+		GROUP BY A.ODRPL_NA_TRPL_C, 
+			     F.CLNTNM, 
+			     A.ODRPL_NA_TEAM_C, 
+			     A.NA_WRS_C,
+				 A.ODR_PCS, 
+				 TRIM(C.VHCNO)
+		) BB,
+		(
+		SELECT
+			 A.ODRPL_NA_TRPL_C AS C_ODRPL_NA_TRPL_C
+			,A.ODRPL_NA_TEAM_C AS C_ODRPL_NA_TEAM_C
+			,A.ODR_DT AS C_ODR_DT
+			,A.ODR_SLPNO AS C_ODR_SLPNO
+			,A.VHCNO AS C_VHCNO
+			,C.NA_WRS_C AS C_NA_WRS_C
+			,A.MNGT_NA_TRPL_C AS C_MNGT_NA_TRPL_C
+			,B.CLNTNM AS C_CLNTNM
+			,SUM(C.ODR_QT) AS C_ODR_QT
+			,SUM(C.ODR_AM) AS C_ODR_AM
+			,SUM(C.ODR_VAT) AS C_ODR_VAT
+			,SUM(C.VCBT_AM) AS C_VCBT_AM
+			,FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) AS C_SPY_TPC /*공급유형코드*/
+			,FN_CM_SIMP_CNM('NA_ODR_STS_DSC',A.NA_ODR_STS_DSC) AS C_NA_ODR_STS_DSC
+			,C.ODR_DSQNO
+		FROM
+			TB_OD_ORDER_M A
+			,TB_TR_TRPL_CIF B
+			,TB_OD_ORDER_D C
+			,TB_GD_WRS D
+		WHERE 1=1
+			AND A.MNGT_NA_TRPL_C=B.NA_TRPL_C(+)
+			AND A.ODRPL_NA_TRPL_C=C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C=C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT=C.ODR_DT
+			AND A.ODR_SLPNO=C.ODR_SLPNO
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND A.PRC_YN IN ('R', 'Y')
+			AND C.NA_WRS_C=D.NA_WRS_C(+)
+		GROUP BY
+			A.ODRPL_NA_TRPL_C,
+			A.ODRPL_NA_TEAM_C ,
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			A.MNGT_NA_TRPL_C,
+			B.CLNTNM,
+			A.SPY_TPC,
+			A.NA_ODR_STS_DSC,
+			A.VHCNO,
+			C.NA_WRS_C
+		) CC
+		WHERE 1=1
+			AND AA.NA_WRS_C = BB.B_NA_WRS_C
+			AND AA.ODR_PCS = BB.B_ODR_PCS
+			AND AA.VHCNO = BB.B_VHCNO
+			AND BB.B_ODRPL_NA_TRPL_C = CC.C_ODRPL_NA_TRPL_C
+			AND BB.B_ODRPL_NA_TEAM_C = CC.C_ODRPL_NA_TEAM_C
+			AND BB.B_NA_WRS_C = CC.C_NA_WRS_C
+			AND BB.B_VHCNO = CC.C_VHCNO
+		ORDER BY C_ODR_DT, CC.C_ODR_SLPNO, CC.ODR_DSQNO
+	</select>
+
+	<!-- 수주내역조회 일자별 조회 Master Print -->
+	<select id="printDailyOrderMaster" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultMap="printDailyOrderMasterMap">
+		SELECT
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			A.DVY_RQR_DT,
+			'['|| A.NA_ODR_STS_DSC || ']' || ' ' || FN_CM_SIMP_CNM('NA_ODR_STS_DSC',
+			A.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC_N,
+			A.ODRPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C,
+			NVL(A.ODR_QTTT, 0) AS ODR_QTTT,/* 발주량 합계 */
+			(
+			SELECT
+				NVL(ROUND(SUM(AA.ODR_QT / DECODE(NVL(BB.BOXPE_AQZ,0), 0, 1, BB.BOXPE_AQZ)),1), 2)
+			  FROM
+				TB_OD_ORDER_D AA,
+				TB_GD_WRS BB
+			  WHERE 1=1
+				AND ODRPL_NA_TRPL_C = A.ODRPL_NA_TRPL_C
+				AND ODRPL_NA_TEAM_C = A.ODRPL_NA_TEAM_C
+				AND ODR_DT = A.ODR_DT
+				AND ODR_SLPNO = A.ODR_SLPNO
+				AND AA.NA_WRS_C = BB.NA_WRS_C(+)
+				AND AA.DEL_DTM IS NULL
+			) AS BOXPE_AQZ, /* BOX 합계 */
+		NVL(A.ODR_SAM, 0) AS ODR_SAM, /* 수주합계 */
+		NVL(A.VCBT_AM, 0) AS VCBT_AM/* 공병합계 */
+		FROM
+		TB_OD_ORDER_M A
+		WHERE 1=1
+		AND A.DEL_DTM IS NULL
+		AND A.PRC_YN IN ('R', 'Y')
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+		AND A.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if> 
+		AND A.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		ORDER BY A.ODR_DT, A.ODR_SLPNO
+	</select>
+
+	<!-- 수주내역조회 일자별 조회 Detail Print -->
+	<select id="printDailyOrderDetail" parameterType="java.util.Map" resultMap="printDailyOrderDetailMap">
+		SELECT
+			A.NA_WRS_C,
+			WRS.WRSNM,
+			WRS.WRS_STDNM AS NA_WRS_STD_UNT_N, /* 규격 */
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS NA_WRS_UNT_N, /* 단위 */
+			WRS.BOXPE_AQZ AS B_BOXPE_AQZ, /* 입수량 */
+			A.ODR_PCS, /* 단가 */
+			A.ODR_QT, /* 발주량 */
+			ROUND(A.ODR_QT / DECODE(WRS.BOXPE_AQZ,0,1,WRS.BOXPE_AQZ), 2) AS BOX_QT,
+			A.ODR_AM,
+			A.VCBT_AM,
+			A.ODR_DSQNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS WRS
+		WHERE 1=1
+			AND A.NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT = #{ODR_DT}
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+
+	<!-- 수주내역조회 발주처별 조회 Master Print -->
+	<select id="printOdrplOrderMaster" parameterType="java.util.Map" resultMap="printOdrplOrderMasterMap">
+		SELECT
+			A.ODRPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C,
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			'['|| A.NA_ODR_STS_DSC || ']' || ' ' || FN_CM_SIMP_CNM('NA_ODR_STS_DSC', A.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC_N,
+			A.DVY_RQR_DT, /* 배송예정일자 */
+			SUM(NVL(B.ODR_QT, 0)) AS ODR_QTTT,/* 발주량 합계 */
+			SUM(NVL(ROUND((B.ODR_QT / WRS.BOXPE_AQZ),1),2)) AS BOXPE_AQZ, /* BOX 합계 */
+			SUM(NVL(B.ODR_PCS*ODR_QT, 0)) AS ODR_SAM, /* 수주합계 */
+			SUM(NVL(B.VCBT_AM, 0)) AS VCBT_AM /* 공병합계 */
+		FROM
+			TB_OD_ORDER_M A,
+	        TB_OD_ORDER_D B,
+	        TB_TR_TRPL_CIF CIF,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2,
+			TB_OD_TRTWRS TW,
+			TB_GD_WRS WRS
+		WHERE 1=1
+			AND B.NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = B.ODR_DT
+			AND A.ODR_SLPNO = B.ODR_SLPNO
+			AND A.PRC_YN IN ('R', 'Y')
+			AND B.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C(+)
+			AND CIF.NA_RGN_C = R1.NA_RGN_C(+)
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C(+)
+			AND B.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+			AND B.NA_WRS_C = TW.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+			AND A.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="odrplNaTrplC != null and odrplNaTrplC.length() > 0">
+			AND A.ODRPL_NA_TRPL_C = #{odrplNaTrplC}
+			AND A.ODRPL_NA_TEAM_C = #{odrplNaTeamC}
+		</if>
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if
+			test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND A.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+        GROUP BY
+		A.ODRPL_NA_TRPL_C,
+		A.ODRPL_NA_TEAM_C,
+        A.ODR_DT,
+        A.ODR_SLPNO,
+        A.NA_ODR_STS_DSC,
+        A.DVY_RQR_DT		
+	</select>
+
+	<!-- 수주내역조회 발주처별 조회 Detail Print -->
+	<select id="printOdrplOrderDetail" parameterType="java.util.Map" resultMap="printOdrplOrderDetailMap">
+		SELECT
+			A.NA_WRS_C,
+			WRS.WRSNM,
+			FN_CM_SIMP_CNM('NA_WRS_STD_UNT_C', WRS.NA_WRS_STD_UNT_C) AS NA_WRS_STD_UNT_N, /* 규격 */
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS NA_WRS_UNT_N, /*
+			단위 */
+			WRS.BOXPE_AQZ AS B_BOXPE_AQZ, /* 입수량 */
+			A.ODR_PCS, /* 단가 */
+			A.ODR_QT, /* 발주량 */
+			ROUND(A.ODR_QT / DECODE(WRS.BOXPE_AQZ,0,1,WRS.BOXPE_AQZ), 2) AS BOX_QT,
+			A.ODR_AM,
+			A.VCBT_AM,
+			A.ODR_DSQNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS WRS
+		WHERE 1=1
+			AND A.NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT = #{ODR_DT}
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+	<!-- 수주내역조회 소속사업장별 조회 Master Print -->
+	<select id="printRvoplOrderMaster" parameterType="java.util.Map" resultMap="printRvoplOrderMasterMap">
+		SELECT
+			FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TRPL_C,
+			A.ODRPL_NA_TEAM_C,
+			A.ODR_DT,
+			A.ODR_SLPNO,
+			'['|| A.NA_ODR_STS_DSC || ']' || ' ' || FN_CM_SIMP_CNM('NA_ODR_STS_DSC', A.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC_N,
+			A.DVY_RQR_DT, /* 배송예정일자 */
+			SUM(NVL(B.ODR_QT,0)) AS ODR_QTTT ,/* 발주량 합계 */
+			CASE WHEN MIN(CIF.NA_USR_SYS_KDC) = '63' THEN ROUND(SUM(NVL( WRS.BOXPE_AQZ, 1) * B.ODR_QT), 2)
+				WHEN MIN(CIF.NA_USR_SYS_KDC) IN ('52','54') THEN ROUND(SUM(B.ODR_QT/DECODE(TW.MIN_ODR_QT, 0,1,TW.MIN_ODR_QT)),2)
+				ELSE ROUND(SUM(B.ODR_QT/DECODE(WRS.BOXPE_AQZ, 0,1,WRS.BOXPE_AQZ)),2)
+				END AS BOXPE_AQZ, /* BOX 합계 */
+			SUM(NVL(B.ODR_PCS*B.ODR_QT,0)) AS ODR_SAM, /* 수주합계 */
+  			SUM(NVL(B.VCBT_AM,0)) AS VCBT_AM /* 공병합계 */
+		FROM
+			TB_OD_ORDER_M A, 
+			TB_OD_ORDER_D B,
+			TB_GD_WRS WRS,
+			TB_TR_TRPL_CIF CIF,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2,
+			TB_OD_TRTWRS TW
+		WHERE 1=1
+			AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = B.ODR_DT
+			AND A.ODR_SLPNO = B.ODR_SLPNO
+			AND B.NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.PRC_YN IN ('R', 'Y')
+			AND B.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C(+)
+			AND CIF.NA_RGN_C = R1.NA_RGN_C(+)
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C(+)
+			AND B.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+			AND B.NA_WRS_C = TW.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND A.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND A.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+        <choose>
+			<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+				AND A.DDLY_YN = #{ddlyYn}
+				AND A.SPYPL_NA_TRPL_C IN
+			</when>
+			<otherwise>
+				AND A.RVOPL_NA_TRPL_C IN
+			</otherwise>
+		</choose>
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if
+			test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND A.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+        GROUP BY 
+        A.RVOPL_NA_TRPL_C,
+		A.ODRPL_NA_TRPL_C,
+		A.ODRPL_NA_TEAM_C,
+		A.ODR_DT,
+		A.ODR_SLPNO,
+		A.NA_ODR_STS_DSC,
+		A.DVY_RQR_DT
+		ORDER BY A.RVOPL_NA_TRPL_C,A.ODRPL_NA_TRPL_C ASC
+	</select>
+
+	<!-- 수주내역조회 소속사업장별 조회 Detail Print -->
+	<select id="printRvoplOrderDetail" parameterType="java.util.Map" resultMap="printRvoplOrderDetailMap">
+		SELECT
+			A.NA_WRS_C,
+			WRS.WRSNM,
+			FN_CM_SIMP_CNM('NA_WRS_STD_UNT_C', WRS.NA_WRS_STD_UNT_C) AS NA_WRS_STD_UNT_N, /* 규격 */
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS NA_WRS_UNT_N, /*단위 */
+			CASE WHEN CIF.NA_USR_SYS_KDC = '63' THEN WRS.BOXPE_AQZ
+				WHEN CIF.NA_USR_SYS_KDC IN ('52','54') THEN TW.BOXPE_AQZ
+				ELSE WRS.BOXPE_AQZ
+				END AS B_BOXPE_AQZ, /* 입수량 */
+			A.ODR_PCS, /* 단가 */
+			A.ODR_QT, /* 발주량 */
+			CASE WHEN CIF.NA_USR_SYS_KDC = '63' THEN ROUND(NVL( TW.BOXPE_AQZ, 1) * A.ODR_QT, 2)
+				WHEN CIF.NA_USR_SYS_KDC IN ('52','54') THEN ROUND(A.ODR_QT/DECODE(TW.MIN_ODR_QT, 0,1,TW.MIN_ODR_QT),2)
+				ELSE ROUND(A.ODR_QT/DECODE(WRS.BOXPE_AQZ, 0,1,WRS.BOXPE_AQZ),2)
+				END AS BOX_QT, /* BOX수량 */
+			A.ODR_AM,
+			A.VCBT_AM,
+			A.ODR_DSQNO,
+			A.OGN_ODRPL_NA_TRPL_C,	             /* 경제통합 원발주처경제통합거래처코드  */
+			E.CLNTNM AS OGN_ODRPL_NA_TRPL_NM,    /* 경제통합 원발주처경제통합거래처명    */
+			A.OGN_ODRPL_NA_TEAM_C                /* 경제통합 원발주처경제통합팀코드      */
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS WRS,
+			TB_TR_TRPL_CIF CIF,
+			TB_OD_TRTWRS TW,
+			TB_TR_TRPL_CIF E
+		WHERE 1=1
+			AND A.NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C(+)
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+			AND A.NA_WRS_C = TW.NA_WRS_C(+)
+			AND A.DEL_DTM IS NULL
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT = #{ODR_DT}
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+			AND A.OGN_ODRPL_NA_TRPL_C	 = E.NA_TRPL_C(+)
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+	<!-- 수주내역조회 상품별 조회 Detail Print -->
+	<select id="printWrsOrderDetail" parameterType="com.nh.escm.scm.order.vo.OrderOrdersSrhConditonVO" resultMap="printWrsOrderDetail">
+		SELECT
+			A.ODRPL_NA_TRPL_C,
+			F.CLNTNM AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C,
+			SUM(A.ODR_QT) AS ODR_QT,
+			C.ODR_DT,
+			C.ODR_SLPNO,
+			FN_CM_SIMP_CNM('NA_ODR_STS_DSC', C.NA_ODR_STS_DSC) AS NA_ODR_STS_DSC,
+			C.DVY_RQR_DT AS DVY_PLA_DT,
+			CASE WHEN MIN(F.NA_USR_SYS_KDC) = '63' THEN ROUND(SUM(NVL( A.BOXPE_AQZ, 1) * A.ODR_QT ), 2)
+		         ELSE ROUND(SUM(DECODE( B.BOXPE_AQZ, 0, A.ODR_QT, '', A.ODR_QT, A.ODR_QT/B.BOXPE_AQZ)), 2)
+		     END AS BOXPE_AQZ,
+			SUM(A.ODR_AM) AS ODR_AM,
+			SUM(A.ODR_VAT) AS ODR_VAT,
+			SUM(A.VCBT_AM) AS VCBT_AM,
+			TRIM(C.VHCNO) AS VHCNO,
+			A.ODR_DSQNO
+		FROM
+			TB_OD_ORDER_D A,
+			TB_GD_WRS B,
+			TB_OD_ORDER_M C,
+			TB_TR_TRPL_CIF F,
+			TB_OD_TRTWRS TW,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+			/* ,TB_OD_DLVPNSHT_M DLP */
+		WHERE 1=1
+			AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+			AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+			AND A.ODR_DT = C.ODR_DT
+			AND A.ODR_SLPNO = C.ODR_SLPNO
+			AND A.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.PRC_YN IN ('R', 'Y')
+			AND A.NA_WRS_C = B.NA_WRS_C(+)
+			AND A.ODRPL_NA_TRPL_C = F.NA_TRPL_C
+			AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC
+			AND A.NA_WRS_C = TW.NA_WRS_C
+			AND F.NA_RGN_C = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C
+			/* AND C.SPYPL_NA_TRPL_C = DLP.SPYPL_NA_TRPL_C
+			AND C.DVYAA_NA_TRPL_C = DLP.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = DLP.NA_DVY_PLASH_SLPNO */
+			AND A.NA_WRS_C = #{naWrsC}
+			AND A.ODR_PCS = #{odrPcs}
+		<choose>
+			<when test="vhcno != null and vhcno.length() > 0 ">
+				AND C.VHCNO = #{vhcno}
+			</when>
+			<otherwise>
+				AND (
+				(C.VHCNO = #{vhcno})
+				OR (C.VHCNO IS NOT NULL AND C.VHCNO LIKE #{vhcno}||'%')
+				OR (C.VHCNO IS NULL)
+				)
+			</otherwise>
+		</choose>
+
+		<choose>
+			<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+				AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+			</when>
+			<otherwise>
+				AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+			</otherwise>
+		</choose>
+		AND C.RVOPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+			AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+		</if>
+		<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+			AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+		</if>
+		<if
+			test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+			AND TW.PHD_FCLT_C = #{phdFcltC}
+		</if>
+		<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+			AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+		</if>
+		GROUP BY A.ODRPL_NA_TRPL_C, F.CLNTNM, A.ODRPL_NA_TEAM_C,
+		TRIM(C.VHCNO), C.ODR_DT, C.ODR_SLPNO, FN_CM_SIMP_CNM('NA_ODR_STS_DSC',
+		C.NA_ODR_STS_DSC),C.DVY_RQR_DT, A.ODR_DSQNO/* , DLP.DVY_PLA_DT */
+		ORDER BY A.ODR_DSQNO
+	</select>
+
+	<!-- 거래관계 -->
+	<select id="getTrnrel" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		  TRN.SPLR_NA_TRPL_C AS SPLR_NA_TRPL_C,
+		  TRN.SPLR_NA_TEAM_C AS SPLR_NA_TEAM_C,
+		  TRN.CSER_NA_TRPL_C AS CSER_NA_TRPL_C,
+		  TRN.CSER_NA_TEAM_C AS CSER_NA_TEAM_C,
+		  TRN.MNGT_NA_TRPL_C AS MNGT_NA_TRPL_C,
+		  TRN.MNGT_NA_TEAM_C AS MNGT_NA_TEAM_C,
+		  TRN.CSER_CTR_TPC AS CSER_CTR_TPC,
+		  TRN.SPY_TPC AS SPY_TPC,
+		  TRN.MNGT_NA_TR_TPC AS MNGT_NA_TR_TPC,
+		  '' AS NA_WRS_C,
+		  '0000' AS PD_YY,
+		  TRN.CSER_NA_USR_SYS_KDC AS CSER_NA_USR_SYS_KDC, /* 수요자시스템 */
+			TRN.SPLR_NA_USR_SYS_KDC AS SPLR_NA_USR_SYS_KDC, /* 공급자시스템 */
+		  M.NA_USR_SYS_KDC AS MNGT_NA_USR_SYS_KDC,
+		  TRN.ROTS_FLEX_PR_APL_YN, /* 탄력가격적용여부 */
+		  TRN.PRGR_C
+		FROM
+		 TB_TR_TRNREL TRN,
+		 TB_TR_TRPL_CIF CIF,
+		 TB_TR_TRPL_CIF M
+		WHERE 1=1 
+			AND TRN.CSER_NA_TRPL_C = CIF.NA_TRPL_C
+			AND TRN.MNGT_NA_TRPL_C = M.NA_TRPL_C
+		  	AND TRN.CSER_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		  	AND TRN.CSER_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+		  	AND TRN.SPLR_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+		  	AND TRN.SPLR_NA_TEAM_C = #{SPYPL_NA_TEAM_C}
+		  	AND TRN.CSER_CTR_TPC = #{CSER_CTR_TPC}
+		  	AND TRN.DEL_DTM IS NULL
+		  	AND CIF.DEL_YN != '1'
+		  	AND ROWNUM = 1
+	</select>
+	<!-- 거래관계 정보조회 팝업(발주처조회) -->
+	<select id="retrieveTrnrelOdrpl" parameterType="java.util.Map"
+		resultMap="TrnrelOdrplMap">
+		SELECT
+			LIST.*
+		FROM
+		(
+		SELECT
+			A.CSER_NA_TRPL_C,
+			REPLACE(FN_TRPL_CIF_NM(A.CSER_NA_TRPL_C), ',', '.') AS CSER_NA_TRPL_N,
+			A.CSER_NA_TEAM_C,
+			FN_CM_TEAM_NM(A.CSER_NA_TRPL_C, A.CSER_NA_TEAM_C) AS CSER_NA_TEAM_N,
+			A.SPLR_NA_TRPL_C,
+			REPLACE(FN_TRPL_CIF_NM(A.SPLR_NA_TRPL_C), ',', '.') AS SPLR_NA_TRPL_N,
+			A.SPLR_NA_TEAM_C,
+			B.DONGUP,
+			A.CSER_CTR_TPC,
+			FN_CM_SIMP_CNM('CSER_CTR_TPC', A.CSER_CTR_TPC) AS CSER_CTR_TPC_N,/* 수요자계약유형코드 */
+			A.SPY_TPC,
+			FN_CM_SIMP_CNM('SPY_TPC', A.SPY_TPC) AS SPY_TPC_N, /* 공급유형 */
+			A.MNGT_NA_TRPL_C,
+			REPLACE(FN_TRPL_CIF_NM(A.MNGT_NA_TRPL_C), ',', '.') AS MNGT_NA_TRPL_N,
+			A.MNGT_NA_TEAM_C,
+			A.MNGT_NA_TR_TPC,
+			FN_CM_SIMP_CNM('MNGT_NA_TR_TPC', A.MNGT_NA_TR_TPC) AS MNGT_NA_TR_TPC_N,
+			A.NA_WRS_LCLC,
+			A.NA_WRS_MCLC,
+			A.CSER_NA_USR_SYS_KDC, /* 수요자시스템 */
+			A.SPLR_NA_USR_SYS_KDC, /* 공급자시스템 */
+			A.CTR_ST_DT,
+			A.CTR_ED_DT,
+			A.CTR_STOP_DT,
+			A.CTR_CLO_DT,
+			B.NA_RGN_C,
+			FN_CM_SIMP_CNM('RGN_C', B.NA_RGN_C) AS NA_RGN_N,
+			A.PRGR_C,
+			A.CSER_ADJPL_NA_TRPL_C, /* 수요자정산처 */
+			A.CSER_ADJPL_NA_TEAM_C,/* 수요자정산처팀코드 */
+			A.LDTM_DDS, /* 리드타임일수 */
+			A.MNGT_TR_REL_AMNNO,
+			A.CSER_TR_REL_AMNNO,
+			FN_CM_PRGR_NM(A.CSER_NA_TRPL_C, A.CSER_NA_TEAM_C, A.SPLR_NA_TRPL_C, A.SPLR_NA_TEAM_C, A.CSER_CTR_TPC) AS PGNM,
+			CIF.NA_USR_SYS_KDC AS MNGT_NA_USR_SYS_KDC,
+			A.ROTS_FLEX_PR_APL_YN, /* 계통탄력가격적용여부 */
+			A.BYNG_UPR_MOD_YN /* 매입단가적용여부 */
+		FROM
+			TB_TR_TRNREL A,
+			TB_TR_TRPL_CIF B,
+			TB_TR_TRPL_CIF CIF
+		WHERE 1=1
+		AND A.CSER_NA_TRPL_C = B.NA_TRPL_C
+		AND A.MNGT_NA_TRPL_C = CIF.NA_TRPL_C
+		AND A.DEL_DTM IS NULL
+		AND B.DEL_YN != '1'
+		AND A.SPLR_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		) LIST
+		WHERE 1=1
+		<if test="ODRPL_TYPE != null and ODRPL_TYPE == 'code' ">
+			AND LIST.CSER_NA_TRPL_C like #{ODRPL} || '%'
+		</if>
+		<if test="ODRPL_TYPE != null and ODRPL_TYPE == 'name' ">
+			AND LIST.CSER_NA_TRPL_N like #{ODRPL} || '%'
+		</if>
+		<if
+			test="CSER_CTR_TPC_TYPE != null and CSER_CTR_TPC_TYPE.length() > 0 and CSER_CTR_TPC_TYPE != '00' ">
+			AND LIST.CSER_CTR_TPC = #{CSER_CTR_TPC}
+		</if>
+		<if
+			test="MNGT_NA_TR_TPC_TYPE != null and MNGT_NA_TR_TPC_TYPE.length() > 0 and MNGT_NA_TR_TPC_TYPE != 'all' ">
+			AND LIST.MNGT_NA_TR_TPC = #{MNGT_NA_TR_TPC}
+		</if>
+		<if
+			test="HT_LOV_RGN_C != null and HT_LOV_RGN_C.length() > 0 and HT_LOV_RGN_C != 'all' ">
+			AND LIST.NA_RGN_C = #{HT_LOV_RGN_C}
+		</if>
+		<if
+			test="WRS_LCLC != null and WRS_LCLC.length() > 0 and WRS_LCLC != 'all' ">
+			AND LIST.NA_WRS_LCLC = #{WRS_LCLC}
+		</if>
+		<if
+			test="WRS_LCLC != null and WRS_LCLC.length() > 0 and WRS_LCLC != 'all'  and WRS_MCLC != null and WRS_MCLC.length() > 0 and WRS_MCLC != 'all' ">
+			AND LIST.NA_WRS_MCLC = #{WRS_MCLC}
+		</if>
+		<if
+			test="SPY_TYPC_TYPE != null and SPY_TYPC_TYPE.length() > 0 and SPY_TYPC_TYPE != '00' ">
+			AND LIST.SPY_TPC = #{SPY_TYC}
+		</if>
+	</select>
+
+	<!-- 상품대분류 -->
+	<select id="retrieveWrsClfL" parameterType="java.util.Map"
+		resultType="java.util.Map">
+	<![CDATA[
+		SELECT 
+			DISTINCT 
+			NA_WRS_LCLC, 
+			WRS_LCLFNM 
+		FROM TB_GD_WRS_CLF
+		WHERE NA_WRS_LCLC < '200'
+		UNION 
+		  SELECT 
+		  	'all' AS NA_WRS_LCLC,
+		    '-전체-' AS WRS_LCLFNM
+		  FROM DUAL
+		  ORDER BY NA_WRS_LCLC DESC
+	]]>
+	</select>
+
+	<!-- 상품소분류 -->
+	<select id="retrieveWrsClfM" parameterType="java.lang.String"
+		resultType="java.util.Map">
+		SELECT
+		DISTINCT
+		NA_WRS_MCLC,
+		WRS_MCLFNM
+		FROM TB_GD_WRS_CLF
+		WHERE 1=1
+		AND NA_WRS_LCLC = #{NA_WRS_LCLC}
+		UNION
+		SELECT
+		'all' AS NA_WRS_MCLC,
+		'-전체-' AS WRS_MCLFNM
+		FROM DUAL
+		ORDER BY NA_WRS_MCLC DESC
+	</select>
+
+	<!-- 사무소 조회 팝업 -->
+	<select id="retrieveBr" parameterType="java.util.Map" resultMap="BrMap">
+		SELECT
+		LIST.*
+		FROM
+		(
+		SELECT
+		DISTINCT
+		FN_CM_SIMP_CNM('NAAC_DSC', A.NAAC_DSC) AS NAAC_DSC_N, /* 중앙회조합구분 */
+		A.NA_TRPL_C,
+		FN_TRPL_CIF_NM(A.NA_TRPL_C) AS NA_TRPL_N,
+		B.BZPL_TPC,/* 사업장 유형 */
+		B.BZPL_DTI_TPC AS BZPL_DTI_TPC_N, /* 사업장 세부유형 */
+		C.BZPL_TPNM, /* 사업장 유형명 */
+		A.BIZ_NUMBER, /* 고객실명번호 */
+		A.NA_RGN_C, /* 지역 */
+		R2.rgn_cnm||'/'||R1.rgn_cnm AS RGN_CNM,
+		DECODE(A.atel,'','',A.atel||'-')||
+		DECODE(A.htel,'','',A.htel||'-')||
+		DECODE(A.stel,'','',A.stel) AS TEL,
+		D.NA_BZ_TPC,/* 사업유형 */
+		E.NA_BZ_TPNM,/* 사업유형 */
+		A.TR_STOP_YN /* 거래중지여부 */
+		FROM
+		TB_TR_TRPL_CIF A,
+		TB_CM_BZPL B,
+		TB_TR_BZPL_TP C,
+		TB_TR_RGN R1,
+		TB_TR_RGN R2,
+		TB_TR_TRPL_PRGR D,
+		TB_TR_BIZTPC E,
+		TB_TR_TRNREL F
+		WHERE 1=1
+		AND A.NA_TRPL_C = B.NA_BZPLC
+		AND B.BZPL_TPC = C.BZPL_TPC
+		AND B.BZPL_DTI_TPC = C.BZPL_DTI_TPC
+		AND A.NA_RGN_C=R1.NA_RGN_C
+		AND R1.UP_NA_RGN_C=R2.NA_RGN_C
+		AND A.NA_TRPL_C = D.NA_TRPL_C
+		AND D.NA_BZ_TPC = E.NA_BZ_TPC
+		AND A.NA_TRPL_C = F.CSER_NA_TRPL_C
+		AND D.DEL_DTM IS NULL
+		AND F.DEL_DTM IS NULL
+		AND A.TR_STOP_YN = '0'
+		AND F.SPLR_NA_TRPL_C = #{trplC}
+		) LIST
+		WHERE 1=1
+		<choose>
+			<when test="searchType != null and searchType == '01' ">
+				AND LIST.NA_TRPL_C LIKE #{searchTxt} || '%'
+			</when>
+			<when test="searchType != null and searchType == '02' ">
+				AND LIST.NA_TRPL_N LIKE #{searchTxt} || '%'
+			</when>
+			<otherwise>
+				AND LIST.BIZ_NUMBER LIKE #{searchTxt} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="downloadExcelWrs_new" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_downloadExcelRvopl" />
+	</select>
+	
+	<!-- 수주내역조회 소속사업장별 엑셀다운로드 빌링 -->
+	<select id="downloadExcelRvoplBilling" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT BB.B_ODRPL_NA_TRPL_C, BB.B_ODRPL_NA_TEAM_C, BB.B_ODR_DT, BB.B_ODR_SLPNO FROM (
+		SELECT
+			D.ODRPL_NA_TRPL_C AS B_ODRPL_NA_TRPL_C,
+      		D.ODRPL_NA_TEAM_C AS B_ODRPL_NA_TEAM_C,
+      		D.ODR_DT AS B_ODR_DT,
+			D.ODR_SLPNO AS B_ODR_SLPNO
+		FROM (
+	          SELECT
+		          A.ODRPL_NA_TRPL_C,
+		          A.ODRPL_NA_TEAM_C,
+		          A.ODR_DT,
+		          A.ODR_SLPNO		      
+	          FROM
+		          TB_OD_ORDER_D A,
+		          TB_GD_WRS B,
+		          TB_OD_ORDER_M C,
+		          TB_OD_TRTWRS TW
+	          WHERE 1=1
+		          AND A.NA_WRS_C = B.NA_WRS_C(+)
+		          AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C
+		          AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C
+		          AND A.ODR_DT = C.ODR_DT
+		          AND A.ODR_SLPNO = C.ODR_SLPNO
+		          AND C.PRC_YN IN ('R', 'Y')
+		          AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+		          AND A.NA_WRS_C = TW.NA_BZPLC(+)
+		          AND A.DEL_DTM IS NULL
+		          AND C.DEL_DTM IS NULL
+			<choose>
+				<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+					AND C.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+				</when>
+				<otherwise>
+					AND C.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+				</otherwise>
+			</choose>
+			<if test="odrplNaTrplC != null and odrplNaTrplC.length() > 0">
+				AND A.ODRPL_NA_TRPL_C = #{odrplNaTrplC}
+				AND A.ODRPL_NA_TEAM_C = #{odrplNaTeamC}
+			</if>
+			<choose>
+				<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+					AND C.DDLY_YN = #{ddlyYn}
+					AND C.SPYPL_NA_TRPL_C IN
+				</when>
+				<otherwise>
+					AND C.RVOPL_NA_TRPL_C IN
+				</otherwise>
+			</choose>
+			<foreach collection="trplC" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if	test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+				AND TW.PHD_FCLT_C = #{phdFcltC}
+			</if>
+			<if test="naOdrStsDsc != null and naOdrStsDsc.length() > 0">
+				AND C.NA_ODR_STS_DSC = #{naOdrStsDsc}
+			</if>
+	          GROUP BY
+	          A.ODRPL_NA_TRPL_C,
+	          A.ODRPL_NA_TEAM_C,
+	          A.ODR_DT,
+	          A.ODR_SLPNO
+			) D , 
+			TB_OD_ORDER_M E,
+			TB_TR_TRPL_CIF F, 
+			TB_CM_TEAM G,
+			TB_TR_TRPL_CIF H,
+			TB_TR_TRPL_CIF I, 
+			TB_CM_TEAM J,
+			TB_TR_RGN R1,
+			TB_TR_RGN R2
+		WHERE 1=1
+			AND D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+			AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+			AND D.ODR_DT = E.ODR_DT
+			AND D.ODR_SLPNO = E.ODR_SLPNO
+			AND E.PRC_YN IN ('R', 'Y')
+			AND D.ODRPL_NA_TRPL_C = F.NA_TRPL_C(+)
+			AND D.ODRPL_NA_TRPL_C = G.NA_BZPLC(+)
+			AND D.ODRPL_NA_TEAM_C = G.NA_TEAM_C(+)
+			AND E.RVOPL_NA_TRPL_C = H.NA_TRPL_C(+)
+			AND E.DVYAA_NA_TRPL_C = I.NA_TRPL_C(+)
+			AND E.DVYAA_NA_TRPL_C = J.NA_BZPLC(+)
+			AND E.DVYAA_NA_TEAM_C = J.NA_TEAM_C(+)
+			AND F.NA_RGN_C = R1.NA_RGN_C(+)
+			AND R1.UP_NA_RGN_C = R2.NA_RGN_C(+)
+			<if test="wmcLocRgnDsc != null and wmcLocRgnDsc.length() > 0">
+				AND R2.NA_RGN_C = #{wmcLocRgnDsc} /* 지역 */
+			</if>
+			<if test="htLovRgnC != null and htLovRgnC.length() > 0">
+				AND R1.NA_RGN_C = #{htLovRgnC}/* 시 */
+			</if>) BB
+			
+			, (
+			SELECT
+		       A.ODRPL_NA_TRPL_C AS C_ODRPL_NA_TRPL_C,
+		       A.ODRPL_NA_TEAM_C AS C_ODRPL_NA_TEAM_C,
+		       A.ODR_DT AS C_ODR_DT,
+		       A.ODR_SLPNO AS C_ODR_SLPNO
+          
+		      FROM
+		      TB_OD_ORDER_D A,
+		      TB_GD_WRS B,
+		      TB_OD_ORDER_M D,
+		      TB_OD_TRTWRS TW,
+		      TB_TR_TRPL_CIF CIF,
+		      TB_TR_TRPL_CIF CIFD, 
+              TB_TR_TRPL_CIF  E 
+              
+		      WHERE 1=1
+		      AND A.NA_WRS_C = B.NA_WRS_C(+)
+		      AND A.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C
+		      AND A.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C
+		      AND A.ODR_DT = D.ODR_DT
+		      AND A.ODR_SLPNO = D.ODR_SLPNO
+		      AND D.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C
+		      AND D.DVYAA_NA_TRPL_C = CIFD.NA_TRPL_C
+		      AND D.PRC_YN IN ('R', 'Y')
+		      AND A.ODRPL_NA_TRPL_C = TW.NA_BZPLC(+)
+		      AND A.NA_WRS_C = TW.NA_WRS_C(+)
+		      AND A.OGN_ODRPL_NA_TRPL_C	 = E.NA_TRPL_C(+)
+		      AND A.DEL_DTM IS NULL
+		      AND D.DEL_DTM IS NULL
+			<choose>
+				<when test="searchPeriod != null and searchPeriod == '1'.toString()">
+					AND D.ODR_DT BETWEEN #{calFrom} AND #{calTo}
+				</when>
+				<otherwise>
+					AND D.DVY_RQR_DT BETWEEN #{calFrom} AND #{calTo}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="ddlyYn != null and ddlyYn == '1'.toString()">
+					AND D.DDLY_YN = #{ddlyYn}
+					AND D.SPYPL_NA_TRPL_C IN
+				</when>
+				<otherwise>
+					AND D.RVOPL_NA_TRPL_C IN
+				</otherwise>
+			</choose>
+			<foreach collection="trplC" item="item" index="index"
+				separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if
+				test="phdFcltC != null and phdFcltC.length() > 0 and phdFcltC != 'all' ">
+				AND TW.PHD_FCLT_C = #{phdFcltC}
+			</if>			
+			GROUP BY
+	          A.ODRPL_NA_TRPL_C,
+	          A.ODRPL_NA_TEAM_C,
+	          A.ODR_DT,
+	          A.ODR_SLPNO) CC
+		WHERE 1=1
+		AND BB.B_ODRPL_NA_TRPL_C = CC.C_ODRPL_NA_TRPL_C
+		AND BB.B_ODRPL_NA_TEAM_C = CC.C_ODRPL_NA_TEAM_C
+		AND BB.B_ODR_DT = CC.C_ODR_DT
+		AND BB.B_ODR_SLPNO = CC.C_ODR_SLPNO
+		ORDER BY BB.B_ODRPL_NA_TRPL_C, BB.B_ODRPL_NA_TEAM_C, BB.B_ODR_DT, BB.B_ODR_SLPNO
+	</select>
+	
+</mapper>

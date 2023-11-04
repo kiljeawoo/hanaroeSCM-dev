@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="smartPdaBzplcInf">
+
+	<select id="getByngErrCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSmtPdaByngErrList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="retrieveSmtPdaByngErrList" parameterType="Map" resultType="java.util.HashMap">
+		<bind name="sortType" value="'desc'"/>
+		<bind name="sortName" value="'CLNTNM, ODR_DT'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaByngErrList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<sql id="sql_retrieveSmtPdaByngErrList">
+		SELECT /* retrieveSmtPdaByngErrList */
+		       C.CLNTNM,
+		       T.TEAMNM,
+		       CM.ODR_DT,
+		       CM.TR_BASS_NO,
+		       CM.BUYPL_NA_TRPL_C || '(' ||  FN_TRPL_CIF_NM(CM.BUYPL_NA_TRPL_C) || ')' AS BUYPL_NA_TRPL_C,
+		       CASE
+		          WHEN CM.CNR_STS_DSC = '3' THEN '매입'
+		          WHEN CM.CNR_STS_DSC = '2' THEN '검수'
+		       END
+		          AS CNR_STS_DSC,
+		       CM.RSP_C_CNTN
+		  FROM TB_PD_BYNG_CNR_M CM, TB_TR_TRPL_CIF C, TB_CM_TEAM T
+		 WHERE     CM.NA_BZPLC = C.NA_TRPL_C
+		       AND CM.NA_BZPLC = T.NA_BZPLC
+		       AND CM.NA_TEAM_C = T.NA_TEAM_C
+			<if test="BZPL_C != null and BZPL_C.length() > 0">
+			   AND CM.NA_BZPLC LIKE '%${BZPL_C}%'
+			</if>
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+			   AND C.CLNTNM LIKE '%${CLNTNM}%'
+			</if>
+			<if test="FROM_DT != null and FROM_DT.length() > 0">
+				<if test="TO_DT != null and TO_DT.length() > 0">
+		       AND CM.SLP_DT BETWEEN #{FROM_DT:VARCHAR} AND #{TO_DT:VARCHAR}
+		    	</if>		    		
+			</if>
+			<if test="TYPE_CD != null and TYPE_CD.length() > 0">
+			   AND CM.CNR_STS_DSC = #{TYPE_CD}
+			</if>
+		       AND CM.PRC_YN = 'E'
+		       AND CM.IF_ID IS NOT NULL
+	</sql>
+
+	<select id="getPgmAuthCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSmtPdaPgmAuthList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<select id="retrieveSmtPdaPgmAuthList" parameterType="Map" resultType="java.util.HashMap">
+		<bind name="sortType" value="'desc'"/>
+		<bind name="sortName" value="'CLNTNM, USRID'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaPgmAuthList" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<sql id="sql_retrieveSmtPdaPgmAuthList">
+		SELECT /* retrieveSmtPdaPgmAuthList */
+		       T.CLNTNM,
+		       T.USRID,
+		       L.USRNM,
+		       T.ORD_USE_YN,
+		       T.CNR_USE_YN,
+		       T.BY_USE_YN,
+		       T.PR_USE_YN,
+		       T.STPL_USE_YN,
+		       T.ETC1_USE_YN,
+		       T.ETC2_USE_YN,
+		       T.ETC3_USE_YN
+		  FROM    (SELECT C.CLNTNM,
+		                  A.USRID,
+		                  A.ORD_USE_YN,
+		                  A.CNR_USE_YN,
+		                  A.BY_USE_YN,
+		                  A.PR_USE_YN,
+		                  A.STPL_USE_YN,
+		                  A.ETC1_USE_YN,
+		                  A.ETC2_USE_YN,
+		                  A.ETC3_USE_YN
+		             FROM TB_PD_USER_PGM_AUTH A, TB_TR_TRPL_CIF C
+		            WHERE A.NA_BZPLC = C.NA_TRPL_C
+			<if test="BZPL_C != null and BZPL_C.length() > 0">
+		              AND A.NA_BZPLC LIKE '%${BZPL_C}%'
+			</if>
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+					  AND C.CLNTNM LIKE '%${CLNTNM}%'
+			</if>
+			<if test="USR_ID != null and USR_ID.length() > 0">
+					  AND A.USRID = #{USR_ID}
+			</if>
+		            ) T
+		       LEFT OUTER JOIN
+		          TB_PD_LOGIN L
+		       ON T.USRID = L.USRID
+			<if test="USR_NM != null and USR_NM.length() > 0">
+		 WHERE USRNM = #{USR_NM}
+			</if>
+	</sql>
+	
+	<select id="downloadExcelSmtPdaByngErrList" parameterType="Map" resultType="java.util.HashMap" fetchSize="1000">
+		<bind name="sortType" value="'desc'"/>
+		<bind name="sortName" value="'CLNTNM, ODR_DT'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaByngErrList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelSmtPdaPgmAuthList" parameterType="Map" resultType="java.util.HashMap" fetchSize="1000">
+		<bind name="sortType" value="'desc'"/>
+		<bind name="sortName" value="'CLNTNM, USRID'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaPgmAuthList" />
+		<include refid="common.paging_end" />
+	</select>
+</mapper>

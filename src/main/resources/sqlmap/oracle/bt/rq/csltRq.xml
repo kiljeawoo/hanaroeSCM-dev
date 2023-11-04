@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csltRqDAO">
+	
+	<resultMap id="rcListMap" type="com.nh.escm.bt.rq.vo.CsltRqVO">
+		<result column="ISCHECKED"         property="ISCHECKED" />
+		<result column="CSLT_RQ_NO"        property="CSLT_RQ_NO" />
+		<result column="BZNO"              property="BZNO" />
+		<result column="RQ_DT"             property="RQ_DT" />
+		<result column="NA_WRS_LCLC"       property="NA_WRS_LCLC" />
+		<result column="CONM"              property="CONM" />
+		<result column="STS"               property="STS" />
+		<result column="BUYER_CHRG_BSNNM"  property="BUYER_CHRG_BSNNM" />
+		<result column="CSLT_DSC"  		   property="CSLT_DSC" />
+	</resultMap>
+	
+	<resultMap id="rcMap" type="com.nh.escm.bt.rq.vo.CsltRqVO">
+		<result column="CSLT_RQ_NO"        property="CSLT_RQ_NO" />
+		<result column="BZNO"              property="BZNO" />
+		<result column="RQ_DT"             property="RQ_DT" />
+		<result column="CHRRNM"            property="CHRRNM" />
+		<result column="BUYER_SHRT_BZPLNM" property="BUYER_SHRT_BZPLNM" />
+		<result column="BUYER_CHRG_BSNNM"  property="BUYER_CHRG_BSNNM" />
+		<result column="BUYER_NM"          property="BUYER_NM" />
+		<result column="CHRR_TELNO"        property="CHRR_TELNO" />
+		<result column="CHRR_EMAIL"        property="CHRR_EMAIL" />
+		<result column="CHRR_MPNO"         property="CHRR_MPNO" />
+		<result column="CONM"              property="CONM" />
+		<result column="REPM"              property="REPM" />
+		<result column="REPM_TELNO"        property="REPM_TELNO" />
+		<result column="BIZTP"             property="BIZTP" />
+		<result column="ITM"               property="ITM" />
+		<result column="FZIP"              property="FZIP" />
+		<result column="RZIP"              property="RZIP" />
+		<result column="ZIP_SQNO"          property="ZIP_SQNO" />
+		<result column="DONGUP"            property="DONGUP" />
+		<result column="DONGBW"            property="DONGBW" />
+		<result column="BYR_SLAM"          property="BYR_SLAM" />
+		<result column="MSELPL"            property="MSELPL" />
+		<result column="MFO_LATC"          property="MFO_LATC" />
+		<result column="CO_CHR_MFT"        property="CO_CHR_MFT" />
+		<result column="CO_CHR_REV"        property="CO_CHR_REV" />
+		<result column="CO_CHR_TOT_AGCY"   property="CO_CHR_TOT_AGCY" />
+		<result column="CO_CHR_VD"         property="CO_CHR_VD" />
+		<result column="MAJ_LATC"          property="MAJ_LATC" />
+		<result column="CSLT_RQ_CNTN"      property="CSLT_RQ_CNTN" />
+		<result column="STS"               property="STS" />
+		<result column="RMK"               property="RMK" />
+		<result column="EVL_HDNG_A1"       property="EVL_HDNG_A1" />
+		<result column="EVL_HDNG_A2"       property="EVL_HDNG_A2" />
+		<result column="EVL_HDNG_A3"       property="EVL_HDNG_A3" />
+		<result column="EVL_HDNG_A4"       property="EVL_HDNG_A4" />
+		<result column="EVL_HDNG_A5"       property="EVL_HDNG_A5" />
+		<result column="EVL_HDNG_A6"       property="EVL_HDNG_A6" />
+		<result column="EVL_HDNG_B1"       property="EVL_HDNG_B1" />
+		<result column="EVL_HDNG_B11"      property="EVL_HDNG_B11" />
+		<result column="EVL_HDNG_B2"       property="EVL_HDNG_B2" />
+		<result column="EVL_HDNG_B3"       property="EVL_HDNG_B3" />
+		<result column="EVL_HDNG_B4"       property="EVL_HDNG_B4" />
+		<result column="EVL_HDNG_B5"       property="EVL_HDNG_B5" />
+		<result column="EVL_HDNGCN"        property="EVL_HDNGCN" />
+		<result column="FSRG_DTM"          property="FSRG_DTM" />
+		<result column="FS_RGM"            property="FS_RGM" />
+		<result column="LSCHG_DTM"         property="LSCHG_DTM" />
+		<result column="LS_CHGM"           property="LS_CHGM" />
+		<result column="CSLT_DSC"           property="CSLT_DSC" />
+		<result column="CSLT_CLS"           property="CSLT_CLS" />
+		<result column="CSLT_CTG1"           property="CSLT_CTG1" />
+		<result column="CSLT_CTG2"           property="CSLT_CTG2" />
+	</resultMap>
+	
+	<resultMap id="rcFileMap2" type="com.nh.escm.bt.rq.vo.CsltRqVO">
+		<result column="CSLT_RQ_NO"        property="CSLT_RQ_NO" />
+		<result column="SQNO"              property="SQNO" />
+		<result column="DCM_C"             property="DCM_C" />
+		<result column="DCM_NM"            property="DCM_NM" />
+		<result column="FLNM"              property="FLNM" />
+		<result column="FL_SCRNM"          property="FL_SCRNM" />
+		<result column="FL_PATHNM"         property="FL_PATHNM" />
+		<result column="FL_SZE"            property="FL_SZE" />
+		<result column="SYS_FLNM"          property="SYS_FLNM" />
+		<result column="FSRG_DTM"          property="FSRG_DTM" />
+		<result column="FS_RGM"            property="FS_RGM" />
+		<result column="LSCHG_DTM"         property="LSCHG_DTM" />
+		<result column="LS_CHGM"           property="LS_CHGM" />
+		<result column="SEAL"              property="SEAL" />
+	</resultMap>
+	
+	<resultMap id="rcFileMap" type="com.nh.escm.bt.rq.vo.CsltRqVO">
+		<result column="CSLT_RQ_NO"        property="CSLT_RQ_NO" />
+		<result column="SQNO"              property="SQNO" />
+		<result column="DCM_C"             property="DCM_C" />
+		<result column="FILENAME"          property="FILENAME" />
+		<result column="FILESIZE"          property="FILESIZE" />
+		<result column="ORGFNAME"          property="ORGFNAME" />
+		<result column="SYSTEMFILENAME"    property="SYSTEMFILENAME" />
+		<result column="FSRG_DTM"          property="FSRG_DTM" />
+		<result column="FS_RGM"            property="FS_RGM" />
+		<result column="LSCHG_DTM"         property="LSCHG_DTM" />
+		<result column="LS_CHGM"           property="LS_CHGM" />
+		<result column="SEAL"              property="SEAL" />
+	</resultMap>
+	
+	<insert id="insertCsltRq" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		INSERT INTO BT_CTR_CSLT_RQ (
+		       CSLT_RQ_NO
+		     , BZNO
+		     , RQ_DT
+		     , CHRRNM
+		     , NA_TRPL_C
+		     , CHRR_TELNO
+		     , CHRR_EMAIL
+		     , CHRR_MPNO
+		       
+		     , CONM
+		     , REPM
+		     , REPM_TELNO
+		     , BIZTP
+		     , ITM
+		     , FZIP
+		     , RZIP
+		     , CSLT_DSC
+		     , DONGUP
+		     , DONGBW
+		       
+		     , BYR_SLAM
+		     , MSELPL
+		     , MFO_LATC
+		     , CO_CHR_MFT
+		     , CO_CHR_REV
+		     , CO_CHR_TOT_AGCY
+		     , CO_CHR_VD
+		     , MAJ_LATC
+		     , CSLT_RQ_CNTN
+		     , STS
+		     , RMK
+		     , CSLT_CLS
+		     , CSLT_CTG1
+		     , CSLT_CTG2
+		       
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		) VALUES (
+		       #{CSLT_RQ_NO}
+		       
+		     , #{BZNO}
+		     , TO_CHAR(SYSDATE, 'YYYYMMDD')  /* RQ_DT */
+		     , #{CHRRNM}
+		     , '0000000000000'               /* NA_TRPL_C */
+		     , #{CHRR_TELNO}
+		     , #{CHRR_EMAIL}
+		     , ecl_encrypt(#{CHRR_MPNO})
+		       
+		     , #{CONM}
+		     , #{REPM}
+		     , #{REPM_TELNO}
+		     , #{BIZTP}
+		     , #{ITM}
+		     , #{FZIP}
+		     , #{RZIP}
+		     , #{CSLT_DSC}
+		     , #{DONGUP}
+		     , #{DONGBW}
+		       
+		     , #{BYR_SLAM}
+		     , #{MSELPL}
+		     , #{MFO_LATC}
+		     , #{CO_CHR_MFT}
+		     , #{CO_CHR_REV}
+		     , #{CO_CHR_TOT_AGCY}
+		     , #{CO_CHR_VD}
+		     , #{MAJ_LATC}
+		     , #{CSLT_RQ_CNTN}
+		     , '1'                           /* STS */
+		     , #{RMK}
+		     , #{CSLT_CLS}
+		     , #{CSLT_CTG1}
+		     , #{CSLT_CTG2}
+		       
+		     , SYSDATE
+		     , #{FS_RGM}
+		     , SYSDATE
+		     , #{LS_CHGM}
+		)
+	</insert>
+	
+	<insert id="insertCsltRqEvl" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		INSERT INTO BT_CTR_COMP_SLT_BASTBL (
+		       CSLT_RQ_NO
+		     , EVL_HDNG_A1
+		     , EVL_HDNG_A2
+		     , EVL_HDNG_A3
+		     , EVL_HDNG_A4
+		     , EVL_HDNG_A5
+		     , EVL_HDNG_A6
+		     , EVL_HDNG_B1
+		     , EVL_HDNG_B11
+		     , EVL_HDNG_B2
+		     , EVL_HDNG_B3
+		     , EVL_HDNG_B4
+		     , EVL_HDNG_B5
+		     , EVL_HDNGCN
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		) VALUES (
+		       #{CSLT_RQ_NO}
+		     , #{EVL_HDNG_A1}
+		     , #{EVL_HDNG_A2}
+		     , #{EVL_HDNG_A3}
+		     , #{EVL_HDNG_A4}
+		     , #{EVL_HDNG_A5}
+		     , #{EVL_HDNG_A6}
+		     , #{EVL_HDNG_B1}
+		     , #{EVL_HDNG_B11}
+		     , #{EVL_HDNG_B2}
+		     , #{EVL_HDNG_B3}
+		     , #{EVL_HDNG_B4}
+		     , #{EVL_HDNG_B5}
+		     , #{EVL_HDNGCN}
+		     , SYSDATE
+		     , #{FS_RGM}
+		     , SYSDATE
+		     , #{LS_CHGM}
+		)
+	</insert>
+	
+	<insert id="insertCsltRqFile" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		INSERT INTO BT_CTR_CSLT_DCM_APD (
+		       CSLT_RQ_NO
+		     , DCM_C
+		     , DCM_NM
+		     , FLNM
+		     , FL_SCRNM
+		     , FL_PATHNM
+		     , FL_SZE
+		     , SYS_FLNM
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		) VALUES (
+		       #{CSLT_RQ_NO}
+		     , #{DCM_C}
+		     , #{DCM_NM}
+		     , #{FLNM}
+		     , #{FL_SCRNM}
+		     , #{FL_PATHNM}
+		     , #{FL_SZE}
+		     , #{SYS_FLNM}
+		     , SYSDATE
+		     , #{FS_RGM}
+		     , SYSDATE
+		     , #{LS_CHGM}
+		)
+	</insert>
+	
+	<insert id="insertCsltRqFileComp" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		INSERT INTO BT_CTR_CSLT_CO_ITD_APD (
+		       CSLT_RQ_NO
+		     , SQNO
+		     , DCM_NM
+		     , FLNM
+		     , FL_SCRNM
+		     , FL_PATHNM
+		     , FL_SZE
+		     , SYS_FLNM
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		) VALUES (
+		       #{CSLT_RQ_NO}
+		     , (
+		           SELECT NVL(MAX(SQNO + 1), 1)
+		             FROM BT_CTR_CSLT_CO_ITD_APD
+		            WHERE CSLT_RQ_NO = #{CSLT_RQ_NO}
+		       )
+		     , #{DCM_NM}
+		     , #{FLNM}
+		     , #{FL_SCRNM}
+		     , #{FL_PATHNM}
+		     , #{FL_SZE}
+		     , #{SYS_FLNM}
+		     , SYSDATE
+		     , #{FS_RGM}
+		     , SYSDATE
+		     , #{LS_CHGM}
+		)
+	</insert>
+	
+	<!-- 계약상담 > 상담신청조회 -->
+	<select id="retrieveCsltRqList" parameterType="java.util.Map" resultMap="rcListMap">
+		SELECT /* retrieveCsltRqList */
+		       '0' AS ISCHECKED
+		     , Q.CSLT_RQ_NO
+		     , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'CTR_STS' AND SIMP_C = Q.STS) AS STS_NM  /* 진행상태명 */
+		     , Q.CONM
+		     , Q.BZNO
+		     , Q.RQ_DT
+		     , Q.STS
+		     , DECODE(Q.BUYER_ENO, '', '담당자배정중', Q.BUYER_NM) AS BUYER_NM
+		     , Q.BUYER_ENO
+		     , Q.BUYER_CHRG_BSNNM
+		     , Q.MAJ_LATC
+		     , Q.REJECT_ALLOW
+		     , Q.REJECT_MONTH
+		     , NVL(Q.CSLT_DSC, 101) CSLT_DSC	/* 항목구분 */
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		 WHERE Q.RQ_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+		<if test="CBO_STS != null and CBO_STS.length() > 0">
+		<![CDATA[
+	       AND Q.STS IN (
+	               SELECT REGEXP_SUBSTR(#{CBO_STS}, '[^.]+', 1, LEVEL) 
+	                 FROM DUAL CONNECT BY LEVEL <= REGEXP_COUNT(#{CBO_STS}, '.') + 1
+	           )
+	    ]]>
+		</if>
+		<if test="EDT_COMP != null and EDT_COMP.length() > 0">
+			<choose>
+			<when test="CBO_COMP == 1">
+			   AND Q.BZNO = #{EDT_COMP}  /* 사업자번호 */
+			</when>
+			<when test="CBO_COMP == 2">
+			   AND UPPER(Q.CONM) LIKE '%' || UPPER(#{EDT_COMP}) || '%' ESCAPE '\'  /* 업체명 */
+			</when>
+			</choose>
+		</if>
+		<if test="EDT_BUYER != null and EDT_BUYER.length() > 0">
+		   AND UPPER(Q.BUYER_NM) LIKE '%' || UPPER(#{EDT_BUYER}) || '%' ESCAPE '\'  /* 담당바이어 */
+		</if>
+		<if test="CBO_DSC != null and CBO_DSC.length() > 0">
+		<![CDATA[
+		   AND NVL(Q.CSLT_DSC, 101) IN (
+		           SELECT REGEXP_SUBSTR(#{CBO_DSC}, '[^.]+', 1, LEVEL)
+		             FROM DUAL CONNECT BY LEVEL <= LENGTH(REGEXP_REPLACE(#{CBO_DSC}, '[^.]+',''))+1
+		       )
+		]]>
+		</if>
+		 ORDER BY Q.RQ_DT DESC, Q.CSLT_RQ_NO DESC
+	</select>
+	
+	<select id="retrieveCsltRqDscList" parameterType="java.util.Map" resultMap="rcMap">
+		SELECT /* retrieveCsltRqDscList */
+		       Q.CSLT_RQ_NO
+		     , Q.BZNO
+		     , Q.RQ_DT
+		     , Q.CHRRNM
+		     , Q.BUYER_SHRT_BZPLNM
+		     , Q.BUYER_CHRG_BSNNM
+		     , Q.BUYER_NM
+		     , Q.NA_TRPL_C
+		     , Q.CHRR_TELNO
+		     , Q.CHRR_EMAIL
+		     , ecl_decrypt(Q.CHRR_MPNO) AS CHRR_MPNO
+		     , Q.CONM
+		     , Q.REPM
+		     , Q.REPM_TELNO
+		     , Q.BIZTP
+		     , Q.ITM
+		     , Q.FZIP
+		     , Q.RZIP
+		     , Q.DONGUP
+		     , Q.DONGBW
+		     , Q.BYR_SLAM
+		     , Q.MSELPL
+		     , Q.MFO_LATC
+		     , Q.CO_CHR_MFT
+		     , Q.CO_CHR_REV
+		     , Q.CO_CHR_TOT_AGCY
+		     , Q.CO_CHR_VD
+		     , Q.MAJ_LATC
+		     , Q.CSLT_RQ_CNTN
+		     , Q.STS
+		     , Q.RMK
+		     , NVL(T.EVL_HDNG_A1,  0) AS EVL_HDNG_A1
+		     , NVL(T.EVL_HDNG_A2,  0) AS EVL_HDNG_A2
+		     , NVL(T.EVL_HDNG_A3,  0) AS EVL_HDNG_A3
+		     , NVL(T.EVL_HDNG_A4,  0) AS EVL_HDNG_A4
+		     , NVL(T.EVL_HDNG_A5,  0) AS EVL_HDNG_A5
+		     , NVL(T.EVL_HDNG_A6,  0) AS EVL_HDNG_A6
+		     , NVL(T.EVL_HDNG_B1,  0) AS EVL_HDNG_B1
+		     , NVL(T.EVL_HDNG_B11, 0) AS EVL_HDNG_B11
+		     , NVL(T.EVL_HDNG_B2,  0) AS EVL_HDNG_B2
+		     , NVL(T.EVL_HDNG_B3,  0) AS EVL_HDNG_B3
+		     , NVL(T.EVL_HDNG_B4,  0) AS EVL_HDNG_B4
+		     , NVL(T.EVL_HDNG_B5,  0) AS EVL_HDNG_B5
+		     , T.EVL_HDNGCN
+		     , Q.FSRG_DTM
+		     , Q.FS_RGM
+		     , Q.LSCHG_DTM
+		     , Q.LS_CHGM
+		     , NVL(Q.CSLT_DSC, 101) CSLT_DSC	/* 항목구분 */
+		     , Q.CSLT_CLS
+		     , Q.CSLT_CTG1
+		     , Q.CSLT_CTG2
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		 WHERE Q.CSLT_RQ_NO = #{CSLT_RQ_NO}
+	</select>
+	
+	<select id="retrieveCsltRqDscFileList" parameterType="java.util.Map" resultMap="rcFileMap2">
+		SELECT /* retrieveCsltRqDscFileList */
+		       Q.CSLT_RQ_NO
+		     , D.DCM_C
+		     , D.DCM_NM AS FILENAME
+		     , D.FLNM AS ORGFNAME
+		     , D.FL_SCRNM
+		     , D.FL_PATHNM
+		     , D.FL_SZE AS FILESIZE
+		     , D.SYS_FLNM AS SYSTEMFILENAME
+		     , D.FSRG_DTM
+		     , D.FS_RGM
+		     , D.LSCHG_DTM
+		     , D.LS_CHGM
+		     , 'CLT' AS SEAL
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		       INNER JOIN BT_CTR_CSLT_DCM_APD D
+		               ON Q.CSLT_RQ_NO = D.CSLT_RQ_NO
+		 WHERE Q.CSLT_RQ_NO = #{CSLT_RQ_NO}
+		 ORDER BY D.DCM_C
+	</select>
+	
+	<select id="retrieveCsltRqDscFileCompList" parameterType="java.util.Map" resultMap="rcFileMap">
+		SELECT /* retrieveCsltRqDscFileCompList */
+		       '0' AS ISCHECKED
+		     , Q.CSLT_RQ_NO
+		     , D.SQNO
+		     , D.DCM_NM AS FILENAME
+		     , D.FLNM AS ORGFNAME
+		     , D.FL_SCRNM
+		     , D.FL_PATHNM
+		     , D.FL_SZE AS FILESIZE
+		     , D.SYS_FLNM AS SYSTEMFILENAME
+		     , D.FSRG_DTM
+		     , D.FS_RGM
+		     , D.LSCHG_DTM
+		     , D.LS_CHGM
+		     , 'CLT' AS SEAL
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		       INNER JOIN BT_CTR_CSLT_CO_ITD_APD D
+		               ON Q.CSLT_RQ_NO = D.CSLT_RQ_NO
+		 WHERE Q.CSLT_RQ_NO = #{CSLT_RQ_NO}
+		 ORDER BY D.SQNO
+	</select>
+	
+	<update id="updateCsltRq" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		UPDATE BT_CTR_CSLT_RQ
+		   SET BZNO            = #{BZNO}
+		     , CHRRNM          = #{CHRRNM}
+		     , CHRR_TELNO      = #{CHRR_TELNO}
+		     , CHRR_EMAIL      = #{CHRR_EMAIL}
+		     , CHRR_MPNO       = ecl_encrypt(#{CHRR_MPNO})
+		     , CONM            = #{CONM}
+		     , REPM            = #{REPM}
+		     , REPM_TELNO      = #{REPM_TELNO}
+		     , BIZTP           = #{BIZTP}
+		     , ITM             = #{ITM}
+		     , FZIP            = #{FZIP}
+		     , RZIP            = #{RZIP}
+		     , DONGUP          = #{DONGUP}
+		     , DONGBW          = #{DONGBW}
+		     , BYR_SLAM        = #{BYR_SLAM}
+		     , MSELPL          = #{MSELPL}
+		     , MFO_LATC        = #{MFO_LATC}
+		     , CO_CHR_MFT      = #{CO_CHR_MFT}
+		     , CO_CHR_REV      = #{CO_CHR_REV}
+		     , CO_CHR_TOT_AGCY = #{CO_CHR_TOT_AGCY}
+		     , CO_CHR_VD       = #{CO_CHR_VD}
+		     , MAJ_LATC        = #{MAJ_LATC}
+		     , CSLT_RQ_CNTN    = #{CSLT_RQ_CNTN}
+		     /* , STS = '3' 진행상태는 별도로 변경한다. */
+		     , RMK             = #{RMK}
+		     , CSLT_CLS = #{CSLT_CLS}
+		     , CSLT_CTG1 = #{CSLT_CTG1}
+		     , CSLT_CTG2 = #{CSLT_CTG2}
+		     , LSCHG_DTM       = SYSDATE
+		     , LS_CHGM         = #{LS_CHGM}
+		 WHERE CSLT_RQ_NO = #{CSLT_RQ_NO}
+	</update>
+	
+	<update id="updateCsltRqFile" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		UPDATE BT_CTR_CSLT_DCM_APD
+		   SET DCM_NM     = #{DCM_NM}
+		     , FLNM       = #{FLNM}
+		     , FL_SZE     = #{FL_SZE}
+		     , SYS_FLNM   = #{SYS_FLNM}
+		     , LSCHG_DTM  = SYSDATE
+		     , LS_CHGM    = #{LS_CHGM}
+		 WHERE CSLT_RQ_NO = #{CSLT_RQ_NO}
+		   AND DCM_C      = #{DCM_C}
+	</update>
+	
+	<update id="updateCsltRqEvl" parameterType="com.nh.escm.bt.rq.vo.CsltRqVO">
+		UPDATE BT_CTR_COMP_SLT_BASTBL
+		   SET EVL_HDNG_A1  = #{EVL_HDNG_A1}
+		     , EVL_HDNG_A2  = #{EVL_HDNG_A2}
+		     , EVL_HDNG_A3  = #{EVL_HDNG_A3}
+		     , EVL_HDNG_A4  = #{EVL_HDNG_A4}
+		     , EVL_HDNG_A5  = #{EVL_HDNG_A5}
+		     , EVL_HDNG_A6  = #{EVL_HDNG_A6}
+		     , EVL_HDNG_B1  = #{EVL_HDNG_B1}
+		     , EVL_HDNG_B11 = #{EVL_HDNG_B11}
+		     , EVL_HDNG_B2  = #{EVL_HDNG_B2}
+		     , EVL_HDNG_B3  = #{EVL_HDNG_B3}
+		     , EVL_HDNG_B4  = #{EVL_HDNG_B4}
+		     , EVL_HDNG_B5  = #{EVL_HDNG_B5}
+		     , EVL_HDNGCN   = #{EVL_HDNGCN}
+		     , LSCHG_DTM    = SYSDATE
+		     , LS_CHGM      = #{LS_CHGM}
+		 WHERE CSLT_RQ_NO   = #{CSLT_RQ_NO}
+	</update>
+	
+	<delete id="deleteCsltRqFileComp" parameterType="java.util.Map">
+		DELETE /* deleteCsltRqFileComp */
+		  FROM BT_CTR_CSLT_CO_ITD_APD
+		 WHERE CSLT_RQ_NO = #{CSLT_RQ_NO}
+		   AND SYS_FLNM = #{SYS_FLNM}
+	</delete>
+	
+	<select id="retrieveCounselingDsc" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveCounselingDsc */
+		       Q.CSLT_RQ_NO
+		     , ecl_decrypt(Q.CHRR_MPNO) AS CHRR_MPNO
+		     , Q.CHRR_EMAIL
+		     , Q.CONM    /* 신청업체명 */
+		     , Q.CHRRNM  /* 상담신청자 */
+		     , (
+		           SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'CTR_STS' AND SIMP_C = Q.STS
+		       ) AS STS_NM  /* 진행상태명 */
+		     , Q.STS
+		     , T.EVL_HDNGCN
+		     , Q.BUYER_NM
+		     , Q.BUYER_ENO
+		     , U.USR_EMAIL AS BUYER_EMAIL
+		     , ecl_decrypt(DECODE(B.MPNO, NULL, U.USR_MPNO, B.MPNO)) AS BUYER_MPNO  /* 담당바이어 휴대전화번호 */
+		     , NVL(Q.CSLT_DSC, 101) CSLT_DSC	/* 항목구분 */
+		  	 /*, CC.ATEL || CC.HTEL || CC.STEL AS BUYER_OFFICE_TELNO*/
+		  	 , U.USR_TELNO AS BUYER_OFFICE_TELNO
+		     , Q.CSLT_CLS
+		     , Q.CSLT_CTG1
+		     , Q.CSLT_CTG2
+		  FROM BT_CTR_CSLT_RQ Q
+		       INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+		               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+		       LEFT OUTER JOIN PT_USR_INF U
+		               ON Q.BUYER_ENO = U.MB_ID
+		       LEFT OUTER JOIN TB_TR_TRPL_CIF CC
+		               ON CC.NA_TRPL_C = Q.NA_TRPL_C
+		       LEFT OUTER JOIN (
+		           SELECT * FROM TB_CM_BUYER
+		            WHERE NA_BZPLC = '8808983000015'  /* 상품본부 바이어정보만 사용 */
+		              AND NA_TEAM_C = '00'
+		       ) B     ON Q.BUYER_ENO = B.BUYER_ENO
+		 WHERE Q.CSLT_RQ_NO = #{CSLT_RQ_NO}
+	</select>
+	
+	<select id="retrieveCounselingList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveCounselingList */
+		       '' AS ISCHECKED
+		     , N.CSLT_RQ_NO
+		     , N.SQNO
+		     , (
+		           SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'CTR_STS' AND SIMP_C = N.STS
+		       ) AS STS_NM  /* 진행상태명 */
+		     , N.STS
+		     , N.TINM
+		     , TO_CHAR(N.FSRG_DTM, 'YYYYMMDD') AS RQ_DT
+		     , N.CHRG_BUYER_NM
+		     , N.USR_TPC
+		     , DECODE(N.USR_TPC, '01', R.CHRRNM, (
+		           SELECT USR_NM FROM PT_USR_INF WHERE MB_ID = N.FS_RGM
+		       )) AS RGM  /* 등록자 */
+		     , DECODE(CONCAT(N.RLTM_NTC_SMS, N.RLTM_NTC_EMAIL), '11', 'SMS, EMAIL', '10', 'SMS', '01', 'EMAIL', '없음') AS RLTM_NTC_CHK
+		     , N.CNTN
+		     , N.BUYER_TELNO
+		     , N.BUYER_EMAIL
+		     , NVL(N.RLTM_NTC_SMS, '0') AS RLTM_NTC_SMS
+		     , N.SMS_NATV_NO
+		     , NVL(N.RLTM_NTC_EMAIL, '0') AS RLTM_NTC_EMAIL
+		     , N.EMAIL_NATV_NO
+		     , N.BLOCK_YN
+		  FROM BT_CTR_CSLT_NTC N
+		       INNER JOIN BT_CTR_CSLT_RQ R
+		               ON N.CSLT_RQ_NO = R.CSLT_RQ_NO
+		 WHERE N.CSLT_RQ_NO = #{CSLT_RQ_NO}
+		<!--if test="USERTYPE == null">
+		   AND NVL(N.BLOCK_YN, '0') = '0'  /* 차단여부 (0: 정상, 1: 차단) */
+		</if-->
+		 ORDER BY N.SQNO DESC
+	</select>
+	
+	<insert id="insertCtrCsltNtc" parameterType="java.util.Map">
+		INSERT INTO BT_CTR_CSLT_NTC (
+		       CSLT_RQ_NO
+		     , SQNO
+		     , STS
+		     , TINM
+		     , CNTN
+		     , USR_TPC
+		     , RLTM_NTC_SMS
+		     , SMS_NATV_NO
+		     , RLTM_NTC_EMAIL
+		     , EMAIL_NATV_NO
+		     , CHRG_BUYER_NM
+		     , BUYER_TELNO
+		     , BUYER_EMAIL
+		     , FSRG_DTM
+		     , FS_RGM
+		     , LSCHG_DTM
+		     , LS_CHGM
+		) VALUES (
+		       #{CSLT_RQ_NO}
+		     , (
+		           SELECT NVL(MAX(SQNO + 1), 1)
+		             FROM BT_CTR_CSLT_NTC
+		            WHERE CSLT_RQ_NO = #{CSLT_RQ_NO}
+		       )
+		     , #{STS}
+		     , #{TINM}
+		     , #{CNTN}
+		     , #{USR_TPC}
+		     , #{RLTM_NTC_SMS}
+		     , #{SMS_NATV_NO}
+		     , #{RLTM_NTC_EMAIL}
+		     , #{EMAIL_NATV_NO}
+		     , #{CHRG_BUYER_NM}
+		     , #{BUYER_TELNO}
+		     , #{BUYER_EMAIL}
+		     , SYSDATE
+		     , #{USR_ID}
+		     , SYSDATE
+		     , #{USR_ID}
+		)
+	</insert>
+	
+	<!-- 담당바이어 정보 등록 (담당자배정) -->
+	<update id="updateCtrCsltRqBuyer" parameterType="java.util.Map">
+		UPDATE BT_CTR_CSLT_RQ
+		   SET BUYER_SHRT_BZPLNM = #{BUYER_SHRT_BZPLNM}
+		     , BUYER_CHRG_BSNNM  = #{BUYER_CHRG_BSNNM}
+		     , BUYER_NM   = #{BUYER_NM}
+		     , NA_TRPL_C  = #{NA_TRPL_C}
+		     , BUYER_ENO  = #{BUYER_ENO}
+		     , LSCHG_DTM  = SYSDATE
+		     , LS_CHGM    = #{LS_CHGM}
+		 WHERE CSLT_RQ_NO = #{CSLT_RQ_NO}
+	</update>
+	
+	<!-- 진행상태 변경 -->
+	<update id="updateCtrCsltRqSts" parameterType="java.util.Map">
+		UPDATE BT_CTR_CSLT_RQ
+		   SET STS            = #{STS}
+		     , LSCHG_DTM      = SYSDATE
+		     , LS_CHGM        = #{LS_CHGM}
+		     , REJECT_MONTH   = #{MON}
+		     , REJECT_ALLOW   = #{REJECT_ALLOW}
+		 WHERE CSLT_RQ_NO     = #{CSLT_RQ_NO}
+	</update>
+	
+	<select id="retrieveHurInf" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveHurInf */ MB_ID AS CSLT_MANAGER_LIST
+		  FROM MG_HUR_INF 
+		 WHERE BSN_DSC = 'BT' 
+		   AND UYN = 'Y'
+	</select>
+	<select id="retrieveCsltRqZipFileList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveCsltRqZipFileList */
+		       SQNO
+		     , DCM_NM
+		     , DCM_NM
+		     , ORGFNAME
+		     , SYSTEMFILENAME
+		     , SEAL
+	      FROM(SELECT D.SQNO SQNO
+	           		, D.DCM_NM
+	           		, D.FLNM AS ORGFNAME
+	           		, D.SYS_FLNM AS SYSTEMFILENAME
+	           		, 'CLT' AS SEAL
+	             FROM BT_CTR_CSLT_RQ Q
+	            INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+	               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+	       		INNER JOIN BT_CTR_CSLT_CO_ITD_APD D
+	               ON Q.CSLT_RQ_NO = D.CSLT_RQ_NO
+				WHERE Q.CSLT_RQ_NO = #{CSLT_RQ_NO}
+			   UNION ALL              
+			   SELECT D.DCM_C SQNO
+           			, D.DCM_NM 
+           			, D.FLNM AS ORGFNAME
+           			, D.SYS_FLNM AS SYSTEMFILENAME
+           			, 'CLT' AS SEAL
+       			 FROM BT_CTR_CSLT_RQ Q
+	       		INNER JOIN BT_CTR_COMP_SLT_BASTBL T
+	               ON Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+	       		INNER JOIN BT_CTR_CSLT_DCM_APD D
+	               ON Q.CSLT_RQ_NO = D.CSLT_RQ_NO
+       			WHERE Q.CSLT_RQ_NO = #{CSLT_RQ_NO})
+		 ORDER BY SQNO
+	</select>
+</mapper>

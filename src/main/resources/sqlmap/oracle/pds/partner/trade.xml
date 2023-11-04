@@ -1,0 +1,1599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tradeDAO">
+	<resultMap type="com.nh.escm.pds.partner.vo.TradeVO" id="TradeVO">
+		<result column="RQR_NA_TRPL_C" property="RQR_NA_TRPL_C" />
+		<result column="RQR_NA_TEAM_C" property="RQR_NA_TEAM_C" />
+		<result column="RQR_DT" property="RQR_DT" />
+		<result column="TR_RQR_SQNO" property="TR_RQR_SQNO" />
+		<result column="CSER_NA_TRPL_C" property="CSER_NA_TRPL_C" />
+		<result column="CSER_NA_TEAM_C" property="CSER_NA_TEAM_C" />
+		<result column="SPLR_NA_TRPL_C" property="SPLR_NA_TRPL_C" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="BZ_METH_DSC" property="BZ_METH_DSC" />
+		<result column="CSER_ADJPL_NA_TRPL_C" property="CSER_ADJPL_NA_TRPL_C" />
+		<result column="CSER_ADJPL_NA_TEAM_C" property="CSER_ADJPL_NA_TEAM_C" />
+		<result column="CSER_CTR_CHRRNM" property="CSER_CTR_CHRRNM" />
+		<result column="CSER_CTR_CHRR_TELNO" property="CSER_CTR_CHRR_TELNO" />
+		<result column="CSER_CTR_CHRR_MPNO" property="CSER_CTR_CHRR_MPNO" />
+		<result column="SPYPL_HOFF_NA_TRPL_C" property="SPYPL_HOFF_NA_TRPL_C" />
+		<result column="SPLR_BNK_C" property="SPLR_BNK_C" />
+		<result column="SPLR_STL_ACNO" property="SPLR_STL_ACNO" />
+		<result column="SPLR_DPRNM" property="SPLR_DPRNM" />
+		<result column="SPLR_CTR_CHRRNM" property="SPLR_CTR_CHRRNM" />
+		<result column="SPLR_CTR_CHRR_TELNO" property="SPLR_CTR_CHRR_TELNO" />
+		<result column="SPLR_CTR_CHRR_MPNO" property="SPLR_CTR_CHRR_MPNO" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="CTR_ST_DT" property="CTR_ST_DT" />
+		<result column="CTR_ED_DT" property="CTR_ED_DT" />
+		<result column="CTR_STOP_DT" property="CTR_STOP_DT" />
+		<result column="CTR_CLO_DT" property="CTR_CLO_DT" />
+		<result column="CTR_CLO_RSNC" property="CTR_CLO_RSNC" />
+		<result column="TR_STOP_RSNC" property="TR_STOP_RSNC" />
+		<result column="ROTS_FLEX_PR_APL_YN" property="ROTS_FLEX_PR_APL_YN" />
+		<result column="BYNG_UPR_MOD_YN" property="BYNG_UPR_MOD_YN" />
+		<result column="NA_ODR_FBID_RSNC" property="NA_ODR_FBID_RSNC" />
+		<result column="ODR_FBID_DT" property="ODR_FBID_DT" />
+		<result column="ODRPL_BUYER_ENO" property="ODRPL_BUYER_ENO" />
+		<result column="NA_RVO_FBID_RSNC" property="NA_RVO_FBID_RSNC" />
+		<result column="RVO_FBID_DT" property="RVO_FBID_DT" />
+		<result column="LDTM_DDS" property="LDTM_DDS" />
+		<result column="RGD_AMN_DSC" property="RGD_AMN_DSC" />
+		<result column="NA_PMI_SBJ_DSC" property="NA_PMI_SBJ_DSC" />
+		<result column="STL_FDT_BASCD" property="STL_FDT_BASCD" />
+		<result column="SSDYRT_BASCD" property="SSDYRT_BASCD" />
+		<result column="SSDYRT" property="SSDYRT" />
+		<result column="SSDY_BAS_AM" property="SSDY_BAS_AM" />
+		<result column="DDLY_SSDYRT" property="DDLY_SSDYRT" />
+		<result column="SSDY_PY_PTM_DSC" property="SSDY_PY_PTM_DSC" />
+		<result column="BKG_CHG_DT" property="BKG_CHG_DT" />
+		<result column="TR_REL_RG_RQR_DSC" property="TR_REL_RG_RQR_DSC" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="APVMN_ENO" property="APVMN_ENO" />
+		<result column="APV_NA_BZPLC" property="APV_NA_BZPLC" />
+		<result column="APV_NA_TEAM_C" property="APV_NA_TEAM_C" />
+		<result column="APV_DT" property="APV_DT" />
+		<result column="REJ_RSNCTT" property="REJ_RSNCTT" />
+		<result column="TR_REL_PRG_STSC" property="TR_REL_PRG_STSC" />
+		<result column="PRC_YN" property="PRC_YN" />
+		<result column="RSP_C_CNTN" property="RSP_C_CNTN" />
+		<result column="EDI_IF_ID" property="EDI_IF_ID" />
+		
+	</resultMap>
+	
+	<resultMap type="com.nh.escm.pds.company.vo.CompanyVO" id="TradeCompanyVO">
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="NA_TRPL_DSC" property="NA_TRPL_DSC" />
+		<result column="NA_TRPL_DSC_NM" property="NA_TRPL_DSC_NM" />
+		<result column="NAAC_DSC" property="NAAC_DSC" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="TRPL_ABR_NM" property="TRPL_ABR_NM" />
+		<result column="NA_MBCO_DSC" property="NA_MBCO_DSC" />
+		<result column="UP_NA_TRPL_C" property="UP_NA_TRPL_C" />
+		<result column="UP_NA_TRPL_NM" property="UP_NA_TRPL_NM" />
+		<result column="ZIP_SQNO" property="ZIP_SQNO" />
+		<result column="DONGUP" property="DONGUP" />
+		<result column="DONGBW" property="DONGBW" />
+		<result column="NA_RGN_C" property="NA_RGN_C" />
+		<result column="RGN_CNM" property="RGN_CNM" />
+		<result column="TEL_NAT_NO" property="TEL_NAT_NO" />
+		<result column="ATEL" property="ATEL" />
+		<result column="HTEL" property="HTEL" />
+		<result column="STEL" property="STEL" />
+		<result column="FAX_RGNO" property="FAX_RGNO" />
+		<result column="HFAX" property="HFAX" />
+		<result column="FAX_SQNO" property="FAX_SQNO" />
+		<result column="MPSVNO" property="MPSVNO" />
+		<result column="MPHNO" property="MPHNO" />
+		<result column="MPSQNO" property="MPSQNO" />
+		<result column="FMACH_PATS_TRT_YN" property="FMACH_PATS_TRT_YN" />
+		<result column="NA_BZPL_TXBZ_RPT_FORM_C" property="NA_BZPL_TXBZ_RPT_FORM_C" />
+		<result column="NA_USR_SYS_KDC" property="NA_USR_SYS_KDC" />
+		<result column="NA_USR_SYS_KDC_NM" property="NA_USR_SYS_KDC_NM" />
+		<result column="ELT_TXBIL_UYN" property="ELT_TXBIL_UYN" />
+		<result column="TR_STOP_YN" property="TR_STOP_YN" />
+		<result column="TR_STOP_RSNC" property="TR_STOP_RSNC" />
+		<result column="TR_STOP_DT" property="TR_STOP_DT" />
+		<result column="COPNO_CIF_NO" property="COPNO_CIF_NO" />
+		<result column="REPMNM" property="REPMNM" />
+		<result column="BZCCNM" property="BZCCNM" />
+		<result column="BZTPNM" property="BZTPNM" />
+		<result column="LIQ_SEL_RPT_NO" property="LIQ_SEL_RPT_NO" />
+		<result column="LIQ_WHSL_COMP_C" property="LIQ_WHSL_COMP_C" />
+		<result column="LIQ_RTL_COMP_C" property="LIQ_RTL_COMP_C" />
+		<result column="NA_TXBZ_DSC" property="NA_TXBZ_DSC" />
+		<result column="BIZ_NUMBER" property="BIZ_NUMBER" />
+		<result column="CHG_YN" property="CHG_YN" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LS_NA_BZPLC" property="LS_NA_BZPLC" />
+	</resultMap>
+	
+	<select id="initdata" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			DECODE(NA_MBCO_DSC, '1', '본사', '지사') NA_MBCO_DSC,	/* 경제통합본지사구분코드 */
+			NA_TRPL_C,				/* 경제통합거래처코드 */
+			CLNTNM,					/* 거래처명 */
+			UP_NA_TRPL_C,			/* 상위사업장코드 */
+      		'0' AS CHECK_YN
+		FROM TB_TR_TRPL_CIF
+		WHERE UP_NA_TRPL_C = #{TRPL_C}
+		ORDER BY NA_MBCO_DSC,NA_TRPL_C ASC
+	</select>
+	
+	<select id="initdata_sub" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*+ INDEX(A IDX_TB_TR_TRNREL_02 ) */
+			DECODE(B.NA_MBCO_DSC, '1', '본사', '지사') NA_MBCO_DSC,
+			A.SPLR_NA_TRPL_C AS NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.SPLR_NA_TRPL_C) AS CLNTNM,
+			'0' AS CHECK_YN
+		FROM TB_TR_TRNREL A, TB_TR_TRPL_CIF B
+		WHERE
+			A.SPLR_NA_TRPL_C = B.NA_TRPL_C
+			AND A.SPLR_NA_TRPL_C = #{TRPL_C}
+			AND A.CSER_NA_TRPL_C = '8808983000015'
+			ORDER BY B.NA_MBCO_DSC
+	</select>
+	
+	<select id="trnrel" parameterType="string" resultType="java.util.Map">
+		SELECT
+			A.CSER_NA_TRPL_C                  	/* 수요자코드               */
+			, A.CSER_NA_TEAM_C                  /* 수요자팀코드             */
+			, B.CLNTNM                       	/* 공급자경제통합거래처명   */
+			, A.SPLR_NA_TRPL_C                  /* 공급자경제통합거래처코드 */
+			, DECODE(A.SPLR_NA_TEAM_C,'00','팀없음'
+			, (SELECT TEAMNM                      
+				FROM TB_CM_TEAM B      
+				WHERE B.NA_BZPLC  = A.SPLR_NA_TRPL_C
+				AND B.NA_TEAM_C = A.SPLR_NA_TEAM_C) ) AS SPLR_NA_TEAM_N /* 공급자경팀명             */
+			, A.SPLR_NA_TEAM_C               	/* 공급자경팀코드           */
+			, A.CSER_CTR_TPC                 	/* 계약유형                 */
+			, A.SPY_TPC                      	/* 공급유형                 */
+			, A.MNGT_NA_TRPL_C               	/* 주관경제통합거래처코드   */
+			, A.MNGT_NA_TEAM_C               	/* 주관 팀코드              */
+			, A.MNGT_NA_TR_TPC               	/* 주관거래유형코드         */
+			, A.NA_WRS_LCLC                  	/* 상품대분류코드           */
+			, A.NA_WRS_MCLC                  	/* 상품중분류코드           */
+			, A.SPLR_NA_USR_SYS_KDC            	/* 공급처시스템코드         */
+			, A.SPLR_NAAC_DSC                	/* 공급자중앙회조합구분코드 */
+			, A.CSER_TR_REL_AMNNO            	/* 수요자거래관계관리번호   */
+			, A.ROTS_FLEX_PR_APL_YN            	/* 계통탄력가격적용여부     */
+			, B.NA_USR_SYS_KDC               	/* 사용자시스템종류         */
+		FROM TB_TR_TRNREL A,TB_TR_TRPL_CIF B
+		WHERE A.SPLR_NA_TRPL_C = B.NA_TRPL_C
+			AND A.SPLR_NA_TRPL_C = #{TRPL_C}
+			AND A.CSER_CTR_TPC   = '1'
+			AND A.SPY_TPC        = '02'
+			AND A.NA_WRS_LCLC = '000'
+			AND A.NA_WRS_MCLC = '000'
+			AND A.CSER_TR_REL_AMNNO > 0
+			AND A.MNGT_TR_REL_AMNNO = 0
+	</select>
+	
+	<select id="rotsflex" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.CSER_NA_TRPL_C                 /* 수요자코드               */
+			, A.CSER_NA_TEAM_C               /* 수요자팀코드             */
+			, B.CLNTNM                       /* 공급자경제통합거래처명   */
+			, A.SPLR_NA_TRPL_C               /* 공급자경제통합거래처코드 */
+			, DECODE(A.SPLR_NA_TEAM_C,'00','팀없음'     
+			, (SELECT TEAMNM
+				FROM TB_CM_TEAM B      
+				WHERE B.NA_BZPLC  = A.SPLR_NA_TRPL_C
+				AND B.NA_TEAM_C = A.SPLR_NA_TEAM_C) ) AS SPLR_NA_TEAM_N /* 공급자경팀명             */
+			, A.SPLR_NA_TEAM_C               /* 공급자경팀코드           */
+			, A.CSER_CTR_TPC                 /* 계약유형                 */
+			, A.SPY_TPC                      /* 공급유형                 */
+			, A.MNGT_NA_TRPL_C               /* 주관경제통합거래처코드   */
+			, A.MNGT_NA_TEAM_C               /* 주관 팀코드              */
+			, A.MNGT_NA_TR_TPC               /* 주관거래유형코드         */
+			, A.NA_WRS_LCLC                  /* 상품대분류코드           */
+			, A.NA_WRS_MCLC                  /* 상품중분류코드           */
+			, A.SPLR_NA_USR_SYS_KDC          /* 공급처시스템코드         */
+			, A.SPLR_NAAC_DSC                /* 공급자중앙회조합구분코드 */
+			, A.CSER_TR_REL_AMNNO            /* 수요자거래관계관리번호   */
+			, A.ROTS_FLEX_PR_APL_YN          /* 계통탄력가격적용여부     */
+			, B.NA_USR_SYS_KDC               /* 사용자시스템종류         */
+		FROM TB_TR_TRNREL A       
+			, TB_TR_TRPL_CIF B
+		WHERE A.SPLR_NA_TRPL_C = B.NA_TRPL_C
+			AND A.CSER_NA_TRPL_C = '8808983000015'
+			AND A.CSER_NA_TEAM_C = '00'
+			AND A.CSER_CTR_TPC   = '1'
+			AND A.NA_WRS_LCLC = '000'
+			AND A.NA_WRS_MCLC = '000'
+			AND A.SPY_TPC        = '02'
+			AND A.MNGT_NA_TRPL_C = '8808983000015'
+			AND A.MNGT_NA_TEAM_C = '00'
+			AND A.MNGT_NA_TR_TPC = '0'
+			AND A.CSER_TR_REL_AMNNO > 0       
+			AND A.MNGT_TR_REL_AMNNO = 0
+			AND B.NA_TRPL_C LIKE #{TRPL_C}
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_YN = '0'
+	</select>
+	
+	<select id="tradesPop" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+		(
+			SELECT
+				A.NA_TRPL_C
+				, REPLACE(A.CLNTNM, ',', '.') AS CLNTNM
+				, A.NA_BZ_TPC
+				, (SELECT B.NA_BZ_TPNM FROM TB_TR_BIZTPC B WHERE B.NA_BZ_TPC = A.NA_BZ_TPC) AS NA_BZ_TPN
+				, NVL(B.NA_TEAM_C,'00') AS NA_TEAM_C  
+				, NVL(B.TEAMNM,'팀없음') AS TEAMNM
+				, A.NA_RGN_C
+				, A.UP_NA_TRPL_C
+				, A.BZPL_TPC||' '||A.BZPL_TPNM AS BZPL_TPC
+				, A.BZPL_DTI_TPC||' '||A.BZPL_DTI_TPNM AS BZPL_DTI_TPC
+				, A.NA_TRPL_DSC
+				, A.NAAC_DSC   
+				, A.NA_MBCO_DSC
+				, A.DONG
+				, A.ZIP
+				, (SELECT B.SIMP_CNM FROM TB_CM_SIMPC B
+				    WHERE B.SIMP_TPC = 'NAAC_DSC' AND B.SIMP_C = A.NAAC_DSC) AS NAAC_DSN
+				, (SELECT B.SIMP_CNM FROM TB_CM_SIMPC B
+				    WHERE B.SIMP_TPC = 'NA_MBCO_DSC' AND B.SIMP_C = A.NA_MBCO_DSC) AS NA_MBCO_DSN
+				, A.TR_STOP_YN 
+				, A.TR_STOP_RSNC 
+			FROM(
+				SELECT
+					A.NA_TRPL_C
+					, A.CLNTNM
+					, NVL(D.NA_BZ_TPC,'00') AS NA_BZ_TPC
+					, A.NA_RGN_C
+					, A.UP_NA_TRPL_C
+					, NVL(D.BZPL_TPC,'000') AS BZPL_TPC
+					, NVL(B.BZPL_TPNM,'공통') AS BZPL_TPNM
+					, NVL(D.BZPL_DTI_TPC,'000') AS BZPL_DTI_TPC
+					, NVL(B.BZPL_DTI_TPNM,'공통') AS BZPL_DTI_TPNM
+					, A.NA_TRPL_DSC          
+					, A.NAAC_DSC             
+					, A.NA_MBCO_DSC          
+					, A.DONGUP||' '||A.DONGBW AS DONG
+					, TRIM(A.FZIP||'-'||A.RZIP) AS ZIP
+					, A.TR_STOP_YN
+					, A.TR_STOP_RSNC
+				FROM
+					TB_TR_TRPL_CIF A,
+					TB_CM_BZPL D,
+					TB_TR_BZPL_TP B
+				WHERE
+					A.NA_TRPL_C = D.NA_BZPLC(+)
+					AND D.BZPL_TPC = B.BZPL_TPC(+)
+					AND D.BZPL_DTI_TPC = B.BZPL_DTI_TPC(+)
+					<if test="TRPL_C_KIND != null and TRPL_C_KIND == 1">
+						AND A.NA_TRPL_C = #{searchText}
+					</if>
+					<if test="TRPL_C_KIND != null and TRPL_C_KIND == 2">
+						AND A.CLNTNM LIKE #{searchText} || '%'
+					</if>
+					<if test="NAAC_DSC == 1">
+						AND A.NAAC_DSC IN ('1', '2', '3', '4', '5', 'A', 'B', 'C', 'D')
+					</if>
+					<if test="NAAC_DSC == 2">
+						AND A.NAAC_DSC = '9'
+					</if>
+					AND A.DEL_YN = '0'
+					<![CDATA[AND (D.NA_BZ_TPC IS NULL OR D.NA_BZ_TPC <> '90')]]>
+					AND ROWNUM <![CDATA[<]]> 1002
+				) A, TB_CM_TEAM B
+			WHERE A.NA_TRPL_C = B.NA_BZPLC(+)
+		) A, TB_TR_TRPL_CIF B
+		WHERE A.UP_NA_TRPL_C = B.NA_TRPL_C(+)
+		ORDER BY A.CLNTNM,A.NA_TEAM_C
+	</select>
+	
+	<select id="selectcif" parameterType="string" resultType="java.util.Map">
+		SELECT 
+			NA_TRPL_C,						/* 사업장코드 */
+			CLNTNM,							/* 거래처명 */
+			ATEL,							/* 전화지역번호 */
+			HTEL,							/* 전화국번호 */
+			STEL,							/* 전화일련번호 */
+			ecl_decrypt(MPSVNO) MPSVNO,		/* 휴대전화서비스번호 */
+			ecl_decrypt(MPHNO) MPHNO,		/* 휴대전화국번호 */
+			ecl_decrypt(MPSQNO) MPSQNO		/* 휴대전화일련번호 */
+		FROM TB_TR_TRPL_CIF A,
+		(
+		SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = #{TRPL_C}
+		) B 
+		WHERE 1=1 
+			AND A.NA_TRPL_C = B.UP_NA_TRPL_C
+	</select>
+	
+	<insert id="insertDirectTrade" parameterType="com.nh.escm.pds.partner.vo.TradeVO">
+		INSERT INTO TB_TR_TRNREL_REQ
+		(
+			RQR_NA_TRPL_C,
+			RQR_NA_TEAM_C,
+			RQR_DT,
+			TR_RQR_SQNO,
+			CSER_NA_TRPL_C,
+			CSER_NA_TEAM_C,
+			SPLR_NA_TRPL_C,
+			CSER_CTR_TPC,
+			BZ_METH_DSC,
+			CSER_ADJPL_NA_TRPL_C,
+			CSER_ADJPL_NA_TEAM_C,
+			CSER_CTR_CHRRNM,
+			CSER_CTR_CHRR_TELNO,
+			CSER_CTR_CHRR_MPNO,
+			SPYPL_HOFF_NA_TRPL_C,
+			SPLR_BNK_C,
+			SPLR_STL_ACNO,
+			SPLR_DPRNM,
+			SPLR_CTR_CHRRNM,
+			SPLR_CTR_CHRR_TELNO,
+			SPLR_CTR_CHRR_MPNO,
+			SPY_TPC,
+			CTR_ST_DT,
+			CTR_ED_DT,
+			CTR_STOP_DT,
+			CTR_CLO_DT,
+			CTR_CLO_RSNC,
+			TR_STOP_RSNC,
+			ROTS_FLEX_PR_APL_YN,
+			BYNG_UPR_MOD_YN,
+			NA_ODR_FBID_RSNC,
+			ODR_FBID_DT,
+			ODRPL_BUYER_ENO,
+			NA_RVO_FBID_RSNC,
+			RVO_FBID_DT,
+			LDTM_DDS,
+			RGD_AMN_DSC,
+			NA_PMI_SBJ_DSC,
+			STL_FDT_BASCD,
+			SSDYRT_BASCD,
+			SSDYRT,
+			SSDY_BAS_AM,
+			DDLY_SSDYRT,
+			SSDY_PY_PTM_DSC,
+			BKG_CHG_DT,
+			TR_REL_RG_RQR_DSC,
+			FSRG_DTM,
+			LSCHG_DTM,
+			LS_CMENO,
+			APVMN_ENO,
+			APV_NA_BZPLC,
+			APV_NA_TEAM_C,
+			APV_DT,
+			REJ_RSNCTT,
+			TR_REL_PRG_STSC,
+			PRC_YN,
+			RSP_C_CNTN,
+			EDI_IF_ID
+		)
+		VALUES
+		(
+			#{RQR_NA_TRPL_C},
+			'00',
+			#{RQR_DT},
+			8902049202,
+			#{CSER_NA_TRPL_C},
+			#{CSER_NA_TEAM_C},
+			#{SPLR_NA_TRPL_C},
+			#{CSER_CTR_TPC},
+			#{BZ_METH_DSC},
+			#{CSER_ADJPL_NA_TRPL_C},
+			#{CSER_ADJPL_NA_TEAM_C},
+			#{CSER_CTR_CHRRNM},
+			#{CSER_CTR_CHRR_TELNO},
+			#{CSER_CTR_CHRR_MPNO},
+			#{SPYPL_HOFF_NA_TRPL_C},
+			#{SPLR_BNK_C},
+			#{SPLR_STL_ACNO},
+			#{SPLR_DPRNM},
+			#{SPLR_CTR_CHRRNM},
+			#{SPLR_CTR_CHRR_TELNO},
+			#{SPLR_CTR_CHRR_MPNO},
+			#{SPY_TPC},
+			#{CTR_ST_DT},
+			#{CTR_ED_DT},
+			#{CTR_STOP_DT},
+			#{CTR_CLO_DT},
+			#{CTR_CLO_RSNC},
+			#{TR_STOP_RSNC},
+			#{ROTS_FLEX_PR_APL_YN},
+			#{BYNG_UPR_MOD_YN},
+			#{NA_ODR_FBID_RSNC},
+			#{ODR_FBID_DT},
+			#{ODRPL_BUYER_ENO},
+			#{NA_RVO_FBID_RSNC},
+			#{RVO_FBID_DT},
+			#{LDTM_DDS},
+			#{RGD_AMN_DSC},
+			#{NA_PMI_SBJ_DSC},
+			#{STL_FDT_BASCD},
+			#{SSDYRT_BASCD},
+			#{SSDYRT},
+			#{SSDY_BAS_AM},
+			#{DDLY_SSDYRT},
+			#{SSDY_PY_PTM_DSC},
+			#{BKG_CHG_DT},
+			#{TR_REL_RG_RQR_DSC},
+			sysdate,
+			sysdate,
+			#{LS_CMENO},
+			#{APVMN_ENO},
+			#{APV_NA_BZPLC},
+			#{APV_NA_TEAM_C},
+			#{APV_DT},
+			#{REJ_RSNCTT},
+			#{TR_REL_PRG_STSC},
+			#{PRC_YN},
+			#{RSP_C_CNTN},
+			#{EDI_IF_ID}
+		)
+	</insert>
+	
+	<update id="updateTrade" parameterType="com.nh.escm.pds.partner.vo.TradeVO">
+		UPDATE TB_TR_TRNREL_REQ
+		SET CSER_NA_TRPL_C = #{CSER_NA_TRPL_C},
+		    CSER_NA_TEAM_C = #{CSER_NA_TEAM_C},
+		    SPLR_NA_TRPL_C = #{SPLR_NA_TRPL_C},
+		    CSER_CTR_TPC = #{CSER_CTR_TPC},
+		    BZ_METH_DSC = #{BZ_METH_DSC},
+		    CSER_ADJPL_NA_TRPL_C = #{CSER_ADJPL_NA_TRPL_C},
+		    CSER_ADJPL_NA_TEAM_C = #{CSER_ADJPL_NA_TEAM_C},
+		    CSER_CTR_CHRRNM = ecl_encrypt(#{CSER_CTR_CHRRNM}),
+		    CSER_CTR_CHRR_TELNO = #{CSER_CTR_CHRR_TELNO},
+		    CSER_CTR_CHRR_MPNO = ecl_encrypt(#{CSER_CTR_CHRR_MPNO}),
+		    SPYPL_HOFF_NA_TRPL_C = #{SPYPL_HOFF_NA_TRPL_C},
+		    SPLR_BNK_C = #{SPLR_BNK_C},
+		    SPLR_STL_ACNO = ecl_encrypt(#{SPLR_STL_ACNO}),
+		    SPLR_DPRNM = ecl_encrypt(#{SPLR_DPRNM}),
+		    SPLR_CTR_CHRRNM = ecl_encrypt(#{SPLR_CTR_CHRRNM}),
+		    SPLR_CTR_CHRR_TELNO = #{SPLR_CTR_CHRR_TELNO},
+		    SPLR_CTR_CHRR_MPNO = ecl_encrypt(#{SPLR_CTR_CHRR_MPNO}),
+		    SPY_TPC = #{SPY_TPC},
+		    CTR_ST_DT = #{CTR_ST_DT},
+		    CTR_ED_DT = #{CTR_ED_DT},
+		    CTR_STOP_DT = #{CTR_STOP_DT},
+		    CTR_CLO_DT = #{CTR_CLO_DT},
+		    CTR_CLO_RSNC = #{CTR_CLO_RSNC},
+		    TR_STOP_RSNC = #{TR_STOP_RSNC},
+		    ROTS_FLEX_PR_APL_YN = #{ROTS_FLEX_PR_APL_YN},
+		    BYNG_UPR_MOD_YN = #{BYNG_UPR_MOD_YN},
+		    NA_ODR_FBID_RSNC = #{NA_ODR_FBID_RSNC},
+		    ODR_FBID_DT = #{ODR_FBID_DT},
+		    ODRPL_BUYER_ENO = #{ODRPL_BUYER_ENO},
+		    NA_RVO_FBID_RSNC = #{NA_RVO_FBID_RSNC},
+		    RVO_FBID_DT = #{RVO_FBID_DT},
+		    LDTM_DDS = #{LDTM_DDS},
+		    RGD_AMN_DSC = #{RGD_AMN_DSC},
+		    NA_PMI_SBJ_DSC = #{NA_PMI_SBJ_DSC},
+		    STL_FDT_BASCD = #{STL_FDT_BASCD},
+		    SSDYRT_BASCD = #{SSDYRT_BASCD},
+		    SSDYRT = #{SSDYRT},
+		    SSDY_BAS_AM = #{SSDY_BAS_AM},
+		    DDLY_SSDYRT = #{DDLY_SSDYRT},
+		    SSDY_PY_PTM_DSC = #{SSDY_PY_PTM_DSC},
+		    BKG_CHG_DT = #{BKG_CHG_DT},
+		    TR_REL_RG_RQR_DSC = #{TR_REL_RG_RQR_DSC},
+		    LSCHG_DTM = sysdate,
+		    LS_CMENO = #{LS_CMENO},
+		    APVMN_ENO = #{APVMN_ENO},
+		    APV_NA_BZPLC = #{APV_NA_BZPLC},
+		    APV_NA_TEAM_C = #{APV_NA_TEAM_C},
+		    APV_DT = #{APV_DT},
+		    REJ_RSNCTT = #{REJ_RSNCTT},
+		    TR_REL_PRG_STSC = #{TR_REL_PRG_STSC},
+		    PRC_YN = #{PRC_YN},
+		    RSP_C_CNTN = #{RSP_C_CNTN}
+		WHERE
+			1=1
+			AND RQR_NA_TRPL_C = #{RQR_NA_TRPL_C}
+			AND RQR_NA_TEAM_C = #{RQR_NA_TEAM_C}
+			AND RQR_DT = #{RQR_DT}
+			AND TR_RQR_SQNO = #{TR_RQR_SQNO}
+	</update>
+	
+	<select id="popupDirect" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			MM.*,
+			CASE
+				WHEN MM.WK_DS = 'I' AND D.FSRG_DTM IS NULL THEN '0'
+				WHEN MM.WK_DS = 'I' AND D.FSRG_DTM IS NOT NULL THEN '1'
+				WHEN MM.WK_DS = 'U' AND D.LSCHG_DTM IS NULL THEN '0'
+				WHEN MM.WK_DS = 'U' AND D.LSCHG_DTM IS NOT NULL THEN '1'
+				WHEN MM.WK_DS = 'D' AND D.DEL_DTM IS NULL THEN '0'
+				WHEN MM.WK_DS = 'D' AND D.DEL_DTM IS NOT NULL THEN '1'
+			END AS AMNNO
+		FROM
+  		(
+  			SELECT
+				FN_TRPL_CIF_NM(B.CSER_NA_TRPL_C) AS CSER_NA_TRPL_N
+			    , B.CSER_NA_TRPL_C
+			    , DECODE(B.CSER_NA_TEAM_C,'00','팀없음'
+			    , (SELECT TEAMNM
+			      FROM TB_CM_TEAM
+			      WHERE NA_BZPLC = B.CSER_NA_TRPL_C
+			      AND NA_TEAM_C = B.CSER_NA_TEAM_C) ) AS CSER_NA_TEAM_N
+			    , B.CSER_NA_TEAM_C
+			    , A.CSER_CTR_TPC
+			    , FN_CM_SIMP_CNM('CSER_CTR_TPC',A.CSER_CTR_TPC) CSER_CTR_TPC_N
+			    , A.SPY_TPC
+			    , FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) SPY_TPC_N
+			    , FN_TRPL_CIF_NM(B.SPLR_NA_TRPL_C) AS SPLR_NA_TRPL_N
+			    , B.SPLR_NA_TRPL_C
+			    , DECODE(B.SPLR_NA_TEAM_C,'00','팀없음' 
+			    , (SELECT TEAMNM                  
+			      FROM TB_CM_TEAM C
+			      WHERE C.NA_BZPLC = B.SPLR_NA_TRPL_C                      
+			      AND C.NA_TEAM_C = B.SPLR_NA_TEAM_C) ) AS SPLR_NA_TEAM_N
+			    , B.SPLR_NA_TEAM_C
+			    , FN_TRPL_CIF_NM(A.MNGT_NA_TRPL_C) AS MNGT_NA_TRPL_N
+			    , A.MNGT_NA_TRPL_C
+			    , DECODE(A.MNGT_NA_TEAM_C,'00','팀없음'
+			    , (SELECT TEAMNM
+			      FROM TB_CM_TEAM
+			      WHERE NA_BZPLC = A.MNGT_NA_TRPL_C
+			      AND NA_TEAM_C = A.MNGT_NA_TEAM_C) ) AS MNGT_NA_TEAM_N
+			    , A.MNGT_NA_TEAM_C
+			    , A.NA_WRS_LCLC
+			    , A.NA_WRS_MCLC
+			    , A.MNGT_NA_TR_TPC
+			    , SUBSTR(A.EDI_IF_ID,2,14) AS EDI_IF_ID
+			    , B.WK_DS
+			    , A.PRC_YN
+                , A.RSP_C_CNTN
+			FROM TB_TR_HANARO_REQ_M A
+      			,TB_TR_HANARO_REQ_D B
+			WHERE A.VAN_RQ_NO = B.VAN_RQ_NO
+			    AND A.CRQRTRPL = B.CRQRTRPL
+			    AND A.CRQRTRPL = #{TRPL_C}
+			    AND B.SPLR_NA_TRPL_C = #{RQR_NA_TRPL_C}
+			    <if test="CSER_TRPL_C != null and CSER_TRPL_C.length() > 0">
+			    	AND B.CSER_NA_TRPL_C = #{CSER_TRPL_C}
+			    	AND B.CSER_NA_TEAM_C = #{CSER_TEAM}
+			    </if>
+			    <if test="CSER_CTR_TPC != 'all'">
+					AND A.CSER_CTR_TPC = #{CSER_CTR_TPC}
+				</if>
+				<if test="SPY_TPC != 'all'">
+					AND A.SPY_TPC = #{SPY_TPC}
+				</if>
+				-- AND A.RSP_C_CNTN = 'SUCCESS'
+		) MM,
+		TB_TR_TRNREL D
+		WHERE
+			MM.CSER_NA_TRPL_C = D.CSER_NA_TRPL_C(+)
+			AND MM.CSER_NA_TEAM_C = D.CSER_NA_TEAM_C(+)
+			AND MM.SPLR_NA_TRPL_C = D.SPLR_NA_TRPL_C(+)
+			AND MM.SPLR_NA_TEAM_C = D.SPLR_NA_TEAM_C(+)
+			AND MM.MNGT_NA_TRPL_C = D.MNGT_NA_TRPL_C(+)
+			AND MM.MNGT_NA_TEAM_C = D.MNGT_NA_TEAM_C(+)
+		ORDER BY MM.EDI_IF_ID
+	</select>
+	
+	<select id="selectDirectTrade" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			TR_RQR_SQNO,
+			RQR_DT,
+			RQR_NA_TEAM_C,
+			RQR_NA_TRPL_C,
+			CSER_NA_TRPL_C,
+			CSER_NA_TEAM_C,
+			SPLR_NA_TRPL_C,
+			CSER_CTR_TPC,
+			BZ_METH_DSC,
+			CSER_ADJPL_NA_TRPL_C,
+			ecl_decrypt(CSER_CTR_CHRRNM) CSER_CTR_CHRRNM,
+			CSER_CTR_CHRR_TELNO,
+			CSER_CTR_CHRR_MPNO,
+			SPYPL_HOFF_NA_TRPL_C,
+			SPLR_BNK_C,
+			ecl_decrypt(SPLR_STL_ACNO) SPLR_STL_ACNO,
+			ecl_decrypt(SPLR_DPRNM) SPLR_DPRNM,
+			ecl_decrypt(SPLR_CTR_CHRRNM) SPLR_CTR_CHRRNM,
+			SPLR_CTR_CHRR_TELNO,
+			SPLR_CTR_CHRR_MPNO,
+			SPY_TPC,
+			CTR_ST_DT,
+			CTR_ED_DT,
+			CTR_STOP_DT,
+			CTR_CLO_DT,
+			CTR_CLO_RSNC,
+			TR_STOP_RSNC,
+			ROTS_FLEX_PR_APL_YN,
+			BYNG_UPR_MOD_YN,
+			NA_ODR_FBID_RSNC,
+			ODR_FBID_DT,
+			ODRPL_BUYER_ENO,
+			NA_RVO_FBID_RSNC,
+			RVO_FBID_DT,
+			LDTM_DDS,
+			RGD_AMN_DSC,
+			NA_PMI_SBJ_DSC,
+			STL_FDT_BASCD,
+			SSDYRT_BASCD,
+			SSDYRT,
+			SSDY_BAS_AM,
+			DDLY_SSDYRT,
+			SSDY_PY_PTM_DSC,
+			BKG_CHG_DT,
+			TR_REL_RG_RQR_DSC,
+			TO_CHAR(FSRG_DTM,'YYYY-MM-DD') FSRG_DTM,
+			TO_CHAR(LSCHG_DTM,'YYYY-MM-DD') LSCHG_DTM,
+			LS_CMENO,
+			APVMN_ENO,
+			APV_NA_BZPLC,
+			APV_NA_TEAM_C,
+			APV_DT,
+			REJ_RSNCTT,
+			TR_REL_PRG_STSC,
+			PRC_YN,
+			RSP_C_CNTN,
+			EDI_IF_ID
+		FROM TB_TR_TRNREL_REQ
+		WHERE
+			1=1
+			AND RQR_NA_TRPL_C = #{RQR_NA_TRPL_C}
+			AND RQR_NA_TEAM_C = #{RQR_NA_TEAM_C}
+			AND RQR_DT = #{RQR_DT}
+			AND TR_RQR_SQNO = #{TR_RQR_SQNO}
+	</select>
+	
+	<select id="selectHanaroTrades" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_selectTrades"/>
+	</select>
+	
+	<sql id="sql_selectTrades">
+		SELECT
+			B.CLNTNM                /* 수요처명         */
+			, A.CSER_NA_TEAM_N      /* 수요처팀명       */
+			, A.CSER_CTR_TPC        /* 계약유형         */
+			, A.CSER_CTR_TPC_N
+			, A.SPY_TPC             /* 공급유형         */
+			, A.SPY_TPC_N
+			, A.MNGT_NA_TR_TPC      /* 주관거래유형코드   */
+			, A.NA_WRS_LCLC         /* 상품대분류코드     */
+			, A.NA_WRS_MCLC         /* 상품중분류코드     */
+			, A.CSER_TR_REL_AMNNO	/* 수주자관리번호    */
+			, A.CSER_NA_TRPL_C      /* 수요처                */
+			, A.CSER_NA_TEAM_C      /* 수요처팀             */
+			, A.SPLR_NA_TRPL_C      /* 공급처                */
+			, A.SPLR_NA_TEAM_C      /* 공급처팀            */
+			, A.MNGT_NA_TRPL_C      /* 주관사업장         */
+			, A.MNGT_NA_TEAM_C      /* 주관사업장팀      */
+			, A.SPLR                /* 공급업체            */
+			, C.CLNTNM AS SPLRN     /* 공급업체명        */
+			, TO_CHAR(A.FSRG_DTM,'YYYYMMDD') FSRG_DTM
+      		, TO_CHAR(A.LSCHG_DTM,'YYYYMMDD') LSCHG_DTM
+			,'0' AS CHECK_YN
+			,'0' AS DELETE_YN
+			,'' AS UPDATE_SPLR_NA_TRPL_C
+			,'' AS UPDATE_SPLR_NA_TRPL_CODE
+			, A.AMNNO				/* 주관관리번호 */
+		FROM (
+			SELECT
+				/*+ no_push_pred(y) */
+				X.*,
+				Y.SPLR_NA_TRPL_C AS SPLR,
+				Y.mngt_tr_rel_amnno as AMNNO
+			FROM(
+    			SELECT
+					A.CSER_NA_TRPL_C
+					,(SELECT CLNTNM
+					  FROM TB_TR_TRPL_CIF B
+					  WHERE B.NA_TRPL_C = A.CSER_NA_TRPL_C) AS CSER_NA_TRPL_N
+					, A.CSER_NA_TEAM_C
+					,DECODE(A.CSER_NA_TEAM_C,'00','팀없음',(SELECT TEAMNM
+					  FROM TB_CM_TEAM B
+					  WHERE B.NA_BZPLC = A.CSER_NA_TRPL_C
+					  AND B.NA_TEAM_C = A.CSER_NA_TEAM_C) ) AS CSER_NA_TEAM_N
+					, A.SPLR_NA_TRPL_C
+					, A.SPLR_NA_TEAM_C
+					, A.CSER_CTR_TPC
+					, FN_CM_SIMP_CNM('CSER_CTR_TPC',A.CSER_CTR_TPC) CSER_CTR_TPC_N
+					, A.SPY_TPC
+					, FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) SPY_TPC_N
+					, A.MNGT_NA_TRPL_C
+					, A.MNGT_NA_TEAM_C
+					, A.MNGT_NA_TR_TPC
+					, A.FSRG_DTM
+          			, A.LSCHG_DTM
+					, A.NA_WRS_LCLC
+					, A.NA_WRS_MCLC
+					, A.CSER_TR_REL_AMNNO
+				FROM
+					TB_TR_TRNREL A,
+					TB_TR_TRPL_CIF B,
+					TB_CM_BZPL C
+				WHERE
+					A.CSER_NA_TRPL_C = B.NA_TRPL_C
+					AND A.CSER_NA_TRPL_C = C.NA_BZPLC
+          			AND C.DEL_DTM IS NULL
+          			<choose>
+          				<when test="CSERTR != null and CSERTR.length() > 0">
+          					AND A.CSER_NA_TRPL_C LIKE #{CSERTR} || '%%'
+          					AND A.CSER_NA_TEAM_C = #{CSERTEAM}
+          				</when>
+          				<otherwise>
+          					AND B.NA_RGN_C LIKE #{LOCAL_CODE} || '%'
+          				</otherwise>
+          			</choose>
+					AND A.SPLR_NA_TRPL_C = '8808983000015'
+					AND A.SPLR_NA_TEAM_C = '00'
+					AND A.CSER_CTR_TPC IN ('1','2','3','5')
+					AND A.MNGT_NA_TRPL_C = '8808983000015'
+					AND A.MNGT_NA_TEAM_C = '00'
+					AND A.NA_WRS_LCLC = '000'
+					AND A.NA_WRS_MCLC = '000'
+					AND A.MNGT_TR_REL_AMNNO = 0
+					AND A.DEL_DTM IS NULL
+      			)X,
+      			(
+				SELECT
+					A.CSER_NA_TRPL_C
+					, A.CSER_NA_TEAM_C
+					, A.SPLR_NA_TRPL_C
+					, A.SPLR_NA_TEAM_C
+					, A.CSER_CTR_TPC
+					, FN_CM_SIMP_CNM('CSER_CTR_TPC',A.CSER_CTR_TPC) CSER_CTR_TPC_N
+					, A.SPY_TPC
+					, FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) SPY_TPC_N
+					, A.MNGT_NA_TRPL_C
+					, A.MNGT_NA_TEAM_C
+					, A.MNGT_NA_TR_TPC
+					, A.NA_WRS_LCLC
+					, A.NA_WRS_MCLC
+					, A.FSRG_DTM
+          			, A.LSCHG_DTM
+					, A.CSER_TR_REL_AMNNO
+					, A.MNGT_TR_REL_AMNNO
+				FROM 
+					TB_TR_TRNREL A,
+					TB_TR_TRPL_CIF B,
+					TB_CM_BZPL C
+        		WHERE 
+					A.SPLR_NA_TRPL_C = B.NA_TRPL_C
+					AND A.CSER_NA_TRPL_C = C.NA_BZPLC
+          			AND C.DEL_DTM IS NULL
+					<if test="CSERTR != null and CSERTR.length() > 0">
+						AND A.CSER_NA_TRPL_C LIKE #{CSERTR} || '%%'
+						AND A.CSER_NA_TEAM_C = #{CSERTEAM}
+					</if>
+					<if test="GUBUN == 2">
+						AND A.SPLR_NA_TRPL_C = #{SERTR}
+					</if>
+					AND A.CSER_CTR_TPC IN ('1','2','3','5')
+					AND A.MNGT_NA_TRPL_C = '8808983000015'
+					AND A.MNGT_NA_TEAM_C = '00'
+					AND A.NA_WRS_LCLC    = '000'
+					AND A.NA_WRS_MCLC    = '000'
+					AND A.CSER_TR_REL_AMNNO > 0
+					AND A.MNGT_TR_REL_AMNNO > 0
+					AND A.DEL_DTM IS NULL
+					AND B.UP_NA_TRPL_C = #{UP_TRPL_C}
+      			)Y
+      			<if test="GUBUN == 1">
+      				WHERE
+						X.CSER_NA_TRPL_C    = Y.CSER_NA_TRPL_C(+)      
+						AND X.CSER_NA_TEAM_C    = Y.CSER_NA_TEAM_C(+)      
+						AND X.MNGT_NA_TRPL_C    = Y.MNGT_NA_TRPL_C(+)      
+						AND X.MNGT_NA_TEAM_C    = Y.MNGT_NA_TEAM_C(+)
+						AND X.CSER_CTR_TPC      = Y.CSER_CTR_TPC(+)
+						AND X.SPY_TPC           = Y.SPY_TPC(+)
+						AND X.CSER_TR_REL_AMNNO = Y.CSER_TR_REL_AMNNO(+)
+      			</if>
+      			<if test="GUBUN == 2">
+      				WHERE
+						X.CSER_NA_TRPL_C    = Y.CSER_NA_TRPL_C
+						AND X.CSER_NA_TEAM_C    = Y.CSER_NA_TEAM_C
+						AND X.MNGT_NA_TRPL_C    = Y.MNGT_NA_TRPL_C
+						AND X.MNGT_NA_TEAM_C    = Y.MNGT_NA_TEAM_C
+						AND X.CSER_CTR_TPC      = Y.CSER_CTR_TPC
+						AND X.SPY_TPC           = Y.SPY_TPC
+						AND X.CSER_TR_REL_AMNNO = Y.CSER_TR_REL_AMNNO
+      			</if>
+    		)A,
+		    TB_TR_TRPL_CIF B,
+		    TB_TR_TRPL_CIF C
+    	WHERE 
+			A.CSER_NA_TRPL_C = B.NA_TRPL_C
+			AND A.SPLR = C.NA_TRPL_C(+)
+			ORDER BY B.CLNTNM, A.CSER_NA_TEAM_C, C.CLNTNM, A.SPLR_NA_TEAM_C
+	</sql>
+	
+	<insert id="insertHanaroTradesM" parameterType="com.nh.escm.pds.partner.vo.TradeTrnrelVO">
+		INSERT INTO TB_TR_HANARO_REQ_M
+		(
+			VAN_RQ_NO,
+			CRQRTRPL,
+			CRQRTEAM,
+			CRQRMNENO,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_TEAM_C,
+			SPLR_NA_TRPL_C,
+			SPLR_NA_TEAM_C,
+			CSER_CTR_TPC,
+			SPY_TPC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			MNGT_NA_TR_TPC,
+			CSER_TR_REL_AMNNO,
+			PRC_YN
+		)
+		VALUES
+		(
+			#{VAN_RQ_NO},
+			#{CRQRTRPL},
+			#{CRQRTEAM},
+			#{CRQRMNENO},
+			#{MNGT_NA_TRPL_C},
+			#{MNGT_NA_TEAM_C},
+			#{UPDATE_SPLR_NA_TRPL_CODE},
+			#{SPLR_NA_TEAM_C},
+			#{CSER_CTR_TPC},
+			#{SPY_TPC},
+			#{NA_WRS_LCLC},
+			#{NA_WRS_MCLC},
+			#{MNGT_NA_TR_TPC},
+			#{CSER_TR_REL_AMNNO},
+			#{PRC_YN}
+		)
+	</insert>
+	
+	<insert id="insertHanaroTradesD" parameterType="com.nh.escm.pds.partner.vo.TradeTrnrelVO">
+		INSERT INTO TB_TR_HANARO_REQ_D
+		(
+			VAN_RQ_NO,
+			CRQRTRPL,
+			CRQRTEAM,
+			SPLR_NA_TRPL_C,
+			SPLR_NA_TEAM_C,
+			CSER_NA_TRPL_C,
+			CSER_NA_TEAM_C,
+			MNGT_TR_REL_AMNNO,
+			WK_DS
+		)
+		VALUES
+		(
+			#{VAN_RQ_NO},
+			#{CRQRTRPL},
+			#{CRQRTEAM},
+			#{UPDATE_SPLR_NA_TRPL_CODE},
+			#{SPLR_NA_TEAM_C},
+			#{CSER_NA_TRPL_C},
+			#{CSER_NA_TEAM_C},
+			#{AMNNO},
+			#{WK_DS}
+		)
+	</insert>
+	
+	<insert id="updateHanaroTradesM" parameterType="com.nh.escm.pds.partner.vo.TradeTrnrelVO">
+		INSERT INTO TB_TR_HANARO_REQ_M
+		(
+			VAN_RQ_NO,
+			CRQRTRPL,
+			CRQRTEAM,
+			CRQRMNENO,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_TEAM_C,
+			SPLR_NA_TRPL_C,
+			SPLR_NA_TEAM_C,
+			CSER_CTR_TPC,
+			SPY_TPC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			MNGT_NA_TR_TPC,
+			CSER_TR_REL_AMNNO,
+			PRC_YN
+		)
+		VALUES
+		(
+			#{U_VAN_RQ_NO},
+			#{CRQRTRPL},
+			#{CRQRTEAM},
+			#{CRQRMNENO},
+			#{MNGT_NA_TRPL_C},
+			#{MNGT_NA_TEAM_C},
+			#{SPLR},
+			#{SPLR_NA_TEAM_C},
+			#{CSER_CTR_TPC},
+			#{SPY_TPC},
+			#{NA_WRS_LCLC},
+			#{NA_WRS_MCLC},
+			#{MNGT_NA_TR_TPC},
+			#{CSER_TR_REL_AMNNO},
+			#{PRC_YN}
+		)
+	</insert>
+	
+	<insert id="updateHanaroTradesD" parameterType="com.nh.escm.pds.partner.vo.TradeTrnrelVO">
+		INSERT INTO TB_TR_HANARO_REQ_D
+		(
+			VAN_RQ_NO,
+			CRQRTRPL,
+			CRQRTEAM,
+			SPLR_NA_TRPL_C,
+			SPLR_NA_TEAM_C,
+			CSER_NA_TRPL_C,
+			CSER_NA_TEAM_C,
+			MNGT_TR_REL_AMNNO,
+			WK_DS
+		)
+		VALUES
+		(
+			#{U_VAN_RQ_NO},
+			#{CRQRTRPL},
+			#{CRQRTEAM},
+			#{SPLR},
+			#{SPLR_NA_TEAM_C},
+			#{CSER_NA_TRPL_C},
+			#{CSER_NA_TEAM_C},
+			#{AMNNO},
+			'D'
+		)
+	</insert>
+	
+	<select id="selectFlexTrades" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			B.CLNTNM,                                	/* 수요처명	 */
+			DECODE(A.CSER_NA_TEAM_C,'00','팀없음'   		/* 수요처팀명   */
+		 	,(SELECT TEAMNM 
+	 		FROM TB_CM_TEAM B
+		 	WHERE B.NA_BZPLC = A.CSER_NA_TRPL_C
+		 	AND B.NA_TEAM_C = A.CSER_NA_TEAM_C) ) AS CSER_NA_TEAM_N 
+			, A.CSER_CTR_TPC                          	/* 계약유형 */
+			, A.SPY_TPC                               	/* 공급유형 */ 
+		 	, A.MNGT_NA_TR_TPC                         	/* 주관거래유형코드 */
+		 	, A.NA_WRS_LCLC                            	/* 상품대분류코드 */
+			, A.NA_WRS_MCLC                            	/* 상품중분류코드 */
+		 	, A.CSER_NA_TRPL_C                         	/* 수요처 */
+		 	, A.CSER_NA_TEAM_C                         	/* 수요처팀 */
+		 	, A.SPLR_NA_TRPL_C                         	/* 공급처 */
+			, A.SPLR_NA_TEAM_C                         	/* 공급처팀 */
+			, A.MNGT_NA_TRPL_C                         	/* 주관사업장 */
+			, A.MNGT_NA_TEAM_C                         	/* 주관사업장팀 */
+			, A.CSER_TR_REL_AMNNO						/* 관리번호 */
+		 	, '' CHECK_YN								/* 등록여부 */
+		FROM 
+			TB_TR_TRNREL A,
+			TB_TR_TRPL_CIF B
+		WHERE 
+			A.CSER_NA_TRPL_C = B.NA_TRPL_C
+			AND A.SPLR_NA_TRPL_C = #{MNGT_C}
+			AND A.SPLR_NA_TEAM_C = #{TEAM_C}
+			AND A.MNGT_NA_TRPL_C = #{MNGT_C}
+			AND A.MNGT_NA_TEAM_C = #{TEAM_C}
+			AND A.CSER_CTR_TPC = '1'
+			AND A.SPY_TPC = '01'
+			AND A.CSER_TR_REL_AMNNO > 0
+			AND A.MNGT_TR_REL_AMNNO = 0
+			<if test="GUBUN == 1">
+				<if test="NA_GUBUN == 1">
+					AND B.CLNTNM LIKE #{SCHTEXT} || '%%'
+				</if>
+				<if test="NA_GUBUN == 2">
+					AND B.NA_TRPL_C LIKE #{SCHTEXT} || '%%'
+				</if>
+			</if>
+			<if test="GUBUN == 2">
+				AND B.NA_RGN_C LIKE #{NA_RGN_C} || '%%'
+			</if>
+			AND A.DEL_DTM IS NULL
+			ORDER BY B.CLNTNM, A.CSER_NA_TEAM_C
+	</select>
+	
+	<select id="selectFlexTradesD" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NA_TRPL_C 
+			, CLNTNM 
+			, NA_MBCO_DSC
+			, '' AS CSER_NA_TEAM_N
+			, '' AS CSER_CTR_TPC
+			, '' AS CTR_TPNM
+			, '' AS SPY_TPC
+			, '' AS SPY_TPNM
+			, '' AS MNGT_NA_TR_TPC                         	/* 주관거래유형코드 */
+			, '' AS NA_WRS_LCLC                            	/* 상품대분류코드 */
+			, '' AS NA_WRS_MCLC                            	/* 상품중분류코드 */
+			, '' AS CSER_NA_TRPL_C                         	/* 수요처 */
+			, '' AS CSER_NA_TEAM_C                         	/* 수요처팀 */
+			, '' AS SPLR_NA_TRPL_C                         	/* 공급처 */
+			, '' AS SPLR_NA_TEAM_C                         	/* 공급처팀 */
+			, '' AS MNGT_NA_TRPL_C                         	/* 주관사업장 */
+			, '' AS MNGT_NA_TEAM_C                         	/* 주관사업장팀 */
+			, '' AS CSER_TR_REL_AMNNO						/* 수요처 관리번호 */
+			, '' AS MNGT_TR_REL_AMNNO
+			, '00' AS NA_TEAM_C
+			, '0' AS CHECK_YN
+			, '0' AS DELETE_YN
+			, '' AS UPDATE_CSER_NA_TRPL_C
+			, '' AS UPDATE_CSER_NA_TRPL_N
+			, '' AS UPDATE_CSER_NA_TEAM_C
+			, '' AS UPDATE_SPLR_NA_TRPL_C
+			, '' AS UPDATE_SPLR_NA_TEAM_C
+			, '' AS UPDATE_CSER_CTR_TPC
+			, '' AS UPDATE_SPY_TPC
+			, '' AS UPDATE_MNGT_NA_TRPL_C
+			, '' AS UPDATE_MNGT_NA_TEAM_C
+			, '' AS UPDATE_MNGT_NA_TR_TPC
+			, '' UPDATE_NA_WRS_LCLC
+			, '' UPDATE_NA_WRS_MCLC
+		FROM TB_TR_TRPL_CIF
+		WHERE 
+			NA_TRPL_C  = #{TRPL_C}
+			AND DEL_YN='0'
+		UNION
+		SELECT
+			NA_TRPL_C 
+			, CLNTNM 
+			, NA_MBCO_DSC
+			, '' AS CSER_NA_TEAM_N
+			, '' AS CSER_CTR_TPC
+			, '' AS CTR_TPNM
+			, '' AS SPY_TPC
+			, '' AS SPY_TPNM
+			, '' AS MNGT_NA_TR_TPC                         	/* 주관거래유형코드 */
+			, '' AS NA_WRS_LCLC                            	/* 상품대분류코드 */
+			, '' AS NA_WRS_MCLC                            	/* 상품중분류코드 */
+			, '' AS CSER_NA_TRPL_C                         	/* 수요처 */
+			, '' AS CSER_NA_TEAM_C                         	/* 수요처팀 */
+			, '' AS SPLR_NA_TRPL_C                         	/* 공급처 */
+			, '' AS SPLR_NA_TEAM_C                         	/* 공급처팀 */
+			, '' AS MNGT_NA_TRPL_C                         	/* 주관사업장 */
+			, '' AS MNGT_NA_TEAM_C                         	/* 주관사업장팀 */
+			, '' AS CSER_TR_REL_AMNNO						/* 수요처 관리번호 */
+			, '' AS MNGT_TR_REL_AMNNO
+			, '00' AS NA_TEAM_C
+			, '0' AS CHECK_YN
+			, '0' AS DELETE_YN
+			, '' AS UPDATE_CSER_NA_TRPL_C
+			, '' AS UPDATE_CSER_NA_TRPL_N
+			, '' AS UPDATE_CSER_NA_TEAM_C
+			, '' AS UPDATE_SPLR_NA_TRPL_C
+			, '' AS UPDATE_SPLR_NA_TEAM_C
+			, '' AS UPDATE_CSER_CTR_TPC
+			, '' AS UPDATE_SPY_TPC
+			, '' AS UPDATE_MNGT_NA_TRPL_C
+			, '' AS UPDATE_MNGT_NA_TEAM_C
+			, '' AS UPDATE_MNGT_NA_TR_TPC
+			, '' UPDATE_NA_WRS_LCLC
+			, '' UPDATE_NA_WRS_MCLC
+		FROM TB_TR_TRPL_CIF
+		WHERE 
+			NA_MBCO_DSC  IN ( '2', '5' )
+			AND UP_NA_TRPL_C = #{TRPL_C}
+			AND DEL_YN='0'
+			ORDER BY NA_MBCO_DSC, NA_TRPL_C
+	</select>
+	
+	<select id="selectrots" parameterType="java.util.Map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM TB_TR_TRNREL
+		WHERE 
+			CSER_NA_TRPL_C    	= #{CSER_NA_TRPL_C}
+			AND CSER_NA_TEAM_C  = #{CSER_NA_TEAM_C}
+			AND SPLR_NA_TRPL_C  = #{SPLR_NA_TRPL_C}
+			AND MNGT_NA_TRPL_C  = #{MNGT_NA_TRPL_C}
+			AND MNGT_NA_TEAM_C  = #{MNGT_NA_TEAM_C}
+			AND CSER_TR_REL_AMNNO = #{CSER_AMNNO}
+			AND MNGT_TR_REL_AMNNO > 0
+			AND DEL_DTM IS NULL
+	</select>
+	
+	<!-- 
+	     업체의 대리점중 한군데와 거래관계를 한개이상 유지하기 위하여 거래관계가 두개 이상인 경우만 삭제 허용 
+	 -->
+	<select id="selectCompRelCnt" parameterType="java.util.Map" resultType="int">
+		SELECT
+				COUNT(*)
+		FROM 
+				TB_TR_TRNREL A,
+				TB_TR_TRPL_CIF B,
+				TB_CM_BZPL C
+       WHERE 
+			    A.SPLR_NA_TRPL_C = B.NA_TRPL_C
+	    AND A.CSER_NA_TRPL_C = C.NA_BZPLC
+
+		AND A.CSER_NA_TRPL_C = #{CSER_NA_TRPL_C}
+		AND A.CSER_NA_TEAM_C = #{CSER_NA_TEAM_C}
+        
+		AND B.UP_NA_TRPL_C = (SELECT UP_NA_TRPL_C FROM TB_TR_TRPL_CIF WHERE  DEL_YN = 0 AND NA_TRPL_C = #{SPLR_NA_TRPL_C} )
+		
+		AND A.CSER_CTR_TPC IN ('1','2','3','5')
+		AND A.MNGT_NA_TRPL_C = '8808983000015'
+		AND A.MNGT_NA_TEAM_C = '00'
+		AND A.NA_WRS_LCLC    = '000'
+		AND A.NA_WRS_MCLC    = '000'
+		AND A.CSER_TR_REL_AMNNO > 0
+		AND A.MNGT_TR_REL_AMNNO > 0
+		AND A.DEL_DTM IS NULL
+        AND C.DEL_DTM IS NULL
+
+	
+
+	</select>
+	
+	<insert id="insertFlexTradesM" parameterType="com.nh.escm.pds.partner.vo.TradeTrnrelVO">
+		INSERT INTO TB_TR_FLEX_REQ_M
+		(
+			VAN_RQ_NO,
+			CRQRTRPL,
+			CRQRTEAM,
+			CRQRMNENO,
+			T1_CSER_NA_TRPL_C,
+			T1_CSER_NA_TEAM_C,
+			T1_SPLR_NA_TRPL_C,
+			T1_SPLR_NA_TEAM_C,
+			T1_CSER_CTR_TPC,
+			T1_SPY_TPC,
+			T1_MNGT_NA_TRPL_C,
+			T1_MNGT_NA_TEAM_C,
+			T1_MNGT_NA_TR_TPC,
+			T1_NA_WRS_LCLC,
+			T1_NA_WRS_MCLC,
+			T1_CSER_TR_REL_AMNNO,
+			T2_CSER_NA_TRPL_C,
+			T2_CSER_NA_TEAM_C,
+			T2_SPLR_NA_TRPL_C,
+			T2_SPLR_NA_TEAM_C,
+			T2_CSER_CTR_TPC,
+			T2_SPY_TPC,
+			T2_MNGT_NA_TRPL_C,
+			T2_MNGT_NA_TEAM_C,
+			T2_MNGT_NA_TR_TPC,
+			T2_NA_WRS_LCLC,
+			T2_NA_WRS_MCLC,
+			T2_CSER_TR_REL_AMNNO,
+			PRC_YN
+		)
+		VALUES
+		(
+			#{VAN_RQ_NO},
+			#{CRQRTRPL},
+			#{CRQRTEAM},
+			#{CRQRMNENO},
+			#{UPDATE_CSER_NA_TRPL_C},  /* T1_CSER_NA_TRPL_C */
+			#{UPDATE_CSER_NA_TEAM_C},
+			#{UPDATE_SPLR_NA_TRPL_C},
+			#{UPDATE_SPLR_NA_TEAM_C},
+			#{UPDATE_CSER_CTR_TPC},
+			#{UPDATE_SPY_TPC},
+			#{UPDATE_MNGT_NA_TRPL_C},
+			#{UPDATE_MNGT_NA_TEAM_C},
+			#{UPDATE_MNGT_NA_TR_TPC},
+			#{UPDATE_NA_WRS_LCLC},
+			#{UPDATE_NA_WRS_MCLC},
+			#{T1_CSER_TR_REL_AMNNO},
+			#{CSER_NA_TRPL_C},         /* T2_CSER_NA_TRPL_C */
+			#{CSER_NA_TEAM_C},
+			#{NA_TRPL_C},
+			#{NA_TEAM_C},
+			#{CSER_CTR_TPC},
+			#{SPY_TPC},
+			#{MNGT_NA_TRPL_C},
+			#{MNGT_NA_TEAM_C},
+			#{MNGT_NA_TR_TPC},
+			#{NA_WRS_LCLC},
+			#{NA_WRS_MCLC},
+			#{CSER_TR_REL_AMNNO},
+			#{PRC_YN} 
+		)
+	</insert>
+	
+	<insert id="insertFlexTradesD" parameterType="com.nh.escm.pds.partner.vo.TradeTrnrelVO">
+		INSERT INTO TB_TR_FLEX_REQ_D
+		(
+			VAN_RQ_NO,
+			CngTrpl,
+			CngTeam,
+			WK_DS
+		)
+		VALUES
+		(
+			#{VAN_RQ_NO},
+			#{CngTrpl},
+			#{CngTeam},
+			#{WK_DS}
+		)
+	</insert>
+	<sql id="sql_selectTrade">
+		SELECT
+			TRNREL.CSER_NA_TRPL_C         AS CSER_NA_TRPL_C              	/*  수요자경제통합거래처코드     */
+			,(SELECT NVL(CLNTNM,'해당없음')             
+			    FROM TB_TR_TRPL_CIF A                 
+			   WHERE NA_TRPL_C = TRNREL.CSER_NA_TRPL_C) AS CSER_NA_TRPL_N	/*  수요자경제통합거래처명       */
+			,TRNREL.CSER_NA_TEAM_C         AS CSER_NA_TEAM_C              	/*  수요자경제통합팀코드         */
+			,(SELECT NVL(TEAMNM,'공통팀')                
+			    FROM TB_CM_TEAM                
+			   WHERE  NA_BZPLC  = TRNREL.CSER_NA_TRPL_C 
+			     AND  NA_TEAM_C = TRNREL.CSER_NA_TEAM_C) AS CSER_NA_TEAM_N 	/*  수요자경제통합팀명           */
+			,TRNREL.SPLR_NA_TRPL_C         AS SPLR_NA_TRPL_C              	/*  공급자경제통합거래처코드     */
+			,(SELECT NVL(CLNTNM,'해당없음')
+			    FROM TB_TR_TRPL_CIF
+			   WHERE NA_TRPL_C = TRNREL.SPLR_NA_TRPL_C) AS SPLR_NA_TRPL_N	/*  공급자경제통합거래처명       */
+			,TRNREL.SPLR_NA_TEAM_C         AS SPLR_NA_TEAM_C              	/*  공급자경제통합팀코드         */
+			,(SELECT NVL(TEAMNM,'공통팀')
+			    FROM TB_CM_TEAM                
+			   WHERE  NA_BZPLC  = TRNREL.SPLR_NA_TRPL_C 
+			     AND  NA_TEAM_C = TRNREL.SPLR_NA_TEAM_C) AS SPLR_NA_TEAM_N 	/*  공급자경제통합팀명           */
+			,TRNREL.CSER_CTR_TPC           AS CSER_CTR_TPC                	/*  수요자계약유형코드           */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'CTR_TPC'               
+			     AND SIMP_C   = TRNREL.CSER_CTR_TPC) AS CSER_CTR_TPNM     	/*  수요자계약유형코드명         */
+			,TRNREL.SPY_TPC                AS SPY_TPC  						/*  공급유형코드*/
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'SPY_TPC'               
+			     AND SIMP_C   = TRNREL.SPY_TPC) AS SPY_TPNM               	/*  공급유형코드명               */
+			,TRNREL.NA_WRS_LCLC            AS NA_WRS_LCLC                 	/*  경제통합상품대분류코드       */
+			,TRNREL.NA_WRS_MCLC            AS NA_WRS_MCLC                 	/*  경제통합상품중분류코드       */
+			,TRNREL.MNGT_NA_TRPL_C         AS MNGT_NA_TRPL_C             	/*  주관경제통합거래처코드       */
+			,(SELECT NVL(CLNTNM,'해당없음')             
+			    FROM TB_TR_TRPL_CIF
+			   WHERE NA_TRPL_C = TRNREL.MNGT_NA_TRPL_C) AS MNGT_NA_TRPL_N	/*  주관경제통합거래처명         */
+			,TRNREL.MNGT_NA_TEAM_C         AS MNGT_NA_TEAM_C              	/*  주관경제통합팀코드           */
+			,(SELECT NVL(TEAMNM,'공통팀')                
+			    FROM TB_CM_TEAM
+			   WHERE  NA_BZPLC  = TRNREL.MNGT_NA_TRPL_C
+			     AND  NA_TEAM_C = TRNREL.MNGT_NA_TEAM_C) AS MNGT_NA_TEAM_N 	/*  주관경제통합팀명             */
+			,TRNREL.MNGT_NA_TR_TPC         AS MNGT_NA_TR_TPC              	/*  주관경제통합거래유형코드     */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'MNGT_NA_TR_TPC'             
+			     AND SIMP_C   = TRNREL.MNGT_NA_TR_TPC) AS MNGT_NA_TR_TPNM 	/*  주관경제통합거래유형코드명   */
+			,TRNREL.BZ_METH_DSC         AS BZ_METH_DSC 						/*  사업방식구분코드             */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'BZ_METH_DSC'           
+			     AND SIMP_C   = TRNREL.BZ_METH_DSC) AS BZ_METH_DSC_NM     	/*  사업방식구분코드명            */
+			,TRNREL.CSER_NA_USR_SYS_KDC        AS CSER_NA_USR_SYS_KDC     	/*  수요자경제통합사용자시스템종류코드  */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NA_USR_SYS_KDC'        
+			     AND SIMP_C   = TRNREL.CSER_NA_USR_SYS_KDC) AS CSER_NA_USR_SYS_KDC_NM  /*  수요자경제통합사용자시스템종류코드명  */
+			,TRNREL.CSER_NAAC_DSC        AS CSER_NAAC_DSC                 	/*  수요자중앙회조합구분코드  */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NAAC_DSC'              
+			     AND SIMP_C   = TRNREL.CSER_NAAC_DSC) AS CSER_NAAC_DSC_NM 	/*  수요자중앙회조합구분코드명  */
+			,TRNREL.SPLR_NA_USR_SYS_KDC        AS SPLR_NA_USR_SYS_KDC     	/*  공급자경제통합사용자시스템종류코드 */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NA_USR_SYS_KDC'        
+			     AND SIMP_C   = TRNREL.SPLR_NA_USR_SYS_KDC) AS SPLR_NA_USR_SYS_KDC_NM  /*  공급자경제통합사용자시스템종류코드명 */
+			,TRNREL.SPLR_NAAC_DSC        AS SPLR_NAAC_DSC                 	/*  공급자중앙회조합구분코드 */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NAAC_DSC'              
+			     AND SIMP_C   = TRNREL.SPLR_NAAC_DSC) AS SPLR_NAAC_DSC_NM 	/*  공급자중앙회조합구분코드명 	*/
+			,TRNREL.CSER_ADJPL_NA_TRPL_C   AS CSER_ADJPL_NA_TRPL_C        	/*  수요자정산처경제통합거래처코드 	*/
+			,(SELECT NVL(CLNTNM,'해당없음')             
+			    FROM TB_TR_TRPL_CIF
+			   WHERE NA_TRPL_C = TRNREL.CSER_ADJPL_NA_TRPL_C) AS CSER_ADJPL_NA_TRPL_NM /*  수요자정산처경제통합거래처명 */
+			,TRNREL.CSER_ADJPL_NA_TEAM_C   AS CSER_ADJPL_NA_TEAM_C        	/*  수요자정산처경제통합팀코드   */
+			,(SELECT NVL(TEAMNM,'공통팀')                
+			    FROM TB_CM_TEAM                
+			   WHERE  NA_BZPLC  = TRNREL.CSER_ADJPL_NA_TRPL_C              
+			     AND  NA_TEAM_C = TRNREL.CSER_ADJPL_NA_TEAM_C) AS CSER_ADJPL_NA_TEAM_NM /*  수요자정산처경제통합팀명     */
+			,ecl_decrypt(TRNREL.CSER_CTR_CHRRNM)        AS CSER_CTR_CHRRNM             	/*  수요자계약담당자명           */
+			,TRNREL.CSER_CTR_CHRR_TELNO    AS CSER_CTR_CHRR_TELNO         	/*  수요자계약담당자전화번호     */
+			,ecl_decrypt(TRNREL.CSER_CTR_CHRR_MPNO)     AS CSER_CTR_CHRR_MPNO          	/*  수요자계약담당자휴대전화번호 	*/
+			,TRNREL.SPLR_ADJPL_NA_TRPL_C   AS SPLR_ADJPL_NA_TRPL_C        	/*  공급자정산처경제통합거래처코드 */
+			,(SELECT NVL(CLNTNM,'해당없음')             
+			    FROM TB_TR_TRPL_CIF
+			   WHERE NA_TRPL_C = TRNREL.SPLR_ADJPL_NA_TRPL_C) AS SPLR_ADJPL_NA_TRPL_NM /*  공급자정산처경제통합거래처명 	*/
+			,TRNREL.SPLR_ADJPL_NA_TEAM_C   AS SPLR_ADJPL_NA_TEAM_C        	/*  공급자정산처경제통합팀코드   */
+			,(SELECT NVL(TEAMNM,'공통팀')                
+			    FROM TB_CM_TEAM                
+			   WHERE  NA_BZPLC  = TRNREL.SPLR_ADJPL_NA_TRPL_C              
+			     AND  NA_TEAM_C = TRNREL.SPLR_ADJPL_NA_TEAM_C) AS SPLR_ADJPL_NA_TEAM_NM /*  공급자정산처경제통합팀명     */
+			,TRNREL.SPYPL_HOFF_NA_TRPL_C   AS SPYPL_HOFF_NA_TRPL_C        	/* 공급처본사경제통합거래처코드 */
+			,(SELECT NVL(CLNTNM,'해당없음')             
+			    FROM TB_TR_TRPL_CIF
+			   WHERE NA_TRPL_C = TRNREL.SPYPL_HOFF_NA_TRPL_C) AS SPYPL_HOFF_NA_TRPL_NM /*  공급처본사경제통합거래처명   	*/
+			,TRNREL.SPLR_BNK_C             AS SPLR_BNK_C                  	/*  공급자은행코드               */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC
+			   WHERE SIMP_TPC = 'BNK_C'
+			     AND SIMP_C   = TRNREL.SPLR_BNK_C) AS SPLR_BNK_NM         	/*  공급자은행코드명             */
+			,ecl_decrypt(TRNREL.SPLR_STL_ACNO)          AS SPLR_STL_ACNO    /*  공급자결제계좌번호           */
+			,ecl_decrypt(TRNREL.SPLR_DPRNM)             AS SPLR_DPRNM       /*  공급자예금주명               */
+			,ecl_decrypt(TRNREL.SPLR_CTR_CHRRNM)        AS SPLR_CTR_CHRRNM  /*  공급자계약담당자명           */
+			,TRNREL.SPLR_CTR_CHRR_TELNO    AS SPLR_CTR_CHRR_TELNO         	/*  공급자계약담당자전화번호     */
+			,ecl_decrypt(TRNREL.SPLR_CTR_CHRR_MPNO)     AS SPLR_CTR_CHRR_MPNO          	/*  공급자계약담당자휴대전화번호 	*/
+			,TRNREL.CTR_ST_DT              AS CTR_ST_DT						/*  계약시작일자 	*/
+			,TRNREL.CTR_ED_DT              AS CTR_ED_DT						/*  계약종료일자 	*/
+			,TRNREL.CTR_STOP_DT            AS CTR_STOP_DT                 	/*  계약중지일자 	*/
+			,TRNREL.CTR_CLO_DT             AS CTR_CLO_DT                  	/*  계약해지일자	*/		
+			,TRNREL.CTR_CLO_RSNC           AS CTR_CLO_RSNC                	/*  계약해지사유코드             */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'CTR_CLO_RSNC'          
+			     AND SIMP_C   = TRNREL.CTR_CLO_RSNC) AS CTR_CLO_RSNNM     	/*  계약해지사유코드명           */
+			,TRNREL.TR_STOP_RSNC           AS TR_STOP_RSNC                	/*  거래중지사유코드             */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'TR_STOP_RSNC'          
+			     AND SIMP_C   = TRNREL.TR_STOP_RSNC) AS TR_STOP_RSNNM     	/*  거래중지사유코드명           */
+			,TRNREL.PRGR_C       AS PRGR_C									/*  가격군코드			 */
+			,B.PGNM AS PGNM													/*  가격군명     */
+			,TRNREL.ROTS_FLEX_PR_APL_YN    AS ROTS_FLEX_PR_APL_Y          	/*  계통탄력가격적용여부         */
+			,TRNREL.NA_ODR_FBID_RSNC       AS NA_ODR_FBID_RSNC            	/*  경제통합발주금지사유코드     */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NA_ODR_FBID_RSNC'
+			     AND SIMP_C   = TRNREL.NA_ODR_FBID_RSNC) AS NA_ODR_FBID_RSNNM     /*  경제통합발주금지사유코드명   */
+			,TRNREL.ODR_FBID_DT            AS ODR_FBID_DT                 	/*  발주금지일자	*/
+			,TRNREL.ODRPL_BUYER_ENO        AS ODRPL_BUYER_ENO             	/*  발주처바이어개인번호         */
+			,TRNREL.NA_RVO_FBID_RSNC       AS NA_RVO_FBID_RSNC            	/*  경제통합수주금지사유코드     */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NA_RVO_FBID_RSNC'      
+			     AND SIMP_C   = TRNREL.NA_RVO_FBID_RSNC) AS NA_RVO_FBID_RSNNM     /*  경제통합수주금지사유코드명   */
+			,TRNREL.RVO_FBID_DT            AS RVO_FBID_DT                 	/*  수주금지일자	*/
+			,TRNREL.RVOPL_BUYER_ENO        AS RVOPL_BUYER_ENO             	/*  수주처바이어개인번호         */
+			,TRNREL.LDTM_DDS               AS LDTM_DDS 						/*  리드타임일수	*/
+			,TRNREL.RGD_AMN_DSC            AS RGD_AMN_DSC                 	/*  반품관리구분코드             */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'RGD_AMN_DSC'           
+			     AND SIMP_C   = TRNREL.RGD_AMN_DSC) AS RGD_AMN_DSNM       	/*  반품관리구분코드명           */
+			,TRNREL.NA_PMI_SBJ_DSC         AS NA_PMI_SBJ_DSC              	/*  경제통합약정과목구분코드     */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'NA_PMI_SBJ_DSC'        
+			     AND SIMP_C   = TRNREL.NA_PMI_SBJ_DSC) AS NA_PMI_SBJ_DSNM 	/*  경제통합약정과목구분코드명   */
+			,TRNREL.STL_FDT_BASCD AS STL_FDT_BASCD                			/*  결제기일구분코드             */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'STL_FDT_BASCD'         
+			     AND SIMP_C   = TRNREL.STL_FDT_BASCD) AS STL_FDT_BASCD_NM 	/*  결제기일구분코드명            */
+			,TRNREL.SSDYRT_BASCD AS SSDYRT_BASCD                  			/*  장려금률구분코드             */
+			,(SELECT SIMP_CNM
+			    FROM TB_CM_SIMPC
+			   WHERE SIMP_TPC = 'SSDYRT_BASCD'
+			     AND SIMP_C   = TRNREL.SSDYRT_BASCD) AS SSDYRT_BASCD_NM   	/*  장려금률기준코드명            */
+			,TRNREL.SSDYRT                 AS SSDYRT   						/*  장려금률  	*/
+			,TRNREL.SSDY_BAS_AM            AS SSDY_BAS_AM                 	/*  장려금기준금액               */
+			,TRNREL.DDLY_SSDYRT            AS DDLY_SSDYRT                 	/*  직송장려금률	*/
+			,TRNREL.SSDY_PY_PTM_DSC        AS SSDY_PY_PTM_DSC             	/*  장려금지급시점구분코드       */
+			,(SELECT SIMP_CNM        
+			    FROM TB_CM_SIMPC                  
+			   WHERE SIMP_TPC = 'SSDY_PY_PTM_DSC'
+			     AND SIMP_C   = TRNREL.SSDY_PY_PTM_DSC) AS SSDY_PY_PTM_DSNM /*  장려금지급시점구분코드명     */
+			,TO_CHAR(TRNREL.FSRG_DTM, 'YYYY-MM-DD  HH24:MI:SS') AS FSRG_DTM /*  최초등록일시	*/
+			,TO_CHAR(TRNREL.LSCHG_DTM,'YYYY-MM-DD  HH24:MI:SS') AS LSCHG_DTM/*  최종변경일시	*/
+			,TRNREL.DEL_DTM       AS DEL_DTM           						/*  삭제일시  	*/
+			,TRNREL.LS_CMENO      AS LS_CMENO          						/*  최종변경자개인번호           */
+			,NVL((SELECT WRS_LCLFNM      
+			    FROM TB_GD_WRS_CLF                
+			   WHERE NA_WRS_LCLC   = TRNREL.NA_WRS_LCLC 
+			   ),'전체') AS WRS_LCLCNM
+			,NVL((SELECT WRS_MCLFNM      
+			    FROM TB_GD_WRS_CLF
+			   WHERE NA_WRS_LCLC   = TRNREL.NA_WRS_LCLC 
+			     AND NA_WRS_MCLC   = TRNREL.NA_WRS_MCLC 
+			     ),'해당없음') AS WRS_MCLCNM
+			,TRNREL.BYNG_UPR_MOD_YN AS BYNG_UPR_MOD_YN   					/*  매입단가수정여부             */
+			,TRNREL.PY_FDTCN AS PY_FDTCN   									/*  지급기일              */
+			FROM TB_TR_TRNREL TRNREL,TB_CM_PRGR_BASE B
+			WHERE
+				<if test="SEPARATOR == 1">
+					TRNREL.CSER_NA_TRPL_C IN
+					<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					<if test="InTRPL_C != null and InTRPL_C.length() > 0">
+						AND TRNREL.SPLR_NA_TRPL_C = #{InTRPL_C}
+						AND TRNREL.SPLR_NA_TEAM_C = #{InTEAM}
+					</if>
+				</if>
+				<if test="SEPARATOR == 2">
+					TRNREL.SPLR_NA_TRPL_C IN 
+					<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+					<if test="InTRPL_C != null and InTRPL_C.length() > 0">
+						AND TRNREL.CSER_NA_TRPL_C = #{InTRPL_C}
+						AND TRNREL.CSER_NA_TEAM_C = #{InTEAM}
+					</if>
+				</if>
+				<if test="CSER_CTR_TPC != 'all'">
+					AND TRNREL.CSER_CTR_TPC = #{CSER_CTR_TPC}
+				</if>
+				<if test="SPY_TPC != 'all'">
+					AND TRNREL.SPY_TPC = #{SPY_TPC}
+				</if>
+				AND TRNREL.PRGR_C = B.PRGR_C(+)
+      			AND TRNREL.PRGR_DSC = B.PRGR_DSC(+)
+				AND TRNREL.NA_WRS_LCLC = #{NA_WRS_LCLC}
+				AND TRNREL.NA_WRS_MCLC = #{NA_WRS_MCLC}
+				AND TRNREL.DEL_DTM IS NULL
+				ORDER BY TRNREL.CSER_NA_TRPL_C,TRNREL.CSER_NA_TEAM_C ASC	
+	</sql>
+	
+	<select id="selectTrade" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_selectTrade"/>
+	</select>
+
+	<select id="selectStore" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_selectStore"/>
+	</select>
+	
+	
+	<select id="selectPrintStore" parameterType="java.util.Map" resultMap="TradeCompanyVO">
+		<include refid="sql_selectStore"/>
+	</select>
+	
+	
+	<sql id="sql_selectStore">
+		SELECT
+			DISTINCT
+			A.NA_TRPL_C,
+			A.NA_TRPL_DSC,
+			FN_CM_SIMP_CNM('NA_TRPL_DSC', A.NA_TRPL_DSC) AS NA_TRPL_DSC_NM,
+	      	A.NAAC_DSC,
+	      	FN_CM_SIMP_CNM('NAAC_DSC', A.NAAC_DSC) AS NAAC_DSC_NM,
+			A.CLNTNM,
+			A.TRPL_ABR_NM,
+			A.NA_MBCO_DSC,
+			A.UP_NA_TRPL_C,
+			(
+				SELECT CLNTNM FROM TB_TR_TRPL_CIF
+				WHERE NA_TRPL_C = A.UP_NA_TRPL_C
+			) UP_NA_TRPL_NM,
+			A.ZIP_SQNO,
+			A.DONGUP,
+			A.DONGBW,
+			A.NA_RGN_C,
+			D.RGN_CNM,
+			A.TEL_NAT_NO,
+			NVL(A.ATEL,0) ATEL,
+			NVL(A.HTEL,0) HTEL,
+			NVL(A.STEL,0) STEL,
+			NVL(A.FAX_RGNO,0) FAX_RGNO,
+			NVL(A.HFAX,0) HFAX,
+			NVL(A.FAX_SQNO,0) FAX_SQNO,
+			NVL(ecl_decrypt(A.MPSVNO),0) as MPSVNO,
+			NVL(ecl_decrypt(A.MPHNO),0) as MPHNO,
+			NVL(ecl_decrypt(A.MPSQNO),0) as MPSQNO,
+			A.FMACH_PATS_TRT_YN,
+			A.NA_BZPL_TXBZ_RPT_FORM_C,
+			A.NA_USR_SYS_KDC,
+      		FN_CM_SIMP_CNM('NA_USR_SYS_KDC', A.NA_USR_SYS_KDC) AS NA_USR_SYS_KDC_NM,
+			A.ELT_TXBIL_UYN,
+			A.TR_STOP_YN,
+			A.TR_STOP_RSNC,
+			A.COPNO_CIF_NO,
+			A.REPMNM,
+			A.BZCCNM,
+			A.BZTPNM,
+			A.LIQ_SEL_RPT_NO,
+			A.LIQ_WHSL_COMP_C,
+			A.LIQ_RTL_COMP_C,
+			A.NA_TXBZ_DSC,
+      		FN_CM_SIMP_CNM('NA_TXBZ_DSC', A.NA_TXBZ_DSC) AS NA_TXBZ_DSC_NM,
+			A.BIZ_NUMBER,
+			A.CHG_YN,
+			A.LS_CMENO,
+			A.LS_NA_BZPLC
+		FROM TB_TR_TRPL_CIF A
+		, TB_CM_SIMPC C
+		, TB_TR_RGN D
+		, TB_TR_TRPL_CIF E
+		, TB_TR_RGN F
+		WHERE A.na_trpl_c       = #{TRPL_C}
+			AND C.SIMP_TPC(+)     = 'BZCC'
+			AND A.NA_RGN_C        = D.NA_RGN_C(+)
+			AND A.UP_NA_TRPL_C    = E.NA_TRPL_C(+)
+			AND D.UP_NA_RGN_C     = F.NA_RGN_C(+)
+	</sql>
+	
+	<select id="selectNatrplCList" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+	SELECT *
+	  FROM (	
+			SELECT H.*
+			      ,NVL(( SELECT CASE WHEN DEL_DTM IS NULL THEN '1'
+			                     ELSE '0'
+			                 END    
+				              FROM TB_TR_TRNREL_OUT B
+				             WHERE NA_TRPL_C = #{TRPL_C}
+			                 AND H.CSER_NA_TRPL_C = B.CSER_NA_TRPL_C 
+			                 AND H.CSER_NA_TEAM_C = B.CSER_NA_TEAM_C),'0') USE_YN
+			  FROM (
+			        SELECT A.CSER_NA_TRPL_C ,
+			          A.CSER_NA_TEAM_C ,
+			          CASE
+			            WHEN FN_TRPL_CIF_NM(A.CSER_NA_TRPL_C) IS NULL
+			            THEN
+			              (SELECT SHRT_BZPLNM FROM TB_CM_BZPL WHERE NA_BZPLC = A.CSER_NA_TRPL_C
+			              )
+			            ELSE FN_TRPL_CIF_NM(A.CSER_NA_TRPL_C)
+			          END CSER_NA_TRPL_N ,
+			          NVL(FN_CM_TEAM_NM(A.CSER_NA_TRPL_C,A.CSER_NA_TEAM_C),'팀없음') CSER_NA_TEAM_N
+			        FROM TB_TR_TRNREL A 
+						,TB_TR_TRPL_CIF B
+						,TB_CM_BZPL D
+			        WHERE A.DEL_DTM     IS NULL
+			          AND B.NA_TRPL_C = #{TRPL_C}
+			          AND A.SPLR_NA_TRPL_C = B.UP_NA_TRPL_C
+			          AND A.CSER_NA_TRPL_C = D.NA_BZPLC
+			          AND D.BZPL_TPC IN ( '504' , '505')
+			        GROUP BY A.CSER_NA_TRPL_C
+			                ,A.CSER_NA_TEAM_C
+			                UNION
+				    SELECT E.CSER_NA_TRPL_C ,
+				      E.CSER_NA_TEAM_C ,
+				      CASE
+				        WHEN FN_TRPL_CIF_NM(E.CSER_NA_TRPL_C) IS NULL
+				        THEN
+				          (SELECT SHRT_BZPLNM FROM TB_CM_BZPL WHERE NA_BZPLC = E.CSER_NA_TRPL_C
+				          )
+				        ELSE FN_TRPL_CIF_NM(E.CSER_NA_TRPL_C)
+				      END CSER_NA_TRPL_N ,
+				      NVL(FN_CM_TEAM_NM(E.CSER_NA_TRPL_C,E.CSER_NA_TEAM_C),'팀없음') CSER_NA_TEAM_N
+				    FROM TB_TR_TRNREL E ,
+				      TB_TR_TRPL_CIF F ,
+				      TB_CM_BZPL G
+				    WHERE E.DEL_DTM     IS NULL
+				    AND F.NA_TRPL_C   IN (SELECT NA_TRPL_C
+				                            FROM TB_TR_TRPL_CIF 
+				                           WHERE UP_NA_TRPL_C= #{UP_TRPL_C})
+				    AND E.SPLR_NA_TRPL_C = F.NA_TRPL_C
+				    AND E.CSER_NA_TRPL_C = G.NA_BZPLC
+				    AND G.BZPL_TPC      IN ( '504' , '505')
+				    AND G.DEL_DTM       IS NULL
+				    GROUP BY E.CSER_NA_TRPL_C ,
+				      E.CSER_NA_TEAM_C
+				    ) H
+	         ORDER BY CSER_NA_TRPL_N
+		)
+	]]>
+	<if test ="MBCO_TYPE == 2">
+		WHERE USE_YN = '1'
+	</if>
+	</select>
+	
+	<insert id="insertNatrplCList" parameterType="java.util.Map" >
+		MERGE INTO TB_TR_TRNREL_OUT
+		      USING DUAL
+		   ON (UP_NA_TRPL_C = #{UP_NA_TRPL_C}
+		  AND NA_TRPL_C = #{NA_TRPL_C}
+		  AND CSER_NA_TRPL_C = #{CSER_NA_TRPL_C}
+		  AND CSER_NA_TEAM_C = #{CSER_NA_TEAM_C})
+		 WHEN MATCHED THEN
+		     UPDATE SET 
+		         LSCHG_ID = #{userId}
+		        ,LSCHG_DTM = SYSDATE
+		        <choose>
+					<when test="USE_YN == 1">
+						,DEL_DTM = NULL
+					</when>
+					<otherwise>
+						,DEL_DTM = SYSDATE
+					</otherwise>		        
+		        </choose>
+		        
+		 WHEN NOT MATCHED THEN
+		    INSERT
+		    VALUES(#{UP_NA_TRPL_C},'00',#{NA_TRPL_C},'00',#{CSER_NA_TRPL_C},#{CSER_NA_TEAM_C},#{userId},SYSDATE,NULL,NULL,
+		    <choose>
+				<when test="USE_YN == 1">
+		  	  	NULL
+		    	</when>
+				<otherwise>
+				SYSDATE
+				</otherwise>		        
+	        </choose>
+		    )
+	</insert>
+	
+	<select id="downloadExcelTrades" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_selectTrade"/>
+	</select>
+</mapper>

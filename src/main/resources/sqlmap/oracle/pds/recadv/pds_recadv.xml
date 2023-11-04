@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	납품정보
+ -->
+ 
+<mapper namespace="pdsRecadvDAO">
+
+	<!--일자별정보 -->
+	<resultMap id="DailyStroeSumMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvDailyStoreSumVO">										
+		<result column="BY_DT" property="BY_DT" />
+		<result column="BY_QT" property="BY_QT" />
+		<result column="BY_AM" property="BY_AM" />
+	</resultMap>
+	
+	<!--기간별정보 -->
+	<resultMap id="PeriodSumMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodSumVO">										
+		<result column="BY_DT" property="BY_DT" />
+		<result column="BY_QT" property="BY_QT" />
+		<result column="BY_AM" property="BY_AM" />
+	</resultMap>
+	
+	<!--기간별 점포별/상품별 정보 -->
+	<resultMap id="PeriodStoreSumMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodStoreSumVO">										
+		<result column="BZPLC" property="BZPLC" />
+		<result column="BZPLCNM" property="BZPLCNM" />
+		<result column="BY_QT" property="BY_QT" />
+		<result column="BY_AM" property="BY_AM" />
+		<result column="SRH_BY_DT_FR" property="SRH_BY_DT_FR" />
+		<result column="SRH_BY_DT_TO" property="SRH_BY_DT_TO" />
+		<result column="SRH_CHK_ALL" property="SRH_CHK_ALL" />
+		<result column="SRH_TRPL_C" property="SRH_TRPL_C" />	 
+	</resultMap>
+
+	<!--기간별 점포별/상품별 정보 상세 -->
+	<resultMap id="PeriodStoreSumDetailMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodStoreSumDetailVO">										
+		<result column="WRS_C" property="WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BYNG_QT" property="BYNG_QT" />
+		<result column="BY_AM" property="BY_AM" />
+	</resultMap>
+	
+	<!--기간별 상품별/점포별 정보 -->
+	<resultMap id="PeriodSkuSumMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodSkuSumVO">										
+		<result column="WRS_C" property="WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BY_QT" property="BY_QT" />
+		<result column="BY_AM" property="BY_AM" />
+		<result column="SRH_BY_DT_FR" property="SRH_BY_DT_FR" />
+		<result column="SRH_BY_DT_TO" property="SRH_BY_DT_TO" />
+		<result column="SRH_CHK_ALL" property="SRH_CHK_ALL" />
+		<result column="SRH_TRPL_C" property="SRH_TRPL_C" />
+	</resultMap>
+	
+	<!--기간별 상품별/점포별 정보 상세 -->
+	<resultMap id="PeriodSkuSumDetailMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodSkuSumDetailVO">										
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="BYNG_QT" property="BYNG_QT" />
+		<result column="BYAM" property="BYAM" />
+	</resultMap>
+	
+	<!-- 기간별 점포별/상품별 미납조회 -->
+	<resultMap id="NPeriodStoreSumMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvNPeriodStoreSumVO">
+		  <result column="BZPLC" property="BZPLC" />
+		  <result column="BZPLCNM" property="BZPLCNM" />
+		  <result column="NBY_QT" property="NBY_QT" />
+		  <result column="NBY_AM" property="NBY_AM" />
+		  <result column="SRH_NBY_DT_FR" property="SRH_NBY_DT_FR" />
+		  <result column="SRH_NBY_DT_TO" property="SRH_NBY_DT_TO" />
+		  <result column="SRH_CHK_ALL" property="SRH_CHK_ALL" />
+		  <result column="SRH_TRPL_C" property="SRH_TRPL_C" />
+		  <result column="TOTAL_NBY_QT" property="TOTAL_NBY_QT" />
+		  <result column="TOTAL_NBY_AM" property="TOTAL_NBY_AM" />
+	</resultMap>
+	
+	<!-- 기간별 점포별/상품별 미납조회 -상세  -->
+	<resultMap id="NPeriodStoreSumDetailMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvNPeriodStoreSumDetailVO">
+		  <result column="WRS_C" property="WRS_C" />
+		  <result column="WRSNM" property="WRSNM" />
+		  <result column="NBY_QT" property="NBY_QT" />
+		  <result column="NBY_AM" property="NBY_AM" />
+	</resultMap>
+	
+	<!-- 자료수신_기간집계(점포별/상품별 )-->
+	<resultMap id="downloadTrplPeriodStoreSumCSVMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodStoreSumCSVVO">
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM"/>
+		<result column="WRS_C" property="WRS_C"/>
+		<result column="WRSNM" property="WRSNM"/>
+		<result column="BYNG_QT" property="BYNG_QT"/>
+		<result column="BYAM" property="BYAM"/>
+	</resultMap>
+	
+	<!-- 자료수신_기간집계(상품별/점포별 )-->
+	<resultMap id="downloadWrsPeriodStoreSumCSVMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvPeriodStoreSumCSVVO">
+		<result column="NA_WRS_C" property="NA_WRS_C"/>
+		<result column="WRSNM" property="WRSNM"/>
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM"/>
+		<result column="BYNG_QT" property="BYNG_QT"/>
+		<result column="BYAM" property="BYAM"/>
+	</resultMap>
+	
+	<!-- 자료수신_일별집계(점포별/상품별 )-->
+	<resultMap id="downloadTrplDailyStoreSumCSVMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvDailyStoreSumCSVVO">
+		<result column="SLP_DT" property="SLP_DT"/>
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM"/>
+		<result column="NA_WRS_C" property="NA_WRS_C"/>
+		<result column="WRSNM" property="WRSNM"/>
+		<result column="BYNG_QT" property="BYNG_QT"/>
+		<result column="BYAM" property="BYAM"/>
+	</resultMap>
+	
+	<!-- 자료수신_일별집계(상품별/점포별 )-->
+	<resultMap id="downloadWrsDailyStoreSumCSVMap" type="com.nh.escm.pds.recadv.vo.PDSRecadvDailyStoreSumCSVVO">
+		<result column="SLP_DT" property="SLP_DT"/>
+		<result column="NA_WRS_C" property="NA_WRS_C"/>
+		<result column="WRSNM" property="WRSNM"/>
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM"/>
+		<result column="BYNG_QT" property="BYNG_QT"/>
+		<result column="BYAM" property="BYAM"/>
+	</resultMap>
+	
+	<sql id="sql_dailyStoreSumList">
+		SELECT
+			BY_DT
+			, SUM(BY_QT) AS BY_QT
+			, TRUNC(SUM(BY_AM)/1000,0) BY_AM
+		FROM 
+			IAS_BY_DD_ALL
+		WHERE 1=1
+			AND BY_DT LIKE #{srhByDt} || '%'
+			AND TRPL_C IN 
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		 	#{item}
+		</foreach>
+		GROUP BY BY_DT	
+	</sql>
+	  
+	<!--일자별정보 -->
+	<select id="retrieveDailyStoreSumList" parameterType="java.util.Map" resultMap="DailyStroeSumMap">
+		<include refid="sql_dailyStoreSumList" />
+	</select>
+	
+	<sql id="sql_periodSumList">
+		SELECT
+	 		 BY_DT
+		   , SUM(BY_QT) AS BY_QT
+		   , TRUNC(SUM(BY_AM)/1000,0) BY_AM
+		FROM 
+			IAS_BY_DD_ALL
+		WHERE 1=1
+			AND BY_DT BETWEEN #{byDtFr} AND #{byDtTo}
+			AND TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		 	#{item}
+		</foreach>
+		GROUP BY BY_DT
+	</sql>
+
+	<!--기간별정보 -->
+	<select id="retrievePeriodSumList" parameterType="java.util.Map" resultMap="PeriodSumMap">
+		<include refid="sql_periodSumList" />
+	</select>
+	
+	<!-- 기간별 점포별/상품별 정보 1020 마스터 lsh-->
+	<sql id="sql_retrievePeriodStoreSumList">
+		SELECT 
+			LIST.BZPLC
+			, LIST.BZPLCNM
+			, LIST.BY_QT
+			, LIST.BY_AM
+			, #{srhByDtFr} AS SRH_BY_DT_FR
+		 	, #{srhByDtTo} AS SRH_BY_DT_TO
+	  	FROM (SELECT
+	  				NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) BZPLC
+	  				, MAX (D.CLNTNM) BZPLCNM
+					, SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BY_QT
+					, SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BY_AM
+	           FROM TB_BY_BYNG_M A, TB_BY_BYNG_WRS B, TB_TR_TRPL_CIF D
+	           WHERE 1=1
+	           		AND A.NA_BZPLC = B.NA_BZPLC
+	                AND A.NA_TEAM_C = B.NA_TEAM_C
+	                AND A.SLP_DT = B.SLP_DT
+	                AND A.NA_SLPNO = B.NA_SLPNO
+	                AND NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) = D.NA_TRPL_C
+	           		AND A.BUYPL_NA_TRPL_C IN
+					<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+					 		#{item}
+					</foreach>
+	                AND A.SLP_DT BETWEEN #{srhByDtFr} AND #{srhByDtTo}
+	                 <if test="searchStr != null and !searchStr.equals('')">
+			    	AND
+				    	<if test="searchType == '0'.toString()">
+				    		NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) LIKE '%' || #{searchStr} || '%'
+				    	</if>
+				    	<if test="searchType == '1'.toString()">
+				    		D.CLNTNM LIKE '%' || #{searchStr} || '%'
+				    	</if>
+			    	</if>	                 
+				GROUP BY NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC)
+				) LIST
+	</sql>
+	
+	<!-- lsh 1020 마스터 합계-->
+	<select id="retrievePeriodStoreSumList_Tot" parameterType="map" resultType="map">
+		SELECT 
+		NVL(SUM(AA.BY_QT), 0) AS TOT_QT,
+		NVL(SUM(AA.BY_AM), 0) AS TOT_AM
+		FROM
+		(SELECT 
+			LIST.BZPLC
+			, LIST.BZPLCNM
+			, LIST.BY_QT
+			, (LIST.BY_AM / 1000) BY_AM
+			, #{srhByDtFr} AS SRH_BY_DT_FR
+		 	, #{srhByDtTo} AS SRH_BY_DT_TO
+	  	FROM (SELECT
+	  				NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) BZPLC
+	  				, MAX (D.CLNTNM) BZPLCNM
+					, SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BY_QT
+					, SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BY_AM
+	           FROM TB_BY_BYNG_M A, TB_BY_BYNG_WRS B, TB_TR_TRPL_CIF D
+	           WHERE 1=1
+	           		AND A.NA_BZPLC = B.NA_BZPLC
+	                AND A.NA_TEAM_C = B.NA_TEAM_C
+	                AND A.SLP_DT = B.SLP_DT
+	                AND A.NA_SLPNO = B.NA_SLPNO
+	                AND NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) = D.NA_TRPL_C
+	           		AND A.BUYPL_NA_TRPL_C IN
+					<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+					 		#{item}
+					</foreach>
+	                AND A.SLP_DT BETWEEN #{srhByDtFr} AND #{srhByDtTo}
+	                 <if test="searchStr != null and !searchStr.equals('')">
+			    	AND
+				    	<if test="searchType == '0'.toString()">
+				    		NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) LIKE '%' || #{searchStr} || '%'
+				    	</if>
+				    	<if test="searchType == '1'.toString()">
+				    		D.CLNTNM LIKE '%' || #{searchStr} || '%'
+				    	</if>
+			    	</if>	                 
+				GROUP BY NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC)
+				) LIST
+		)AA
+	</select>
+	
+	<select id="retrievePeriodStoreSumPgList" parameterType="java.util.Map" resultMap="PeriodStoreSumMap">
+		<bind name="sortName" value="'BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodStoreSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getPeriodStoreSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodStoreSumList" />
+		<include refid="common.count_end" />
+	</select>
+	<!-- lsh 1021 디테일 화면 & 엑셀 -->
+	<sql id="sql_retrievePeriodStoreSumDetailList">
+		SELECT
+            SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) AS BYNG_QT,
+            (SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT))) AS BYAM,
+            B.NA_WRS_C AS WRS_C,
+            MAX (D.WRSNM) AS WRSNM
+       FROM TB_BY_BYNG_M A,
+            TB_BY_BYNG_WRS B,
+            TB_TR_TRPL_CIF C,
+            TB_GD_WRS D
+      WHERE     
+                A.SLP_DT BETWEEN #{byDtFr} AND #{byDtTo}
+            AND (A.DVYAA_NA_TRPL_C =#{bzplc} OR A.NA_BZPLC = #{bzplc})
+			AND A.BUYPL_NA_TRPL_C IN 
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+ 		#{item}
+</foreach>  
+            AND A.NA_BZPLC = B.NA_BZPLC
+            AND A.NA_TEAM_C = B.NA_TEAM_C
+            AND A.SLP_DT = B.SLP_DT
+            AND A.NA_SLPNO = B.NA_SLPNO
+            AND A.BUYPL_NA_TRPL_C = C.NA_TRPL_C
+            AND B.NA_WRS_C = D.NA_WRS_C
+   GROUP BY A.SLP_DT, A.BUYPL_NA_TRPL_C, B.NA_WRS_C
+	</sql>
+	
+	<!-- 1021 합계 -->
+	<select id="sql_retrievePeriodStoreSumDetailList_Tot" parameterType="map" resultType="map">
+		SELECT SUM(A.BYNG_QT) AS TOT_QT, 
+				SUM(A.BYAM) AS TOT_AM
+		FROM
+	   (SELECT
+            SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) AS BYNG_QT,
+            SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) AS BYAM
+       FROM TB_BY_BYNG_M A,
+            TB_BY_BYNG_WRS B,
+            TB_TR_TRPL_CIF C,
+            TB_GD_WRS D
+      WHERE     
+                A.SLP_DT BETWEEN #{byDtFr} AND #{byDtTo}
+            AND (A.DVYAA_NA_TRPL_C =#{bzplc} OR A.NA_BZPLC = #{bzplc})
+			AND A.BUYPL_NA_TRPL_C IN 
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+ 		#{item}
+</foreach>  
+            AND A.NA_BZPLC = B.NA_BZPLC
+            AND A.NA_TEAM_C = B.NA_TEAM_C
+            AND A.SLP_DT = B.SLP_DT
+            AND A.NA_SLPNO = B.NA_SLPNO
+            AND A.BUYPL_NA_TRPL_C = C.NA_TRPL_C
+            AND B.NA_WRS_C = D.NA_WRS_C
+   GROUP BY A.SLP_DT, A.BUYPL_NA_TRPL_C, B.NA_WRS_C)A
+	</select>
+	
+	<select id="retrievePeriodStoreSumDetailPgList" parameterType="java.util.Map" resultMap="PeriodStoreSumDetailMap">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodStoreSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getPeriodStoreSumDetailCountList" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodStoreSumDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 기간별 상품별/점포별 정보조회 -->
+	<sql id="sql_retrievePeriodSkuSumList">
+		SELECT
+				LIST.WRS_C
+				, LIST.WRSNM
+				, LIST.BY_QT
+				, LIST.BY_AM
+				, #{srhByDtFr} AS SRH_BY_DT_FR
+				, #{srhByDtTo} AS SRH_BY_DT_TO
+				, #{srhChkAll} AS SRH_CHK_ALL
+				, #{srhTrplC} AS SRH_TRPL_C
+		FROM 
+		     (
+				SELECT
+					B.NA_WRS_C WRS_C
+					, MAX (D.WRSNM) WRSNM
+					, SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BY_QT
+					, SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BY_AM
+				FROM TB_BY_BYNG_M A,
+					TB_BY_BYNG_WRS B,
+					TB_GD_WRS D
+			      WHERE 1=1
+			      		AND A.BUYPL_NA_TRPL_C IN
+						<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+						 		#{item}
+						</foreach>
+			            AND A.SLP_DT BETWEEN #{srhByDtFr} AND #{srhByDtTo} 
+			            AND A.NA_BZPLC = B.NA_BZPLC
+			            AND A.NA_TEAM_C = B.NA_TEAM_C
+			            AND A.SLP_DT = B.SLP_DT
+			            AND A.NA_SLPNO = B.NA_SLPNO
+			            AND B.NA_WRS_C = D.NA_WRS_C
+				  GROUP BY B.NA_WRS_C
+		     ) LIST
+	</sql>
+	
+	<select id="retrievePeriodSkuSumPgList" parameterType="java.util.Map" resultMap="PeriodSkuSumMap">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodSkuSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getPeriodSkuSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodSkuSumList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="getPeriodSkuSumTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			SUM(A.BY_QT) AS TOTAL_BY_QT,
+			SUM(A.BY_AM) AS TOTAL_BY_AM
+		FROM
+		(<include refid="sql_retrievePeriodSkuSumList" />) A
+	</select>
+	
+	
+	
+	<sql id="sql_retrievePeriodSkuSumDetailList">
+		SELECT
+	  		LIST.NA_BZPLC
+		  , LIST.CLNTNM
+		  , LIST.BYNG_QT
+		  , LIST.BYAM AS BYAM
+		FROM
+			(
+		    SELECT
+		        C.NA_BZPLC
+		      , D.CLNTNM
+		      , C.BYNG_QT
+		      , C.BYAM
+		    FROM
+		      (
+		        SELECT
+		            B.NA_BZPLC AS NA_BZPLC
+		          , SUM(FN_CNR_DS_AM(B.NA_TR_DSC,B.NA_CRC_CAN_DSC)*B.BYNG_QT)  AS BYNG_QT
+		          , SUM(FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC)*(B.BYAM - B.BYNG_VAT)) AS BYAM
+		        FROM
+		          TB_BY_BYNG_M A,
+		          TB_BY_BYNG_WRS B,
+		          TB_TR_TRPL_CIF C
+		        WHERE 1=1
+		          AND A.NA_BZPLC = B.NA_BZPLC
+		          AND A.NA_TEAM_C = B.NA_TEAM_C
+		          AND A.SLP_DT = B.SLP_DT
+		          AND A.NA_SLPNO = B.NA_SLPNO
+		          AND A.NA_BZPLC = C.NA_TRPL_C
+		          AND A.SLP_DT BETWEEN #{byDtFr} AND #{byDtTo}
+		          AND A.BUYPL_NA_TRPL_C IN
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+ 		#{item}
+</foreach>
+		          AND B.NA_WRS_C = #{naWrsC}
+		        GROUP BY B.NA_BZPLC
+		      ) C, TB_TR_TRPL_CIF D
+		    WHERE 1=1
+		      AND C.NA_BZPLC = D.NA_TRPL_C
+			) LIST
+	</sql>
+	
+	<select id="retrievePeriodSkuSumDetailPgList" parameterType="java.util.Map" resultMap="PeriodSkuSumDetailMap">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodSkuSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getPeriodSkuSumDetailCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePeriodSkuSumDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="getPeriodSkuSumDetailTotal"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			SUM(A.BYNG_QT) AS TOTAL_BYNG_QT,
+			SUM(A.BYAM) AS TOTAL_BYAM
+		FROM(
+		<include refid="sql_retrievePeriodSkuSumDetailList" />
+		) A
+	</select>
+	
+	<!-- 점포별/상품별 미납 -->
+	<sql id="sql_retrieveNPeriodStoreSumList">
+		SELECT 
+			A.NA_BZPLC AS BZPLC,
+			FN_TRPL_CIF_NM(A.NA_BZPLC) AS BZPLCNM,
+			SUM(A.NSTR_QT) AS NBY_QT,
+			TRUNC(SUM(A.NSTR_PR),0) AS NBY_AM,
+			#{srhNbyDtFr} AS SRH_NBY_DT_FR,
+			#{srhNbyDtTo} AS SRH_NBY_DT_TO
+		FROM 
+			TB_LG_STPNLT A
+		WHERE 1=1
+			AND A.DEL_DTM IS NULL 
+			AND A.NA_TRPL_C IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+			AND STR_PLA_DT BETWEEN #{srhNbyDtFr} AND #{srhNbyDtTo}
+		GROUP BY NA_BZPLC
+	</sql>
+	
+	<select id="retrieveNPeriodStoreSumPgList" parameterType="java.util.Map" resultMap="NPeriodStoreSumMap">
+		<bind name="sortName" value="'BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveNPeriodStoreSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveNPeriodStroeSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveNPeriodStoreSumList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="getNPeriodStoreSumTotal" parameterType="java.util.Map" resultMap="NPeriodStoreSumMap">
+		SELECT
+			NBY_QT AS TOTAL_NBY_QT , 
+			NBY_AM AS TOTAL_NBY_AM 
+		FROM
+		(
+		<include refid="sql_retrieveNPeriodStoreSumList" />
+		) LIST
+	</select>
+	
+	<sql id="sql_retrieveNPeriodStoreSumDetailList">
+		SELECT  
+			A.NA_WRS_C AS WRS_C, 
+			B.WRSNM, 
+			SUM(A.NSTR_QT) AS NBY_QT, 
+			SUM(NSTR_PR)/1000 AS NBY_AM
+		FROM 
+			TB_LG_STPNLT A,
+			TB_GD_WRS B
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C
+			AND A.DEL_DTM IS NULL
+			AND A.NA_BZPLC = #{bzplc}
+			AND STR_PLA_DT BETWEEN #{nbyDtFr} AND #{nbyDtTo}
+			AND A.NA_TRPL_C  IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		GROUP BY A.NA_WRS_C, B.WRSNM
+	</sql>
+	
+	<select id="retrieveNPeriodStoreSumDetailPgList" parameterType="java.util.Map" resultMap="NPeriodStoreSumDetailMap">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveNPeriodStoreSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getNPeriodStoreSumDetailTotal" parameterType="java.util.Map" resultMap="NPeriodStoreSumMap">
+		SELECT
+			SUM(LIST.NBY_QT) AS TOTAL_NBY_QT
+		  , SUM(LIST.NBY_AM) AS TOTAL_NBY_AM
+		FROM
+		(
+		<include refid="sql_retrieveNPeriodStoreSumDetailList" />
+		) LIST
+	</select>
+	
+	<select id="getNPeriodStroeSumDetailCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveNPeriodStoreSumDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 자료수신_기간집계(점포별/상품별) -->
+	<sql id="sql_downloadTrplPeriodStoreSumCSV">
+	
+		SELECT
+			D.NA_BZPLC AS NA_BZPLC ,
+			E.SHRT_BZPLNM AS SHRT_BZPLNM ,
+			D.NA_WRS_C AS WRS_C ,
+			F.WRSNM AS WRSNM ,
+			D.BYNG_QT AS BYNG_QT ,
+			D.BYAM AS BYAM
+		FROM
+		(
+			SELECT				
+				NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) NA_BZPLC ,
+				B.NA_WRS_C AS NA_WRS_C ,       
+        		SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BYNG_QT ,
+				SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BYAM				 
+			FROM
+				TB_BY_BYNG_M A,
+				TB_BY_BYNG_WRS B
+			WHERE 1=1
+				AND A.NA_BZPLC = B.NA_BZPLC
+				AND A.NA_TEAM_C = B.NA_TEAM_C
+				AND A.SLP_DT = B.SLP_DT
+				AND A.NA_SLPNO = B.NA_SLPNO
+				AND A.SLP_DT BETWEEN #{fromDate} AND #{toDate} 
+				AND A.BUYPL_NA_TRPL_C IN
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+</foreach>
+			GROUP BY NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC), B.NA_WRS_C
+		) D, TB_CM_BZPL E, TB_GD_WRS F
+		WHERE 1=1
+			AND D.NA_BZPLC = E.NA_BZPLC
+			AND D.NA_WRS_C = F.NA_WRS_C(+)
+			ORDER BY NA_BZPLC, WRS_C DESC
+	</sql>
+	
+	<select id="downloadTrplPeriodStoreSumCSV" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_downloadTrplPeriodStoreSumCSV" />
+	</select>
+	
+	<!-- 자료수신_기간집계(상품별/점포별) -->
+	<sql id="sql_downloadWrsPeriodStoreSumCSV">
+		SELECT 
+			D.NA_WRS_C AS WRS_C , 
+			F.WRSNM AS WRSNM , 
+			D.NA_BZPLC AS NA_BZPLC , 
+			E.SHRT_BZPLNM AS SHRT_BZPLNM , 
+			D.BYNG_QT AS BYNG_QT , 
+			D.BYAM AS BYAM 
+		FROM 
+		(
+			SELECT 
+				B.NA_WRS_C AS NA_WRS_C , 
+				NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) NA_BZPLC ,				
+				SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BYNG_QT ,
+				SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BYAM	 
+			FROM
+				TB_BY_BYNG_M A, 
+				TB_BY_BYNG_WRS B
+				WHERE 1=1 
+					AND A.NA_BZPLC = B.NA_BZPLC 
+					AND A.NA_TEAM_C = B.NA_TEAM_C 
+					AND A.SLP_DT = B.SLP_DT 
+					AND A.NA_SLPNO = B.NA_SLPNO 
+					AND A.SLP_DT BETWEEN #{fromDate} AND #{toDate}
+					AND A.BUYPL_NA_TRPL_C IN
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+</foreach>
+				GROUP BY B.NA_WRS_C, NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC)
+			) D, 
+				TB_CM_BZPL E, 
+				TB_GD_WRS F 
+		WHERE 1=1 
+			AND D.NA_BZPLC = E.NA_BZPLC(+) 
+			AND D.NA_WRS_C = F.NA_WRS_C(+) 
+		ORDER BY D.NA_WRS_C, D.NA_BZPLC
+	</sql>
+	
+	<select id="downloadWrsPeriodStoreSumCSV" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_downloadWrsPeriodStoreSumCSV" />
+	</select>
+	
+	<!-- 자료수신_일별집계(점포별/상품별) -->
+	<sql id="sql_downloadTrplDailyStoreSumCSV">
+		SELECT
+			D.SLP_DT,
+			D.NA_BZPLC AS NA_BZPLC ,
+			E.SHRT_BZPLNM AS SHRT_BZPLNM ,
+			D.NA_WRS_C AS WRS_C ,
+			F.WRSNM AS WRSNM ,
+			D.BYNG_QT AS BYNG_QT ,
+			D.BYAM AS BYAM
+		FROM
+			(
+				SELECT
+					A.SLP_DT,
+					NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) NA_BZPLC ,
+					B.NA_WRS_C AS NA_WRS_C ,
+					SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BYNG_QT ,
+					SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BYAM
+				FROM
+					TB_BY_BYNG_M A,
+					TB_BY_BYNG_WRS B
+				WHERE 1=1
+					AND A.NA_BZPLC = B.NA_BZPLC
+					AND A.NA_TEAM_C = B.NA_TEAM_C
+					AND A.SLP_DT = B.SLP_DT
+					AND A.NA_SLPNO = B.NA_SLPNO
+					AND A.SLP_DT BETWEEN #{fromDate} AND #{toDate}
+					AND A.BUYPL_NA_TRPL_C IN
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+</foreach>
+				GROUP BY A.SLP_DT, NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC), B.NA_WRS_C
+			) D, TB_CM_BZPL E, TB_GD_WRS F
+		WHERE 1=1
+			AND D.NA_BZPLC = E.NA_BZPLC(+)
+			AND D.NA_WRS_C = F.NA_WRS_C(+)
+			ORDER BY SLP_DT, NA_BZPLC, WRS_C DESC
+	</sql>
+	
+	<select id="downloadTrplDailyStoreSumCSV" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_downloadTrplDailyStoreSumCSV" />
+	</select>
+	
+	<!-- 자료수신_일별집계(상품별/점포별) -->
+	<sql id="sql_downloadWrsDailyStoreSumCSV">
+		SELECT
+			D.SLP_DT,
+			D.NA_WRS_C AS WRS_C ,
+			F.WRSNM AS WRSNM ,
+			D.NA_BZPLC AS NA_BZPLC ,
+			E.SHRT_BZPLNM AS SHRT_BZPLNM ,
+			D.BYNG_QT AS BYNG_QT ,
+			D.BYAM AS BYAM
+		FROM
+		(
+			SELECT
+				A.SLP_DT,
+				B.NA_WRS_C AS NA_WRS_C ,
+				NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC) NA_BZPLC ,
+				SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * B.BYNG_QT) BYNG_QT ,
+				SUM (FN_CNR_DS_AM (B.NA_TR_DSC, B.NA_CRC_CAN_DSC) * (B.BYAM - B.BYNG_VAT)) BYAM
+			FROM 
+				TB_BY_BYNG_M A,
+				TB_BY_BYNG_WRS B,
+				TB_TR_TRPL_CIF C
+			WHERE 1=1
+				AND A.NA_BZPLC = B.NA_BZPLC
+				AND A.NA_TEAM_C = B.NA_TEAM_C
+				AND A.SLP_DT = B.SLP_DT
+				AND A.NA_SLPNO = B.NA_SLPNO
+				AND A.ACTL_BUYPL_NA_TRPL_C = C.NA_TRPL_C
+				AND A.SLP_DT BETWEEN #{fromDate} AND #{toDate}
+				AND A.BUYPL_NA_TRPL_C IN
+<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+</foreach>
+			GROUP BY A.SLP_DT, B.NA_WRS_C, NVL (A.DVYAA_NA_TRPL_C, A.NA_BZPLC)
+		) D, TB_CM_BZPL E, TB_GD_WRS F
+		WHERE 1=1
+			AND D.NA_BZPLC = E.NA_BZPLC(+)
+			AND D.NA_WRS_C = F.NA_WRS_C(+)
+		ORDER BY SLP_DT, NA_BZPLC, WRS_C DESC
+	</sql>
+	
+	<select id="downloadWrsDailyStoreSumCSV" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_downloadWrsDailyStoreSumCSV" />
+	</select>
+	
+	<!-- 수수료 관리 - 계약코드 찾기 -->
+	<select id="getCserCtrTpc" parameterType="java.util.Map" resultType="java.util.Map">	
+		SELECT CSER_CTR_TPC
+		FROM TB_TR_TRNREL
+		WHERE 1=1
+			AND SPLR_NA_TRPL_C = #{glnCode}
+			AND rownum = 1
+	</select>
+	
+	<!-- 수수료 관리 - 상품 찾기 -->
+	<select id="retrieveCommissionWRSList_back" parameterType="java.util.Map" resultType="java.util.Map">			
+		SELECT 
+		rank() over(ORDER BY B.NA_WRS_C) AS ROWNUMB
+		<!-- , A.BRO_C -->
+		, #{TRPL} AS BRO_C
+		, B.NA_WRS_C
+		, B.WRSNM
+		, A.FEERT
+		FROM 
+		TB_BRO_FEE_AMN A, 
+		(SELECT SPYPL_NA_TRPL_C,NA_WRS_C,WRSNM 
+		FROM TB_OD_TRTWRS
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND NA_BZPLC = #{NA_BZPLC}) B
+		WHERE 1=1
+			AND A.WRS_C = B.NA_WRS_C
+			AND A.BRO_C = B.SPYPL_NA_TRPL_C			
+			AND A.BRO_C = #{TRPL}
+			<choose>			
+			<when test="SEARCH_TYPE == '1'.toString()">
+				AND A.FEERT IS not null
+			</when>
+			<when test="SEARCH_TYPE == '2'.toString()">
+				AND A.FEERT IS null
+			</when>
+		</choose>
+		ORDER BY B.NA_WRS_C			
+	</select>
+	
+	<sql id="sql_commissionWRS">
+		SELECT
+			rank() over(ORDER BY A.NA_WRS_C) AS ROWNUMB
+			<!-- , C.BRO_C -->			
+			, #{TRPL} AS BRO_C
+			, A.NA_WRS_C
+			, A.WRSNM
+			, C.FEERT
+		FROM		
+			(SELECT SPYPL_NA_TRPL_C,NA_WRS_C,WRSNM
+			FROM TB_OD_TRTWRS 
+			WHERE 1=1
+				AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+				AND NA_BZPLC = #{NA_BZPLC}) A ,
+			(SELECT 
+				B.HOFF_C,
+				B.BRO_C,
+				B.WRS_C,
+				MAX(B.FEERT) AS FEERT
+				FROM 
+			(SELECT HOFF_C,BRO_C,WRS_C,FEERT
+			FROM TB_BRO_FEE_AMN
+			WHERE 1=1			
+			<if test="TRPL != null and TRPL.length() >  0 and TRPL != 'all'">
+			AND BRO_C = #{TRPL}
+			</if>
+			UNION			
+			SELECT 
+			#{SPYPL_NA_TRPL_C},
+			#{TRPL},
+			T.NA_WRS_C,
+			0
+			FROM TB_OD_TRTWRS T
+			WHERE 1=1 
+			AND T.SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C} 
+			AND T.NA_BZPLC = #{NA_BZPLC}
+			<![CDATA[AND ROWNUM<=1]]>
+			) B
+			GROUP BY B.HOFF_C,
+							B.BRO_C,
+							B.WRS_C
+			)C
+		WHERE 1=1
+			AND A.NA_WRS_C = C.WRS_C(+)
+			AND A.SPYPL_NA_TRPL_C = C.HOFF_C(+)			
+			<choose>			
+				<when test="SEARCH_TYPE == '1'.toString()">
+					AND C.FEERT IS not null
+				</when>
+				<when test="SEARCH_TYPE == '2'.toString()">
+					AND C.FEERT IS null
+				</when>		
+			</choose>
+	</sql>
+	
+	<select id="retrieveCommissionWRSList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_commissionWRS" />
+	</select>
+	
+	<!-- 수수료 관리 엑셀  -->
+	<select id="retrieveCommissionWRSExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_commissionWRS" />		
+	</select>
+	
+	<!-- 수수료 관리 - 본사 빼고 지사 찾기 -->
+	<select id="retrieveCommissionTrplList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT NA_TRPL_C,CLNTNM FROM TB_TR_TRPL_CIF
+		WHERE 1=1 
+			AND UP_NA_TRPL_C = #{glnCode}
+			AND NA_TRPL_C !=  UP_NA_TRPL_C
+		ORDER BY NA_TRPL_C
+	</select>
+	
+	<!-- 지사 수수료 관리 저장 -->
+	<insert id="insertFeeAmn_back" parameterType="com.nh.escm.pds.recadv.vo.PDSRecadvFeeAmn" >
+		INSERT INTO TB_BRO_FEE_AMN
+		(
+			HOFF_C  /*본사코드*/
+			, BRO_C  /*지사코드*/
+			, WRS_C  /*상품코드*/
+			, BRO_CNM  /*지사명*/
+			, WRSNM  /*상품명*/
+			, FEERT  /*수수료율*/			
+		)
+		VALUES
+		(
+			#{HOFF_C}
+			, #{BRO_C}
+			, #{NA_WRS_C}
+			, FN_TRPL_CIF_NM(#{BRO_C})
+			, #{WRSNM}			
+			, #{FEERT}			
+		)
+	</insert>
+	
+	<insert id="insertFeeAmn" parameterType="com.nh.escm.pds.recadv.vo.PDSRecadvFeeAmn" >	
+		MERGE INTO TB_BRO_FEE_AMN
+		USING DUAL                             
+		ON(
+		HOFF_C = #{HOFF_C}
+		AND BRO_C = #{BRO_C}
+		AND WRS_C = #{NA_WRS_C}		
+		)                               
+		WHEN MATCHED THEN                      
+		   UPDATE SET			  
+			  FEERT = #{FEERT}                            
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				HOFF_C  /*본사코드*/
+				, BRO_C  /*지사코드*/
+				, WRS_C  /*상품코드*/
+				, BRO_CNM  /*지사명*/
+				, WRSNM  /*상품명*/
+				, FEERT  /*수수료율*/			
+			)
+			VALUES
+			(
+				#{HOFF_C}
+				, #{BRO_C}
+				, #{NA_WRS_C}
+				, FN_TRPL_CIF_NM(#{BRO_C})
+				, #{WRSNM}			
+				, #{FEERT}			
+			)
+	</insert>
+	
+	<sql id="sql_feeCurrentList">
+		SELECT
+			rank() over(ORDER BY A.NA_TRPL_C) AS ROWNUMB
+			, A.NA_TRPL_C
+			, A.CLNTNM
+			, B.FEERT
+			, #{BY_DT} AS BY_DT
+		FROM 
+			(SELECT NA_TRPL_C,CLNTNM FROM TB_TR_TRPL_CIF
+			WHERE 1=1
+			<choose>			
+				<when test="mbcoType == '1'.toString()">  <!-- 본사일경우 -->
+					AND UP_NA_TRPL_C = #{glnCode}    
+					AND NA_TRPL_C !=  UP_NA_TRPL_C
+				</when>
+				<otherwise> <!-- 지사일경우 -->
+					AND NA_TRPL_C = #{glnCode}
+				</otherwise>
+			</choose>			
+			ORDER BY NA_TRPL_C) A,
+			(SELECT
+			C.BRO_C
+			, C.BRO_CNM
+			, SUM(C.FEERT*B.BYAM) AS FEERT
+			FROM TB_BY_BYNG_M A, TB_BY_BYNG_WRS B, TB_BRO_FEE_AMN C
+			WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_TEAM_C = B.NA_TEAM_C
+			AND A.SLP_DT = B.SLP_DT
+			AND A.NA_SLPNO = B.NA_SLPNO
+			AND A.BUYPL_NA_TRPL_C = C.BRO_C
+			AND B.NA_WRS_C = C.WRS_C
+			<!-- AND C.HOFF_C = #{glnCode} -->
+			AND B.SLP_DT LIKE #{BY_DT} || '%'
+			GROUP BY BRO_C, BRO_CNM
+			ORDER BY BRO_C) B
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.BRO_C(+)
+	</sql>
+	
+	<!-- 수수료 현황 -->
+	<select id="retrieveFeeCurrentList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_feeCurrentList" />
+	</select>
+	
+	<!-- 수수료 합계-->
+	<select id="getFeeCurrentSum" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(B.FEERT),0) FEERT
+		FROM 
+			(SELECT NA_TRPL_C,CLNTNM FROM TB_TR_TRPL_CIF
+			WHERE 1=1 
+			<choose>			
+				<when test="mbcoType == '1'.toString()">  <!-- 본사일경우 -->
+					AND UP_NA_TRPL_C = #{glnCode}    
+					AND NA_TRPL_C !=  UP_NA_TRPL_C
+				</when>
+				<otherwise> <!-- 지사일경우 -->
+					AND NA_TRPL_C = #{glnCode}
+				</otherwise>
+			</choose>
+			ORDER BY NA_TRPL_C) A,
+			(SELECT
+			C.BRO_C
+			, C.BRO_CNM
+			, SUM(C.FEERT*B.BYAM) AS FEERT
+			FROM TB_BY_BYNG_M A, TB_BY_BYNG_WRS B, TB_BRO_FEE_AMN C
+			WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_TEAM_C = B.NA_TEAM_C
+			AND A.SLP_DT = B.SLP_DT
+			AND A.NA_SLPNO = B.NA_SLPNO
+			AND A.BUYPL_NA_TRPL_C = C.BRO_C
+			AND B.NA_WRS_C = C.WRS_C
+			<!-- AND C.HOFF_C = #{glnCode} -->
+			AND B.SLP_DT LIKE #{BY_DT} || '%'
+			GROUP BY BRO_C, BRO_CNM
+			ORDER BY BRO_C) B
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.BRO_C(+)
+	</select>
+	
+	<!-- 수수료 현황 상세 조회 -->
+	<sql id="sql_retrieveFeeCurrentDetailList">
+		SELECT
+			rank() over(ORDER BY A.NA_BZPLC) AS ROWNUMB
+			, A.NA_BZPLC
+			, FN_TRPL_CIF_NM(A.NA_BZPLC) BZPL_NM
+			, SUM(C.FEERT*B.BYAM) AS FEERT			
+			FROM TB_BY_BYNG_M A, TB_BY_BYNG_WRS B, TB_BRO_FEE_AMN C, TB_TR_TRPL_CIF D
+			WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_TEAM_C = B.NA_TEAM_C
+			AND A.SLP_DT = B.SLP_DT
+			AND A.NA_SLPNO = B.NA_SLPNO
+			AND A.BUYPL_NA_TRPL_C = C.BRO_C
+			AND B.NA_WRS_C = C.WRS_C
+			AND B.SLP_DT LIKE #{BY_DT} || '%'
+			AND C.BRO_C = #{BRO_C}
+			AND D.NA_TRPL_C = A.NA_BZPLC
+			AND D.NA_RGN_C LIKE #{NA_RGN_C}||'%'
+			GROUP BY A.NA_BZPLC			
+	</sql>
+	
+	<!-- 수수료 현황 상세 조회 페이지 추가 쿼리 -->	
+	<select id="retrieveFeeCurrentDetailList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveFeeCurrentDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 수수료 현황 상세 조회 총 카운트 -->
+	<select id="getFeeCurrentDetailListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveFeeCurrentDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 수수료 현황 상세 조회 총 합계 수수료 -->
+	<select id="getFeeCurrentDetailListTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.FEERT), 0) AS TOTAL_FEE
+		FROM
+		(
+		<include refid="sql_retrieveFeeCurrentDetailList" />
+		) LIST
+	</select>
+	
+	
+	<!-- 수수료 현황 상세 엑셀 -->
+	<select id="retrieveFeeCurrentDetailExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT			
+			rank() over(ORDER BY A.NA_BZPLC,B.NA_WRS_C) AS ROWNUMB
+			, A.NA_BZPLC
+			, FN_TRPL_CIF_NM(A.NA_BZPLC) BZPL_NM
+			, B.NA_WRS_C
+			, (SELECT WRSNM FROM TB_GD_WRS GD WHERE GD.NA_WRS_C = B.NA_WRS_C) AS WRSNM			
+			, C.FEERT*B.BYAM AS FEERT	
+			FROM TB_BY_BYNG_M A, TB_BY_BYNG_WRS B, TB_BRO_FEE_AMN C, TB_TR_TRPL_CIF D
+			WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_TEAM_C = B.NA_TEAM_C
+			AND A.SLP_DT = B.SLP_DT
+			AND A.NA_SLPNO = B.NA_SLPNO
+			AND A.BUYPL_NA_TRPL_C = C.BRO_C
+			AND B.NA_WRS_C = C.WRS_C
+			AND B.SLP_DT LIKE #{BY_DT} || '%'
+			AND C.BRO_C = #{BRO_C}
+			AND D.NA_TRPL_C = A.NA_BZPLC
+			AND D.NA_RGN_C LIKE #{NA_RGN_C}||'%'			
+	</select>
+	
+	<select id="downloadExcelDailyStoreSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_dailyStoreSumList" />
+	</select>
+	
+	<select id="downloadExcelPeriodSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_periodSumList" />
+	</select>
+	
+	<select id="downloadExcelPeriodStoreSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodStoreSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelPeriodStoreSumDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodStoreSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelPeriodSkuSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodSkuSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelPeriodStoreSumDeail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePeriodSkuSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelNPeriodStoreSum" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveNPeriodStoreSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelNPeriodStoreSumDeail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveNPeriodStoreSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="printRetrieveFeeCurrentList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_feeCurrentList" />
+	</select>
+</mapper>

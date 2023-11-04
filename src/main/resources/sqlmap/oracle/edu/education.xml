@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="educationDAO">
+
+	<!-- 교육신청 리스트 카운트 -->
+	<select id="retrieveEducationCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveEducation" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 교육신청 리스트 -->
+	<select id="retrieveEducationList" parameterType="Map" resultType="java.util.HashMap">
+	 <bind name="sortName" value="'SEQ desc'"/>
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveEducation" />
+		<include refid="common.paging_end" />
+	</select>
+
+	<sql id="sql_retrieveEducation">
+		SELECT 
+			   SEQ								/* 회차 */
+			 , CASE
+					WHEN FILENAME IS NULL
+					THEN ''
+					ELSE '@'
+			   END AS ATTACHMENT				/* 첨부 */
+			 , TITLE							/* 제목 */
+			 , ( SELECT USR_NM
+				   FROM PT_USR_INF A
+				  WHERE A.MB_ID = B.REG_ID
+			   ) AS REG_NM						/* 등록자 */
+			 , EDU_DATE							/* 교육일자 */
+			 , CASE
+					WHEN ( SELECT COUNT(*)
+							 FROM MG_EDU_MEMBER
+							WHERE SEQ = B.SEQ
+							  AND DEL_DATE IS NULL
+						 ) >= 60
+					THEN '마감'
+					ELSE '신청가능'
+			   END AS SUBSCRIPTION_YN			/* 신청가능여부 */
+			 , CNT								/* 조회수 */
+		  FROM MG_EDUCATION B
+		 WHERE USE_YN = 'Y'
+		<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(edt)">
+		<choose>
+			<when test="cbo == 01">
+			   AND TITLE LIKE '%' || #{edt} || '%'
+			</when>
+			<when test="cbo == 02">
+			   AND REG_ID IN ( SELECT MB_ID
+								 FROM PT_USR_INF
+								WHERE USR_NM LIKE '%' || #{edt} || '%'
+							 )
+			</when>
+		</choose>
+		</if>
+	</sql>
+
+	<select id="retrieveEducationDetails" parameterType="Map" resultType="java.util.HashMap">
+		SELECT 
+			   SEQ														/* 회차 */
+			 , TITLE													/* 제목 */
+			 , CONTENT													/* 내용 */
+			 , ( SELECT USR_NM
+				   FROM PT_USR_INF A
+				  WHERE A.MB_ID = B.REG_ID
+			   ) AS REG_NM												/* 등록자 */
+			 , CASE
+					WHEN ( SELECT COUNT(*)
+							 FROM MG_EDU_MEMBER
+							WHERE SEQ = B.SEQ
+							  AND DEL_DATE IS NULL
+						 ) >= 60
+					THEN 'N'
+					ELSE 'Y'
+			   END AS SUBSCRIPTION_YN									/* 신청가능여부 */
+			 , CNT														/* 조회수 */
+			 , TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT		/* 등록일시 */
+			 , EDU_DATE													/* 교육일자 */
+			 , FILENAME AS FILENAME										/* 파일명 */
+			 , FILEPATH AS ORGFNAME										/* 파일경로 */
+			 , FILESIZE AS FILESIZE										/* 파일사이즈 */
+			 , FSYSNAME AS SYSTEMFILENAME								/* 시스템파일명 */
+		  FROM MG_EDUCATION B
+		 WHERE USE_YN = 'Y'
+		   AND SEQ = #{seq}
+	</select>
+
+	<select id="retrieveEducationDate" parameterType="Map" resultType="java.util.HashMap">
+		SELECT EDU_DATE
+		  FROM MG_EDUCATION
+		 ORDER BY EDU_DATE DESC
+	</select>
+	
+	<select id="retrieveMyEducation" parameterType="Map" resultType="java.util.HashMap">
+		SELECT B.NAME
+		  FROM MG_EDUCATION A INNER JOIN MG_EDU_MEMBER B ON A.SEQ = B.SEQ
+		 WHERE A.USE_YN = 'Y'
+		   AND B.DEL_DATE IS NULL
+		   AND A.EDU_DATE = #{eduDt}
+		   AND B.NA_TRPL_C = #{gln}
+	</select>
+
+	<update id="updateEducationCnt">
+		UPDATE MG_EDUCATION
+		   SET CNT = CNT + 1
+		 WHERE SEQ = #{seq}
+	</update>
+
+	<insert id="insertEducationSubscription">
+		INSERT INTO MG_EDU_MEMBER
+		(
+			SEQ			/* 회차 */
+		  , MSEQ		/* 순서 */
+		  , COMPANY		/* 회사명 */
+		  , NAME		/* 이름 */
+		  , POSITION	/* 직책 */
+		  , TEL			/* 전화번호 */
+		  , EMAIL		/* 이메일 */
+		  , REG_ID		/* 등록자 */
+		  , REG_DATE	/* 등록일시 */
+		  , NA_TRPL_C	/* 거래처코드 */
+		) VALUES (
+			#{seq}
+		  , ( SELECT NVL(MAX(MSEQ), 0) + 1
+				FROM MG_EDU_MEMBER
+			   WHERE SEQ = #{seq}
+			)
+		  , #{compNm}
+		  , #{usrNm}
+		  , #{position}
+		  , #{telNo}
+		  , #{email}
+		  , #{usrId}
+		  , SYSDATE
+		  , #{gln}
+		)
+	</insert>
+
+	<select id="checkEducationMemberCnt" parameterType="Map" resultType="java.util.HashMap">
+		SELECT 
+			   COUNT(*) AS MEMBER_CNT
+		  FROM MG_EDU_MEMBER
+		 WHERE SEQ = #{seq}
+		   AND NA_TRPL_C = #{gln}
+	</select>
+
+	<select id="checkEducationBlackListYn" parameterType="Map" resultType="java.util.HashMap">
+		SELECT
+			   CASE 
+					WHEN COUNT(*) > 0 THEN 'Y'
+					ELSE 'N'
+			   END AS BLACKLIST_YN
+		  FROM MG_EDU_BLACKLIST
+		 WHERE DEL_DATE IS NULL
+		   AND SEQ = TO_NUMBER(#{seq}) - 1
+		   AND NA_TRPL_C = #{gln}
+	</select>
+	
+	<select id="retrieveEducationMenuList" parameterType="Map" resultType="java.util.HashMap">
+		<!-- 
+		SELECT /** [education.retrieveEducationMenuList](동영상교육 메뉴 조회) */
+		       '00000000' AS MENU_ID
+		 	 , '0' AS MENU_LVL				/* 메뉴레벨 */
+			 , '전체' AS MENU_NM				/* 메뉴명 */
+			 , '' MENU_PATH					/* 메뉴경로 */
+			 , '' UP_MENU_ID
+		  FROM DUAL 
+		UNION ALL 
+		SELECT 
+			   MENU_ID						/* 메뉴ID */
+			 , MENU_LVL						/* 메뉴레벨 */
+			 , MENU_NM						/* 메뉴명 */
+			 , MENU_PATH					/* 메뉴경로 */
+			 , UP_MENU_ID					/* 상위메뉴 */
+		  FROM PT_MENU_AMN
+		 WHERE 1=1
+		   AND USR_TPC   ='01'
+		   AND SCRN_MRK_YN='Y'
+		   AND UYN='Y'
+		   AND MENU_ID <![CDATA[<>]]> '02002007'
+		   AND MENU_LVL = #{menuLvl}
+		 ORDER BY MENU_ID
+		  -->
+		 
+		SELECT /** [education.retrieveEducationMenuList](동영상교육 메뉴 조회) */
+		       '00000000' AS MENU_ID
+		 	 , '0' AS MENU_LVL				/* 메뉴레벨 */
+			 , '전체' AS MENU_NM				/* 메뉴명 */
+			 , '' MENU_PATH					/* 메뉴경로 */
+			 , '' UP_MENU_ID
+		  FROM DUAL 
+		UNION ALL 
+		SELECT 
+		       DISTINCT B.MENU_ID	/* 메뉴ID */
+		     , B.MENU_LVL			/* 메뉴레벨 */
+		     , B.MENU_NM			/* 메뉴명 */
+		     , B.MENU_PATH			/* 메뉴경로 */
+		     , B.UP_MENU_ID			/* 상위메뉴 */
+		  FROM (
+		        SELECT P.*
+		          FROM MG_EDU_VD M
+		             , PT_MENU_AMN P
+		         WHERE (M.MENU_ID  = P.MENU_ID OR M.UP_MENU_ID   = P.MENU_ID)
+		           AND M.VIDEO_FLNM IS NOT NULL
+		           AND P.USR_TPC   ='01'
+		           <!-- AND P.SCRN_MRK_YN='Y' -->
+		           <!-- AND P.UYN='Y' -->
+		           AND P.MENU_ID <![CDATA[<>]]> '02002007'
+		       ) A
+		     , PT_MENU_AMN B
+		 WHERE (A.UP_MENU_ID = B.MENU_ID OR A.MENU_ID = B.MENU_ID)
+		   AND B.MENU_LVL = #{menuLvl}
+	     ORDER BY MENU_ID	
+		 
+	</select>
+	
+	<select id="retrieveEducationVideoList" parameterType="Map" resultType="java.util.HashMap">
+		SELECT /** [education.retrieveEducationVideoList](동영상교육 목록 조회) */
+		       M.MENU_ID										/* 메뉴ID */
+		     , M.MENU_NM										/* 메뉴명 */
+		     , M.VIDEO_FLNM										/* 동영상파일명 */
+		     , M.IMG_FLNM										/* 이미지파일명 */
+		     , M.VIDEO_LVL										/* 동영상레벨 */
+		     , M.VIDEO_DSC										/* 동영상설명 */
+             , M.VIDEO_LNGTH									/* 동영상길이 */
+             , TO_CHAR(M.FSRG_DTM, 'YY.MM.DD') AS FSRG_DTM		/* 최초등록일시 */
+             , M.INQ_CN											/* 조회수 */
+		     , SUBSTR(P.MENU_PATH, 0, INSTR(P.MENU_PATH, '>', -1, 1)-1) MENU_PATH	/* 메뉴경로 */
+             , COUNT(*) OVER(PARTITION BY M.UP_MENU_ID) AS CNT
+             , SUBSTR(P.MENU_PATH, 0, INSTR(P.MENU_PATH, '>', -1, 2)-1)  AS MENU_D	/* 대분류 */
+             , SUBSTR(P.MENU_PATH, INSTR(P.MENU_PATH,'>',1,1)+1, INSTR(P.MENU_PATH,'>',1,2)-(INSTR(P.MENU_PATH,'>',1,1)+1)) AS MENU_M	/* 중분류 */
+		  FROM 
+               <if test="menuIdS != null or  menuIdS == '00000000'">
+               (
+                SELECT MENU_ID
+                  FROM PT_MENU_AMN
+                 WHERE 1=1
+                   <if test="menuIdM != null and menuIdM != '00000000'">
+                   	AND UP_MENU_ID = #{menuIdM}	/* 최종 중메뉴 */
+                   </if>
+		           <if test="(menuIdD != null and menuIdD != '00000000') and (menuIdM == null or menuIdM == '00000000')">
+                   	AND UP_MENU_ID = #{menuIdD}	/* 최종 대메뉴 */
+                   </if>
+               ) A,
+               </if>
+		       MG_EDU_VD M
+		     , PT_MENU_AMN P
+		 WHERE 1=1
+		   AND M.MENU_ID = P.MENU_ID
+		   AND M.VIDEO_FLNM IS NOT NULL
+		   AND P.USR_TPC = '01'
+		   <!-- AND P.SCRN_MRK_YN = 'Y' -->
+		   <!-- AND P.UYN='Y' -->
+		   AND P.MENU_ID <![CDATA[<>]]> '02002007'
+		   <if test="menuNm != null and menuNm != ''">
+		   	AND M.MENU_NM LIKE '%' || #{menuNm} || '%'	/* 최종 메뉴명 */
+		   </if>
+		   <if test="menuIdS != null and menuIdS != '00000000'">
+		   	AND M.MENU_ID = #{menuIdS}	/* 최종 소메뉴 */
+		   </if>
+		   <if test="menuIdM != null and menuIdM != '00000000'">
+		   	AND P.MENU_ID = A.MENU_ID	/* 최종 중메뉴 */
+		   </if>
+		   <if test="menuIdM == null or menuIdM == '00000000'">
+		   	AND P.UP_MENU_ID = A.MENU_ID	/* 최종 대메뉴 */
+		   </if>
+	     order by P.MENU_ID
+	</select>
+	
+	<select id="retrieveRcmdVideoList" parameterType="Map" resultType="java.util.HashMap">	
+		SELECT /** [education.retrieveRcmdVideoList](동영상교육 다음동영상 목록 조회) */
+		       *
+		  FROM (	
+		        SELECT 
+		               *
+		          FROM (
+		        		SELECT 
+	    					   M.MENU_ID AS MENU_ID_O
+							 , M.VIDEO_LVL AS VIDEO_LVL_O
+		                     , DECODE(LEAD(M.MENU_ID) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(M.MENU_ID) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(M.MENU_ID) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL)) AS MENU_ID			/*메뉴ID*/
+		                     , DECODE(LEAD(M.VIDEO_LVL) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(M.VIDEO_LVL) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(M.VIDEO_LVL) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL))   AS VIDEO_LVL		/*비디오레벨*/
+		                     , DECODE(LEAD(M.MENU_NM) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(M.MENU_NM) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(M.MENU_NM) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL)) AS MENU_NM			/*메뉴명*/
+		                     , DECODE(LEAD(M.VIDEO_FLNM) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(M.VIDEO_FLNM) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(M.VIDEO_FLNM) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL))    AS VIDEO_FLNM	/*비디오파일명*/
+		                     , DECODE(LEAD(M.IMG_FLNM) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(M.IMG_FLNM) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(M.IMG_FLNM) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL))  AS IMG_FLNM		/*이미지파일명*/
+		                     , DECODE(LEAD(P.MENU_PATH) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(P.MENU_PATH) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(P.MENU_PATH) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL))   AS MENU_PATH		/*메뉴경로*/
+		                     , DECODE(LEAD(M.VIDEO_DSC) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), null, FIRST_VALUE(M.VIDEO_DSC) OVER(ORDER BY M.MENU_ID, M.VIDEO_LVL), LEAD(M.VIDEO_DSC) OVER (ORDER BY M.MENU_ID, M.VIDEO_LVL))   AS VIDEO_DSC		/*동영상설명*/
+		        		  FROM MG_EDU_VD M
+		        		     , PT_MENU_AMN P
+		        		 WHERE 1=1
+		        		   AND M.MENU_ID = P.MENU_ID
+		        		   AND M.VIDEO_FLNM IS NOT NULL
+		        		   AND P.USR_TPC = '01'
+		        		   <!-- AND P.SCRN_MRK_YN = 'Y' -->
+		        		   <!-- AND P.UYN ='Y' -->
+		        		   AND P.MENU_ID <![CDATA[<>]]> '02002007'
+		        		   AND M.INQ_CN IS NOT NULL
+		        	    ) R
+		         WHERE 1=1
+		           AND R.MENU_ID_O = #{menuId}
+		           AND R.VIDEO_LVL_O = #{videoLvl}
+		       )
+		 WHERE ROWNUM &lt; #{maxNum}
+	</select>
+	
+	<select id="retrieveRltdVideoList" parameterType="Map" resultType="java.util.HashMap">   
+		SELECT /** [education.retrieveRltdVideoList](동영상교육 관련동영상 목록 조회) */
+		       M.*
+		     , P.MENU_PATH      /* 메뉴경로 */
+		  FROM MG_EDU_VD M
+		     , PT_MENU_AMN P
+		 WHERE 1=1
+		   AND M.MENU_ID = P.MENU_ID
+		   AND P.USR_TPC = '01'
+		   <!-- AND P.SCRN_MRK_YN = 'Y' -->
+		   <!-- AND P.UYN='Y' -->
+		   AND P.MENU_ID <![CDATA[<>]]> '02002007'
+		   AND (M.MENU_ID, M.VIDEO_LVL) IN (
+		                     SELECT 
+		                            DECODE(INSTR(TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), '_'), '0', TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), SUBSTR(TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), 1, INSTR(TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), '_')-1)) AS MENU_ID
+			                      , DECODE(INSTR(TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), '_'), '0', '1', SUBSTR(TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), INSTR(TRIM(REGEXP_SUBSTR(A.TAGS, '[^\,]+', 1, LEVEL)), '_')+1)) AS VIDEO_LVL
+						       FROM (
+							         SELECT TAGS 
+								       FROM MG_EDU_VD 
+									  WHERE 1=1
+									    AND MENU_ID = #{menuId}
+									    AND VIDEO_LVL = #{videoLvl}
+								    ) A
+		                    Connect By Regexp_Substr(TAGS, '[^,]+', 1, Level) Is Not Null
+		                    )
+	</select>
+	
+	<select id="retrieveVideoDtlList" parameterType="Map" resultType="java.util.HashMap">   
+		SELECT /** [education.retrieveVideoDtlList](동영상교육 상세 조회) */
+		       M.MENU_ID		/* 메뉴ID */
+		     , M.MENU_NM        /* 메뉴명 */
+		     , P.MENU_PATH      /* 메뉴경로 */
+		     , M.VIDEO_FLNM     /* 비디오파일명 */
+		     , M.IMG_FLNM       /* 이미지파일명 */
+		     , M.VIDEO_LVL
+		  FROM MG_EDU_VD M
+		     , PT_MENU_AMN P
+		 WHERE 1=1
+		   AND M.MENU_ID = P.MENU_ID
+		   AND M.VIDEO_FLNM IS NOT NULL
+		   AND P.USR_TPC = '01'
+		   <!-- AND P.SCRN_MRK_YN = 'Y' -->
+		   <!-- AND P.UYN='Y' -->
+		   AND P.MENU_ID <![CDATA[<>]]> '02002007'
+		   AND M.MENU_ID = #{menuId}
+		   AND M.VIDEO_LVL = #{videoLvl}
+	</select>
+	
+	<update id="updateVideoCnt">
+		UPDATE /** [education.updateVideoCnt](동영상교육  조회수 수정) */
+		       MG_EDU_VD
+		   SET INQ_CN = INQ_CN + 1
+		 WHERE 1=1
+		   AND MENU_ID = #{menuId}
+		   AND VIDEO_LVL = #{videoLvl}
+	</update>
+
+	<insert id="insertVideoHst">
+		INSERT /** [education.insertVideoHst](동영상교육  이력 저장) */ 
+		       INTO MG_EDU_VD_HST (
+               MENU_ID		 /* 메뉴ID */
+             , HST_RG_DTM    /* 이력등록일시 */
+             , MB_ID         /* 회원ID */
+             , VIDEO_LVL     /* 동영상레벨 */
+		) VALUES (
+		    #{menuId}
+		  , #{hstRgDtm}
+		  , #{mbId}
+		  , #{videoLvl}
+		)
+	</insert>
+	
+</mapper>

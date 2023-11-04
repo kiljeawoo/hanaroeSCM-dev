@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	반품업무
+ -->
+ <mapper namespace="retannDAO">
+
+	<resultMap id="retannRqtMasterSumMap_back" type="com.nh.escm.scm.retann.vo.RetannRqtMasterSumVO">
+		<result column="NA_RGD_STS_DSC" property="NA_RGD_STS_DSC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="RGD_RG_DT" property="RGD_RG_DT" />	
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_CLNTNM" property="RVOPL_CLNTNM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="TEL" property="TEL" />
+		<result column="RGD_QT" property="RGD_QT" />
+		<result column="RGD_AM" property="RGD_AM" />
+		<result column="BYNG_DFN_AM" property="BYNG_DFN_AM" />
+		<result column="RGD_VAT" property="RGD_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="BYNG_DFN_TROT_FEE" property="BYNG_DFN_TROT_FEE" />
+		<result column="BYNG_DFN_PHD_FEE" property="BYNG_DFN_PHD_FEE" />
+	 </resultMap>
+	 
+	 <resultMap id="retannRqtMasterSumMap" type="com.nh.escm.scm.retann.vo.RetannRqtMasterSumVO">
+	 	<result column="NA_RGD_STS_DSC" property="NA_RGD_STS_DSC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="RGD_RG_DT" property="RGD_RG_DT" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_CLNTNM" property="RVOPL_CLNTNM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="TEL" property="TEL" />
+		<result column="RTNCNF_DTM" property="RTNCNF_DTM" />
+		<result column="RGD_PLA_NO" property="RGD_PLA_NO" />
+		<result column="OGN_SLPNO" property="OGN_SLPNO" />
+		<result column="OSLIP_DT" property="OSLIP_DT" />
+		<result column="ITEM_CNT" property="ITEM_CNT" />
+		<result column="RGD_QT" property="RGD_QT" />
+		<result column="RGD_AM" property="RGD_AM" />
+		<result column="BYNG_DFN_QT" property="BYNG_DFN_QT" />
+		<result column="BYNG_DFN_AM" property="BYNG_DFN_AM" />
+		<result column="RGD_VAT" property="RGD_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="BYNG_DFN_TROT_FEE" property="BYNG_DFN_TROT_FEE" />
+		<result column="BYNG_DFN_PHD_FEE" property="BYNG_DFN_PHD_FEE" />
+		<result column="WDR_PLA_DT" property="WDR_PLA_DT" />
+		<result column="WDRPL_NA_TRPL_C" property="WDRPL_NA_TRPL_C" />
+		<result column="WDRPL_CLNTNM" property="WDRPL_CLNTNM" />
+		<result column="WDRPL_NA_TEAM_C" property="WDRPL_NA_TEAM_C" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="XML_RGD_PLA_NO" property="XML_RGD_PLA_NO" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+		<result column="PRC_YN" property="PRC_YN" />
+		<result column="RSP_C_CNTN" property="RSP_C_CNTN" />	
+	 </resultMap>	 
+	 
+	<resultMap id="retannRqtMasterMap" type="com.nh.escm.scm.retann.vo.RetannRqtMasterVO">
+		<result column="RTNCNF_DTM" property="RTNCNF_DTM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="RGD_RG_DT" property="RGD_RG_DT" />
+		<result column="RGD_PLA_NO" property="RGD_PLA_NO" />
+		<result column="NA_RGD_STS_DSC" property="NA_RGD_STS_DSC" />
+		<result column="OGN_SLPNO" property="OGN_SLPNO" />
+		<result column="OSLIP_DT" property="OSLIP_DT" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="ITEM_CNT" property="ITEM_CNT" />
+		<result column="RGD_QT" property="RGD_QT" />
+		<result column="RGD_AM" property="RGD_AM" />
+		<result column="BYNG_DFN_QT" property="BYNG_DFN_QT" />
+		<result column="BYNG_DFN_AM" property="BYNG_DFN_AM" />
+		<result column="RGD_VAT" property="RGD_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="BYNG_DFN_TROT_FEE" property="BYNG_DFN_TROT_FEE" />
+		<result column="BYNG_DFN_PHD_FEE" property="BYNG_DFN_PHD_FEE" />
+		<result column="WDR_PLA_DT" property="WDR_PLA_DT" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="XML_RGD_PLA_NO" property="XML_RGD_PLA_NO" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+	</resultMap>
+	
+	
+	<resultMap id="retannRqtDetailMap" type="com.nh.escm.scm.retann.vo.RetannRqtDetailVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />		
+		<result column="RGD_UPR" property="RGD_UPR" />
+		<result column="RGD_QT" property="RGD_QT" />
+		<result column="RGD_AM" property="RGD_AM" />
+		<result column="BYNG_DFN_QT" property="BYNG_DFN_QT" />
+		<result column="BYNG_DFN_AM" property="BYNG_DFN_AM" />
+		<result column="RGD_VAT" property="RGD_VAT" />
+		<result column="BYNG_DFN_TROT_FEE" property="BYNG_DFN_TROT_FEE" />
+		<result column="BYNG_DFN_PHD_FEE" property="BYNG_DFN_PHD_FEE" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="NA_RGD_RSN_DSC" property="NA_RGD_RSN_DSC" />
+		<result column="AJ_UPR" property="AJ_UPR" />
+		<result column="BYNG_DFN_UPR" property="BYNG_DFN_UPR" />
+		<result column="NA_WRS_UNT" property="NA_WRS_UNT" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="RGD_SQNO" property="RGD_SQNO" />
+	</resultMap>
+	
+	<resultMap id="retrieveCnfMap" type="com.nh.escm.scm.retann.vo.RetannCnfVO">
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="RGD_RG_DT" property="RGD_RG_DT" />
+		<result column="RGD_PLA_NO" property="RGD_PLA_NO" />
+		<result column="RGD_SQNO" property="RGD_SQNO" />	
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="RGD_UPR" property="RGD_UPR" />
+		<result column="AJ_UPR" property="AJ_UPR" />
+		<result column="RGD_QT" property="RGD_QT" />
+		<result column="RGD_AM" property="RGD_AM" />
+		<result column="RGD_VAT" property="RGD_VAT" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="PD_YY" property="PD_YY" />
+		<result column="NA_RGD_RSN_DSC" property="NA_RGD_RSN_DSC" />
+		<result column="NA_RGD_RSN_DSC_NAME" property="NA_RGD_RSN_DSC_NAME" />		
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="BYNG_DFN_TROT_FEE" property="BYNG_DFN_TROT_FEE" />
+		<result column="NA_RGD_STS_DSC" property="NA_RGD_STS_DSC" />
+		<result column="ADD_NA_RGD_STS_DSC" property="ADD_NA_RGD_STS_DSC" />				
+	</resultMap>
+	
+	<resultMap id="retrieveRqtSlpMap" type="com.nh.escm.scm.retann.vo.RetannRqtSlpVO">
+		<result column="RGD_RG_DT" property="RGD_RG_DT" />
+		<result column="RGD_PLA_NO" property="RGD_PLA_NO" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="DIV" property="DIV" />
+		<result column="NA_RGD_STS_DSC" property="NA_RGD_STS_DSC" />
+		<result column="WDR_PLA_DT" property="WDR_PLA_DT" />
+		<result column="WDRPL_NA_TRPL_C" property="WDRPL_NA_TRPL_C" />
+		<result column="WDRPL_CLNTNM" property="WDRPL_CLNTNM" />
+		<result column="WDRPL_NA_TEAM_C" property="WDRPL_NA_TEAM_C" />
+		<result column="RGD_AMN_DSC" property="RGD_AMN_DSC" />
+	</resultMap>		
+ 	
+ 	<!-- 반품입고 의뢰 첫번째 그리드 조회 쿼리 -->
+	<select id="retrieveRqtMasterSumList" parameterType="java.util.Map" resultMap="retannRqtMasterSumMap">
+		SELECT
+			FN_CM_SIMP_CNM('NA_RGD_STS_DSC',A.NA_RGD_STS_DSC) NA_RGD_STS_DSC /*경제통합반품상태구분코드*/
+			, A.NA_TEAM_C /*경제통합팀코드*/
+			, A.RGD_RG_DT /*반품등록일자*/
+			, A.NA_TRPL_C /*반품의뢰처*/
+			, FN_TRPL_CIF_NM(A.NA_TRPL_C) CLNTNM /*반품의뢰처명*/   
+			, A.RVOPL_NA_TRPL_C /*반품처*/
+			, C.CLNTNM AS RVOPL_CLNTNM /*반품처명*/
+			,  (SELECT ATEL||'-'||HTEL||'-'||STEL
+         		  FROM TB_TR_TRPL_CIF
+         		 WHERE NA_TRPL_C = A.NA_TRPL_C) TEL /* 전화번호 */
+			, A.RGD_PLA_NO  /*반품번호*/			
+			, A.RTNCNF_DTM /*반품확인일시*/
+			, A.OGN_SLPNO  /*매입전표일자*/
+			, A.OSLIP_DT  /*매입전표번호*/			
+			, (SELECT COUNT(*)
+				FROM TB_OD_RTNPLN_D B
+				WHERE 1=1 
+					AND A.NA_TRPL_C  = B.NA_TRPL_C
+					AND A.NA_TEAM_C  = B.NA_TEAM_C
+					AND A.RGD_RG_DT  = B.RGD_RG_DT
+					AND A.RGD_PLA_NO = B.RGD_PLA_NO
+					AND B.DEL_DTM IS NULL ) AS ITEM_CNT  /*품목수*/
+			, A.RGD_QT  /*반품수량*/
+			, A.RGD_AM  /*반품금액*/
+			, A.BYNG_DFN_QT  /*매입확정수량*/
+			, A.BYNG_DFN_AM  /*매입확정금액*/
+			, A.RGD_VAT  /*부가세액*/
+			, A.VCBT_AM  /*공병금액*/
+			, A.BYNG_DFN_TROT_FEE  /*환급수수료액*/
+			, A.BYNG_DFN_PHD_FEE  /*물류수수료액*/
+			, A.WDR_PLA_DT  /*회수예정일자*/
+			, A.WDRPL_NA_TRPL_C  /*회수처코드*/
+			, FN_TRPL_CIF_NM(A.WDRPL_NA_TRPL_C) AS WDRPL_CLNTNM  /*회수처명*/
+			, A.WDRPL_NA_TEAM_C  /*회수처팀*/
+			, FN_CM_SIMP_CNM('SPY_TPC',A.SPY_TPC) AS SPY_TPC  /*공급유형*/
+			, FN_CM_SIMP_CNM('CSER_CTR_TPC',A.CSER_CTR_TPC) AS CSER_CTR_TPC  /*수요자계약유형*/
+			, A.XML_RGD_PLA_NO  /*XML반품예정번호*/
+			, A.RMK_CNTN  /*비고*/
+			, A.LSCHG_DTM  /*최종변경일시*/
+			, A.LS_CMENO  /*최종변경자개인번호*/
+			, A.DEL_DTM  /*삭제일시*/
+			, D.PRC_YN /*경통전송여부*/
+			, D.RSP_C_CNTN /*결과수신*/
+		FROM TB_OD_RTNPLN_M A	/*반품예정기본*/
+			, TB_CM_BZPL B
+			, TB_TR_TRPL_CIF C
+			, TB_BY_RTNCNF_M D
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.NA_BZPLC
+			AND A.RVOPL_NA_TRPL_C = C.NA_TRPL_C			
+			AND A.NA_TRPL_C = D.NA_TRPL_C(+)
+			AND A.NA_TEAM_C = D.NA_TEAM_C(+)
+			AND A.RGD_RG_DT = D.DRUP_DT(+)
+			AND A.RGD_PLA_NO = D.RGD_PLA_NO(+)		
+			<if test="FROM_DATE != null and FROM_DATE.length() > 0 and TO_DATE != null and TO_DATE.length() > 0">
+			AND A.RGD_RG_DT BETWEEN  #{FROM_DATE} AND #{TO_DATE}
+			</if>
+			<choose>
+				<when test="RPT == '1'.toString()"><!-- 전체 -->					
+					 AND C.UP_NA_TRPL_C = (SELECT C.UP_NA_TRPL_C FROM TB_TR_TRPL_CIF C
+                              							WHERE 1=1
+                              							AND C.NA_TRPL_C = #{RPT_ALL})															 
+				</when>
+				<when test="RPT == '2'.toString()"><!-- 반품처 -->
+					<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+							AND A.RVOPL_NA_TRPL_C IN (
+																	SELECT NA_TRPL_C
+																	FROM TB_TR_TRPL_CIF
+																	WHERE  ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  UP_NA_TRPL_C = #{RVOPL_NA_TRPL_C})
+																	AND  NA_MBCO_DSC  = '2'
+																	UNION
+																	SELECT NA_TRPL_C
+																	FROM TB_TR_TRPL_CIF
+																	WHERE ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  NA_TRPL_C     = #{RVOPL_NA_TRPL_C}))
+							AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+					</if>
+				</when>
+			</choose>			
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+			AND A.NA_TRPL_C = #{NA_TRPL_C}
+			</if>
+			<if test="NA_RGD_STS_DSC != null and NA_RGD_STS_DSC.length() > 0 and NA_RGD_STS_DSC != 'all'.toString()">
+			AND A.NA_RGD_STS_DSC = #{NA_RGD_STS_DSC}
+			</if>
+			AND A.DEL_DTM IS NULL		
+		ORDER BY 
+			A.NA_TRPL_C			
+			, A.RVOPL_NA_TRPL_C
+			, A.RGD_RG_DT
+			, A.RGD_PLA_NO			
+	</select>
+	
+ 	<!-- 반품입고 의뢰 첫번째 그리드 조회 쿼리 -->
+	<select id="retrieveRqtMasterSumList_back" parameterType="java.util.Map" resultMap="retannRqtMasterSumMap">
+		SELECT
+			A.NA_RGD_STS_DSC /*경제통합반품상태구분코드*/
+			, A.NA_TEAM_C /*경제통합팀코드*/
+			, A.RGD_RG_DT /*반품등록일자*/
+			, A.NA_TRPL_C /*반품의뢰처*/
+			, B.SHRT_BZPLNM AS CLNTNM /*반품의뢰처명*/
+			, A.RVOPL_NA_TRPL_C /*반품처*/
+			, C.CLNTNM AS RVOPL_CLNTNM /*반품처명*/
+			,  (SELECT ATEL||'-'||HTEL||'-'||STEL
+         		  FROM TB_TR_TRPL_CIF
+         		 WHERE NA_TRPL_C = A.NA_TRPL_C) TEL /* 전화번호 */
+			, SUM(A.RGD_QT) AS RGD_QT /*반품수량*/
+			, SUM(A.BYNG_DFN_AM) AS BYNG_DFN_AM /*반품금액*/
+			, SUM(A.RGD_AM) AS RGD_AM /*매입확정금액*/
+			, SUM(A.RGD_VAT) AS RGD_VAT /*부가세액*/
+			, SUM(A.VCBT_AM) AS VCBT_AM /*공병금액*/
+			, SUM(A.BYNG_DFN_TROT_FEE) AS BYNG_DFN_TROT_FEE /*환급수수료액*/
+			, SUM(A.BYNG_DFN_PHD_FEE ) AS BYNG_DFN_PHD_FEE /*물류수수료액*/
+		FROM TB_OD_RTNPLN_M A	/*반품예정기본*/
+			, TB_CM_BZPL B
+			<!-- , TB_TR_TRPL_CIF C -->
+			, (SELECT NA_TRPL_C,CLNTNM,ATEL,HTEL,STEL FROM TB_TR_TRPL_CIF
+				UNION
+				SELECT NA_BZPLC,SHRT_BZPLNM,'','','' FROM TB_CM_BZPL) C
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.NA_BZPLC
+			AND A.RVOPL_NA_TRPL_C = C.NA_TRPL_C
+			<if test="FROM_DATE != null and FROM_DATE.length() > 0 and TO_DATE != null and TO_DATE.length() > 0">
+			AND A.RGD_RG_DT BETWEEN  #{FROM_DATE} AND #{TO_DATE}
+			</if>
+			<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+			AND A.RVOPL_NA_TRPL_C IN (
+													SELECT NA_TRPL_C
+													FROM TB_TR_TRPL_CIF
+													WHERE  ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  UP_NA_TRPL_C = #{RVOPL_NA_TRPL_C})
+													AND  NA_MBCO_DSC  = '2'
+													UNION
+													SELECT NA_TRPL_C
+													FROM TB_TR_TRPL_CIF
+													WHERE ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  NA_TRPL_C     = #{RVOPL_NA_TRPL_C}))
+			AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+			</if>
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+			AND A.NA_TRPL_C = #{NA_TRPL_C}
+			</if>
+			<if test="NA_RGD_STS_DSC != null and NA_RGD_STS_DSC.length() > 0">
+			AND A.NA_RGD_STS_DSC = #{NA_RGD_STS_DSC}
+			</if>
+			AND A.DEL_DTM IS NULL
+		GROUP BY
+			A.NA_RGD_STS_DSC
+			, A.NA_TEAM_C
+			, A.RGD_RG_DT
+			, A.NA_TRPL_C
+			, B.SHRT_BZPLNM
+			, A.RVOPL_NA_TRPL_C
+			, C.CLNTNM
+		ORDER BY 
+			A.NA_TRPL_C
+			, B.SHRT_BZPLNM
+			, A.RVOPL_NA_TRPL_C
+			, C.CLNTNM
+	</select>
+	
+	<!-- 반품입고 의뢰 두번째 그리드 조회 쿼리 -->
+	<select id="retrieveRqtMasterList" parameterType="java.util.Map" resultMap="retannRqtMasterMap">
+		SELECT
+			NA_TRPL_C /*경제통합거래처코드*/
+			, RGD_RG_DT  /*반품등록일*/
+			, RGD_PLA_NO  /*반품번호*/
+			, NA_RGD_STS_DSC  /*상태*/
+			, RTNCNF_DTM /*반품확인일시*/
+			, OGN_SLPNO  /*매입전표일자*/
+			, OSLIP_DT  /*매입전표번호*/
+			, NA_TEAM_C  /*의뢰처팀*/
+			, (SELECT COUNT(*)
+				FROM TB_OD_RTNPLN_D B
+				WHERE 1=1 
+					AND A.NA_TRPL_C  = B.NA_TRPL_C
+					AND A.NA_TEAM_C  = B.NA_TEAM_C
+					AND A.RGD_RG_DT  = B.RGD_RG_DT
+					AND A.RGD_PLA_NO = B.RGD_PLA_NO
+					AND B.DEL_DTM IS NULL ) AS ITEM_CNT  /*품목수*/
+			, RGD_QT  /*반품수량*/
+			, RGD_AM  /*반품금액*/
+			, BYNG_DFN_QT  /*매입확정수량*/
+			, BYNG_DFN_AM  /*매입확정금액*/
+			, RGD_VAT  /*부가세액*/
+			, VCBT_AM  /*공병금액*/
+			, BYNG_DFN_TROT_FEE  /*환급수수료액*/
+			, BYNG_DFN_PHD_FEE  /*물류수수료액*/
+			, WDR_PLA_DT  /*회수예정일자*/
+			, SPY_TPC  /*공급유형*/
+			, CSER_CTR_TPC  /*수요자계약유형*/
+			, XML_RGD_PLA_NO  /*XML반품예정번호*/
+			, RMK_CNTN  /*비고*/
+			, LSCHG_DTM  /*최종변경일시*/
+			, LS_CMENO  /*최종변경자개인번호*/
+			, DEL_DTM  /*삭제일시*/
+			FROM
+			TB_OD_RTNPLN_M A
+			WHERE 1=1
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+				AND A.NA_TRPL_C = #{NA_TRPL_C}
+			</if>
+			<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+				AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+			</if>
+			<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+				AND A.NA_TEAM_C = #{NA_TEAM_C}
+			</if>
+			<if test="RGD_RG_DT != null and RGD_RG_DT.length() > 0">
+				AND A.RGD_RG_DT = #{RGD_RG_DT}
+			</if>
+			<if test="NA_RGD_STS_DSC != null and NA_RGD_STS_DSC.length() > 0 and NA_RGD_STS_DSC != 'all'.toString()">
+				AND A.NA_RGD_STS_DSC = #{NA_RGD_STS_DSC}
+			</if>
+			ORDER BY NA_TRPL_C,RGD_RG_DT,RGD_PLA_NO
+	</select>
+	
+	<!-- 반품입고 의뢰 세번째 그리드 조회 쿼리 -->
+	<select id="retrieveRqtDetailList" parameterType="java.util.Map" resultMap="retannRqtDetailMap">
+		SELECT
+			A.NA_WRS_C /*상품코드*/ 
+       		, B.WRSNM /*상품명*/ 
+       		, A.RGD_UPR /*반품단가*/ 
+       		, A.RGD_QT /*반품수량*/ 
+       		, A.RGD_AM /*반품금액*/ 
+       		, NVL(D.BYNG_QT, 0) AS BYNG_DFN_QT  /*매입확정수량*/
+       		, NVL(D.BYAM, 0) AS BYNG_DFN_AM     /*매입확정금액*/
+       		, A.RGD_VAT /*부가세액*/ 
+       		, A.BYNG_DFN_TROT_FEE /*환급수수료액*/ 
+       		, A.BYNG_DFN_PHD_FEE /*물류수수료액*/ 
+       		, A.VCBT_AM /*공병금액*/ 
+       		, FN_CM_SIMP_CNM('NA_RGD_RSN_DSC',A.NA_RGD_RSN_DSC) NA_RGD_RSN_DSC /*반품사유*/ 
+       		, A.AJ_UPR /*조정단가*/ 
+       		, DECODE(B.WHT,'0','',NULL,'',B.WHT||FN_CM_SIMP_CNM('NA_WRS_UNT_C',LPAD(B.NA_WRS_UNT_C,3,'0'))) AS NA_WRS_UNT /*규격*/ 
+       		, DECODE(B.NA_WRS_UNT_C,NULL,'',FN_CM_SIMP_CNM('NA_WRS_UNT_C',LPAD(B.NA_WRS_UNT_C,3,'0'))) AS NA_WRS_UNT_C /*단위*/ 
+       		, A.BYNG_DFN_UPR /*매입확정단가*/
+       		, A.RGD_SQNO 
+		FROM
+			TB_OD_RTNPLN_D A 
+		   LEFT OUTER JOIN TB_GD_WRS B 
+		       ON A.NA_WRS_C = B.NA_WRS_C
+		   LEFT OUTER JOIN TB_BY_BYNG_M C 
+		       ON  C.NA_DVY_PLASH_SLPNO = A.RGD_RG_DT||A.RGD_PLA_NO 
+		       AND C.DVYAA_NA_TRPL_C = A.NA_TRPL_C 
+		       AND C.DVYAA_NA_TEAM_C = A.NA_TEAM_C 
+		   LEFT OUTER JOIN TB_BY_BYNG_WRS D 
+		       ON  C.NA_BZPLC = D.NA_BZPLC 
+		       AND C.NA_TEAM_C = D.NA_TEAM_C 
+		       AND C.SLP_DT = D.SLP_DT 
+		       AND C.NA_SLPNO = D.NA_SLPNO 
+		       AND D.NA_WRS_C = A.NA_WRS_C 
+		WHERE 1=1
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+				AND A.NA_TRPL_C = #{NA_TRPL_C}
+			</if>
+			<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+				AND A.NA_TEAM_C = #{NA_TEAM_C}
+			</if>
+			<if test="RGD_RG_DT != null and RGD_RG_DT.length() > 0">
+				AND A.RGD_RG_DT = #{RGD_RG_DT}
+			</if>
+			<if test="RGD_PLA_NO != null and RGD_PLA_NO.length() > 0">
+				AND A.RGD_PLA_NO = #{RGD_PLA_NO}
+			</if>
+			AND A.DEL_DTM IS NULL
+<!-- 	    	GROUP BY -->
+<!-- 		        A.NA_WRS_C /*상품코드*/  -->
+<!-- 		        , B.WRSNM /*상품명*/  -->
+<!-- 		        , A.RGD_UPR /*반품단가*/  -->
+<!-- 		        , A.RGD_QT /*반품수량*/  -->
+<!-- 		        , A.RGD_AM /*반품금액*/   -->
+<!-- 		        , D.BYNG_QT -->
+<!-- 		        , D.BYAM -->
+<!-- 		        , A.RGD_VAT /*부가세액*/  -->
+<!-- 		        , A.BYNG_DFN_TROT_FEE /*환급수수료액*/  -->
+<!-- 		        , A.BYNG_DFN_PHD_FEE /*물류수수료액*/  -->
+<!-- 		        , A.VCBT_AM /*공병금액*/  -->
+<!-- 		        , A.NA_RGD_RSN_DSC  -->
+<!-- 		        , A.AJ_UPR /*조정단가*/  -->
+<!-- 		        , B.WHT  -->
+<!-- 		        , B.NA_WRS_UNT_C  -->
+<!-- 		        , A.BYNG_DFN_UPR -->
+	  		ORDER BY A.RGD_SQNO, A.NA_WRS_C
+	</select>
+	
+	<!-- 반품입고 의뢰 세번째 그리드 조회 쿼리 -->
+	<select id="retrieveRqtDetailList_backup" parameterType="java.util.Map" resultMap="retannRqtDetailMap">
+		SELECT
+			A.NA_WRS_C  /*상품코드*/
+			, B.WRSNM  /*상품명*/
+			, A.RGD_UPR  /*반품단가*/
+			, A.RGD_QT  /*반품수량*/
+			, A.RGD_AM  /*반품금액*/
+			, A.BYNG_DFN_QT  /*매입확정수량*/
+			, A.BYNG_DFN_AM  /*매입확정금액*/
+			, A.RGD_VAT  /*부가세액*/
+			, A.BYNG_DFN_TROT_FEE  /*환급수수료액*/
+			, A.BYNG_DFN_PHD_FEE  /*물류수수료액*/
+			, A.VCBT_AM  /*공병금액*/			
+			, FN_CM_SIMP_CNM('NA_RGD_RSN_DSC',A.NA_RGD_RSN_DSC) NA_RGD_RSN_DSC /*반품사유*/			
+			, A.AJ_UPR  /*조정단가*/
+			, DECODE(B.WHT,'0','',NULL,'',B.WHT||FN_CM_SIMP_CNM('NA_WRS_UNT_C',LPAD(B.NA_WRS_UNT_C,3,'0'))) AS NA_WRS_UNT /*규격*/
+      		, DECODE(B.NA_WRS_UNT_C,NULL,'',FN_CM_SIMP_CNM('NA_WRS_UNT_C',LPAD(B.NA_WRS_UNT_C,3,'0'))) AS NA_WRS_UNT_C /*단위*/
+			, A.BYNG_DFN_UPR /*매입확정단가*/
+		FROM
+			TB_OD_RTNPLN_D A
+			 , TB_GD_WRS B
+		WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C(+)			
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+				AND A.NA_TRPL_C = #{NA_TRPL_C}
+			</if>
+			<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+				AND A.NA_TEAM_C = #{NA_TEAM_C}
+			</if>
+			<if test="RGD_RG_DT != null and RGD_RG_DT.length() > 0">
+				AND A.RGD_RG_DT = #{RGD_RG_DT}
+			</if>
+			<if test="RGD_PLA_NO != null and RGD_PLA_NO.length() > 0">
+				AND A.RGD_PLA_NO = #{RGD_PLA_NO}
+			</if>
+			AND A.DEL_DTM IS NULL
+		ORDER BY A.NA_WRS_C
+	</select>
+		
+	<!-- 협력업체본지사 조회 팝업 쿼리 -->
+	<select id="getMbco" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			NA_TRPL_C, 
+			CLNTNM, 
+			NA_MBCO_DSC
+		FROM TB_TR_TRPL_CIF
+		WHERE '1' = '1'
+		<if test="searchType != null and searchType == 'code'">
+			AND NA_TRPL_C like '${searchText}%'
+		</if>
+		<if test="searchType != null and searchType == 'name'">
+			AND CLNTNM like '${searchText}%'
+		</if>
+		START WITH NA_TRPL_C = #{NATRPLC_GLN}  /*자기GLN코드*/                 
+		CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C
+		ORDER SIBLINGS BY NA_TRPL_C
+	</select>
+	
+	<select id="getMbco_back" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NA_TRPL_C, CLNTNM, NA_MBCO_DSC
+		FROM TB_TR_TRPL_CIF
+		WHERE NA_TRPL_C  = #{NA_TRPL_C}
+		<if test="NAME != null and NAME.length() > 0">
+			AND CLNTNM like '${NAME}%'
+		</if>
+		UNION
+		SELECT
+			NA_TRPL_C, CLNTNM, NA_MBCO_DSC
+		FROM TB_TR_TRPL_CIF
+		WHERE NA_MBCO_DSC  IN ( '2', '5' )
+		AND UP_NA_TRPL_C = #{NA_TRPL_C}
+		<if test="NAME != null and NAME.length() > 0">
+			AND CLNTNM like '${NAME}%'
+		</if>
+		ORDER BY NA_MBCO_DSC, NA_TRPL_C
+	</select>
+	
+	<!-- 반품입고확인등록 그리드 조회 -->
+	<sql id="sql_retrieveCnfList">
+		SELECT
+			A.NA_TRPL_C  /*경제통합거래처코드*/
+			, A.NA_TEAM_C  /*경제통합팀코드*/
+			, A.RGD_RG_DT  /*반품등록일자*/
+			, A.RGD_PLA_NO  /*반품예정번호*/
+			, A.RGD_SQNO  /*반품일련번호*/		
+			, A.NA_WRS_C  /*상품코드*/
+			, C.WRSNM  /*상품명*/
+			, C.NA_WRS_UNT_C  /*단위*/
+			, C.BOXPE_AQZ  /*입수*/
+			, A.RGD_UPR  /*반품단가*/
+			, A.AJ_UPR  /*조정단가*/
+			, A.RGD_QT  /*반품수량*/
+			, A.RGD_AM  /*반품금액*/
+			, A.RGD_VAT  /*부가세액*/
+			, A.BOX_QT  /*박스수량*/
+			, A.PD_YY  /*생산년도*/			
+			, A.NA_RGD_RSN_DSC  /*반품사유코드*/
+			, D.SIMP_CNM AS NA_RGD_RSN_DSC_NAME  /*반품사유명*/
+			, A.RMK_CNTN  /*비고*/
+			, A.BYNG_DFN_TROT_FEE /*매입확정환급수수료*/			
+			, FN_CM_SIMP_CNM('NA_RGD_STS_DSC',B.NA_RGD_STS_DSC) NA_RGD_STS_DSC /*반품상태구분코드*/
+			, 'no' AS ADD_NA_RGD_STS_DSC
+		FROM
+			TB_OD_RTNPLN_D A
+			, TB_OD_RTNPLN_M B
+			, TB_GD_WRS C
+			, (SELECT * FROM TB_CM_SIMPC
+				WHERE SIMP_TPC = 'NA_RGD_RSN_DSC') D
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.NA_TRPL_C
+			AND A.NA_TEAM_C = B.NA_TEAM_C
+			AND A.RGD_RG_DT = B.RGD_RG_DT 
+			AND A.RGD_PLA_NO = B.RGD_PLA_NO  
+			AND A.NA_WRS_C = C.NA_WRS_C(+)
+			AND A.NA_RGD_RSN_DSC = D.SIMP_C
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+		<if test="MBCO_CODE != null and MBCO_CODE.length() > 0">
+			AND B.RVOPL_NA_TRPL_C = #{MBCO_CODE}
+		</if>
+		<if test="YN_APLY_SOMAE != null and YN_APLY_SOMAE.length() > 0">
+			<!-- 반품의뢰처유형 - 물어보기  
+			AND YN_APLY_SOMAE = #{YN_APLY_SOMAE}
+			-->
+		</if>
+		<if test="SEARCH_DATE != null and SEARCH_DATE.length() > 0">
+			AND B.RGD_RG_DT = #{SEARCH_DATE}
+		</if>
+		<if test="RGD_PLA_NO != null and RGD_PLA_NO.length() > 0">
+			AND B.RGD_PLA_NO = #{RGD_PLA_NO}
+		</if>
+		<if test="RGD_RQT_CODE != null and RGD_RQT_CODE.length() > 0">
+			AND B.NA_TRPL_C = #{RGD_RQT_CODE}
+		</if>
+		<if test="TR_DSC != null and TR_DSC.length() > 0">
+			AND B.CSER_CTR_TPC = #{TR_DSC}
+		</if>
+		<if test="RGD_AMN_DSC != null and RGD_AMN_DSC.length() > 0">
+			AND B.RGD_AMN_DSC = #{RGD_AMN_DSC}
+		</if>
+		<if test="NA_RGD_STS_DSC != null and NA_RGD_STS_DSC.length() > 0 and NA_RGD_STS_DSC != 'all'.toString()">
+			AND B.NA_RGD_STS_DSC = #{NA_RGD_STS_DSC}
+		</if>		
+	</sql>
+	
+	<!-- 반품입고 확인 등록 페이지 추가 쿼리 -->
+	<select id="retrieveCnfList" parameterType="java.util.Map" resultMap="retrieveCnfMap">
+		<bind name="sortName" value="'NA_TRPL_C,RGD_RG_DT,RGD_PLA_NO,RGD_SQNO,NA_WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveCnfList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 반품입고 확인 등록  총 카운트 -->
+	<select id="getCnfCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveCnfList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 반품의뢰전표 조회 팝업 -->
+	<select id="retrieveRqtSlpList" parameterType="java.util.Map" resultMap="retrieveRqtSlpMap">
+		SELECT
+			A.RGD_RG_DT  /*반품등록일자*/
+			, A.RGD_PLA_NO  /*전표번호*/
+			, A.RVOPL_NA_TEAM_C  /*수주처팀*/
+			, FN_CM_SIMP_CNM('CSER_CTR_TPC',A.CSER_CTR_TPC) CSER_CTR_TPC  /*계통구분*/
+			, A.NA_TRPL_C  /*의뢰처 코드*/
+			, B.SHRT_BZPLNM AS CLNTNM  /*의뢰처명*/
+			, A.NA_TEAM_C  /*의뢰처팀*/
+			, '구분컬럼' AS DIV  /*구분*/
+			, FN_CM_SIMP_CNM('NA_RGD_STS_DSC',A.NA_RGD_STS_DSC) NA_RGD_STS_DSC  /*반품구분*/
+			, A.WDR_PLA_DT  /*회수예정일자*/
+			, A.WDRPL_NA_TRPL_C  /*회수처코드*/
+			, C.CLNTNM AS WDRPL_CLNTNM  /*회수처명*/
+			, A.WDRPL_NA_TEAM_C  /*회수처팀*/
+			, FN_CM_SIMP_CNM('RGD_AMN_DSC',A.RGD_AMN_DSC) RGD_AMN_DSC  /*반품관리구분*/
+		FROM 
+			TB_OD_RTNPLN_M A
+			, TB_CM_BZPL B
+			, TB_TR_TRPL_CIF C
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.NA_BZPLC
+			AND A.WDRPL_NA_TRPL_C = C.NA_TRPL_C
+		<if test="FROM_DATE != null and FROM_DATE.length() > 0 and TO_DATE != null and TO_DATE.length() > 0">
+			AND A.RGD_RG_DT BETWEEN  #{FROM_DATE} AND #{TO_DATE}
+		</if>
+		<if test="RGD_PLA_NO != null and RGD_PLA_NO.length() > 0">
+			AND A.RGD_PLA_NO = #{RGD_PLA_NO}
+		</if>
+		<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+			AND A.NA_TRPL_C = #{NA_TRPL_C}
+		</if>
+		<if test="MBCO_CODE != null and MBCO_CODE.length() > 0">
+			AND A.RVOPL_NA_TRPL_C = #{MBCO_CODE}
+		</if>
+		ORDER BY A.RGD_RG_DT, A.RGD_PLA_NO, A.NA_TRPL_C, A.WDRPL_NA_TRPL_C
+	</select>
+	
+	<!-- 반품예정 디테일 - 조정단가 수정, 반품일자 업데이트 -->
+	<update id="updateAjUpr" parameterType="com.nh.escm.scm.retann.vo.RetannCnfVO" >
+			UPDATE TB_OD_RTNPLN_D
+			SET
+				  AJ_UPR  = #{AJ_UPR} /* 조정단가 */
+				  , AJMN_ENO = #{AJMN_ENO} /* 조정자개인번호 */
+				  , AJ_DT = #{AJ_DT} /* 조정일자 */			  
+			WHERE 1=1
+				AND NA_TRPL_C = #{NA_TRPL_C}
+				AND NA_TEAM_C = #{NA_TEAM_C}
+				AND RGD_RG_DT = #{RGD_RG_DT}
+				AND RGD_PLA_NO = #{RGD_PLA_NO}
+				AND RGD_SQNO = #{RGD_SQNO}
+	</update>
+	
+	<!-- 반품예정 기본 반품상태구분코드와 반품확인일시 업데이트 -->
+	<update id="updateRtncnfDtm" parameterType="com.nh.escm.scm.retann.vo.RetannCnfVO" >
+			UPDATE TB_OD_RTNPLN_M
+			SET
+				  RTNCNF_DTM  = SYSDATE /* 반품확인일시 */
+				  , NA_RGD_STS_DSC = #{ADD_NA_RGD_STS_DSC} /*경제통합반품상태구분코드를 04(승인확정) 혹은 06(승인거절)으로 바꿔줌*/				    
+			WHERE 1=1
+				AND NA_TRPL_C = #{NA_TRPL_C}
+				AND NA_TEAM_C = #{NA_TEAM_C}
+				AND RGD_RG_DT = #{RGD_RG_DT}
+				AND RGD_PLA_NO = #{RGD_PLA_NO}
+	</update>
+	
+	<!-- 반품확인기본 삽입 -->
+	<insert id="insertCnfMaster" parameterType="com.nh.escm.scm.retann.vo.RetannCnfVO">
+		INSERT INTO TB_BY_RTNCNF_M
+		(
+			NA_TRPL_C /* 경제통합거래처코드 */
+			, NA_TEAM_C /* 경제통합팀코드 */
+			, DRUP_DT /* 반품등록일자 */
+			, RGD_PLA_NO /* 반품예정번호 */
+			, NA_RGD_STS_DSC /*경제통합반품상태구분코드(04.승인확정 06.승인거절)*/
+			, PRC_YN
+		)
+		VALUES
+		(
+			#{NA_TRPL_C}
+			 , #{NA_TEAM_C}
+			 , #{RGD_RG_DT}
+			 , #{RGD_PLA_NO}
+			 , #{ADD_NA_RGD_STS_DSC}
+			 , 'N'
+		)
+	</insert>
+	
+	<!-- 반품확인상세 삽입 -->
+	<insert id="insertCnfDetail" parameterType="com.nh.escm.scm.retann.vo.RetannCnfVO">
+		INSERT INTO TB_BY_RTNCNF_D
+		(
+			NA_TRPL_C /* 경제통합거래처코드 */
+			, NA_TEAM_C /* 경제통합팀코드 */
+			, DRUP_DT /* 반품등록일자 */
+			, RGD_PLA_NO /* 반품예정번호 */
+			, RGD_CNF_DSQNO /* 반품확인상세일련번호 */
+			, NA_WRS_C /* 경제통합상품코드 */			
+			, RGD_QT  /*반품수량*/
+			, RGD_UPR /*반품단가*/
+			, RGD_AM  /*반품금액*/
+			, RGD_VAT  /*반품부가세*/
+			, BYNG_DFN_TROT_FEE /*매입확정환급수수료*/
+			, AJ_UPR /*조정단가*/
+			, AJMN_ENO /*조정자개인번호*/
+			, AJ_DT /*조정일자*/	
+			, RGD_RSN_DSC /*반품사유구분코드*/
+		)
+		VALUES
+		(
+			#{NA_TRPL_C}
+		  , #{NA_TEAM_C}
+		  , #{RGD_RG_DT}
+		  , #{RGD_PLA_NO}
+		  , #{RGD_SQNO}
+		  , #{NA_WRS_C}		  
+		  , #{RGD_QT}
+		  , #{RGD_UPR}
+		  , #{RGD_AM}
+		  , #{RGD_VAT}
+		  , #{BYNG_DFN_TROT_FEE}
+		  , #{AJ_UPR}
+		  , #{AJMN_ENO}
+		  , #{AJ_DT}
+		  , #{NA_RGD_RSN_DSC}
+		  
+		)
+	</insert>
+	
+	<select id="downloadExcelRetann" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT                                                                   
+			A.NA_TRPL_C                                                                            /* 경제통합거래처코드       */
+			, A.NA_TEAM_C                                                                            /* 경제통합팀코드           */
+			, A.RGD_RG_DT                                                                            /* 반품등록일자             */
+			, A.RGD_PLA_NO                                                                           /* 반품예정번호             */
+			, A.RGD_SQNO                                                                             /* 반품일련번호             */
+			, B.RVOPL_NA_TRPL_C                                                                      /* 수주처경제통합거래처코드 */
+			, FN_TRPL_CIF_NM(B.RVOPL_NA_TRPL_C) RVOPL_NA_TRPL_NM		/* 수주처경제통합거래처명 */
+			, B.RVOPL_NA_TEAM_C                                                                      /* 수주처경제통합팀코드     */
+			, B.WDRPL_NA_TRPL_C                                                                      /* 회수처경제통합거래처코드 */
+			, FN_TRPL_CIF_NM(B.WDRPL_NA_TRPL_C) WDRPL_NA_TRPL_NM		/* 회수처경제통합거래처명 */
+			, B.WDRPL_NA_TEAM_C                                                                      /* 회수처경제통합팀코드     */
+			, A.NA_WRS_C                                                                             /* 경제통합상품코드         */
+			, A.PD_YY                                                                                /* 생산년도                 */
+			, A.TXT_DSC                                                                              /* 과세구분코드             */
+			, A.NA_RGD_RSN_DSC                                                                       /* 반품사유구분코드         */
+			, A.BOX_WRS_YN                                                                           /* 박스상품여부             */
+			, A.VCBT_NA_WRS_C                                                                        /* 공병경제통합상품코드     */
+			, A.VCBT_AM                                                                              /* 공병금액                 */
+			, A.RGD_UPR                                                                              /* 반품단가                 */
+			, A.RGD_QT                                                                               /* 반품수량                 */
+			, A.RGD_VAT                                                                              /* 반품부가세               */
+			, A.RGD_AM                                                                               /* 반품금액                 */
+			, A.BYNG_DFN_UPR                                                                         /* 매입확정단가             */
+			, A.BYNG_DFN_QT                                                                          /* 매입확정수량             */
+			, A.BYNG_DFN_VAT                                                                         /* 매입확정부가세           */
+			, A.BYNG_DFN_AM                                                                          /* 매입확정금액             */
+			, A.BYNG_DFN_VCBT_AM                                                                     /* 매입확정공병금액         */
+			, A.BYNG_DFN_SSDY                                                                        /* 매입확정장려금           */
+			, A.BYNG_DFN_TROT_FEE                                                                    /* 매입확정환급수수료       */
+			, A.BYNG_DFN_PHD_FEE                                                                     /* 매입확정물류수수료       */
+			, A.BYNG_DFN_FAR_ASTCS                                                                   /* 매입확정운임보조비       */
+			, '' RMK_CNTN                                                                             /* 비고내용                 */
+			, '' FSRG_DTM                                                                             /* 최초등록일시             */
+			, '' FSRGMN_ENO                                                                           /* 최초등록자개인번호       */
+			, '' LSCHG_DTM                                                                            /* 최종변경일시             */
+			, '' LS_CMENO                                                                             /* 최종변경자개인번호       */
+			, A.DEL_DTM                                                                              /* 삭제일시                 */
+			, X.WRSNM WRS_ABR_NM                                                                     /* 상품약어명               */
+			, X.WRS_STDNM                                                                            /* 상품규격                 */
+			, X.NA_WRS_UNT_C									/* 단위코드                 */
+			, DECODE(X.WHT,'0','없음',FN_CM_SIMP_CNM('NA_WRS_UNT_C',LPAD(X.NA_WRS_UNT_C,3,'0'))) NA_WRS_UNT_NM /* 단위코드명               */
+			, FN_CM_SIMP_CNM('NA_RGD_RSN_DSC',A.NA_RGD_RSN_DSC) NA_RGD_RSN_DSC_NM  /* 반품사유구분코드명       */
+			, FN_TRPL_CIF_NM(A.NA_TRPL_C)                 NA_TRPL_NM        
+			, A.AJ_UPR                                                                               /* 조정단가             */
+			, B.SPYPL_NA_TRPL_C                                                                      /* 공급처경제통합거래처코드     */
+			, D.CLNTNM                                                                               /* 공급처경제통합거래처코드     */
+		FROM  TB_OD_RTNPLN_D A
+			,  TB_OD_RTNPLN_M B
+			,  TB_TR_TRPL_CIF      D
+			,  TB_GD_WRS       X			
+		WHERE 1=1
+			AND B.RVOPL_NA_TRPL_C IN (
+			SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF
+			WHERE  UP_NA_TRPL_C = #{RPT_ALL}
+			AND  NA_MBCO_DSC  = '2'
+			UNION
+			SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF
+			WHERE  NA_TRPL_C    = #{RPT_ALL})
+			AND B.RVOPL_NA_TEAM_C    = '00'			
+			<if test="FROM_DATE != null and FROM_DATE.length() > 0 and TO_DATE != null and TO_DATE.length() > 0">
+				AND B.RGD_RG_DT BETWEEN  #{FROM_DATE} AND #{TO_DATE}
+			</if>
+			AND A.NA_TRPL_C       = B.NA_TRPL_C
+			AND A.NA_TEAM_C       = B.NA_TEAM_C
+			AND A.RGD_RG_DT       = B.RGD_RG_DT
+			AND A.RGD_PLA_NO      = B.RGD_PLA_NO
+			AND B.SPYPL_NA_TRPL_C = D.NA_TRPL_C(+)
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+			<choose>
+			<when test="RPT == '1'.toString()"><!-- 전체 -->
+			</when>
+			<when test="RPT == '2'.toString()"><!-- 반품처 -->
+				<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+					AND B.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}						
+				</if>
+			</when>
+			</choose>	
+			<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+				AND B.NA_TRPL_C = #{NA_TRPL_C} /*반품의뢰처*/
+			</if>
+			AND A.NA_WRS_C    = X.NA_WRS_C
+			ORDER BY B.RVOPL_NA_TRPL_C, B.RVOPL_NA_TEAM_C, B.SPYPL_NA_TRPL_C, 1,2,3,4,5	
+	</select>
+	
+	<select id="downloadExcelRetann_20151123" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT GRDM.*, GRDD.*
+			FROM
+				(SELECT
+					A.NA_RGD_STS_DSC /*경제통합반품상태구분코드*/
+					, A.NA_TEAM_C /*경제통합팀코드*/
+					, A.RGD_RG_DT /*반품등록일자*/
+					, A.NA_TRPL_C /*반품의뢰처*/
+					, B.SHRT_BZPLNM AS CLNTNM /*반품의뢰처명*/
+					, A.RVOPL_NA_TRPL_C /*반품처*/
+					, C.CLNTNM AS RVOPL_CLNTNM /*반품처명*/
+					, (C.ATEL||'-'||C.HTEL||'-'||C.STEL) AS TEL /*전화번호*/			
+							
+					, A.RGD_PLA_NO  /*반품번호*/			
+					, A.RTNCNF_DTM /*반품확인일시*/
+					, A.OGN_SLPNO  /*매입전표일자*/
+					, A.OSLIP_DT  /*매입전표번호*/			
+					, (SELECT COUNT(*)
+						FROM TB_OD_RTNPLN_D B
+						WHERE 1=1 
+							AND A.NA_TRPL_C  = B.NA_TRPL_C
+							AND A.NA_TEAM_C  = B.NA_TEAM_C
+							AND A.RGD_RG_DT  = B.RGD_RG_DT
+							AND A.RGD_PLA_NO = B.RGD_PLA_NO
+							AND B.DEL_DTM IS NULL ) AS ITEM_CNT  /*품목수*/
+					, A.RGD_QT  /*반품수량*/
+					, A.RGD_AM  /*반품금액*/
+					, A.BYNG_DFN_QT  /*매입확정수량*/
+					, A.BYNG_DFN_AM  /*매입확정금액*/
+					, A.RGD_VAT  /*부가세액*/
+					, A.VCBT_AM  /*공병금액*/
+					, A.BYNG_DFN_TROT_FEE  /*환급수수료액*/
+					, A.BYNG_DFN_PHD_FEE  /*물류수수료액*/
+					, A.WDR_PLA_DT  /*회수예정일자*/
+					, A.SPY_TPC  /*공급유형*/
+					, A.CSER_CTR_TPC  /*수요자계약유형*/
+					, A.XML_RGD_PLA_NO  /*XML반품예정번호*/
+					, A.RMK_CNTN  /*비고*/
+					, A.LSCHG_DTM  /*최종변경일시*/
+					, A.LS_CMENO  /*최종변경자개인번호*/
+					, A.DEL_DTM  /*삭제일시*/
+				FROM TB_OD_RTNPLN_M A	/*반품예정기본*/
+					, TB_CM_BZPL B
+					<!-- , TB_TR_TRPL_CIF C -->
+					, (SELECT NA_TRPL_C,CLNTNM,ATEL,HTEL,STEL,UP_NA_TRPL_C FROM TB_TR_TRPL_CIF
+						UNION
+						SELECT NA_BZPLC,SHRT_BZPLNM,'','','','' FROM TB_CM_BZPL) C
+				WHERE 1=1
+					AND A.NA_TRPL_C = B.NA_BZPLC
+					AND A.RVOPL_NA_TRPL_C = C.NA_TRPL_C
+					<if test="FROM_DATE != null and FROM_DATE.length() > 0 and TO_DATE != null and TO_DATE.length() > 0">
+					AND A.RGD_RG_DT BETWEEN  #{FROM_DATE} AND #{TO_DATE}
+					</if>
+					<choose>
+						<when test="RPT == '1'.toString()"><!-- 전체 -->					
+							 AND C.UP_NA_TRPL_C = (SELECT C.UP_NA_TRPL_C FROM TB_TR_TRPL_CIF C
+		                              							WHERE 1=1
+		                              							AND C.NA_TRPL_C = #{RPT_ALL})															 
+						</when>
+						<when test="RPT == '2'.toString()"><!-- 반품처 -->
+							<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+									AND A.RVOPL_NA_TRPL_C IN (
+																			SELECT NA_TRPL_C
+																			FROM TB_TR_TRPL_CIF
+																			WHERE  ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  UP_NA_TRPL_C = #{RVOPL_NA_TRPL_C})
+																			AND  NA_MBCO_DSC  = '2'
+																			UNION
+																			SELECT NA_TRPL_C
+																			FROM TB_TR_TRPL_CIF
+																			WHERE ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  NA_TRPL_C     = #{RVOPL_NA_TRPL_C}))
+									AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+							</if>
+						</when>
+					</choose>		
+					<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+					AND A.NA_TRPL_C = #{NA_TRPL_C}
+					</if>
+					<if test="NA_RGD_STS_DSC != null and NA_RGD_STS_DSC.length() > 0 and NA_RGD_STS_DSC != 'all'.toString()">
+					AND A.NA_RGD_STS_DSC = #{NA_RGD_STS_DSC}
+					</if>
+					AND A.DEL_DTM IS NULL		
+				ORDER BY 
+					A.NA_TRPL_C
+					, B.SHRT_BZPLNM
+					, A.RVOPL_NA_TRPL_C
+					, C.CLNTNM
+			)GRDM ,
+			(SELECT
+				A.NA_WRS_C  /*상품코드*/
+				, B.WRSNM  /*상품명*/
+				/*단위 - 보류*/
+				, A.RGD_UPR  /*단가*/
+				, A.RGD_QT AS RGD_QT_D   /*반품수량*/
+				, A.RGD_AM AS RGD_AM_D  /*반품금액*/
+				, A.BYNG_DFN_QT AS BYNG_DFN_QT_D /*매입확정수량*/
+				, A.BYNG_DFN_AM AS BYNG_DFN_AM_D /*매입확정금액*/
+				, A.RGD_VAT AS RGD_VAT_D  /*부가세액*/
+				, A.BYNG_DFN_TROT_FEE AS BYNG_DFN_TROT_FEE_D  /*환급수수료액*/
+				, A.BYNG_DFN_PHD_FEE AS BYNG_DFN_PHD_FEE_D  /*물류수수료액*/
+				, A.VCBT_AM AS VCBT_AM_D   /*공병금액*/
+				, FN_CM_SIMP_CNM('NA_RGD_RSN_DSC',A.NA_RGD_RSN_DSC) NA_RGD_RSN_DSC /*반품사유*/
+				, A.AJ_UPR  /*조정단가*/
+				,A.NA_TRPL_C
+				,A.NA_TEAM_C
+       			,A.RGD_RG_DT
+       			,A.RGD_PLA_NO
+			FROM
+				TB_OD_RTNPLN_D A
+				 , TB_GD_WRS B
+			WHERE 1=1
+				AND A.NA_WRS_C = B.NA_WRS_C(+)
+				AND A.DEL_DTM IS NULL			
+			)GRDD       
+			WHERE 1=1       
+				AND GRDM.NA_TRPL_C = GRDD.NA_TRPL_C 
+				AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C
+				AND GRDM.RGD_RG_DT = GRDD.RGD_RG_DT 
+				AND GRDM.RGD_PLA_NO = GRDD.RGD_PLA_NO
+			ORDER BY GRDM.NA_TRPL_C,GRDM.RGD_RG_DT,GRDM.RGD_PLA_NO
+	</select>
+	
+	<select id="downloadExcelRetannDetail" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT GRDM.*, GRDD.*
+			FROM
+				(SELECT
+					A.NA_RGD_STS_DSC /*경제통합반품상태구분코드*/
+					, A.NA_TEAM_C /*경제통합팀코드*/
+					, A.RGD_RG_DT /*반품등록일자*/
+					, A.NA_TRPL_C /*반품의뢰처*/
+					, B.SHRT_BZPLNM AS CLNTNM /*반품의뢰처명*/
+					, A.RVOPL_NA_TRPL_C /*반품처*/
+					, C.CLNTNM AS RVOPL_CLNTNM /*반품처명*/
+					, (C.ATEL||'-'||C.HTEL||'-'||C.STEL) AS TEL /*전화번호*/			
+					, A.RGD_PLA_NO  /*반품번호*/			
+					, A.RTNCNF_DTM /*반품확인일시*/
+					, A.OGN_SLPNO  /*매입전표일자*/
+					, A.OSLIP_DT  /*매입전표번호*/			
+					, (SELECT COUNT(*)
+						FROM TB_OD_RTNPLN_D B
+						WHERE 1=1 
+							AND A.NA_TRPL_C  = B.NA_TRPL_C
+							AND A.NA_TEAM_C  = B.NA_TEAM_C
+							AND A.RGD_RG_DT  = B.RGD_RG_DT
+							AND A.RGD_PLA_NO = B.RGD_PLA_NO
+							AND B.DEL_DTM IS NULL ) AS ITEM_CNT  /*품목수*/
+					, A.RGD_QT  /*반품수량*/
+					, A.RGD_AM  /*반품금액*/
+					, A.BYNG_DFN_QT  /*매입확정수량*/
+					, A.BYNG_DFN_AM  /*매입확정금액*/
+					, A.RGD_VAT  /*부가세액*/
+					, A.VCBT_AM  /*공병금액*/
+					, A.BYNG_DFN_TROT_FEE  /*환급수수료액*/
+					, A.BYNG_DFN_PHD_FEE  /*물류수수료액*/
+					, A.WDR_PLA_DT  /*회수예정일자*/
+					, A.SPY_TPC  /*공급유형*/
+					, A.CSER_CTR_TPC  /*수요자계약유형*/
+					, A.XML_RGD_PLA_NO  /*XML반품예정번호*/
+					, A.RMK_CNTN  /*비고*/
+					, A.LSCHG_DTM  /*최종변경일시*/
+					, A.LS_CMENO  /*최종변경자개인번호*/
+					, A.DEL_DTM  /*삭제일시*/
+				FROM TB_OD_RTNPLN_M A	/*반품예정기본*/
+					, TB_CM_BZPL B
+					<!-- , TB_TR_TRPL_CIF C -->
+					, (SELECT NA_TRPL_C,CLNTNM,ATEL,HTEL,STEL,UP_NA_TRPL_C FROM TB_TR_TRPL_CIF
+						UNION
+						SELECT NA_BZPLC,SHRT_BZPLNM,'','','','' FROM TB_CM_BZPL) C
+				WHERE 1=1
+					AND A.NA_TRPL_C = B.NA_BZPLC
+					AND A.RVOPL_NA_TRPL_C = C.NA_TRPL_C
+					<if test="FROM_DATE != null and FROM_DATE.length() > 0 and TO_DATE != null and TO_DATE.length() > 0">
+					AND A.RGD_RG_DT BETWEEN  #{FROM_DATE} AND #{TO_DATE}
+					</if>
+					<choose>
+						<when test="RPT == '1'.toString()"><!-- 전체 -->					
+							 AND C.UP_NA_TRPL_C = (SELECT C.UP_NA_TRPL_C FROM TB_TR_TRPL_CIF C
+		                              							WHERE 1=1
+		                              							AND C.NA_TRPL_C = #{RPT_ALL})															 
+						</when>
+						<when test="RPT == '2'.toString()"><!-- 반품처 -->
+							<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+									AND A.RVOPL_NA_TRPL_C IN (
+																			SELECT NA_TRPL_C
+																			FROM TB_TR_TRPL_CIF
+																			WHERE  ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  UP_NA_TRPL_C = #{RVOPL_NA_TRPL_C})
+																			AND  NA_MBCO_DSC  = '2'
+																			UNION
+																			SELECT NA_TRPL_C
+																			FROM TB_TR_TRPL_CIF
+																			WHERE ( 'T' = DECODE(NVL(#{RVOPL_NA_TRPL_C} , 'T') ,'T' ,'T' , 'F') OR  NA_TRPL_C     = #{RVOPL_NA_TRPL_C}))
+									AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+							</if>
+						</when>
+					</choose>					
+					<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+					AND A.NA_TRPL_C = #{NA_TRPL_C}
+					</if>
+					<if test="NA_RGD_STS_DSC != null and NA_RGD_STS_DSC.length() > 0 and NA_RGD_STS_DSC != 'all'.toString()">
+					AND A.NA_RGD_STS_DSC = #{NA_RGD_STS_DSC}
+					</if>
+					AND A.DEL_DTM IS NULL		
+				ORDER BY 
+					A.NA_TRPL_C
+					, B.SHRT_BZPLNM
+					, A.RVOPL_NA_TRPL_C
+					, C.CLNTNM
+			)GRDM ,
+			(SELECT
+				A.NA_WRS_C  /*상품코드*/
+				, B.WRSNM  /*상품명*/
+				/*단위 - 보류*/
+				, A.RGD_UPR  /*단가*/
+				, A.RGD_QT AS RGD_QT_D   /*반품수량*/
+				, A.RGD_AM AS RGD_AM_D  /*반품금액*/
+				, A.BYNG_DFN_QT AS BYNG_DFN_QT_D /*매입확정수량*/
+				, A.BYNG_DFN_AM AS BYNG_DFN_AM_D /*매입확정금액*/
+				, A.RGD_VAT AS RGD_VAT_D  /*부가세액*/
+				, A.BYNG_DFN_TROT_FEE AS BYNG_DFN_TROT_FEE_D  /*환급수수료액*/
+				, A.BYNG_DFN_PHD_FEE AS BYNG_DFN_PHD_FEE_D  /*물류수수료액*/
+				, A.VCBT_AM AS VCBT_AM_D   /*공병금액*/
+				, FN_CM_SIMP_CNM('NA_RGD_RSN_DSC',A.NA_RGD_RSN_DSC) NA_RGD_RSN_DSC /*반품사유*/
+				, A.AJ_UPR  /*조정단가*/
+				,A.NA_TRPL_C
+				,A.NA_TEAM_C
+       			,A.RGD_RG_DT
+       			,A.RGD_PLA_NO
+       			,A.RGD_SQNO
+			FROM
+				TB_OD_RTNPLN_D A
+				 , TB_GD_WRS B				 
+			WHERE 1=1
+				AND A.NA_WRS_C = B.NA_WRS_C(+)
+				AND A.DEL_DTM IS NULL			
+			)GRDD       
+			WHERE 1=1       
+			AND GRDM.NA_TRPL_C = GRDD.NA_TRPL_C 
+			AND GRDM.NA_TEAM_C = GRDD.NA_TEAM_C
+			AND GRDM.RGD_RG_DT = GRDD.RGD_RG_DT 
+			AND GRDM.RGD_PLA_NO = GRDD.RGD_PLA_NO
+			<if test="NA_TRPL_C_D != null and NA_TRPL_C_D.length() > 0">
+				AND GRDD.NA_TRPL_C = #{NA_TRPL_C_D}
+			</if>
+			<if test="NA_TEAM_C != null and NA_TEAM_C.length() > 0">
+				AND GRDD.NA_TEAM_C = #{NA_TEAM_C}
+			</if>
+			<if test="RGD_RG_DT != null and RGD_RG_DT.length() > 0">
+				AND GRDD.RGD_RG_DT = #{RGD_RG_DT}
+			</if>
+			<if test="RGD_PLA_NO != null and RGD_PLA_NO.length() > 0">
+				AND GRDD.RGD_PLA_NO = #{RGD_PLA_NO}
+			</if>
+			ORDER BY GRDM.NA_TRPL_C,GRDM.RGD_RG_DT,GRDM.RGD_PLA_NO
+	</select>	
+	
+
+ </mapper>

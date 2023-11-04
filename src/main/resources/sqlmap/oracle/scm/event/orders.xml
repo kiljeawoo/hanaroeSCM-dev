@@ -1,0 +1,1832 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	행사업무
+ -->
+<mapper namespace="ordersDAO">
+	<!-- 예약행사수주현황 -->
+	<resultMap id="preEventMap" type="com.nh.escm.scm.event.vo.OrdersPreEventVO">
+		<result column="BKG_EVT_YY" property="BKG_EVT_YY" />
+		<result column="BKG_EVT_NO" property="BKG_EVT_NO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="NA_WRS_N" property="NA_WRS_N" />
+		<result column="UNIT" property="UNIT" />
+		<result column="RQ_QT" property="RQ_QT" />
+		<result column="TOT_GOOD_PR" property="TOT_GOOD_PR" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODRPL_NA_TRPL_NM" property="ODRPL_NA_TRPL_NM" />
+		<result column="ODRPL_NA_TEAM_NM" property="ODRPL_NA_TEAM_NM" />
+		<result column="DFN_QT" property="DFN_QT" />
+		<result column="DFN_RATE" property="DFN_RATE" />
+		<result column="CTR_UPR" property="CTR_UPR" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+	</resultMap>
+
+	<!-- 예약행사집계현황 -->
+	<resultMap id="preEventSumsMap" type="com.nh.escm.scm.event.vo.OrdersPreEventSumsVO">
+		<result column="TRPL_VIEW" property="TRPL_VIEW" />
+		<result column="BKG_EVT_YY" property="BKG_EVT_YY" />
+		<result column="BKG_EVT_NO" property="BKG_EVT_NO" />
+		<result column="TRPL_C" property="TRPL_C" />
+		<result column="TRPL_N" property="TRPL_N" />
+		<result column="TEAM_C" property="TEAM_C" />
+		<result column="TEAM_N" property="TEAM_N" />
+		<result column="RQ_QT" property="RQ_QT" />
+		<result column="DFN_QT" property="DFN_QT" />
+		<result column="DFN_RATE" property="DFN_RATE" />
+		<result column="GOOD_PR" property="GOOD_PR" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="NA_WRS_N" property="NA_WRS_N" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="UNIT" property="UNIT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="S_GOOD_PR" property="S_GOOD_PR" />
+		<result column="SLGT_ETR_NM" property="SLGT_ETR_NM" />
+		<result column="RVOPL_NM" property="RVOPL_NM" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+	</resultMap>
+
+	<!-- 예약행사진행현황 -->
+	<resultMap id="preEventProcMap" type="com.nh.escm.scm.event.vo.OrdersPreEventProcVO">
+		<result column="BKG_EVT_YY" property="BKG_EVT_YY" />
+		<result column="BKG_EVT_NO" property="BKG_EVT_NO" />
+		<result column="BKG_EVTNM" property="BKG_EVTNM" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="BKG_EVT_WRS_CND_DSC" property="BKG_EVT_WRS_CND_DSC" />
+		<result column="SLGT_NM" property="SLGT_NM" />
+		<result column="ORR_DT" property="ORR_DT" />
+		<result column="DVY_DT" property="DVY_DT" />
+		<result column="PRG_STSC_NM" property="PRG_STSC_NM" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="WRS_CNT" property="WRS_CNT" />
+		<result column="RQ_QT" property="RQ_QT" />
+		<result column="DFN_QT" property="DFN_QT" />
+		<result column="DV_QT" property="DV_QT" />
+		<result column="DD_QT" property="DD_QT" />
+		<result column="ER_QT" property="ER_QT" />
+		<result column="DL_QT" property="DL_QT" />
+	</resultMap>
+
+	<!-- 행사가격 -->
+	<resultMap id="epriceChagngeMap" type="com.nh.escm.scm.event.vo.OrdersEPriceChangeVO">
+		<result column="EVT_SQNO" property="EVT_SQNO" />
+		<result column="EVTNM" property="EVTNM" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="TEAMNM" property="TEAMNM" />
+		<result column="EVT_ST_DT" property="EVT_ST_DT" />
+		<result column="EVT_ED_DT" property="EVT_ED_DT" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_ABR_NM" property="WRS_ABR_NM" />
+		<result column="EVT_PCS" property="EVT_PCS" />
+		<result column="ECG_SEL_UPR" property="ECG_SEL_UPR" />
+		<result column="PRGR_C" property="PRGR_C" />
+	</resultMap>
+
+	<!-- 예약구매 조회 팝업 -->
+	<resultMap id="bkgevtPopUpMap" type="com.nh.escm.scm.event.vo.OrdersBKGEVTPopUpVO">
+		<result column="BKG_EVT_YY" property="BKG_EVT_YY" />
+		<result column="BKG_EVT_NO" property="BKG_EVT_NO" />
+		<result column="BKG_EVTNM" property="BKG_EVTNM" />
+		<result column="APL_NA_BZPLC" property="APL_NA_BZPLC" />
+		<result column="APL_NA_BZPLC_N" property="APL_NA_BZPLC_N" />
+		<result column="ORR_DDL_DT" property="ORR_DDL_DT" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="ORR_ST_DT" property="ORR_ST_DT" />
+		<result column="DVY_ST_DT" property="DVY_ST_DT" />
+		<result column="DVY_CPL_DT" property="DVY_CPL_DT" />
+	</resultMap>
+
+	<!-- 통합행사조회 -->
+	<resultMap id="eventPriceChangePopUpMap" type="com.nh.escm.scm.event.vo.OrdersEPriceChangePopUpVO">
+		<result column="EVT_SQNO" property="EVT_SQNO" />
+		<result column="EVTNM" property="EVTNM" />
+		<result column="EVT_ST_DT" property="EVT_ST_DT" />
+		<result column="EVT_ED_DT" property="EVT_ED_DT" />
+	</resultMap>
+
+	<!-- 예약행사수주현황조회 Master Print -->
+	<resultMap id="PrintPreEventListMasterMap" type="com.nh.escm.scm.event.vo.OrdersPreEventPrintMasterVO">
+		<result column="BKG_EVT_YY" property="BKG_EVT_YY" />
+		<result column="BKG_EVT_NO" property="BKG_EVT_NO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_STD_UNT_N" property="NA_WRS_STD_UNT_N" />
+		<result column="NA_WRS_UNT_N" property="NA_WRS_UNT_N" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="SLGT_ETR_DSC" property="SLGT_ETR_DSC" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="RQ_QT" property="RQ_QT" />
+		<result column="DFN_QT" property="DFN_QT" />
+	</resultMap>
+
+	<!-- 예약행사수주현황조회 Detail Print -->
+	<resultMap  id="PrintPreEventListDetailMap" type="com.nh.escm.scm.event.vo.OrdersPreEventPrintDetailVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="RQ_QT" property="RQ_QT" />
+		<result column="DFN_QT" property="DFN_QT" />
+		<result column="DFN_RATE" property="DFN_RATE" />
+		<result column="TOT_GOOD_PR" property="TOT_GOOD_PR" />
+	</resultMap>
+
+	<!-- 예약행사수주현황 -->
+	<sql id="sql_retrievePreEventList">
+		SELECT
+			A.BKG_EVT_YY,
+			A.BKG_EVT_NO,
+			A.NA_WRS_C,
+			D.WRSNM AS NA_WRS_N,
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', D.NA_WRS_UNT_C) AS UNIT,
+			D.BOXPE_AQZ,
+			E.CTR_UPR,
+			SUM(A.RQ_QT) AS RQ_QT,
+			SUM(A.RQ_QT) * D.BOXPE_AQZ * E.CTR_UPR AS TOT_GOOD_PR,
+			A.RVOPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N
+		FROM
+			TB_OD_BE_ORDER A,
+			TB_OD_BKEVNTBS_M B,
+			TB_OD_BKEVNTBS_D C,
+			TB_GD_WRS D,
+			TB_OD_BE_BKEVNTPRC_M E
+		WHERE 1=1
+		AND B.BKG_EVT_YY = C.BKG_EVT_YY
+		AND B.BKG_EVT_NO = C.BKG_EVT_NO
+		AND A.BKG_EVT_YY = C.BKG_EVT_YY
+		AND A.BKG_EVT_NO = C.BKG_EVT_NO
+		AND C.BKG_EVT_YY = E.BKG_EVT_YY
+		AND C.BKG_EVT_NO = E.BKG_EVT_NO
+		AND C.NA_WRS_C = E.NA_WRS_C
+		AND A.PRGR_C = E.PRGR_C
+		AND A.NA_WRS_C = C.NA_WRS_C
+		AND A.NA_WRS_C = D.NA_WRS_C
+		AND A.CAN_DT IS NULL
+		AND A.DEL_DTM IS NULL
+		AND B.DEL_DTM IS NULL
+		AND C.DEL_DTM IS NULL
+		AND C.CAN_YN = '0'
+		AND E.DEL_DTM IS NULL
+		AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+		AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+		AND C.SPYPL_NA_TRPL_C IN
+		<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+			AND A.ODRPL_NA_TRPL_C = #{srhOdrplNaTrplC}
+		</if>
+		<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+			AND A.NA_WRS_C = #{srhNaWrsC}
+		</if>
+		GROUP BY A.BKG_EVT_YY, A.BKG_EVT_NO, A.NA_WRS_C, D.WRSNM, D.NA_WRS_UNT_C, D.BOXPE_AQZ, A.RVOPL_NA_TRPL_C, E.CTR_UPR
+		ORDER BY A.NA_WRS_C, A.RVOPL_NA_TRPL_C
+	</sql>
+
+	<select id="retrievePreEventList" parameterType="java.util.Map" resultMap="preEventMap">
+		<include refid="sql_retrievePreEventList" />
+	</select>
+
+	<sql id="sql_retrievePreEventDetailList">
+		SELECT
+			LIST.BKG_EVT_YY,
+			LIST.BKG_EVT_NO,
+			LIST.NA_WRS_C,
+			LIST.NA_WRS_N,
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', LIST.NA_WRS_UNT_C) AS UNIT,
+			LIST.BOXPE_AQZ,
+			LIST.RVOPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(LIST.RVOPL_NA_TRPL_C) RVOPL_NA_TRPL_NM,
+			LIST.ODRPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(LIST.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_NM,
+			LIST.ODRPL_NA_TEAM_C,
+			NVL(FN_CM_TEAM_NM(LIST.ODRPL_NA_TRPL_C,LIST.ODRPL_NA_TEAM_C), '팀없음') ODRPL_NA_TEAM_NM,
+			LIST.DVY_RQR_DT,
+			LIST.RQ_QT,
+			LIST.DFN_QT,
+			ROUND((LIST.DFN_QT / TO_NUMBER(#{rqQt:VARCHAR})) * 100, 2) AS DFN_RATE,
+			LIST.GOOD_PR * LIST.BOXPE_AQZ AS TOT_GOOD_PR
+		FROM (
+			SELECT
+				A.BKG_EVT_YY,
+				A.BKG_EVT_NO,
+				A.NA_WRS_C,
+				B.WRSNM AS NA_WRS_N,
+				B.NA_WRS_UNT_C,
+				B.BOXPE_AQZ,
+				A.RVOPL_NA_TRPL_C,
+				A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.DVY_RQR_DT,
+				SUM(A.RQ_QT) AS RQ_QT,/* 예약발주수량 */
+				NVL(SUM(A.DFN_QT), 0) AS DFN_QT, /* 발주수량BOX */
+				NVL(SUM(A.DFN_QT), 0) * E.CTR_UPR AS GOOD_PR
+			FROM
+				TB_OD_BE_ORDER A,
+				TB_GD_WRS B,
+				TB_OD_BE_BKEVNTPRC_M E,
+				(SELECT BKG_EVT_YY, BKG_EVT_NO, NA_WRS_C, SPYPL_NA_TRPL_C
+				 FROM TB_OD_BKEVNTBS_D
+				 WHERE DEL_DTM IS NULL
+				 GROUP BY BKG_EVT_YY, BKG_EVT_NO, NA_WRS_C, SPYPL_NA_TRPL_C) BD
+			WHERE 1=1
+			AND A.NA_WRS_C = B.NA_WRS_C
+			AND A.BKG_EVT_YY = E.BKG_EVT_YY
+			AND A.BKG_EVT_NO = E.BKG_EVT_NO
+			AND A.NA_WRS_C = E.NA_WRS_C
+			AND A.PRGR_C = E.PRGR_C
+			AND A.BKG_EVT_YY = BD.BKG_EVT_YY
+			AND A.BKG_EVT_NO = BD.BKG_EVT_NO
+			AND A.NA_WRS_C = BD.NA_WRS_C
+			AND A.CAN_DT IS NULL
+			AND A.DEL_DTM IS NULL
+			AND A.BKG_EVT_YY = #{bkgEvtYy}
+			AND A.BKG_EVT_NO = #{bkgEvtNo}
+			<if test="naWrsC != null and naWrsC.length() > 0">
+				AND A.NA_WRS_C = #{naWrsC}
+			</if>
+			<if test="rvoplNaTrplC != null and rvoplNaTrplC.length() > 0">
+				AND A.RVOPL_NA_TRPL_C = #{rvoplNaTrplC}
+			</if>
+			<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+				AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			</if>
+			GROUP BY
+				A.BKG_EVT_YY,
+				A.BKG_EVT_NO,
+				A.NA_WRS_C,
+				B.WRSNM,
+				B.NA_WRS_UNT_C,
+				B.BOXPE_AQZ,
+				A.RVOPL_NA_TRPL_C,
+				A.ODRPL_NA_TRPL_C,
+				A.ODRPL_NA_TEAM_C,
+				A.DVY_RQR_DT,
+				E.CTR_UPR
+		) LIST
+		WHERE 1=1
+		ORDER BY LIST.ODRPL_NA_TRPL_C, LIST.ODRPL_NA_TEAM_C, LIST.DVY_RQR_DT
+	</sql>
+
+	<select id="retrievePreEventDetailList" parameterType="java.util.Map" resultMap="preEventMap">
+		<include refid="sql_retrievePreEventDetailList" />
+	</select>
+
+	<select id="downloadExcelPreEvent" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			LIST.BKG_EVT_YY,
+			LIST.BKG_EVT_NO,
+			LIST.NA_WRS_C,
+			LIST.WRSNM AS NA_WRS_N,
+			LIST.NA_WRS_UNT_C AS UNIT,
+			LIST.BOXPE_AQZ,
+			LIST.CTR_UPR,
+			LIST.RVOPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(LIST.RVOPL_NA_TRPL_C) RVOPL_NA_TRPL_N,
+			LIST.ODRPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(LIST.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_N,
+			LIST.ODRPL_NA_TEAM_C,
+			NVL(FN_CM_TEAM_NM(LIST.ODRPL_NA_TRPL_C,LIST.ODRPL_NA_TEAM_C), '팀없음') ODRPL_NA_TEAM_N,
+			LIST.DVY_RQR_DT,
+			LIST.RQ_QT AS B_RQ_QT,
+			NVL(LIST.DFN_QT, 0) AS DFN_QT,
+			'' AS DFN_RATE,
+			NVL(LIST.GOOD_PR, 0) * LIST.BOXPE_AQZ AS B_TOT_GOOD_PR
+		FROM (
+			SELECT
+				MS.BKG_EVT_YY,
+				MS.BKG_EVT_NO,
+				MS.NA_WRS_C,
+				MS.WRSNM,
+				MS.NA_WRS_UNT_C,
+				MS.BOXPE_AQZ,
+				MS.ODRPL_NA_TRPL_C,
+				MS.ODRPL_NA_TEAM_C,
+				MS.RVOPL_NA_TRPL_C,
+				MS.DVY_RQR_DT,
+				MS.RQ_QT,/* 예약발주수량 */
+				MS.DFN_QT, /* 발주수량BOX */
+				MS.GOOD_PR,
+				MS.CTR_UPR
+			FROM (
+				SELECT
+					A.BKG_EVT_YY,
+					A.BKG_EVT_NO,
+					A.NA_WRS_C,
+					B.WRSNM,
+					FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C) AS NA_WRS_UNT_C,
+					B.BOXPE_AQZ,
+					E.CTR_UPR,
+					A.RVOPL_NA_TRPL_C,
+					A.ODRPL_NA_TRPL_C,
+					A.ODRPL_NA_TEAM_C,
+					A.DVY_RQR_DT,
+					SUM(A.RQ_QT) AS RQ_QT,/* 예약발주수량 */
+					SUM(A.DFN_QT) AS DFN_QT, /* 발주수량BOX */
+					SUM(A.DFN_QT) * E.CTR_UPR AS GOOD_PR
+				FROM
+					TB_OD_BE_ORDER A,
+					TB_GD_WRS B,
+					TB_OD_BE_BKEVNTPRC_M E,
+					(SELECT
+						BKG_EVT_YY, BKG_EVT_NO, NA_WRS_C, SPYPL_NA_TRPL_C
+					 FROM TB_OD_BKEVNTBS_D
+					WHERE DEL_DTM IS NULL
+					GROUP BY BKG_EVT_YY, BKG_EVT_NO, NA_WRS_C, SPYPL_NA_TRPL_C) BD
+				WHERE 1=1
+				AND A.NA_WRS_C = B.NA_WRS_C
+				AND A.BKG_EVT_YY = E.BKG_EVT_YY
+				AND A.BKG_EVT_NO = E.BKG_EVT_NO
+				AND A.NA_WRS_C = E.NA_WRS_C
+				AND A.PRGR_C = E.PRGR_C
+				AND A.BKG_EVT_YY = BD.BKG_EVT_YY
+				AND A.BKG_EVT_NO = BD.BKG_EVT_NO
+				AND A.NA_WRS_C    = BD.NA_WRS_C
+				AND BD.SPYPL_NA_TRPL_C IN
+				<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+					AND A.ODRPL_NA_TRPL_C = #{srhOdrplNaTrplC}
+				</if>
+				<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+					AND A.NA_WRS_C = #{srhNaWrsC}
+				</if>
+				AND A.CAN_DT IS NULL
+				AND A.DEL_DTM IS NULL
+				AND A.BKG_EVT_YY  = #{srhBkgEvtYy}
+				AND A.BKG_EVT_NO  = #{srhBkgEvtNo}
+				GROUP BY
+					A.BKG_EVT_YY,
+					A.BKG_EVT_NO,
+					A.NA_WRS_C,
+					B.BOXPE_AQZ,
+					A.ODRPL_NA_TRPL_C,
+					A.ODRPL_NA_TEAM_C,
+					A.RVOPL_NA_TRPL_C,
+					A.DVY_RQR_DT,
+					E.CTR_UPR,
+					B.NA_WRS_UNT_C,
+					B.WRSNM
+			) MS
+		) LIST
+		WHERE 1=1
+		ORDER BY
+			LIST.NA_WRS_C,
+			LIST.RVOPL_NA_TRPL_C,
+			LIST.ODRPL_NA_TRPL_C,
+			LIST.DVY_RQR_DT
+			<!--
+		SELECT
+			A.BKG_EVT_YY,
+			A.BKG_EVT_NO,
+			A.NA_WRS_C,
+			D.WRSNM AS NA_WRS_N,
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', D.NA_WRS_UNT_C) AS UNIT,
+			D.BOXPE_AQZ,
+			E.CTR_UPR,
+			SUM(A.RQ_QT) AS RQ_QT,
+			SUM(A.RQ_QT) * D.BOXPE_AQZ * E.CTR_UPR AS TOT_GOOD_PR,
+			A.RVOPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N,
+			A.ODRPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N
+		FROM
+			TB_OD_BE_ORDER A,
+		  	TB_OD_BKEVNTBS_M B,
+		  	TB_OD_BKEVNTBS_D C,
+		  	TB_GD_WRS D,
+		  	TB_OD_BE_BKEVNTPRC_M E
+		WHERE 1=1
+			AND B.BKG_EVT_YY = C.BKG_EVT_YY
+			AND B.BKG_EVT_NO = C.BKG_EVT_NO
+			AND A.BKG_EVT_YY = C.BKG_EVT_YY
+			AND A.BKG_EVT_NO = C.BKG_EVT_NO
+			AND C.BKG_EVT_YY = E.BKG_EVT_YY
+            AND C.BKG_EVT_NO = E.BKG_EVT_NO
+            AND C.NA_WRS_C = E.NA_WRS_C
+            AND A.PRGR_C = E.PRGR_C
+			AND A.NA_WRS_C = C.NA_WRS_C
+			AND A.NA_WRS_C = D.NA_WRS_C
+			AND A.CAN_DT IS NULL
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.CAN_YN = '0'
+			AND E.DEL_DTM IS NULL
+			AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+			AND C.SPYPL_NA_TRPL_C IN
+		  <foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+			 		#{item}
+		  </foreach>
+	      <if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+	      	AND A.ODRPL_NA_TRPL_C = #{srhOdrplNaTrplC}
+	      </if>
+	      <if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+	      	AND A.NA_WRS_C = #{srhNaWrsC}
+	      </if>
+		GROUP BY  A.BKG_EVT_YY, A.BKG_EVT_NO, A.NA_WRS_C, D.WRSNM, D.NA_WRS_UNT_C, D.BOXPE_AQZ, A.ODRPL_NA_TRPL_C, A.RVOPL_NA_TRPL_C, A.RVOPL_NA_TRPL_C,E.CTR_UPR
+		 -->
+	</select>
+
+	<select id="downloadExcelMasterPreEvent" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_retrievePreEventList" />
+	</select>
+
+	<select id="downloadExcelDetailPreEvent" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_retrievePreEventDetailList" />
+	</select>
+
+	<!-- 예약행사집계현황 -->
+	<sql id="sql_retrievePreEventSumsList01">
+		SELECT
+			'1' AS TRPL_VIEW ,
+			X.BKG_EVT_YY ,
+			X.BKG_EVT_NO ,
+			X.RVOPL_NA_TRPL_C AS TRPL_C ,
+			FN_TRPL_CIF_NM(X.RVOPL_NA_TRPL_C) AS TRPL_N ,
+			X.RVOPL_NA_TEAM_C AS TEAM_C,
+			FN_CM_TEAM_NM(X.RVOPL_NA_TRPL_C, X.RVOPL_NA_TEAM_C) AS TEAM_N ,
+			X.RQ_QT AS RQ_QT ,
+			X.DFN_QT AS DFN_QT ,
+			TRUNC(X.DFN_QT / SUM(DECODE(NVL(X.DFN_QT,0),0,1,X.DFN_QT)) OVER (PARTITION BY X.BKG_EVT_YY, X.BKG_EVT_NO)*100, 2 ) AS DFN_RATE ,
+			X.GOOD_PR AS GOOD_PR ,
+			X.DVY_RQR_DT AS DVY_RQR_DT
+		FROM
+		(
+			SELECT
+				BKG_EVT_YY ,
+				BKG_EVT_NO ,
+				RVOPL_NA_TRPL_C ,
+				RVOPL_NA_TEAM_C ,
+				SUM(RQ_QT ) AS RQ_QT ,
+				SUM(DFN_QT ) AS DFN_QT ,
+				SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS GOOD_PR,
+				MAX(DVY_RQR_DT) AS DVY_RQR_DT
+			FROM
+			(
+				SELECT
+					A.BKG_EVT_YY ,
+					A.BKG_EVT_NO ,
+								A.ODRPL_NA_TRPL_C,
+							A.ODRPL_NA_TEAM_C,
+							A.RVOPL_NA_TRPL_C,
+							A.RVOPL_NA_TEAM_C,
+					NVL(A.RQ_QT, 0) AS RQ_QT ,
+					NVL(A.DFN_QT, 0) AS DFN_QT ,
+					DECODE(NVL(C.DFN_PR,0),0,E.CTR_UPR,C.DFN_PR) AS GOOD_PR ,
+					A.NA_WRS_C ,
+					A.DVY_RQR_DT,
+					NVL(F.BOXPE_AQZ, 1) AS BOXPE_AQZ
+				FROM
+					TB_OD_BE_ORDER A,
+					TB_OD_BKEVNTBS_M B,
+					TB_OD_BKEVNTBS_D C,
+          			TB_OD_BE_BKEVNTPRC_M E,
+					TB_GD_WRS F
+				WHERE 1=1
+					AND A.BKG_EVT_YY = C.BKG_EVT_YY
+					AND A.BKG_EVT_NO = C.BKG_EVT_NO
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND B.BKG_EVT_YY = C.BKG_EVT_YY
+					AND B.BKG_EVT_NO = C.BKG_EVT_NO
+					AND A.NA_WRS_C = F.NA_WRS_C
+					AND A.BKG_EVT_NO = E.BKG_EVT_NO
+        			AND A.NA_WRS_C = E.NA_WRS_C
+         			AND A.PRGR_C = E.PRGR_C
+					AND A.DEL_DTM IS NULL
+					AND B.DEL_DTM IS NULL
+					AND C.CAN_YN = '0'
+					AND A.BKG_EVT_PRC_DSC IN ('01','02','03')
+					AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			        AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+					<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+		          	AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+		          	</if>
+		          	<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+		          	AND A.ODRPL_NA_TRPL_C LIKE UPPER(#{srhOdrplNaTrplC}) || '%'
+		          	</if>
+		          	<if test="srhRvoplNaTrplC != null and srhRvoplNaTrplC.length() > 0">
+		          	AND ( A.RVOPL_NA_TRPL_C LIKE UPPER(#{srhRvoplNaTrplC}) || '%' OR A.RVOPL_NA_TRPL_C = UPPER(#{srhRvoplNaTrplC}))
+		          	</if>
+					AND C.SPYPL_NA_TRPL_C  = #{TRPL_C}
+			)
+		GROUP BY
+			BKG_EVT_YY ,
+			BKG_EVT_NO ,
+			RVOPL_NA_TRPL_C ,
+			RVOPL_NA_TEAM_C
+		) X
+	</sql>
+
+	<sql id="sql_retrievePreEventSumsList02">
+		SELECT
+			'2' AS TRPL_VIEW ,
+			X.BKG_EVT_YY ,
+			X.BKG_EVT_NO ,
+			X.ODRPL_NA_TRPL_C AS TRPL_C ,
+			FN_TRPL_CIF_NM(X.ODRPL_NA_TRPL_C) AS TRPL_N ,
+			X.ODRPL_NA_TEAM_C AS TEAM_C,
+			FN_CM_TEAM_NM(X.ODRPL_NA_TRPL_C, X.ODRPL_NA_TEAM_C) AS TEAM_N ,
+			X.RQ_QT AS RQ_QT ,
+			X.DFN_QT AS DFN_QT ,
+			TRUNC(X.DFN_QT / SUM(DECODE(NVL(X.DFN_QT,0),0,1,X.DFN_QT)) OVER (PARTITION BY X.BKG_EVT_YY, X.BKG_EVT_NO)*100, 2 ) AS DFN_RATE ,
+			X.GOOD_PR AS GOOD_PR ,
+			X.DVY_RQR_DT AS DVY_RQR_DT
+		FROM
+		(
+			SELECT
+				BKG_EVT_YY ,
+				BKG_EVT_NO ,
+				ODRPL_NA_TRPL_C ,
+				ODRPL_NA_TEAM_C ,
+				SUM(RQ_QT ) AS RQ_QT ,
+				SUM(DFN_QT ) AS DFN_QT ,
+				SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS GOOD_PR ,
+				MAX(DVY_RQR_DT) AS DVY_RQR_DT
+			FROM
+			(
+				SELECT
+					A.BKG_EVT_YY ,
+					A.BKG_EVT_NO ,
+					A.ODRPL_NA_TRPL_C ,
+					A.ODRPL_NA_TEAM_C ,
+					A.RVOPL_NA_TRPL_C ,
+					A.RVOPL_NA_TEAM_C ,
+					NVL(A.RQ_QT, 0) AS RQ_QT ,
+					NVL(A.DFN_QT, 0) AS DFN_QT ,
+					DECODE(NVL(C.DFN_PR,0),0,E.CTR_UPR,C.DFN_PR) AS GOOD_PR ,
+					A.NA_WRS_C ,
+					A.DVY_RQR_DT ,
+					NVL(F.BOXPE_AQZ, 1) AS BOXPE_AQZ
+				FROM
+					TB_OD_BE_ORDER A,
+					TB_OD_BKEVNTBS_M B,
+					TB_OD_BKEVNTBS_D C,
+					TB_OD_BE_BKEVNTPRC_M E,
+					TB_GD_WRS F
+				WHERE 1=1
+					AND A.BKG_EVT_YY = C.BKG_EVT_YY
+					AND A.BKG_EVT_NO = C.BKG_EVT_NO
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND B.BKG_EVT_YY = C.BKG_EVT_YY
+					AND B.BKG_EVT_NO = C.BKG_EVT_NO
+					AND A.NA_WRS_C = F.NA_WRS_C
+					AND A.BKG_EVT_NO = E.BKG_EVT_NO
+        			AND A.NA_WRS_C = E.NA_WRS_C
+         			AND A.PRGR_C = E.PRGR_C
+					AND A.DEL_DTM IS NULL
+					AND B.DEL_DTM IS NULL
+					AND C.CAN_YN = '0'
+					AND A.BKG_EVT_PRC_DSC IN ('01','02','03')
+					AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			        AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+					<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+		          	AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+		          </if>
+		          <if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+		          	AND A.ODRPL_NA_TRPL_C LIKE UPPER(#{srhOdrplNaTrplC}) || '%'
+		          </if>
+		          <if test="srhRvoplNaTrplC != null and srhRvoplNaTrplC.length() > 0">
+		          	AND ( A.RVOPL_NA_TRPL_C LIKE UPPER(#{srhRvoplNaTrplC}) || '%' OR A.RVOPL_NA_TRPL_C = UPPER(#{srhRvoplNaTrplC}))
+		          </if>
+		          	AND C.SPYPL_NA_TRPL_C  = #{TRPL_C}
+			)
+		GROUP BY
+			BKG_EVT_YY ,
+			BKG_EVT_NO ,
+			ODRPL_NA_TRPL_C ,
+			ODRPL_NA_TEAM_C
+		) X
+	</sql>
+
+
+	<select id="retrievePreEventSumsList" parameterType="java.util.Map" resultMap="preEventSumsMap">
+		<choose>
+			<when test="srhTrplView != null and srhTrplView.length() > 0 and srhTrplView == 1 ">
+				<include refid="sql_retrievePreEventSumsList01" />
+			</when>
+			<otherwise>
+				<include refid="sql_retrievePreEventSumsList02" />
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="retrievePreEventSumsDetailList" parameterType="java.util.Map" resultMap="preEventSumsMap">
+		SELECT
+			NA_WRS_C ,
+			MAX(WRSNM) AS NA_WRS_N ,
+			MAX(WRS_STDNM) AS WRS_STDNM ,
+			MAX(UNIT) AS UNIT ,
+			MAX(BOXPE_AQZ) AS BOXPE_AQZ ,
+			MAX(GOOD_PR) AS GOOD_PR , /* 단가 */
+			SUM(DFN_QT ) AS DFN_QT, /* 발주확정 BOX */
+			SUM(RQ_QT) AS RQ_QT, /* 예약발주 BOX */
+			SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS S_GOOD_PR ,
+			RVOPL_NA_TRPL_C ,
+			MAX(CLNTNM) AS RVOPL_NM ,
+			RVOPL_NA_TEAM_C
+		FROM
+		(
+			SELECT A.BKG_EVT_YY,
+				A.BKG_EVT_NO,
+				C.RVOPL_NA_TRPL_C,
+				FN_TRPL_CIF_NM(C.RVOPL_NA_TRPL_C) AS CLNTNM,
+				C.RVOPL_NA_TEAM_C,
+				NVL(C.RQ_QT, 0) AS RQ_QT,
+				NVL(C.DFN_QT, 0) AS DFN_QT,
+				DECODE(NVL(B.DFN_PR,0),0,E.CTR_UPR,B.DFN_PR) AS GOOD_PR,
+				B.NA_WRS_C,
+				C.DVY_RQR_DT,
+				NVL(WRS.BOXPE_AQZ, 1) AS BOXPE_AQZ,
+				WRS.WRSNM,
+				WRS.WRS_STDNM,
+				FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS UNIT
+			FROM
+				TB_OD_BKEVNTBS_M A,
+				TB_OD_BKEVNTBS_D B,
+				TB_OD_BE_ORDER C,
+				TB_GD_WRS WRS,
+				TB_OD_BE_BKEVNTPRC_M E
+			WHERE 1=1
+				AND A.BKG_EVT_YY = B.BKG_EVT_YY
+				AND A.BKG_EVT_NO = B.BKG_EVT_NO
+				AND B.BKG_EVT_YY = C.BKG_EVT_YY
+				AND B.BKG_EVT_NO = C.BKG_EVT_NO
+				AND B.NA_WRS_C = C.NA_WRS_C
+				AND B.NA_WRS_C = WRS.NA_WRS_C
+				AND B.BKG_EVT_YY = E.BKG_EVT_YY
+				AND B.BKG_EVT_NO = E.BKG_EVT_NO
+				AND B.NA_WRS_C = E.NA_WRS_C
+				AND C.PRGR_C = E.PRGR_C
+				AND A.DEL_DTM IS NULL
+				AND C.CAN_DT IS NULL
+				AND E.DEL_DTM IS NULL
+				AND C.BKG_EVT_PRC_DSC IN ('01', '02', '03')
+				AND A.BKG_EVT_YY = #{bkgEvtYy}
+				AND A.BKG_EVT_NO = #{bkgEvtNo}
+				AND B.SPYPL_NA_TRPL_C = #{TRPL_C}
+				<if test="naWrsC != null and naWrsC.length() > 0">
+				AND B.NA_WRS_C LIKE #{naWrsC} || '%'
+				</if>
+				<if test="trplView != null and trplView.length() > 0 and trplView == 1 ">
+				AND C.RVOPL_NA_TRPL_C = #{trplC}
+				</if>
+				<if test="trplView != null and trplView.length() > 0 and trplView == 2 ">
+				AND C.ODRPL_NA_TRPL_C = #{trplC}
+				</if>
+		)
+		GROUP
+			BY BKG_EVT_YY ,
+			BKG_EVT_NO ,
+			RVOPL_NA_TRPL_C ,
+			RVOPL_NA_TEAM_C ,
+			NA_WRS_C
+	</select>
+
+
+	<sql id="sql_downloadExcelPreEventSumsList01">
+		  SELECT
+		  	MM.*, DD.*
+		  FROM
+		  (
+		  	SELECT '1' AS TRPL_VIEW ,
+				X.BKG_EVT_YY ,
+				X.BKG_EVT_NO ,
+				X.RVOPL_NA_TRPL_C AS TRPL_C ,
+				FN_TRPL_CIF_NM(X.RVOPL_NA_TRPL_C) AS TRPL_N ,
+				X.RQ_QT AS RQ_QT ,
+				X.DFN_QT AS DFN_QT ,
+				TRUNC(X.DFN_QT / SUM(DECODE(NVL(X.DFN_QT,0),0,1,X.DFN_QT)) OVER (PARTITION BY X.BKG_EVT_YY, X.BKG_EVT_NO)*100, 2 ) AS DFN_RATE ,
+				X.GOOD_PR AS GOOD_PR ,
+				X.DVY_RQR_DT AS DVY_RQR_DT
+	        FROM
+	        (
+				SELECT
+					BKG_EVT_YY ,
+			        BKG_EVT_NO ,
+			        RVOPL_NA_TRPL_C ,
+			        RVOPL_NA_TEAM_C ,
+			        SUM(RQ_QT ) AS RQ_QT ,
+			        SUM(DFN_QT ) AS DFN_QT ,
+			        SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS GOOD_PR ,
+			        MAX(DVY_RQR_DT) AS DVY_RQR_DT
+				FROM
+				(
+		            SELECT
+						A.BKG_EVT_YY ,
+						A.BKG_EVT_NO ,
+						A.ODRPL_NA_TRPL_C ,
+						A.ODRPL_NA_TEAM_C ,
+						A.RVOPL_NA_TRPL_C ,
+						A.RVOPL_NA_TEAM_C ,
+						NVL(A.RQ_QT, 0) AS RQ_QT ,
+						NVL(A.DFN_QT, 0) AS DFN_QT ,
+						DECODE(NVL(C.DFN_PR,0),0,11111,C.DFN_PR) AS GOOD_PR ,
+						A.NA_WRS_C ,
+						A.DVY_RQR_DT ,
+						NVL(F.BOXPE_AQZ, 1) AS BOXPE_AQZ
+					FROM
+						TB_OD_BE_ORDER A,
+						TB_OD_BKEVNTBS_M B,
+						TB_OD_BKEVNTBS_D C,
+						TB_GD_WRS F
+					WHERE 1=1
+						AND A.BKG_EVT_YY = C.BKG_EVT_YY
+						AND A.BKG_EVT_NO = C.BKG_EVT_NO
+						AND A.NA_WRS_C = C.NA_WRS_C
+						AND B.BKG_EVT_YY = C.BKG_EVT_YY
+						AND B.BKG_EVT_NO = C.BKG_EVT_NO
+						AND A.NA_WRS_C = F.NA_WRS_C
+						AND A.DEL_DTM IS NULL
+						AND B.DEL_DTM IS NULL
+						AND C.CAN_YN = '0'
+						AND A.BKG_EVT_PRC_DSC IN ('01','02','03')
+						AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+						AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+						<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+						AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+						</if>
+						<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+						AND A.ODRPL_NA_TRPL_C LIKE UPPER(#{srhOdrplNaTrplC}) || '%'
+						</if>
+						<if test="srhRvoplNaTrplC != null and srhRvoplNaTrplC.length() > 0">
+						AND ( A.RVOPL_NA_TRPL_C LIKE UPPER(#{srhRvoplNaTrplC}) || '%' OR A.RVOPL_NA_TRPL_C = UPPER(#{srhRvoplNaTrplC}))
+						</if>
+						AND C.SPYPL_NA_TRPL_C  = #{trplC}
+					)
+					GROUP BY BKG_EVT_YY ,
+					BKG_EVT_NO ,
+					RVOPL_NA_TRPL_C ,
+					RVOPL_NA_TEAM_C
+		        ) X
+		  ) MM,
+		  (
+		  	SELECT
+				NA_WRS_C AS D_NA_WRS_C,
+				BKG_EVT_YY,
+				BKG_EVT_NO,
+				MAX(WRSNM) AS D_NA_WRS_N ,
+				MAX(WRS_STDNM) AS D_WRS_STDNM ,
+				MAX(UNIT) AS UNIT ,
+				MAX(BOXPE_AQZ) AS D_BOXPE_AQZ ,
+				MAX(GOOD_PR) AS D_GOOD_PR , /* 단가 */
+				SUM(DFN_QT ) AS D_DFN_QT, /* 발주확정 BOX */
+				SUM(RQ_QT) AS RQ_QT, /* 예약발주 BOX */
+				SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS D_S_GOOD_PR ,
+				RVOPL_NA_TRPL_C ,
+				MAX(CLNTNM) AS RVOPL_NM ,
+				RVOPL_NA_TEAM_C
+			FROM
+			(
+				SELECT A.BKG_EVT_YY,
+					A.BKG_EVT_NO,
+					C.RVOPL_NA_TRPL_C,
+					FN_TRPL_CIF_NM(C.RVOPL_NA_TRPL_C) AS CLNTNM,
+					C.RVOPL_NA_TEAM_C,
+					NVL(C.RQ_QT, 0) AS RQ_QT,
+					NVL(C.DFN_QT, 0) AS DFN_QT,
+					DECODE(NVL(B.DFN_PR,0),0,E.CTR_UPR,B.DFN_PR) AS GOOD_PR,
+					B.NA_WRS_C,
+					C.DVY_RQR_DT,
+					NVL(WRS.BOXPE_AQZ, 1) AS BOXPE_AQZ,
+					WRS.WRSNM,
+					WRS.WRS_STDNM,
+					FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS UNIT
+				FROM
+					TB_OD_BKEVNTBS_M A,
+					TB_OD_BKEVNTBS_D B,
+					TB_OD_BE_ORDER C,
+					TB_GD_WRS WRS,
+					TB_OD_BE_BKEVNTPRC_M E
+				WHERE 1=1
+					AND A.BKG_EVT_YY = B.BKG_EVT_YY
+					AND A.BKG_EVT_NO = B.BKG_EVT_NO
+					AND B.BKG_EVT_YY = C.BKG_EVT_YY
+					AND B.BKG_EVT_NO = C.BKG_EVT_NO
+					AND B.NA_WRS_C = C.NA_WRS_C
+					AND B.NA_WRS_C = WRS.NA_WRS_C
+					AND B.BKG_EVT_YY = E.BKG_EVT_YY
+					AND B.BKG_EVT_NO = E.BKG_EVT_NO
+					AND B.NA_WRS_C = E.NA_WRS_C
+					AND C.PRGR_C = E.PRGR_C
+					AND A.DEL_DTM IS NULL
+					AND C.CAN_DT IS NULL
+					AND E.DEL_DTM IS NULL
+					AND C.BKG_EVT_PRC_DSC IN ('01', '02', '03')
+					AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+					AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+					AND B.SPYPL_NA_TRPL_C = #{trplC}
+				)
+				GROUP
+					BY BKG_EVT_YY ,
+					BKG_EVT_NO ,
+					RVOPL_NA_TRPL_C ,
+					RVOPL_NA_TEAM_C ,
+					NA_WRS_C
+		  ) DD
+		  WHERE 1=1
+		  	AND MM.BKG_EVT_YY = DD.BKG_EVT_YY
+		  	AND MM.BKG_EVT_NO = DD.BKG_EVT_NO
+			AND MM.TRPL_C = DD.RVOPL_NA_TRPL_C
+	</sql>
+
+	<sql id="sql_downloadExcelPreEventSumsList02">
+		SELECT
+		  	MM.*, DD.*
+		  FROM
+		  (
+		      SELECT '2' AS TRPL_VIEW ,
+		          X.BKG_EVT_YY ,
+		          X.BKG_EVT_NO ,
+		          X.ODRPL_NA_TRPL_C AS TRPL_C ,
+		          FN_TRPL_CIF_NM(X.ODRPL_NA_TRPL_C) AS TRPL_N ,
+		          FN_CM_TEAM_NM(X.ODRPL_NA_TRPL_C, X.ODRPL_NA_TEAM_C) AS TEAM_N ,
+		          X.RQ_QT AS RQ_QT ,
+		          X.DFN_QT AS DFN_QT ,
+		          TRUNC(X.DFN_QT / SUM(DECODE(NVL(X.DFN_QT,0),0,1,X.DFN_QT)) OVER (PARTITION BY X.BKG_EVT_YY, X.BKG_EVT_NO)*100, 2 ) AS DFN_RATE ,
+		          X.GOOD_PR AS GOOD_PR ,
+		          X.DVY_RQR_DT AS DVY_RQR_DT
+		        FROM
+		        (
+		          SELECT
+		            BKG_EVT_YY ,
+		            BKG_EVT_NO ,
+		            ODRPL_NA_TRPL_C ,
+		            ODRPL_NA_TEAM_C ,
+		            SUM(RQ_QT ) AS RQ_QT ,
+		            SUM(DFN_QT ) AS DFN_QT ,
+		            SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS GOOD_PR ,
+		            MAX(DVY_RQR_DT) AS DVY_RQR_DT
+		          FROM
+		          (
+		            SELECT
+						A.BKG_EVT_YY ,
+						A.BKG_EVT_NO ,
+						A.ODRPL_NA_TRPL_C ,
+						A.ODRPL_NA_TEAM_C ,
+						D.RVOPL_NA_TRPL_C ,
+						D.RVOPL_NA_TEAM_C ,
+						NVL(A.RQ_QT, 0) AS RQ_QT ,
+						NVL(A.DFN_QT, 0) AS DFN_QT ,
+						DECODE(NVL(C.DFN_PR,0),0,E.ODR_PCS,C.DFN_PR) AS GOOD_PR ,
+						A.NA_WRS_C ,
+						A.DVY_RQR_DT ,
+						NVL(F.BOXPE_AQZ, 1) AS BOXPE_AQZ
+		            FROM
+		              TB_OD_BE_ORDER A,
+		              TB_OD_BKEVNTBS_M B,
+		              TB_OD_BKEVNTBS_D C,
+		              TB_OD_ORDER_M D,
+		              TB_OD_ORDER_D E,
+		              TB_GD_WRS F
+		            WHERE 1=1
+		              AND A.BKG_EVT_YY = C.BKG_EVT_YY
+		              AND A.BKG_EVT_NO = C.BKG_EVT_NO
+		              AND A.NA_WRS_C = C.NA_WRS_C
+		              AND B.BKG_EVT_YY = C.BKG_EVT_YY
+		              AND B.BKG_EVT_NO = C.BKG_EVT_NO
+		              AND A.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+		              AND A.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+		              AND A.ODR_DT = E.ODR_DT
+		              AND A.ODR_SLPNO = E.ODR_SLPNO
+		              AND A.ODR_DSQNO = E.ODR_DSQNO
+		              AND A.RVOPL_NA_TRPL_C = D.RVOPL_NA_TRPL_C
+		              AND D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+		              AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+		              AND D.ODR_DT = E.ODR_DT
+		              AND D.ODR_SLPNO = E.ODR_SLPNO
+		              AND A.NA_WRS_C = F.NA_WRS_C
+		              AND A.DEL_DTM IS NULL
+		              AND B.DEL_DTM IS NULL
+		              AND C.CAN_YN = '0'
+		              AND D.DEL_DTM IS NULL
+		              AND A.BKG_EVT_PRC_DSC IN ('01','02','03')
+		              AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			        AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+					 <if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+						AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+					</if>
+					<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+						AND A.ODRPL_NA_TRPL_C LIKE UPPER(#{srhOdrplNaTrplC}) || '%'
+					</if>
+					<if test="srhRvoplNaTrplC != null and srhRvoplNaTrplC.length() > 0">
+						AND ( A.RVOPL_NA_TRPL_C LIKE UPPER(#{srhRvoplNaTrplC}) || '%' OR A.RVOPL_NA_TRPL_C = UPPER(#{srhRvoplNaTrplC}))
+					</if>
+		          )
+		          GROUP BY BKG_EVT_YY ,
+		          BKG_EVT_NO ,
+		          ODRPL_NA_TRPL_C ,
+		          ODRPL_NA_TEAM_C
+		        ) X
+		  ) MM,
+		  (
+		  	SELECT
+		    	BKG_EVT_YY AS D_BKG_EVT_YY,
+		    	BKG_EVT_NO AS D_BKG_EVT_NO,
+          ODRPL_NA_TRPL_C AS D_ODRPL_NA_TRPL_C,
+          ODRPL_NA_TEAM_C AS D_ODRPL_NA_TEAM_C,
+				NA_WRS_C AS D_NA_WRS_C,
+				MAX(WRSNM) AS D_NA_WRS_N ,
+				MAX(WRS_STDNM) AS D_WRS_STDNM ,
+				MAX(UNIT) AS D_UNIT ,
+				MAX(BOXPE_AQZ) AS D_BOXPE_AQZ ,
+				MAX(GOOD_PR) AS D_GOOD_PR , /* 단가 */
+				SUM(DFN_QT ) AS D_DFN_QT, /* 발주확정 BOX */
+				SUM(RQ_QT) AS D_RQ_QT, /* 예약발주 BOX */
+				SUM(DFN_QT*BOXPE_AQZ*GOOD_PR) AS D_S_GOOD_PR ,
+				MAX(CLNTNM) AS D_RVOPL_NM
+				FROM
+				(
+					SELECT A.BKG_EVT_YY,
+						A.BKG_EVT_NO,
+			            C.ODRPL_NA_TRPL_C,
+			            C.ODRPL_NA_TEAM_C,
+						E.RVOPL_NA_TRPL_C,
+						FN_TRPL_CIF_NM(E.RVOPL_NA_TRPL_C) AS CLNTNM,
+						E.RVOPL_NA_TEAM_C,
+						NVL(C.RQ_QT, 0) AS RQ_QT,
+						NVL(C.DFN_QT, 0) AS DFN_QT,
+						DECODE(NVL(B.DFN_PR,0),0,F.ODR_PCS,B.DFN_PR) AS GOOD_PR,
+						B.NA_WRS_C,
+						C.DVY_RQR_DT,
+						NVL(WRS.BOXPE_AQZ, 1) AS BOXPE_AQZ,
+						WRS.WRSNM,
+						WRS.WRS_STDNM,
+						FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS UNIT,
+						F.ODR_PCS
+					FROM
+						TB_OD_BKEVNTBS_M A,
+						TB_OD_BKEVNTBS_D B,
+						TB_OD_BE_ORDER C,
+						TB_GD_WRS WRS,
+						TB_OD_ORDER_M E,
+						TB_OD_ORDER_D F
+					WHERE 1=1
+						AND A.BKG_EVT_YY = B.BKG_EVT_YY
+						AND A.BKG_EVT_NO = B.BKG_EVT_NO
+						AND B.BKG_EVT_YY = C.BKG_EVT_YY
+						AND B.BKG_EVT_NO = C.BKG_EVT_NO
+						AND B.NA_WRS_C = C.NA_WRS_C
+						AND B.NA_WRS_C = WRS.NA_WRS_C
+						AND C.ODRPL_NA_TRPL_C = F.ODRPL_NA_TRPL_C
+						AND C.ODRPL_NA_TEAM_C = F.ODRPL_NA_TEAM_C
+						AND C.ODR_DT = F.ODR_DT
+						AND C.ODR_SLPNO = F.ODR_SLPNO
+						AND C.ODR_DSQNO = F.ODR_DSQNO
+						AND C.RVOPL_NA_TRPL_C = E.RVOPL_NA_TRPL_C
+						AND E.ODRPL_NA_TRPL_C = F.ODRPL_NA_TRPL_C
+						AND E.ODRPL_NA_TEAM_C = F.ODRPL_NA_TEAM_C
+						AND E.ODR_DT = F.ODR_DT
+						AND E.ODR_SLPNO = F.ODR_SLPNO
+						AND A.DEL_DTM IS NULL
+						AND E.DEL_DTM IS NULL
+						AND E.DEL_DTM IS NULL
+						AND C.CAN_DT IS NULL
+						AND C.BKG_EVT_PRC_DSC IN ('01', '02', '03')
+						AND C.ODRPL_NA_TRPL_C = #{M_TRPL_C}
+						AND C.ODRPL_NA_TEAM_C = #{M_TEAM_C}
+				)
+				GROUP
+					BY BKG_EVT_YY ,
+					BKG_EVT_NO ,
+					ODRPL_NA_TRPL_C ,
+					ODRPL_NA_TEAM_C ,
+					NA_WRS_C
+		  ) DD
+		  WHERE 1=1
+		  	AND MM.BKG_EVT_YY = DD.D_BKG_EVT_YY
+		  	AND MM.BKG_EVT_NO = DD.D_BKG_EVT_NO
+				AND MM.TRPL_C = DD.D_ODRPL_NA_TRPL_C
+	</sql>
+
+
+	<select id="downloadExcelPreEventMaterSumsList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<choose>
+			<when test="srhTrplView != null and srhTrplView.length() > 0 and srhTrplView == 1 ">
+				<include refid="sql_retrievePreEventSumsList01" />
+			</when>
+			<otherwise>
+				<include refid="sql_retrievePreEventSumsList02" />
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="downloadExcelPreEventSumsList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<choose>
+			<when test="srhTrplView != null and srhTrplView.length() > 0 and srhTrplView == 1 ">
+				<include refid="sql_downloadExcelPreEventSumsList01" />
+			</when>
+			<otherwise>
+				<include refid="sql_downloadExcelPreEventSumsList02" />
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 예약행사진행현황 -->
+	<select id="retrievePreEventProcList" parameterType="java.util.Map" resultMap="preEventProcMap">
+		SELECT
+		    X.BKG_EVT_YY /* 예약행사년도 */
+		  , X.BKG_EVT_NO /* 예약행사번호 */
+		  , X.BKG_EVTNM /* 예약행사명 */
+		  , '['||X.BKG_EVT_WRS_CND_DSC||'] '||E.SIMP_CNM AS BKG_EVT_WRS_CND_DSC /* 상품구분 */
+		  /*, '['||X.slgt_etr_dsc||']'||C.SIMP_CNM AS SLGT_NM  매취수탁구분 */
+      	  , '[1] 매취' AS SLGT_NM
+		  , X.ORR_ST_DT||DECODE(LENGTH(X.ORR_DDL_DT),0,'','~')||X.ORR_DDL_DT AS ORR_DT /* 발주기간 */
+		  , X.DVY_ST_DT||DECODE(LENGTH(X.DVY_CPL_DT),0,'','~')||X.DVY_CPL_DT AS DVY_DT /* 배송기간 */
+		  , '['||X.BKG_EVT_PRG_STSC||'] '||D.SIMP_CNM AS PRG_STSC_NM /* 진행상태 */
+		FROM(
+		  SELECT DISTINCT
+		      A.BKG_EVT_YY
+		    , A.BKG_EVT_NO
+		    , B.BKG_EVTNM
+		    , C.BKG_EVT_WRS_CND_DSC
+		    , B.ORR_ST_DT,  B.ORR_DDL_DT /* 발주기간 */
+		    , B.DVY_ST_DT,  B.DVY_CPL_DT /* 배송기간 */
+		    , B.BKG_EVT_PRG_STSC /* 진행상태 */
+		  FROM
+		    TB_OD_BE_ORDER A,
+		    TB_OD_BKEVNTBS_M B,
+		    TB_OD_BKEVNTBS_D C
+		  WHERE 1=1
+		    AND B.BKG_EVT_YY = C.BKG_EVT_YY
+		    AND B.BKG_EVT_NO = C.BKG_EVT_NO
+		    AND C.BKG_EVT_YY = A.BKG_EVT_YY
+		    AND C.BKG_EVT_NO = A.BKG_EVT_NO
+		    AND C.NA_WRS_C = A.NA_WRS_C
+		    AND B.DEL_DTM IS NULL
+        	AND A.DEL_DTM IS NULL
+		    AND C.CAN_YN = '0'
+		    AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+		    AND A.BKG_EVT_NO BETWEEN #{srhBkgEvtNoFr} AND #{srhBkgEvtNoTo}
+		    AND C.SPYPL_NA_TRPL_C = #{trplC}
+		    <if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+		    AND A.ODRPL_NA_TRPL_C LIKE #{srhOdrplNaTrplC} || '%'
+		    </if>
+		    <if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+		    AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+		    </if>
+		) X,
+		   /* TB_CM_SIMPC  C, */
+		   TB_CM_SIMPC  D,
+		   TB_CM_SIMPC  E
+		WHERE 1=1
+				/* AND X.SLGT_ETR_DSC = C.SIMP_C */
+				/* AND C.SIMP_TPC     = 'SLGT_ETR_DSC' */
+				AND X.BKG_EVT_PRG_STSC = D.SIMP_C
+				AND D.SIMP_TPC    = 'BKG_EVT_PRG_STSC'
+				AND X.BKG_EVT_WRS_CND_DSC = E.SIMP_C
+				AND E.SIMP_TPC    = 'BKG_EVT_DSC'
+	</select>
+
+	<select id="retrievePreEventProcDetailList" parameterType="java.util.Map" resultMap="preEventProcMap">
+		SELECT
+	  		BKG_EVT_YY
+		  , BKG_EVT_NO
+		  , ODRPL_NA_TRPL_C              AS ODRPL_NA_TRPL_C
+		  , MAX(ODRPL_TRPL_N)                          AS ODRPL_NA_TRPL_N
+		  , '[' || ODRPL_NA_TEAM_C || ']' ||  FN_CM_TEAM_NM(ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C)  AS ODRPL_NA_TEAM_C
+		  , COUNT(NA_WRS_C)                            AS WRS_CNT          /* 상품 수 */
+		  , SUM(RQ_QT )                	            AS RQ_QT 	         /* 예약주문 수량 */
+		  , SUM(DFN_QT )               		        AS DFN_QT 	         /* 발주조정 수량 */
+		  , SUM(DECODE(BKG_EVT_PRC_DSC,'02',DFN_QT,0))  AS DV_QT           /* 마감/분배 수량 */
+		  , SUM(DECODE(BKG_EVT_PRC_DSC,'03',DFN_QT,0))  AS DD_QT            /* 발주생성 수량 */
+		  , SUM(DECODE(BKG_EVT_PRC_DSC,'04',DFN_QT,'08',DFN_QT,0)) AS ER_QT /* 오류 수량 */
+		  , SUM(DECODE(BKG_EVT_PRC_DSC,'06',DFN_QT,'07',DFN_QT,0)) AS DL_QT /* 삭제 수량 */
+		FROM(
+		      SELECT
+		        A.BKG_EVT_YY
+		      , A.BKG_EVT_NO
+		      , A.NA_WRS_C
+		      , A.ODRPL_NA_TRPL_C
+		      , F.SHRT_BZPLNM AS ODRPL_TRPL_N
+		      , A.ODRPL_NA_TEAM_C
+		      , NVL(A.RQ_QT,0)      AS RQ_QT
+		      , NVL(A.DFN_QT,0)     AS DFN_QT
+		      , A.DVY_RQR_DT        AS DVY_RQR_DTO
+		      , A.BKG_EVT_PRC_DSC
+		      , A.DVY_RQR_DT        AS DVY_RQR_DTD
+		      FROM
+		        TB_OD_BE_ORDER A,
+		        TB_OD_BKEVNTBS_M B,
+		        TB_OD_BKEVNTBS_D C,
+		        TB_CM_BZPL F
+		      WHERE 1=1
+		        AND A.BKG_EVT_YY = C.BKG_EVT_YY
+		        AND A.BKG_EVT_NO = C.BKG_EVT_NO
+		        AND A.NA_WRS_C = C.NA_WRS_C
+		        AND B.BKG_EVT_YY = C.BKG_EVT_YY
+		        AND B.BKG_EVT_NO = C.BKG_EVT_NO
+		        AND A.ODRPL_NA_TRPL_C = F.NA_BZPLC
+		        AND B.DEL_DTM IS NULL
+		        AND C.CAN_YN = '0'
+		        AND A.DEL_DTM IS NULL
+		        AND A.BKG_EVT_YY = #{bkgEvtYy}
+		        AND A.BKG_EVT_NO = #{bkgEvtNo}
+		        AND C.SPYPL_NA_TRPL_C = #{trplC}
+		        <if test="odrplNaTrplC != null and odrplNaTrplC.length() > 0">
+			    AND A.ODRPL_NA_TRPL_C LIKE #{odrplNaTrplC} || '%%'
+			    </if>
+			    <if test="naWrsC != null and naWrsC.length() > 0">
+			    AND A.NA_WRS_C LIKE #{naWrsC} || '%%'
+			    </if>
+				)
+		WHERE 1=1
+		GROUP BY  BKG_EVT_YY
+		        , BKG_EVT_NO
+		        , ODRPL_NA_TRPL_C
+		        , ODRPL_NA_TEAM_C
+	</select>
+
+
+	<select id="downloadExcelPreEventProcList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			MM.*, DD.*
+		FROM
+		(
+			SELECT
+				X.BKG_EVT_YY
+				, X.BKG_EVT_NO
+				, X.BKG_EVTNM
+				, X.NA_WRS_C
+				, X.ODRPL_NA_TRPL_C
+				, '['||X.BKG_EVT_WRS_CND_DSC||']'||E.SIMP_CNM AS BKG_EVT_WRS_CND_DSC
+				, '['||X.slgt_etr_dsc||']'||C.SIMP_CNM AS SLGT_NM
+				, X.ORR_ST_DT||DECODE(LENGTH(X.ORR_DDL_DT),0,'','~')||X.ORR_DDL_DT AS ORR_DT
+				, X.DVY_ST_DT||DECODE(LENGTH(X.DVY_CPL_DT),0,'','~')||X.DVY_CPL_DT AS DVY_DT
+				, '['||X.BKG_EVT_PRG_STSC||']'||D.SIMP_CNM AS PRG_STSC_NM
+			FROM
+					(
+						SELECT DISTINCT
+							A.BKG_EVT_YY
+							, A.BKG_EVT_NO
+							, B.BKG_EVTNM
+							, A.NA_WRS_C
+							, A.ODRPL_NA_TRPL_C
+							, C.BKG_EVT_WRS_CND_DSC
+							, B.ORR_ST_DT,  B.ORR_DDL_DT
+							, B.DVY_ST_DT,  B.DVY_CPL_DT
+							, B.BKG_EVT_PRG_STSC
+							, '1' AS SLGT_ETR_DSC
+						FROM
+							TB_OD_BE_ORDER A,
+							TB_OD_BKEVNTBS_M B,
+							TB_OD_BKEVNTBS_D C
+						WHERE 1=1
+							AND B.BKG_EVT_YY = C.BKG_EVT_YY
+							AND B.BKG_EVT_NO = C.BKG_EVT_NO
+							AND C.BKG_EVT_YY = A.BKG_EVT_YY
+							AND C.BKG_EVT_NO = A.BKG_EVT_NO
+							AND C.NA_WRS_C = A.NA_WRS_C
+							AND B.DEL_DTM IS NULL
+							AND C.CAN_YN = '0'
+							AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			    			AND A.BKG_EVT_NO BETWEEN #{srhBkgEvtNoFr} AND #{srhBkgEvtNoTo}
+<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+			    			AND A.ODRPL_NA_TRPL_C LIKE #{srhOdrplNaTrplC} || '%'
+</if>
+<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+			    			AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+</if>
+						) X,
+						TB_CM_SIMPC  C,
+						TB_CM_SIMPC  D,
+						TB_CM_SIMPC  E
+			WHERE 1=1
+				AND X.SLGT_ETR_DSC = C.SIMP_C
+				AND C.SIMP_TPC     = 'SLGT_ETR_DSC'
+				AND X.BKG_EVT_PRG_STSC = D.SIMP_C
+				AND D.SIMP_TPC    = 'BKG_EVT_PRG_STSC'
+				AND X.BKG_EVT_WRS_CND_DSC = E.SIMP_C
+				AND E.SIMP_TPC    = 'BKG_EVT_DSC'
+
+		) MM,
+		(
+					SELECT
+						  B.BKG_EVT_YY
+          				, B.BKG_EVT_NO
+						, A.NA_WRS_C
+						, A.ODRPL_NA_TRPL_C
+						, F.SHRT_BZPLNM AS ODRPL_TRPL_N
+						, A.ODRPL_NA_TEAM_C
+						, NVL(A.RQ_QT,0)      AS RQ_QT
+						, NVL(A.DFN_QT,0)     AS DFN_QT
+						, A.DVY_RQR_DT        AS DVY_RQR_DTO
+						, A.BKG_EVT_PRC_DSC
+						, A.DVY_RQR_DT        AS DVY_RQR_DTD
+					FROM
+						TB_OD_BE_ORDER A,
+						TB_OD_BKEVNTBS_M B,
+						TB_OD_BKEVNTBS_D C,
+						TB_OD_ORDER_M D,
+						TB_OD_ORDER_D E,
+						TB_CM_BZPL F
+					WHERE 1=1
+						AND A.BKG_EVT_YY = C.BKG_EVT_YY
+						AND A.BKG_EVT_NO = C.BKG_EVT_NO
+						AND A.NA_WRS_C = C.NA_WRS_C
+						AND B.BKG_EVT_YY = C.BKG_EVT_YY
+						AND B.BKG_EVT_NO = C.BKG_EVT_NO
+						AND A.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+						AND A.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+						AND A.ODR_DT = E.ODR_DT
+						AND A.ODR_SLPNO = E.ODR_SLPNO
+						AND A.ODR_DSQNO = E.ODR_DSQNO
+						AND D.ODRPL_NA_TRPL_C = E.ODRPL_NA_TRPL_C
+						AND D.ODRPL_NA_TEAM_C = E.ODRPL_NA_TEAM_C
+						AND D.ODR_DT = E.ODR_DT
+						AND D.ODR_SLPNO = E.ODR_SLPNO
+						AND A.ODRPL_NA_TRPL_C = F.NA_BZPLC
+						AND B.DEL_DTM IS NULL
+						AND C.CAN_YN = '0'
+						AND A.DEL_DTM IS NULL
+						AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+						AND A.BKG_EVT_NO BETWEEN #{srhBkgEvtNoFr} AND #{srhBkgEvtNoTo}
+				        AND C.SPYPL_NA_TRPL_C = #{trplC}
+						AND D.DEL_DTM IS NULL
+		) DD
+		WHERE 1=1
+			AND MM.ODRPL_NA_TRPL_C = DD.ODRPL_NA_TRPL_C
+			AND MM.NA_WRS_C = DD.NA_WRS_C
+			AND MM.BKG_EVT_YY = DD.BKG_EVT_YY
+			AND MM.BKG_EVT_NO = DD.BKG_EVT_NO
+	</select>
+
+	<!-- 예약행사 진행현황 Print -->
+	<select id="printPreEventProcList" parameterType="java.util.Map" resultMap="preEventProcMap">
+		SELECT
+			DISTINCT
+			X.BKG_EVT_YY
+			, X.BKG_EVT_NO
+			, X.BKG_EVTNM
+			, X.ODRPL_NA_TRPL_C
+			, X.ODRPL_TRPL_N
+			, '[' || X.ODRPL_NA_TEAM_C || ']' ||  FN_CM_TEAM_NM(X.ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C)  AS ODRPL_NA_TEAM_C
+			, '['||X.BKG_EVT_WRS_CND_DSC||']'||E.SIMP_CNM AS BKG_EVT_WRS_CND_DSC
+			, '['||X.slgt_etr_dsc||']'||C.SIMP_CNM AS SLGT_NM
+			, X.ORR_ST_DT||DECODE(LENGTH(X.ORR_DDL_DT),0,'','~')||X.ORR_DDL_DT AS ORR_DT
+			, X.DVY_ST_DT||DECODE(LENGTH(X.DVY_CPL_DT),0,'','~')||X.DVY_CPL_DT AS DVY_DT
+			, '['||X.BKG_EVT_PRG_STSC||']'||D.SIMP_CNM AS PRG_STSC_NM
+			, X.RQ_QT
+			, X.DFN_QT
+			, X.DV_QT
+			, X.DD_QT
+			, X.ER_QT
+			, X.DL_QT
+		FROM(
+			SELECT
+				A.BKG_EVT_YY
+				, A.BKG_EVT_NO
+				, B.BKG_EVTNM
+				, A.ODRPL_NA_TRPL_C
+				, F.SHRT_BZPLNM AS ODRPL_TRPL_N
+    			, A.ODRPL_NA_TEAM_C
+				, C.BKG_EVT_WRS_CND_DSC
+				, B.ORR_ST_DT,  B.ORR_DDL_DT
+				, B.DVY_ST_DT,  B.DVY_CPL_DT
+				, B.BKG_EVT_PRG_STSC
+				, '1' AS SLGT_ETR_DSC
+				, SUM(D.RQ_QT ) AS RQ_QT
+				, SUM(D.DFN_QT ) AS DFN_QT
+				, SUM(DECODE(D.BKG_EVT_PRC_DSC,'02',D.DFN_QT,0))  AS DV_QT
+				, SUM(DECODE(D.BKG_EVT_PRC_DSC,'03',D.DFN_QT,0))  AS DD_QT
+				, SUM(DECODE(D.BKG_EVT_PRC_DSC,'04',D.DFN_QT,'08',D.DFN_QT,0)) AS ER_QT
+				, SUM(DECODE(D.BKG_EVT_PRC_DSC,'06',D.DFN_QT,'07',D.DFN_QT,0)) AS DL_QT
+			FROM
+				TB_OD_BE_ORDER A,
+				TB_OD_BKEVNTBS_M B,
+				TB_OD_BKEVNTBS_D C,
+				TB_CM_BZPL F,
+				(
+				SELECT
+					A.BKG_EVT_YY
+					, A.BKG_EVT_NO
+					, A.ODRPL_NA_TRPL_C
+					, F.SHRT_BZPLNM AS ODRPL_TRPL_N
+					, A.ODRPL_NA_TEAM_C
+					, NVL(A.RQ_QT,0)      AS RQ_QT
+					, NVL(A.DFN_QT,0)     AS DFN_QT
+					, A.DVY_RQR_DT        AS DVY_RQR_DTO
+					, A.BKG_EVT_PRC_DSC
+					, A.DVY_RQR_DT        AS DVY_RQR_DTD
+				FROM
+					TB_OD_BE_ORDER A,
+					TB_OD_BKEVNTBS_M B,
+					TB_OD_BKEVNTBS_D C,
+					TB_CM_BZPL F
+				WHERE 1=1
+					AND A.BKG_EVT_YY = C.BKG_EVT_YY
+					AND A.BKG_EVT_NO = C.BKG_EVT_NO
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND B.BKG_EVT_YY = C.BKG_EVT_YY
+					AND B.BKG_EVT_NO = C.BKG_EVT_NO
+					AND A.ODRPL_NA_TRPL_C = F.NA_BZPLC
+					AND B.DEL_DTM IS NULL
+					AND C.CAN_YN = '0'
+					AND A.DEL_DTM IS NULL
+					AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+					AND A.BKG_EVT_NO BETWEEN #{srhBkgEvtNoFr} AND #{srhBkgEvtNoTo}
+					AND C.SPYPL_NA_TRPL_C IN
+					<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+				 		#{item}
+					</foreach>
+  			)D
+			WHERE 1=1
+				AND B.BKG_EVT_YY = C.BKG_EVT_YY
+				AND B.BKG_EVT_NO = C.BKG_EVT_NO
+				AND B.BKG_EVT_YY = D.BKG_EVT_YY
+    			AND B.BKG_EVT_NO = D.BKG_EVT_NO
+				AND C.BKG_EVT_YY = A.BKG_EVT_YY
+				AND C.BKG_EVT_NO = A.BKG_EVT_NO
+				AND C.NA_WRS_C = A.NA_WRS_C
+				AND A.ODRPL_NA_TRPL_C = F.NA_BZPLC
+				AND B.DEL_DTM IS NULL
+				AND C.CAN_YN = '0'
+				AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			    AND A.BKG_EVT_NO BETWEEN #{srhBkgEvtNoFr} AND #{srhBkgEvtNoTo}
+				<if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+			    	AND A.ODRPL_NA_TRPL_C LIKE #{srhOdrplNaTrplC} || '%'
+				</if>
+				<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+				    AND A.NA_WRS_C LIKE #{srhNaWrsC} || '%'
+				</if>
+				AND C.SPYPL_NA_TRPL_C IN
+				<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+				 		#{item}
+				</foreach>
+				GROUP BY
+				A.BKG_EVT_YY
+				, A.BKG_EVT_NO
+				, B.BKG_EVTNM
+				, A.NA_WRS_C
+				, A.ODRPL_NA_TRPL_C
+				, C.BKG_EVT_WRS_CND_DSC
+				, B.ORR_ST_DT,  B.ORR_DDL_DT
+				, B.DVY_ST_DT,  B.DVY_CPL_DT
+				, B.BKG_EVT_PRG_STSC
+				, F.SHRT_BZPLNM
+    			, A.ODRPL_NA_TEAM_C
+		) X,
+		TB_CM_SIMPC  C,
+		TB_CM_SIMPC  D,
+		TB_CM_SIMPC  E
+		WHERE 1=1
+			AND X.SLGT_ETR_DSC = C.SIMP_C
+			AND C.SIMP_TPC     = 'SLGT_ETR_DSC'
+			AND X.BKG_EVT_PRG_STSC = D.SIMP_C
+			AND D.SIMP_TPC    = 'BKG_EVT_PRG_STSC'
+			AND X.BKG_EVT_WRS_CND_DSC = E.SIMP_C
+			AND E.SIMP_TPC    = 'BKG_EVT_DSC'
+	</select>
+
+
+	<!-- 예약구매 조회 -->
+	<select id="retrieveBkgEvtPopUp" parameterType="java.util.Map" resultMap="bkgevtPopUpMap">
+		SELECT
+			DISTINCT
+			A.BKG_EVT_YY,
+			A.BKG_EVT_NO,
+			A.BKG_EVTNM,
+			A.APL_NA_BZPLC,
+			FN_TRPL_CIF_NM(A.APL_NA_BZPLC) AS APL_NA_BZPLC_N ,
+			A.ORR_ST_DT,
+			A.ORR_DDL_DT,
+			A.DVY_ST_DT,
+			A.DVY_CPL_DT
+		FROM
+			TB_OD_BKEVNTBS_M A,
+			TB_OD_BKEVNTBS_D B
+		WHERE 1=1
+			AND A.BKG_EVT_YY = B.BKG_EVT_YY
+			AND A.BKG_EVT_NO = B.BKG_EVT_NO
+			AND A.DEL_DTM IS NULL
+			AND (B.CAN_YN ='0' OR B.CAN_YN IS NULL)
+		<if test="searchYear != null and searchYear.length() > 0">
+				AND A.BKG_EVT_YY = #{searchYear}
+		</if>
+		<choose>
+			<when test="searchType == 'NO'">
+				AND A.BKG_EVT_NO LIKE '${searchTxt}%'
+			</when>
+			<otherwise>
+				AND A.BKG_EVTNM LIKE '${searchTxt}%'
+			</otherwise>
+		</choose>
+		ORDER BY ORR_ST_DT DESC
+	</select>
+
+	<!-- 예약구매발주사업장 조회 팝업-->
+	<select id="retrieveBkgEvtOdrplPopUp" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			B.ODRPL_NA_TRPL_C,
+			C.CLNTNM
+		FROM
+			TB_OD_BKEVNTBS_D A,
+			TB_OD_BE_ORDER B,
+			TB_TR_TRPL_CIF C
+		WHERE 1=1
+			AND A.BKG_EVT_YY = B.BKG_EVT_YY
+			AND A.BKG_EVT_NO = B.BKG_EVT_NO
+			AND B.ODRPL_NA_TRPL_C =  C.NA_TRPL_C
+<if test="searchCode != null and searchCode.length() > 0">
+			AND C.NA_TRPL_C LIKE '${searchCode}%'
+</if>
+<if test="searchNm != null and searchNm.length() > 0">
+			AND C.CLNTNM LIKE '${searchNm}%'
+</if>
+		GROUP BY B.ODRPL_NA_TRPL_C, C.CLNTNM
+	 </select>
+
+	 <!-- 통합행사가격조회 팝업-->
+	 <select id="retrieveEventPriceChangePopUp" parameterType="java.util.Map" resultMap="eventPriceChangePopUpMap">
+	 <![CDATA[
+	 	SELECT /*+ leading(b) use_nl(a b) */
+			DISTINCT
+			  A.EVT_SQNO,
+			  A.EVTNM,
+			  A.EVT_ST_DT,
+			  A.EVT_ED_DT
+		FROM
+			TB_GD_EM_EVT_GOOD A,
+		    TB_OD_TRTWRS B
+		WHERE A.NA_BZPLC = B.NA_BZPLC
+		AND A.NA_WRS_C = B.NA_WRS_C
+		]]>
+		<choose>
+			<when test="srhType == '1'.toString()">
+				AND A.EVTNM LIKE '${srhTxt}%'
+			</when>
+			<otherwise>
+				AND A.EVT_SQNO = #{srhTxt}
+			</otherwise>
+		</choose>
+				AND B.SPYPL_NA_TRPL_C IN
+		<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+		</foreach>
+	 </select>
+
+	 <!-- 통합행사가격조회 -->
+	<select id="retrieveEventPriceChangeList" parameterType="java.util.Map" resultMap="epriceChagngeMap">
+		SELECT
+			DISTINCT
+			A.EVT_SQNO,
+			A.EVTNM,
+			A.NA_BZPLC,
+			FN_TRPL_CIF_NM(B.NA_BZPLC) AS SHRT_BZPLNM,
+			B.NA_TEAM_C AS NA_TEAM_C,
+			FN_CM_TEAM_NM(B.NA_BZPLC, B.NA_TEAM_C) AS TEAMNM,
+			A.EVT_ST_DT,
+			A.EVT_ED_DT,
+			A.PRGR_C
+		FROM
+          TB_GD_EM_EVT_GOOD A,
+		  TB_OD_TRTWRS B
+		WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_WRS_C = B.NA_WRS_C
+        	AND A.DEL_DTM IS NULL
+        <!--
+		SELECT
+			DISTINCT
+			  A.EVT_SQNO,
+			  A.EVTNM,
+			  A.NA_BZPLC,
+			  FN_TRPL_CIF_NM(A.NA_BZPLC) AS SHRT_BZPLNM,
+			  C.CSER_NA_TEAM_C AS NA_TEAM_C,
+			  C.CSER_NA_TEAM_C AS TEAMNM,
+			  A.EVT_ST_DT,
+			  A.EVT_ED_DT,
+			  C.PRGR_C
+		FROM
+			TB_GD_EM_EVT_GOOD A,
+		    TB_OD_TRTWRS B,
+			TB_TR_TRNREL C
+		WHERE 1=1
+			AND A.NA_BZPLC = B.NA_BZPLC
+			AND A.NA_WRS_C = B.NA_WRS_C
+			AND B.NA_BZPLC = C.CSER_NA_TRPL_C
+			AND B.NA_TEAM_C = C.CSER_NA_TEAM_C
+			AND B.SPYPL_NA_TRPL_C = C.SPLR_NA_TRPL_C
+			AND B.SPYPL_NA_TEAM_C = C.SPLR_NA_TEAM_C
+			AND B.MNGT_NA_TRPL_C = C.MNGT_NA_TRPL_C
+			AND B.MNGT_NA_TEAM_C = C.MNGT_NA_TEAM_C
+			AND C.PRGR_C = A.PRGR_C
+			 -->
+			AND A.EVT_SQNO = #{srhEvtSqNo}
+			AND B.SPYPL_NA_TRPL_C IN
+<foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+</foreach>
+<if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+			AND A.NA_WRS_C = #{srhNaWrsC}
+</if>
+<if test="srhNaPzplc != null and srhNaPzplc.length() > 0">
+			AND B.NA_BZPLC = #{srhNaPzplc}
+</if>
+<choose>
+	<when test="srhDateType == 1">
+			AND A.EVT_ST_DT BETWEEN #{srhEvtStDt} AND #{srhEvtEtDt}
+	</when>
+	<otherwise>
+			AND A.EVT_ST_DT BETWEEN #{srhEvtStDt} AND #{srhEvtEtDt}
+	</otherwise>
+</choose>
+	</select>
+
+	<select id="retrieveEventPriceChangeDetailList"  parameterType="java.util.Map" resultMap="epriceChagngeMap">
+		SELECT
+			A.NA_WRS_C,
+			B.WRSNM,
+			B.WRS_ABR_NM,
+			A.EVT_PCS
+		FROM
+			TB_GD_EM_EVT_GOOD A,
+	        TB_GD_WRS B
+		WHERE 1=1
+	    	AND A.NA_WRS_C = B.NA_WRS_C
+			AND A.NA_BZPLC 		= #{NA_BZPLC}
+			AND A.EVT_SQNO 	= #{EVT_SQNO}
+			AND A.PRGR_C 		= #{PRGR_C}
+	</select>
+
+
+
+	 <select id="retrieveEventOrdersWrsPopUp" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			  NA_WRS_C /* 상품코드 */
+			, NA_WRS_N /* 상품명 */
+			, WRS_BOX_QTY /* 입수량 */
+			, FN_CM_SIMP_CNM('TXT_DSC', TXT_DSC) AS TXT_DSC /* 과면세 */
+		FROM
+				(
+				SELECT
+					  NA_WRS_C AS NA_WRS_C
+					, MAX(NA_WRS_N) AS NA_WRS_N
+					, MAX(WRS_BOX_QTY) AS WRS_BOX_QTY
+					, MAX(TXT_DSC) AS TXT_DSC
+					, SUM(PR_CNT) AS PR_CNT
+				FROM
+				(
+					SELECT
+					A.NA_WRS_C ,
+					C.WRSNM AS NA_WRS_N ,
+					C.BOXPE_AQZ AS WRS_BOX_QTY ,
+					C.Txt_Dsc AS TXT_DSC ,
+					1 AS PR_CNT
+					FROM TB_OD_BKEVNTBS_D A,
+					TB_OD_BKEVNTBS_M B,
+					TB_GD_WRS C,
+					TB_CM_SIMPC E,
+					TB_GD_WRS_ATTR F
+					WHERE A.BKG_EVT_YY = B.BKG_EVT_YY
+					AND A.BKG_EVT_NO = B.BKG_EVT_NO
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND A.BKG_EVT_WRS_CND_DSC = E.SIMP_C
+					AND E.SIMP_TPC = 'BKG_EVT_WRS_CND_DSC'
+					AND C.NA_WRS_UNT_C = F.NA_WRS_ATTR_C(+)
+					AND F.WRS_ATTR_DSC(+) = '01'
+					AND F.DEL_YN='0'
+<choose>
+	<when test="searchType != null and searchType == 'code'">
+					AND A.NA_WRS_C LIKE '${searchTxt}%'
+	</when>
+	<otherwise>
+					AND C.WRSNM LIKE '${searchTxt}%'
+	</otherwise>
+</choose>
+				)
+		GROUP BY NA_WRS_C
+		)
+	 </select>
+
+	 <!-- 예약행사수주현황 조회 Print -->
+	 <select id="printPreEventListMaster" parameterType="java.util.Map" resultMap="PrintPreEventListMasterMap">
+		<include refid="sql_retrievePreEventList" />
+	 </select>
+
+	 <!-- 예약행사수주현황 Detail Print -->
+	 <select id="printPreEventListDetail" parameterType="java.util.Map" resultMap="PrintPreEventListDetailMap">
+	 	SELECT
+		DISTINCT
+		  A.ODRPL_NA_TRPL_C,
+		  FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+		  A.RQ_QT,
+		  A.DFN_QT,
+		  TRUNC((A.DFN_QT / DECODE(NVL(B.TOT_QT,0),0,1,B.TOT_QT)) * 100,3) AS DFN_RATE,
+		  A.DFN_QT * C.BYNG_UPR * WRS.BOXPE_AQZ AS TOT_GOOD_PR, A.RVOPL_NA_TRPL_C
+		FROM
+		  TB_OD_BE_ORDER A,
+		  (
+		    SELECT
+		      BKG_EVT_YY,
+		      BKG_EVT_NO,
+		      SUM(DFN_QT) AS TOT_QT
+		    FROM TB_OD_BE_ORDER
+		    GROUP BY BKG_EVT_YY, BKG_EVT_NO
+		  ) B,
+		(
+		  SELECT
+		    NA_BZPLC,
+		    NA_WRS_C,
+		    SPYPL_NA_TRPL_C,
+		    BYNG_UPR,
+		    MAX(PD_YY) AS PD_YY
+		  FROM
+		    TB_OD_TRTWRS
+		  WHERE 1=1
+		    AND DEL_DTM IS NULL
+		  GROUP BY NA_BZPLC, NA_WRS_C, SPYPL_NA_TRPL_C, BYNG_UPR
+		) C,
+		TB_GD_WRS WRS,
+		TB_OD_BKEVNTBS_M BM,
+		TB_OD_BKEVNTBS_D BD
+		WHERE 1=1
+		  AND A.BKG_EVT_YY = B.BKG_EVT_YY(+)
+		  AND A.BKG_EVT_NO = B.BKG_EVT_NO(+)
+		  AND A.BKG_EVT_YY = BD.BKG_EVT_YY
+		  AND A.BKG_EVT_NO = BD.BKG_EVT_NO
+		  AND A.NA_WRS_C = BD.NA_WRS_C
+		  AND BM.BKG_EVT_YY = BD.BKG_EVT_YY
+		  AND BM.BKG_EVT_NO = BD.BKG_EVT_NO
+		  AND A.ODRPL_NA_TRPL_C = C.NA_BZPLC
+		  AND A.NA_WRS_C = C.NA_WRS_C
+		  AND A.NA_WRS_C = WRS.NA_WRS_C
+		  AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+		  AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+		  AND BD.SPYPL_NA_TRPL_C IN
+		  <foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+			 		#{item}
+		  </foreach>
+	      <if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+	      	AND A.ODRPL_NA_TRPL_C = #{srhOdrplNaTrplC}
+	      </if>
+	      <if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+	      	AND A.NA_WRS_C = #{srhNaWrsC}
+	      </if>
+
+	 </select>
+
+	 <!-- 예약행사수주현황 출력-->
+	 <select id="printPreEventList" parameterType="java.util.Map" resultType="java.util.Map">
+	 SELECT
+	 	GRDM.BKG_EVT_YY || GRDM.BKG_EVT_NO || GRDM.NA_WRS_C || GRDM.RVOPL_NA_TRPL_C AS KEY
+		, GRDM.NA_WRS_C /*상품코드*/
+		, GRDM.NA_WRS_N /*상품명*/
+		, GRDM.UNIT /*단위*/
+		, GRDM.BOXPE_AQZ /*입수*/
+		, GRDM.CTR_UPR /*계약단가*/
+		, GRDM.RQ_QT /*예약발주 합계*/
+		, GRDM.DFN_QT /*발주확정 합계*/
+		, ' ' WRS_TYPE /*상품구분*/
+		, GRDM.SPYPL_NA_TRPL_C /*공급처*/
+		, FN_TRPL_CIF_NM(GRDM.SPYPL_NA_TRPL_C) SPYPL_NA_TRPL_C_NM /*공급처명*/
+
+		, GRDD.ODRPL_NA_TRPL_C ODRPL_NA_TRPL_C_D /*발주처코드*/
+		, GRDD.ODRPL_NA_TRPL_NM ODRPL_NA_TRPL_NM_D /*발주처명*/
+		, GRDD.RQ_QT RQ_QT_D /*예약발주 수량*/
+		, GRDD.DFN_QT DFN_QT_D /*발주확정 수량*/
+		, ' ' DFN_RATE_D /*구성비*/
+		, GRDD.TOT_GOOD_PR TOT_GOOD_PR_D /*확정발주금액*/
+	FROM
+		(SELECT
+			A.BKG_EVT_YY,
+			A.BKG_EVT_NO,
+			A.NA_WRS_C,
+			D.WRSNM AS NA_WRS_N,
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', D.NA_WRS_UNT_C) AS UNIT,
+			D.BOXPE_AQZ,
+			E.CTR_UPR,
+			SUM(A.RQ_QT) AS RQ_QT,
+			SUM(A.RQ_QT) * D.BOXPE_AQZ * E.CTR_UPR AS TOT_GOOD_PR,
+			A.RVOPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N
+			,SUM(A.DFN_QT) AS DFN_QT /*발주확정합계*/
+			,C.SPYPL_NA_TRPL_C
+		FROM
+			TB_OD_BE_ORDER A,
+		  	TB_OD_BKEVNTBS_M B,
+		  	TB_OD_BKEVNTBS_D C,
+		  	TB_GD_WRS D,
+		  	TB_OD_BE_BKEVNTPRC_M E
+		WHERE 1=1
+			AND B.BKG_EVT_YY = C.BKG_EVT_YY
+			AND B.BKG_EVT_NO = C.BKG_EVT_NO
+			AND A.BKG_EVT_YY = C.BKG_EVT_YY
+			AND A.BKG_EVT_NO = C.BKG_EVT_NO
+			AND C.BKG_EVT_YY = E.BKG_EVT_YY
+            AND C.BKG_EVT_NO = E.BKG_EVT_NO
+            AND C.NA_WRS_C = E.NA_WRS_C
+            AND A.PRGR_C = E.PRGR_C
+			AND A.NA_WRS_C = C.NA_WRS_C
+			AND A.NA_WRS_C = D.NA_WRS_C
+			AND A.CAN_DT IS NULL
+			AND A.DEL_DTM IS NULL
+			AND B.DEL_DTM IS NULL
+			AND C.DEL_DTM IS NULL
+			AND C.CAN_YN = '0'
+			AND E.DEL_DTM IS NULL
+			AND A.BKG_EVT_YY = #{srhBkgEvtYy}
+			AND A.BKG_EVT_NO = #{srhBkgEvtNo}
+			AND C.SPYPL_NA_TRPL_C IN
+		  <foreach collection="trplC" item="item" index="index" separator="," open="(" close=")">
+			 		#{item}
+		  </foreach>
+	      <if test="srhOdrplNaTrplC != null and srhOdrplNaTrplC.length() > 0">
+	      	AND A.ODRPL_NA_TRPL_C = #{srhOdrplNaTrplC}
+	      </if>
+	      <if test="srhNaWrsC != null and srhNaWrsC.length() > 0">
+	      	AND A.NA_WRS_C = #{srhNaWrsC}
+	      </if>
+		GROUP BY
+			A.BKG_EVT_YY
+			, A.BKG_EVT_NO
+			, A.NA_WRS_C
+			, D.WRSNM
+			, D.NA_WRS_UNT_C
+			, D.BOXPE_AQZ
+			, A.RVOPL_NA_TRPL_C
+			, E.CTR_UPR
+			, C.SPYPL_NA_TRPL_C
+		) GRDM
+		, (
+		SELECT
+		  LIST.BKG_EVT_YY,
+		  LIST.BKG_EVT_NO,
+		  LIST.NA_WRS_C,
+		  LIST.ODRPL_NA_TRPL_C,
+		  LIST.ODRPL_NA_TEAM_C,
+          FN_TRPL_CIF_NM(LIST.ODRPL_NA_TRPL_C) ODRPL_NA_TRPL_NM,
+          FN_CM_TEAM_NM(LIST.ODRPL_NA_TRPL_C,LIST.ODRPL_NA_TEAM_C) ODRPL_NA_TEAM_NM,
+		  LIST.RQ_QT,
+		  LIST.DFN_QT,
+		  TRUNC((LIST.DFN_QT / TO_NUMBER(#{rqQt:VARCHAR})) * 100,2) AS DFN_RATE,
+		  LIST.GOOD_PR * LIST.BOXPE_AQZ AS TOT_GOOD_PR
+		  ,LIST.RVOPL_NA_TRPL_C
+		FROM
+		  (
+		    SELECT
+		      A.BKG_EVT_YY,
+		      A.BKG_EVT_NO,
+		      A.NA_WRS_C,
+		      B.BOXPE_AQZ,
+		      A.ODRPL_NA_TRPL_C,
+		      A.ODRPL_NA_TEAM_C,
+		      SUM(A.RQ_QT) AS RQ_QT,/* 예약발주수량 */
+		      SUM(A.DFN_QT) AS DFN_QT, /* 발주수량BOX */
+		      SUM(A.DFN_QT) * E.CTR_UPR AS GOOD_PR
+		      ,A.RVOPL_NA_TRPL_C
+		    FROM
+		      TB_OD_BE_ORDER A,
+		      TB_GD_WRS B,
+          	  TB_OD_BE_BKEVNTPRC_M E,
+	          (SELECT
+	          	BKG_EVT_YY, BKG_EVT_NO, NA_WRS_C, SPYPL_NA_TRPL_C
+	          FROM
+	          	TB_OD_BKEVNTBS_D
+	          WHERE DEL_DTM IS NULL
+	          GROUP BY BKG_EVT_YY, BKG_EVT_NO, NA_WRS_C, SPYPL_NA_TRPL_C) BD
+		    WHERE 1=1
+				AND A.NA_WRS_C = B.NA_WRS_C
+        		AND A.BKG_EVT_YY = E.BKG_EVT_YY
+        		AND A.BKG_EVT_NO = E.BKG_EVT_NO
+        		AND A.NA_WRS_C = E.NA_WRS_C
+        		AND A.PRGR_C = E.PRGR_C
+        		AND A.BKG_EVT_YY = BD.BKG_EVT_YY
+        		AND A.BKG_EVT_NO = BD.BKG_EVT_NO
+        		AND A.NA_WRS_C 	= BD.NA_WRS_C
+				AND A.CAN_DT IS NULL
+        		AND A.DEL_DTM IS NULL
+		   	GROUP BY
+		        A.BKG_EVT_YY,
+		        A.BKG_EVT_NO,
+		        A.NA_WRS_C,
+		        B.BOXPE_AQZ,
+		        A.ODRPL_NA_TRPL_C,
+		        A.ODRPL_NA_TEAM_C,
+            	E.CTR_UPR
+            	,A.RVOPL_NA_TRPL_C
+		  ) LIST
+		) GRDD
+	WHERE 1=1
+		AND GRDM.BKG_EVT_YY = GRDD.BKG_EVT_YY
+		AND GRDM.BKG_EVT_NO = GRDD.BKG_EVT_NO
+		AND GRDM.NA_WRS_C = GRDD.NA_WRS_C
+		AND GRDM.RVOPL_NA_TRPL_C = GRDD.RVOPL_NA_TRPL_C
+	 </select>
+
+</mapper>

@@ -1,0 +1,1167 @@
+﻿(function()
+{
+    return function()
+    {
+        if (!this._is_form)
+            return;
+        
+        this.on_create = function()
+        {
+            // Declare Reference
+            var obj = null;
+            
+            if (Form == this.constructor) {
+                this.set_name("OMG_DS_SC_5111");
+                this.set_titletext("사업장 회원정보변경");
+                this.set_scrollbars("autoboth");
+                this._setFormPosition(0,0,750,512);
+            }
+
+            
+            // Object(Dataset, ExcelExportObject) Initialize
+            obj = new Dataset("ds_hpNo", this);
+            obj.set_firefirstcount("0");
+            obj.getSetter("firenextcount").set("0");
+            obj.set_useclientlayout("false");
+            obj.set_updatecontrol("true");
+            obj.set_enableevent("true");
+            obj.set_loadkeymode("keep");
+            obj.set_loadfiltermode("keep");
+            obj.set_reversesubsum("false");
+            obj._setContents("<ColumnInfo><Column id=\"SIMP_C\" type=\"STRING\" size=\"30\" value=\"\"/><Column id=\"SIMP_CNM\" type=\"STRING\" size=\"30\" value=\"\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_certNum", this);
+            obj.set_firefirstcount("0");
+            obj.getSetter("firenextcount").set("0");
+            obj.set_useclientlayout("false");
+            obj.set_updatecontrol("true");
+            obj.set_enableevent("true");
+            obj.set_loadkeymode("keep");
+            obj.set_loadfiltermode("keep");
+            obj.set_reversesubsum("false");
+            obj._setContents("<ColumnInfo><Column id=\"CERT_NUM\" type=\"STRING\" size=\"30\" value=\"\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_svcAuth", this);
+            obj.set_firefirstcount("0");
+            obj.getSetter("firenextcount").set("0");
+            obj.set_useclientlayout("false");
+            obj.set_updatecontrol("true");
+            obj.set_enableevent("true");
+            obj.set_loadkeymode("keep");
+            obj.set_loadfiltermode("keep");
+            obj.set_reversesubsum("false");
+            obj._setContents("<ColumnInfo><Column id=\"SVC_ID\" type=\"STRING\" size=\"128\"/><Column id=\"USR_NM\" type=\"STRING\" size=\"256\"/><Column id=\"MB_ID\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_usrAuth", this);
+            obj.set_firefirstcount("0");
+            obj.getSetter("firenextcount").set("0");
+            obj.set_useclientlayout("false");
+            obj.set_updatecontrol("true");
+            obj.set_enableevent("true");
+            obj.set_loadkeymode("keep");
+            obj.set_loadfiltermode("keep");
+            obj.set_reversesubsum("false");
+            obj._setContents("<ColumnInfo><Column id=\"SVC_ID\" type=\"STRING\" size=\"128\"/><Column id=\"USR_NM\" type=\"STRING\" size=\"256\"/><Column id=\"MB_ID\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_basicInfo", this);
+            obj.set_firefirstcount("0");
+            obj.getSetter("firenextcount").set("0");
+            obj.set_useclientlayout("false");
+            obj.set_updatecontrol("true");
+            obj.set_enableevent("true");
+            obj.set_loadkeymode("keep");
+            obj.set_loadfiltermode("keep");
+            obj.set_reversesubsum("false");
+            obj._setContents("<ColumnInfo><Column id=\"BZNO1\" type=\"STRING\" size=\"30\"/><Column id=\"BZNO2\" type=\"STRING\" size=\"30\"/><Column id=\"BZNO3\" type=\"STRING\" size=\"30\"/><Column id=\"NA_TRPL_C\" type=\"STRING\" size=\"30\"/><Column id=\"COMP_TPC\" type=\"STRING\" size=\"30\"/><Column id=\"MB_ID\" type=\"STRING\" size=\"30\"/><Column id=\"MB_PW\" type=\"STRING\" size=\"256\"/><Column id=\"USR_NM\" type=\"STRING\" size=\"30\"/><Column id=\"USR_TELNO\" type=\"STRING\" size=\"30\"/><Column id=\"USR_EMAIL01\" type=\"STRING\" size=\"30\"/><Column id=\"USR_EMAIL02\" type=\"STRING\" size=\"30\"/><Column id=\"SMS_RMS_YN\" type=\"STRING\" size=\"30\"/><Column id=\"EMAIL_RMS_YN\" type=\"STRING\" size=\"30\"/><Column id=\"USR_HP\" type=\"STRING\" size=\"30\"/><Column id=\"CLNTNM\" type=\"STRING\" size=\"30\"/><Column id=\"REPMNM\" type=\"STRING\" size=\"30\"/><Column id=\"DONGUP\" type=\"STRING\" size=\"30\"/><Column id=\"DONGBW\" type=\"STRING\" size=\"30\"/><Column id=\"FZIP\" type=\"STRING\" size=\"30\"/><Column id=\"RZIP\" type=\"STRING\" size=\"30\"/><Column id=\"ATEL\" type=\"STRING\" size=\"30\"/><Column id=\"HTEL\" type=\"STRING\" size=\"30\"/><Column id=\"STEL\" type=\"STRING\" size=\"30\"/><Column id=\"USR_MPNO01\" type=\"STRING\" size=\"30\"/><Column id=\"USR_MPNO02\" type=\"STRING\" size=\"30\"/><Column id=\"USR_MPNO03\" type=\"STRING\" size=\"30\"/><Column id=\"BIRTH\" type=\"STRING\" size=\"30\"/><Column id=\"SEX_DSC\" type=\"STRING\" size=\"30\"/><Column id=\"USR_TPC\" type=\"STRING\" size=\"30\"/><Column id=\"CHRG_BSNNM\" type=\"STRING\" size=\"256\"/><Column id=\"ENT_PRG_CNTN\" type=\"STRING\" size=\"256\"/><Column id=\"ENT_PRG_STSC\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            
+            // UI Components Initialize
+            obj = new Static("Static90", "absolute", "18", "60", "717", "20", null, null, this);
+            obj.set_taborder("0");
+            obj.set_text("20");
+            obj.set_visible("false");
+            obj.style.set_background("#dc143c5b");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static86", "absolute", "3", "0", "737", "15", null, null, this);
+            obj.set_taborder("1");
+            obj.set_text("15");
+            obj.set_visible("false");
+            obj.style.set_background("#dc143c5b");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static87", "absolute", "728", "1", "17", "1195", null, null, this);
+            obj.set_taborder("2");
+            obj.set_text("17");
+            obj.set_visible("false");
+            obj.style.set_background("#dc143c5b");
+            this.addChild(obj.name, obj);
+
+            obj = new Div("div_hiddenArea", "absolute", "4", "685", "484", "90", null, null, this);
+            obj.set_taborder("4");
+            obj.set_text("div_hiddenArea");
+            obj.set_visible("false");
+            this.addChild(obj.name, obj);
+            obj = new Edit("edt_randomNumber", "absolute", "15", "9", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("23");
+            this.div_hiddenArea.addChild(obj.name, obj);
+            obj = new Edit("edt_sealVal", "absolute", "174", "9", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("24");
+            this.div_hiddenArea.addChild(obj.name, obj);
+            obj = new Edit("edt_sealName", "absolute", "174", "41", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("25");
+            this.div_hiddenArea.addChild(obj.name, obj);
+            obj = new Edit("edt_USR_TPC", "absolute", "320", "9", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("26");
+            obj.set_value("02");
+            this.div_hiddenArea.addChild(obj.name, obj);
+            obj = new Edit("edt_finalMbId", "absolute", "318", "41", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("27");
+            this.div_hiddenArea.addChild(obj.name, obj);
+            obj = new Edit("edt_confirm", "absolute", "15", "38", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("28");
+            this.div_hiddenArea.addChild(obj.name, obj);
+            obj = new Edit("edt_ChgAuth", "absolute", "318", "65", "138", "21", null, null, this.div_hiddenArea);
+            obj.set_taborder("29");
+            this.div_hiddenArea.addChild(obj.name, obj);
+
+            obj = new Static("Static00", "absolute", "3", "245", "717", "20", null, null, this);
+            obj.set_taborder("6");
+            obj.set_text("20");
+            obj.set_visible("false");
+            obj.style.set_background("#dc143c5b");
+            this.addChild(obj.name, obj);
+
+            obj = new Div("Div01", "absolute", "777", "16", "711", "453", null, null, this);
+            obj.set_taborder("9");
+            obj.set_text("Div01");
+            obj.style.set_background("white");
+            obj.set_visible("false");
+            this.addChild(obj.name, obj);
+            obj = new Div("Div02", "absolute", "0", "0", "711", "43", null, null, this.Div01);
+            obj.set_taborder("36");
+            obj.set_cssclass("div_WFSA_Searchbg");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("Static00", "absolute", "15", "9", "107", "21", null, null, this.Div01.Div02);
+            obj.set_taborder("65");
+            obj.set_text("비밀번호 재확인");
+            obj.style.set_font("bold 9 arial");
+            this.Div01.Div02.addChild(obj.name, obj);
+            obj = new Button("btn_confirm", "absolute", "657", "9", "41", "21", null, null, this.Div01.Div02);
+            obj.set_taborder("66");
+            obj.set_text("확인");
+            obj.set_cssclass("btn_WF_CRUD");
+            this.Div01.Div02.addChild(obj.name, obj);
+            obj = new ImageViewer("ImageViewer00", "absolute", "101", "131", "90", "100", null, null, this.Div01);
+            obj.set_taborder("37");
+            obj.set_image("URL('theme://images/img_PassWord.jpg')");
+            obj.style.set_border("0 solid #bfbfbfff");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("Static00", "absolute", "209", "116", "292", "44", null, null, this.Div01);
+            obj.set_taborder("38");
+            obj.set_text("비밀번호 재확인");
+            obj.set_usedecorate("true");
+            obj.style.set_font("bold 24 Gulim");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("Static01", "absolute", "216", "198", "291", "21", null, null, this.Div01);
+            obj.set_taborder("39");
+            obj.set_text("본인 확인을 위해 한번 더 비밀번호를 입력해주세요.");
+            obj.style.set_font("9 Gulim");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("Static02", "absolute", "216", "230", "291", "21", null, null, this.Div01);
+            obj.set_taborder("40");
+            obj.set_text("비밀번호는 타인에게 노출되지 않도록 주의해 주세요.");
+            obj.style.set_font("9 Gulim");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("Static03", "absolute", "145", "293", "120", "21", null, null, this.Div01);
+            obj.set_taborder("41");
+            obj.set_text("회원ID");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("Static04", "absolute", "145", "333", "120", "21", null, null, this.Div01);
+            obj.set_taborder("42");
+            obj.set_text("비밀번호");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Static("mb_id", "absolute", "265", "293", "140", "21", null, null, this.Div01);
+            obj.set_taborder("43");
+            this.Div01.addChild(obj.name, obj);
+            obj = new Edit("edt_pw", "absolute", "265", "333", "140", "21", null, null, this.Div01);
+            obj.set_taborder("44");
+            obj.set_password("true");
+            this.Div01.addChild(obj.name, obj);
+
+            obj = new Div("Div05", "absolute", "17", "16", "719", "607", null, null, this);
+            obj.set_taborder("10");
+            obj.style.set_background("transparent");
+            obj.set_visible("false");
+            obj.set_scrollbars("autovert");
+            this.addChild(obj.name, obj);
+            obj = new Static("Static91", "absolute", "0", "87", "711", "29", null, null, this.Div05);
+            obj.set_taborder("289");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static103", "absolute", "0", "171", "711", "58", null, null, this.Div05);
+            obj.set_taborder("290");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static101", "absolute", "0", "143", "711", "29", null, null, this.Div05);
+            obj.set_taborder("291");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static95", "absolute", "0", "115", "711", "29", null, null, this.Div05);
+            obj.set_taborder("292");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Div("Div02", "absolute", "0", "0", "711", "43", null, null, this.Div05);
+            obj.set_taborder("293");
+            obj.set_cssclass("div_WFSA_Searchbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static00", "absolute", "15", "9", "143", "21", null, null, this.Div05.Div02);
+            obj.set_taborder("64");
+            obj.set_text("사업장 회원정보변경");
+            obj.style.set_font("bold 9 arial");
+            this.Div05.Div02.addChild(obj.name, obj);
+            obj = new Button("btn_save00", "absolute", "659", "9", "41", "21", null, null, this.Div05.Div02);
+            obj.set_taborder("65");
+            obj.set_text("저장");
+            obj.set_cssclass("btn_WF_CRUD");
+            this.Div05.Div02.addChild(obj.name, obj);
+            obj = new Static("Static89", "absolute", "0", "63", "135", "21", null, null, this.Div05);
+            obj.set_taborder("294");
+            obj.set_text("회사 정보");
+            obj.set_cssclass("sta_WF_Subtitle");
+            obj.style.set_background("transparent URL('theme://images/sta_WF_Subtitle.png') left middle");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static92", "absolute", "0", "87", "120", "29", null, null, this.Div05);
+            obj.set_taborder("295");
+            obj.set_text("사업자번호");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static94", "absolute", "0", "115", "120", "29", null, null, this.Div05);
+            obj.set_taborder("296");
+            obj.set_text("사업장명");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static100", "absolute", "0", "143", "120", "29", null, null, this.Div05);
+            obj.set_taborder("297");
+            obj.set_text("우편번호");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static102", "absolute", "0", "171", "120", "58", null, null, this.Div05);
+            obj.set_taborder("298");
+            obj.set_text("회사주소");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static93", "absolute", "336", "87", "135", "29", null, null, this.Div05);
+            obj.set_taborder("299");
+            obj.set_text("사업장코드");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static129", "absolute", "160", "91", "9", "21", null, null, this.Div05);
+            obj.set_taborder("300");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_BZNO02", "absolute", "167", "91", "30", "21", null, null, this.Div05);
+            obj.set_taborder("301");
+            obj.set_readonly("true");
+            obj.set_maxlength("2");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_BZNO03", "absolute", "206", "91", "65", "21", null, null, this.Div05);
+            obj.set_taborder("302");
+            obj.set_readonly("true");
+            obj.set_maxlength("5");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_NA_TRPL_C", "absolute", "474", "91", "180", "21", null, null, this.Div05);
+            obj.set_taborder("303");
+            obj.set_readonly("true");
+            obj.set_maxlength("13");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_RZIP", "absolute", "167", "147", "35", "21", null, null, this.Div05);
+            obj.set_taborder("304");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static133", "absolute", "160", "146", "9", "21", null, null, this.Div05);
+            obj.set_taborder("305");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_FZIP", "absolute", "123", "147", "35", "21", null, null, this.Div05);
+            obj.set_taborder("306");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_DONGBW", "absolute", "123", "177", "583", "21", null, null, this.Div05);
+            obj.set_taborder("307");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_DONGUP", "absolute", "123", "202", "583", "21", null, null, this.Div05);
+            obj.set_taborder("308");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static00", "absolute", "199", "91", "9", "21", null, null, this.Div05);
+            obj.set_taborder("309");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static01", "absolute", "0", "246", "135", "21", null, null, this.Div05);
+            obj.set_taborder("310");
+            obj.set_text("회원 정보");
+            obj.set_cssclass("sta_WF_Subtitle");
+            obj.style.set_background("transparent URL('theme://images/sta_WF_Subtitle.png') left middle");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static107", "absolute", "0", "269", "711", "29", null, null, this.Div05);
+            obj.set_taborder("311");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static113", "absolute", "0", "325", "711", "29", null, null, this.Div05);
+            obj.set_taborder("312");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static115", "absolute", "0", "353", "711", "29", null, null, this.Div05);
+            obj.set_taborder("313");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static120", "absolute", "0", "381", "711", "58", null, null, this.Div05);
+            obj.set_taborder("315");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static114", "absolute", "336", "115", "135", "29", null, null, this.Div05);
+            obj.set_taborder("316");
+            obj.set_text("대표전화번호");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static03", "absolute", "0", "325", "120", "29", null, null, this.Div05);
+            obj.set_taborder("317");
+            obj.set_text("이메일");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static106", "absolute", "0", "269", "120", "29", null, null, this.Div05);
+            obj.set_taborder("318");
+            obj.set_text("회원ID");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static118", "absolute", "0", "509", "711", "58", null, null, this.Div05);
+            obj.set_taborder("319");
+            obj.set_cssclass("sta_WF_Labelbg");
+            obj.set_visible("false");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_confirmCertificate", "absolute", "123", "541", "89", "21", null, null, this.Div05);
+            obj.set_taborder("320");
+            obj.set_inputtype("number");
+            obj.set_maxlength("6");
+            obj.set_visible("false");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_TEL01", "absolute", "531", "119", "48", "21", null, null, this.Div05);
+            obj.set_taborder("322");
+            obj.set_inputtype("number");
+            obj.set_readonly("true");
+            obj.set_maxlength("4");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_TEL02", "absolute", "588", "119", "48", "21", null, null, this.Div05);
+            obj.set_taborder("323");
+            obj.set_inputtype("number");
+            obj.set_readonly("true");
+            obj.set_maxlength("4");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_USR_EMAIL01", "absolute", "123", "329", "122", "21", null, null, this.Div05);
+            obj.set_taborder("324");
+            obj.set_maxlength("25");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_MB_ID", "absolute", "123", "273", "122", "21", null, null, this.Div05);
+            obj.set_taborder("325");
+            obj.set_inputtype("number,english");
+            obj.set_readonly("true");
+            obj.set_maxlength("9");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_USR_EMAIL02", "absolute", "264", "329", "122", "21", null, null, this.Div05);
+            obj.set_taborder("326");
+            obj.set_maxlength("25");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static134", "absolute", "250", "329", "13", "21", null, null, this.Div05);
+            obj.set_taborder("327");
+            obj.set_text("@");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static04", "absolute", "336", "269", "135", "29", null, null, this.Div05);
+            obj.set_taborder("328");
+            obj.set_text("사용자명");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_USR_NM", "absolute", "474", "273", "180", "21", null, null, this.Div05);
+            obj.set_taborder("329");
+            obj.set_readonly("true");
+            obj.set_maxlength("16");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static116", "absolute", "0", "353", "120", "29", null, null, this.Div05);
+            obj.set_taborder("330");
+            obj.set_text("휴대전화번호");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Combo("cbo_HP", "absolute", "123", "357", "51", "21", null, null, this.Div05);
+            this.Div05.addChild(obj.name, obj);
+            obj.set_taborder("331");
+            obj.set_innerdataset("ds_hpNo");
+            obj.set_codecolumn("SIMP_C");
+            obj.set_datacolumn("SIMP_CNM");
+            obj = new Static("Static125", "absolute", "174", "357", "9", "21", null, null, this.Div05);
+            obj.set_taborder("332");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_HP01", "absolute", "183", "357", "48", "21", null, null, this.Div05);
+            obj.set_taborder("333");
+            obj.set_inputtype("number");
+            obj.set_maxlength("4");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static126", "absolute", "231", "357", "9", "21", null, null, this.Div05);
+            obj.set_taborder("334");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_HP02", "absolute", "240", "357", "48", "21", null, null, this.Div05);
+            obj.set_taborder("335");
+            obj.set_inputtype("number");
+            obj.set_maxlength("4");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static05", "absolute", "522", "119", "9", "21", null, null, this.Div05);
+            obj.set_taborder("336");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static06", "absolute", "579", "119", "9", "21", null, null, this.Div05);
+            obj.set_taborder("337");
+            obj.set_text("-");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static119", "absolute", "0", "381", "120", "58", null, null, this.Div05);
+            obj.set_taborder("338");
+            obj.set_text("회원권한");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static07", "absolute", "0", "509", "120", "58", null, null, this.Div05);
+            obj.set_taborder("339");
+            obj.set_text("휴대전화인증");
+            obj.set_cssclass("sta_WF_Label");
+            obj.set_visible("false");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Button("btn_sendSms", "absolute", "123", "515", "89", "21", null, null, this.Div05);
+            obj.set_taborder("340");
+            obj.set_text("인증번호생성");
+            obj.set_visible("false");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static08", "absolute", "223", "515", "297", "21", null, null, this.Div05);
+            obj.set_taborder("341");
+            obj.set_text("인증번호를 생성하여 등록된 휴대폰으로 전송합니다.");
+            obj.set_visible("false");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Button("btn_certificate", "absolute", "221", "541", "41", "21", null, null, this.Div05);
+            obj.set_taborder("342");
+            obj.set_text("인증");
+            obj.set_visible("false");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_CLNTNM", "absolute", "123", "119", "183", "21", null, null, this.Div05);
+            obj.set_taborder("343");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static12", "absolute", "0", "297", "711", "29", null, null, this.Div05);
+            obj.set_taborder("344");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static10", "absolute", "0", "297", "120", "29", null, null, this.Div05);
+            obj.set_taborder("345");
+            obj.set_text("생년월일");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static11", "absolute", "336", "297", "135", "29", null, null, this.Div05);
+            obj.set_taborder("346");
+            obj.set_text("성별");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Radio("rdo_SEX_DSC", "absolute", "477", "302", "183", "21", null, null, this.Div05);
+            this.Div05.addChild(obj.name, obj);
+            var rdo_SEX_DSC_innerdataset = new Dataset("rdo_SEX_DSC_innerdataset", this.Div05.rdo_SEX_DSC);
+            rdo_SEX_DSC_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">1</Col><Col id=\"datacolumn\">남</Col></Row><Row><Col id=\"codecolumn\">2</Col><Col id=\"datacolumn\">여</Col></Row></Rows>");
+            obj.set_innerdataset(rdo_SEX_DSC_innerdataset);
+            obj.set_taborder("347");
+            obj.set_codecolumn("codecolumn");
+            obj.set_datacolumn("datacolumn");
+            obj.set_direction("vertical");
+            obj = new Edit("edt_BZNO01", "absolute", "123", "91", "35", "21", null, null, this.Div05);
+            obj.set_taborder("349");
+            obj.set_readonly("true");
+            obj.set_maxlength("3");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new CheckBox("chk_WEBHARD_AUTH", "absolute", "125", "386", "174", "21", null, null, this.Div05);
+            obj.set_taborder("350");
+            obj.set_text("웹하드, 컨설팅, 마트장비");
+            obj.set_value("Y");
+            obj.set_truevalue("Y");
+            obj.set_falsevalue("N");
+            obj.set_readonly("true");
+            this.Div05.addChild(obj.name, obj);
+            obj = new CheckBox("chk_CONTRACT_AUTH", "absolute", "307", "386", "90", "21", null, null, this.Div05);
+            obj.set_taborder("351");
+            obj.set_text("전자계약");
+            obj.set_truevalue("Y");
+            obj.set_falsevalue("N");
+            this.Div05.addChild(obj.name, obj);
+            obj = new CheckBox("chk_BUSINESS_TALK_AUTH", "absolute", "397", "386", "90", "21", null, null, this.Div05);
+            obj.set_taborder("352");
+            obj.set_text("계약상담");
+            obj.set_truevalue("Y");
+            obj.set_falsevalue("N");
+            this.Div05.addChild(obj.name, obj);
+            obj = new CheckBox("chk_TAX_AUTH", "absolute", "487", "386", "90", "21", null, null, this.Div05);
+            obj.set_taborder("353");
+            obj.set_text("세금계산서");
+            obj.set_truevalue("Y");
+            obj.set_falsevalue("N");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Calendar("edt_BIRTH", "absolute", "123", "301", "110", "21", null, null, this.Div05);
+            this.Div05.addChild(obj.name, obj);
+            obj.set_taborder("356");
+            obj.set_dateformat("yyyy-MM-dd");
+            obj = new CheckBox("chk_PRICE", "absolute", "125", "414", "90", "21", null, null, this.Div05);
+            obj.set_taborder("11");
+            obj.set_text("모바일앱");
+            obj.set_value("N");
+            obj.set_truevalue("Y");
+            obj.set_falsevalue("N");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static09", "absolute", "0", "438", "711", "29", null, null, this.Div05);
+            obj.set_taborder("358");
+            obj.set_cssclass("sta_WF_Labelbg");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Static("Static02", "absolute", "0", "438", "120", "29", null, null, this.Div05);
+            obj.set_taborder("357");
+            obj.set_text("담당업무");
+            obj.set_cssclass("sta_WF_Label");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_CHRG_BSNNM", "absolute", "123", "442", "583", "21", null, null, this.Div05);
+            obj.set_taborder("359");
+            obj.set_readonly("false");
+            obj.set_lengthunit("ascii");
+            obj.set_maxlength("76");
+            this.Div05.addChild(obj.name, obj);
+            obj = new Edit("edt_TEL00", "absolute", "474", "119", "48", "21", null, null, this.Div05);
+            obj.set_taborder("360");
+            obj.set_inputtype("number");
+            obj.set_readonly("true");
+            obj.set_maxlength("4");
+            obj.set_cssclass("edt_WF_Readonly");
+            this.Div05.addChild(obj.name, obj);
+            obj = new CheckBox("chk_PDA_AUTH", "absolute", "590", "386", "90", "21", null, null, this.Div05);
+            obj.set_taborder("361");
+            obj.set_text("PDA 검수");
+            obj.set_truevalue("Y");
+            obj.set_falsevalue("N");
+            this.Div05.addChild(obj.name, obj);
+
+
+            
+            // Layout Functions
+            //-- Default Layout
+            obj = new Layout("default", "", 484, 90, this.div_hiddenArea,
+            	//-- Layout function
+            	function(p) {
+            		p.set_taborder("4");
+            		p.set_text("div_hiddenArea");
+            		p.set_visible("false");
+
+            	}
+            );
+            this.div_hiddenArea.addLayout(obj.name, obj);
+
+            //-- Default Layout
+            obj = new Layout("default", "", 711, 43, this.Div01.Div02,
+            	//-- Layout function
+            	function(p) {
+            		p.set_taborder("36");
+            		p.set_cssclass("div_WFSA_Searchbg");
+
+            	}
+            );
+            this.Div01.Div02.addLayout(obj.name, obj);
+
+            //-- Default Layout
+            obj = new Layout("default", "", 711, 453, this.Div01,
+            	//-- Layout function
+            	function(p) {
+            		p.set_taborder("9");
+            		p.set_text("Div01");
+            		p.style.set_background("white");
+            		p.set_visible("false");
+
+            	}
+            );
+            this.Div01.addLayout(obj.name, obj);
+
+            //-- Default Layout
+            obj = new Layout("default", "", 711, 43, this.Div05.Div02,
+            	//-- Layout function
+            	function(p) {
+            		p.set_taborder("293");
+            		p.set_cssclass("div_WFSA_Searchbg");
+
+            	}
+            );
+            this.Div05.Div02.addLayout(obj.name, obj);
+
+            //-- Default Layout
+            obj = new Layout("default", "", 711, 1139, this.Div05,
+            	//-- Layout function
+            	function(p) {
+            		p.set_taborder("10");
+            		p.style.set_background("transparent");
+            		p.set_visible("false");
+            		p.set_scrollbars("autovert");
+
+            	}
+            );
+            this.Div05.addLayout(obj.name, obj);
+
+            //-- Default Layout
+            obj = new Layout("default", "", 750, 512, this,
+            	//-- Layout function
+            	function(p) {
+            		p.set_classname("dddd");
+            		p.set_titletext("사업장 회원정보변경");
+            		p.set_scrollbars("autoboth");
+
+            	}
+            );
+            this.addLayout(obj.name, obj);
+
+
+            
+            // BindItem Information
+            obj = new BindItem("item0","Div05.edt_CLNTNM","value","ds_basicInfo","CLNTNM");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item1","Div05.edt_FZIP","value","ds_basicInfo","FZIP");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item2","Div05.edt_RZIP","value","ds_basicInfo","RZIP");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item3","Div05.edt_DONGBW","value","ds_basicInfo","DONGUP");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item4","Div05.edt_DONGUP","value","ds_basicInfo","DONGBW");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item5","Div05.edt_USR_NM","value","ds_basicInfo","USR_NM");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item6","Div05.edt_BZNO01","value","ds_basicInfo","BZNO1");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item7","Div05.edt_BZNO02","value","ds_basicInfo","BZNO2");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item8","Div05.edt_BZNO03","value","ds_basicInfo","BZNO3");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item9","Div05.edt_NA_TRPL_C","value","ds_basicInfo","NA_TRPL_C");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item10","Div05.edt_MB_ID","value","ds_basicInfo","MB_ID");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item13","Div05.rdo_SEX_DSC","value","ds_basicInfo","SEX_DSC");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item14","Div05.edt_USR_EMAIL01","value","ds_basicInfo","USR_EMAIL01");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item15","Div05.edt_USR_EMAIL02","value","ds_basicInfo","USR_EMAIL02");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item17","Div05.edt_TEL01","value","ds_basicInfo","HTEL");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item18","Div05.edt_TEL02","value","ds_basicInfo","STEL");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item19","Div05.cbo_HP","value","ds_basicInfo","USR_MPNO01");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item20","Div05.edt_HP01","value","ds_basicInfo","USR_MPNO02");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item21","Div05.edt_HP02","value","ds_basicInfo","USR_MPNO03");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item12","Div05.edt_BIRTH","value","ds_basicInfo","BIRTH");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item11","Div05.edt_CHRG_BSNNM","value","ds_basicInfo","CHRG_BSNNM");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            obj = new BindItem("item16","Div05.edt_TEL00","value","ds_basicInfo","ATEL");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            
+            // Remove Reference
+            obj = null;
+        };
+        
+
+        
+        // User Script
+        this.addIncludeScript("OMG_DS_SC_5116.xfdl", "lib::comLib.xjs");
+        this.registerScript("OMG_DS_SC_5116.xfdl", function() {
+        //include "lib::comLib.xjs";
+
+        this.form_onload = function(obj,e)
+        {	
+        	this.gfn_setInitForm(obj, e); //공통
+        }
+
+        this.fn_afterFormOnload = function()
+        {   	
+
+        	trace("afterFormOnload");
+        	this.fn_checkOpenWebSign();
+        	
+        	//공통코드콤보가져오기	
+        	var param = [   		
+         		{code:"HP"	,     dsName:"ds_hpNo", selecttype:"N"}
+            ];
+        	this.gfn_setPortalCommonCode(param);
+        	
+        	this.Div01.mb_id.set_text("  " + application.gv_userId);
+        	this.Div01.set_left(17);
+        	this.Div01.set_visible(true); // 비밀번호 재확인
+        	this.Div05.set_visible(false);
+        	this.Div05.set_height(nexacro.toNumber(this.Div05.Static02.top) + nexacro.toNumber(this.Div05.Static02.height) + 15); // 담당업무
+        	
+        	this.Div01.edt_pw.setFocus(); // 비밀번호
+        }
+
+        
+        /*******************************************************************************************************************
+         저장로직
+        ********************************************************************************************************************/
+        this.btn_save_onclick = function(obj,e)
+        {
+        	if(this.fn_validationCheck() == true){		
+        	
+        		this.fn_setSvcAuth();
+        		
+        		var sParams = "chgAuthYn="+this.div_hiddenArea.edt_ChgAuth.value 
+        					+ " mb_id="+this.gfn_nullToEmpty(this.Div05.edt_MB_ID.value); 
+        	
+        		var sSvcID        = "updateMB";
+        		var sURL          = "svc::rest/pt/usrinf/updateMBNot01";
+        		var sInDatasets   = "ds_basicInfo=ds_basicInfo ds_svcAuth=ds_svcAuth";
+        		var sOutDatasets  = "";	
+        		var sArgument     = sParams;
+        		var sCallbackFunc = "fn_callBack";				
+        		var sTranType     = "U"; // U:저장/삭제, S:조회	 
+        				
+        		this.gfn_callService(sSvcID, sURL, sInDatasets ,sOutDatasets , sArgument , sCallbackFunc, sTranType);		
+        	}
+        }
+
+        /*******************************************************************************************************************
+         서비스 권한세팅 메소드 
+        ********************************************************************************************************************/
+        this.fn_setSvcAuth = function ()
+        {
+        	this.ds_svcAuth.clear();
+        	this.ds_svcAuth.addColumn("USR_AUTH_DSC", "string");
+        	this.ds_svcAuth.addColumn("RQ_DSC", "string");
+        	
+        	var chgAuth = "N";
+        	
+        	// 5: 계약상담
+        	if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "5") >= 0 && this.Div05.chk_BUSINESS_TALK_AUTH.value == "N") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition, "USR_AUTH_DSC", "5");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition, "RQ_DSC", "0");
+        		chgAuth ="Y";
+        	} else if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "5") < 0 && this.Div05.chk_BUSINESS_TALK_AUTH.value == "Y") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition, "USR_AUTH_DSC", "5");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition, "RQ_DSC", "1");
+        		chgAuth ="Y";
+        	}
+        	
+        	// 6: 전자계약
+        	if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "6") >= 0 && this.Div05.chk_CONTRACT_AUTH.value == "N") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "6");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "0");
+        		chgAuth ="Y";
+        	} else if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "6") < 0 && this.Div05.chk_CONTRACT_AUTH.value == "Y") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "6");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "1");
+        		chgAuth ="Y";
+        	}
+        	
+        	// 7: 세금계산서
+        	if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "7") >= 0 && this.Div05.chk_TAX_AUTH.value == "N") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "7");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "0");
+        		chgAuth ="Y";
+        	} else if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "7") < 0 && this.Div05.chk_TAX_AUTH.value == "Y") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "7");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "1");
+        		chgAuth ="Y";
+        	}
+        	
+        	// P: PDA 검수
+        	if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "P") >= 0 && this.Div05.chk_PDA_AUTH.value == "N") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "P");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "0");
+        		chgAuth ="Y";
+        	} else if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "P") < 0 && this.Div05.chk_PDA_AUTH.value == "Y") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "P");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "1");
+        		chgAuth ="Y";
+        	}
+        	// P: 가격할인
+        	if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "M") >= 0 && this.Div05.chk_PRICE.value == "N") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "M");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "0");
+        		chgAuth ="Y";
+        	} else if (this.ds_usrAuth.findRow("USR_AUTH_DSC", "M") < 0 && this.Div05.chk_PRICE.value == "Y") {
+        		this.ds_svcAuth.addRow();
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"USR_AUTH_DSC", "M");
+        		this.ds_svcAuth.setColumn(this.ds_svcAuth.rowposition,"RQ_DSC", "1");
+        		chgAuth ="Y";
+        	}
+        	
+        	this.div_hiddenArea.edt_ChgAuth.set_value(chgAuth);
+        }
+         
+        /*******************************************************************************************************************
+         validation검사
+        ********************************************************************************************************************/
+        this.fn_validationCheck = function(){
+        		 
+        	if(this.gfn_isNull(this.Div05.edt_USR_NM.value)){
+        		alert("사용자명을 입력 하세요.");	
+        		this.Div05.edt_USR_NM.setFocus();
+        		return false;
+        	}	
+        	 
+        	if(this.gfn_isNull(this.Div05.edt_BIRTH.value)){
+        		alert("생년월일(yyyyMMdd)을 입력 하세요 ");	
+        		this.Div05.edt_BIRTH.setFocus();
+        		return false;
+        	}
+        	if(this.Div05.edt_BIRTH.text.substring(0,2)  == "00" )  {
+        				
+        		alert("생년월일을 6자리로 입력시 생년월일은 8자리 형식(19600101)으로 입력하셔야 합니다");		
+        		this.Div05.edt_BIRTH.setFocus();
+        		return false;			
+        								
+        	}
+        	
+        	if(this.gfn_isNull(this.Div05.rdo_SEX_DSC.value)){
+        		alert("성별을 선택하세요.");	
+        		this.Div05.rdo_SEX_DSC.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_USR_EMAIL01.value)){
+        		alert("이메일을 입력 하세요.");	
+        		this.Div05.edt_USR_EMAIL01.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_USR_EMAIL02.value)){
+        		alert("이메일을 입력 하세요.");	
+        		this.Div05.edt_USR_EMAIL02.setFocus();
+        		return false;
+        	}
+        	 
+        	if(this.gfn_isNull(this.Div05.cbo_HP.value)){
+        		alert("휴대전화를 선택 하세요.");	
+        		this.Div05.cbo_HP.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_HP01.value)){
+        		alert("휴대전화를 입력 하세요.");	
+        		this.Div05.edt_HP01.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_HP02.value)){
+        		alert("휴대전화를 입력 하세요.");	
+        		this.Div05.edt_HP02.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_CHRG_BSNNM.value)){
+        		alert("담당업무를 입력 하세요.");
+        		this.Div05.edt_CHRG_BSNNM.setFocus();
+        		return false;
+        	}
+        	if(!this.gfn_isDate(this.Div05.edt_BIRTH.value)){
+        		alert("회원정보의 생년월일 형식이 잘못되었습니다.");
+        		return false;
+        	}	
+        	if(!this.gfn_checkEmail(this.Div05.edt_USR_EMAIL01.value+"@"+this.Div05.edt_USR_EMAIL02.value)){
+        		alert("이메일형식이 잘못되었습니다.");
+        		return false;
+        	}		
+        	
+        // 	if(this.ds_basicInfo.getOrgColumn(0,"USR_MPNO01") != this.Div05.cbo_HP.value || this.ds_basicInfo.getOrgColumn(0,"USR_MPNO02") != this.Div05.edt_HP01.value || this.ds_basicInfo.getOrgColumn(0,"USR_MPNO03") != this.Div05.edt_HP02.value){
+        // 		if(this.gfn_isNull(this.Div05.edt_confirmCertificate.value)){
+        // 			alert("인증번호를 입력 하세요.");	
+        // 			this.Div05.edt_confirmCertificate.setFocus();
+        // 			return false;
+        // 		}
+        // 		if(this.div_hiddenArea.edt_confirm.value != "Y"){
+        // 			alert("인증버튼으로 인증번호를 인증 하세요");			
+        // 			return false;
+        // 		}
+        // 	}	
+        	 
+        	if(this.gfn_getNum(this.ds_basicInfo.getColumn(0,"TAX_AUTH_CNT")) < 2 && this.Div05.chk_TAX_AUTH.value =="N" ){
+        		alert("사업장 번호에 해당하는 세금계산서 권한을 가진 회원이 없습니다.\n 세금계산서 권한을 선택해주세요.");
+        		return false;
+        	}
+        	 
+        	return true;
+        }
+
+        /*******************************************************************************************************************
+         인증번호생성 및 SMS전송
+        ********************************************************************************************************************/
+        this.btn_sendSms_onclick = function(obj,e)
+        {	
+        	if(this.gfn_isNull(this.Div05.cbo_HP.value)){
+        		alert("휴대번호를 선택하세요.");	
+        		this.Div05.cbo_HP.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_HP01.value)){
+        		alert("휴대번호를 입력하세요.");	
+        		this.Div05.edt_HP01.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_HP02.value)){
+        		alert("휴대번호를 입력하세요.");	
+        		this.Div05.edt_HP02.setFocus();
+        		return false;
+        	}
+        	if(this.gfn_isNull(this.Div05.edt_USR_NM.value)){
+        		alert("이름을 입력하세요.");	
+        		this.Div05.edt_USR_NM.setFocus();
+        		return false;
+        	}
+        	
+        	
+        	var param 		  = "hp="+this.Div05.cbo_HP.value+this.Div05.edt_HP01.value+this.Div05.edt_HP02.value
+        						+" usrNM="+this.Div05.edt_USR_NM.value
+        	;
+        	var sSvcID        = "sendSms";
+        	var sURL          = "svc::rest/pt/sendSms";
+        	var sInDatasets   = "";
+        	var sOutDatasets  = "ds_certNum=ds_certNum";	
+        	var sArgument     =  param;
+        	var sCallbackFunc = "fn_callBack";
+        	var sTranType     = "S"; // U:저장/삭제, S:조회	
+        	 
+        	this.gfn_callService(sSvcID, sURL, sInDatasets ,sOutDatasets , sArgument , sCallbackFunc, sTranType);
+        }
+
+        /*******************************************************************************************************************
+         인증번호 확인
+        ********************************************************************************************************************/
+        this.btn_certificate_onclick = function(obj,e)
+        {	
+        	this.div_hiddenArea.edt_confirm.set_value("Y");		
+        	if(this.gfn_isNull(this.Div05.edt_confirmCertificate.value)){
+        		alert("인증번호를 입력 하세요");	
+        		this.Div05.edt_confirmCertificate.setFocus();
+        		return false;
+        	}
+        	if(this.div_hiddenArea.edt_randomNumber.value != this.Div05.edt_confirmCertificate.value){
+        		this.div_hiddenArea.edt_confirmCertificate.set_value("N");
+        		alert("입력하신 인증번호를 확인하시기 바랍니다.");
+        		return;
+        	}else{					
+        		alert("정상 처리되었습니다.");		
+        	}
+        }
+
+        /*******************************************************************************************************************
+         회원정보조회 메소드
+        ********************************************************************************************************************/
+        this.fn_retriveUsrInfo = function (){	
+        	
+        	var sSvcID        = "retrieveMB";
+        	var sURL          = "svc::rest/pt/usrinf/retrieveMB"
+        	var sInDatasets   = "";
+        	var sOutDatasets  = "ds_basicInfo=ds_basicInfo ds_usrAuth=ds_usrAuth";
+        	var sArgument     =  "";
+        	var sCallbackFunc = "fn_callBack";
+        	var sTranType     = "S"; // U:저장/삭제, S:조회		 
+        	this.gfn_callService(sSvcID, sURL, sInDatasets ,sOutDatasets , sArgument , sCallbackFunc, sTranType);
+        }
+
+        
+        /*******************************************************************************************************************
+         비밀번호조회 메소드
+        ********************************************************************************************************************/
+        this.Div01_Div02_btn_confirm_onclick = function(obj,e)
+        {
+        	
+        	if(this.gfn_isNull(this.Div01.edt_pw.value)){
+        		alert("비밀번호를 입력해주세요.");		
+        		this.Div01.edt_pw.setFocus();
+        		return false;
+        	}		
+        	var sSvcID        = "checkMBPW";
+        	var sURL          = "svc::rest/pt/usrinf/checkMBPW"
+        	var sInDatasets   = "";
+        	var sOutDatasets  = "";
+        	var sArgument     = "mbPw="+this.Div01.edt_pw.value;
+        	var sCallbackFunc = "fn_callBack";
+        	var sTranType     = "S"; // U:저장/삭제, S:조회		 
+        	this.gfn_callService(sSvcID, sURL, sInDatasets ,sOutDatasets , sArgument , sCallbackFunc, sTranType);
+        }
+
+        
+        /*******************************************************************************************************************
+         callback메소드
+        ********************************************************************************************************************/
+        this.fn_callBack = function(svcID,ErrorCode,ErrorMsg)
+        {
+        	if(svcID=="checkMBPW"){
+        		if(ErrorCode < 0 ){
+        			if(ErrorCode == -2){
+        				alert(" 비밀번호를 다시 확인하세요. \n 비밀번호를 잘못입력 하셨습니다.");
+        			}else{
+        				this.gfn_getMessage("alert", "error.message.server.exception");
+        			}
+        		}else{			
+        			this.Div01.set_visible(false);
+        			this.Div05.set_visible(true);
+        			
+        			//회원정보 호출
+        			this.fn_retriveUsrInfo();				
+        			this.resetScroll();			
+        		}
+        	}else if(svcID=="retrieveMB"){
+        		if(ErrorCode < 0 ){			
+        			this.gfn_getMessage("alert", "error.message.server.exception");
+        		}else{									
+        			// 회원권한 체크
+        			this.Div05.chk_BUSINESS_TALK_AUTH.set_value((this.ds_usrAuth.findRow("USR_AUTH_DSC", "5") >= 0) ? "Y" : "N");
+        			this.Div05.chk_CONTRACT_AUTH.set_value((this.ds_usrAuth.findRow("USR_AUTH_DSC", "6") >= 0) ? "Y" : "N");
+        			this.Div05.chk_TAX_AUTH.set_value((this.ds_usrAuth.findRow("USR_AUTH_DSC", "7") >= 0) ? "Y" : "N");
+        			this.Div05.chk_PDA_AUTH.set_value((this.ds_usrAuth.findRow("USR_AUTH_DSC", "P") >= 0) ? "Y" : "N");
+        			this.Div05.chk_PRICE.set_value((this.ds_usrAuth.findRow("USR_AUTH_DSC", "M") >= 0) ? "Y" : "N");
+        		}
+        	}else if(svcID =="sendSms"){		
+        		if(ErrorCode < 0 ){
+        			this.gfn_getMessage("alert", "error.message.server.exception");
+        		}else{
+        			alert("고객님의 휴대전화로 인증번호가 발송되었습니다.");
+        			this.div_hiddenArea.edt_randomNumber.set_value(this.ds_certNum.getColumn(0,"CERT_NUM"));
+        			//alert("인증번호 ::"+this.div_hiddenArea.edt_randomNumber.value);			
+        		}
+        	}else if(svcID =="updateMB"){
+        		if(ErrorCode < 0 ){
+        			this.gfn_getMessage("alert", "error.message.server.exception");
+        		}else{
+        			alert("정상 처리 되었습니다.");			
+        			this.Div05.edt_confirmCertificate.set_value("");
+        			this.div_hiddenArea.edt_confirm.set_value("");
+        			this.fn_retriveUsrInfo();			
+        		}
+        	}
+        }
+
+        this.Div01_edt_pw_onkeydown = function(obj,e)
+        {
+        	if (e.keycode == "13") {
+        		this.Div01.Div02.btn_confirm.click();
+        	}
+        }
+
+        this.Div05_chk_PDA_AUTH_onchanged = function(obj,e)
+        {
+        	var msg = "마트 검수 담당자만 사용할 수 있는 권한입니다.\nPDA 검수 권한을 선택하시겠습니까?";
+        	
+        	if (e.postvalue == "Y" && !confirm(msg)) {
+        		obj.set_value(e.prevalue); // 변경 전 value 값으로 설정
+        		return;
+        	}
+        }
+
+        
+        /******** 공인인증서 서명 프로그램 설치 ***********/
+        this.fn_checkOpenWebSign = function()
+        {	
+        	var obj  = this.lookup("objWeb");
+        	if(!this.gfn_isNull(obj))
+        	{
+        		obj.destroy();
+        		obj = null;
+        	}
+        	
+        	/******** 동적으로 WebBrowser 생성 ***********/
+        	var objWeb = new WebBrowser("objWeb", "absolute", 0, 0, 100, 100, null, null);
+        	this.addChild("objWeb", objWeb);
+        	objWeb.show();
+        	
+        	objWeb.set_visible(false);
+        	
+        	objWeb.set_url(application.gv_serviceHtml_url + "escm/OpenWeb_PKI/pki/pki.html");
+        	objWeb.setEventHandler("onloadcompleted", this.fn_onloadcompleted, this);
+        	
+        }
+
+        this.fn_onloadcompleted = function(obj,e)
+        {
+        	obj.callMethod("checkInstall");
+        }
+
+        /******** 공인인증서 서명 프로그램 설치 ***********/
+        
+        });
+
+
+        
+        // Regist UI Components Event
+        this.on_initEvent = function()
+        {
+            this.addEventHandler("onload", this.form_onload, this);
+            this.Div01.Div02.btn_confirm.addEventHandler("onclick", this.Div01_Div02_btn_confirm_onclick, this);
+            this.Div01.edt_pw.addEventHandler("onkeydown", this.Div01_edt_pw_onkeydown, this);
+            this.Div05.Div02.btn_save00.addEventHandler("onclick", this.btn_save_onclick, this);
+            this.Div05.Static03.addEventHandler("onclick", this.Div05_Static03_onclick, this);
+            this.Div05.btn_sendSms.addEventHandler("onclick", this.btn_sendSms_onclick, this);
+            this.Div05.btn_certificate.addEventHandler("onclick", this.btn_certificate_onclick, this);
+            this.Div05.Static10.addEventHandler("onclick", this.Div05_Static03_onclick, this);
+            this.Div05.rdo_SEX_DSC.addEventHandler("onitemclick", this.Radio00_onitemclick, this);
+            this.Div05.chk_PDA_AUTH.addEventHandler("onchanged", this.Div05_chk_PDA_AUTH_onchanged, this);
+
+        };
+
+        this.loadIncludeScript("OMG_DS_SC_5116.xfdl");
+
+       
+    };
+}
+)();

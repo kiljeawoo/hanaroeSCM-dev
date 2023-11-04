@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mblDvcAmnDAO">
+	
+	<resultMap id="MblDvcAmnMap" type="com.nh.escm.pt.comn.vo.MblDvcAmnVO">
+	    <result column="APP_ID"                      	property="APP_ID" />
+		<result column="USER_ID"                        property="USER_ID" />
+		<result column="DVIC_ID"                        property="DVIC_ID" />
+		<result column="REG_TP"                        	property="REG_TP" />
+		<result column="ATTR1"                      	property="ATTR1" />
+		<result column="ATTR2"                    		property="ATTR2" />
+		<result column="ATTR3"                   		property="ATTR3" />
+		<result column="REG_USER_ID"                    property="REG_USER_ID" /> 
+		<result column="REG_DT"                    		property="REG_DT" />
+	</resultMap>
+	
+	<resultMap id="MblDvcAmnMapPushInfo" type="com.nh.escm.pt.comn.vo.MblDvcAmnVO">
+	    <result column="MB_ID"                      	property="MB_ID" />
+		<result column="PUSH_STSC_A"                    property="PUSH_STSC_A" />
+		<result column="PUSH_STSC_B"                    property="PUSH_STSC_B" />
+		<result column="PUSH_STSC_C"                    property="PUSH_STSC_C" />
+		<result column="PUSH_STSC_D"                    property="PUSH_STSC_D" />
+		<result column="PUSH_STSC_E"                    property="PUSH_STSC_E" />
+		<result column="PUSH_STSC_F"                   	property="PUSH_STSC_F" />
+	</resultMap>
+	
+	<resultMap id="MblDvcAmnMapPushSendInfo" type="com.nh.escm.pt.comn.vo.MblDvcAmnVO">
+	    <result column="USER_ID"                        property="USER_ID" />
+		<result column="DVIC_ID"                        property="DVIC_ID" />
+		<result column="PUSH_STSC_A"                    property="PUSH_STSC_A" />
+		<result column="PUSH_STSC_B"                    property="PUSH_STSC_B" />
+		<result column="PUSH_STSC_C"                    property="PUSH_STSC_C" />
+		<result column="PUSH_STSC_D"                    property="PUSH_STSC_D" />
+		<result column="PUSH_STSC_E"                    property="PUSH_STSC_E" />
+		<result column="PUSH_STSC_F"                   	property="PUSH_STSC_F" />
+	</resultMap>
+	
+	
+	<select id="retrieveMblDvcAmn" parameterType="java.util.Map" resultMap="MblDvcAmnMap">
+	    SELECT  APP_ID , 
+                USER_ID , 
+                DVIC_ID , 
+                REG_TP , 
+                ATTR1 , 
+                ATTR2 , 
+                ATTR3 , 
+                REG_USER_ID , 
+                REG_DT 
+		   FROM FSP_USER_DVIC
+		  WHERE USER_ID = #{USER_ID}
+		    AND DVIC_ID = #{DVIC_ID}
+	 </select>
+	
+	<insert id="insertMblDvcAmn" parameterType="com.nh.escm.pt.comn.vo.MblDvcAmnVO">
+	     INSERT 
+		   INTO FSP_USER_DVIC
+		      ( 
+		      	APP_ID
+		      , USER_ID
+		      , DVIC_ID
+		      , REG_TP
+		      , ATTR1
+		      , ATTR2
+		      , ATTR3
+		      , REG_USER_ID
+		      , REG_DT
+			  )
+		 VALUES 
+			  ( 
+			    '10'
+		      , #{USER_ID}
+		      , #{DVIC_ID}
+		      , 'A'
+		      , #{ATTR1}
+		      , #{ATTR2}
+		      , #{ATTR3}
+		      , #{REG_USER_ID}
+		      , TO_CHAR(SYSDATE, 'YYYYMMDDHHMMSS')
+		      )
+	</insert>
+	
+	<select id="retrievePushInfo" parameterType="java.util.Map" resultMap="MblDvcAmnMapPushInfo">
+	    SELECT  MB_ID , 
+                PUSH_STSC_A , 
+                PUSH_STSC_B , 
+                PUSH_STSC_C , 
+                PUSH_STSC_D , 
+                PUSH_STSC_E , 
+                PUSH_STSC_F
+		   FROM MB_PUSH_ANC_AMN
+		  WHERE MB_ID = #{MB_ID}
+	 </select>
+	 
+	<update id="updatePushInfo" parameterType="com.nh.escm.pt.comn.vo.MblDvcAmnVO">
+     	UPDATE MB_PUSH_ANC_AMN
+		SET PUSH_STSC_A = #{PUSH_STSC_A},
+			PUSH_STSC_B = #{PUSH_STSC_B},
+			PUSH_STSC_C = #{PUSH_STSC_C},
+			PUSH_STSC_D = #{PUSH_STSC_D},
+			PUSH_STSC_E = #{PUSH_STSC_E},
+			PUSH_STSC_F = #{PUSH_STSC_F}
+		WHERE MB_ID = #{MB_ID}
+	</update>
+	
+	<select id="retrievePushSendInfo" parameterType="java.util.Map" resultMap="MblDvcAmnMapPushSendInfo">
+	    SELECT 
+		    A.USER_ID,
+		    A.DVIC_ID,
+		    B.PUSH_STSC_A,
+		    B.PUSH_STSC_B,
+		    B.PUSH_STSC_C,
+		    B.PUSH_STSC_D,
+		    B.PUSH_STSC_E,
+		    B.PUSH_STSC_F
+		FROM 
+		    MPLUG.FSP_USER_DVIC A,
+		    NHVANWAS.MB_PUSH_ANC_AMN B
+		WHERE 1=1 
+		    AND A.USER_ID = B.MB_ID
+	 </select>
+	 
+	<select id="retrievePushList" parameterType="com.nh.escm.pt.comn.vo.MblDvcAmnVO" resultType="java.util.Map">
+		<bind name="sortName" value="'CREATE_TIME DESC'" />
+		<bind name="sortType" value="'null'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrievePushList" />
+		<include refid="common.paging_end" />
+	</select> 
+	 
+	<select id="retrievePushListCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrievePushList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<sql id="sql_retrievePushList">
+	    SELECT  A.MB_ID, 
+	    		B.USER_ID,
+	    		DBMS_LOB.substr(B.MSG,4000,1) AS MSG,
+	    		TO_CHAR(TO_DATE(B.CREATE_TIME,'YYYYMMDDHH24MISS'),'YYYY-MM-DD HH24:MI' ) as CREATE_TIME,
+	    		B.MSG_TYPE
+		   FROM PT_USR_INF A, MPLUG.SZ_MSG_USER B
+		  WHERE 
+		  		A.MB_ID = #{USER_ID}
+			and 
+				B.USER_ID = #{DVIC_ID}
+	 </sql>
+	 
+
+</mapper>

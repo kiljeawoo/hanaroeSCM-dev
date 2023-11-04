@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../js/jquery/jquery-1.11.3.js"></script>
+	<script src="../js/bs-3.3.5/js/bootstrap.js"></script>
+	<script src="../js/nxts/nxts.min.js"></script>
+	<script src="../js/nxts/nxtsdti_config.js"></script>
+	<script src="../js/nxts/nxtsdti.js"></script>
+	<script src="../js/demo.js"></script>
+	<script type="text/javascript" src="../WebIF.js"></script>
+	<meta charset="utf-8">
+	<title>eSCM eTax Sign</title>
+	<script>
+		function leftPad(s, c, n) {
+			if (!s || !c || s.length >= n) { return s; }
+			var max = (n - s.length)/c.length;
+			for (var i = 0; i < max; i++) { s = c + s; }
+			return s;
+		}
+
+		var d = new Date();
+	 	var today = String(d.getFullYear()) + leftPad(String(d.getMonth() + 1), "0", 2)  + leftPad(String(d.getDate()), "0", 2) + leftPad(String(d.getHours()), "0", 2) + leftPad(String(d.getMinutes()), "0", 2) + leftPad(String(d.getSeconds()), "0", 2);
+	 	var SERVER_TYPE;
+
+	 	function bodyOnload() {
+	 		window.NEXACROHTML.Init();
+	 		checkTimer = new nxTSUtil.timer(500, function(){
+				nxTSCommon.installCheck(false,{ajaxto:400, success:installComplete, versionCheck:[nxTSConfig.TSXMLTOOLKIT]});
+			});
+			checkTimer.start();
+		}
+
+ 		function installComplete(res,data) {
+ 			$("#nxVersion").html(res.data.nx);
+ 			$("#dtiVersion").html(res.data.tsxmltoolkit);
+ 			if (res.code == nxTSError.res_success) {
+ 				// console.log("INSTALLED");
+ 				window.NEXACROHTML.FireUserNotify("INSTALLED");
+ 				checkTimer.stop();
+ 			} else {
+ 				// console.log("FAIL");
+ 				checkTimer.stop();
+ 				window.NEXACROHTML.FireUserNotify("FAIL");
+ 			}
+ 		}
+
+	/*
+		//초기화 함수 필수
+		$(document).ready(function(){
+			nxTSDTI.onInit(function(){
+				//nxTSDTI.init 함수 완료 후 실행해야 하는 함수나 기능 작성 위치
+				//alert("Init 완료");
+			});
+
+			nxTSDTI.init(true);
+		});
+	*/
+		/*
+		function signTaxBill()
+		{
+			nxTSDTI.sign(0,signData,{},sign_complete_callback);
+			window.NEXACROHTML.FireUserNotify("SIGN");
+		}
+		*/
+		function inputTaxSignData(txbil, txbilDetail, stime, svType) {
+			SERVER_TYPE = svType; // 운영서버(=ADMIN)만 RValue 검증
+			if (svType == undefined) { SERVER_TYPE = 'ADMIN'; }
+			if (stime == undefined) { stime = today; }
+
+			/******************************세금계산서 항목별로 자르기**************************************/
+			var txbilArray = txbil.split("#&");
+			var txbilDetailArray = txbilDetail.split("#&");
+			var txbil;
+			var signData = [];
+
+			for(var n = 0 ; n < txbilArray.length; n++) {
+				txbil = txbilArray[n].split("#;");
+
+				var txMap = new objMap();
+				for(var m = 0; m < txbil.length; m++) {
+					txMap.put(txbil[m].split("#:")[0], txbil[m].split("#:")[1]);
+				}
+
+				/******************************start!**************************************/
+				var dtiParam = new nxTSDTIParam();
+
+				/******************************관리정보**************************************/
+				//서비스 사업자 관리번호, 사업자 관리 번호, 전자세금계산서 발행일시
+				dtiParam.exchangedDocument(txMap.get("PBC_SQNO"), txMap.get("PBC_SQNO"), stime);
+
+				/******************************기본정보**************************************/
+				dtiParam.taxInvoiceDocumentV3( txMap.get("NTS_TMS_SQNO") //IssueID
+											 , txMap.get("CRT_DT")  //IssueDateTime
+											 , txMap.get("TXBIL_KD")  //TypeCode(4자리) 세금계산서 종류(2자리) : 01(세금계산서),02(수정세금계산서), 03(계산서), 04(수정계산서)
+																		//세금계산서 분류(2자리) : 01(일반), 02(영세율),03(위수탁), 04(수입), 05(영세율 위수탁)
+											 , txMap.get("RCT_RQS_DSC") 	// "01:영수 02:청구"
+											 , txMap.get("MOD_C") 	// AmendmentStatus.Code 수정코드 01 : 기재사항의 착오·정정, 02: 공급가액 변동, 03: 환입, 04 : 계약의 해제, 05 : 내국신용장 사후 개설
+											 , "" //DescriptionText 비고
+											 , txMap.get("MOD_TAX_NTS_TMS_SQNO") //OriginalIssueID
+											 );
+
+				/******************************공급자정보**************************************/
+				dtiParam.invoicerParty(txMap.get("SPLR_BZNO")    //공급자사업자번호
+									  , txMap.get("SPLR_MTALNM")  //공급자상호명
+									  , txMap.get("SPLR_REPMNM")  //공급자대표자명
+									  , txMap.get("SPLR_BZTPNM")  //공급자업태
+									  , txMap.get("SPLR_BZC")     //공급자종목
+									  , txMap.get("SPLR_ID_TXREG")     //TaxRegistrationID 공급자 종사업장번호
+									  );
+
+				dtiParam.invoicerPartyDefinedContact( txMap.get("SPLR_DEPTNM") //공급자담당부서명
+													, txMap.get("SPLR_CHRRNM") //공급자담당자명
+													, txMap.get("SPLR_CHRR_TELNO") //공급자담당자전화번호
+													, txMap.get("SPLR_CHRR_EMAIL") //공급자담당자이메일
+													);
+
+				dtiParam.invoicerPartySpecifiedAddress(txMap.get("SPLR_ADR")); //공급자주소
+
+				/******************************공급받는자정보**************************************/
+				dtiParam.invoiceeParty( txMap.get("BUY_BZNO")   //InvoiceeCorpNum : ID
+									  , txMap.get("BUY_DSC")    //BusinessType :BUY_DSC
+									  , txMap.get("BUY_MTALNM") //Name  상호명
+									  , txMap.get("BUY_REPMNM") //SpecifiedPersonName 대표자명
+									  , txMap.get("BUY_BZTPNM") //업태
+									  , txMap.get("BUY_BZC")    //종목
+									  , txMap.get("BUY_ID_TXREG") //TaxRegistrationID종사업장번호
+									  );
+
+				dtiParam.invoiceePartySpecifiedAddress(txMap.get("BUY_ADR")); //사업장주소
+
+				dtiParam.invoiceePartyPrimaryDefinedContact( txMap.get("BUY_DEPTNM1")    //DepartmentName
+														   , txMap.get("BUY_CHRRNM1")    //PersonName
+														   , txMap.get("BUY_CHRR_TELNO1")//"연락처"
+														   , txMap.get("BUY_CHRR_EMAIL1")//"Email"+"@"+"naver.com"
+														   );
+
+				dtiParam.invoiceePartySecondaryDefinedContact( txMap.get("BUY_DEPTNM2")    //DepartmentName
+															 , txMap.get("BUY_CHRRNM2")    //PersonName
+															 , txMap.get("BUY_CHRR_TELNO2")//"연락처"
+															 , txMap.get("BUY_CHRR_EMAIL2")//"Email"+"@"+"naver.com"
+															 );
+
+				/******결제정보-결제방법별금액(SpecifiedPaymentMeans) :: 10:현금, 20:수표, 30:어음, 40:외상*******/
+				if(txMap.get("STL_METHC1").length != 0){
+					dtiParam.specifiedPaymentMeans(txMap.get("STL_METHC1"), txMap.get("STL_AM1"));
+				}
+
+				if(txMap.get("STL_METHC2").length != 0){
+					dtiParam.specifiedPaymentMeans(txMap.get("STL_METHC2"), txMap.get("STL_AM2"));
+				}
+
+				if(txMap.get("STL_METHC3").length != 0){
+					dtiParam.specifiedPaymentMeans(txMap.get("STL_METHC3"), txMap.get("STL_AM3"));
+				}
+
+				if(txMap.get("STL_METHC4").length != 0){
+					dtiParam.specifiedPaymentMeans(txMap.get("STL_METHC4"), txMap.get("STL_AM4"));
+				}
+
+				/*********결제정보-Summary(SpecifiedMoneySummation)***************************************/
+				dtiParam.specifiedMonetarySummation( txMap.get("SPRTT")  //공급가액합계ChargeTotal
+												   , txMap.get("TXA_TT") //세액합계TaxTotal
+												   , txMap.get("TOT_AM") //총금액GrandTotal
+												   );
+
+				/*******상품정보(TaxInvoiceTradeLineItem)*************************************************/
+				/******************************세금계산서 품목 자르기**************************************/
+
+				var txbilDetailList;
+
+				txbilDetailList = txbilDetailArray[n].split("#@");
+
+				for(var i = 0; i <  txbilDetailList.length; i++) {
+					var txbilDetail = txbilDetailList[i].split("#;");
+					var txDtlMap = new objMap();
+
+					for(var j = 0 ; j < txbilDetail.length-1; j++) {
+						txDtlMap.put(txbilDetail[j].split("#:")[0],txbilDetail[j].split("#:")[1]);
+					}
+
+					dtiParam.tradeLineItem( txDtlMap.get("DTL_SQNO")//Sequence물품 일련번호
+										  , txDtlMap.get("TR_DT")   //PurchaseExpiry
+										  , txDtlMap.get("LATCNM")  //Name
+										  , txDtlMap.get("STD")		//INFORMATION  규격
+										  , txDtlMap.get("RMK")     //Description
+										  , txDtlMap.get("QT")	    //ChargeableUnit물품 수량
+										  , txDtlMap.get("UPR")     //UnitPrice
+										  , txDtlMap.get("SPPR")	//InvoiceAmoun
+										  , txDtlMap.get("TXA")	    //TotalTax
+										  );
+				}//end 품목
+				var param = dtiParam.getParam();
+				signData.push({data:param, saveToTaxInvoiceFile:""});
+			}//end for
+			nxTSDTI.sign(0, signData, {}, sign_complete_callback);
+		}
+
+		// Validation
+		var validRvTot = 0; // RValue 대상
+		var validRvChk = 0; // RValue 검사 수
+		var validVfTot = 0; // 세금계산서 대상
+		var validVfChk = 0; // 세금계산서 검사 수
+		var resultRv = false;
+		var resultVf = false;
+		var validState;
+
+		function sign_complete_callback(res) {
+			// init
+			var signedTaxInvoice = "";
+			var rvalueResult = "";
+			var certProperties = "";
+			var multiSignRsultTitle = "";
+			var multiSignResultArea = "";
+			validState = "Y";
+			validRvChk = 0;
+			validVfChk = 0;
+			resultRv = false;
+			resultVf = false;
+
+			if (res.code == 0) {
+				if (res.data  instanceof Array) {
+					validRvTot = res.data.length;  // RValue 검증대상
+					validVfTot = res.data.length;  // 세금계산서 검증대상
+					
+			        for (var i=0;i<res.data.length;i++) {
+			        	signedTaxInvoice += res.data[i].signedTaxInvoice;
+			        	rvalueResult += res.data[i].RValue;
+			        	
+			        	multiSignRsultTitle += (i+1);
+			        	multiSignResultArea += res.data[i].multiSignResultArea;
+
+			        	signedTaxInvoice += "#$";
+			        	rvalueResult += "#$";
+			        	multiSignRsultTitle += "#$";
+			        	multiSignResultArea += "#$";
+
+			        	if (validState == "Y" && SERVER_TYPE == "ADMIN") {
+							nxTSDTI.checkRValue(res.data[i].RValue, res.data[i].signedTaxInvoice, callbackCheckRvalue);
+							nxTSDTI.verify(res.data[i].signedTaxInvoice, {}, callbackCheckVerify);
+			        	}
+
+						/*
+						var resultItem = $("#multiSignItem").clone();
+						$(resultItem).attr("id","");
+						$(resultItem).show();
+
+						$("#signedTaxInvoice", resultItem).val(res.data[i].signedTaxInvoice);
+						$("#rvalueResult", resultItem).val(res.data[i].RValue);
+						$("#certProperties", resultItem).empty().append(objectToTable("인증서 정보",res.data[i].certInfo));
+						$("#multiSignRsultTitle",resultItem).text((i+1)+" 번째 서명결과");
+						$("#multiSignResultArea").append(resultItem);
+						 */
+					}
+					$("#signedTaxInvoice").val(signedTaxInvoice);
+					$("#rvalueResult").val(rvalueResult);
+					$("#certProperties").val(certProperties);
+					$("#multiSignRsultTitle").val(multiSignRsultTitle);
+				} else {
+					validRvTot = 1; // RValue 검증대상
+					validVfTot = 1; // 세금계산서 검증대상
+// 					console.log(res.data);
+					
+			    	signedTaxInvoice +=res.data.signedTaxInvoice;
+		        	rvalueResult += res.data.rvalueResult;
+		        	certProperties += res.data.RValue;
+		        	multiSignRsultTitle += res.data.certProperties;
+
+		        	if (validState == "Y" && SERVER_TYPE == "ADMIN") {
+						nxTSDTI.checkRValue(res.data.RValue, res.data.signedTaxInvoice, callbackCheckRvalue);
+						nxTSDTI.verify(res.data.signedTaxInvoice, {}, callbackCheckVerify);
+		        	}
+
+		        	$("#signedTaxInvoice").val(signedTaxInvoice);
+		        	$("#rvalueResult").val(rvalueResult);
+		        	$("#certProperties").val(certProperties);
+
+		        	/*
+			        var resultItem = $("#multiSignItem").clone();
+			        $(resultItem).show();
+
+			        $("#signedTaxInvoice",resultItem).val(res.data.signedTaxInvoice);
+			        $("#rvalueResult",resultItem).val(res.data.RValue);
+			        $("#certProperties", resultItem).empty().append(objectToTable("인증서 정보",res.data.certProperties));
+
+			        $("#multiSignResultArea").append(resultItem);
+			        */
+				}
+				// SUC값은 RValue 체크 후 전송, 개발일 땐 RValue체크 안함
+				if (SERVER_TYPE != "ADMIN") {
+// 					console.log("RValue체크 패스(개발서버)");
+					window.NEXACROHTML.FireUserNotify("SUC");
+				}
+			} else {
+		    	alert("error code = " + res.code + ", message = " + res.errorMessage);
+				window.NEXACROHTML.FireUserNotify("ERROR");
+		    }
+		}
+
+		/* RValue 검증 */
+		function callbackCheckRvalue(res) {
+			if (validState == "N") { return; }
+			validRvChk++;
+
+			if (res.code == 0) { //성공
+// 				console.log("RValue 검증 완료 : " + validRvChk);
+				//window.NEXACROHTML.FireUserNotify("CHECKSUC");
+			} else {
+				validState = "N";
+// 				console.log("RValue 검증 오류로 발행처리 중단 : " + res.errorMessage);
+				alert("error code = " + res.code + ", message = " + res.errorMessage);
+				window.NEXACROHTML.FireUserNotify("ERROR");
+				return;
+			}
+
+			// 모든 RValue 정상이면 성공값 전달
+			if (validRvTot == validRvChk) {
+				resultRv = true;
+				validationCallback();
+				//window.NEXACROHTML.FireUserNotify("SUC");
+			}
+		}
+
+		/* 세금계산서 검증 */
+		function callbackCheckVerify(res) {
+			if (validState == "N") { return; }
+			validVfChk++;
+
+			if (res.code == 0) { //성공
+// 				console.log("세금계산서 검증 완료 : " + validVfChk);
+				//window.NEXACROHTML.FireUserNotify("CHECKSUC");
+			} else {
+				validState = "N";
+// 				console.log("세금계산서 검증 오류로 발행처리 중단 : " + res.errorMessage);
+				alert("error code = " + res.code + ", message = " + res.errorMessage);
+				window.NEXACROHTML.FireUserNotify("ERROR");
+				return;
+			}
+
+			// 모든 세금계산서 정상이면 성공값 전달
+			if (validVfTot == validVfChk) {
+				resultVf = true;
+				validationCallback();
+				//window.NEXACROHTML.FireUserNotify("SUC");
+			}
+		}
+		
+		function validationCallback() {
+			if (!resultRv) {
+// 				console.log("RValue 검증이 완료되지 않음");
+			} else if (!resultVf) {
+// 				console.log("세금계산서 검증이 완료되지 않음");
+			} else 	if (resultRv && resultVf) {
+				window.NEXACROHTML.FireUserNotify("SUC");
+			}
+		}
+
+		/* HashMap 객체 생성 */
+		var objMap = function() {
+			this.map = new Object();
+		}
+
+		objMap.prototype = {
+			/* key, value 값으로 구성된 데이터를 추가 */
+			put : function(key, value) {
+				this.map[key] = value;
+			},
+			/* 지정한 key값의 value값 반환 */
+			get : function(key) {
+				return this.map[key];
+			},
+			/* 구성된 key 값 존재여부 반환 */
+			containsKey : function(key) {
+				return key in this.map;
+			},
+			/* 구성된 value 값 존재여부 반환 */
+			containsValue : function(value) {
+				for ( var prop in this.map) {
+					if (this.map[prop] == value) {
+						return true;
+					}
+				}
+				return false;
+			},
+			/* 구성된 데이터 초기화 */
+			clear : function() {
+				for ( var prop in this.map) {
+					delete this.map[prop];
+				}
+			},
+			/*  key에 해당하는 데이터 삭제 */
+			remove : function(key) {
+				delete this.map[key];
+			},
+			/* 배열로 key 반환 */
+			keys : function() {
+				var arKey = new Array();
+				for ( var prop in this.map) {
+					arKey.push(prop);
+				}
+				return arKey;
+			},
+			/* 배열로 value 반환 */
+			values : function() {
+				var arVal = new Array();
+				for ( var prop in this.map) {
+					arVal.push(this.map[prop]);
+				}
+				return arVal;
+			},
+			/* Map에 구성된 개수 반환 */
+			size : function() {
+				var count = 0;
+				for ( var prop in this.map) {
+					count++;
+				}
+				return count;
+			}
+		}
+	</script>
+</head>
+<body onload ="bodyOnload();">
+	<textarea id="signedTaxInvoice" cols="80" rows="10"></textarea>
+	<!--  <input type="text" id="signedTaxInvoice" value="" ></input>-->
+	<input type="text" id="rvalueResult" value="" ></input>
+	<input type="text" id="certProperties" value="" ></input>
+	<input type="text" id="multiSignRsultTitle" value="" ></input>
+	<input type="text" id="multiSignResultArea" value="" ></input>
+</body>
+</html>

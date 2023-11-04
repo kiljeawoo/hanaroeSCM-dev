@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dmartDAO">
+
+    <resultMap type="com.nh.escm.pds.dmart.vo.DmartVO" id="DmartVO">
+        <result column="REQ_TM" property="REQ_TM" />
+        <result column="REQ_ID" property="REQ_ID" />
+        
+        <result column="REQ_STAT" property="REQ_STAT" />
+        <result column="REQ_STAT_NM" property="REQ_STAT_NM" />
+        
+        <result column="REQ_DOC" property="REQ_DOC" />
+        <result column="REQ_DOC_NM" property="REQ_DOC_NM" />
+        
+        <result column="DOC_TYPE" property="DOC_TYPE" />
+        <result column="DOC_TYPE_NM" property="DOC_TYPE_NM" />
+        
+        <result column="DOC_TYPE_DTL1" property="DOC_TYPE_DTL1" />
+        <result column="DOC_TYPE_DTL1_NM" property="DOC_TYPE_DTL1_NM" />
+        
+        <result column="REQ_TRPL_C" property="REQ_TRPL_C" />
+        <result column="SRCH_DAY_TYPE" property="SRCH_DAY_TYPE" />
+        <result column="SRCH_FM_DT" property="SRCH_FM_DT" />
+        <result column="SRCH_ED_DT" property="SRCH_ED_DT" />
+        
+        <result column="RSLT_DOC_FMT" property="RSLT_DOC_FMT" />
+        <result column="RSLT_DOC_FMT_NM" property="RSLT_DOC_FMT_NM" />
+        
+        <result column="BATCH_ST_TM" property="BATCH_ST_TM" />
+        <result column="BATCH_ED_TM" property="BATCH_ED_TM" />
+        <result column="DEL_DT" property="DEL_DT" />
+        <result column="FILE_PATH" property="FILE_PATH" />
+        <result column="COMP_FILE_SIZE" property="COMP_FILE_SIZE" />
+        <result column="TOT_EDI_SIZE" property="TOT_EDI_SIZE" />
+        <result column="BATCH_INST_ID" property="BATCH_INST_ID" />
+        <result column="SMS_SEND_TM" property="SMS_SEND_TM" />
+        <result column="FSRG_DTM" property="FSRG_DTM" />
+        <result column="FS_RGM" property="FS_RGM" />
+        <result column="LSCHG_DTM" property="LSCHG_DTM" />
+        <result column="LS_CHGM" property="LS_CHGM" />
+    </resultMap>
+	
+
+    <insert id="insertDmartReq" parameterType="com.nh.escm.pds.dmart.vo.DmartVO">
+        INSERT INTO TB_DMART_REQ
+        (
+              REQ_TM               -- 신청일시 
+            , REQ_ID               -- 신청ID 
+            , REQ_STAT             -- 진행상태(1:신청,2:진행,3:생성,4:삭제,5:오류)
+            , REQ_DOC              -- 신청문서 
+            , DOC_TYPE             -- 문서유형(1:전표별,3:상품별)
+            , DOC_TYPE_DTL1        -- 문서상세유형
+            , REQ_TRPL_C           -- 신청권한사업장(A:권한사업장전체) 
+            , SRCH_DAY_TYPE        -- 조회기준일(1:매출일,2:검수일,3:지급예정일)  
+            , SRCH_FM_DT           -- 조회시작일  
+            , SRCH_ED_DT           -- 조회종료일   
+            , RSLT_DOC_FMT         -- 결과문서포맷(1:텍스트,2:엑셀)  
+            , BATCH_ST_TM          -- 배치시작시간
+            , BATCH_ED_TM          -- 배치종료시간
+            , DEL_DT               -- 삭제예정일자
+            , FILE_PATH            -- 파일경로  
+            , COMP_FILE_SIZE       -- 압축파일크기
+            , TOT_EDI_SIZE         -- 전체EDI문서크기 
+            , BATCH_INST_ID        -- 데이터링크 인스턴스 ID
+            , SMS_SEND_TM          -- SMS전송일시(N:미전송)
+            , FSRG_DTM             -- 최초등록일시 
+            , FS_RGM               -- 최초등록자   
+            , LSCHG_DTM            -- 최종변경일시 
+            , LS_CHGM              -- 최종변경자   
+        )
+        VALUES
+        (
+              TO_CHAR(sysdate, 'YYYYMMDDHH24MISS')
+            , #{REQ_ID        }
+            , #{REQ_STAT      }
+            , #{REQ_DOC       }
+            , #{DOC_TYPE      }
+            , #{DOC_TYPE_DTL1      }
+            , #{REQ_TRPL_C    }
+            , #{SRCH_DAY_TYPE }
+            , #{SRCH_FM_DT    }
+            , #{SRCH_ED_DT    }
+            , #{RSLT_DOC_FMT  }
+            , NULL -- BATCH_ST_TM
+            , NULL -- BATCH_ED_TM
+            , NULL -- DEL_DT   
+            , NULL -- FILE_PATH
+            , NULL -- COMP_FILE_SIZE
+            , NULL -- TOT_EDI_SIZE 
+            , NULL -- BATCH_RELT_KEY
+            , NULL -- SMS_SEND_TM  
+            , sysdate
+            , #{REQ_ID        }
+            , sysdate
+            , #{REQ_ID        }
+        )
+        
+
+    </insert>
+    
+
+
+    <sql id="sql_selectDmartList">
+
+        SELECT 
+                 A.REQ_TM   /* 신청일시  */
+               , A.REQ_ID               /* 신청ID  */
+               , A.REQ_STAT             /* 진행상태(1:신청,2:진행,3:생성,4:삭제,5:오류)  */
+               , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'DMART_REQ_STAT' AND SIMP_C = A.REQ_STAT) AS REQ_STAT_NM           /* 진행상태명   */
+               
+               , (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_TPC = 'DMART_REQ_DOC' AND SIMP_C = A.REQ_DOC) AS REQ_DOC         /* 신청문서   */
+
+               , A.DOC_TYPE             /* 문서유형(1:전표별,3:상품별)  */
+               
+               , CASE A.DOC_TYPE
+                     WHEN '1' THEN '전표별' 
+                     WHEN '3' THEN '상품별' 
+                 END DOC_TYPE_NM     /* 문서유형명(1:전표별,3:상품별)  */
+                , A.DOC_TYPE_DTL1    /* 문서상세유형  */
+                
+               , CASE A.REQ_TRPL_C
+                     WHEN 'A' THEN '전체' 
+                    ELSE REQ_TRPL_C 
+                 END REQ_TRPL_C          /* 신청권한사업장(A:권한사업장전체) */
+                 
+               , A.SRCH_DAY_TYPE        /* 조회기준일(1:매출일,2:검수일,3:지급예정일)    */
+               
+               , CASE A.SRCH_DAY_TYPE
+                    WHEN '1' THEN '매출일' 
+                    WHEN '2' THEN '검수일' 
+                    WHEN '3' THEN '지급예정일' 
+                 END SRCH_DAY_TYPE_NM        /* 조회기준일(1:매출일,2:검수일,3:지급예정일)    */
+                 
+               , A.SRCH_FM_DT           /* 조회시작일  */
+               , A.SRCH_ED_DT           /* 조회종료일   */
+               
+               , A.RSLT_DOC_FMT         /* 결과문서포맷(1:텍스트,2:엑셀)   */
+               , CASE A.RSLT_DOC_FMT
+                     WHEN '1' THEN '텍스트' 
+                     WHEN '2' THEN '엑셀' 
+                 END RSLT_DOC_FMT_NM          /* 문서유형명(1:전표별,3:상품별)  */
+
+               , TO_CHAR(A.BATCH_ST_TM, 'YYYY-MM-DD HH24:MI:SS') BATCH_ST_TM    /* 배치시작시간  */
+               , TO_CHAR(A.BATCH_ED_TM, 'YYYY-MM-DD HH24:MI:SS') BATCH_ED_TM     /* 배치종료시간    */
+               , A.DEL_DT               /* 삭제예정일자     */
+               , A.FILE_PATH            /* 파일경로   */
+               , A.COMP_FILE_SIZE       /* 압축파일크기   */
+               , A.TOT_EDI_SIZE         /* 전체EDI문서크기   */
+               , A.BATCH_INST_ID        /* 데이터링크 인스턴스 ID     */
+               , A.SMS_SEND_TM          /* SMS전송일시(N:미전송)    */
+               , TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD')  FSRG_DTM  /* 최초등록일시     */
+               , A.FS_RGM               /* 최초등록자    */
+               , TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD') LSCHG_DTM /* 최종변경일시    */
+               , A.LS_CHGM              /* 최종변경자      */
+               , A.DN_CNT
+         FROM
+               TB_DMART_REQ A
+         WHERE
+               REQ_ID = #{mb_id}
+           AND SUBSTR(REQ_TM, 1, 8 ) BETWEEN #{date_fr} AND #{date_to}
+           
+        /*  ORDER BY A.REQ_TM DESC */
+               
+    </sql>
+    <!-- 조회 로우 count -->
+    <select id="selectDmartListCount" parameterType="java.util.Map" resultType="int">
+        <include refid="common.count_start" />
+        <include refid="sql_selectDmartList"/>
+        <include refid="common.count_end" />
+    </select>
+    
+
+    <!-- 데이터마트  화면조회 -->
+    <select id="selectDmartList" parameterType="java.util.Map" resultType="com.nh.escm.pds.dmart.vo.DmartVO" >
+        <bind name="sortName" value="'REQ_TM DESC'" />
+
+        <include refid="common.paging_start" />
+        <include refid="sql_selectDmartList"/>
+        <include refid="common.paging_end" />
+    </select>
+    
+    <select id="downloadExcelStream" parameterType="java.util.Map" resultType="java.util.Map">
+        <include refid="sql_selectDmartList"/>
+        
+    </select>
+    
+    <!-- 데이터마트 신청내역 엑셀다운로드 -->
+    <select id="downloadExcelDmartReqList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+        <include refid="sql_selectDmartList"/>
+        
+    </select>
+
+    <update id="cancelDmartReq" parameterType="java.util.Map" >
+        UPDATE TB_DMART_REQ 
+           SET REQ_STAT = '6'        -- 진행상태(1:신청,2:진행,3:생성,4:삭제,5:오류, 6:취소)
+        WHERE 
+              REQ_TM = #{REQ_TM}              -- 신청일시 
+          AND REQ_ID = #{REQ_ID}              -- 신청ID 
+
+    </update>
+    
+    <update id="updateDnCnt" parameterType="java.util.Map" >
+        UPDATE TB_DMART_REQ 
+           SET DN_CNT = NVL(DN_CNT, 0) + 1        -- 진행상태(1:신청,2:진행,3:생성,4:삭제,5:오류, 6:취소)
+        WHERE 
+              REQ_TM = #{REQ_TM}              -- 신청일시 
+          AND REQ_ID = #{REQ_ID}              -- 신청ID 
+
+    </update>
+    
+</mapper>

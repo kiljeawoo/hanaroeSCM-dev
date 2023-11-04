@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../nexacro14lib/component/ExtAPI/jquery-1.10.2.js"></script>
+<script language="javascript">
+if (! window.NEXACROHTML) {
+	window.NEXACROHTML = {};
+}
+
+window.NEXACROHTML.FireUserNotify = function(userdata) {
+	if(window.NEXACROWEBBROWSER){
+		//넥사크로 html5 버전 
+		window.NEXACROWEBBROWSER.on_fire_onusernotify(window.NEXACROWEBBROWSER, userdata);
+	}else{
+		//런타임 버전
+		window.document.title = userdata;
+	}
+}
+
+function selectAddr(idx) {
+	if (result.length > 0) {
+		// make return string
+		// console.log(result[idx]);
+		var str = result[idx].BLD_AMNNO + "|";
+		str += result[idx].DTCT_NO + "|";
+		str += result[idx].PROVNM + "|";
+		str += result[idx].CCWNM + "|";
+		str += result[idx].TTVNM + "|";
+		str += result[idx].RODNM_C + "|";
+		str += result[idx].RODNM + "|";
+		str += result[idx].UGR_YN + "|";
+		str += result[idx].BLD_NO_MHZNO + "|";
+		str += result[idx].BLD_NO_SHZNO + "|";
+		str += result[idx].CCWN_BLDNM + "|";
+		str += result[idx].LWDG_C + "|";
+		str += result[idx].LWDGNM + "|";
+		str += result[idx].RINM + "|";
+		str += result[idx].MNT_YN + "|";
+		str += result[idx].LTNO_MHZNO + "|";
+		str += result[idx].TTV_SQNO + "|";
+		str += result[idx].LTNO_SHZNO + "|";
+		str += result[idx].ROAD + "|";
+		str += result[idx].JIBUN;
+		
+		window.NEXACROHTML.FireUserNotify(str);
+	}
+}
+
+var last;
+function getAddr(page){
+	// 적용예 (api 호출 전에 검색어 체크) 	
+	if (!checkSearchedWord(document.form.keyword)) {
+		return ;
+	}
+	
+	if (page == undefined) {
+		page = 1;
+	}
+	document.form.currentPage.value = page;
+	$("body").addClass("lock");
+	
+	$.ajax({
+		 url :"https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do"  //인터넷망
+		,type:"post"
+		,data:$("#form").serialize()
+		,dataType:"jsonp"
+		,crossDomain:true
+		,success:function(xmlStr){
+			if(navigator.appName.indexOf("Microsoft") > -1){
+				var xmlData = new ActiveXObject("Microsoft.XMLDOM");
+				xmlData.loadXML(xmlStr.returnXml)
+			}else{
+				var xmlData = xmlStr.returnXml;
+			}
+			$("table#tbl_list > tbody").html("");
+			$("ul#page_list").html("");
+			var errCode = $(xmlData).find("errorCode").text();
+			var errDesc = $(xmlData).find("errorMessage").text();
+			if(errCode != "0"){
+				alert(errCode+"="+errDesc);
+			}else{
+				if(xmlStr != null){
+					last = document.form.keyword.value;
+					makeList(xmlData);
+				}
+			}
+		}
+	    ,error: function(xhr,status, error){
+	    	alert("에러발생");
+	    }
+	    ,complete : function() {
+	    	$("body").removeClass("lock");    
+	    }
+	});
+}
+
+function goPage(page) {
+	if (last != undefined && last.length > 0) {
+		document.form.keyword.value = last;
+		getAddr(page);
+	}
+}
+
+function makePage(total, cur, per) {
+	if (total > 0) {
+		var PAGE = 5;
+		var totalPage = Math.ceil(total/per);
+		var start = (Math.floor(cur/per) * 10) + 1;
+		var html = "";
+		if (cur == 1) {
+			html += "<li><span>처음</span></li>";
+		} else {
+			html += "<li><a href='#' onclick='goPage(1);'>처음</a></li>";
+		}
+		if (start > PAGE) {
+			html += "<li><a href='#' onclick='goPage("+(start-PAGE)+");'>이전</a></li>";
+		}
+		var cnt = 0;
+		for (var i=start; i<=totalPage; i++) {
+			if (i == cur) {
+				html += "<li><span class='cur'>"+i+"</span></li>";
+			} else {
+				html += "<li><a href='#' onclick='goPage("+i+");'>"+i+"</a></li>";
+			}
+			cnt++;
+			if (cnt == PAGE) { break; }
+		}
+		if (totalPage-start > PAGE) {
+			html += "<li><a href='#' onclick='goPage("+(start+PAGE)+");'>다음</a></li>";
+		}
+		if (cur == totalPage) {
+			html += "<li><span>끝</span></li>";
+		} else {
+			html += "<li><a href='#' onclick='goPage("+totalPage+");'>끝</a></li>";
+		}
+	
+		$("ul#page_list").html(html);
+		$("div#summary").show().find("span#total").text(numComma(total)+"건");
+	} else {
+		$("ul#page_list").html("");
+		$("div#summary").hide();
+	}
+	
+}
+
+var result;
+function makeList(xmlStr){
+	// Pager
+	var total = $(xmlStr).find("totalCount").text();
+	var cur = $(xmlStr).find("currentPage").text();
+	var per = $(xmlStr).find("countPerPage").text();
+	makePage(total, cur, per);
+	
+	// Address list
+	result = new Array();
+	
+	var htmlStr = "";
+	var idx = 0;
+	$(xmlStr).find("juso").each(function(){
+		// make array
+		var row = new Array();
+		row["BLD_AMNNO"] = $(this).find('bdMgtSn').text();
+		row["DTCT_NO"] = $(this).find('zipNo').text();
+		row["PROVNM"] = $(this).find('siNm').text();
+		row["CCWNM"] = $(this).find('sggNm').text();
+		row["TTVNM"] = $(this).find('emdNm').text();
+		row["RODNM_C"] = $(this).find('rnMgtSn').text();
+		row["RODNM"] = $(this).find('rn').text();
+		row["UGR_YN"] = $(this).find('udrtYn').text();
+		row["BLD_NO_MHZNO"] = $(this).find('buldMnnm').text();
+		row["BLD_NO_SHZNO"] = $(this).find('buldSlno').text();
+		row["CCWN_BLDNM"] = $(this).find('bdNm').text();
+		row["LWDG_C"] = $(this).find('admCd').text();
+		row["LWDGNM"] = $(this).find('emdNm').text();
+		row["RINM"] = $(this).find('liNm').text();
+		row["MNT_YN"] = $(this).find('mtYn').text();
+		row["LTNO_MHZNO"] = $(this).find('lnbrMnnm').text();
+		row["TTV_SQNO"] = $(this).find('emdNo').text();
+		row["LTNO_SHZNO"] = $(this).find('lnbrSlno').text();
+		row["ROAD"] = $(this).find('roadAddr').text();
+		row["JIBUN"] = $(this).find('jibunAddr').text();
+		
+		result.push(row);
+		
+		// make table
+		htmlStr += "<tr>";
+		htmlStr += "<td class='zip'>"+$(this).find('zipNo').text()+"</td>";
+		htmlStr += "<td><dl>";
+		htmlStr += "<dt>도로명</dt><dd>" + $(this).find('roadAddr').text() + "</dd>";
+		htmlStr += "<dt>지번</dt><dd>" + $(this).find('jibunAddr').text() + "</dd>";
+		//if ($(this).find('bdNm').text() != "") {
+		//	htmlStr += "<dt class='bld'>건물명</dt><dd>" + $(this).find('bdNm').text() + "</dd>";
+		//}
+		htmlStr += "</dl></td>";
+		htmlStr += "<td><button class='btn_sel' type='button' onclick='selectAddr("+idx+")'>추가</button></td>";
+		htmlStr += "</tr>";
+		idx++;
+	});
+	$("table#tbl_list > tbody").html(htmlStr);
+}
+
+//특수문자, 특정문자열(sql예약어의 앞뒤공백포함) 제거
+function checkSearchedWord(obj){
+	if(obj.value.length >2){
+		//특수문자 제거
+		var expText = /[%=><]/ ;
+		if(expText.test(obj.value) == true){
+			alert("특수문자를 입력 할수 없습니다.") ;
+			obj.value = obj.value.split(expText).join(""); 
+			return false;
+		}
+		
+		//특정문자열(sql예약어의 앞뒤공백포함) 제거
+		var sqlArray = new Array("OR", "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC", "UNION",  "FETCH", "DECLARE", "TRUNCATE" , "AND", "ALTER");
+		var regex;
+		for(var i=0; i<sqlArray.length; i++){
+			regex = new RegExp( sqlArray[i] ,"gi") ;
+			
+			if (regex.test(obj.value) ) {
+			    alert("\"" + sqlArray[i]+"\"와(과) 같은 특정문자로 검색할 수 없습니다.");
+				obj.value =obj.value.replace(regex, "");
+				return false;
+			}
+		}
+	} else {
+		alert("검색어를 3자 이상 입력해주세요.") ;
+		return false;
+	}
+	return true ;
+}
+
+function enterSearch() {
+	var evt_code = (window.netscape) ? ev.which : event.keyCode;
+	if (evt_code == 13) {    
+		event.preventDefault();
+		event.keyCode = 0;  
+		getAddr(); //jsonp사용시 enter검색 
+	} 
+}
+
+function numComma(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+</script>
+<title>하나로eSCM 주소추가</title>
+<style>
+	* {
+		scrollbar-3dLight-Color: #d0ebff;
+		scrollbar-arrow-color: #354a74;
+		scrollbar-base-color: #d0ebff;
+		scrollbar-Face-Color: #354a74;
+		scrollbar-Track-Color: #fff;
+		scrollbar-DarkShadow-Color: #d0ebff;
+		scrollbar-Highlight-Color: #d0ebff;
+		scrollbar-Shadow-Color: #d0ebff
+	}
+	html, body { padding:0; margin:0; font-size:12px; font-family: "맑은 고딕"; }
+	body.lock * { cursor:wait; user-select:none; }
+	table, ul { user-select: none; }
+	
+	div#search { position: absolute; left:0px; right:0px; top:0px; height:40px; }
+	div#search > * { float: left; }
+	div#search:after { claer:both; }
+	input#edt_key { color: #354a74; font-size: 1.5em; font-weight: bold; border: 2px solid #354a74; border-width:0 0 2px 0; height: 40px; box-sizing: border-box; width:80%; padding: 0 10px; }
+	input#btn_search { background-color: #354a74; color: #fff; border: 0; font-size: 1.5em; font-weight: bold; height: 40px; width:20%; cursor: pointer; }
+	
+	div#list { position: absolute; left:0px; right:0px; top:70px; bottom:50px; overflow: auto; }
+	div#page{ position: absolute; height:30px; left:0px; right:0px; bottom:10px; overflow: hidden; }
+	div#page ul { list-style: none; text-align: center; padding: 0; margin:0; }
+	div#page ul li { display: inline-block; padding: 5px 0; }
+	div#page ul li:not(:first-child):before { content:'|'; display: inline-block; padding:0 3px; color: #aaa; }
+	div#page ul li a, div#page ul li span { display: inline-block; width:30px; text-decoration: none; color:#000; }
+	div#page ul li span.cur { color: #40b3cc; font-weight: bold; }
+	
+	table { border-collapse: collapse; width:100%; }
+	th, td { border: 1px solid; padding:5px; text-align: center; border:0; border-bottom: 1px solid #eee; }
+	table tbody tr:last-child td { border-bottom:0; }
+	th { color: #354a74; font-size: 1em; }
+	td.zip { color: #354a74; font-weight: bold; font-size:1.2em; }
+	
+	dl { margin:0; }
+	dt { display: inline-block; width: 40px; margin-top: 3px; border: 1px solid #354a74; font-weight:bold; border-radius: 3px; font-size: 0.9em; padding: 1px 2px; color: #354a74; text-align: center; float: left; }
+	dt.bld { background-color:#006d8d; }
+	dd { text-align: left; padding-left: 10px; font-size:1em; line-height: 23px }
+	
+	button.btn_sel { padding: 3px 10px; background-color: #354a74; color: #fff; border: 0; border-radius: 3px; cursor: pointer; }
+	
+	div#summary { display: none; text-align: right; line-height: 30px; position: absolute; top: 40px; left: 0; right: 0; height: 30px; padding:0 10px; }
+	div#summary span#total { font-weight: bold; }
+	
+</style>
+</head>
+<body>
+<form name="form" id="form" method="post">
+	<div id="search" >
+		<input type="hidden" name="currentPage" value="1"/> <!-- 요청 변수 설정 (현재 페이지. currentPage : n > 0) -->
+		<input type="hidden" name="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) --> 
+		<input type="hidden" name="confmKey" value="U01TX0FVVEgyMDIwMDQwODEzNTUyNTEwOTYyNTg="/><!-- 요청 변수 설정 (승인키, nhescm.co.kr) -->
+		<input type="text" id="edt_key" name="keyword" onkeydown="enterSearch();" placeholder="예) 신촌로 66, 노고산동 49-31"/><!-- 요청 변수 설정 (키워드) -->
+		<input type="button" id="btn_search" onClick="getAddr();" value="검색"/>
+	</div>
+	<div id="summary">검색결과 : <span id="total">0건</span></div>
+	<div id="list" >
+		<table id="tbl_list">
+			<colgroup>
+				<col style="width:100px">
+				<col/>
+				<col style="width:100px">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>우편번호</th>
+					<th>주소</th>
+					<th>선택</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<div id="page">
+		<ul id="page_list">
+		</ul>
+	</div>
+</form>
+</body>
+</html>

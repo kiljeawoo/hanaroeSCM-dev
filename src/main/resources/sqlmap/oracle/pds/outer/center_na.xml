@@ -1,0 +1,1361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="centerNaDAO">
+<!-- 물류센터_출고실적 resultMap-->
+	<resultMap id="centerMap" type="com.nh.escm.pds.outer.na.vo.CenterNaVO">
+		<result column="RN" property="RN" />				
+		<result column="PHD_NA_BZPLC" property="PHD_NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="PHD_RVO_QT" property="PHD_RVO_QT" />
+		<result column="PHD_RVO_PER_QT" property="PHD_RVO_PER_QT" />
+		<result column="PHD_PCK_QT" property="PHD_PCK_QT" />
+		<result column="PHD_PCK_PER_QT" property="PHD_PCK_PER_QT" />
+		<result column="PHD_OUT_QT" property="PHD_OUT_QT" />
+		<result column="PHD_OUT_PER_QT" property="PHD_OUT_PER_QT" />
+		<result column="CUS_CNR_QT" property="CUS_CNR_QT" />
+		<result column="CUS_CNR_PER_QT" property="CUS_CNR_PER_QT" />
+		<result column="CUS_CNR_AMT" property="CUS_CNR_AMT" />
+		<result column="PHD_CNR_QT" property="PHD_CNR_QT" />
+		<result column="PHD_CNR_PER_QT" property="PHD_CNR_PER_QT" />
+		<result column="PHD_CNR_AMT" property="PHD_CNR_AMT" />		
+		<result column="PHD_DLR_DSC" property="PHD_DLR_DSC" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="INPD_QT" property="INPD_QT" />
+		<result column="PHD_SELPR" property="PHD_SELPR" />
+		<result column="SVS_YN" property="SVS_YN" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="WRS_MRK_PHD_UNT_C" property="WRS_MRK_PHD_UNT_C" />
+		<result column="INPD_QT2" property="INPD_QT2" />
+		<result column="DVY_NA_TRPL_C" property="DVY_NA_TRPL_C" />
+		<result column="DVY_NA_TRPL_C_NM" property="DVY_NA_TRPL_C_NM" />
+		<result column="FILP_DT"	property="FILP_DT" />
+		<result column="BKG_EVT_YY" property="BKG_EVT_YY" />
+		<result column="BKG_EVT_NO" property="BKG_EVT_NO" />
+	</resultMap>
+
+<!-- 물류센터_출고실적_주류 resultMap-->	
+	<resultMap id="centerLiquorMap" type="com.nh.escm.pds.outer.na.vo.CenterLiquorNaVO">	
+		<result column="RN" property="RN" />
+		<result column="PHD_NA_BZPLC" property="PHD_NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="PHD_RVO_QT" property="PHD_RVO_QT" />
+		<result column="PHD_RVO_PER_QT" property="PHD_RVO_PER_QT" />
+		<result column="PHD_PCK_QT" property="PHD_PCK_QT" />
+		<result column="PHD_PCK_PER_QT" property="PHD_PCK_PER_QT" />
+		<result column="PHD_OUT_QT" property="PHD_OUT_QT" />
+		<result column="PHD_OUT_PER_QT" property="PHD_OUT_PER_QT" />
+		<result column="CUS_CNR_QT" property="CUS_CNR_QT" />
+		<result column="CUS_CNR_PER_QT" property="CUS_CNR_PER_QT" />
+		<result column="CUS_CNR_AMT" property="CUS_CNR_AMT" />
+		<result column="PHD_CNR_QT" property="PHD_CNR_QT" />
+		<result column="PHD_CNR_PER_QT" property="PHD_CNR_PER_QT" />
+		<result column="PHD_CNR_AMT" property="PHD_CNR_AMT" />		
+		<result column="PHD_DLR_DSC" property="PHD_DLR_DSC" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="INPD_QT" property="INPD_QT" />
+		<result column="PHD_SELPR" property="PHD_SELPR" />
+		<result column="SVS_YN" property="SVS_YN" />
+		<result column="PRGR_C" property="PRGR_C" />	
+		<result column="WRS_MRK_PHD_UNT_C" property="WRS_MRK_PHD_UNT_C" />
+		<result column="INPD_QT2" property="INPD_QT2" />
+		<result column="DVY_NA_TRPL_C" property="DVY_NA_TRPL_C" />
+		<result column="DVY_NA_TRPL_C_NM" property="DVY_NA_TRPL_C_NM" />
+	</resultMap>
+	
+	<sql id="sql_retrieveWrsMasterList">
+		SELECT /*+ leading(a b) */
+			  A.PHD_NA_BZPLC /*01물류경제통합사업장코드*/
+			, (SELECT C.shrt_bzplnm FROM TB_CM_BZPL C WHERE C.na_bzplc=A.phd_na_bzplc) AS SHRT_BZPLNM /*02단축사업장명*/
+			, A.NA_TRPL_C /*03경제통합거래처*/
+			, (SELECT D.clntnm FROM TB_TR_TRPL_CIF D WHERE D.na_trpl_c=A.na_trpl_c) AS CLNTNM /*04거래처*/
+			
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		, 0 PHD_RVO_QT /*05물류수주수량(낱개)*/			
+				, 0 PHD_RVO_PER_QT /*06물류수주수량(표시단위)*/			
+				, 0 PHD_PCK_QT  /*07물류피킹수량(낱개)*/			
+				, 0 PHD_PCK_PER_QT /*08물류피킹수량(표시단위)*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		, TRUNC(SUM(B.PHD_RVO_QT),0) PHD_RVO_QT /*05물류수주수량(낱개)*/			
+				, TRUNC(SUM(B.PHD_RVO_QT/B.INPD_QT),0) PHD_RVO_PER_QT /*06물류수주수량(표시단위)*/			
+				, TRUNC(SUM(B.PHD_PCK_QT),0) PHD_PCK_QT  /*07물류피킹수량(낱개)*/			
+				, TRUNC(SUM(B.PHD_PCK_QT/B.INPD_QT),0) PHD_PCK_PER_QT /*08물류피킹수량(표시단위)*/
+		  	</if>
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)),0) PHD_OUT_QT /*09물류출고수량(낱개)(회송제외)*/			
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)/B.INPD_QT),0) PHD_OUT_PER_QT /*10물류출고수량(표시단위)(회송제외)*/			
+			, TRUNC(SUM(B.CUS_CNR_QT),0) CUS_CNR_QT /*11고객검수수량(낱개)*/			
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),0) CUS_CNR_PER_QT /*12고객검수수량(표시단위)*/			
+			, TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*13고객검수금액*/			
+			, TRUNC(SUM(B.PHD_CNR_QT),0) PHD_CNR_QT /*14물류검수수량(낱개)*/			
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),0) PHD_CNR_PER_QT /*15물류검수수량(표시단위)*/
+			, TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*16물류검수금액*/		
+		FROM TB_LG_OUT_M A, TB_LG_OUT_D B
+			,NHVANINF.TB_TR_TRNREL_OUT C
+		WHERE 1=1
+			AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO			
+			AND NVL(A.GRS_SOJU_YN, '0') = '0' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+			AND B.SPYPL_NA_TRPL_C = #{upTrplC}
+		  	<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25')
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>	
+		  	<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>			
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>			
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>
+		  		AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC = C.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = C.UP_NA_TRPL_C
+		  		AND C.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND C.DEL_DTM IS NULL
+		GROUP BY A.PHD_NA_BZPLC, A.NA_TRPL_C		
+	</sql>
+
+	<!-- 물류센터 출고실적 마스터 페이지 추가 쿼리 -->
+	<select id="retrieveWrsMasterList" parameterType="java.util.Map" resultMap="centerMap">
+		<bind name="sortName" value="'PHD_NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveWrsMasterList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 물류센터 출고실적 마스터  총 카운트 -->
+	<select id="getOutWrsCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveWrsMasterList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 물류센터 출고실적 합계 -->
+	<select id="getWrsMasterTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.PHD_RVO_QT), 0) AS PHD_RVO_QT
+		  , NVL(SUM(LIST.PHD_RVO_PER_QT), 0) AS PHD_RVO_PER_QT
+		  , NVL(SUM(LIST.PHD_PCK_QT), 0) AS PHD_PCK_QT
+		  , NVL(SUM(LIST.PHD_PCK_PER_QT), 0) AS PHD_PCK_PER_QT
+		  , NVL(SUM(LIST.PHD_OUT_QT), 0) AS PHD_OUT_QT
+		  , NVL(SUM(LIST.PHD_OUT_PER_QT), 0) AS PHD_OUT_PER_QT
+		  , NVL(SUM(LIST.CUS_CNR_QT), 0) AS CUS_CNR_QT
+		  , NVL(SUM(LIST.CUS_CNR_PER_QT), 0) AS CUS_CNR_PER_QT
+		  , NVL(SUM(LIST.CUS_CNR_AMT), 0) AS CUS_CNR_AMT
+		  , NVL(SUM(LIST.PHD_CNR_QT), 0) AS PHD_CNR_QT
+		  , NVL(SUM(LIST.PHD_CNR_PER_QT), 0) AS PHD_CNR_PER_QT
+		  , NVL(SUM(LIST.PHD_CNR_AMT), 0) AS PHD_CNR_AMT
+		FROM
+		(
+		<include refid="sql_retrieveWrsMasterList" />
+		) LIST
+	</select>			
+	
+	<sql id="sql_retrieveWrsDetailList">
+		SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+			NVL(A.PHD_NA_BZPLC, ' ') AS PHD_NA_BZPLC /*사업장코드*/     
+            , E.SHRT_BZPLNM /*단축사업장명*/
+            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) PHD_DLR_DSC /*물류출고구분코드*/
+            , NVL(G.NA_TRPL_C,' ') AS NA_TRPL_C /*거래처코드*/
+            , G.CLNTNM /*거래처명*/
+			, B.NA_WRS_C /*상품코드*/
+			, F.WRS_ABR_NM as WRSNM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) AS INPD_QT2     /* 내품수량 : 입수        */
+			, B.PHD_SELPR /*물류판매가*/
+			
+			, SUM((DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))) PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, (B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))/B.INPD_QT),2) PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/
+			, SUM(B.CUS_CNR_QT) CUS_CNR_QT /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),2) CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/
+			
+			<!-- , TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/ -->
+			, SUM(B.CUS_CNR_QT*B.PHD_SELPR) CUS_CNR_AMT /*12고객검수금액*/
+			
+			, SUM(B.PHD_CNR_QT) PHD_CNR_QT /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),2) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+			
+			<!-- , TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/ -->
+			, SUM(B.PHD_CNR_QT*B.PHD_SELPR) PHD_CNR_AMT /*15물류검수금액*/			
+			, F.SVS_YN /*소분여부*/
+			, A.DVY_NA_TRPL_C /*배송지코드*/
+			, FN_TRPL_CIF_NM(A.DVY_NA_TRPL_C) AS DVY_NA_TRPL_C_NM /*배송지명*/
+			, B.BKG_EVT_YY
+			, B.BKG_EVT_NO
+			, A.FILP_DT
+		FROM 
+			  TB_LG_OUT_M A
+			, TB_LG_OUT_D B
+			, TB_TR_TRPL_CIF C
+			, TB_GD_WRS D
+			, TB_CM_BZPL E
+			, TB_OD_TRTWRS F
+			, TB_TR_TRPL_CIF G
+			,NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1
+			AND A.PHD_NA_BZPLC    = B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO
+			AND A.PHD_NA_BZPLC    = E.NA_BZPLC
+			AND A.NA_TRPL_C       = C.NA_TRPL_C
+			AND B.NA_WRS_C        = D.NA_WRS_C
+			AND B.NA_WRS_C        = F.NA_WRS_C
+			AND B.PHD_NA_BZPLC    = F.NA_BZPLC
+			AND F.SPYPL_NA_TRPL_C = G.NA_TRPL_C
+			AND E.NA_BZ_TPC       = '12'
+			<!--  AND A.PHD_SLP_DSC = '0' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+			AND NVL(A.GRS_SOJU_YN, '0') = '0' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->			
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->		  		
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+			<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>		
+			<if test="naTrplC != null and naTrplC.length() > 0">
+				AND A.NA_TRPL_C = #{naTrplC}
+			</if>
+			AND F.SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>
+		  	AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC       = H.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  		AND H.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND H.DEL_DTM IS NULL
+		  	GROUP BY
+		  	NVL(A.PHD_NA_BZPLC, ' ') /*사업장코드*/     
+            , E.SHRT_BZPLNM /*단축사업장명*/
+            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) /*물류출고구분코드*/
+            , NVL(G.NA_TRPL_C,' ') /*거래처코드*/
+            , G.CLNTNM /*거래처명*/
+			, B.NA_WRS_C /*상품코드*/
+			, F.WRS_ABR_NM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/ 
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT)   /* 내품수량 : 입수        */
+			, B.PHD_SELPR /*물류판매가*/
+			, F.SVS_YN /*소분여부*/
+			, A.DVY_NA_TRPL_C
+			, B.BKG_EVT_YY
+			, B.BKG_EVT_NO
+			, A.FILP_DT
+	</sql>
+	
+	<!-- 물류센터 출고실적 디테일 페이지 추가 쿼리 -->
+	<select id="retrieveWrsDetailList" parameterType="java.util.Map" resultMap="centerMap">
+		<bind name="sortName" value="'PHD_DLR_DSC,NA_WRS_C,PHD_NA_BZPLC,NA_TRPL_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveWrsDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 물류센터 출고실적 디테일  총 카운트 -->
+	<select id="getOutWrsDetailCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveWrsDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 물류센터 출고 실적 마스터 엑셀 다운로드 -->
+	<select id="downloadExcelWrsMasterList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+			NVL(A.PHD_NA_BZPLC, ' ') AS PHD_NA_BZPLC /*사업장코드*/
+			, E.SHRT_BZPLNM AS SHRT_BZPLNM /*단축사업장명*/
+			, A.PHD_RVO_DT /*물류수주일자*/
+			, A.PHD_DLR_CPL_DT /*물류출고완료일자*/
+			, A.FILP_DT AS ADD_1 /*기표일자*/
+			, A.PHD_DLR_DSC AS PHD_DLR_DSC /*물류출고구분코드*/
+			, A.NA_TRPL_C /*02경제통합거래처*/
+			, FN_TRPL_CIF_NM(A.na_trpl_c) AS CLNTNM /*03거래처*/
+			, B.NA_WRS_C AS NA_WRS_C /*상품코드*/
+			, D.WRS_ABR_NM AS WRSNM /*단축상품명*/
+			, D.WRS_STDNM AS WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C AS WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT AS INPD_QT_D /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) AS INPD_QT_D2 /* 내품수량 : 입수 */
+			, TRUNC(B.PHD_SELPR,0) AS PHD_SELPR /*물류판매가*/
+			, SUM((DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))) AS PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, (B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))/B.INPD_QT),2) AS PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/
+			, B.CUS_CNR_DT /*고객검수일자*/
+			, SUM(B.CUS_CNR_QT) AS CUS_CNR_QT /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),2) AS CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/
+			, TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) AS CUS_CNR_AMT /*12고객검수금액*/
+			, TRUNC(SUM(B.PHD_CNR_QT),0) PHD_CNR_QT /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),2) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+			, SUM(B.PHD_CNR_QT*B.PHD_SELPR) PHD_CNR_AMT /*15물류검수금액*/
+			, B.TXT_DSC /*과세구분코드*/
+			, B.BKG_EVT_YY AS ADD_2 /*예약행사년도*/
+			, B.BKG_EVT_NO AS ADD_3 /*예약행사번호*/
+			, F.SVS_YN /*소분여부*/
+			, '' AS ADD_4 /*사전발주상품여부*/
+			, NVL(G.NA_TRPL_C,' ') AS NA_TRPL_C_1 /*공급처코드*/
+			, G.CLNTNM AS CLNTNM_1 /*공급처명*/
+			, A.DVY_NA_TRPL_C /*배송지코드*/
+			, FN_TRPL_CIF_NM(A.DVY_NA_TRPL_C) AS DVY_NA_TRPL_C_NM /*배송지명*/
+			, A.FILP_DT
+			FROM TB_LG_OUT_M A ,
+				 TB_LG_OUT_D B ,
+				 TB_TR_TRPL_CIF C ,
+				 TB_GD_WRS D ,
+				 TB_CM_BZPL E ,
+				 TB_OD_TRTWRS F ,
+				 TB_TR_TRPL_CIF G
+				,NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1
+			AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO
+			AND A.PHD_NA_BZPLC = E.NA_BZPLC
+			AND A.NA_TRPL_C = C.NA_TRPL_C
+			AND B.NA_WRS_C = D.NA_WRS_C
+			AND B.NA_WRS_C = F.NA_WRS_C
+			AND B.PHD_NA_BZPLC = F.NA_BZPLC
+			AND F.SPYPL_NA_TRPL_C = G.NA_TRPL_C
+			AND E.NA_BZ_TPC = '12'
+			AND NVL(A.GRS_SOJU_YN, '0') = '0'
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+			<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>		
+			AND F.SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+			<when test="dateCode == '1'.toString()">
+				AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+			</when>			    
+			<otherwise>					
+				AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+			</otherwise>
+		 	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>		
+				AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC       = H.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  		AND H.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND H.DEL_DTM IS NULL
+		GROUP BY
+			A.PHD_NA_BZPLC
+			, A.PHD_RVO_DT
+			, A.PHD_DLR_CPL_DT
+			, NVL(A.PHD_NA_BZPLC, ' ') /*사업장코드*/
+			, E.SHRT_BZPLNM /*단축사업장명*/
+			, A.PHD_DLR_DSC /*물류출고구분코드*/
+			, A.NA_TRPL_C /*02경제통합거래처*/
+			, B.NA_WRS_C /*상품코드*/
+			, D.WRS_ABR_NM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) /* 내품수량 : 입수 */
+			, B.PHD_SELPR /*물류판매가*/
+			, B.CUS_CNR_DT /*고객검수일자*/
+			, B.TXT_DSC /*과세구분코드*/
+			, F.SVS_YN /*소분여부*/
+			, NVL(G.NA_TRPL_C,' ') /*공급처코드*/
+			, G.CLNTNM /*공급처명*/
+			, A.DVY_NA_TRPL_C /*배송지코드*/
+			, A.FILP_DT
+			, B.BKG_EVT_YY
+			, B.BKG_EVT_NO
+		ORDER BY
+			A.PHD_NA_BZPLC
+			, A.NA_TRPL_C 
+			, B.NA_WRS_C
+	</select>	
+	
+	
+	<!-- 물류센터 출고 빌링 대상 가져오기 -->
+	<select id="getBillingMarkUpTargets" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+				 B.PHD_NA_BZPLC
+				,B.DLR_PHD_IDVD_NO
+				,B.DLR_PHD_SQNO
+				,B.WRS_GRD_DSC
+				,B.NA_WRS_C
+              FROM 
+                     TB_LG_OUT_M A, 
+                     TB_LG_OUT_D B, 
+                     TB_CM_BZPL E, 
+                     TB_OD_TRTWRS F,
+                     NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1
+                  AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC 
+                  AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO 
+                  AND A.PHD_NA_BZPLC = E.NA_BZPLC 
+                  AND B.NA_WRS_C = F.NA_WRS_C 
+                  AND B.PHD_NA_BZPLC = F.NA_BZPLC 
+                  AND E.NA_BZ_TPC = '12'
+                  AND NVL(A.GRS_SOJU_YN, '0') = #{GRS_SOJU_YN}
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+			<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>
+			<if test="naTrplC != null and naTrplC.length() > 0">
+				AND A.NA_TRPL_C = #{naTrplC}
+			</if>	
+			AND F.SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+			<when test="dateCode == '1'.toString()">
+				AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+			</when>			    
+			<otherwise>					
+				AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+			</otherwise>
+		 	</choose>
+		 	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>		
+			AND B.DEL_YN = '0'
+			AND A.PHD_NA_BZPLC    = H.CSER_NA_TRPL_C
+	  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+	  		AND H.NA_TRPL_C IN 
+	  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+		    		#{item}
+				</foreach>
+	  		AND H.DEL_DTM IS NULL
+	</select>
+
+	<!-- 물류센터 출고 빌링 대상 가져오기 -->
+	<select id="getBillingMarkUpTargetsLiquor" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+				 B.PHD_NA_BZPLC
+				,B.DLR_PHD_IDVD_NO
+				,B.DLR_PHD_SQNO
+				,B.WRS_GRD_DSC
+				,B.NA_WRS_C   
+		FROM TB_LG_OUT_M A , 
+              TB_LG_OUT_D B , 
+              TB_CM_BZPL E , 
+              TB_OD_TRTWRS F ,
+              NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1 
+              AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC 
+              AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO 
+              AND A.PHD_NA_BZPLC = E.NA_BZPLC 
+              AND B.NA_WRS_C = F.NA_WRS_C 
+              AND B.PHD_NA_BZPLC = F.NA_BZPLC 
+              AND E.NA_BZ_TPC = '12' 
+              AND A.GRS_SOJU_YN = '1' 
+            <if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+              <if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>
+			<if test="naTrplC != null and naTrplC.length() > 0">
+				AND A.NA_TRPL_C = #{naTrplC}
+			</if>		
+				AND B.ACTL_SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>               
+              AND B.DEL_YN = '0'
+              AND A.PHD_NA_BZPLC    = H.CSER_NA_TRPL_C
+			  AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  	  AND H.NA_TRPL_C IN 
+		  		<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    	#{item}
+				</foreach>
+	  		  AND H.DEL_DTM IS NULL
+	</select>
+		
+	<!-- 물류센터 출고 실적 디테일 엑셀 다운로드 -->
+	<select id="downloadExcelWrsDetailList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT GRDM.*, GRDD.*
+			FROM
+					(SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+					  A.PHD_NA_BZPLC /*00물류경제통합사업장코드*/
+					, (SELECT C.shrt_bzplnm FROM TB_CM_BZPL C WHERE C.na_bzplc=A.phd_na_bzplc) AS SHRT_BZPLNM /*01단축사업장명*/
+					, A.NA_TRPL_C /*02경제통합거래처*/
+					, (SELECT D.clntnm FROM TB_TR_TRPL_CIF D WHERE D.na_trpl_c=A.na_trpl_c) AS CLNTNM /*03거래처*/
+					
+					<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+				  		, 0 PHD_RVO_QT /*04물류수주수량(낱개)*/			
+						, 0 PHD_RVO_PER_QT /*05물류수주수량(표시단위)*/			
+						, 0 PHD_PCK_QT  /*06물류피킹수량(낱개)*/			
+						, 0 PHD_PCK_PER_QT /*07물류피킹수량(표시단위)*/
+				  	</if>
+				   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+				   		, TRUNC(SUM(B.PHD_RVO_QT),0) PHD_RVO_QT /*04물류수주수량(낱개)*/			
+						, TRUNC(SUM(B.PHD_RVO_QT/B.INPD_QT),0) PHD_RVO_PER_QT /*05물류수주수량(표시단위)*/			
+						, TRUNC(SUM(B.PHD_PCK_QT),0) PHD_PCK_QT  /*06물류피킹수량(낱개)*/			
+						, TRUNC(SUM(B.PHD_PCK_QT/B.INPD_QT),0) PHD_PCK_PER_QT /*07물류피킹수량(표시단위)*/
+				  	</if>	  				
+
+					, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)),0) PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/			
+					, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)/B.INPD_QT),0) PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/			
+					, TRUNC(SUM(B.CUS_CNR_QT),0) CUS_CNR_QT /*10고객검수수량(낱개)*/			
+					, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),0) CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/			
+					, TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/			
+					, TRUNC(SUM(B.PHD_CNR_QT),0) PHD_CNR_QT /*13물류검수수량(낱개)*/			
+					, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),0) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+					, TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/
+					, B.BKG_EVT_YY
+					, B.BKG_EVT_NO
+					, A.FILP_DT			
+				FROM TB_LG_OUT_M A, TB_LG_OUT_D B, TB_OD_TRTWRS E 
+					,NHVANINF.TB_TR_TRNREL_OUT C
+				WHERE 1=1
+					AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+					AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO			
+					<!--  AND A.PHD_SLP_DSC = '0' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+					AND NVL(A.GRS_SOJU_YN, '0') = '0' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+					AND B.PHD_NA_BZPLC     = E.NA_BZPLC
+					AND B.NA_WRS_C         = E.NA_WRS_C		 	
+				  	<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+				  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+				  		AND B.WRS_GRD_DSC = '20'
+				  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+				  	</if>
+				   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+				   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+				   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+						AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+				  	</if>
+				  	<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+						AND A.PHD_DLR_DSC = #{phdDlrDsc}
+				  	</if>	  	
+					AND E.SPYPL_NA_TRPL_C = #{upTrplC}		  	
+				  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+						AND A.PRGR_C = #{prgrC}
+					</if>
+					<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+						AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+					</if>			
+					<choose>
+						<when test="dateCode == '1'.toString()">
+							AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+						</when>			    
+						<otherwise>					
+							AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+						</otherwise>
+				  	</choose>
+				  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+						AND B.NA_WRS_C = #{NA_WRS_C}
+				  	</if>
+					  	AND B.DEL_YN = '0'
+				  		AND A.PHD_NA_BZPLC       = C.CSER_NA_TRPL_C
+				  		AND B.SPYPL_NA_TRPL_C = C.UP_NA_TRPL_C
+				  		AND C.NA_TRPL_C IN 
+				  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+				  		AND C.DEL_DTM IS NULL
+				GROUP BY A.PHD_NA_BZPLC
+					   , A.NA_TRPL_C
+					   , B.BKG_EVT_YY
+					   , B.BKG_EVT_NO
+					   , A.FILP_DT
+				) GRDM,
+				(SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+					NVL(A.PHD_NA_BZPLC, ' ') AS PHD_NA_BZPLC_D /*사업장코드*/     
+		            , E.SHRT_BZPLNM AS SHRT_BZPLNM_D /*단축사업장명*/	            
+		            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) PHD_DLR_DSC_D /*물류출고구분코드*/
+		            , NVL(G.NA_TRPL_C,' ') AS NA_TRPL_C_D /*거래처코드*/
+		            , G.CLNTNM AS CLNTNM_D /*거래처명*/
+					, B.NA_WRS_C AS NA_WRS_C_D /*상품코드*/
+					, F.WRS_ABR_NM AS WRSNM_D /*단축상품명*/
+					, D.WRS_STDNM AS WRS_STDNM_D /*상품규격명*/
+					, B.WRS_MRK_PHD_UNT_C AS WRS_MRK_PHD_UNT_C_D /*상품표시물류단위코드*/
+					, B.INPD_QT AS INPD_QT_D /*내품수량*/
+					, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) AS INPD_QT_D2     /* 내품수량 : 입수        */
+					, B.PHD_SELPR AS PHD_SELPR_D /*물류판매가*/
+					
+					, SUM((DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))) AS PHD_OUT_QT_D /*08물류출고수량(낱개)(회송제외)*/
+					, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, (B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))/B.INPD_QT),2) AS PHD_OUT_PER_QT_D /*09물류출고수량(표시단위)(회송제외)*/
+					, SUM(B.CUS_CNR_QT) AS CUS_CNR_QT_D /*10고객검수수량(낱개)*/
+					, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),2) AS CUS_CNR_PER_QT_D /*11고객검수수량(표시단위)*/
+					
+					<!-- , TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/ -->
+					, SUM(B.CUS_CNR_QT*B.PHD_SELPR) AS CUS_CNR_AMT_D /*12고객검수금액*/
+					
+					, SUM(B.PHD_CNR_QT) PHD_CNR_QT_D /*13물류검수수량(낱개)*/
+					, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),2) PHD_CNR_PER_QT_D /*14물류검수수량(표시단위)*/
+				
+					<!-- , TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/ -->
+					, SUM(B.PHD_CNR_QT*B.PHD_SELPR) PHD_CNR_AMT_D /*15물류검수금액*/			
+					, F.SVS_YN SVS_YN_D /*소분여부*/				
+					, A.NA_TRPL_C AS NA_TRPL_C_DD
+					, A.DVY_NA_TRPL_C DVY_NA_TRPL_C_D /*배송지코드*/
+					, FN_TRPL_CIF_NM(A.DVY_NA_TRPL_C) AS DVY_NA_TRPL_C_NM_D /*배송지명*/
+			FROM 
+					TB_LG_OUT_M A
+					, TB_LG_OUT_D B
+					, TB_TR_TRPL_CIF C
+					, TB_GD_WRS D
+					, TB_CM_BZPL E
+					, TB_OD_TRTWRS F
+					, TB_TR_TRPL_CIF G
+					,NHVANINF.TB_TR_TRNREL_OUT H
+					WHERE 1=1
+					AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+					AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO
+					AND A.PHD_NA_BZPLC          = E.NA_BZPLC
+					AND A.NA_TRPL_C = C.NA_TRPL_C
+					AND B.NA_WRS_C = D.NA_WRS_C
+					AND B.NA_WRS_C = F.NA_WRS_C
+					AND B.PHD_NA_BZPLC = F.NA_BZPLC
+					AND F.SPYPL_NA_TRPL_C             = G.NA_TRPL_C
+					AND E.NA_BZ_TPC             = '12'
+					<!--  AND A.PHD_SLP_DSC = '0' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+					AND NVL(A.GRS_SOJU_YN, '0') = '0' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+					<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+				  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+				  		AND B.WRS_GRD_DSC = '20'
+				  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+				  	</if>
+				   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+				   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+				   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+						AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+				  	</if>
+					<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+						AND A.PHD_DLR_DSC = #{phdDlrDsc}
+				  	</if>
+				  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+						AND A.PRGR_C = #{prgrC}
+					</if>
+					<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+						AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+					</if>
+					
+					<if test="naTrplC != null and naTrplC.length() > 0">
+						AND A.NA_TRPL_C = #{naTrplC}
+					</if>
+						AND F.SPYPL_NA_TRPL_C = #{upTrplC}
+					<choose>
+						<when test="dateCode == '1'.toString()">
+							AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+						</when>			    
+						<otherwise>					
+							AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+						</otherwise>
+				  	</choose>
+				  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+						AND B.NA_WRS_C = #{NA_WRS_C}
+				  	</if>
+					  	AND B.DEL_YN = '0'
+				  		AND A.PHD_NA_BZPLC       = H.CSER_NA_TRPL_C
+				  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+				  		AND H.NA_TRPL_C IN 
+				  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+				  		AND H.DEL_DTM IS NULL
+				  	GROUP BY
+				  	NVL(A.PHD_NA_BZPLC, ' ') /*사업장코드*/     
+		            , E.SHRT_BZPLNM /*단축사업장명*/
+		            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) /*물류출고구분코드*/
+		            , NVL(G.NA_TRPL_C,' ') /*거래처코드*/
+		            , G.CLNTNM /*거래처명*/
+					, B.NA_WRS_C /*상품코드*/
+					, F.WRS_ABR_NM /*단축상품명*/
+					, D.WRS_STDNM /*상품규격명*/
+					, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+					, B.INPD_QT /*내품수량*/
+					, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT)   /* 내품수량 : 입수        */
+					, B.PHD_SELPR /*물류판매가*/
+					, F.SVS_YN /*소분여부*/
+					, A.NA_TRPL_C
+					, A.DVY_NA_TRPL_C
+				) GRDD
+			WHERE 1=1
+			    AND GRDM.PHD_NA_BZPLC = GRDD.PHD_NA_BZPLC_D
+			    AND GRDM.NA_TRPL_C = GRDD.NA_TRPL_C_DD
+				ORDER BY GRDM.PHD_NA_BZPLC,GRDM.NA_TRPL_C	, GRDD.NA_WRS_C_D
+	</select>
+	
+	
+	
+	<!-- 물류센터_출고실적_주류 sql -->	
+	<sql id="sql_retrieveLiquorWrsMasterList">
+		SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+			  A.PHD_NA_BZPLC /*00물류경제통합사업장코드*/
+			, FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS SHRT_BZPLNM /*01단축사업장명*/
+			<!-- , (SELECT C.shrt_bzplnm FROM TB_CM_BZPL C WHERE C.na_bzplc=A.phd_na_bzplc) AS SHRT_BZPLNM /*01단축사업장명*/ -->
+			, A.NA_TRPL_C /*02경제통합거래처*/
+			, (SELECT D.clntnm FROM TB_TR_TRPL_CIF D WHERE D.na_trpl_c=A.na_trpl_c) AS CLNTNM /*03거래처*/
+			
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		, 0 PHD_RVO_QT /*04물류수주수량(낱개)*/			
+				, 0 PHD_RVO_PER_QT /*05물류수주수량(표시단위)*/			
+				, 0 PHD_PCK_QT  /*06물류피킹수량(낱개)*/			
+				, 0 PHD_PCK_PER_QT /*07물류피킹수량(표시단위)*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		, TRUNC(SUM(B.PHD_RVO_QT),0) PHD_RVO_QT /*04물류수주수량(낱개)*/			
+				, TRUNC(SUM(B.PHD_RVO_QT/B.INPD_QT),0) PHD_RVO_PER_QT /*05물류수주수량(표시단위)*/			
+				, TRUNC(SUM(B.PHD_PCK_QT),0) PHD_PCK_QT  /*06물류피킹수량(낱개)*/			
+				, TRUNC(SUM(B.PHD_PCK_QT/B.INPD_QT),0) PHD_PCK_PER_QT /*07물류피킹수량(표시단위)*/
+		  	</if>	
+			
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)),0) PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)/B.INPD_QT),0) PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/
+			, TRUNC(SUM(B.CUS_CNR_QT),0) CUS_CNR_QT /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),0) CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/
+			, TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/
+			, TRUNC(SUM(B.PHD_CNR_QT),0) PHD_CNR_QT /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),0) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+			, TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/
+		FROM TB_LG_OUT_M A, TB_LG_OUT_D B
+			,NHVANINF.TB_TR_TRNREL_OUT C
+			WHERE 1=1
+			AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO			
+			<!--  AND A.PHD_SLP_DSC = '1' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+			AND A.GRS_SOJU_YN = '1' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+			AND B.ACTL_SPYPL_NA_TRPL_C = #{upTrplC}
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>	
+		  	<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>	
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>
+			  	AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC       = C.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = C.UP_NA_TRPL_C
+		  		AND C.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND C.DEL_DTM IS NULL
+		GROUP BY A.PHD_NA_BZPLC, A.NA_TRPL_C	
+	</sql>	
+	
+	<!-- 주류 물류센터 출고실적 마스터 페이지 추가 쿼리 -->
+	<select id="retrieveLiquorWrsMasterList" parameterType="java.util.Map" resultMap="centerLiquorMap">
+		<bind name="sortName" value="'PHD_NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveLiquorWrsMasterList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 주류 물류센터 출고실적 마스터  총 카운트 -->
+	<select id="getOutLiquorWrsMasterCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveLiquorWrsMasterList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 주류 물류센터 출고실적 합계 -->
+	<select id="getLiquorWrsMasterTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.PHD_RVO_QT), 0) AS PHD_RVO_QT
+		  , NVL(SUM(LIST.PHD_RVO_PER_QT), 0) AS PHD_RVO_PER_QT
+		  , NVL(SUM(LIST.PHD_PCK_QT), 0) AS PHD_PCK_QT
+		  , NVL(SUM(LIST.PHD_PCK_PER_QT), 0) AS PHD_PCK_PER_QT
+		  , NVL(SUM(LIST.PHD_OUT_QT), 0) AS PHD_OUT_QT
+		  , NVL(SUM(LIST.PHD_OUT_PER_QT), 0) AS PHD_OUT_PER_QT
+		  , NVL(SUM(LIST.CUS_CNR_QT), 0) AS CUS_CNR_QT
+		  , NVL(SUM(LIST.CUS_CNR_PER_QT), 0) AS CUS_CNR_PER_QT
+		  , NVL(SUM(LIST.CUS_CNR_AMT), 0) AS CUS_CNR_AMT
+		  , NVL(SUM(LIST.PHD_CNR_QT), 0) AS PHD_CNR_QT
+		  , NVL(SUM(LIST.PHD_CNR_PER_QT), 0) AS PHD_CNR_PER_QT
+		  , NVL(SUM(LIST.PHD_CNR_AMT), 0) AS PHD_CNR_AMT
+		FROM
+		(
+		<include refid="sql_retrieveLiquorWrsMasterList" />
+		) LIST
+	</select>
+	
+	<sql id="sql_retrieveLiquorWrsDetailList">
+		SELECT
+			NVL(A.PHD_NA_BZPLC, ' ') AS PHD_NA_BZPLC /*사업장코드*/     
+            , E.SHRT_BZPLNM /*단축사업장명*/            
+            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) PHD_DLR_DSC /*물류출고구분코드*/
+            , NVL(G.NA_TRPL_C,' ') AS NA_TRPL_C /*거래처코드*/
+            , G.CLNTNM /*거래처명*/
+			, B.NA_WRS_C /*상품코드*/
+			, F.WRS_ABR_NM as WRSNM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) AS INPD_QT2     /* 내품수량 : 입수        */
+			, B.PHD_SELPR /*물류판매가*/
+			, SUM((DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))) PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, (B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))/B.INPD_QT),2) PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/
+			, SUM(B.CUS_CNR_QT) CUS_CNR_QT /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),2) CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/
+			
+			<!-- , TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/ -->
+			, SUM(B.CUS_CNR_QT*B.PHD_SELPR) CUS_CNR_AMT /*12고객검수금액*/
+			
+			, SUM(B.PHD_CNR_QT) PHD_CNR_QT /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),2) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+			
+			<!-- , TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/ -->
+			, SUM(B.PHD_CNR_QT*B.PHD_SELPR) PHD_CNR_AMT /*15물류검수금액*/
+			, F.SVS_YN /*소분여부*/
+			, A.DVY_NA_TRPL_C /*배송지코드*/
+			, FN_TRPL_CIF_NM(A.DVY_NA_TRPL_C) AS DVY_NA_TRPL_C_NM /*배송지명*/
+		FROM
+			TB_LG_OUT_M A
+			, TB_LG_OUT_D B
+			, TB_TR_TRPL_CIF C
+			, TB_GD_WRS D
+			, TB_CM_BZPL E
+			, TB_OD_TRTWRS F
+			, TB_TR_TRPL_CIF G
+			,NHVANINF.TB_TR_TRNREL_OUT H
+	
+		WHERE 1=1
+			AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO
+			AND A.PHD_NA_BZPLC          = E.NA_BZPLC
+			AND A.NA_TRPL_C = C.NA_TRPL_C
+			AND B.NA_WRS_C = D.NA_WRS_C
+			AND B.NA_WRS_C = F.NA_WRS_C
+			AND B.PHD_NA_BZPLC = F.NA_BZPLC
+			AND B.ACTL_SPYPL_NA_TRPL_C             = G.NA_TRPL_C
+			AND E.NA_BZ_TPC             = '12'
+			<!--  AND A.PHD_SLP_DSC = '1' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+			AND A.GRS_SOJU_YN = '1' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+			<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>		
+			<if test="naTrplC != null and naTrplC.length() > 0">
+				AND A.NA_TRPL_C = #{naTrplC}
+			</if>
+				AND B.ACTL_SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>
+			  	AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC       = H.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  		AND H.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND H.DEL_DTM IS NULL
+		  	GROUP BY
+		  	NVL(A.PHD_NA_BZPLC, ' ') /*사업장코드*/     
+            , E.SHRT_BZPLNM /*단축사업장명*/
+            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) /*물류출고구분코드*/
+            , NVL(G.NA_TRPL_C,' ') /*거래처코드*/
+            , G.CLNTNM /*거래처명*/
+			, B.NA_WRS_C /*상품코드*/
+			, F.WRS_ABR_NM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT)   /* 내품수량 : 입수        */
+			, B.PHD_SELPR /*물류판매가*/
+			, F.SVS_YN /*소분여부*/
+			, A.DVY_NA_TRPL_C
+	</sql>
+	
+	<!-- 주류 물류센터 출고실적 디테일 페이지 추가 쿼리 -->	
+	<select id="retrieveLiquorWrsDetailList" parameterType="java.util.Map" resultMap="centerLiquorMap">
+		<bind name="sortName" value="'NA_WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveLiquorWrsDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 주류 물류센터 출고실적 디테일  총 카운트 -->
+	<select id="getOutLiquorWrsDetailCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveLiquorWrsDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 주류 물류센터 출고 실적 마스터 엑셀 다운로드 -->
+	<select id="downloadExcelLiquorWrsMasterList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+			NVL(A.PHD_NA_BZPLC, ' ') AS PHD_NA_BZPLC /*사업장코드*/
+			, E.SHRT_BZPLNM AS SHRT_BZPLNM /*단축사업장명*/
+			, A.PHD_RVO_DT /*물류수주일자*/
+			, A.PHD_DLR_CPL_DT /*물류출고완료일자*/
+			, A.FILP_DT  /*기표일자*/
+			, A.PHD_DLR_DSC AS PHD_DLR_DSC /*물류출고구분코드*/
+			, A.NA_TRPL_C /*02경제통합거래처*/
+			, FN_TRPL_CIF_NM(A.na_trpl_c) AS CLNTNM /*03거래처*/
+			, B.NA_WRS_C AS NA_WRS_C /*상품코드*/
+			, D.WRS_ABR_NM AS WRSNM /*단축상품명*/
+			, D.WRS_STDNM AS WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C AS WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT AS INPD_QT_D /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) AS INPD_QT_D2 /* 내품수량 : 입수 */
+			, TRUNC(B.PHD_SELPR,0) AS PHD_SELPR /*물류판매가*/
+			, SUM((DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))) AS PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, (B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))/B.INPD_QT),2) AS PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/
+			, B.CUS_CNR_DT /*고객검수일자*/
+			, SUM(B.CUS_CNR_QT) AS CUS_CNR_QT /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),2) AS CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/
+			, TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) AS CUS_CNR_AMT /*12고객검수금액*/
+			, TRUNC(SUM(B.PHD_CNR_QT),0) PHD_CNR_QT /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),2) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+			, TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/
+			, B.TXT_DSC /*과세구분코드*/
+			, B.BKG_EVT_YY AS ADD_2 /*예약행사년도*/
+			, B.BKG_EVT_NO AS ADD_3 /*예약행사번호*/
+			, F.SVS_YN /*소분여부*/
+			, '' AS ADD_4 /*사전발주상품여부*/
+			, NVL(G.NA_TRPL_C,' ') AS NA_TRPL_C_1 /*공급처코드*/
+			, G.CLNTNM AS CLNTNM_1 /*공급처명*/
+			, A.DVY_NA_TRPL_C /*배송지코드*/
+			, FN_TRPL_CIF_NM(A.DVY_NA_TRPL_C) AS DVY_NA_TRPL_C_NM /*배송지명*/ 
+		FROM TB_LG_OUT_M A , 
+              TB_LG_OUT_D B , 
+              TB_TR_TRPL_CIF C , 
+              TB_GD_WRS D , 
+              TB_CM_BZPL E , 
+              TB_OD_TRTWRS F , 
+              TB_TR_TRPL_CIF G
+    		,NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1 
+              AND A.PHD_NA_BZPLC 			= B.PHD_NA_BZPLC 
+              AND A.DLR_PHD_IDVD_NO 		= B.DLR_PHD_IDVD_NO 
+              AND A.PHD_NA_BZPLC 			= E.NA_BZPLC 
+              AND A.NA_TRPL_C 				= C.NA_TRPL_C 
+              AND B.NA_WRS_C 				= D.NA_WRS_C 
+              AND B.NA_WRS_C 				= F.NA_WRS_C 
+              AND B.PHD_NA_BZPLC 			= F.NA_BZPLC 
+              AND B.ACTL_SPYPL_NA_TRPL_C	= G.NA_TRPL_C 
+              AND E.NA_BZ_TPC = '12' 
+              AND A.GRS_SOJU_YN = '1' 
+            <if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+              <if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>			
+				AND B.ACTL_SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>               
+				AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC       = H.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  		AND H.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND H.DEL_DTM IS NULL
+		GROUP BY
+			A.PHD_NA_BZPLC
+			, A.PHD_RVO_DT
+			, A.PHD_DLR_CPL_DT
+			, NVL(A.PHD_NA_BZPLC, ' ') /*사업장코드*/
+			, E.SHRT_BZPLNM /*단축사업장명*/
+			, A.PHD_DLR_DSC /*물류출고구분코드*/
+			, A.NA_TRPL_C /*02경제통합거래처*/
+			, B.NA_WRS_C /*상품코드*/
+			, D.WRS_ABR_NM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) /* 내품수량 : 입수 */
+			, B.PHD_SELPR /*물류판매가*/
+			, B.CUS_CNR_DT /*고객검수일자*/
+			, B.TXT_DSC /*과세구분코드*/
+			, F.SVS_YN /*소분여부*/
+			, NVL(G.NA_TRPL_C,' ') /*공급처코드*/
+			, G.CLNTNM /*공급처명*/
+			, A.DVY_NA_TRPL_C /*배송지코드*/
+			, A.FILP_DT
+			, B.BKG_EVT_YY
+			, B.BKG_EVT_NO
+		ORDER BY A.PHD_NA_BZPLC,
+	       A.PHD_RVO_DT,
+	       A.NA_TRPL_C , 
+	       B.NA_WRS_C
+	</select>       
+		
+	<!-- 주류 물류센터 출고 실적 디테일 엑셀 다운로드 -->
+	<select id="downloadExcelLiquorWrsDetailList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT GRDM.*, GRDD.*
+			FROM
+				(SELECT /*+ leading(a b) index(e XPK_OD_TRTWRS) */
+			  A.PHD_NA_BZPLC /*00물류경제통합사업장코드*/
+			, FN_TRPL_CIF_NM(A.PHD_NA_BZPLC) AS SHRT_BZPLNM /*01단축사업장명*/
+			<!-- , (SELECT C.shrt_bzplnm FROM TB_CM_BZPL C WHERE C.na_bzplc=A.phd_na_bzplc) AS SHRT_BZPLNM /*01단축사업장명*/ -->
+			, A.NA_TRPL_C /*02경제통합거래처*/
+			, (SELECT D.clntnm FROM TB_TR_TRPL_CIF D WHERE D.na_trpl_c=A.na_trpl_c) AS CLNTNM /*03거래처*/
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		, 0 PHD_RVO_QT /*04물류수주수량(낱개)*/			
+				, 0 PHD_RVO_PER_QT /*05물류수주수량(표시단위)*/			
+				, 0 PHD_PCK_QT  /*06물류피킹수량(낱개)*/			
+				, 0 PHD_PCK_PER_QT /*07물류피킹수량(표시단위)*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		, TRUNC(SUM(B.PHD_RVO_QT),0) PHD_RVO_QT /*04물류수주수량(낱개)*/			
+				, TRUNC(SUM(B.PHD_RVO_QT/B.INPD_QT),0) PHD_RVO_PER_QT /*05물류수주수량(표시단위)*/			
+				, TRUNC(SUM(B.PHD_PCK_QT),0) PHD_PCK_QT  /*06물류피킹수량(낱개)*/			
+				, TRUNC(SUM(B.PHD_PCK_QT/B.INPD_QT),0) PHD_PCK_PER_QT /*07물류피킹수량(표시단위)*/
+		  	</if>	
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)),0) PHD_OUT_QT /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT)/B.INPD_QT),0) PHD_OUT_PER_QT /*09물류출고수량(표시단위)(회송제외)*/
+			, TRUNC(SUM(B.CUS_CNR_QT),0) CUS_CNR_QT /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),0) CUS_CNR_PER_QT /*11고객검수수량(표시단위)*/
+			, TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/
+			, TRUNC(SUM(B.PHD_CNR_QT),0) PHD_CNR_QT /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),0) PHD_CNR_PER_QT /*14물류검수수량(표시단위)*/
+			, TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/
+		FROM TB_LG_OUT_M A, TB_LG_OUT_D B
+			,NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1
+			AND A.PHD_NA_BZPLC = B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO = B.DLR_PHD_IDVD_NO			
+			<!--  AND A.PHD_SLP_DSC = '1' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+			AND A.GRS_SOJU_YN = '1' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+			AND B.ACTL_SPYPL_NA_TRPL_C = #{upTrplC}
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>		
+		  	<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>	
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>
+		  		AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC       = H.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  		AND H.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND H.DEL_DTM IS NULL
+		GROUP BY A.PHD_NA_BZPLC, A.NA_TRPL_C) GRDM,
+		(SELECT
+			NVL(A.PHD_NA_BZPLC, ' ') AS PHD_NA_BZPLC_D /*사업장코드*/     
+            , E.SHRT_BZPLNM AS SHRT_BZPLNM_D /*단축사업장명*/            
+            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) PHD_DLR_DSC_D /*물류출고구분코드*/
+            , NVL(G.NA_TRPL_C,' ') AS NA_TRPL_C_D /*거래처코드*/
+            , G.CLNTNM CLNTNM_D /*거래처명*/
+			, B.NA_WRS_C NA_WRS_C_D /*상품코드*/
+			, F.WRS_ABR_NM as WRSNM_D /*단축상품명*/
+			, D.WRS_STDNM WRS_STDNM_D /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C WRS_MRK_PHD_UNT_C_D /*상품표시물류단위코드*/
+			, B.INPD_QT INPD_QT_D /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT) AS INPD_QT_D2     /* 내품수량 : 입수        */
+			, B.PHD_SELPR AS PHD_SELPR_D /*물류판매가*/
+			, SUM((DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))) PHD_OUT_QT_D /*08물류출고수량(낱개)(회송제외)*/
+			, TRUNC(SUM(DECODE(B.wrs_grd_dsc, '30', B.PHD_DLR_CPL_QT, (B.PHD_DLR_CPL_QT - B.PHD_DLR_CAN_QT))/B.INPD_QT),2) PHD_OUT_PER_QT_D /*09물류출고수량(표시단위)(회송제외)*/
+			, SUM(B.CUS_CNR_QT) CUS_CNR_QT_D /*10고객검수수량(낱개)*/
+			, TRUNC(SUM(B.CUS_CNR_QT/B.INPD_QT),2) CUS_CNR_PER_QT_D /*11고객검수수량(표시단위)*/
+			<!-- , TRUNC(SUM(B.CUS_CNR_QT*B.PHD_SELPR),0) CUS_CNR_AMT /*12고객검수금액*/ -->
+			, SUM(B.CUS_CNR_QT*B.PHD_SELPR) CUS_CNR_AMT_D /*12고객검수금액*/
+			, SUM(B.PHD_CNR_QT) PHD_CNR_QT_D /*13물류검수수량(낱개)*/
+			, TRUNC(SUM(B.PHD_CNR_QT/B.INPD_QT),2) PHD_CNR_PER_QT_D /*14물류검수수량(표시단위)*/
+			<!-- , TRUNC(SUM(B.PHD_CNR_QT*B.PHD_SELPR),0) PHD_CNR_AMT /*15물류검수금액*/ -->
+			, SUM(B.PHD_CNR_QT*B.PHD_SELPR) PHD_CNR_AMT_D /*15물류검수금액*/
+			, F.SVS_YN SVS_YN_D /*소분여부*/
+			, A.NA_TRPL_C AS NA_TRPL_C_DD
+			, A.DVY_NA_TRPL_C DVY_NA_TRPL_C_D /*배송지코드*/
+			, FN_TRPL_CIF_NM(A.DVY_NA_TRPL_C) AS DVY_NA_TRPL_C_NM_D /*배송지명*/
+		FROM
+			TB_LG_OUT_M A
+			, TB_LG_OUT_D B
+			, TB_TR_TRPL_CIF C
+			, TB_GD_WRS D
+			, TB_CM_BZPL E
+			, TB_OD_TRTWRS F
+			, TB_TR_TRPL_CIF G
+			,NHVANINF.TB_TR_TRNREL_OUT H
+		WHERE 1=1
+			AND A.PHD_NA_BZPLC 			= B.PHD_NA_BZPLC
+			AND A.DLR_PHD_IDVD_NO 		= B.DLR_PHD_IDVD_NO
+			AND A.PHD_NA_BZPLC          = E.NA_BZPLC
+			AND A.NA_TRPL_C 			= C.NA_TRPL_C
+			AND B.NA_WRS_C 				= D.NA_WRS_C
+			AND B.NA_WRS_C 				= F.NA_WRS_C
+			AND B.PHD_NA_BZPLC 			= F.NA_BZPLC
+			AND B.ACTL_SPYPL_NA_TRPL_C  = G.NA_TRPL_C
+			AND E.NA_BZ_TPC             = '12'
+			<!--  AND A.PHD_SLP_DSC = '1' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+			AND A.GRS_SOJU_YN = '1' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+			<if test="NA_TR_DSC == '2'.toString()"> <!-- 거래구분 입고반품일경우 -->
+		  		AND A.PHD_DLR_DSC IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		  		AND B.WRS_GRD_DSC = '20'
+		  		AND B.PHD_DLR_PRG_STSC >= '09' /*물류출고진행상태코드가 09이상*/
+		  	</if>
+		   	<if test="NA_TR_DSC == '1'.toString()"> <!-- 거래구분 출고일경우 -->
+		   		AND A.PHD_DLR_DSC NOT IN ('05','25') /*05-입고반품, 25-직송반품출고*/
+		   		<![CDATA[AND B.WRS_GRD_DSC <> '20']]>
+				AND B.PHD_DLR_PRG_STSC >= '89' /*물류출고진행상태코드가 89이상*/
+		  	</if>
+			<if test="phdDlrDsc != null and phdDlrDsc.length() > 0 and phdDlrDsc != 'all'.toString()">
+				AND A.PHD_DLR_DSC = #{phdDlrDsc}
+		  	</if>
+		  	<if test="prgrC != null and prgrC.length() > 0 and prgrC != 'all'.toString()">
+				AND A.PRGR_C = #{prgrC}
+			</if>
+			<if test="phdNaBzplc != null and phdNaBzplc.length() > 0">
+				AND A.PHD_NA_BZPLC = #{phdNaBzplc}
+			</if>		
+			<if test="naTrplC != null and naTrplC.length() > 0">
+				AND A.NA_TRPL_C = #{naTrplC}
+			</if>
+			AND B.ACTL_SPYPL_NA_TRPL_C = #{upTrplC}
+			<choose>
+				<when test="dateCode == '1'.toString()">
+					AND A.PHD_RVO_DT BETWEEN  #{calFrom} AND #{calTo}
+				</when>			    
+				<otherwise>					
+					AND A.PHD_DLR_CPL_DT BETWEEN  #{calFrom} AND #{calTo}
+				</otherwise>
+		  	</choose>
+		  	<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND B.NA_WRS_C = #{NA_WRS_C}
+		  	</if>
+			  	AND B.DEL_YN = '0'
+		  		AND A.PHD_NA_BZPLC    = H.CSER_NA_TRPL_C
+		  		AND B.SPYPL_NA_TRPL_C = H.UP_NA_TRPL_C
+		  		AND H.NA_TRPL_C IN 
+		  			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+			    		#{item}
+					</foreach>
+		  		AND H.DEL_DTM IS NULL
+		  	GROUP BY
+		  	NVL(A.PHD_NA_BZPLC, ' ') /*사업장코드*/     
+            , E.SHRT_BZPLNM /*단축사업장명*/
+            , DECODE(A.PHD_DLR_DSC,'05',A.PHD_DLR_DSC||' 반품입고',A.PHD_DLR_DSC||' '||FN_CM_SIMP_CNM('PHD_DLR_DSC',A.PHD_DLR_DSC)) /*물류출고구분코드*/
+            , NVL(G.NA_TRPL_C,' ') /*거래처코드*/
+            , G.CLNTNM /*거래처명*/
+			, B.NA_WRS_C /*상품코드*/
+			, F.WRS_ABR_NM /*단축상품명*/
+			, D.WRS_STDNM /*상품규격명*/
+			, B.WRS_MRK_PHD_UNT_C /*상품표시물류단위코드*/
+			, B.INPD_QT /*내품수량*/
+			, DECODE(B.INPD_QT,B.INPD_QT,0,B.INPD_QT)   /* 내품수량 : 입수        */
+			, B.PHD_SELPR /*물류판매가*/
+			, F.SVS_YN /*소분여부*/
+			, A.NA_TRPL_C
+			, A.DVY_NA_TRPL_C
+			) GRDD			
+			WHERE 1=1
+				AND GRDM.PHD_NA_BZPLC = GRDD.PHD_NA_BZPLC_D
+			    AND GRDM.NA_TRPL_C = GRDD.NA_TRPL_C_DD
+				ORDER BY GRDM.PHD_NA_BZPLC,GRDM.NA_TRPL_C	, GRDD.NA_WRS_C_D
+	</select>	
+	
+	<!-- 물류센터 출고 실적 전표 상품 상세 엑셀 다운로드 -->
+	<select id="downloadExcelDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM TB_LG_OUT_M
+		WHERE 1=1
+		<!--  AND A.PHD_SLP_DSC = '0' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+		AND NVL(A.GRS_SOJU_YN, '0') = '0' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+	</select>
+	
+	<!-- 주류 물류센터 출고 실적 전표 상품 상세 엑셀 다운로드 -->
+	<select id="downloadExcelLiquorDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM TB_LG_OUT_M
+		WHERE 1=1
+		<!--  AND A.PHD_SLP_DSC = '1' 물류전표구분이 0 일경우 일반, 1일경우 주류   -->			
+		AND A.GRS_SOJU_YN = '1' <!-- 지방소주여부이 0 일경우 일반, 1일경우 주류   -->
+	</select>
+		
+</mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="padMac">
+
+	<!-- 단말기관리 총 카운트 -->
+	<select id="getMacAddrCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_selectMacAddrList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 단말기관리 리스트 -->
+	<select id="selectMacAddrList" fetchSize="100" parameterType="Map" resultType="java.util.HashMap">
+		<bind name="sortName" value="'NA_BZPLC, NA_TRMNO desc'"/>
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_selectMacAddrList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<sql id="sql_selectMacAddrList">
+		SELECT TM.NA_BZPLC				/* 경제통합사업장코드 */
+				, CLNTNM         		/* 경제통합사업장명 */
+				, TM.NA_TRMNO			/* 경제통합단말기번호 */
+				, TM.MAC_ADDR			/* MAC주소 */
+				, TM.FSRGMN_ENO			/* 최초등록자개인번호 */
+				, TM.FSRG_DTM			/* 최초등록일시 */
+				, TM.LS_CMENO			/* 최종변경자개인번호 */
+				, TM.LSCHG_DTM			/* 최종변경일시 */
+				, TM.RMK_CNTN			/* 비고내용 */
+		  FROM TB_PD_TRMNO_MGMT TM
+		  	  LEFT OUTER JOIN TB_TR_TRPL_CIF C1
+				ON (TM.NA_BZPLC = C1.NA_TRPL_C)
+		<where>
+			<choose>
+				<when test="'99'.toString() == userType"> <!-- 관리자인 경우 -->
+					<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(na_bzplc)">
+		   AND TM.NA_BZPLC like #{na_bzplc:VARCHAR}||'%'
+					</if>
+				</when>
+				<otherwise> <!-- 관리자 아닌 경우 -->
+		   AND TM.NA_BZPLC = #{glnCode:VARCHAR}
+				</otherwise>
+			</choose>
+			<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(na_trmno)">
+		   AND TM.NA_TRMNO like #{na_trmno:VARCHAR}||'%'
+			</if>
+			<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(mac_addr)">
+		   AND TM.MAC_ADDR like '%'||#{mac_addr:VARCHAR}||'%'
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 단말기관리 상세/중복체크 -->
+	<select id="selectMacAddr" parameterType="Map" resultType="java.util.HashMap">
+		SELECT TM.NA_BZPLC				/* 경제통합사업장코드 */
+				, CLNTNM         		/* 경제통합사업장명 */
+				, TM.NA_TRMNO			/* 경제통합단말기번호 */
+				, TM.MAC_ADDR			/* MAC주소 */
+				, TM.FSRGMN_ENO			/* 최초등록자개인번호 */
+				, TM.FSRG_DTM			/* 최초등록일시 */
+				, TM.LS_CMENO			/* 최종변경자개인번호 */
+				, TM.LSCHG_DTM			/* 최종변경일시 */
+				, TM.RMK_CNTN			/* 비고내용 */
+		  FROM TB_PD_TRMNO_MGMT TM
+		  	  LEFT OUTER JOIN TB_TR_TRPL_CIF C1
+				ON (TM.NA_BZPLC = C1.NA_TRPL_C)
+		 WHERE TM.NA_BZPLC = #{na_bzplc:VARCHAR}
+		   AND TM.NA_TRMNO = #{na_trmno:VARCHAR}
+	</select>
+	
+	<!-- 사업장조회 -->
+	<select id="searchBZPLC" parameterType="Map" resultType="java.util.HashMap">
+		SELECT NA_TRPL_C as NA_BZPLC	/* 사업장코드 */ 
+			  ,	CLNTNM 					/* 사업장명 */
+		  FROM TB_TR_TRPL_CIF
+		<where>
+			<choose>
+				<when test="'code'.toString() == searchType">
+		   AND NA_TRPL_C LIKE #{searchText:VARCHAR}||'%'	/* 사업장코드 */
+				</when>
+				<otherwise>
+		   AND CLNTNM LIKE '%'||#{searchText:VARCHAR}||'%'	/* 사업장명칭 */
+				</otherwise>
+			</choose>
+		</where>
+		   AND DEL_YN = '0'
+	     ORDER BY NA_TRPL_C
+	</select>
+	
+	<insert id="insertMacAddr" parameterType="Map">
+		INSERT INTO TB_PD_TRMNO_MGMT (
+			NA_BZPLC
+			, NA_TRMNO
+			, MAC_ADDR
+			, FSRGMN_ENO
+			, FSRG_DTM
+			, LS_CMENO
+			, LSCHG_DTM
+			, RMK_CNTN )
+		( SELECT #{na_bzplc:VARCHAR}
+				, LPAD(NVL(MAX(NA_TRMNO),'0')+1, 4, '0')
+				, #{mac_addr:VARCHAR}
+				, #{fsrgmn_eno:VARCHAR}
+				, SYSDATE
+				, #{ls_cmeno:VARCHAR}
+				, SYSDATE
+				, #{rmk_cntn:VARCHAR}
+			FROM TB_PD_TRMNO_MGMT
+		   WHERE NA_BZPLC = #{na_bzplc:VARCHAR}
+		)
+	</insert>
+	
+	<delete id="deleteMacAddr" parameterType="Map">
+		DELETE FROM TB_PD_TRMNO_MGMT
+		 WHERE NA_BZPLC = #{na_bzplc:VARCHAR}
+		   AND NA_TRMNO = #{na_trmno:VARCHAR}
+	</delete>
+
+</mapper>

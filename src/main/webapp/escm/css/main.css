@@ -1,0 +1,1429 @@
+﻿/******************************************************************************************************/
+/***** PROJECT NAME		: NEXACRO DEFAULT THEME	********/
+/***** CREATION DATES		: 2015.04.13		********/
+/***** DRAFTER 			: TOBESOFT DESIGN TEAM	********/
+/***** DISTRIBUTION DATE 	: 2015.00.00		********/
+/******************************************************************************************************/
+/*********************************************** INTRO  ***********************************************/
+/***** login BTN *****/
+Button.btn_INTRO_Login
+{
+	background			: URL('theme://images/btn_INTRO_Login.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Login:mouseover, Button.btn_INTRO_Login:focused
+{
+	background			: URL('theme://images/btn_INTRO_Login_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Login:pushed, Button.btn_INTRO_Login:selected
+{
+	background			: URL('theme://images/btn_INTRO_Login_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Login:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Login_D.png') center middle;
+	border				: 0 none;
+}
+/***** IDPW BTN *****/
+Button.btn_INTRO_IDPW, Button.btn_INTRO_IDPW:mouseover, Button.btn_INTRO_IDPW:focused
+{
+	align				: left middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #e0ecf0;
+	font				: underline 9 Gulim;
+}
+Button.btn_INTRO_IDPW:pushed, Button.btn_INTRO_IDPW:selected
+{
+	align				: left middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #85f1ff;
+	font				: underline 9 Gulim;
+}
+Button.btn_INTRO_IDPW:disabled
+{
+	align				: left middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #e0ecf0;
+	font				: underline 9 Gulim;
+}
+/******* 원격지원서비스 BTN *******/
+Button.btn_INTRO_Remote
+{
+	background			: URL('theme://images/btn_INTRO_Remote.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Remote:mouseover, Button.btn_INTRO_Remote:focused
+{
+	background			: URL('theme://images/btn_INTRO_Remote.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Remote:pushed, Button.btn_INTRO_Remote:selected
+{
+	background			: URL('theme://images/btn_INTRO_Remote.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Remote:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Remote.png') center middle;
+	border				: 0 none;
+}
+/******* 원격지원서비스 BTN (TopFrame) *******/
+Button.btn_INTRO_Remote_TopFrame
+{
+	background			: URL('theme://images/btn_INTRO_Remote_TopFrame.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Remote_TopFrame:focused
+{
+	background			: URL('theme://images/btn_INTRO_Remote_TopFrame.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Remote_TopFrame:mouseover
+{
+	background			: URL('theme://images/btn_INTRO_Remote_TopFrame_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Remote_TopFrame:pushed, Button.btn_INTRO_Remote_TopFrame:selected
+{
+	background			: URL('theme://images/btn_INTRO_Remote_TopFrame_P.png') center middle;
+	border				: 0 none;
+}
+/***** 신규업체 계약상담안내 BTN ******/
+Button.btn_INTRO_CS01
+{
+	background			: URL('theme://images/btn_INTRO_CS01.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_CS01:mouseover, Button.btn_INTRO_CS01:focused
+{
+	background			: URL('theme://images/btn_INTRO_CS01_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_CS01:pushed, Button.btn_INTRO_CS01:selected
+{
+	background			: URL('theme://images/btn_INTRO_CS01_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_CS01:disabled
+{
+	background			: URL('theme://images/btn_INTRO_CS01_D.png') center middle;
+	border				: 0 none;
+}
+/***** 서비스가입안내 BTN ******/
+Button.btn_INTRO_CS02
+{
+	background			: URL('theme://images/btn_INTRO_CS02.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_CS02:mouseover, Button.btn_INTRO_CS02:focused
+{
+	background			: URL('theme://images/btn_INTRO_CS02_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_CS02:pushed, Button.btn_INTRO_CS02:selected
+{
+	background			: URL('theme://images/btn_INTRO_CS02_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_CS02:disabled
+{
+	background			: URL('theme://images/btn_INTRO_CS02_D.png') center middle;
+	border				: 0 none;
+}
+/******* 서비스소개 BTN ********/
+Button.btn_INTRO_Info01
+{
+	background			: URL('theme://images/btn_INTRO_Info01.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info01:mouseover, Button.btn_INTRO_Info01:focused
+{
+	background			: URL('theme://images/btn_INTRO_Info01_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info01:pushed, Button.btn_INTRO_Info01:selected
+{
+	background			: URL('theme://images/btn_INTRO_Info01_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info01:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Info01_D.png') center middle;
+	border				: 0 none;
+}
+/*******/
+Button.btn_INTRO_Info02
+{
+	background			: URL('theme://images/btn_INTRO_Info02.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info02:mouseover, Button.btn_INTRO_Info02:focused
+{
+	background			: URL('theme://images/btn_INTRO_Info02_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info02:pushed, Button.btn_INTRO_Info02:selected
+{
+	background			: URL('theme://images/btn_INTRO_Info02_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info02:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Info02_D.png') center middle;
+	border				: 0 none;
+}
+/*******/
+Button.btn_INTRO_Info03
+{
+	background			: URL('theme://images/btn_INTRO_Info03.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info03:mouseover, Button.btn_INTRO_Info03:focused
+{
+	background			: URL('theme://images/btn_INTRO_Info03_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info03:pushed, Button.btn_INTRO_Info03:selected
+{
+	background			: URL('theme://images/btn_INTRO_Info03_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info03:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Info03_D.png') center middle;
+	border				: 0 none;
+}
+/*******/
+Button.btn_INTRO_Info04
+{
+	background			: URL('theme://images/btn_INTRO_Info04.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info04:mouseover, Button.btn_INTRO_Info04:focused
+{
+	background			: URL('theme://images/btn_INTRO_Info04_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info04:pushed, Button.btn_INTRO_Info04:selected
+{
+	background			: URL('theme://images/btn_INTRO_Info04_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Info04:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Info04_D.png') center middle;
+	border				: 0 none;
+}
+
+/****** 더보기 BTN ******/
+Button.btn_INTRO_Plus
+{
+	background			: URL('theme://images/btn_INTRO_Plus.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Plus:mouseover, Button.btn_INTRO_Plus:focused
+{
+	background			: URL('theme://images/btn_INTRO_Plus_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Plus:pushed, Button.btn_INTRO_Plus:selected
+{
+	background			: URL('theme://images/btn_INTRO_Plus_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_INTRO_Plus:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Plus_D.png') center middle;
+	border				: 0 none;
+}
+/********* footer txt BTN *********/
+Button.btn_INTRO_Footer01, Button.btn_INTRO_Footer01:mouseover, Button.btn_INTRO_Footer01:focused
+{
+	background			: URL('theme://images/btn_INTRO_Footer01.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer01:pushed, Button.btn_INTRO_Footer01:selected
+{
+	background			: URL('theme://images/btn_INTRO_Footer01_P.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer01:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Footer01_D.png') ;
+	border				: 0 none;
+}
+/********/
+Button.btn_INTRO_Footer02, Button.btn_INTRO_Footer02:mouseover, Button.btn_INTRO_Footer02:focused
+{
+	background			: URL('theme://images/btn_INTRO_Footer02.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer02:pushed, Button.btn_INTRO_Footer02:selected
+{
+	background			: URL('theme://images/btn_INTRO_Footer02_P.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer02:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Footer02_D.png') ;
+	border				: 0 none;
+}
+/********/
+Button.btn_INTRO_Footer03, Button.btn_INTRO_Footer03:mouseover, Button.btn_INTRO_Footer03:focused
+{
+	background			: URL('theme://images/btn_INTRO_Footer03.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer03:pushed, Button.btn_INTRO_Footer03:selected
+{
+	background			: URL('theme://images/btn_INTRO_Footer03_P.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer03:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Footer03_D.png') ;
+	border				: 0 none;
+}
+/********/
+Button.btn_INTRO_Footer04, Button.btn_INTRO_Footer04:mouseover, Button.btn_INTRO_Footer04:focused
+{
+	background			: URL('theme://images/btn_INTRO_Footer04.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer04:pushed, Button.btn_INTRO_Footer04:selected
+{
+	background			: URL('theme://images/btn_INTRO_Footer04_P.png') ;
+	border				: 0 none;
+}
+Button.btn_INTRO_Footer04:disabled
+{
+	background			: URL('theme://images/btn_INTRO_Footer04_D.png') ;
+	border				: 0 none;
+}
+/***** potal 계약상담 및 전자계약서비스 BTN ******/
+Button.btn_PORTAL_Service
+{
+	background			: URL('theme://images/btn_PORTAL_Service.png') center middle;
+	border				: 0 none;
+}
+Button.btn_PORTAL_Service:mouseover, Button.btn_PORTAL_Service:focused
+{
+	background			: URL('theme://images/btn_PORTAL_Service_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_PORTAL_Service:pushed, Button.btn_PORTAL_Service:selected
+{
+	background			: URL('theme://images/btn_PORTAL_Service_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_PORTAL_Service:disabled
+{
+	background			: URL('theme://images/btn_PORTAL_Service_D.png') center middle;
+	border				: 0 none;
+}
+/***** potal 하나로 eSCM바로가기 BTN ******/
+Button.btn_PORTAL_Service02
+{
+	background			: URL('theme://images/btn_PORTAL_Service02.png') center middle;
+	border				: 0 none;
+}
+Button.btn_PORTAL_Service02:mouseover, Button.btn_PORTAL_Service02:focused
+{
+	background			: URL('theme://images/btn_PORTAL_Service02_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_PORTAL_Service02:pushed, Button.btn_PORTAL_Service02:selected
+{
+	background			: URL('theme://images/btn_PORTAL_Service02_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_PORTAL_Service02:disabled
+{
+	background			: URL('theme://images/btn_PORTAL_Service02_D.png') center middle;
+	border				: 0 none;
+}
+/***** potal 숫자 버튼 *******/
+Button.btn_PORTAL_TodoCount, Button.btn_PORTAL_TodoCount:mouseover, Button.btn_PORTAL_TodoCount:focused
+{
+	background			: #ffffff00 URL('theme://images/btn_PORTAL_TodoCount.png') right middle;
+	border				: 0 none;
+	color				: #f4ff42;
+	font				: antialias 16 Tahoma;
+	align				: right middle;
+	padding				: 0 14 0 0;
+}
+Button.btn_PORTAL_TodoCount:pushed, Button.btn_PORTAL_TodoCount:selected
+{
+	background			: #ffffff00 URL('theme://images/btn_PORTAL_TodoCount.png') right middle;
+	border				: 0 none;
+	color				: #f4ff42;
+	font				: underline antialias 16 Tahoma;
+	align				: right middle;
+	padding				: 0 14 0 0;	
+}
+Button.btn_PORTAL_TodoCount:disabled
+{
+	background			: #ffffff00 URL('theme://images/btn_PORTAL_TodoCount.png') right middle;
+	border				: 0 none;
+	color				: #8d9090;
+	font				: antialias 16 Tahoma;
+	align				: right middle;
+	padding				: 0 14 0 0;	
+}
+/***** 관리자 전환 BTN *****/
+Button.btn_ADMIN_Switch
+{
+	background			: URL('theme://images/btn_ADMIN_Switch.png') center middle;
+	border				: 0 none;
+}
+Button.btn_ADMIN_Switch:mouseover, Button.btn_ADMIN_Switch:focused
+{
+	background			: URL('theme://images/btn_ADMIN_Switch_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_ADMIN_Switch:pushed, Button.btn_ADMIN_Switch:selected
+{
+	background			: URL('theme://images/btn_ADMIN_Switch_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_ADMIN_Switch:disabled
+{
+	background			: URL('theme://images/btn_ADMIN_Switch_D.png') center middle;
+	border				: 0 none;
+}
+/******** 관리자 검색버튼 ********/
+Button.btn_ADMIN_SwitchSearch
+{
+	background			: URL('theme://images/btn_ADMIN_SwitchSearch.png') center middle;
+	border				: 0 none;
+}
+Button.btn_ADMIN_SwitchSearch:mouseover, Button.btn_ADMIN_SwitchSearch:focused
+{
+	background			: URL('theme://images/btn_ADMIN_SwitchSearch_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_ADMIN_SwitchSearch:pushed, Button.btn_ADMIN_SwitchSearch:selected
+{
+	background			: URL('theme://images/btn_ADMIN_SwitchSearch_P.png') center middle;
+	border				: 0 none;
+}
+Button.btn_ADMIN_SwitchSearch:disabled
+{
+	background			: URL('theme://images/btn_ADMIN_SwitchSearch_D.png') center middle;
+	border				: 0 none;
+}
+/***** footer combo ******/
+/* Combo */
+Combo.cmb_INTRO_FamilySite
+{
+	background			: #757d80;
+	border				: 1 solid #6f7578;
+	bordertype			: normal;
+	buttonsize			: 19;
+	color				: #cdd0d1;
+	font				: 9 Gulim;
+}
+Combo.cmb_INTRO_FamilySite:mouseover, Combo.cmb_INTRO_FamilySite:focused, Combo.cmb_INTRO_FamilySite:selected
+{
+	background			: #686f73;
+	border				: 1 solid #5e6466;
+	color				: #ffffff;		
+}
+Combo.cmb_INTRO_FamilySite:disabled
+{
+	background			: #81898c;
+	border				: 1 solid #7d8487;
+	color				: #a7adaf;
+}
+Combo.cmb_INTRO_FamilySite>#comboedit
+{
+	align				: left middle;
+	background			: #757d80;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #cdd0d1;
+	padding				: 0 9 0 9;	
+}
+Combo.cmb_INTRO_FamilySite>#comboedit:mouseover,Combo.cmb_INTRO_FamilySite>#comboedit:focused
+{
+	background			: #686f73;
+	border				: 0 none;
+	color				: #ffffff;		
+}
+Combo.cmb_INTRO_FamilySite>#comboedit:disabled
+{
+	background			: #81898c;
+	border				: 0 none ;
+	color				: #a7adaf;
+}
+Combo.cmb_INTRO_FamilySite>#dropbutton
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	image				: URL('theme://images/btn_dropIntro_N.png');
+	imagealign			: center middle;
+}
+Combo.cmb_INTRO_FamilySite>#dropbutton:mouseover, Combo.cmb_INTRO_FamilySite>#dropbutton:pushed
+{
+	background			: #ffffff00;
+	image				: URL('theme://images/btn_dropIntro_O.png');
+	imagealign			: center middle;	
+}
+Combo.cmb_INTRO_FamilySite>#dropbutton:disabled
+{
+	background			: #81898c;
+	image				: URL('theme://images/btn_dropIntro_D.png');
+	imagealign			: center middle;
+}
+Combo.cmb_INTRO_FamilySite>#combolist
+{
+	color				: #333333;
+}
+Combo.cmb_INTRO_FamilySite>#combolist:mouseover
+{
+	itembackground			: #e4e4e4;
+}
+Combo.cmb_INTRO_FamilySite>#combolist:selected
+{
+	bordertype			: normal;
+	itembackground			: #6e7a82;
+	color				: #ffffff;
+}
+Combo.cmb_INTRO_FamilySite>#combolist:disabled
+{
+	itembackground			: #e4e4e4;
+	color				: #999999;
+}
+/*** login Bg *****/
+Div.div_IINTRO_LoginBg
+{
+	background		: URL('theme://images/div_IINTRO_LoginBg.png') center middle;
+}
+/********/
+Div.div_INTRO_ContentsBg01
+{
+	background		: #ffffff;
+}
+/**** 공지사항 bg ****/
+Div.div_INTRO_ContentsBg02
+{
+	background		: #eef0f0;
+	border			: 1 solid #f7f8f9, 1 solid #eef0f0, 1 solid #eef0f0, 1 solid #eef0f0;	
+}
+/**** potal count bg ****/
+Div.div_PORTAL_TodoBg
+{
+	background		: URL('theme://images/div_PORTAL_TodoBg.png') repeat-x;
+	border			: 1 solid #424f57;
+	shadow			: outer 0,1 3 #bebfbf;
+}
+
+/**** potal count bg ****/
+Form.frm_PORTAL_TodoBg
+{
+	background		: URL('theme://images/div_PORTAL_TodoBg.png') repeat-x;
+	border			: 1 solid #424f57;
+	shadow			: outer 0,1 3 #bebfbf;
+}
+
+/***** admin 사용자전환 창 div ******/
+Div.div_ADMIN_Switch
+{
+	background		: URL('theme://images/div_ADMIN_Switch.png') repeat-x;
+	border			: 1 solid #3c464d;
+}
+/**** login Edit ******/
+Edit.edt_INTRO_Login
+{
+	align				: left middle;
+	background			: #ffffff;
+	border				: 1 solid #004a5e;
+	bordertype			: normal 0 0;
+	color				: #444444;
+	font				: bold 9 Gulim;
+	padding				: 2 8 0 8;
+}
+Edit.edt_INTRO_Login:mouseover, Edit.edt_INTRO_Login:focused
+{
+	background			: #e4f9fe;
+	border				: 1 solid #004a5e;
+	color				: #444444;
+	font				: bold 9 Gulim;		
+}
+Edit.edt_INTRO_Login:disabled
+{
+	background			: #d9d9d9;
+	border				: 1 solid #004a5e;
+	color				: #999999;
+	font				: bold 9 Gulim;	
+}
+/**** admin Edit ******/
+Edit.edt_ADMIN_Switch
+{
+	align				: left middle;
+	background			: #ffffff;
+	border				: 1 solid #004a5e;
+	bordertype			: normal 0 0;
+	color				: #444444;
+	font				: 9 Gulim;
+	padding				: 2 8 0 8;
+}
+Edit.edt_ADMIN_Switch:mouseover, Edit.edt_ADMIN_Switch:focused
+{
+	background			: #e4f9fe;
+	border				: 1 solid #004a5e;
+	color				: #444444;
+	font				: 9 Gulim;		
+}
+Edit.edt_ADMIN_Switch:disabled
+{
+	background			: #d9d9d9;
+	border				: 1 solid #004a5e;
+	color				: #999999;
+	font				: 9 Gulim;	
+}
+/****** notice grd ******/
+Grid.grd_INTRO_Notice
+{
+	align				: center middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	bordertype			: normal 0 0;
+	color				: #555555;
+	font				: 9 Gulim;
+	padding				: 0 5 0 5;
+}
+Grid.grd_INTRO_Notice>#body, Grid.grd_INTRO_Notice>#body:focused
+{
+	background			: #ffffff00;
+	cellbackground			: #ffffff00 URL('theme://images/grd_INTRO_Notice.png') stretch ;
+	cellbackground2			: #ffffff00 URL('theme://images/grd_INTRO_Notice.png') stretch ;
+	cellcolor			: #555555;
+	cellcolor2			: #555555;
+	cellline			: 0 none;
+	cellpadding			: 2 3 0 3;
+	selectbackground		: #ffffff00 URL('theme://images/grd_INTRO_Notice.png') stretch;
+	selectborder			: 0 none;
+	selectcolor			: #006d8d;
+	selectfont			: underline 9 Gulim; 
+	selectline			: 0 none;
+}
+Grid.grd_INTRO_Notice>#body:mouseover
+{
+	cellbackground			: #ffffff00 URL('theme://images/grd_INTRO_Notice.png') stretch ;
+	cellbackground2			: #ffffff00 URL('theme://images/grd_INTRO_Notice.png') stretch ;
+	cellcolor			: #006d8d;
+	cellcolor2			: #006d8d;
+	cellline			: 0 none;
+}
+/******/
+Static.sta_INTRO_LoginSystemName, Static.sta_INTRO_LoginSystemName:mouseover
+{
+	background		: URL('theme://images/sta_INTRO_LoginSystemName.png') left top;	
+}
+/***** 서비스소개 *****/
+Static.sta_INTRO_ContentsTitle01, Static.sta_INTRO_ContentsTitle01:mouseover
+{
+	background		: URL('theme://images/sta_INTRO_ContentsTitle01.png') left middle;	
+}
+/***** 공지사항 ******/
+Static.sta_INTRO_ContentsTitle02, Static.sta_INTRO_ContentsTitle02:mouseover
+{
+	background		: URL('theme://images/sta_INTRO_ContentsTitle02.png') left middle;	
+}
+/***** 라인 *****/
+Static.sta_INTRO_ContentsLine, Static.sta_INTRO_ContentsLine:mouseover
+{
+	background		: #ebebeb;	
+}
+/****** main IMG *******/
+Static.sta_INTRO_Image, Static.sta_INTRO_Image:mouseover
+{
+	background		:  URL('theme://images/sta_INTRO_Image.jpg') left top;
+}
+Static.sta_INTRO_ImageBg, Static.sta_INTRO_ImageBg:mouseover
+{
+	background		:  URL('theme://images/sta_INTRO_ImageBg.png') repeat-x;
+}
+/****** potal IMG *******/
+Static.sta_PORTAL_Image, Static.sta_PORTAL_Image:mouseover
+{
+	background		:  URL('theme://images/sta_PORTAL_Image.jpg') left top;
+}
+Static.sta_PORTAL_ImageBg, Static.sta_PORTAL_ImageBg:mouseover
+{
+	background		:  URL('theme://images/sta_PORTAL_ImageBg.png') repeat-x;
+}
+/****** admin IMG *****/
+Static.sta_ADMIN_Image, Static.sta_ADMIN_Image:mouseover
+{
+	background		:  URL('theme://images/sta_ADMIN_Image.jpg') left top;
+}
+Static.sta_ADMIN_ImageBg, Static.sta_ADMIN_ImageBg:mouseover
+{
+	background		:  URL('theme://images/sta_ADMIN_ImageBg.png') repeat-x;
+}
+/*********/
+Static.sta_INTRO_CSImage, Static.sta_INTRO_CSImage:mouseover
+{
+	background		: URL('theme://images/sta_INTRO_CSImage.png') left middle;
+}
+/***** footer bg *****/
+Static.sta_INTRO_FooterBg, Static.sta_INTRO_FooterBg:mouseover
+{
+	background		: #929a9d;
+	border			: 1 solid #798184, 0 none, 0 none, 0 none;		
+}
+/***** footer logo *****/
+Static.sta_INTRO_FooterLogo, Static.sta_INTRO_FooterLogo:mouseover
+{
+	background		: URL('theme://images/sta_INTRO_FooterLogo.png') left middle;
+}
+/***** footer adress ******/
+Static.sta_INTRO_FooterAdress, Static.sta_INTRO_FooterAdress:mouseover
+{
+	color			: #ffffff;
+	font			: 8 Dotum;	
+}
+/***** Copyright ******/
+Static.sta_INTRO_FooterCopyright, Static.sta_INTRO_FooterCopyright:mouseover
+{
+	color			: #e2e4e5;
+	font			: 8 Tahoma;
+	padding			: 0 0 0 0;	
+}
+/*********/
+Static.sta_INTRO_FooterKT, Static.sta_INTRO_FooterKT:mouseover
+{
+	background		: URL('theme://images/sta_INTRO_FooterKT.png') left middle;
+	color			: #e2e4e5;
+	font			: 8 Dotum;	
+	padding			: 0 0 0 28;	
+}
+
+/***** 15090추가 ******/
+Static.sta_INTRO_CSNum, Static.sta_INTRO_CSNum:mouseover
+{
+	align			: left top;
+	color			: #006d8d;
+	font			: antialias bold 23 Arial;
+	padding			: 0 0 0 0;	
+}
+Static.sta_INTRO_CSTime, Static.sta_INTRO_CSTime:mouseover
+{
+	color			: #818181;
+	font			: 8 Dotum;
+	padding			: 0 0 0 0;	
+}
+/***** footer advice ******/
+Static.sta_INTRO_FooterAdvice, Static.sta_INTRO_FooterAdvice:mouseover
+{
+	color			: #f9ffb0ff;
+	font			: 8 Dotum;	
+}
+
+
+
+Static.sta_PORTAL_CSImage, Static.sta_PORTAL_CSImage:mouseover
+{
+	background		: URL('theme://images/sta_PORTAL_CSImage.png') left middle;
+}
+/******************************************************************************************************/
+/*********************************************** PORTAL  ***********************************************/
+/***** potal_농협공지사항 ******/
+Static.sta_PORTAL_ContentsTitle01, Static.sta_PORTAL_ContentsTitle01:mouseover
+{
+	background		: URL('theme://images/sta_PORTAL_ContentsTitle01.png') left middle;	
+}
+/***** potal_eSCM공지사항 ******/
+Static.sta_PORTAL_ContentsTitle02, Static.sta_PORTAL_ContentsTitle02:mouseover
+{
+	background		: URL('theme://images/sta_PORTAL_ContentsTitle02.png') left middle;	
+}
+/***** potal 미확인 건수 *****/
+Static.sta_PORTAL_TodoTitle, Static.sta_PORTAL_TodoTitle:mouseover
+{
+	background		: URL('theme://images/sta_PORTAL_TodoTitle.png') left middle;	
+}
+/***** potal 커뮤니케이션 *****/
+Static.sta_PORTAL_TodoTitle02, Static.sta_PORTAL_TodoTitle02:mouseover
+{
+	background		: URL('theme://images/sta_PORTAL_TodoTitle02.png') left middle;	
+}
+/*** potal date ***/
+Static.sta_PORTAL_TodoDate, Static.sta_PORTAL_TodoDate:mouseover
+{
+	color			: #afb2b4;
+	font			: 9 Gulim;	
+}
+/**** potal label *****/ 
+Static.sta_PORTAL_TodoCountTitle, Static.sta_PORTAL_TodoCountTitle:mouseover
+{
+	background		: URL('theme://images/sta_PORTAL_TodoCountTitle.png') left middle;	
+	color			: #ffffff;
+	font			: 9 Gulim;	
+	padding			: 2 0 0 9;
+}
+/***** potal line ******/
+Static.sta_PORTAL_TodoLine, Static.sta_PORTAL_TodoLine:mouseover
+{
+	background		: #697174;
+}
+/***** 관리자 로고 *****/
+Static.sta_ADMIN_Logo, Static.sta_ADMIN_Logo:mouseover
+{
+	background		: URL('theme://images/sta_ADMIN_Logo.png') left middle;	
+}
+/***** 관리자_사용자전환 타이틀 *****/
+Static.sta_ADMIN_SwitchTitle, Static.sta_ADMIN_SwitchTitle:mouseover
+{
+	background		: URL('theme://images/sta_ADMIN_SwitchTitle.png') ;	
+}
+
+/***** 15090추가 ******/
+Static.sta_PORTAL_CSNum, Static.sta_PORTAL_CSNum:mouseover
+{
+	color			: #006d8d;
+	font			: antialias bold 20 Arial;
+	padding			: 0 0 0 0;	
+}
+
+/* 메인개편 */
+Form.frm_INTRO_New>#vscrollbar, Form.frm_INTRO_New>#hscrollbar
+{
+	background			: #fafafaff ;	
+}
+Form.frm_INTRO_New>#vscrollbar>#trackbar, Form.frm_INTRO_New>#hscrollbar>#trackbar
+{
+	background			: #ddddddff;
+	border				: 0 none;
+}
+Form.frm_INTRO_New>#vscrollbar>#trackbar:mouseover, Form.frm_INTRO_New>#vscrollbar>#trackbar:pushed,
+Form.frm_INTRO_New>#hscrollbar>#trackbar:mouseover, Form.frm_INTRO_New>#hscrollbar>#trackbar:pushed
+{
+	background			: #ddddddff;
+	border				: 0 none;
+}
+/***** 로그인/회원가입 탭 *****/
+Button.btn_LOGIN_tab_off, Button.btn_LOGIN_tab_off:mouseover, Button.btn_LOGIN_tab_off:focused, Button.btn_LOGIN_tab_off:pushed, Button.btn_LOGIN_tab_off:selected, Button.btn_LOGIN_tab_off:disabled
+{
+	color				: #272727ff;
+	border				: 0 none;
+	background			: #e3e6e7ff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	border				: 0;
+	cursor				: hand;
+}
+Button.btn_LOGIN_tab_on, Button.btn_LOGIN_tab_on:mouseover, Button.btn_LOGIN_tab_on:focused, Button.btn_LOGIN_tab_on:pushed, Button.btn_LOGIN_tab_on:selected, Button.btn_LOGIN_tab_on:disabled
+{
+	color				: #272727ff;
+	border				: 0 none;
+	background			: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	border				: 0;
+	cursor				: hand;
+}
+
+/***** 컨펌 버튼 *****/
+Button.btn_INTRO_confirm
+{
+	background			: #11a84eff;
+	border				: 1 solid #007e33;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+	cursor				: hand;
+}
+Button.btn_INTRO_confirm:mouseover, Button.btn_INTRO_confirm:focused
+{
+	background			: #048839ff;
+	border				: 1 solid #007e33;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+}
+Button.btn_INTRO_confirm:pushed, Button.btn_INTRO_confirm:selected
+{
+	background			: #048839ff;
+	border				: 1 solid #007e33;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+}
+Button.btn_INTRO_confirm:disabled
+{
+	background			: #ecececff;
+	border				: 1 solid #dcdcdc;
+}
+/***** 컨펌(파랑) 버튼 *****/
+Button.btn_INTRO_confirm2
+{
+	background			: #1385C9FF;
+	border				: 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+	cursor				: hand;
+}
+Button.btn_INTRO_confirm2:mouseover, Button.btn_INTRO_confirm2:focused
+{
+	background			: #005b92ff;
+	border				: 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+}
+Button.btn_INTRO_confirm2:pushed, Button.btn_INTRO_confirm2:selected
+{
+	background			: #005b92ff;
+	border				: 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+}
+Button.btn_INTRO_confirm2:disabled
+{
+	background			: #ecececff;
+	border				: 1 solid #dcdcdc;
+}
+
+/***** 취소 버튼 *****/
+Button.btn_INTRO_cancel
+{
+	background			: #a8a8a8ff;
+	border				: 1 solid #8a8a8a;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+	cursor				: hand;
+}
+Button.btn_INTRO_cancel:mouseover, Button.btn_INTRO_cancel:focused
+{
+	background			: #8a8a8aff;
+	border				: 1 solid #8a8a8a;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+}
+Button.btn_INTRO_cancel:pushed, Button.btn_INTRO_cancel:selected
+{
+	background			: #8a8a8aff;
+	border				: 1 solid #8a8a8a;
+	color				: #ffffffff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+}
+Button.btn_INTRO_cancel:disabled
+{
+	background			: #ecececff;
+	border				: 1 solid #dcdcdc;
+}
+
+/***** 원격지원 버튼 *****/
+Button.btn_INTRO_Remote2
+{
+	align					: left middle;
+	background			: #f4f4f4ff URL('theme://images/new/icon_help.png') 13px middle;
+	border				: 1 solid #c6c6c6;
+	bordertype			: round 2 2;
+	color				: #565656ff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 45;
+}
+Button.btn_INTRO_Remote2:mouseover, Button.btn_INTRO_Remote2:focused
+{
+	align					: left middle;
+	background			: #f4f4f4ff URL('theme://images/new/icon_help.png') 13px middle;
+	border				: 1 solid #888888;
+	bordertype			: round 2 2;
+	color				: #565656ff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 45;
+}
+Button.btn_INTRO_Remote2:pushed, Button.btn_INTRO_Remote2:selected
+{
+	align					: left middle;
+	background			: #f4f4f4ff URL('theme://images/new/icon_help.png') 13px middle;
+	border				: 1 solid #888888;
+	bordertype			: round 2 2;
+	color				: #565656ff;
+	font					: bold 10 '맑은 고딕', Gulim;
+	padding				: 0 0 0 45;
+}
+Button.btn_INTRO_Remote2:disabled
+{
+	background			: #f4f4f4ff URL('theme://images/new/icon_help.png') 13px middle;
+	border				: 1 solid #8a8a8a;
+}
+
+/**** 로그인 폼 ******/
+Edit.edt_INTRO_Login2
+{
+	align				: left middle;
+	background			: #ffffff;
+	border				: 1 solid #d0d0d0;
+	bordertype			: normal 0 0;
+	color				: #333232;
+	font				: 9 '맑은 고딕', Gulim;
+	padding				: 5 8 5 8;
+}
+Edit.edt_INTRO_Login2:mouseover, Edit.edt_INTRO_Login2:focused
+{
+	background			: #ffffff;
+	border				: 1 solid #d0d0d0;
+	color				: #333232;
+	font				: 9 '맑은 고딕', Gulim;	
+	padding				: 5 8 5 8;	
+}
+Edit.edt_INTRO_Login2:disabled
+{
+	background			: #d9d9d9;
+	border				: 1 solid #d0d0d0;
+	color				: #999999;
+	font				: 9 '맑은 고딕', Gulim;
+	padding				: 5 8 5 8;
+}
+/***** 아이디/비밀번호 찾기 *****/
+Button.btn_INTRO_IDPW2, Button.btn_INTRO_IDPW2:mouseover, Button.btn_INTRO_IDPW2:focused
+{
+	align				: left middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #000000;
+	font				: bold 9 '맑은 고딕', Gulim;
+}
+Button.btn_INTRO_IDPW2:pushed, Button.btn_INTRO_IDPW2:selected
+{
+	align				: left middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #000000;
+	font				: bold 9 '맑은 고딕', Gulim;
+}
+Button.btn_INTRO_IDPW2:disabled
+{
+	align				: left middle;
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #e0ecf0;
+	font				: bold 9 '맑은 고딕', Gulim;
+}/***** 메인 퀵 메뉴 버튼 *****/
+Button.btn_INTRO_quick01
+{
+	background			: transparent URL('theme://images/new/menu_icon01.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick01:mouseover, Button.btn_INTRO_quick01:focused, Button.btn_INTRO_quick01:pushed, Button.btn_INTRO_quick01:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon01.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick02
+{
+	background			: transparent URL('theme://images/new/menu_icon02.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick02:mouseover, Button.btn_INTRO_quick02:focused, Button.btn_INTRO_quick02:pushed, Button.btn_INTRO_quick02:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon02.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick03
+{
+	background			: transparent URL('theme://images/new/menu_icon03.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick03:mouseover, Button.btn_INTRO_quick03:focused, Button.btn_INTRO_quick03:pushed, Button.btn_INTRO_quick03:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon03.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick04
+{
+	background			: transparent URL('theme://images/new/menu_icon04.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick04:mouseover, Button.btn_INTRO_quick04:focused, Button.btn_INTRO_quick04:pushed, Button.btn_INTRO_quick04:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon04.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick05
+{
+	background			: transparent URL('theme://images/new/menu_icon05.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick05:mouseover, Button.btn_INTRO_quick05:focused, Button.btn_INTRO_quick05:pushed, Button.btn_INTRO_quick05:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon05.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick06
+{
+	background			: transparent URL('theme://images/new/menu_icon06.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick06:mouseover, Button.btn_INTRO_quick06:focused, Button.btn_INTRO_quick06:pushed, Button.btn_INTRO_quick06:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon06.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick07
+{
+	background			: transparent URL('theme://images/new/menu_icon07.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick07:mouseover, Button.btn_INTRO_quick07:focused, Button.btn_INTRO_quick07:pushed, Button.btn_INTRO_quick07:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon07.png') center 28px;
+	border				: 0 none #00000000, 0 none #00000000, 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick08
+{
+	background			: transparent URL('theme://images/new/menu_icon08.png') center 28px;
+	border				: 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick08:mouseover, Button.btn_INTRO_quick08:focused, Button.btn_INTRO_quick08:pushed, Button.btn_INTRO_quick08:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon08.png') center 28px;
+	border				: 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick09
+{
+	background			: transparent URL('theme://images/new/menu_icon09.png') center 28px;
+	border				: 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_INTRO_quick09:mouseover, Button.btn_INTRO_quick09:focused, Button.btn_INTRO_quick09:pushed, Button.btn_INTRO_quick09:selected
+{
+	background			: #006fb1ff URL('theme://images/new/menu_icon09.png') center 28px;
+	border				: 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 59 0 0 0;
+	align					: center top ;
+	cursor				: hand;
+}
+Button.btn_ADMIN_quick
+{
+	background			: transparent;
+	border				: 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+	align					: center middle;
+	cursor				: hand;
+}
+Button.btn_ADMIN_quick:mouseover, Button.btn_ADMIN_quick:focused, Button.btn_ADMIN_quick:pushed, Button.btn_ADMIN_quick:selected
+{
+	background			: #006fb1ff;
+	border				: 0 none #00000000, 1 solid #0d78b8;
+	color				: #ffffffff;
+	font					: bold 9 '맑은 고딕', Gulim;
+	padding				: 0 0 0 0;
+	align					: center middle;
+	cursor				: hand;
+}
+/****** notice grd2 ******/
+Grid.grd_INTRO_Notice2
+{
+	align					: left middle ;
+	background			: #ffffff00; 
+	border				: 0 none;
+	color				: #212020ff;
+	font					: 9 '맑은 고딕', Gulim;
+	selectline				: 0 none;
+	line					: 0 none;
+	cursor				: hand;
+}
+Grid.grd_INTRO_Notice2>#body, Grid.grd_INTRO_Notice2>#body:focused
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	cellcolor				: #212020ff;
+	cellcolor2				: #212020ff;
+	cellline				: 0 none;
+	cellpadding			: 3 0 3 0;
+	selectbackground		: transparent
+	selectborder			: 0 none;
+	selectcolor			: #386cb1ff;
+	selectfont				: underline 9 '맑은 고딕', Gulim; 
+	selectline				:  none; 
+	cellbackground			: transparent ; 
+	cellbackground2		: transparent ; 
+	cellfont				: 9 '맑은 고딕', Gulim ; 
+	cellalign				: left middle ;
+}
+Grid.grd_INTRO_Notice2>#body:mouseover
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	cellcolor				: #386cb1ff;
+	cellcolor2				: #386cb1ff;
+	cellline				: 0 none;
+	cellpadding			: 3 0 3 0;
+	selectbackground		: transparent
+	selectborder			: 0 none;
+	selectcolor			: #386cb1ff;
+	selectfont				: underline 9 '맑은 고딕', Gulim; 
+	selectline				: 0 none; 
+	cellbackground			: transparent ; 
+	cellbackground2		: transparent ; 
+	cellfont				: 9 '맑은 고딕', Gulim ; 
+}
+Grid.grd_INTRO_Notice2>#vscrollbar
+{
+	background			: #fafafaff ;	
+}
+Grid.grd_INTRO_Notice2>#vscrollbar>#trackbar
+{
+	background			: #92b2deff;
+	border				: 0 none;
+}
+Grid.grd_INTRO_Notice2>#vscrollbar>#trackbar:mouseover, Grid.grd_INTRO_Notice2>#vscrollbar>#trackbar:pushed
+{
+	background			: #92b2deff;
+	border				: 0 none;
+}
+
+/***** footer combo (181126) ******/
+/* Combo */
+Combo.cmb_INTRO_FamilySite2
+{
+	background			: #ffffffff;
+	border				: 1 solid #ccccccff;
+	bordertype			: normal;
+	buttonsize			: 19;
+}
+Combo.cmb_INTRO_FamilySite2:mouseover, Combo.cmb_INTRO_FamilySite2:focused, Combo.cmb_INTRO_FamilySite2:selected
+{
+	background			: #ffffffff;
+	border				: 1 solid #5e6466;
+}
+Combo.cmb_INTRO_FamilySite2:disabled
+{
+	background			: #81898c;
+	border				: 1 solid #7d8487;
+	color				: #a7adaf;
+}
+Combo.cmb_INTRO_FamilySite2>#comboedit
+{
+	align				: left middle;
+	background			: #ffffffff;
+	border				: 0 none;
+	bordertype			: normal;
+	color				: #878686;
+	font				: 10 '맑은 고딕', Gulim;
+	padding				: 0 9 0 9;
+	cursor				: hand;
+}
+Combo.cmb_INTRO_FamilySite2>#comboedit:mouseover,Combo.cmb_INTRO_FamilySite2>#comboedit:focused,Combo.cmb_INTRO_FamilySite2>#comboedit:selected
+{
+	background			: #ffffffff;
+	border				: 0 none;
+	color				: #878686;
+	font				: 10 '맑은 고딕', Gulim;
+}
+Combo.cmb_INTRO_FamilySite2>#comboedit:disabled
+{
+	background			: #81898c;
+	border				: 0 none ;
+	color				: #a7adaf;
+}
+Combo.cmb_INTRO_FamilySite2>#dropbutton
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	image				: URL('theme://images/new/select_arrow.png');
+	imagealign			: center middle;
+	cursor				: hand;
+}
+Combo.cmb_INTRO_FamilySite2>#dropbutton:mouseover, Combo.cmb_INTRO_FamilySite2>#dropbutton:pushed
+{
+	background			: #ffffff00;
+	image				: URL('theme://images/new/select_arrow.png');
+	imagealign			: center middle;	
+}
+Combo.cmb_INTRO_FamilySite2>#dropbutton:disabled
+{
+	background			: #81898c;
+	image				: URL('theme://images/new/select_arrow.png');
+	imagealign			: center middle;
+}
+Combo.cmb_INTRO_FamilySite2>#combolist
+{
+	color				: #333333;
+}
+Combo.cmb_INTRO_FamilySite2>#combolist:mouseover
+{
+	itembackground		: #e4e4e4;
+}
+Combo.cmb_INTRO_FamilySite2>#combolist:selected
+{
+	bordertype			: normal;
+	itembackground		: #6e7a82;
+	color				: #ffffff;
+}
+Combo.cmb_INTRO_FamilySite2>#combolist:disabled
+{
+	itembackground		: #e4e4e4;
+	color				: #999999;
+}
+/********* footer txt BTN (181126) *********/
+Button.btn_INTRO_Footer
+{
+	color				: #6b6b6bff;
+	border				: 0 none;
+	background			: #ffffff00;
+	font					: bold 10 '맑은 고딕', Gulim;
+}
+Button.btn_INTRO_Footer:mouseover, Button.btn_INTRO_Footer:focused, Button.btn_INTRO_Footer:pushed, Button.btn_INTRO_Footer:selected
+{
+	color				: #4e6eb5ff;
+	border				: 0 none;
+	background			: #ffffff00;
+	font					: bold 10 '맑은 고딕', Gulim;
+}
+
+Div.div_Video_hscrollbar>#hscrollbar
+{
+background : #ffffff00 URL('IMG::bg_vscroll.png') stretch left top 4,15;
+border : 0 none #808080;
+bordertype : normal;
+barminsize : ;
+baroutsize : 30;
+imgoutsize : 9;
+incbtnsize : 2;
+decbtnsize : 2;
+scrollbarsize : 9;
+trackbarsize : 36;
+}
+
+Div.div_Video_vscrollbar>#vscrollbar
+{
+background : #ffffff00 URL('IMG::bg_vscroll.png') stretch left top 4,15;
+border : 0 none #808080;
+bordertype : normal;
+barminsize : ;
+baroutsize : 30;
+imgoutsize : 9;
+incbtnsize : 2;
+decbtnsize : 2;
+scrollbarsize : 9;
+trackbarsize : 36;
+}
+
+/***** escm join policy (210216) ******/
+TextArea.txt_modern
+{
+	border : 1 solid #5bbccfff;
+}
+TextArea.txt_modern:mouseover, TextArea.txt_modern:pushed, TextArea.txt_modern:focused
+{
+	border : 1 solid #1dadc8ff;
+}
+
+TextArea.txt_modern>#vscrollbar
+{
+	background			: #fafafaff;
+	barminsize : 15 ;
+}
+TextArea.txt_modern>#vscrollbar>#trackbar
+{
+	background			: #5bbccfff;
+	border			: 0 none;
+}
+TextArea.txt_modern>#vscrollbar>#trackbar:mouseover, TextArea.txt_modern>#vscrollbar>#trackbar:pushed
+{
+	background			: #1dadc8ff;
+	border			: 0 none;
+}

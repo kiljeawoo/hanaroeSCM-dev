@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="surveyDAO">
+	
+	<resultMap id="surveyMap" type="com.nh.escm.pt.survey.vo.SurveyVO">
+		<result column="BSN_DSC" 			property="BSN_DSC" />
+		<result column="SRV_SEQ"	 		property="SRV_SEQ" />
+		<result column="TITLE" 		    	property="TITLE" />
+		<result column="SUBTITLE" 		    property="SUBTITLE" />		
+		<result column="INTRO" 	 			property="INTRO" />		
+		<result column="APL_ST_DT" 	    	property="APL_ST_DT" />		
+		<result column="APL_ED_DT" 			property="APL_ED_DT" />		
+		<result column="RMK_CNTN" 			property="RMK_CNTN" />		
+		<result column="SRV_ST_DT" 	    	property="SRV_ST_DT" />		
+		<result column="SRV_ED_DT" 			property="SRV_ED_DT" />		
+		<result column="USE_YN" 		    property="USE_YN" />		
+		<result column="FSRG_DTM" 			property="FSRG_DTM" />
+		<result column="FSRGMN_ENO" 		property="FSRGMN_ENO" />
+		<result column="LSCHG_DTM" 			property="LSCHG_DTM" />
+		<result column="LS_CMENO" 		    property="LS_CMENO" />		
+		<result column="DEL_DTM" 		    property="DEL_DTM" />	
+		<result column="SRV_Q_SEQ" 		    property="SRV_Q_SEQ" />		
+		<result column="SRV_A_SEQ" 		    property="SRV_A_SEQ" />	
+		<result column="SRV_A_NUM" 		    property="SRV_A_NUM" />	
+		<result column="QUESTION"           property="QUESTION"/>
+	</resultMap>
+	
+	<select id ="getPagingCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start"/>	
+		<include refid="sql_retrieveSurveyListALL" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id = "retrieveSurveyListALL" parameterType="java.util.Map" resultMap="surveyMap" >
+		<bind name="sortName" value="'SRV_SEQ'" />
+		<bind name="sortType" value="'desc'" />	
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSurveyListALL" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<sql id = "sql_retrieveSurveyListALL">
+		SELECT  /*설문조사 질문 전체 조회 */
+				BSN_DSC, 	/*업무구분			*/
+				SRV_SEQ,	/*설문순번			*/
+				TITLE,		/*제목				*/
+				SUBTITLE,	/*부제목			*/
+				INTRO,		/*내용				*/
+				RMK_CNTN,	/*비고내용			*/
+				SRV_ST_DT,  /*설문 시작일		*/
+				SRV_ED_DT,	/*설문 종료일		*/
+				USE_YN,		/*사용여부			*/
+				FSRG_DTM,	/*최초등록일시		*/
+				FSRGMN_ENO,	/*최초등록자개인번호*/
+				LSCHG_DTM	/*최종변경일시      */
+		  FROM TB_PT_SURVEY
+		 WHERE BSN_DSC = #{BSN_DSC} 
+		 <if test = "@org.apache.commons.lang.StringUtils@isNotEmpty(TITLE)">
+		   AND TITLE = #{TITLE}
+		 </if>
+		 ORDER BY  SRV_SEQ
+	</sql>
+	
+
+	<select id = "retrieveSurveyqueList" parameterType="java.util.Map" resultMap="surveyMap">
+		SELECT  /*설문조사 질문 조회*/ 
+				CAST(SRV_Q_SEQ AS INTEGER)AS SRV_Q_SEQ,
+			QUESTION,
+			A_TYPE
+		  FROM TB_PT_SURVEY_Q
+		 WHERE BSN_DSC = #{BSN_DSC}
+		   AND SRV_SEQ = #{SRV_SEQ}
+		   AND USE_YN  = 'Y'
+		 ORDER BY SRV_Q_SEQ ASC
+	</select>
+	
+	<select id = "retrieveSurveyansList" parameterType="java.util.Map" resultMap="surveyMap">
+		SELECT /*설문조사 답변 조회*/ 
+			   CAST(A.SRV_Q_SEQ AS INTEGER)AS SRV_Q_SEQ ,  
+			   A.SRV_A_SEQ  , 
+			   A.ANSWER ,
+			   A.INPUT_TYPE , 
+			   A.TXT_COL_CNT ,
+			   A.TXT_ROW_CNT ,
+         	   B.A_TYPE
+		  FROM TB_PT_SURVEY_A_ITEM A ,TB_PT_SURVEY_Q B
+		 WHERE A.BSN_DSC = #{BSN_DSC}
+		   AND A.SRV_SEQ = #{SRV_SEQ}
+       	   AND A.SRV_SEQ = B.SRV_SEQ
+       	   AND A.SRV_Q_SEQ   = B.SRV_Q_SEQ 
+           AND B.USE_YN = 'Y'
+           AND A.USE_YN  = 'Y'
+           ORDER BY SRV_Q_SEQ ,SRV_A_SEQ ASC
+	</select>
+	
+	<insert id = "insertSurveyanswerUser" parameterType = "com.nh.escm.pt.survey.vo.SurveyVO">
+		INSERT /*답변 저장*/ 
+		  INTO TB_PT_SURVEY_R ( 
+		  	BSN_DSC,
+			SRV_SEQ,
+			SRV_Q_SEQ,
+			SRV_A_SEQ,
+			USR_ID,
+			INPUT_TEXT,
+			FSRG_DTM,
+			LSCHG_DTM
+		  	)
+		VALUES(
+		    #{BSN_DSC},
+		    #{SRV_SEQ},
+		    #{SRV_Q_SEQ},
+		    #{SRV_A_SEQ},
+		    #{USR_ID},
+		    #{INPUT_TEXT},
+		    SYSDATE,
+		    SYSDATE
+		    )
+	</insert>
+	
+	<select id = "retrievesurveyIdcheck"  parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)   /*설문조사 응했는지 확인*/ 
+		  FROM (SELECT to_char(trunc(sysdate,'dd'),'yyyymmdd') AS TODAY FROM dual) C,
+		        TB_PT_SURVEY_R A, TB_PT_SURVEY B
+		  WHERE A.USR_ID 	= #{USRID}
+		  AND A.SRV_SEQ 	= B.SRV_SEQ
+		  AND B.SRV_ST_DT <![CDATA[<=]]> C.TODAY
+		  AND B.SRV_ED_DT <![CDATA[>=]]> C.TODAY
+		  AND A.BSN_DSC = 'ESCM'
+		  AND B.USE_YN = 'Y'
+	</select>
+	
+	<select id ="retrieveSurvey" resultMap="surveyMap">
+		  SELECT A.BSN_DSC,
+		         A.SRV_SEQ,
+		         A.TITLE,
+		         A.SUBTITLE,
+		         A.INTRO,
+		         A.RMK_CNTN
+		    FROM TB_PT_SURVEY A,
+		    (SELECT to_char(trunc(sysdate,'dd'),'yyyymmdd') AS TODAY FROM dual) B
+		   WHERE A.SRV_ST_DT <![CDATA[<=]]> B.TODAY
+		     AND A.SRV_ED_DT <![CDATA[>=]]> B.TODAY
+		     AND A.USE_YN = 'Y'
+		     AND A.BSN_DSC = 'ESCM'
+	</select>
+	<insert id = "insertSurveyLog" parameterType = "java.util.Map">
+		INSERT 
+		  INTO  TB_PT_SURVEY_USR_LOG
+		   (
+			BSN_DSC,
+			SRV_SEQ,
+			USR_ID,
+			FSRG_DTM,
+			FSRGMN_ENO,
+			LSCHG_DTM,
+			LS_CMENO )
+	    VALUES 
+		   ('ESCM',
+			#{SRV_SEQ},
+			#{USRID},
+			SYSDATE,
+			#{USRID},
+			SYSDATE,
+			#{USRID} )
+	</insert>
+</mapper>

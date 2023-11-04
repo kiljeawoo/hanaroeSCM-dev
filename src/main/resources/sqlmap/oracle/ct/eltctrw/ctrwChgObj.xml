@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ctrwChgObjDAO">
+
+		
+	<select id="retrieveCtrwChgObjList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  /* retrieveCtrwChgObjList */
+       '' AS ISCHECKED
+     	 ,AAA.ELT_CTRW_NO
+     	 ,AAA.CHG_SQNO
+			 ,AAA.MN_CTRW_KD_NM
+			 ,AAA.STS
+			 ,AAA.STS_NM
+			 ,AAA.MTALNM
+			 ,AAA.BZNO
+			 ,AAA.NA_TRPL_C
+			 ,AAA.CTR_ST_DT
+			 ,AAA.CTR_ED_DT
+			 ,AAA.CTR_ST_DT ||'~'|| AAA.CTR_ED_DT AS CTR_DT 
+			 ,AAA.CTRW_DRUP_DT
+			 ,DECODE(AAA.DCM_APD_CHG_CHK ,'0' , '', '첨부파일'|| decode (AAA.STYL_AMM_CHG_CHK ,'0','' ,  CHR(44)) ) || DECODE(AAA.STYL_AMM_CHG_CHK ,'0' , '', '계약서 문구' ) AS CHG_NM
+       ,AAA.DCM_APD_CHG_CHK
+       ,AAA.STYL_AMM_CHG_CHK
+       ,AAA.CTRW_IDVD_CHG_CHK
+       ,AAA.LSCHG_DTM
+       ,DECODE(AAA.DCM_APD_CHG_CHK ,'0','0','1') AS DCM_APD_CHG_CHK_TEMP
+       ,DECODE(AAA.DCM_APD_CHG_CHK ,'0','N','Y') AS DCM_APD_CHG_CHK_TEMPNM
+       ,DECODE(AAA.STYL_AMM_CHG_CHK ,'0','0','1') AS STYL_AMM_CHG_CHK_TEMP
+       ,DECODE(AAA.STYL_AMM_CHG_CHK ,'0','N','Y') AS STYL_AMM_CHG_CHK_TEMPNM
+          FROM (
+                    SELECT 
+									 M.ELT_CTRW_NO
+									 ,M.CHG_SQNO
+									 ,C.SIMP_CNM AS MN_CTRW_KD_NM
+									 ,M.STS
+									 ,CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') >=  M.CTR_ED_DT THEN  '계약종료'
+                   ELSE B.SIMP_CNM 
+                   END AS STS_NM
+									 ,M.MTALNM
+									 ,M.BZNO
+									 ,M.NA_TRPL_C
+									 ,M.CTR_ST_DT
+									 ,M.CTR_ED_DT
+									 ,M.CTRW_DRUP_DT
+									 ,M.LSCHG_DTM
+									 ,NVL(M.CTRW_IDVD_CHG_CHK ,'0') AS CTRW_IDVD_CHG_CHK
+									 ,(SELECT COUNT(DISTINCT(AA.SQNO) ) 
+                                FROM CT_DCM_STYL_AMN AA ,  CT_ELT_CTRW_DCM_APD BB
+                                WHERE AA.MN_CTRW_KDC = BB.MN_CTRW_KDC
+                                AND AA.SQNO NOT IN (SELECT SQNO FROM CT_ELT_CTRW_DCM_APD WHERE ELT_CTRW_NO  = M.ELT_CTRW_NO AND CHG_SQNO  = M.CHG_SQNO
+                                )
+                                AND AA.STS  = 'Y'
+                                AND BB.ELT_CTRW_NO  = M.ELT_CTRW_NO
+                                AND BB.CHG_SQNO  = M.CHG_SQNO  ) AS DCM_APD_CHG_CHK ,  /*첨부 파일 변경여부*/
+
+											( SELECT COUNT(DD.CTRW_KDC) 
+														FROM (
+														    SELECT D.MN_CTRW_KDC AS CTRW_KDC ,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO  
+														    			FROM CT_ELT_CTRW_DTL D  , (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM  WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+																	      WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+																	          AND D.MN_CTRW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.ADD_CTRW_KDC AS CTRW_KDC ,AA.CTRW_STY_VER , D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_ADD_ELT_CTRW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM	WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+																		  WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+																		     AND D.ADD_CTRW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.PMIW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_PMIW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+																			 WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+																	      AND D.PMIW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.SCTRW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_SCTRW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+											  							WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+											      						AND D.SCTRW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.ETC_CTRW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_ETC_ELT_CTRW D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+											  							WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+											      						AND D.ETC_CTRW_KDC = AA.CTRW_KDC
+											      																							) DD
+													WHERE  DD.ELT_CTRW_NO = M.ELT_CTRW_NO
+															AND DD.CHG_SQNO = M.CHG_SQNO  ) AS STYL_AMM_CHG_CHK  /*계약식 양식 변경여부*/
+						FROM CT_ELT_CTRW_AMN M,
+						        (SELECT SIMP_C ,SIMP_CNM 
+						              FROM 	MG_COMN_C_AMN 
+						             WHERE 	SIMP_TPC = 'ELT_STS'
+						            ) B ,
+						        (SELECT SIMP_C ,SIMP_CNM 
+						              FROM 	MG_COMN_C_AMN 
+						             WHERE 	SIMP_TPC = 'MN_CTRW_KD'
+						            ) C
+						 WHERE M.STS = B.SIMP_C(+)
+							 AND M.MN_CTRW_KD = C.SIMP_C(+)
+							 AND M.CHG_SQNO   = (SELECT MAX(CHG_SQNO) AS CHG_SQNO FROM   CT_ELT_CTRW_AMN  where ELT_CTRW_NO = M.ELT_CTRW_NO)
+							 AND NVL(M.STYL_AMM_CHG_CHK ,'0')   = '0' 
+							 AND NVL(M.DCM_APD_CHG_CHK,'0')     = '0'
+							 AND NVL(M.CTRW_IDVD_CHG_CHK,'0')   = '0'  
+							 AND M.STS = '9'
+						 <if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+		    			<choose>
+						<when test="CBO_CONTDAY == 0">
+								AND  M.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+						</when>
+						<when test="CBO_CONTDAY == 1">
+								AND  M.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+						</when>
+
+						</choose>
+						</if>
+					 <if test="CTRW_DRUP_DT != null and CTRW_DRUP_DT.length() > 0">
+								AND M.CTRW_DRUP_DT =  #{CTRW_DRUP_DT}
+					</if>
+					<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+								AND M.NA_TRPL_C =  #{NA_TRPL_C}
+					</if>
+					<if test="MTALNM != null and MTALNM.length() > 0">
+								AND M.MTALNM like  #{MTALNM}||'%'
+					</if>
+					<if test="BUYER_ENO != null and BUYER_ENO.length() > 0">
+								AND M.BUYER_ENO =  #{BUYER_ENO}
+					</if>        
+					
+					<if test="MN_CTRW_KD != null and MN_CTRW_KD.length() > 0">
+								
+						<![CDATA[
+              AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{MN_CTRW_KD}, '[^.]+', 1, LEVEL ) col
+              FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{MN_CTRW_KD}, '.' ) + 1 )
+              ]]>
+								
+					</if>
+					<if test="MN_CTRW_KD == null or MN_CTRW_KD.length() == 0">
+	<!-- 이부분(1.2.3.4.5 등등)은 나중에 고치던가 해야함 -->		
+						<choose>
+							<when test="BUYER_DSC == 11">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '1.2.3.4.5.12', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '1.2.3.4.5.12', '.' ) + 1 )
+								]]>
+			
+							</when>
+							<when test="BUYER_DSC == 12">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '21', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '21', '.' ) + 1 )
+								]]>
+							</when>
+							<when test="BUYER_DSC == 31">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '6.7.8.9', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '6.7.8.9', '.' ) + 1 )
+								]]>
+							</when>
+							<when test="BUYER_DSC == 32">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '7.9.10.11', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '7.9.10.11', '.' ) + 1 )
+								]]>
+							</when>
+						</choose>
+					</if>    
+					)AAA
+			      WHERE AAA.DCM_APD_CHG_CHK > 0 OR AAA.STYL_AMM_CHG_CHK > 0 OR AAA.CTRW_IDVD_CHG_CHK = 0
+					
+						ORDER BY AAA.LSCHG_DTM, AAA.ELT_CTRW_NO DESC
+			</select>
+			
+			
+			
+			<select id="retrieveCtrwChgIdvdList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT  /* retrieveCtrwChgIdvdList */
+       '' AS ISCHECKED
+     	 ,AAA.ELT_CTRW_NO
+     	 ,AAA.CHG_SQNO
+			 ,AAA.MN_CTRW_KD_NM
+			 ,AAA.STS
+			 ,AAA.STS_NM
+			 ,AAA.MTALNM
+			 ,AAA.BZNO
+			 ,AAA.NA_TRPL_C
+			 ,AAA.CTR_ST_DT
+			 ,AAA.CTR_ED_DT
+			 ,AAA.CTR_ST_DT ||'~'|| AAA.CTR_ED_DT AS CTR_DT 
+			 ,AAA.CTRW_DRUP_DT
+			 ,DECODE(AAA.DCM_APD_CHG_CHK ,'0' , '', '첨부파일'|| decode (AAA.STYL_AMM_CHG_CHK ,'0','' ,  CHR(44)) ) || DECODE(AAA.STYL_AMM_CHG_CHK ,'0' , '', '계약서 문구' ) AS CHG_NM
+       ,AAA.DCM_APD_CHG_CHK
+       ,AAA.STYL_AMM_CHG_CHK
+       ,AAA.CTRW_IDVD_CHG_CHK
+       ,AAA.LSCHG_DTM
+       ,DECODE(AAA.DCM_APD_CHG_CHK ,'0','0','1') AS DCM_APD_CHG_CHK_TEMP
+       ,DECODE(AAA.STYL_AMM_CHG_CHK ,'0','0','1') AS STYL_AMM_CHG_CHK_TEMP
+          FROM (
+                    SELECT 
+									 M.ELT_CTRW_NO
+									 ,M.CHG_SQNO
+									 ,C.SIMP_CNM AS MN_CTRW_KD_NM
+									 ,M.STS
+									 ,CASE WHEN TO_CHAR(SYSDATE,'YYYYMMDD') >=  M.CTR_ED_DT THEN  '계약종료'
+                   ELSE B.SIMP_CNM 
+                   END AS STS_NM
+									 ,M.MTALNM
+									 ,M.BZNO
+									 ,M.NA_TRPL_C
+									 ,M.CTR_ST_DT
+									 ,M.CTR_ED_DT
+									 ,M.CTRW_DRUP_DT
+									 ,M.LSCHG_DTM
+									 ,NVL(M.CTRW_IDVD_CHG_CHK ,'0') AS CTRW_IDVD_CHG_CHK
+									 ,(SELECT COUNT(DISTINCT(AA.SQNO) ) 
+                                FROM CT_DCM_STYL_AMN AA ,  CT_ELT_CTRW_DCM_APD BB
+                                WHERE AA.MN_CTRW_KDC = BB.MN_CTRW_KDC
+                                AND AA.SQNO NOT IN (SELECT SQNO FROM CT_ELT_CTRW_DCM_APD WHERE ELT_CTRW_NO  = M.ELT_CTRW_NO AND CHG_SQNO  = M.CHG_SQNO
+                                )
+                                AND AA.STS  = 'Y'
+                                AND BB.ELT_CTRW_NO  = M.ELT_CTRW_NO
+                                AND BB.CHG_SQNO  = M.CHG_SQNO  ) AS DCM_APD_CHG_CHK ,  /*첨부 파일 변경여부*/
+
+											( SELECT COUNT(DD.CTRW_KDC) 
+														FROM (
+														    SELECT D.MN_CTRW_KDC AS CTRW_KDC ,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO  
+														    			FROM CT_ELT_CTRW_DTL D  , (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM  WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+																	      WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+																	          AND D.MN_CTRW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.ADD_CTRW_KDC AS CTRW_KDC ,AA.CTRW_STY_VER , D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_ADD_ELT_CTRW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM	WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+																		  WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+																		     AND D.ADD_CTRW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.PMIW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_PMIW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+																			 WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+																	      AND D.PMIW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.SCTRW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_SCTRW_DTL D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+											  							WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+											      						AND D.SCTRW_KDC = AA.CTRW_KDC
+														UNION ALL 
+															SELECT D.ETC_CTRW_KDC AS CTRW_KDC,AA.CTRW_STY_VER ,D.CTRW_STY_VER ,D.ELT_CTRW_NO ,D.CHG_SQNO 
+																		FROM CT_ETC_ELT_CTRW D	, (SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER  ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM WHERE  SQNO = '01' AND UYN  = 'Y' GROUP BY CTRW_KDC ) AA
+											  							WHERE D.CTRW_STY_VER != AA.CTRW_STY_VER
+											      						AND D.ETC_CTRW_KDC = AA.CTRW_KDC
+											      																							) DD
+													WHERE  DD.ELT_CTRW_NO = M.ELT_CTRW_NO
+															AND DD.CHG_SQNO = M.CHG_SQNO  ) AS STYL_AMM_CHG_CHK  /*계약식 양식 변경여부*/
+						FROM CT_ELT_CTRW_AMN M,
+						        (SELECT SIMP_C ,SIMP_CNM 
+						              FROM 	MG_COMN_C_AMN 
+						             WHERE 	SIMP_TPC = 'ELT_STS'
+						            ) B ,
+						        (SELECT SIMP_C ,SIMP_CNM 
+						              FROM 	MG_COMN_C_AMN 
+						             WHERE 	SIMP_TPC = 'MN_CTRW_KD'
+						            ) C
+						 WHERE M.STS = B.SIMP_C(+)
+							 AND M.MN_CTRW_KD = C.SIMP_C(+)
+							 AND M.CHG_SQNO   = (SELECT MAX(CHG_SQNO) AS CHG_SQNO FROM   CT_ELT_CTRW_AMN  where ELT_CTRW_NO = M.ELT_CTRW_NO)
+							 AND NVL(M.STYL_AMM_CHG_CHK ,'0')   = '0' 
+							 AND NVL(M.DCM_APD_CHG_CHK,'0')     = '0'
+							 AND NVL(M.CTRW_IDVD_CHG_CHK,'0')   = '0'  
+							 AND M.STS = '9'
+							 AND M.BUYER_NA_TRPL_C = #{BUYER_NA_TRPL_C}
+						 <if test="CBO_CONTDAY != null and CBO_CONTDAY.length() > 0">
+		    			<choose>
+						<when test="CBO_CONTDAY == 0">
+								AND  M.CTR_ST_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+						</when>
+						<when test="CBO_CONTDAY == 1">
+								AND  M.CTR_ED_DT BETWEEN #{CAL_FROM} AND #{CAL_TO}
+						</when>
+
+						</choose>
+						</if>
+					 <if test="CTRW_DRUP_DT != null and CTRW_DRUP_DT.length() > 0">
+								AND M.CTRW_DRUP_DT =  #{CTRW_DRUP_DT}
+					</if>
+					<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+								AND M.NA_TRPL_C =  #{NA_TRPL_C}
+					</if>
+					<if test="MTALNM != null and MTALNM.length() > 0">
+								AND M.MTALNM like  #{MTALNM}||'%'
+					</if>
+					<if test="BUYER_ENO != null and BUYER_ENO.length() > 0">
+								AND M.BUYER_ENO =  #{BUYER_ENO}
+					</if>        
+					<if test="MN_CTRW_KD != null and MN_CTRW_KD.length() > 0">
+								
+						<![CDATA[
+              AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( #{MN_CTRW_KD}, '[^.]+', 1, LEVEL ) col
+              FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{MN_CTRW_KD}, '.' ) + 1 )
+              ]]>
+								
+					</if>
+					<if test="MN_CTRW_KD == null or MN_CTRW_KD.length() == 0">
+	<!-- 이부분(1.2.3.4.5 등등)은 나중에 고치던가 해야함 -->		
+						<choose>
+							<when test="BUYER_DSC == 11">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '1.2.3.4.5.12', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '1.2.3.4.5.12', '.' ) + 1 )
+								]]>
+			
+							</when>
+							<when test="BUYER_DSC == 31">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '6.7.8.9', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '6.7.8.9', '.' ) + 1 )
+								]]>
+							</when>
+							<when test="BUYER_DSC == 32">
+								<![CDATA[
+									AND M.MN_CTRW_KD in(SELECT REGEXP_SUBSTR ( '7.9.10.11', '[^.]+', 1, LEVEL ) col
+										FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( '7.9.10.11', '.' ) + 1 )
+								]]>
+							</when>
+						</choose>
+					</if>        
+					)AAA
+			      WHERE  AAA.CTRW_IDVD_CHG_CHK = '0'
+								AND  DECODE(AAA.DCM_APD_CHG_CHK , '0', '0', '1') = '0'
+								AND  DECODE(AAA.STYL_AMM_CHG_CHK , '0', '0', '1') = '0'
+						ORDER BY   AAA.LSCHG_DTM ,AAA.ELT_CTRW_NO DESC
+			</select>
+			
+			
+				<update id="updateEltCtrwAmn"  parameterType="java.util.Map" >
+					 	UPDATE /*ctrwChgObjDAO updateEtcEltNtcFyn */ 	CT_ELT_CTRW_AMN
+								SET 	LSCHG_DTM = SYSDATE,
+									<if test="STYL_AMM_CHG_CHK != null and STYL_AMM_CHG_CHK.length() > 0">
+								  STYL_AMM_CHG_CHK = #{STYL_AMM_CHG_CHK},
+								  </if>    
+								  <if test="DCM_APD_CHG_CHK != null and DCM_APD_CHG_CHK.length() > 0">
+									DCM_APD_CHG_CHK = #{DCM_APD_CHG_CHK},
+									</if>    
+									LS_CHGM = #{LS_CHGM}
+						WHERE  	ELT_CTRW_NO = #{ELT_CTRW_NO}
+								AND CHG_SQNO = #{CHG_SQNO}
+	 	</update>
+	 	
+			
+			
+			
+			
+			
+			
+			
+	
+</mapper>

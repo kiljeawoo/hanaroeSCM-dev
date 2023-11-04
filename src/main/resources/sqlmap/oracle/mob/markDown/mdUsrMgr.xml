@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mdUsrMgr">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->
+	
+	<sql id="sql_mainSelect">
+
+		SELECT   /* retrieveMdUsrList */
+		         PT.NA_TRPL_C														/* 경제통합사업장코드 */
+		       , CLNTNM
+		       , USR_TPC
+		       , MD_ID
+		       , USR_NM
+		       , USR_MPNO AS "ECL_DECRYPT(USR_MPNO)"
+		       , MD_IMEI_NO
+		       , MD_MNGR_CD
+		       , MD_CHGR_CD
+		       , MD_USE_CD
+		  FROM TB_PD_MD_USR_INF MD, PT_USR_INF PT, TB_TR_TRPL_CIF CIF
+	    <where>
+           	MD.MD_ID = PT.MB_ID and PT.NA_TRPL_C = CIF.NA_TRPL_C
+			<if test="TRPL_C != null and TRPL_C.length() > 0">
+				AND PT.NA_TRPL_C LIKE '%${TRPL_C}%'
+			</if>
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+				AND CLNTNM LIKE '%${CLNTNM}%'
+			</if>
+        	<if test="MD_ID != null and MD_ID.length() > 0">
+				AND MD_ID = #{MD_ID:VARCHAR}
+        	</if>
+        	<if test="MD_NM != null and MD_NM.length() > 0">
+				AND USR_NM = #{MD_NM:VARCHAR}
+        	</if>
+        	<if test="MGR_CD != null and MGR_CD.length() > 0 and MGR_CD != 2" >
+				AND MD_MNGR_CD = #{MGR_CD:CHAR}
+        	</if>
+        	<if test="CGR_CD != null and CGR_CD.length() > 0 and CGR_CD != 2">
+				AND MD_CHGR_CD = #{CGR_CD:CHAR}
+        	</if>
+        	<if test="USE_CD != null and USE_CD.length() > 0 and USE_CD != 2">
+				AND MD_USE_CD = #{USE_CD:CHAR}
+        	</if>
+      	</where>
+	</sql>
+	
+	<!-- 가격할인 사용자 총 카운트 -->
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 가격할인 사용자 리스트 -->
+	<select id="mainSelectList" parameterType="Map" resultType="java.util.HashMap">
+	 <bind name="sortName" value="'NA_TRPL_C, MD_ID'"/> 
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>	
+
+	<!-- 협력업체 조회 팝업 -->
+	<select id="searchTRPL" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* searchTRPL */
+			NA_TRPL_C,
+			CLNTNM
+		FROM TB_TR_TRPL_CIF
+		<where>
+			<if test="searchType != null and searchType == 'code'">
+				AND NA_TRPL_C LIKE '%${searchText}%'
+			</if>
+			<if test="searchType != null and searchType == 'name'">
+				AND CLNTNM LIKE '%${searchText}%'
+			</if>
+		</where>
+	</select>
+
+	<!-- 가격할인 사용자정보 업데이트 -->
+	<update id="updateMdUsr" parameterType="Map">
+		UPDATE TB_PD_MD_USR_INF
+		   SET   MD_IMEI_NO = #{MD_IMEI_NO}
+		   	   , MD_MNGR_CD = #{MD_MNGR_CD}
+		   	   , MD_CHGR_CD = #{MD_CHGR_CD}
+		   	   , MD_USE_CD  = #{MD_USE_CD}
+		   	   , LSCHG_DTM = SYSDATE
+		   	   , LS_CHGM = #{LS_CHGM}
+		 WHERE MD_ID = #{MD_ID}
+		   AND (NVL(MD_IMEI_NO, '0') != #{MD_IMEI_NO} OR
+		   		NVL(MD_MNGR_CD, '0') != #{MD_MNGR_CD} OR
+		   		NVL(MD_CHGR_CD, '0') != #{MD_CHGR_CD} OR
+		   		NVL(MD_USE_CD , '0') != #{MD_USE_CD}
+		   	   )
+	</update>
+
+	<!-- 가격할인 소속사업장 코드 업데이트 -->
+	<update id="updateMdTrpl" parameterType="Map">
+		UPDATE PT_USR_INF
+		   SET   NA_TRPL_C = #{NA_TRPL_C}
+		   	   , LSCHG_DTM = SYSDATE
+		   	   , LS_CHGM = #{LS_CHGM}
+		 WHERE MB_ID = #{MD_ID}
+		   AND NA_TRPL_C != #{NA_TRPL_C}
+	</update>
+	
+	<!-- 가격할인 사용자 리스트 -->
+	<select id="downloadExcelMdUsrList" parameterType="Map" resultType="java.util.HashMap" fetchSize="1000">
+	 <bind name="sortName" value="'NA_TRPL_C, MD_ID'"/> 
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 가격할인 사용자정보 삭제 -->
+	<delete id="deleteMdUsr" parameterType="java.util.Map">
+		DELETE FROM /*deleteMdUsr*/
+			TB_PD_MD_USR_INF
+		WHERE MD_ID =#{MD_ID}
+	</delete>	
+	
+</mapper>

@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="smartPdaKpi">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->	
+	<!-- 검수실적 그룹조회 -->
+	<sql id="sql_smtPdaKpiGroupList">
+		SELECT /* retrieveSmtPdaKpiGroupList */
+	         G.NA_TRPL_C,
+	         C.CLNTNM,
+	         G.PD_KPI_GROUP_C,
+	         G.PD_KPI_FLAG,
+	         G.USE_YN
+	    FROM NHVANINF.TB_PD_KPI_GROUP G, TB_TR_TRPL_CIF C
+       WHERE G.NA_TRPL_C =  C.NA_TRPL_C
+	    <if test="TRPL_C != null and TRPL_C.length() > 0">
+         AND G.NA_TRPL_C LIKE '%' || #{TRPL_C} || '%'
+	    </if>
+	    <if test="CLNTNM != null and CLNTNM.length() > 0">
+	     AND C.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+	    </if>
+	    <if test="GROUP_C != null and GROUP_C.length() > 0">
+	     AND G.PD_KPI_GROUP_C = #{GROUP_C}
+	    </if>
+	    <if test="USE_CD != null and USE_CD.length() > 0">
+	     AND G.USE_YN = #{USE_CD}
+	    </if>	   
+	 ORDER BY G.PD_KPI_GROUP_C, G.NA_TRPL_C
+	</sql>
+	
+	<select id="retrieveSmtPdaKpiGroupList" parameterType="java.util.Map" resultType="java.util.HashMap">
+	 	<include refid="sql_smtPdaKpiGroupList" />
+	</select>
+	
+	<!-- 검수실적 그룹 업데이트 -->
+	<insert id="updateSmtPdaKpiGroup" parameterType="Map">
+		MERGE INTO NHVANINF.TB_PD_KPI_GROUP 
+		USING DUAL
+		   ON (NA_TRPL_C = #{TRPL_C}) 	/* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET PD_KPI_GROUP_C   	= #{GROUP_C}
+		           , USE_YN    			= #{USE_YN}
+		           , LS_CHGM   			= #{USR_ID}
+		           , LSCHG_DTM			= SYSDATE
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             NA_TRPL_C,				/*사업장코드*/
+		             PD_KPI_FLAG,			/*직영점(1), 계열사(2) 구분*/
+		             BIZ_NUMBER,			/*경제통합사업장 사업자번호*/
+	         		 PD_KPI_GROUP_C,		/*그룹*/
+	          		 USE_YN,				/*사용여부*/
+	          		 FSRG_DTM,				/*최초등록자*/
+	         		 LSCHG_DTM,				/*초종등록자*/
+	         		 FS_RGM,				/*최초등록시간*/
+	         		 LS_CHGM   				/*최종읃록시간*/
+		      ) VALUES (
+		             #{TRPL_C}
+		           , #{FLAG}
+		           , (SELECT BIZ_NUMBER FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = #{TRPL_C})
+		           , #{GROUP_C}
+		           , #{USE_YN}
+		           , SYSDATE
+		           , SYSDATE
+		           , #{USR_ID}
+		           , #{USR_ID}
+		      )
+	</insert>
+
+	<!-- 검수실적 그룹변경 권한 -->
+	<select id="getAuthSmtPdaKpiGroupChg" parameterType="Map" resultType="int">
+	    SELECT COUNT(USR_ID) 
+	    FROM
+	    TB_PD_KPI_AUTH
+	    WHERE USR_ID = #{USR_ID}
+	</select>
+	
+	<!-- 검수실적 그룹 사업장 존재여부 -->
+	<select id="getExistSnaTrplC" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT 
+	    	NA_TRPL_C
+	    FROM
+	    	TB_TR_TRPL_CIF
+	    WHERE
+	    	NA_TRPL_C = #{TRPL_C}
+	</select>
+	
+	<!-- 검수실적 그룹 사업장 존재여부 -->
+	<select id="getExistSbzplC" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT 
+	    	NA_BZPLC
+	    FROM
+	    	TB_TR_TRPL_CIF
+	    WHERE
+	    	NA_BZPLC = #{BZPL_C}
+	</select>
+	
+	<!-- 검수실적 그룹 사업장 등록시 중복여부 -->
+	<select id="getExistSmarPdaKpi" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT 
+	    	NA_TRPL_C
+	    FROM
+	    	NHVANINF.TB_PD_KPI_GROUP
+	    WHERE
+	    	NA_TRPL_C = #{TRPL_C}
+	</select>
+	
+	<select id="retrieveSmtPdaKpiExptTrpl" parameterType="Map" resultType="java.util.HashMap">
+	    <bind name="sortType" value="'desc'"/> 
+	    <bind name="sortName" value="'NA_BZPLC, NA_TRPL_C'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaKpiExptTrpl" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 검수실적 제외 협력업제 조회 -->
+	<sql id="sql_retrieveSmtPdaKpiExptTrpl">
+	  SELECT /* retrieveSmtPdaKpiExptTrpl */
+	         (T.NA_BZPLC) AS NA_BZPLC,
+	         (D.CLNTNM) AS STR_NM,
+	         (T.NA_TRPL_C) AS NA_TRPL_C,
+	         (C.CLNTNM) AS CLNTNM,
+	         (T.USE_YN) AS USE_YN
+	    FROM 
+	    	NHVANINF.TB_PD_KPI_EXPT_TRPL T, 
+	    	TB_TR_TRPL_CIF C, 
+	    	TB_TR_TRPL_CIF D
+       <where> 
+       		T.NA_TRPL_C =  C.NA_TRPL_C 
+       			AND T.NA_BZPLC = D.NA_TRPL_C 
+       		<if test="TRPL_C != null and TRPL_C.length() > 0">
+       			AND T.NA_TRPL_C LIKE '%' || #{TRPL_C} || '%'
+       		</if>
+		    <if test="BZPL_C != null and BZPL_C.length() > 0">
+	         	AND T.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+		    </if>
+		    <if test="STR_NM != null and STR_NM.length() > 0">
+	         	AND D.CLNTNM LIKE '%' || #{STR_NM} || '%'
+		    </if>
+		    <if test="CLNTNM != null and CLNTNM.length() > 0">
+	         	AND C.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+		    </if>
+		    <if test="USE_CD != null and USE_CD.length() > 0 and USE_CD == '2'">
+		     	AND T.USE_YN IN ('1','0')
+		    </if>
+		    <if test="USE_CD != null and USE_CD.length() > 0 and USE_CD != '2'">
+		     	AND T.USE_YN = #{USE_CD}
+		    </if>
+	    </where>
+	</sql>
+	
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSmtPdaKpiExptTrpl" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 검수실적 제외 업데이트 -->
+	<insert id="updateSmtPdaKpiExptTrpl" parameterType="Map">
+		MERGE INTO NHVANINF.TB_PD_KPI_EXPT_TRPL 
+		USING DUAL
+		   ON (NA_TRPL_C = #{TRPL_C}
+		   	AND NA_BZPLC = #{BZPL_C}) 	/* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET USE_YN    			= #{USE_CD}
+		           , LS_CHGM   			= #{USR_ID}
+		           , LSCHG_DTM			= SYSDATE
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             NA_BZPLC,				/*사업장코드*/
+	         		 NA_TRPL_C,				/*그룹*/
+	          		 USE_YN,				/*사용여부*/
+	          		 FSRG_DTM,				/*최초등록자*/
+	         		 LSCHG_DTM,				/*초종등록자*/
+	         		 FS_RGM,				/*최초등록시간*/
+	         		 LS_CHGM   				/*최종읃록시간*/
+		      ) VALUES (
+		             #{BZPL_C}
+		           , #{TRPL_C}
+		           <!-- , #{STR_NM}
+		           , #{CLNTNM} -->
+		           , #{USE_CD}
+		           , SYSDATE
+		           , SYSDATE
+		           , #{USR_ID}
+		           , #{USR_ID}
+		      )
+	</insert>
+	
+	<!-- 검수실적 제외 그룹 엑셀다운로드 -->
+	<select id="getRetrieveGroupList" parameterType="java.util.Map" resultType="java.util.HashMap" fetchSize="1000">
+	    SELECT /* retrieveSmtPdaKpiExptTrpl */
+	         (T.NA_BZPLC) AS NA_BZPLC,
+	         (D.CLNTNM) AS STR_NM,
+	         (T.NA_TRPL_C) AS NA_TRPL_C,
+	         (C.CLNTNM) AS CLNTNM,
+	         (T.USE_YN) AS USE_YN
+	    FROM 
+	    	NHVANINF.TB_PD_KPI_EXPT_TRPL T, 
+	    	TB_TR_TRPL_CIF C, 
+	    	TB_TR_TRPL_CIF D
+        WHERE 
+       		T.NA_TRPL_C =  C.NA_TRPL_C 
+       			AND T.NA_BZPLC = D.NA_TRPL_C 
+       		<if test="TRPL_C != null and TRPL_C.length() > 0">
+       			AND T.NA_TRPL_C LIKE '%' || #{TRPL_C} || '%'
+       		</if>
+		    <if test="BZPL_C != null and BZPL_C.length() > 0">
+	         	AND T.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+		    </if>
+		    <if test="USE_CD != null and USE_CD.length() > 0">
+		     	AND T.USE_YN = #{USE_CD}
+		    </if>
+		    <if test="STR_NM != null and STR_NM.length() > 0">
+	         	AND D.CLNTNM LIKE '%' || #{STR_NM} || '%'
+		    </if>
+		    <if test="CLNTNM != null and CLNTNM.length() > 0">
+	         	AND C.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+		    </if>
+		    ORDER BY T.NA_BZPLC, T.NA_TRPL_C
+	</select>
+	
+	<!-- 검수실적 그룹 사업장 존재여부 -->
+	<select id="getExistExptList" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT 
+	    	NA_TRPL_C
+	    FROM
+	    	TB_TR_TRPL_CIF
+	    WHERE
+	    	NA_TRPL_C = #{TRPL_C}
+	    UNION ALL
+	    SELECT 
+	    	NA_TRPL_C
+	    FROM
+	    	TB_TR_TRPL_CIF
+	    WHERE
+	    	NA_TRPL_C = #{BZPL_C}
+	</select>
+	
+	<!-- 검수실적 그룹 사업장 등록시 중복여부 -->
+	<select id="getExistsExptNaTrplC" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT 
+	    	NA_TRPL_C
+	    FROM
+	    	NHVANINF.TB_PD_KPI_EXPT_TRPL
+	    WHERE
+	    	NA_TRPL_C = #{TRPL_C}
+	    	AND NA_BZPLC = #{BZPL_C}
+	</select>
+	
+	<select id="getExptWrsCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSmtPdaKpiExptWrsList" />
+		<include refid="common.count_end" />
+	</select>
+	<sql id="sql_retrieveSmtPdaKpiExptWrsList">
+	  SELECT /* retrieveSmtPdaKpiExptWrsList */
+	         (T.NA_BZPLC) AS NA_BZPLC,
+	         (C.CLNTNM) AS STR_NM,
+	         (T.NA_WRS_C) AS NA_WRS_C,
+	         (D.WRSNM) AS WRS_NM,
+	         (T.USE_YN) AS USE_YN
+	    FROM 
+	    	NHVANINF.TB_PD_KPI_EXPT_WRS T, 
+	    	TB_TR_TRPL_CIF C, 
+	    	TB_OD_TRTWRS D
+       <where> 
+       		T.NA_BZPLC =  C.NA_TRPL_C
+          AND T.NA_WRS_C = D.NA_WRS_C(+)
+          AND T.NA_BZPLC = D.NA_BZPLC
+       		<if test="BZPL_C != null and BZPL_C.length() > 0">
+       			AND T.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+       		</if>
+       		<if test="WRS_CD != null and WRS_CD.length() > 0">
+       			AND T.NA_WRS_C LIKE '%' || #{WRS_CD} || '%'
+       		</if>
+		    <if test="USE_CD != null and USE_CD.length() > 0">
+		     	AND T.USE_YN = #{USE_CD}
+		    </if>
+		    <if test="STR_NM != null and STR_NM.length() > 0">
+	         	AND C.CLNTNM LIKE '%' || #{STR_NM} || '%'
+		    </if>
+		    <if test="WRS_NM != null and WRS_NM.length() > 0">
+	         	AND D.WRSNM LIKE '%' || #{WRS_NM} || '%'
+		    </if>
+	    </where>
+	</sql>
+	
+	<select id="retrieveSmtPdaKpiExptWrsList" parameterType="Map" resultType="java.util.HashMap">
+	    <bind name="sortType" value="'desc'"/> 
+	    <bind name="sortName" value="'NA_BZPLC, NA_WRS_C'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaKpiExptWrsList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 검수실적 제외상품 존재여부 -->
+	<select id="getExistSwrsC" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT 
+	    	NA_BZPLC,
+	    	NA_WRS_C
+	    FROM
+	    	TB_OD_TRTWRS
+	    WHERE
+	    	NA_BZPLC = #{BZPL_C}
+	    	AND NA_WRS_C = #{WRS_CD}
+	    	AND DEL_DTM IS NULL
+	</select>
+	
+	<!-- 검수실적 제외 업데이트 -->
+	<insert id="updateSmtPdaKpiExptWrs" parameterType="Map">
+		MERGE INTO NHVANINF.TB_PD_KPI_EXPT_WRS 
+		USING DUAL
+		   ON (NA_WRS_C = #{WRS_CD}
+		   	AND NA_BZPLC = #{BZPL_C}) 	/* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET USE_YN    			= #{USE_CD}
+		           , LS_CHGM   			= #{USR_ID}
+		           , LSCHG_DTM			= SYSDATE
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             NA_BZPLC,				/*사업장코드*/
+	         		 NA_WRS_C,				/*그룹*/
+	          		 USE_YN,				/*사용여부*/
+	          		 FSRG_DTM,				/*최초등록시간*/
+	         		 LSCHG_DTM,				/*최종등록시간*/
+	         		 FS_RGM,				/*최초등록자*/
+	         		 LS_CHGM   				/*초종등록자*/
+		      ) VALUES (
+		             #{BZPL_C}
+		           , #{WRS_CD}
+		           , #{USE_CD}
+		           , SYSDATE
+		           , SYSDATE
+		           , #{USR_ID}
+		           , #{USR_ID}
+		      )
+	</insert>
+	
+	<!-- 검수실적 제외상품 엑셀다운로드 -->
+	<select id="getRetrieveWrsList" parameterType="java.util.Map" resultType="java.util.HashMap" fetchSize="1000">
+	    SELECT /* getRetrieveWrsList */
+	         (T.NA_BZPLC) AS NA_BZPLC,
+	         (C.CLNTNM) AS CLNTNM,
+	         (T.NA_WRS_C) AS NA_WRS_C,
+	         (D.WRSNM) AS WRSNM,
+	         (T.USE_YN) AS USE_YN
+	    FROM 
+	    	NHVANINF.TB_PD_KPI_EXPT_WRS T, 
+	    	TB_TR_TRPL_CIF C, 
+	    	TB_OD_TRTWRS D
+        WHERE 
+       		T.NA_BZPLC =  C.NA_TRPL_C
+          AND T.NA_WRS_C = D.NA_WRS_C(+)
+          AND T.NA_BZPLC = D.NA_BZPLC
+       		<if test="BZPL_C != null and BZPL_C.length() > 0">
+       			AND T.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+       		</if>
+       		<if test="WRS_CD != null and WRS_CD.length() > 0">
+       			AND T.NA_WRS_C LIKE '%' || #{WRS_CD} || '%'
+       		</if>
+		    <if test="USE_CD != null and USE_CD.length() > 0">
+		     	AND T.USE_YN = #{USE_CD}
+		    </if>
+		    <if test="STR_NM != null and STR_NM.length() > 0">
+	         	AND C.CLNTNM LIKE '%' || #{STR_NM} || '%'
+		    </if>
+		    <if test="WRS_NM != null and WRS_NM.length() > 0">
+	         	AND D.WRSNM LIKE '%' || #{WRS_NM} || '%'
+		    </if>
+		    ORDER BY T.NA_BZPLC, T.NA_WRS_C
+	</select>
+	
+	
+	<select id="getExptDtlListCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSmtPdaKpiDtlList" />
+		<include refid="common.count_end" />
+	</select>
+
+	<sql id="sql_retrieveSmtPdaKpiDtlList">
+	    SELECT /* retrieveSmtPdaKpiDtlList */
+		  	B.CLNTNM,
+			T.NA_TEAM_C,
+			(SELECT A.TEAMNM FROM TB_CM_TEAM A WHERE A.NA_BZPLC = T.NA_BZPLC AND A.NA_TEAM_C = T.NA_TEAM_C) AS TEAMNM,
+			T.DVY_PLA_DT,
+			T.NA_DVY_PLASH_SLPNO,
+			T.SPYPL_NA_TRPL_C,
+			CASE WHEN   T.PDA_USE_YN = '1' THEN 'PDA사용'
+				 WHEN   T.PDA_USE_YN = '2' THEN '전송중'
+			     WHEN   T.PDA_USE_YN = '0' THEN 'PDA미사용' END AS PDA_USE_YN,
+			CASE WHEN  T.AUTO_BY_TRY = '2' THEN '자동매입'
+			     WHEN  T.AUTO_BY_TRY = '1' THEN '자동검수'   END AS AUTO_BY_TRY,
+			CASE WHEN T.AUTO_BY_RSLT = '1' THEN '성공'
+			     WHEN T.AUTO_BY_RSLT = '0' THEN '실패'     END AS AUTO_BY_RSLT,
+			T.EXPT_RSN
+		FROM NHVANINF.TB_PD_KPI_DTL T, TB_TR_TRPL_CIF B
+       <where> 
+       		T.NA_BZPLC   = B.NA_TRPL_C(+)
+			AND (T.DVY_PLA_DT BETWEEN #{FROM_DT} AND #{TO_DT})
+			AND T.GRP_DSC = #{GRP_DSC}
+       		<if test="BZPL_C != null and BZPL_C.length() > 0">
+       			AND T.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+       		</if>
+		    <if test="USE_CD != null and USE_CD.length() > 0">
+		     	AND T.PDA_USE_YN = #{USE_CD}
+		    </if>
+		    <if test="CLNTNM != null and CLNTNM.length() > 0">
+	         	AND B.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+		    </if>
+	    </where>
+	</sql>
+	
+	<select id="retrieveSmtPdaKpiDtlList" parameterType="Map" resultType="java.util.HashMap">
+	    <bind name="sortType" value="'desc'"/> 
+	    <bind name="sortName" value="'CLNTNM, DVY_PLA_DT, NA_TEAM_C, NA_DVY_PLASH_SLPNO'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaKpiDtlList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getRetrieveDtlList" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    SELECT /* getRetrieveDtlList */
+			B.CLNTNM,
+			T.NA_TEAM_C,
+			(SELECT A.TEAMNM FROM TB_CM_TEAM A WHERE A.NA_BZPLC = T.NA_BZPLC AND A.NA_TEAM_C = T.NA_TEAM_C) AS TEAMNM,
+			T.DVY_PLA_DT,
+			T.NA_DVY_PLASH_SLPNO,
+			T.SPYPL_NA_TRPL_C,
+			CASE WHEN   T.PDA_USE_YN = '1' THEN 'PDA사용'
+			     WHEN   T.PDA_USE_YN = '2' THEN '전송중' 
+			     WHEN   T.PDA_USE_YN = '0' THEN 'PDA미사용' END AS PDA_USE_YN,
+			CASE WHEN  T.AUTO_BY_TRY = '2' THEN '자동매입'
+			     WHEN  T.AUTO_BY_TRY = '1' THEN '자동검수'   END AS AUTO_BY_TRY,
+			CASE WHEN T.AUTO_BY_RSLT = '1' THEN '성공'
+			     WHEN T.AUTO_BY_RSLT = '0' THEN '실패'     END AS AUTO_BY_RSLT,
+			T.EXPT_RSN
+			FROM NHVANINF.TB_PD_KPI_DTL T, TB_TR_TRPL_CIF B
+			WHERE T.NA_BZPLC   = B.NA_TRPL_C(+)
+			AND T.GRP_DSC = #{GRP_DSC}
+			AND (T.DVY_PLA_DT BETWEEN #{FROM_DT} AND #{TO_DT})
+       		<if test="BZPL_C != null and BZPL_C.length() > 0">
+       			AND T.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+       		</if>
+		    <if test="USE_CD != null and USE_CD.length() > 0">
+		     	AND T.PDA_USE_YN = #{USE_CD}
+		    </if>
+		    <if test="CLNTNM != null and CLNTNM.length() > 0">
+	         	AND B.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+		    </if>		    
+	</select>
+	
+	<sql id="sql_smtPdaKpiMstList">
+		WITH KPI_SEL
+			AS (SELECT 
+	    			AA.DVY_PLA_YM,
+	                AA.BIZ_NUMBER,
+	                AA.CLNTNM,
+	                AA.PD_KPI_FLAG,
+	                AA.PD_KPI_GROUP_C,
+	                AA.DVY_CNT,
+                    AA.BY_CNT,
+	                AA.BY_PERCENT,
+	                AA.RATING,
+	                AA.CLOSE_YN,
+                  	BB.SORT_NUM
+	           FROM NHVANINF.TB_PD_KPI_MST AA
+             LEFT OUTER JOIN NHVANINF.TB_PD_KPI_SORT BB ON (AA.BIZ_NUMBER = BB.BIZ_NUMBER)
+	          WHERE AA.DVY_PLA_YM = #{BY_DT}
+	            AND GRP_DSC = #{GRP_DSC}
+	         <if test="FLAG_CD != null and FLAG_CD.length() > 0">
+	         	AND AA.PD_KPI_FLAG = #{FLAG_CD}
+		     </if>
+		      ORDER BY AA.PD_KPI_FLAG, BB.SORT_NUM ASC, AA.PD_KPI_GROUP_C ASC, AA.BY_PERCENT DESC
+		   	  )
+		SELECT DVY_PLA_YM,
+		       BIZ_NUMBER,
+		       CLNTNM,
+		       PD_KPI_FLAG,
+		       PD_KPI_GROUP_C,
+		       DVY_CNT,
+		       BY_CNT,
+		       BY_PERCENT,
+		       RATING,
+		       CLOSE_YN,
+           	   SORT_NUM
+		  FROM KPI_SEL        
+           UNION ALL
+		  SELECT A.DVY_PLA_YM, A.BIZ_NUMBER, A.CLNTNM, A.PD_KPI_FLAG, A.PD_KPI_GROUP_C, A.DVY_CNT, A.BY_CNT, A.BY_PERCENT, A.RATING, A.CLOSE_YN, NVL(B.SORT_NUM, ROWNUM) AS SORT_NUM FROM
+      		(SELECT #{BY_DT} AS DVY_PLA_YM,
+		         KP.BIZ_NUMBER AS BIZ_NUMBER,
+		         REGEXP_REPLACE (MIN (KP.CLNTNM), '\(소매\)|\(식자재\)|\(본부\)') AS CLNTNM,
+		         MIN (KG.PD_KPI_FLAG) AS PD_KPI_FLAG,
+		         MIN (KG.PD_KPI_GROUP_C) AS PD_KPI_GROUP_C,
+		         SUM (KP.DLV_CNT) AS DVY_CNT,
+		         SUM (KP.BY_CNT) AS BY_CNT,
+		         CASE
+		         	WHEN SUM (KP.DLV_CNT) = 0 THEN 0
+		         	ELSE ROUND (SUM (KP.BY_CNT) / SUM (KP.DLV_CNT), 4) * 100
+		         END AS BY_PERCENT,
+		         CASE
+		            WHEN SUM (KP.DLV_CNT) = 0 THEN 0
+		            ELSE ROUND (SUM (KP.BY_CNT) / SUM (KP.DLV_CNT) * 20, 2)
+		         END AS RATING,
+		         '0' AS CLOSE_YN
+		    FROM    (SELECT KD.NA_BZPLC,
+		                    KD.DLV_CNT,
+		                    KD.BY_CNT,
+		                    TR.BIZ_NUMBER,
+		                    TR.CLNTNM
+		               FROM (  SELECT NA_BZPLC,
+		                              COUNT (CASE WHEN EXPT_RSN IS NULL THEN 1 ELSE NULL END) AS DLV_CNT,
+		                              COUNT (CASE WHEN EXPT_RSN IS NULL AND AUTO_BY_TRY in ('1','2') THEN 1 ELSE NULL END) AS BY_CNT
+		                         FROM TB_PD_KPI_DTL
+		                        WHERE SUBSTR(DVY_PLA_DT,1,6) = #{BY_DT}
+		                          AND GRP_DSC = #{GRP_DSC}
+		                     GROUP BY NA_BZPLC) KD,
+		                    TB_TR_TRPL_CIF TR
+		              WHERE KD.NA_BZPLC = TR.NA_TRPL_C) KP
+		         LEFT OUTER JOIN
+		            TB_PD_KPI_MST KM
+		         ON #{BY_DT} = KM.DVY_PLA_YM AND KP.BIZ_NUMBER = KM.BIZ_NUMBER,
+		         TB_PD_KPI_GROUP KG
+		   WHERE KP.NA_BZPLC = KG.NA_TRPL_C
+		    <if test="FLAG_CD != null and FLAG_CD.length() > 0">
+	         AND KG.PD_KPI_FLAG = #{FLAG_CD}
+		    </if>
+		    AND NOT EXISTS (SELECT 1 FROM KPI_SEL)
+		GROUP BY KP.BIZ_NUMBER ) A
+		LEFT OUTER JOIN TB_PD_KPI_SORT B ON 
+			(A.BIZ_NUMBER = B.BIZ_NUMBER) 
+		ORDER BY PD_KPI_FLAG, SORT_NUM
+	</sql>
+	
+	<select id="retrieveSmtPdaKpiMstList" parameterType="Map" resultType="java.util.HashMap">
+		<include refid="sql_smtPdaKpiMstList" /> 
+	</select>
+	
+	<insert id="updateSmtPdaKpiMst" parameterType="Map">
+		MERGE INTO NHVANINF.TB_PD_KPI_MST
+		USING DUAL
+		   ON (DVY_PLA_YM = #{DVY_PLA_YM}
+		   	AND BIZ_NUMBER = #{BIZ_NUMBER}) 	/* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET RATING    			= #{RATING}
+		           , LS_CHGM   			= #{USR_ID}
+		           , LSCHG_DTM			= SYSDATE
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             DVY_PLA_YM,				/*배송예정월*/
+	         		 BIZ_NUMBER,				/*경제통합사업장 사업자번호*/
+	          		 CLNTNM,					/*경제통합사업장명*/
+	          		 PD_KPI_FLAG,				/*직영점(1), 계열사(2) 구분*/
+	          		 PD_KPI_GROUP_C,			/*그룹코드*/
+		          	 DVY_CNT,					/*배송예정서 개수*/
+		          	 BY_CNT,					/*매입시도 개수*/
+	          		 BY_PERCENT,				/*확정률*/
+	          		 RATING,					/*배점*/
+	          		 CLOSE_YN,					/*마감여부(0:미마감,1:마감)*/
+	          		 FSRG_DTM,					/*최초등록시간*/
+	         		 LSCHG_DTM,					/*최종등록시간*/
+	         		 FS_RGM,					/*최초등록자*/
+	         		 LS_CHGM   					/*초종등록자*/
+		      ) VALUES (
+		             #{DVY_PLA_YM}
+		           , #{BIZ_NUMBER}
+		           , #{CLNTNM}
+		           , #{PD_KPI_FLAG}
+		           , #{PD_KPI_GROUP_C}
+		           , #{DVY_CNT}
+		           , #{BY_CNT}
+		           , #{BY_PERCENT}
+		           , #{RATING}
+		           , #{CLOSE_YN}
+		           , SYSDATE
+		           , SYSDATE
+		           , #{USR_ID}
+		           , #{USR_ID}
+		      )
+	</insert>
+	
+	<insert id="closeSmtPdaKpiMst" parameterType="Map">
+		MERGE INTO NHVANINF.TB_PD_KPI_MST
+		USING DUAL
+		   ON (DVY_PLA_YM = #{DVY_PLA_YM}
+		   	AND BIZ_NUMBER = #{BIZ_NUMBER}) 	/* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET RATING    			= #{RATING}
+		           , CLOSE_YN			= '1'
+		           , LS_CHGM   			= #{USR_ID}
+		           , LSCHG_DTM			= SYSDATE
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             DVY_PLA_YM,				/*배송예정월*/
+	         		 BIZ_NUMBER,				/*경제통합사업장 사업자번호*/
+	          		 CLNTNM,					/*경제통합사업장명*/
+	          		 PD_KPI_FLAG,				/*직영점(1), 계열사(2) 구분*/
+	          		 PD_KPI_GROUP_C,			/*그룹코드*/
+		          	 DVY_CNT,					/*배송예정서 개수*/
+		          	 BY_CNT,					/*매입시도 개수*/
+	          		 BY_PERCENT,				/*확정률*/
+	          		 RATING,					/*배점*/
+	          		 CLOSE_YN,					/*마감여부(0:미마감,1:마감)*/
+	          		 FSRG_DTM,					/*최초등록시간*/
+	         		 LSCHG_DTM,					/*최종등록시간*/
+	         		 FS_RGM,					/*최초등록자*/
+	         		 LS_CHGM   					/*초종등록자*/
+		      ) VALUES (
+		             #{DVY_PLA_YM}
+		           , #{BIZ_NUMBER}
+		           , #{CLNTNM}
+		           , #{PD_KPI_FLAG}
+		           , #{PD_KPI_GROUP_C}
+		           , #{DVY_CNT}
+		           , #{BY_CNT}
+		           , #{BY_PERCENT}
+		           , #{RATING}
+		           , '1'
+		           , SYSDATE
+		           , SYSDATE
+		           , #{USR_ID}
+		           , #{USR_ID}
+		      )
+	</insert>
+	
+	
+	<select id="getRetriveUseCnt" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSmtPdaKpiUseList" />
+		<include refid="common.count_end" />
+	</select>
+	<sql id="sql_retrieveSmtPdaKpiUseList">
+	    SELECT /* retrieveSmtPdaKpiUseList */
+			MIN(A.ACC_DATE) AS START_DT,
+			MAX(A.ACC_DATE) AS END_DT,
+			(A.NA_BZPLC) AS NA_BZPLC, 
+			(D.CLNTNM) AS CLNTNM,
+			(B.MENU_NM) AS MENU_NM,
+			SUM(A.ACC_COUNT) AS ACC_COUNT
+		FROM 
+			NHVANINF.TB_PD_ACCESS_LOG A,
+			NHVANINF.TB_PD_SMART_MENU B,
+			NHVANINF.TB_TR_TRPL_CIF D
+		<where>
+			A.MENU_SEQ = B.SEQ
+			AND A.NA_BZPLC = D.NA_TRPL_C
+			<if test="BZPL_C != null and BZPL_C.length() > 0">
+	         	AND A.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+		    </if> 
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+	         	AND D.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+		    </if> 	   
+			AND (A.ACC_DATE BETWEEN #{FROM_DT} AND #{TO_DT})
+		</where>
+			GROUP BY A.NA_BZPLC,B.MENU_NM, D.CLNTNM
+	    
+	</sql>
+	
+	<select id="retrieveSmtPdaKpiUseList" parameterType="Map" resultType="java.util.HashMap">
+	    <bind name="sortType" value="'desc'"/> 
+	    <bind name="sortName" value="'CLNTNM, START_DT'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaKpiUseList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getUseCntList" parameterType="java.util.Map" resultType="java.util.HashMap" fetchSize="1000">
+	    SELECT /* retrieveSmtPdaKpiUseList */
+			MIN(A.ACC_DATE) AS START_DT,
+			MAX(A.ACC_DATE) AS END_DT,
+			(A.NA_BZPLC) AS NA_BZPLC, 
+			(D.CLNTNM) AS CLNTNM,
+			(B.MENU_NM) AS MENU_NM,
+			SUM(A.ACC_COUNT) AS ACC_COUNT
+		FROM 
+			NHVANINF.TB_PD_ACCESS_LOG A,
+			NHVANINF.TB_PD_SMART_MENU B,
+			NHVANINF.TB_TR_TRPL_CIF D
+		WHERE
+			A.MENU_SEQ = B.SEQ
+			AND A.NA_BZPLC = D.NA_TRPL_C
+			AND (A.ACC_DATE BETWEEN #{FROM_DT} AND #{TO_DT})
+			<if test="BZPL_C != null and BZPL_C.length() > 0">
+	         	AND A.NA_BZPLC LIKE '%' || #{BZPL_C} || '%'
+		    </if> 
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+	         	AND D.CLNTNM LIKE '%' || #{CLNTNM} || '%'
+		    </if> 	   
+			GROUP BY A.NA_BZPLC, B.MENU_NM, D.CLNTNM
+		    ORDER BY CLNTNM, START_DT
+	</select>
+	
+	<insert id="sortSmtPdaKpiMst" parameterType="Map">
+		MERGE INTO NHVANINF.TB_PD_KPI_SORT 
+		USING DUAL
+		   ON (BIZ_NUMBER = #{BIZ_NUMBER}) 	/* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET SORT_NUM    		= #{SORT_NUM}
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		            SORT_NUM,
+		            BIZ_NUMBER
+		      ) VALUES (
+		             #{SORT_NUM}
+		           , #{BIZ_NUMBER}
+		      )
+	</insert>
+	
+	<select id="downloadExcelSmtPdaKpiGroupList" parameterType="java.util.Map" resultType="java.util.HashMap" fetchSize="1000">
+	 	<include refid="sql_smtPdaKpiGroupList" />
+	</select>
+	
+	<select id="downloadExcelSmtPdaKpiDtlList" parameterType="Map" resultType="java.util.HashMap" fetchSize="1000">
+	    <bind name="sortType" value="'desc'"/> 
+	    <bind name="sortName" value="'CLNTNM, DVY_PLA_DT, NA_TEAM_C, NA_DVY_PLASH_SLPNO'"/> 
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSmtPdaKpiDtlList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelSmtPdaKpiMstList" parameterType="Map" resultType="java.util.HashMap" fetchSize="1000">
+		<include refid="sql_smtPdaKpiMstList" /> 
+	</select>
+</mapper>

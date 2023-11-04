@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usAmScfwDAO">
+	
+	<!-- 이용료명세서 > 청구정보 조회 -->
+	<select id="retrieveUsAmScfw"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveUsAmScfw */
+		       B.CLNTNM,
+		       A.NA_TRPL_C,
+		       B.REPMNM,
+		       B.BZNO,
+		       A.USR_NM,
+		       ecl_decrypt(A.USR_MPNO) AS USR_MPNO,
+		       ZIP AS ZIPCODE,
+		       B.DONGUP || ' ' || B.DONGBW AS ADDRESS,
+		       E.SIMP_CNM || '-' || ecl_merge(D.ACNO, 'ecl_decrypt') AS ACNO_INF
+		  FROM PT_USR_INF A, (
+		           SELECT CASE WHEN B.CLNTNM IS NULL THEN A.CLNTNM ELSE B.CLNTNM END AS CLNTNM,
+		                  A.NA_TRPL_C,
+		                  CASE WHEN B.BZNO IS NULL THEN A.BIZ_NUMBER ELSE B.BZNO END AS BZNO,
+		                  CASE WHEN B.REPMNM IS NULL THEN A.REPMNM ELSE B.REPMNM END AS REPMNM,
+		                  CASE WHEN B.ZIP IS NULL THEN A.FZIP || A.RZIP ELSE B.ZIP END AS ZIP,
+		                  CASE WHEN B.DONGUP IS NULL THEN A.DONGUP ELSE B.DONGUP END AS DONGUP,
+		                  CASE WHEN B.DONGUP IS NULL THEN A.DONGBW ELSE B.DONGBW END AS DONGBW,
+		                  B.CONFIRM_YN
+		             FROM TB_TR_TRPL_CIF A
+		                  LEFT OUTER JOIN PT_BRANCH_BZNO B    /* 지사 사업자번호 */
+		                          ON A.NA_TRPL_C = B.NA_TRPL_C
+		            WHERE A.NA_TRPL_C = #{NA_TRPL_C}
+		       ) B, PT_USR_AUTH C, PT_PAY_INF D, MG_COMN_C_AMN E
+		 WHERE A.NA_TRPL_C = B.NA_TRPL_C
+		   AND A.MB_ID = C.MB_ID
+		   AND A.NA_TRPL_C = D.NA_TRPL_C
+		   AND D.BNK_C = E.SIMP_C
+		   AND A.NA_TRPL_C = #{NA_TRPL_C}
+		   AND C.USR_AUTH_DSC = '1'
+		   AND E.SIMP_TPC = 'BNK_C'
+	</select>
+	<!-- 이용료명세서 > 청구정보 조회 > 과납금액 -->
+	<select id="retrieveUsOverAm"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT CASE WHEN OVR_PAY_AMT<![CDATA[ < ]]>0 THEN 0
+		       ELSE OVR_PAY_AMT
+		       END AS OVR_PAY_AMT
+		  FROM (SELECT
+		           (SELECT NVL(SUM(RV_AM),0) AS RV_AM
+		                  FROM BL_RV_BRK
+		                  WHERE RV_METH_C IN ('C', 'V', 'N')
+		                  AND PRCRZT = '1'
+		                  AND ERR_C = '0000'
+		                  AND RV_TRPL_C = #{NA_TRPL_C}) 
+		                  	  <![CDATA[ - ]]> (SELECT NVL(SUM(RF_AM),0) AS RF_AM 
+		                  			FROM BL_REFUND
+		                  			WHERE PRC_ST = '1'
+		             					AND NA_TRPL_C = #{NA_TRPL_C})
+		                  	  <![CDATA[ - ]]> (SELECT NVL(SUM(LS_RQS_AM),0) AS LS_RQS_AM
+		                          FROM BL_MM_RQS_AM 
+		            			  WHERE RMS_TRPL_C = #{NA_TRPL_C}) AS OVR_PAY_AMT
+		          FROM DUAL)
+	</select>
+	<!-- 거래처별 월별 이용료 목록 -->
+	<sql id="sql_retrieveUsAmScfwList">
+		SELECT /* 최종청구금액이 있는 경우만 조회한다. */
+		       A.RMS_MM,                                  /* 이용월 */
+		       CASE WHEN A.PBC_SQNO IS NOT NULL THEN (
+		           TO_CHAR(ADD_MONTHS(TO_DATE(A.RMS_MM, 'YYYYMM'), +1), 'YYYYMM') || '25'
+		       ) ELSE '' END AS CLOSING_DT,               /* 납부마감일 (익월 25일) - 확정인 경우만 표시 */
+		       NVL2(A.PBC_SQNO, 'Y', 'N') AS CONFIRM_YN,  /* 확정여부 (발행일련번호가 있으면 확정) */
+		       NVL(A.LS_RQS_AM, 0) AS LS_RQS_AM,          /* 최종청구금액 */
+		       NVL(A.RQS_BAC, 0) AS RQS_BAC               /* 청구잔액 */
+		    <if test="MOBILE != null and MOBILE.length() > 0">
+			  ,NVL(A.LATE_AM, 0) AS LATE_AM              /* 연체료 */
+			</if>
+		  FROM BL_MM_RQS_AM A
+		 WHERE A.RMS_TRPL_C = #{NA_TRPL_C}
+	<![CDATA[
+		   AND A.LS_RQS_AM > 0
+	]]>
+	</sql>
+	
+	<!-- 이용료명세서 > 월별 이용료 목록 조회 -->
+	<select id="retrieveUsAmScfwList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveUsAmScfwList */
+		       RMS_MM,                              /* 이용월 */
+		       CLOSING_DT,                          /* 납부마감일 */
+		       MAX(CONFIRM_YN) AS CONFIRM_YN,       /* 확정여부 (실제 납부업체만 발행일련번호가 있기 때문에 MAX 값 사용) */
+		       SUM(LS_RQS_AM) AS LS_RQS_AM,         /* 최종청구금액 */
+		       0 AS PAY_AM,  						/* 납부금액 = (최종청구금액 - 청구잔액) */
+		       0 AS RQS_BAC,						/* 미납금액 = (청구잔액) */
+		       MIN(RV_AM) AS RV_AM,					/* 입금금액 */
+		       MIN(RF_AM) AS RF_AM					/* 환불금액 */
+	       <if test="MOBILE != null and MOBILE.length() > 0">
+			  ,LATE_AM              /* 연체료 */
+			</if>
+		  FROM (
+		           <include refid="sql_retrieveUsAmScfwList" />
+		       ),
+		       (
+		       	SELECT SUM (RV_AM) AS RV_AM
+		          FROM BL_RV_BRK
+		         WHERE     RV_METH_C IN ('C', 'V', 'N')
+		               AND PRCRZT = '1'
+		               AND ERR_C = '0000'
+		               AND RV_TRPL_C = #{NA_TRPL_C}
+		       ),
+		       (
+		       	SELECT SUM (RF_AM) AS RF_AM
+		          FROM BL_REFUND
+		         WHERE PRC_ST = '1'
+		           AND NA_TRPL_C = #{NA_TRPL_C}
+		       )
+		 GROUP BY RMS_MM, CLOSING_DT
+		 <if test="MOBILE != null and MOBILE.length() > 0">
+			  ,LATE_AM              /* 연체료 */
+		 </if>
+		 ORDER BY RMS_MM DESC
+	</select>
+	
+	<!-- 이용료명세서 저장 -->	
+	<select id="insertUsAmScfwListForExcel" statementType="CALLABLE" resultType="java.util.Map">
+	{ CALL NHVANPTL.P_INSERT_BL_CHG_SPC(
+		  #{NA_TRPL_C}
+		, #{resultCod, mode=OUT, jdbcType=INTEGER, javaType=integer}
+		, #{resultMsg, mode=OUT, jdbcType=VARCHAR, javaType=string} )
+	}
+	</select>
+
+	<!-- 이용료명세서 > 월별 이용료 목록 조회 (엑셀다운) -->
+	<select id="retrieveUsAmScfwListForExcel"  parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT /* retrieveUsAmScfwListForExcel */
+		       RMS_MM,		/* 이용월 */
+		       CLOSING_DT,	/* 납부마감일 */
+		       CONFIRM_YN,	/* 확정여부 (실제 납부업체만 발행일련번호가 있기 때문에 MAX 값 사용) */
+		       LS_RQS_AM,	/* 최종청구금액 */
+		       PAY_AM,		/* 납부금액 = (최종청구금액 - 청구잔액) */
+		       RQS_BAC		/* 미납금액 = (청구잔액) */
+		  FROM NHVANPTL.BL_CHG_SPC
+		 WHERE RMS_TRPL_C = #{NA_TRPL_C}
+		 UNION ALL
+		SELECT /* 합계 */
+		       'Total' AS RMS_MM,
+		       '' AS CLOSING_DT,
+		       '' AS CONFIRM_YN,
+		       SUM(LS_RQS_AM) AS LS_RQS_AM,	/* 최종청구금액 */
+		       SUM(PAY_AM) AS PAY_AM,		/* 납부금액 = (최종청구금액 - 청구잔액) */
+		       SUM(RQS_BAC) AS RQS_BAC		/* 미납금액 = (청구잔액) */
+		  FROM NHVANPTL.BL_CHG_SPC
+		 WHERE RMS_TRPL_C = #{NA_TRPL_C}
+		 GROUP BY 'Total'
+		 ORDER BY RMS_MM
+	</select>
+
+	<!-- 이용료명세서 > 월별 이용료 목록 조회 (엑셀다운) 생성자료 삭제 -->
+	<delete id="deleteUsAmScfwListForExcel" parameterType="map">
+		DELETE FROM NHVANPTL.BL_CHG_SPC WHERE RMS_TRPL_C = #{NA_TRPL_C}	
+	</delete>
+</mapper>

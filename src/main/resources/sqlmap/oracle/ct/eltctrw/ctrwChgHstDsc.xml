@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ctrwChgHstDscDAO">
+
+	<resultMap id="hstMap"    type="com.nh.escm.ct.eltctrw.vo.CtrwChgHstDscVO">		
+		<result column="ELT_CTRW_NO"                    property="ELT_CTRW_NO" />                   
+		<result column="CTRW_KDC"                       property="CTRW_KDC" />                      
+		<result column="SQNO"                           property="SQNO" />                          
+		<result column="STS"                            property="STS" />                           
+		<result column="TINM"                           property="TINM" />                          
+		<result column="CNTN"                           property="CNTN" />                          
+		<result column="USR_TPC"                        property="USR_TPC" />                       
+		<result column="RLTM_NTC_SMS"                   property="RLTM_NTC_SMS" />                  
+		<result column="SMS_NATV_NO"                    property="SMS_NATV_NO" />                   
+		<result column="RLTM_NTC_EMAIL"                 property="RLTM_NTC_EMAIL" />                
+		<result column="EMAIL_NATV_NO"                  property="EMAIL_NATV_NO" />                 
+		<result column="CHRG_BUYER_NM"                  property="CHRG_BUYER_NM" />                 
+		<result column="CHRG_BUYER_CTCPL"               property="CHRG_BUYER_CTCPL" />              
+		<result column="FSRG_DTM"                       property="FSRG_DTM" />                      
+		<result column="FS_RGM"                         property="FS_RGM" />                        
+		<result column="LSCHG_DTM"                      property="LSCHG_DTM" />                     
+		<result column="LS_CHGM"                        property="LS_CHGM" />  			
+	</resultMap>
+	
+	<select id="retrieveCtrwChgHstDscList"  parameterType="java.util.Map" resultType="java.util.Map">
+				SELECT /*retrieveCtrwChgHstDscList*/
+						 C2.SIMP_CNM AS MN_CTRW_KDNM /*계약서 종류이름 */
+						,C.SIMP_CNM AS STS_NM  /*상태*/
+						,N.TINM               /*제목*/
+						,UI1.USR_NM AS BUYER_NM    /*담당바이어*/
+						,TO_CHAR(N.FSRG_DTM ,'YYYYMMDD') AS ST_DT /*신청날짜 */
+						,UI2.USR_NM AS CHRG_BUYER_NM /*등록자 */
+						,N.CNTN   /*내용*/
+						,DECODE(N.RLTM_NTC_SMS, '0', '없음','사용') AS RLTM_NTC_SMS   /*문자 상태*/
+						,DECODE(N.RLTM_NTC_SMS, '1', MM.DELIVER_DATE ,'')AS SMS_SEND_DATE /*전달 시간*/
+						,DECODE(N.RLTM_NTC_SMS, '1',MM.READ_TIME ,'')AS SMS_READ_TIME/*수신자 확인 시간*/
+						,DECODE(N.RLTM_NTC_SMS, '1',DECODE(MM.RESULT, 0, '전송 대기중' , 1, '전송 대기중', 2, '전송 성공',3, '전송실패', '기타사항') ,'') AS SMS_STS   /*전송 상태시간*/
+						,DECODE(N.RLTM_NTC_EMAIL ,'0', '없음','사용') AS RLTM_NTC_EMAIL /*이메일 상태*/
+						,DECODE(N.RLTM_NTC_EMAIL, '1',MA.SDATE , '')AS EMAIL_SEND_DATE
+						,DECODE(N.RLTM_NTC_EMAIL, '1',MA.ODATE, '')AS EMAIL_READ_DATE
+						,DECODE(N.RLTM_NTC_EMAIL, '1',DECODE(MI.MSGFLAG , 0 ,'발송대기', 1 ,'처리중', 99 ,'성공' ,'에러'),'')AS EMAIL_STS
+				FROM CT_ETC_ELT_NTC N
+				    ,CT_ELT_CTRW_AMN EM 
+				     ,PT_USR_INF UI1,PT_USR_INF UI2
+						,MG_COMN_C_AMN C 
+						,MG_COMN_C_AMN C2
+						,SDK_MMS_REPORT_DETAIL MM
+				    ,IM_RESULT_SEND MA
+				    ,IM_DMAIL_INFO_1 MI
+					WHERE  C.SIMP_TPC = 'ELT_STS'
+						AND N.STS  =    C.SIMP_C (+)
+						AND C2.SIMP_TPC = 'MN_CTRW_KD'
+						AND EM.MN_CTRW_KD  =    C2.SIMP_C (+)
+						AND N.SMS_NATV_NO  =    MM.MSG_ID (+)
+						AND N.EMAIL_NATV_NO  =    MA.SEQIDX (+)
+						AND N.EMAIL_NATV_NO  =    MI.SEQIDX (+)
+						AND N.ELT_CTRW_NO = EM.ELT_CTRW_NO
+						AND EM.CHG_SQNO = '001'
+						AND EM.BUYER_ENO    =    UI1.MB_ID(+)
+            AND N.FS_RGM    =    UI2.MB_ID(+)
+						AND	N.ELT_CTRW_NO= #{ELT_CTRW_NO}
+						ORDER BY N.SQNO DESC
+	</select>
+	
+</mapper>

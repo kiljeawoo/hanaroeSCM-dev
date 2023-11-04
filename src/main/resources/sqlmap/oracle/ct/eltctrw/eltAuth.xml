@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eltAuthDAO">
+		
+	<!-- 전자계약 권한체크 -->
+	<select id="checkEltAuthor"  parameterType="java.util.Map" resultType="com.nh.escm.ct.eltctrw.vo.EltAuthVO">
+		SELECT
+			INF.MB_ID,
+			CIF.BIZ_NUMBER,
+			<choose>
+				<when test = "USR_TPC eq '03'">
+					DECODE(BRN.CHIEF_ENO, INF.MB_ID, 'Y', 'N') CHIEF_YN, /* 매장관리자(승인권자) 여부 */
+					DECODE(BRN.CHRG_ENO, INF.MB_ID, 'Y', 'N') CHRG_YN, /* 계약담당 여부 */
+				</when>
+				<otherwise>
+					'N' AS CHIEF_YN,
+					'N' AS CHRG_YN,
+				</otherwise>
+			</choose>
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = '99' THEN 'Y' ELSE 'N' END) AS ELT_99,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = '11' THEN 'Y' ELSE 'N' END) AS ELT_11,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = '12' THEN 'Y' ELSE 'N' END) AS ELT_12,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = '13' THEN 'Y' ELSE 'N' END) AS ELT_13,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = '14' THEN 'Y' ELSE 'N' END) AS ELT_14,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = '15' THEN 'Y' ELSE 'N' END) AS ELT_15,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = 'A1' THEN 'Y' ELSE 'N' END) AS ELT_A1,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = 'A2' THEN 'Y' ELSE 'N' END) AS ELT_A2,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = 'A3' THEN 'Y' ELSE 'N' END) AS ELT_A3,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = 'A4' THEN 'Y' ELSE 'N' END) AS ELT_A4,
+			MAX(CASE WHEN AUT.ELT_AUTH_DSC = 'A5' THEN 'Y' ELSE 'N' END) AS ELT_A5
+		FROM PT_USR_INF INF, TB_TR_TRPL_CIF CIF, NHVANPTL.CT_ELT_AUTH AUT
+			<if test = "USR_TPC eq '03'">
+				, PT_BRANCH BRN
+			</if>
+		WHERE INF.MB_ID = #{BUYER_ENO}
+		AND INF.NA_TRPL_C = CIF.NA_TRPL_C
+		AND INF.MB_ID = AUT.MB_ID(+)
+		<if test = "USR_TPC eq '03'">
+			AND CIF.BIZ_NUMBER  = BRN.BIZ_NUMBER
+			AND BRN.BRANCH_DSC = '01'
+		</if>
+		GROUP BY INF.MB_ID , CIF.BIZ_NUMBER
+		<if test = "USR_TPC eq '03'">
+			, BRN.CHIEF_ENO, BRN.CHRG_ENO
+		</if>
+	</select>
+	
+	<select id="retrieveEltctrwBuyerAuthDSList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* eltCtrwDAO retrieveEltctrwBuyerAuthDSList */
+			   SIMP_C AS CODE
+			 , SUBSTR(SIMP_CNM,INSTR(SIMP_CNM, '-',1,1)+1) AS NAME 
+		  FROM MG_COMN_C_AMN
+ 		 WHERE SIMP_TPC = 'ELT_AUTH_DSC'
+   		   AND  SIMP_C IN ('11', '12', '13', '14', '15')
+	</select>
+	
+	<select id="retrieveEltctrwBuyerAuthList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* eltCtrwDAO retrieveEltctrwBuyerAuthList */
+			   '0' AS CHK			     
+		     , A.MB_ID
+		     , A.USR_NM
+		     , A.USR_TPC
+		     , A.BIZ_NUMBER
+		     , A.CLNTNM
+		     , A.NA_TRPL_C
+		     , MAX(CASE WHEN B.ELT_AUTH_DSC = '11' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_11
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = '12' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_12
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = '13' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_13
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = '14' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_14
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = '15' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_15
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = '99' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_99
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = 'A1' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_A1
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = 'A2' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_A2
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = 'A3' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_A3
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = 'A4' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_A4
+             , MAX(CASE WHEN B.ELT_AUTH_DSC = 'A5' THEN '1' ELSE '0' END) AS ELT_AUTH_DSC_A5
+		  FROM (
+		           SELECT
+		                  T.BIZ_NUMBER
+		                , T.CLNTNM
+		                , P.MB_ID
+		                , P.USR_TPC
+		                , P.USR_NM
+		                , P.NA_TRPL_C
+		             FROM PT_USR_INF P
+		                , TB_TR_TRPL_CIF T
+		            WHERE P.USR_TPC IN ('02', '03')
+		              AND P.NA_TRPL_C = T.NA_TRPL_C
+		      		<if test="PRO_CHK == 1 and EDT_NM != null and EDT_NM.length() > 0">
+						AND UPPER(P.MB_ID) LIKE '%' || UPPER(#{EDT_NM}) || '%' ESCAPE '\'   /* 회원ID */
+				    </if>
+					<if test="PRO_CHK == 2 and EDT_NM != null and EDT_NM.length() > 0">
+						AND UPPER(P.USR_NM) LIKE '%' || UPPER(#{EDT_NM}) || '%' ESCAPE '\'  /* 사용자명 */
+					</if>
+					<if test="PRO_CHK == 3 and EDT_NM != null and EDT_NM.length() > 0">
+						AND UPPER(P.NA_TRPL_C) LIKE '%' || UPPER(#{EDT_NM}) || '%' ESCAPE '\'  /* GLN */
+					</if>
+					<choose>
+						<when test="PRO_CHK == 4 and EDT_NM != null and EDT_NM.length() > 0">
+							AND T.BIZ_NUMBER =  #{EDT_NM}  /* 사업자번호 */
+						</when>
+						<otherwise>
+							AND T.BIZ_NUMBER IN (SELECT BIZ_NUMBER FROM NHVANPTL.PT_BRANCH WHERE BRANCH_DSC = '01')
+						</otherwise>
+					</choose>
+		       ) A
+	      LEFT OUTER JOIN NHVANPTL.CT_ELT_AUTH B
+		    ON A.MB_ID = B.MB_ID
+ 		<if test="ELT_AUTH_DSC != null and ELT_AUTH_DSC.length() > 0">
+			<![CDATA[
+				WHERE A.MB_ID IN (
+					SELECT MB_ID FROM NHVANPTL.CT_ELT_AUTH WHERE ELT_AUTH_DSC IN(
+						SELECT REGEXP_SUBSTR ( #{ELT_AUTH_DSC}, '[^.]+', 1, LEVEL ) col FROM dual CONNECT BY LEVEL <= REGEXP_COUNT ( #{ELT_AUTH_DSC}, '\.' ) + 1
+					)
+				)
+			]]>
+		</if>
+		 GROUP BY A.MB_ID, A.USR_NM, A.USR_TPC, A.BIZ_NUMBER, A.CLNTNM, A.NA_TRPL_C
+		 ORDER BY A.NA_TRPL_C, A.MB_ID
+	</select>
+	
+	<select id="retrieveEltctrwAuthBzplcList"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		  BIZ_NUMBER,
+		  CLNTNM,
+		  '[' || BIZ_NUMBER || '] ' || CLNTNM AS LIST_NM
+		FROM NHVANPTL.PT_BRANCH
+		WHERE BRANCH_DSC = '01'
+		ORDER BY 1
+	</select>
+	
+	<insert id="insertEltctrwBuyerAuth"  parameterType="java.util.Map">
+	 	INSERT INTO /*eltCtrwDAO insertEltctrwBuyerAuth */   
+	 		NHVANPTL.CT_ELT_AUTH (
+	 		MB_ID,
+	 		ELT_AUTH_DSC,
+	 		FSRG_DTM,
+	 		FS_RGM,
+	 		LSCHG_DTM,
+	 		LS_CHGM
+		)VALUES (
+			#{MB_ID},
+			#{ELT_AUTH_DSC},
+			SYSDATE,
+			#{USR_ID},
+			SYSDATE,
+			#{USR_ID}
+		)
+ 	</insert>
+ 	
+ 	<delete id="deleteEltctrwBuyerAuth"  parameterType="java.util.Map">
+	 	DELETE FROM /*eltCtrwDAO deleteEltctrwBuyerAuth */
+	 		NHVANPTL.CT_ELT_AUTH
+	 	 WHERE MB_ID = #{MB_ID}
+ 	</delete>
+ 	
+ 	<select id="retrieveEltctrwBizNoList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* eltCtrwDAO retrieveEltctrwBizNoList */
+			   BIZ_NUMBER
+		  FROM TB_TR_TRPL_CIF
+		 WHERE BIZ_NUMBER = #{BZNO}
+	</select>
+	
+	<select id="retrieveEltctrwAuthList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*eltCtrwDAO retrieveEltctrwAuthList */
+			AA.CHK ,
+			AA.BIZ_NUMBER ,
+			AA.CLNTNM ,
+			AA.CHIEF_ENO ,
+			AA.USR_NM ,
+			C.NA_TRPL_C ,
+			C.CLNTNM AS CLNTNM2 ,
+			AA.FSRG_DTM
+		FROM (
+			SELECT
+				'0' AS CHK ,
+				A.BIZ_NUMBER ,
+				A.CLNTNM ,
+				A.CHIEF_ENO ,
+				B.USR_NM ,
+				A.FSRG_DTM
+			FROM NHVANPTL.PT_BRANCH A, PT_USR_INF B
+			WHERE A.BRANCH_DSC = '01'
+			AND A.CHIEF_ENO = B.MB_ID(+)
+			<if test="BIZ_NUMBER != null and BIZ_NUMBER.length() > 0">
+				AND A.BIZ_NUMBER LIKE '%' || UPPER(#{BIZ_NUMBER}) || '%' ESCAPE '\'   /* 사업자번호 */
+			</if>
+			<if test="CHIEF_ENO != null and CHIEF_ENO.length() > 0">
+				AND A.CHIEF_ENO LIKE '%' || UPPER(#{CHIEF_ENO}) || '%' ESCAPE '\'   /* 사원번호 */
+			</if>
+		) AA, TB_TR_TRPL_CIF C
+		WHERE AA.BIZ_NUMBER = C.BIZ_NUMBER(+)
+		<if test="CLNTNM != null and CLNTNM.length() > 0">
+			AND C.CLNTNM LIKE '%' || #{CLNTNM} || '%' ESCAPE '\'   /* 협력업체 */
+		</if>
+		<if test="NA_TRPL_C != null and NA_TRPL_C.length() > 0">
+			AND C.NA_TRPL_C LIKE '%' || #{NA_TRPL_C} || '%'
+		</if>
+		ORDER BY AA.BIZ_NUMBER, C.NA_TRPL_C
+	</select>
+	
+	<insert id="insertEltctrwAuth"  parameterType="java.util.Map">
+	 	INSERT INTO /*eltCtrwDAO insertEltctrwAuth */   
+	 		NHVANPTL.PT_BRANCH(
+	 		BRANCH_DSC,
+	 		BIZ_NUMBER,
+	 		<if test="CLNTNM != null and CLNTNM.length() > 0">
+	 			CLNTNM,
+	 		</if>
+	 		<if test="CHIEF_ENO != null and CHIEF_ENO.length() > 0">
+	 			CHIEF_ENO,
+	 		</if>
+	 		FSRG_DTM,	
+	 		FS_RGM,
+			LSCHG_DTM,
+			LS_CHGM
+		)VALUES (
+			'01',
+			#{BZNO},
+			<if test="CLNTNM != null and CLNTNM.length() > 0">
+				#{CLNTNM},
+			</if>
+			<if test="CHIEF_ENO != null and CHIEF_ENO.length() > 0">	
+				#{CHIEF_ENO},
+			</if>	
+			SYSDATE,
+			#{USR_ID},
+			SYSDATE,
+			#{USR_ID}
+		)
+ 	</insert>
+ 	
+ 	<update id="updateEltctrwAuth"  parameterType="java.util.Map" >
+	 	UPDATE /*eltCtrwDAO updateEltctrwAuth */ 	NHVANPTL.PT_BRANCH
+				SET CLNTNM = #{CLNTNM},
+					CHIEF_ENO = #{CHIEF_ENO},
+					LSCHG_DTM = SYSDATE,
+					LS_CHGM = #{USR_ID}
+		 WHERE BIZ_NUMBER = #{BZNO}
+		 AND BRANCH_DSC = '01'
+	</update>
+	 	
+ 	<delete id="deleteEltctrwAuth"  parameterType="java.util.Map">
+	 	DELETE FROM /*eltCtrwDAO deleteEltctrwAuth */
+	 		NHVANPTL.PT_BRANCH
+	 	 WHERE BRANCH_DSC = '01'
+	 	   AND BIZ_NUMBER = #{BZNO}
+ 	</delete>
+ 		
+</mapper>

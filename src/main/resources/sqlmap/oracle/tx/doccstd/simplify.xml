@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="simplifyDAO">
+	
+	<select id="retrieveClosingSimplifyList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'NA_TRPL_C, NA_BZPLC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveClosingSimplifyRzsList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveClosingSimplifyListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveClosingSimplifyRzsList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="retrieveClosingSimplifySummaryList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			COUNT(PBC_SQNO) CNT
+			, SUM(TAX_TOT_AM) TAX_TOT_AM
+			, SUM(SLP_BYAM) SLP_BYAM
+			, SUM(SLP_VAT) SLP_VAT
+			, SUM(SLP_TOT_AM) SLP_TOT_AM
+			, SUM(DVY_VAT) DVY_VAT
+			, SUM(DVY_AM) DVY_AM
+		FROM (
+			<include refid="sql_retrieveClosingSimplifyRzsList" />
+		)
+	</select>
+	
+	<!-- 실시간 조회(속도 느림) -->
+	<sql id = "sql_retrieveClosingSimplifyList">
+		SELECT
+			#{CRT_YM} AS CRT_YM
+			, AA.PBC_SQNO
+			, AA.NA_TRPL_C
+			, FN_TRPL_CIF_NM(AA.NA_TRPL_C) AS NA_TRPLNM
+			, AA.NA_BZPLC
+			, FN_TRPL_CIF_NM(AA.NA_BZPLC) AS NA_BZPLNM
+			, AA.SPLR_BZNO
+			, AA.NA_TOT_DSC
+			, AA.NA_TOT_DSNM
+			, AA.TXBIL_KD
+			, (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = AA.TXBIL_KD AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KDNM
+			, AA.TXT_DSC
+			, DECODE(AA.TXT_DSC, '2', '면세', '3', '영세', '과세') TXT_DSNM
+			, AA.TAX_SPRTT
+			, AA.TAX_TXA_TT
+			, AA.TAX_TOT_AM
+			, BB.SLP_BYAM
+			, BB.SLP_VAT
+			, BB.SLP_TOT_AM
+			, CC.DVY_AM
+			, CC.DVY_VAT
+			, CASE WHEN AA.TAX_TOT_AM = BB.SLP_TOT_AM THEN 'Y' ELSE 'N' END AS EQ_YN
+		FROM (
+			SELECT
+				MAX(M.PBC_SQNO) AS PBC_SQNO,
+				M.NA_TRPL_C,
+				M.NA_BZPLC,
+				M.SPLR_BZNO,
+				M.NA_TOT_DSC,
+				M.NA_TOT_DSNM,
+				MAX(M.TXBIL_KD) AS TXBIL_KD,
+				CASE
+					WHEN MAX(M.TXBIL_KD) = '0102' OR MAX(M.TXBIL_KD) = '0202' THEN '3'
+    				WHEN MAX(M.TXBIL_KD) <![CDATA[<]]> '0301' THEN '1' ELSE '2'
+    			END TXT_DSC,
+				SUM(M.SPRTT) AS TAX_SPRTT,
+				SUM(M.TXA_TT) AS TAX_TXA_TT,
+				SUM(M.TOT_AM) AS TAX_TOT_AM
+			FROM TX_TXBIL M
+			WHERE 1=1
+			AND M.CRT_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND M.NA_TRPL_C IN /* 공급자 */
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND M.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			<choose>
+				<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0">
+					AND M.NA_TOT_DSC = #{NA_TOT_DSC}
+				</when>
+				<otherwise>
+					AND M.NA_TOT_DSC = '01' /* 전산월집계분 */
+				</otherwise>
+			</choose>
+			<if test="TXBIL_KD != null and TXBIL_KD != 'all' and TXBIL_KD.length() > 0">
+				AND M.TXBIL_KD LIKE  #{TXBIL_KD} || '%'
+			</if>
+			<if test="TXT_DSC != null and TXT_DSC != 'all' and TXT_DSC.length() > 0">
+				<choose>
+					<when test="TXT_DSC eq '1'.toString()">
+						AND M.TXBIL_KD NOT IN ('0102', '0105', '0202', '0205')
+						AND M.TXBIL_KD <![CDATA[<]]> '0301'
+					</when>
+					<when test="TXT_DSC eq '3'.toString()">
+						AND M.TXBIL_KD IN ('0102', '0105', '0202', '0205')
+					</when>
+					<otherwise>
+						AND M.TXBIL_KD <![CDATA[>=]]> '0301'
+					</otherwise>
+				</choose>
+			</if>
+			AND M.OCU_DSC = '01' /* 농협발행 */
+			AND M.RPBC_DSC = '2' /* 역발행 */
+			AND M.TXBIL_STSC NOT IN ('05', '99') /* 발행오류, 발행취소 제외 */
+			GROUP BY
+				NVL(M.MOD_TAX_PBC_SQNO, M.PBC_SQNO),
+				M.NA_TRPL_C,
+				M.NA_BZPLC,
+				M.SPLR_BZNO,
+				M.NA_TOT_DSC,
+				M.NA_TOT_DSNM
+		) AA, (
+			SELECT
+				B.NA_TRPL_C,
+				B.NA_BZPLC,
+				B.TXT_DSC,
+				SUM(B.BYAM-B.VAT) SLP_BYAM,
+				SUM(B.VAT) AS SLP_VAT,
+				SUM(B.BYAM) AS SLP_TOT_AM
+			FROM (
+				SELECT
+					A.NA_TRPL_C
+					, A.NA_BZPLC
+					, A.TR_DT
+					, A.NA_SLPNO
+					, KD.TXT_DSC
+					, SUM(FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * CASE
+					    WHEN KD.TXT_DSC = WRS.TXT_DSC THEN WRS.BYAM
+					    ELSE 0
+					  END) AS BYAM
+					, DECODE(KD.TXT_DSC, '1', NVL(A.BYNG_VAT, 0), 0) AS VAT
+				FROM TB_DP_CM_SLP_CNR_RZS A
+				, TB_BY_BYNG_WRS WRS
+				<![CDATA[
+					, (SELECT REGEXP_SUBSTR ('1.3.2', '[^.]+', 1, LEVEL) TXT_DSC FROM DUAL CONNECT BY LEVEL <= REGEXP_COUNT ('1.3.2', '\.')+1) KD
+				]]>
+				WHERE 1=1
+				AND A.NA_BZPLC = WRS.NA_BZPLC
+				AND A.NA_TEAM_C = WRS.NA_TEAM_C
+				AND A.TR_DT = WRS.SLP_DT
+				AND A.NA_SLPNO = WRS.NA_SLPNO
+				AND A.PY_PLA_DT = WRS.RPY_PLA_DT
+				AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+				AND A.NA_TRPL_C IN /* 공급자 */
+				<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+					<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+						AND A.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+					</if>
+				</if>
+				GROUP BY A.NA_TRPL_C, A.NA_BZPLC, A.TR_DT, A.NA_SLPNO, A.BYAM, KD.TXT_DSC, A.BYNG_VAT
+			) B
+			GROUP BY B.NA_TRPL_C, B.NA_BZPLC, B.TXT_DSC
+		) BB, (
+			SELECT
+				NA_BZPLC,
+				NA_TRPL_C,
+				TXT_DSC,
+				SUM(DVY_AM) DVY_AM,
+				SUM(DVY_VAT) DVY_VAT
+			FROM NHVANINF.TB_OD_DLVPNSHT_CNR_RZS
+			WHERE 1=1
+			AND CRT_YM = #{CRT_YM}
+			AND NA_TRPL_C IN
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			GROUP BY NA_BZPLC, NA_TRPL_C, TXT_DSC
+		) CC
+		WHERE AA.NA_TRPL_C = BB.NA_TRPL_C
+		AND AA.NA_BZPLC = BB.NA_BZPLC
+		AND AA.TXT_DSC = BB.TXT_DSC
+		AND AA.NA_TRPL_C = CC.NA_TRPL_C
+		AND AA.NA_BZPLC = CC.NA_BZPLC
+		AND AA.TXT_DSC = CC.TXT_DSC
+		AND AA.TAX_TOT_AM != 0
+		<if test="EQUAL_YN != null and EQUAL_YN != 'all' and EQUAL_YN.length() > 0">
+			<choose>
+				<when test="EQUAL_YN eq 'Y'.toString()">
+					AND AA.TAX_TOT_AM = BB.SLP_TOT_AM
+				</when>
+				<otherwise>
+					AND AA.TAX_TOT_AM != BB.SLP_TOT_AM
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+	
+	<!-- 집계데이터 조회(속도 빠름, 일배치 데이터) -->
+	<sql id = "sql_retrieveClosingSimplifyRzsList">
+		SELECT
+			#{CRT_YM} AS CRT_YM
+			, AA.PBC_SQNO
+			, AA.NA_TRPL_C
+			, FN_TRPL_CIF_NM(AA.NA_TRPL_C) AS NA_TRPLNM
+			, AA.NA_BZPLC
+			, FN_TRPL_CIF_NM(AA.NA_BZPLC) AS NA_BZPLNM
+			, AA.SPLR_BZNO
+			, AA.NA_TOT_DSC
+			, AA.NA_TOT_DSNM
+			, AA.TXBIL_KD
+			, (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = AA.TXBIL_KD AND SIMP_TPC = 'TXBIL_KD') AS TXBIL_KDNM
+			, AA.TXT_DSC
+			, DECODE(AA.TXT_DSC, '2', '면세', '3', '영세', '과세') TXT_DSNM
+			, AA.TAX_SPRTT
+			, AA.TAX_TXA_TT
+			, AA.TAX_TOT_AM
+			, BB.SLP_BYAM
+			, BB.SLP_VAT
+			, BB.SLP_TOT_AM
+			, CC.DVY_AM
+			, CC.DVY_VAT
+			, CASE WHEN AA.TAX_TOT_AM = BB.SLP_TOT_AM THEN 'Y' ELSE 'N' END AS EQ_YN
+		FROM (
+			SELECT
+				MAX(M.PBC_SQNO) AS PBC_SQNO,
+				M.NA_TRPL_C,
+				M.NA_BZPLC,
+				M.SPLR_BZNO,
+				M.NA_TOT_DSC,
+				M.NA_TOT_DSNM,
+				MAX(M.TXBIL_KD) AS TXBIL_KD,
+				CASE
+					WHEN MAX(M.TXBIL_KD) = '0102' OR MAX(M.TXBIL_KD) = '0202' THEN '3'
+    				WHEN MAX(M.TXBIL_KD) <![CDATA[<]]> '0301' THEN '1' ELSE '2'
+    			END TXT_DSC,
+				SUM(M.SPRTT) AS TAX_SPRTT,
+				SUM(M.TXA_TT) AS TAX_TXA_TT,
+				SUM(M.TOT_AM) AS TAX_TOT_AM
+			FROM TX_TXBIL M
+			WHERE 1=1
+			AND M.CRT_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND M.NA_TRPL_C IN /* 공급자 */
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND M.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			<choose>
+				<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0">
+					AND M.NA_TOT_DSC = #{NA_TOT_DSC}
+				</when>
+				<otherwise>
+					AND M.NA_TOT_DSC = '01' /* 전산월집계분 */
+				</otherwise>
+			</choose>
+			<if test="TXBIL_KD != null and TXBIL_KD != 'all' and TXBIL_KD.length() > 0">
+				AND M.TXBIL_KD LIKE  #{TXBIL_KD} || '%'
+			</if>
+			<if test="TXT_DSC != null and TXT_DSC != 'all' and TXT_DSC.length() > 0">
+				<choose>
+					<when test="TXT_DSC eq '1'.toString()">
+						AND M.TXBIL_KD NOT IN ('0102', '0105', '0202', '0205')
+						AND M.TXBIL_KD <![CDATA[<]]> '0301'
+					</when>
+					<when test="TXT_DSC eq '3'.toString()">
+						AND M.TXBIL_KD IN ('0102', '0105', '0202', '0205')
+					</when>
+					<otherwise>
+						AND M.TXBIL_KD <![CDATA[>=]]> '0301'
+					</otherwise>
+				</choose>
+			</if>
+			AND M.OCU_DSC = '01' /* 농협발행 */
+			AND M.RPBC_DSC = '2' /* 역발행 */
+			AND M.TXBIL_STSC NOT IN ('05', '99') /* 발행오류, 발행취소 제외 */
+			GROUP BY
+				NVL(M.MOD_TAX_PBC_SQNO, M.PBC_SQNO),
+				M.NA_TRPL_C,
+				M.NA_BZPLC,
+				M.SPLR_BZNO,
+				M.NA_TOT_DSC,
+				M.NA_TOT_DSNM
+		) AA, (
+			SELECT 
+				NA_TRPL_C,
+				NA_BZPLC,
+				TXT_DSC, 
+				BYAM-BYNG_VAT AS SLP_BYAM,
+				BYNG_VAT AS SLP_VAT,
+				BYAM AS SLP_TOT_AM
+			FROM NHVANINF.TB_DP_CM_SIM_CNR_RZS
+			WHERE NA_TRPL_C IN
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			AND CRT_YM = #{CRT_YM}
+		) BB, (
+			SELECT
+				NA_BZPLC,
+				NA_TRPL_C,
+				TXT_DSC,
+				SUM(DVY_AM) DVY_AM,
+				SUM(DVY_VAT) DVY_VAT
+			FROM NHVANINF.TB_OD_DLVPNSHT_CNR_RZS
+			WHERE 1=1
+			AND CRT_YM = #{CRT_YM}
+			AND NA_TRPL_C IN
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			GROUP BY NA_BZPLC, NA_TRPL_C, TXT_DSC
+		) CC
+		WHERE AA.NA_TRPL_C = BB.NA_TRPL_C
+		AND AA.NA_BZPLC = BB.NA_BZPLC
+		AND AA.TXT_DSC = BB.TXT_DSC
+		AND AA.NA_TRPL_C = CC.NA_TRPL_C(+)
+		AND AA.NA_BZPLC = CC.NA_BZPLC(+)
+		AND AA.TXT_DSC = CC.TXT_DSC(+)
+		AND AA.TAX_TOT_AM != 0
+		<if test="EQUAL_YN != null and EQUAL_YN != 'all' and EQUAL_YN.length() > 0">
+			<choose>
+				<when test="EQUAL_YN eq 'Y'.toString()">
+					AND AA.TAX_TOT_AM = BB.SLP_TOT_AM
+				</when>
+				<otherwise>
+					AND AA.TAX_TOT_AM != BB.SLP_TOT_AM
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+	
+	<!-- 마감간소화 마스터 전표별 상세 엑셀 다운로드 -->
+	<select id="excelClosingSimplifyAllSlpList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			DECODE(GROUPING(BB.TR_DT), 1, AA.NA_TRPL_C, '') AS NA_TRPL_C
+		  , DECODE(GROUPING(BB.TR_DT), 1, FN_TRPL_CIF_NM(AA.NA_TRPL_C), '') AS NA_TRPLNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.NA_BZPLC, '') AS NA_BZPLC
+		  , DECODE(GROUPING(BB.TR_DT), 1, FN_TRPL_CIF_NM(AA.NA_BZPLC), '') AS NA_BZPLNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.PBC_SQNO, '') AS PBC_SQNO
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.SPLR_BZNO, '') AS SPLR_BZNO
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.NA_TOT_DSC, '') AS NA_TOT_DSC
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.NA_TOT_DSNM, '') AS NA_TOT_DSNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TXBIL_KD, '') AS TXBIL_KD
+		  , DECODE(GROUPING(BB.TR_DT), 1, (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = AA.TXBIL_KD AND SIMP_TPC = 'TXBIL_KD'), '') AS TXBIL_KDNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TXT_DSC, '') AS TXT_DSC
+		  , DECODE(GROUPING(BB.TR_DT), 1, DECODE(AA.TXT_DSC, '2', '면세', '3', '영세', '과세'), '') AS TXT_DSNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TAX_SPRTT, '') AS TAX_SPRTT
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TAX_TXA_TT, '') AS TAX_TXA_TT
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TAX_TOT_AM, '') AS TAX_TOT_AM
+  		  , DECODE(GROUPING(AA.PBC_SQNO) || GROUPING(BB.TR_DT), '01', CASE WHEN AA.TAX_TOT_AM = SUM(BB.SLP_TOT_AM) THEN '일치' ELSE '불일치' END, '') AS EQ_YN
+		  , DECODE(GROUPING(AA.PBC_SQNO) || GROUPING(BB.TR_DT), '01', '소계', BB.TR_DT) AS TR_DT
+		  , BB.NA_SLPNO AS NA_SLPNO
+		  , SUM(BB.SLP_BYAM) AS SLP_BYAM
+		  , SUM(BB.SLP_VAT) AS SLP_VAT
+		  , SUM(BB.SLP_TOT_AM) AS SLP_TOT_AM
+		FROM (
+			SELECT
+				M.PBC_SQNO,
+				M.NA_TRPL_C,
+				M.NA_BZPLC,
+				M.SPLR_BZNO,
+				M.NA_TOT_DSC,
+				M.NA_TOT_DSNM,
+				M.TXBIL_KD,
+				CASE
+					WHEN M.TXBIL_KD = '0102' OR M.TXBIL_KD = '0202' THEN '3'
+    				WHEN M.TXBIL_KD <![CDATA[<]]> '0301' THEN '1' ELSE '2'
+    			END TXT_DSC,
+				M.SPRTT AS TAX_SPRTT,
+				M.TXA_TT AS TAX_TXA_TT,
+				M.TOT_AM AS TAX_TOT_AM
+			FROM TX_TXBIL M
+			WHERE 1=1
+			AND M.CRT_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND M.NA_TRPL_C IN /* 공급자 */
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND M.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			<choose>
+				<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0">
+					AND M.NA_TOT_DSC = #{NA_TOT_DSC}
+				</when>
+				<otherwise>
+					AND M.NA_TOT_DSC = '01' /* 전산월집계분 */
+				</otherwise>
+			</choose>
+			<if test="TXBIL_KD != null and TXBIL_KD != 'all' and TXBIL_KD.length() > 0">
+				AND M.TXBIL_KD LIKE  #{TXBIL_KD} || '%'
+			</if>
+			AND M.OCU_DSC = '01' /* 농협발행 */
+			AND M.RPBC_DSC = '2' /* 역발행 */
+			AND M.TXBIL_STSC NOT IN ('05', '99') /* 발행오류, 발행취소 제외 */
+		) AA, (
+			SELECT
+				A.NA_TRPL_C
+				, A.NA_BZPLC
+				, A.TR_DT
+				, A.NA_SLPNO
+				, KD.TXT_DSC
+				, SUM(FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * CASE
+				    WHEN KD.TXT_DSC = WRS.TXT_DSC THEN WRS.BYAM-WRS.BYNG_VAT
+				    ELSE 0
+				  END) AS SLP_BYAM
+				, DECODE(KD.TXT_DSC, '1', NVL(A.BYNG_VAT, 0), 0) AS SLP_VAT
+				, SUM(FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * CASE
+				    WHEN KD.TXT_DSC = WRS.TXT_DSC THEN WRS.BYAM
+				    ELSE 0
+				  END) AS SLP_TOT_AM
+			FROM TB_DP_CM_SLP_CNR_RZS A
+				, TB_BY_BYNG_WRS WRS
+			<![CDATA[
+				, (SELECT REGEXP_SUBSTR ('1.3.2', '[^.]+', 1, LEVEL) TXT_DSC FROM DUAL CONNECT BY LEVEL <= REGEXP_COUNT ('1.3.2', '\.')+1) KD
+			]]>
+			WHERE 1=1
+			AND A.NA_BZPLC = WRS.NA_BZPLC
+			AND A.NA_TEAM_C = WRS.NA_TEAM_C
+			AND A.TR_DT = WRS.SLP_DT
+			AND A.NA_SLPNO = WRS.NA_SLPNO
+			AND A.PY_PLA_DT = WRS.RPY_PLA_DT
+			AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND A.NA_TRPL_C IN /* 공급자 */
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND A.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			GROUP BY A.NA_TRPL_C, A.NA_BZPLC, A.TR_DT, A.NA_SLPNO, KD.TXT_DSC, A.BYNG_VAT
+		) BB
+		WHERE AA.NA_TRPL_C = BB.NA_TRPL_C
+		AND AA.NA_BZPLC = BB.NA_BZPLC
+		AND AA.TXT_DSC = BB.TXT_DSC
+		AND BB.SLP_TOT_AM != 0
+		GROUP BY GROUPING SETS(
+		  (AA.PBC_SQNO, AA.NA_TRPL_C, AA.NA_BZPLC, AA.SPLR_BZNO, AA.NA_TOT_DSC, AA.NA_TOT_DSNM, AA.TXBIL_KD, AA.TXT_DSC, AA.TAX_SPRTT, AA.TAX_TXA_TT, AA.TAX_TOT_AM),
+		  (AA.PBC_SQNO, AA.NA_TRPL_C, AA.NA_BZPLC, AA.SPLR_BZNO, AA.NA_TOT_DSC, AA.NA_TOT_DSNM, AA.TXBIL_KD, AA.TXT_DSC, AA.TAX_SPRTT, AA.TAX_TXA_TT, AA.TAX_TOT_AM, BB.TR_DT, BB.NA_SLPNO)
+		)
+		ORDER BY GROUPING(AA.PBC_SQNO) DESC, AA.PBC_SQNO, AA.NA_TRPL_C, AA.NA_BZPLC, AA.SPLR_BZNO, AA.NA_TOT_DSC, AA.NA_TOT_DSNM, AA.TXBIL_KD, AA.TXT_DSC, AA.TAX_SPRTT, AA.TAX_TXA_TT, AA.TAX_TOT_AM, GROUPING(BB.TR_DT) DESC
+	</select>
+	
+	<!-- 마감간소화 마스터 상품별 상세 엑셀 다운로드 -->
+	<select id="excelClosingSimplifyAllWrsList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			DECODE(GROUPING(BB.TR_DT), 1, AA.NA_TRPL_C, '') AS NA_TRPL_C
+		  , DECODE(GROUPING(BB.TR_DT), 1, FN_TRPL_CIF_NM(AA.NA_TRPL_C), '') AS NA_TRPLNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.NA_BZPLC, '') AS NA_BZPLC
+		  , DECODE(GROUPING(BB.TR_DT), 1, FN_TRPL_CIF_NM(AA.NA_BZPLC), '') AS NA_BZPLNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.PBC_SQNO, '') AS PBC_SQNO
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.SPLR_BZNO, '') AS SPLR_BZNO
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.NA_TOT_DSC, '') AS NA_TOT_DSC
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.NA_TOT_DSNM, '') AS NA_TOT_DSNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TXBIL_KD, '') AS TXBIL_KD
+		  , DECODE(GROUPING(BB.TR_DT), 1, (SELECT SIMP_CNM FROM MG_COMN_C_AMN WHERE SIMP_C = AA.TXBIL_KD AND SIMP_TPC = 'TXBIL_KD'), '') AS TXBIL_KDNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TXT_DSC, '') AS TXT_DSC
+		  , DECODE(GROUPING(BB.TR_DT), 1, DECODE(AA.TXT_DSC, '2', '면세', '3', '영세', '과세'), '') AS TXT_DSNM
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TAX_SPRTT, '') AS TAX_SPRTT
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TAX_TXA_TT, '') AS TAX_TXA_TT
+		  , DECODE(GROUPING(BB.TR_DT), 1, AA.TAX_TOT_AM, '') AS TAX_TOT_AM
+  		  , DECODE(GROUPING(AA.PBC_SQNO) || GROUPING(BB.TR_DT), '01', CASE WHEN AA.TAX_TOT_AM = SUM(BB.SLP_TOT_AM) THEN '일치' ELSE '불일치' END, '') AS EQ_YN
+		  , DECODE(GROUPING(AA.PBC_SQNO) || GROUPING(BB.TR_DT), '01', '소계', BB.TR_DT) AS TR_DT
+		  , DECODE(GROUPING(BB.TR_DT), 0, BB.NA_WRS_C, '') AS NA_WRS_C
+		  , DECODE(GROUPING(BB.TR_DT), 0, BB.WRSNM, '') AS WRSNM
+		  , DECODE(GROUPING(BB.TR_DT), 0, BB.WRS_STDNM, '') AS WRS_STDNM
+		  , SUM(BB.BYNG_UPR) AS BYNG_UPR
+		  , SUM(BB.BYNG_QT) AS BYNG_QT
+		  , SUM(BB.SLP_BYAM) AS SLP_BYAM
+		  , SUM(BB.SLP_VAT) AS SLP_VAT
+		  , SUM(BB.SLP_TOT_AM) AS SLP_TOT_AM
+		FROM (
+			SELECT
+				M.PBC_SQNO,
+				M.NA_TRPL_C,
+				M.NA_BZPLC,
+				M.SPLR_BZNO,
+				M.NA_TOT_DSC,
+				M.NA_TOT_DSNM,
+				M.TXBIL_KD,
+				CASE
+					WHEN M.TXBIL_KD = '0102' OR M.TXBIL_KD = '0202' THEN '3'
+    				WHEN M.TXBIL_KD <![CDATA[<]]> '0301' THEN '1' ELSE '2'
+    			END TXT_DSC,
+				M.SPRTT AS TAX_SPRTT,
+				M.TXA_TT AS TAX_TXA_TT,
+				M.TOT_AM AS TAX_TOT_AM
+			FROM TX_TXBIL M
+			WHERE 1=1
+			AND M.CRT_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND M.NA_TRPL_C IN /* 공급자 */
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND M.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+			<choose>
+				<when test="NA_TOT_DSC != null and NA_TOT_DSC.length() > 0">
+					AND M.NA_TOT_DSC = #{NA_TOT_DSC}
+				</when>
+				<otherwise>
+					AND M.NA_TOT_DSC = '01' /* 전산월집계분 */
+				</otherwise>
+			</choose>
+			<if test="TXBIL_KD != null and TXBIL_KD != 'all' and TXBIL_KD.length() > 0">
+				AND M.TXBIL_KD LIKE  #{TXBIL_KD} || '%'
+			</if>
+			AND M.OCU_DSC = '01' /* 농협발행 */
+			AND M.RPBC_DSC = '2' /* 역발행 */
+			AND M.TXBIL_STSC NOT IN ('05', '99') /* 발행오류, 발행취소 제외 */
+		) AA, (
+			SELECT
+				A.NA_TRPL_C
+				, A.NA_BZPLC
+				, A.TR_DT
+				, A.NA_SLPNO
+				, A.NA_CRC_CAN_DSC
+				, DECODE(A.NA_TR_DSC, 'IB01', '매출', 'IB03', '매출', 'IB04', '매출', '', '', NULL, '', '반품') NA_TR_DSC
+				, WRS.NA_WRS_C
+				, W.WRSNM
+				, W.WRS_STDNM
+				, WRS.TXT_DSC
+				, FN_CM_SIMP_CNM('TXT_DSC', WRS.TXT_DSC) AS TXT_DSNM
+				, WRS.BYNG_UPR
+				, WRS.BYNG_QT
+				, FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * WRS.BYNG_VAT AS SLP_VAT
+				, FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * (WRS.BYAM - WRS.BYNG_VAT) AS SLP_BYAM
+				, FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * WRS.BYAM AS SLP_TOT_AM
+			FROM TB_DP_CM_SLP_CNR_RZS A, TB_BY_BYNG_WRS WRS, TB_GD_WRS W
+			WHERE 1=1
+			AND A.NA_BZPLC = WRS.NA_BZPLC
+			AND A.NA_TEAM_C = WRS.NA_TEAM_C
+			AND A.TR_DT = WRS.SLP_DT
+			AND A.NA_SLPNO = WRS.NA_SLPNO
+			AND A.PY_PLA_DT = WRS.RPY_PLA_DT
+			AND A.NA_TRPL_C = WRS.BUYPL_NA_TRPL_C
+			AND WRS.NA_WRS_C = W.NA_WRS_C
+			AND WRS.BYNG_QT != 0
+			AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND A.NA_TRPL_C IN /* 공급자 */
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+				<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+					AND A.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+				</if>
+			</if>
+		) BB
+		WHERE AA.NA_TRPL_C = BB.NA_TRPL_C
+		AND AA.NA_BZPLC = BB.NA_BZPLC
+		AND AA.TXT_DSC = BB.TXT_DSC
+		AND BB.SLP_TOT_AM != 0
+		GROUP BY GROUPING SETS(
+			(AA.PBC_SQNO, AA.NA_TRPL_C, AA.NA_BZPLC, AA.SPLR_BZNO, AA.NA_TOT_DSC, AA.NA_TOT_DSNM, AA.TXBIL_KD, AA.TXT_DSC, AA.TAX_SPRTT, AA.TAX_TXA_TT, AA.TAX_TOT_AM),
+			(AA.PBC_SQNO, AA.NA_TRPL_C, AA.NA_BZPLC, AA.SPLR_BZNO, AA.NA_TOT_DSC, AA.NA_TOT_DSNM, AA.TXBIL_KD, AA.TXT_DSC, AA.TAX_SPRTT, AA.TAX_TXA_TT, AA.TAX_TOT_AM, BB.TR_DT, BB.NA_SLPNO, BB.NA_WRS_C, BB.WRSNM, BB.WRS_STDNM)
+		)
+		ORDER BY GROUPING(AA.PBC_SQNO) DESC, AA.PBC_SQNO, AA.NA_TRPL_C, AA.NA_BZPLC, AA.SPLR_BZNO, AA.NA_TOT_DSC, AA.NA_TOT_DSNM, AA.TXBIL_KD, AA.TXT_DSC, GROUPING(BB.TR_DT) DESC
+	</select>
+	
+	<!-- 간소화 전표별 상세 -->
+	<select id="retrieveClosingSimplifyDetailSlp"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			#{CRT_YM} AS CRT_YM
+			, A.NA_TRPL_C
+			, A.NA_BZPLC
+			, FN_TRPL_CIF_NM(A.NA_BZPLC) AS NA_BZPLNM
+			, A.TR_DT
+			, A.NA_SLPNO
+			, DECODE(A.NA_TR_DSC, 'IB01', '매출', 'IB03', '매출', 'IB04', '매출', '', '', NULL, '', '반품') NA_TR_DSC
+			, SUM(FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * (WRS.BYAM - WRS.BYNG_VAT)) AS BYAM
+			, DECODE(#{TXT_DSC}, '1', NVL(A.BYNG_VAT, 0), 0) AS BYNG_VAT
+			, SUM(FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * WRS.BYAM) AS TOT_AM
+			, A.NA_DVY_PLASH_SLPNO DVY_SLPNO
+			, FN_CM_SIMP_CNM('DVY_PLASH_STSC', D.DVY_PLASH_STSC) AS DVY_STSC
+			, D.DVY_AM
+			, D.DVY_VAT
+		FROM TB_DP_CM_SLP_CNR_RZS A
+		, TB_BY_BYNG_WRS WRS
+		, (SELECT
+				DM.MNGT_NA_TRPL_C,
+				DM.SPYPL_NA_TRPL_C,
+				DM.NA_DVY_PLASH_SLPNO,
+				DM.DVY_PLASH_STSC,
+				DD.TXT_DSC,
+				SUM(DD.DVY_AM) DVY_AM,
+				SUM(DD.DVY_VAT) DVY_VAT
+			FROM TB_OD_DLVPNSHT_M DM, TB_OD_DLVPNSHT_D DD
+			WHERE 1=1
+			AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C
+			AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C
+			AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO
+			AND DM.DVY_PLA_DT = DD.DVY_PLA_DT
+			AND DM.SPYPL_NA_TRPL_C = #{NA_TRPL_C} /* 공급자 */
+			AND DM.MNGT_NA_TRPL_C = #{NA_BZPLC} /* 농협 */
+			AND DM.DVY_PLA_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+				AND DD.TXT_DSC = #{TXT_DSC}
+			</if>
+			GROUP BY DM.SPYPL_NA_TRPL_C, DM.MNGT_NA_TRPL_C, DM.NA_DVY_PLASH_SLPNO, DM.DVY_PLASH_STSC, DD.TXT_DSC
+		) D
+		WHERE 1=1
+		AND A.NA_BZPLC = WRS.NA_BZPLC
+		AND A.NA_TEAM_C = WRS.NA_TEAM_C
+		AND A.TR_DT = WRS.SLP_DT
+		AND A.NA_SLPNO = WRS.NA_SLPNO
+		AND A.PY_PLA_DT = WRS.RPY_PLA_DT
+		AND A.NA_DVY_PLASH_SLPNO = D.NA_DVY_PLASH_SLPNO(+)
+		AND A.NA_TRPL_C = D.SPYPL_NA_TRPL_C(+)
+		AND A.NA_BZPLC = D.MNGT_NA_TRPL_C(+)
+		AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+		AND A.NA_TRPL_C = #{NA_TRPL_C} /* 공급자 */
+		AND A.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+		<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+			AND WRS.TXT_DSC = #{TXT_DSC}
+		</if>
+		GROUP BY A.NA_TRPL_C, A.NA_BZPLC, A.TR_DT, A.NA_SLPNO, A.NA_TR_DSC, A.BYNG_VAT, A.NA_DVY_PLASH_SLPNO, D.DVY_PLASH_STSC, D.DVY_AM, D.DVY_VAT
+		ORDER BY A.TR_DT, A.NA_SLPNO
+	</select>
+	
+	<!-- 간소화 상품별 상세 -->
+	<select id="retrieveClosingSimplifyDetailWrs"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			#{CRT_YM} AS CRT_YM
+			, NA_TRPL_C
+			, NA_BZPLC
+			, NA_BZPLNM
+			, NA_WRS_C
+			, WRSNM
+			, WRS_STDNM
+			, TXT_DSC
+			, BYNG_UPR
+			, SUM(BYNG_QT) AS BYNG_QT
+			, SUM(BYNG_VAT) AS BYNG_VAT
+			, SUM(BYAM) AS BYAM
+			, SUM(TOT_AM) AS TOT_AM
+		FROM (
+			<include refid="sql_retrieveClosingSimplifyDetailWrs" />
+			AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+		)
+		GROUP BY NA_TRPL_C, NA_BZPLC, NA_BZPLNM, NA_WRS_C, WRSNM, WRS_STDNM, TXT_DSC, BYNG_UPR
+		ORDER BY NA_WRS_C
+	</select>
+	
+	<!-- 간소화 상품별 상세 전표정보 -->
+	<select id="retrieveClosingSimplifyDetailWrsSlp"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			AA.NA_TRPL_C
+			, AA.NA_BZPLC
+			, AA.NA_BZPLNM
+			, AA.TR_DT
+			, AA.NA_SLPNO
+			, AA.NA_DVY_PLASH_SLPNO
+			, AA.NA_CRC_CAN_DSC
+			, AA.NA_TR_DSC
+			, AA.NA_WRS_C
+			, AA.WRSNM
+			, AA.WRS_STDNM
+			, AA.TXT_DSC
+			, AA.BYNG_UPR
+			, AA.BYNG_QT
+			, AA.BYNG_VAT
+			, AA.BYAM
+			, AA.TOT_AM
+			, BB.DVY_STSC
+			, BB.DVY_QT
+			, BB.DVY_WRS_UPR
+			, BB.DVY_AM
+			, BB.DVY_VAT
+		FROM (
+			<include refid="sql_retrieveClosingSimplifyDetailWrs" />
+			AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND WRS.NA_WRS_C = #{NA_WRS_C}
+			AND WRS.BYNG_UPR = #{BYNG_UPR}
+		) AA, (
+			SELECT
+				'매입' AS DVY_STSC,
+				DM.NA_DVY_PLASH_SLPNO,
+				DD.NA_WRS_C,
+				DD.DVY_WRS_UPR,
+				SUM(DD.DVY_PLA_QT) DVY_QT,
+				SUM(DD.DVY_AM) DVY_AM,
+				SUM(DD.DVY_VAT) DVY_VAT
+			FROM TB_OD_DLVPNSHT_M DM, TB_OD_DLVPNSHT_D DD
+			WHERE 1=1
+			AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C
+			AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C
+			AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO
+			AND DM.DVY_PLA_DT = DD.DVY_PLA_DT
+			AND DM.SPYPL_NA_TRPL_C = #{NA_TRPL_C}
+			AND DM.MNGT_NA_TRPL_C = #{NA_BZPLC}
+			AND DM.DVY_PLA_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND DM.DVY_PLASH_STSC = '03'
+			AND DD.NA_WRS_C = #{NA_WRS_C}
+			<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+				AND DD.TXT_DSC = #{TXT_DSC}
+			</if>
+			GROUP BY DM.NA_DVY_PLASH_SLPNO, DD.NA_WRS_C, DD.DVY_WRS_UPR
+		) BB
+		WHERE 1=1
+		AND AA.NA_DVY_PLASH_SLPNO = BB.NA_DVY_PLASH_SLPNO(+)
+		AND AA.NA_WRS_C = BB.NA_WRS_C(+)
+		ORDER BY AA.TR_DT
+	</select>
+		
+	<!-- 간소화 전표별 상세 상품정보 -->
+	<select id="retrieveClosingSimplifyDetailSlpWrs"  parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			AA.NA_TRPL_C
+			, AA.NA_BZPLC
+			, AA.NA_BZPLNM
+			, AA.TR_DT
+			, AA.NA_SLPNO
+			, AA.NA_DVY_PLASH_SLPNO
+			, AA.NA_CRC_CAN_DSC
+			, AA.NA_TR_DSC
+			, AA.NA_WRS_C
+			, AA.WRSNM
+			, AA.WRS_STDNM
+			, AA.TXT_DSC
+			, AA.BYNG_UPR
+			, AA.BYNG_QT
+			, AA.BYNG_VAT
+			, AA.BYAM
+			, AA.TOT_AM
+			, BB.DVY_STSC
+			, BB.DVY_QT
+			, BB.DVY_WRS_UPR
+			, BB.DVY_AM
+			, BB.DVY_VAT
+		FROM (
+			<include refid="sql_retrieveClosingSimplifyDetailWrs" />
+			AND A.TR_DT = #{TR_DT}
+			AND A.NA_SLPNO = #{NA_SLPNO}
+		) AA, (
+			SELECT
+				'매입' AS DVY_STSC,
+				DM.NA_DVY_PLASH_SLPNO,
+				DD.NA_WRS_C,
+				DD.DVY_WRS_UPR,
+				SUM(DD.DVY_PLA_QT) DVY_QT,
+				SUM(DD.DVY_AM) DVY_AM,
+				SUM(DD.DVY_VAT) DVY_VAT
+			FROM TB_OD_DLVPNSHT_M DM, TB_OD_DLVPNSHT_D DD
+			WHERE 1=1
+			AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C
+			AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C
+			AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO
+			AND DM.DVY_PLA_DT = DD.DVY_PLA_DT
+			AND DM.NA_DVY_PLASH_SLPNO = #{DVY_SLPNO}
+			AND DM.SPYPL_NA_TRPL_C = #{NA_TRPL_C}
+			AND DM.MNGT_NA_TRPL_C = #{NA_BZPLC}
+			AND DM.DVY_PLA_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND DM.DVY_PLASH_STSC = '03'
+			<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+				AND DD.TXT_DSC = #{TXT_DSC}
+			</if>
+			GROUP BY DM.NA_DVY_PLASH_SLPNO, DD.NA_WRS_C, DD.DVY_WRS_UPR
+		) BB
+		WHERE 1=1
+		AND AA.NA_DVY_PLASH_SLPNO = BB.NA_DVY_PLASH_SLPNO(+)
+		AND AA.NA_WRS_C = BB.NA_WRS_C(+)
+		ORDER BY AA.SLP_SQNO
+	</select>
+	
+	<!-- 마감간소화 상품조회 -->
+	<sql id = "sql_retrieveClosingSimplifyDetailWrs">
+		SELECT
+			A.NA_TRPL_C
+			, A.NA_BZPLC
+			, FN_TRPL_CIF_NM(A.NA_BZPLC) AS NA_BZPLNM
+			, A.TR_DT
+			, A.NA_SLPNO
+    		, A.NA_DVY_PLASH_SLPNO
+			, A.NA_CRC_CAN_DSC
+			, DECODE(A.NA_TR_DSC, 'IB01', '매출', 'IB03', '매출', 'IB04', '매출', '', '', NULL, '', '반품') NA_TR_DSC
+			, WRS.NA_WRS_C
+			, W.WRSNM
+			, W.WRS_STDNM
+			, FN_CM_SIMP_CNM('TXT_DSC', WRS.TXT_DSC) AS TXT_DSC
+			, WRS.SLP_SQNO
+			, WRS.BYNG_UPR
+			, WRS.BYNG_QT
+			, FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * WRS.BYNG_VAT AS BYNG_VAT
+			, FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * (WRS.BYAM - WRS.BYNG_VAT) AS BYAM
+			, FN_CNR_DS_AM(WRS.NA_TR_DSC, WRS.NA_CRC_CAN_DSC) * WRS.BYAM AS TOT_AM
+		FROM TB_DP_CM_SLP_CNR_RZS A, TB_BY_BYNG_WRS WRS, TB_GD_WRS W
+		WHERE 1=1
+		AND A.NA_BZPLC = WRS.NA_BZPLC
+		AND A.NA_TEAM_C = WRS.NA_TEAM_C
+		AND A.TR_DT = WRS.SLP_DT
+		AND A.NA_SLPNO = WRS.NA_SLPNO
+		AND A.PY_PLA_DT = WRS.RPY_PLA_DT
+		AND A.NA_TRPL_C = WRS.BUYPL_NA_TRPL_C
+		AND WRS.NA_WRS_C = W.NA_WRS_C
+		AND A.NA_TRPL_C = #{NA_TRPL_C}
+		AND A.NA_BZPLC = #{NA_BZPLC}
+		AND WRS.BYNG_QT != 0
+		<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+			AND WRS.TXT_DSC = #{TXT_DSC}
+		</if>
+	</sql>
+	
+	<select id="retrieveByngSimplifyList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'TXBZ_DFN_DT, NA_BZPLC, NA_SOAC_DSC, TXBZ_TOT_RG_SQNO'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveByngSimplifyList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveByngSimplifySummaryList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			SUM(SPY_AM) SPY_AM
+			, SUM(VAT) VAT
+			, SUM(PUC) PUC
+		FROM (
+			<include refid="sql_retrieveByngSimplifyList" />
+		)
+	</select>
+	
+	<select id="retrieveByngSimplifyListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveByngSimplifyList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 세무매입실적 데이터 -->
+	<sql id="sql_retrieveByngSimplifyList">
+		SELECT
+			NA_BZPLC
+			, FN_TRPL_CIF_NM(A.NA_BZPLC) AS NA_BZPLNM
+			, A.NA_TOT_DSC
+			, C.TXBZ_IDVD_CNM AS NA_TOT_DSNM
+			, A.BZPL_BZNO
+			, '[' || A.NA_TEAM_C || ']' || FN_CM_TEAM_NM(A.NA_BZPLC, A.NA_TEAM_C) AS NA_TEAM_C
+			, A.NA_TRPL_C
+			, FN_TRPL_CIF_NM(A.NA_TRPL_C) AS NA_TRPL_NM
+			, A.TRPL_RLNO
+			, A.NA_SOAC_DSC
+			, FN_CM_SIMP_CNM('NA_SOAC_DSC', A.NA_SOAC_DSC) NA_SOAC_DSNM
+			, A.TXBZ_DFN_DT
+			, (A.BLB_SPY_AM +A.CRC_BLB_SPY_AM )-(A.DFC_SPY_AM +A.CRC_DFC_SPY_AM ) AS SPY_AM
+			, (A.BLB_VAT +A.CRC_BLB_VAT )-(A.DFC_VAT +A.CRC_DFC_VAT ) AS VAT
+			, A.PUC
+			, A.TXBZ_TP_DSC
+			, B.TXBZ_IDVD_CNM AS TXBZ_TP_DSNM
+			, A.LATCNM
+			, A.TXBZ_TOT_RG_SQNO
+		FROM TB_TX_TH_CUST A
+			, (SELECT TXBZ_IDVDC, TXBZ_IDVD_CNM FROM TB_TX_TM_IDVDC WHERE TXBZ_IDVD_TPC = 'TXBZ_TP_DSC') B
+			, (SELECT TXBZ_IDVDC, TXBZ_IDVD_CNM FROM TB_TX_TM_IDVDC WHERE TXBZ_IDVD_TPC = 'NA_TOT_DSC') C
+		WHERE 1=1
+		AND A.TXBZ_TP_DSC = B.TXBZ_IDVDC(+)
+		AND A.NA_TOT_DSC = C.TXBZ_IDVDC(+)
+		AND A.SL_YM = #{CRT_YM}
+		AND A.TXBZ_DFN_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+		AND A.NA_TRPL_C IN
+		<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="BZPLC_TPC != null and BZPLC_TPC != 'all'">
+			<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+				AND A.NA_BZPLC = #{NA_BZPLC} /* 농협 */
+			</if>
+		</if>
+	</sql>
+	
+	<select id="retrieveByngSimplifyDetailList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			B.NA_BZPLC
+			, FN_TRPL_CIF_NM(B.NA_BZPLC) AS NA_BZPLNM
+			, B.TR_DT
+			, B.NA_SLPNO
+			, B.COMP_FEE /* 업체수수료(O=P+Q+R+S) */
+			, B.BYNG_SSDY /* 매입장려금(P) */
+			, B.ETR_AMN_FEE /* 관리수수료R2(Q) */
+			, B.ETR_AMN_VAT /* 관리부가세R2(R) */
+			, B.SLGT_AMN_FEE /* 관리수수료R1(S) */
+			, B.PHD_FEE /* 물류수수료(T) */
+			, B.PHD_FEE_VAT /* 물류부가세(U) */
+			, B.TRP_SVC_CST /* 운송용역비(V) */
+			, B.TRP_SVCOS_VAT /* 운송부가세(W) */
+			, B.ETC_FEE /* 기타수수료(X) */
+			, B.ETC_FEE_VAT /* 기타부가세(Y) */
+		FROM TB_DP_CM_SLP_CNR_RZS B
+		WHERE 1 = 1
+		AND B.NA_TRPL_C = #{NA_TRPL_C}
+		AND B.NA_BZPLC = #{NA_BZPLC}
+		AND B.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+		ORDER BY B.TR_DT, B.NA_SLPNO
+	</select>
+	
+	<!-- 빌링대상 요약 정보(집계) -->
+	<select id="retrieveClosingSimplifyMarkupSummary2" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			CRT_YM,
+			SUM(SLP_CNT) AS SLP_CNT,
+			SUM(WRS_CNT) AS LINE_CN, 
+			SUM(DOC_SZE) AS DOC_SZE
+		FROM NHVANINF.TB_DP_CM_SIM_CNR_RZS
+		WHERE NA_TRPL_C IN
+		<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		AND CRT_YM = #{CRT_YM}
+		GROUP BY CRT_YM
+	</select>
+	
+	<!-- 빌링대상 요약 정보(실시간) -->
+	<select id="retrieveClosingSimplifyMarkupSummary" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			  #{CRT_YM} AS CRT_YM
+			, SUM(Z.SLP_CNT) AS SLP_CNT
+			, SUM(Z.LINE_CN) AS LINE_CN
+			, SUM(Z.DOC_SZE) AS DOC_SZE
+		FROM (
+			SELECT
+				  AA.NA_TRPL_C
+				, COUNT(AA.NA_SLPNO) AS SLP_CNT
+				, SUM(AA.LINE_CN) AS LINE_CN
+				, SUM(AA.DOC_SZE) AS DOC_SZE
+			FROM (
+				SELECT
+					  A.NA_BZPLC
+					, A.NA_TEAM_C
+					, A.TR_DT AS SLP_DT
+					, A.NA_SLPNO
+					, A.NA_TRPL_C
+					, M.LINE_CN
+					, FLOOR(
+						(
+							(SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'C')
+							+ (SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'H')
+							+ ((SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'L') * M.LINE_CN)
+						) * CASE WHEN M.FS_RMS_DT IS NULL THEN 1 WHEN SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[<]]> 3 THEN 0 ELSE 0.5 END
+					) AS DOC_SZE
+				FROM TB_DP_CM_SLP_CNR_RZS A, TB_BY_BYNG_M M
+				WHERE 1=1
+				AND NOT EXISTS (
+					SELECT
+						  NA_BZPLC
+						, NA_TEAM_C
+						, SLP_DT
+						, NA_SLPNO
+						, NA_TRPL_C
+					FROM NHVANINF.TB_BY_BYNG_RMS_LOG
+					WHERE NA_BZPLC = A.NA_BZPLC
+					AND NA_TEAM_C = A.NA_TEAM_C
+					AND SLP_DT = A.TR_DT
+					AND NA_SLPNO = A.NA_SLPNO
+				)
+				AND A.NA_BZPLC = M.NA_BZPLC
+				AND A.NA_TEAM_C = M.NA_TEAM_C
+				AND A.TR_DT = M.SLP_DT
+				AND A.NA_SLPNO = M.NA_SLPNO
+				AND A.NA_TRPL_C = M.BUYPL_NA_TRPL_C
+				AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+				AND A.NA_TRPL_C IN
+				<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+					#{item}z
+				</foreach>
+				AND (
+					M.FS_RMS_DT IS NULL
+					OR
+					SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[>=]]> 3
+				)
+			) AA
+			GROUP BY AA.NA_TRPL_C
+		) Z
+	</select>
+	
+	<!-- 빌링대상 전표정보 -->
+	<select id="retrieveClosingSimplifyMarkupList" parameterType="java.util.Map" resultType="com.nh.escm.tx.doccstd.vo.ClosingSimplifyVO">
+		SELECT
+			#{GLN} AS GLN
+			, #{MB_ID} AS MB_ID
+			, A.NA_BZPLC
+			, A.NA_TEAM_C
+			, A.TR_DT AS SLP_DT
+			, A.NA_SLPNO
+			, A.NA_TRPL_C
+			, M.LINE_CN
+			, FLOOR(
+				(
+					(SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'C')
+					+ (SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'H')
+					+ ((SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'L') * M.LINE_CN)
+				) * CASE WHEN M.FS_RMS_DT IS NULL THEN 1 WHEN SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[<]]> 3 THEN 0 ELSE 0.5 END
+			) AS DOC_SZE
+		FROM TB_DP_CM_SLP_CNR_RZS A, TB_BY_BYNG_M M
+		WHERE 1=1
+		AND NOT EXISTS (
+			SELECT
+				NA_BZPLC
+				, NA_TEAM_C
+				, SLP_DT
+				, NA_SLPNO
+				, NA_TRPL_C
+			FROM NHVANINF.TB_BY_BYNG_RMS_LOG
+			WHERE NA_BZPLC = A.NA_BZPLC
+			AND NA_TEAM_C = A.NA_TEAM_C
+			AND SLP_DT = A.TR_DT
+			AND NA_SLPNO = A.NA_SLPNO
+			AND RMS_SPYPL_C = #{GLN}
+		)
+		AND A.NA_BZPLC = M.NA_BZPLC
+		AND A.NA_TEAM_C = M.NA_TEAM_C
+		AND A.TR_DT = M.SLP_DT
+		AND A.NA_SLPNO = M.NA_SLPNO
+		AND A.NA_TRPL_C = M.BUYPL_NA_TRPL_C
+		AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+		AND A.NA_TRPL_C IN
+		<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		AND (
+			M.FS_RMS_DT IS NULL
+			OR
+			SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[>=]]> 3
+		)
+	</select>
+	
+	<!-- 마감간소화 빌링 로그 등록(SELECT-INSERT) -->
+	<insert id="insertClosingSimplifyMarkupLog" parameterType="java.util.Map">
+	 	INSERT INTO NHVANINF.TB_BY_BYNG_RMS_LOG (
+	 		NA_BZPLC
+			, NA_TEAM_C
+			, SLP_DT
+			, NA_SLPNO
+			, RMS_SPYPL_C
+			, NA_TRPL_C
+			, LINE_CN
+			, DOC_SZE
+			, FS_RGM
+			, FSRG_DTM
+		)
+		SELECT
+			A.NA_BZPLC
+			, A.NA_TEAM_C
+			, A.TR_DT
+			, A.NA_SLPNO
+			, #{GLN}
+			, A.NA_TRPL_C
+			, M.LINE_CN
+			, FLOOR(
+				(
+					(SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'C')
+					+ (SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'H')
+					+ ((SELECT DOC_SZE FROM COM_DOC_SZE WHERE DOCNM = M.DOC_NAME AND DOC_DLMT = 'L') * M.LINE_CN)
+				) * CASE WHEN M.FS_RMS_DT IS NULL THEN 1 WHEN SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[<]]> 3 THEN 0 ELSE 0.5 END
+			) AS DOC_SZE
+			, #{MB_ID}
+			, SYSDATE
+		FROM TB_DP_CM_SLP_CNR_RZS A, TB_BY_BYNG_M M
+		WHERE 1=1
+		AND NOT EXISTS (
+			SELECT
+				NA_BZPLC
+				, NA_TEAM_C
+				, SLP_DT
+				, NA_SLPNO
+				, NA_TRPL_C
+			FROM NHVANINF.TB_BY_BYNG_RMS_LOG
+			WHERE NA_BZPLC = A.NA_BZPLC
+			AND NA_TEAM_C = A.NA_TEAM_C
+			AND SLP_DT = A.TR_DT
+			AND NA_SLPNO = A.NA_SLPNO
+			AND RMS_SPYPL_C = #{GLN}
+		)
+		AND A.NA_BZPLC = M.NA_BZPLC
+		AND A.NA_TEAM_C = M.NA_TEAM_C
+		AND A.TR_DT = M.SLP_DT
+		AND A.NA_SLPNO = M.NA_SLPNO
+		AND A.NA_TRPL_C = M.BUYPL_NA_TRPL_C
+		AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+		AND A.NA_TRPL_C IN
+		<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		AND (
+			M.FS_RMS_DT IS NULL
+			OR
+			SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[>=]]> 3
+		)
+ 	</insert>
+ 	
+	<!-- 마감간소화 빌링 로그 등록 -->
+	<insert id="insertClosingSimplifyMarkupLogList"  parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		 	INTO NHVANINF.TB_BY_BYNG_RMS_LOG (
+		 		NA_BZPLC
+				, NA_TEAM_C
+				, SLP_DT
+				, NA_SLPNO
+				, RMS_SPYPL_C
+				, NA_TRPL_C
+				, LINE_CN
+				, DOC_SZE
+				, FS_RGM
+				, FSRG_DTM
+			) VALUES (
+				#{item.NA_BZPLC}
+				, #{item.NA_TEAM_C}
+				, #{item.SLP_DT}
+				, #{item.NA_SLPNO}
+				, #{item.GLN}
+				, #{item.NA_TRPL_C}
+				, #{item.LINE_CN}
+				, #{item.DOC_SZE}
+				, #{item.MB_ID}
+				, SYSDATE
+			)
+		</foreach>
+ 	</insert>
+ 	
+ 	<!-- 마감간소화 빌링 정보 업데이트(Merge Into) -->
+ 	<update id="markUp" parameterType="java.util.Map">
+	 	MERGE INTO TB_BY_BYNG_M S
+		USING (
+			SELECT
+				A.NA_BZPLC
+				, A.NA_TEAM_C
+				, A.TR_DT
+				, A.NA_SLPNO
+			FROM TB_DP_CM_SLP_CNR_RZS A, TB_BY_BYNG_M M
+			WHERE 1=1
+			AND NOT EXISTS (
+				SELECT
+					NA_BZPLC
+					, NA_TEAM_C
+					, SLP_DT
+					, NA_SLPNO
+				FROM NHVANINF.TB_BY_BYNG_RMS_LOG
+				WHERE NA_BZPLC = A.NA_BZPLC
+				AND NA_TEAM_C = A.NA_TEAM_C
+				AND SLP_DT = A.TR_DT
+				AND NA_SLPNO = A.NA_SLPNO
+				AND RMS_SPYPL_C = #{GLN}
+			)
+			AND A.NA_BZPLC = M.NA_BZPLC
+			AND A.NA_TEAM_C = M.NA_TEAM_C
+			AND A.TR_DT = M.SLP_DT
+			AND A.NA_SLPNO = M.NA_SLPNO
+			AND A.NA_TRPL_C = M.BUYPL_NA_TRPL_C
+			AND A.TR_DT BETWEEN #{CRT_YM} || '01' AND #{CRT_YM} || '31'
+			AND A.NA_TRPL_C IN
+			<foreach collection="NA_TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+			AND (
+				M.FS_RMS_DT IS NULL
+				OR
+				SYSDATE-TO_DATE(M.FS_RMS_DT, 'YYYYMMDD') <![CDATA[>=]]> 3
+			)
+		) T
+		ON (S.NA_BZPLC = T.NA_BZPLC AND S.NA_TEAM_C = T.NA_TEAM_C AND S.SLP_DT = T.TR_DT AND S.NA_SLPNO = T.NA_SLPNO)
+		WHEN MATCHED THEN
+		UPDATE SET
+		    FS_RMS_DT = DECODE(S.FS_RMS_DT, NULL, TO_CHAR(SYSDATE, 'YYYYMMDD'), S.FS_RMS_DT)
+		    , FS_RMS_HR = DECODE(S.FS_RMS_DT, NULL, TO_CHAR(SYSDATE, 'HH24MISS'), S.FS_RMS_HR)
+		    , LS_RMS_DT = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		    , LS_RMS_HR = TO_CHAR(SYSDATE, 'HH24MISS')
+		    , INQ_CN = DECODE(S.INQ_CN, NULL, 1, S.INQ_CN+1)
+		    , RMS_SPYPL_C = #{GLN}
+		    , MB_ID = #{MB_ID}
+		    , DOC_RMS_LOC_DSC	= 'WEB'
+	</update>
+ 	
+ 	<!-- 마감간소화 빌링 정보 업데이트 -->
+ 	<update id="markUpList" parameterType="java.util.List">
+ 		<if test="list != null and list.size != 0"> 
+			UPDATE
+			     TB_BY_BYNG_M
+			SET
+			      FS_RMS_DT    = DECODE(FS_RMS_DT, NULL, TO_CHAR(SYSDATE,'YYYYMMDD'), FS_RMS_DT)
+			     ,FS_RMS_HR    = DECODE(FS_RMS_DT, NULL, TO_CHAR(SYSDATE,'HH24MISS'), FS_RMS_HR)
+			     ,LS_RMS_DT    = TO_CHAR(SYSDATE,'YYYYMMDD')
+			     ,LS_RMS_HR    = TO_CHAR(SYSDATE,'HH24MISS')
+			     ,INQ_CN       = DECODE(INQ_CN, NULL, 1, INQ_CN+1)
+			     ,RMS_SPYPL_C  = #{item.GLN}
+			     ,MB_ID        = #{item.MB_ID}
+			     ,DOC_RMS_LOC_DSC	= 'WEB'
+			<where>
+				<foreach collection="list" item="item" separator="OR" open="(" close=")">
+					NA_BZPLC = #{item.NA_BZPLC}
+					AND NA_TEAM_C = #{item.NA_TEAM_C}
+					AND SLP_DT = #{item.SLP_DT}
+					AND NA_SLPNO = #{item.NA_SLPNO}
+				</foreach>
+			</where>
+		</if>
+	</update>
+	
+</mapper>

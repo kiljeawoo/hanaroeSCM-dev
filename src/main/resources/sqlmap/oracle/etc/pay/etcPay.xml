@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="etcPayDao">
+	
+	<select id="list" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 1 FROM DUAL
+	</select>
+
+	<select id="searchCnt" parameterType="java.util.Map" resultType="int">
+		SELECT
+			   COUNT(NA_BZPLC) AS CNT
+		  FROM TB_ETC_PAY
+		 WHERE NA_BZPLC = #{gln}
+		   AND KBN = #{kbn}
+	</select>
+
+	<select id="empList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			   EMP_NO AS EMP				/* 사번 */
+			 , MB_PW AS PW					/* 비밀번호 */
+		  FROM TB_ETC_PAY
+		 WHERE NA_BZPLC = #{gln}
+		   AND KBN = #{kbn}
+	</select>
+
+	<select id="searchList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			   NA_BZPLC						/* GLN코드 */
+			 , KBN							/* 사업자번호 */
+			 , ROUND(PAY_AMT) AS PAY_AMT	/* 입금예정금액 */
+			 , APV_CNT						/* 승인건수 */
+			 , ACNO							/* 계좌번호 */
+			 , DPRNM						/* 예금주명 */
+			 , CASE
+					WHEN EMP_NO IS NOT NULL
+					THEN EMP_NO
+					ELSE #{empNo}
+			   END AS EMP_NO				/* 사번 */
+			 , CASE
+					WHEN MB_PW IS NOT NULL
+					THEN MB_PW
+					ELSE #{mbPw}
+			   END AS MB_PW					/* 비밀번호 */
+			 , UP_NA_BZPL_NM				/* 조합명 */
+			 , ADR							/* 주소 */
+			 , CASE
+					WHEN UDP_YN = 'Y'
+					THEN '등록'
+					ELSE '미등록'
+			   END AS UDP_YN				/* 등록여부 */
+		  FROM TB_ETC_PAY
+		 WHERE NA_BZPLC = #{gln}
+		   AND KBN = #{kbn}
+	</select>
+
+	<select id="retrieveList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			   NA_BZPLC						/* GLN코드 */
+			 , KBN							/* 사업자번호 */
+			 , BNK_NM						/* 은행명 */
+			 , ACNO							/* 계좌번호 */
+			 , DPRNM						/* 예금주명 */
+			 , CHRRNM						/* 담당자명 */
+			 , CTCPL_TELNO					/* 연락처전화번호 */
+			 , CASE
+					WHEN EMP_NO IS NOT NULL
+					THEN EMP_NO
+					ELSE #{empNo}
+			   END AS EMP_NO				/* 사번 */
+			 , CASE
+					WHEN MB_PW IS NOT NULL
+					THEN MB_PW
+					ELSE #{mbPw}
+			   END AS MB_PW					/* 비밀번호 */
+		  FROM TB_ETC_PAY
+		 WHERE NA_BZPLC = #{gln}
+		   AND KBN = #{kbn}
+	</select>
+
+	<update id="updateEtcPay">
+		UPDATE TB_ETC_PAY
+		   SET BNK_NM		= #{bnkNm}		/* 은행명 */
+			 , ACNO			= #{acno}		/* 계좌번호 */
+			 , DPRNM		= #{dprnm}		/* 예금주명 */
+			 , CHRRNM		= #{chrrnm}		/* 담당자명 */
+			 , CTCPL_TELNO	= #{ctcplTelno}	/* 연락처전화번호 */
+			 , REG_DTM		= SYSDATE		/* 등록일시 */
+			 , UDP_YN		= 'Y'			/* 등록여부 */
+			 , EMP_NO		= #{empNo}		/* 사번 */
+			 , MB_PW		= #{mbPw}		/* 비밀번호 */
+		 WHERE NA_BZPLC		= #{gln}		/* GLN코드 */
+	</update>
+
+	<select id="searchUserList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			   NA_BZPLC						/* GLN코드 */
+			 , KBN							/* 사업자번호 */
+			 , EMP_NO						/* 사번 */
+			 , MB_PW						/* 비밀번호 */
+		  FROM TB_ETC_PAY
+		 WHERE NA_BZPLC = #{gln}
+	</select>
+
+	<update id="initEtcPayUser">
+		UPDATE TB_ETC_PAY
+		   SET EMP_NO		= ''			/* 사번 */
+			 , MB_PW		= ''			/* 비밀번호 */
+		 WHERE NA_BZPLC		= #{gln}		/* GLN코드 */
+	</update>
+
+</mapper>

@@ -1,0 +1,224 @@
+﻿<!--[if gt IE 8]><!DOCTYPE html><![endif]-->
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="viewport" content="user-scalable=1, initial-scale=1.0, width=device-width, target-densitydpi=device-dpi" />
+	
+	<title>하나로 eSCM</title>
+	<link rel="stylesheet" media="all" href="wrap.css">
+	<script src="./nexacro14lib/component/ExtAPI/jquery-1.10.2.js"></script>
+	<script>
+		$(document).ready(function(){
+
+		});
+
+		function menuToggle() {
+			$("div#menu").toggleClass("left");
+		}
+
+		var openMenuList;
+		function getFormList() {
+			$("select#formList > option").remove();
+			$("select#formList").append("<option value=''>메뉴 선택</option>");
+			$("ul#dslist > li").remove();
+			var cnt = 0;
+			openMenuList = new Array();
+			
+			// 열린 메뉴
+			var openList = escm.application.mainframe.frame.frames.HFrameSet0.VFrameSet1.FrameSet0.frames;
+			if (openList.length > 0) {
+				for (var i=0; i<openList.length; i++) {
+					console.log(cnt + " : "+ openList[i].form.sId + " / " + openList[i].form.sNm);
+					openMenuList.push({
+						id:openList[i].form.sId,
+						name:openList[i].form.sNm,
+						form:openList[i].form.div_work
+					});
+					
+					var dom = "<option value='"+cnt+"'>"+openList[i].form.sNm+"</option>";
+					$("select#formList").append(dom);
+					cnt++;
+				}
+			}
+			
+			// 열린 팝업
+			var openList2 = escm.application.popupframes;
+			for (var i=0; i<openList2.length; i++) {
+				console.log(cnt + " : "+ openList2[i].form.name + " / " + openList2[i].form.titletext);
+				openMenuList.push({
+					id:"popup"+i,
+					name:"[팝업] "+openList2[i].form.titletext,
+					form:openList2[i].form
+				});
+				
+				var dom = "<option value='"+cnt+"'>"+"[팝업] "+openList2[i].form.titletext+"</option>";
+				$("select#formList").append(dom);
+				cnt++;
+			}
+		}
+		
+		function getFormDataset(formIdx) {
+			$("ul#dslist > li").remove();
+			if (formIdx != undefined && formIdx != "") {
+				$("ul#dslist").show();
+				var keys = Object.keys(openMenuList[formIdx].form);
+				for(var i in keys) {
+					if (keys[i].indexOf("ds_") != -1) {
+						var dom = "<li onclick=\"showDataset('"+keys[i]+"', this)\">"+keys[i]+"</li>";
+						$("ul#dslist").append(dom);
+					}
+				}
+			} else {
+				$("ul#dslist").hide();
+			}
+		}
+		
+		function toggleDetail(obj) {
+			$("div#dsshow table").toggleClass("srt");
+		}
+		
+		var testDs;
+		function showDataset(name, obj) {
+			if (name == undefined || name == "") return;
+			
+			if (obj != undefined) {
+				$(obj).addClass("on").siblings().removeClass("on");
+			}
+			
+			var frm = openMenuList[$("select#formList").val()].form;
+			try {
+				var ds = eval("frm." + name);
+				if (ds != undefined) {
+					var dataset = new Array();
+					var datacol = new Array();
+					for (var i=0; i<ds.getRowCount(); i++) {
+						var datasetItem = {};
+						for (var j=0; j<ds.colinfos.length; j++) {
+							var cols = ds.colinfos[j].id;
+							datasetItem[cols] = ds.getColumn(i, cols);
+							if (i==0){ datacol.push(cols); }
+						}
+						dataset.push(datasetItem);
+					}
+
+					var datamaster = {};
+					datamaster['name'] = name;
+					datamaster['data'] = dataset;
+					datamaster['col'] = datacol;
+					datamaster['count'] = ds.getRowCount();
+					
+					showDatasetRecord(datamaster);
+				}
+			} catch(e) {
+				console.error("dataset parsing error");
+			}
+		}
+		
+		function showDatasetRecord(ds) {
+			if (ds == undefined) return;
+			console.log(ds);
+			
+			$("div#dsshow > h1").text(ds.name);
+			
+			$("table#tblds").html("");
+			var dom = "";
+			
+			if (ds.count == 0) {
+				dom = "<tr><td class='empty'>데이터 셋이 비어있습니다.</td></tr>"
+				$("table#tblds").html(dom);
+				return;
+			}
+			
+			// head
+			dom += "<thead><tr>";
+			for (var i=0; i<ds.col.length; i++) {
+				dom += "<th>"+ds.col[i]+"</th>";
+			}
+			dom+="</tr></thead>";
+			
+			// body
+			dom += "<tbody>";
+			for(var i=0; i<ds.count; i++) {
+				dom += "<tr>";
+				for (var j=0; j<ds.col.length; j++) {
+					if (ds.data[i][ds.col[j]] != undefined) {
+						dom += "<td>"+ds.data[i][ds.col[j]]+"</td>";
+					} else {
+						dom += "<td></td>";
+					}
+				}
+				dom += "</tr>";
+			}
+			
+			$("table#tblds").html(dom);
+		}
+	</script>
+</head>
+<body>
+	<div id="menu">
+		<ul id="menulist">
+			<li class="sub">Dataset Viewer</li>
+			<li class="clear">
+				<span id="data" onclick="getFormList()">열린메뉴보기</span>
+			</li>
+			<li class="formdata">
+				<select id="formList" onchange="getFormDataset(this.value)">
+					<option value="">없음</option>
+				</select>
+				<ul id="dslist" class="scr1">
+				</ul>
+			</li>
+			<li class="sub">Nexa Viewer</li>
+			<li>
+				<select id="testPath">
+					<option value="OMG/PT">OMG/PT</option>
+					<option value="OMG/MG">OMG/MG</option>
+					<option value="OMG/TX">OMG/TX</option>
+					<option value="OMG/CT">OMG/CT</option>
+					<option value="OMG/BL">OMG/BL</option>
+					<option value="OMG/BT">OMG/BT</option>
+					<option value="SCM/ORDER">SCM/ORDER</option>
+					<option value="SCM/DELIVERY">SCM/DELIVERY</option>
+					<option value="SCM/RECADV">SCM/RECADV</option>
+					<option value="SCM/RESERVE">SCM/RESERVE</option>
+					<option value="SCM/RETANN">SCM/RETANN</option>
+					<option value="SCM/EVENAT">SCM/EVENAT</option>
+					<option value="PDS/BALANCE">PDS/BALANCE</option>
+					<option value="PDS/BAS">PDS/BAS</option>
+					<option value="PDS/COMPANY">PDS/COMPANY</option>
+					<option value="PDS/OUTER">PDS/OUTER</option>
+					<option value="PDS/COUPON">PDS/COUPON</option>
+					<option value="PDS/PARTNER">PDS/PARTNER</option>
+					<option value="PDS/PAY">PDS/PAY</option>
+					<option value="PDS/PRICAT">PDS/PRICAT</option>
+					<option value="PDS/RECADV">PDS/RECADV</option>
+					<option value="PDS/SALES">PDS/SALES</option>
+					<option value="PDS/STOCK">PDS/STOCK</option>
+					<option value="MDS/DELIVERY">MDS/DELIVERY</option>
+				</select>
+			</li>
+			<li>
+				<input type="text" id="filenm" placeholder="파일명 + Enter" onkeyup="if(event.keyCode==13){ testMenuOpenKey(this.value); return false;}"/>
+			</li>
+			<li class="sub">Login Helper</li>
+			<li>
+				<ul id="loginlist">
+					<li onclick="setLogin(this)">otg01</li>
+					<li onclick="setLogin(this)">ksi7828</li>
+					<li onclick="setLogin(this)">14300139</li>
+					<li onclick="setLogin(this)">90104323</li>
+					<li onclick="setLogin(this)">16380012</li>
+					<li onclick="setLogin(this)">14300414</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div id="escm"><iframe id="ifm_main" name="escm" src="index.html"></iframe></div>
+	<button id="btn_test" type="button" onclick="menuToggle();">TEST</button>
+</body>
+</html>

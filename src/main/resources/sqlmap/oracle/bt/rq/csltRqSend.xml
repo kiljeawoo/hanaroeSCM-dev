@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csltRqSendDAO">
+	
+	<resultMap id="sendMap" type="java.util.Map">
+		<result column="SQNO" property="SQNO" javaType="int" />
+		<result column="SMS_NATV_NO" property="SMS_NATV_NO" javaType="long" />
+	</resultMap>
+	
+	<sql id="sql_retrieveCsltRqSendList">
+		SELECT /* retrieveCsltRqSendList */
+		       N.CSLT_RQ_NO
+		     , N.SQNO
+		     , N.STS
+		     , SUBSTRB(N.TINM, 0, 64) AS TINM
+		     , N.CNTN
+		     , N.USR_TPC       /* 사용자유형 (01: 협력업체, 02: 본부, 03: 사업장) */
+		     , N.RLTM_NTC_SMS
+		     , N.SMS_NATV_NO
+		     , R.RQ_DT         /* 신청일 */
+		     , R.CONM          /* 신청업체명 */
+		     , R.CHRRNM
+		     , ecl_decrypt(R.CHRR_MPNO) AS CHRR_MPNO  /* 상담신청자 휴대전화번호 */
+		     , R.BUYER_NM
+		     , ecl_decrypt(DECODE(B.MPNO, NULL, U.USR_MPNO, B.MPNO)) AS BUYER_MPNO  /* 담당바이어 휴대전화번호 */
+		     , TO_CHAR(R.LSCHG_DTM, 'YYYYMMDD') AS LSCHG_DTM  /* 마지막 수정일 (상태가 1이고, 담당MD가 있으면, 담당자배정일이다.) */
+		  FROM BT_CTR_CSLT_NTC N
+		       INNER JOIN BT_CTR_CSLT_RQ R
+		               ON N.CSLT_RQ_NO = R.CSLT_RQ_NO
+		       LEFT OUTER JOIN PT_USR_INF U
+		               ON R.BUYER_ENO = U.MB_ID
+		       LEFT OUTER JOIN (
+		           SELECT * FROM TB_CM_BUYER
+		            WHERE NA_BZPLC = '8808983000015'  /* 상품본부 바이어정보만 사용 */
+		              AND NA_TEAM_C = '00'
+		       ) B     ON R.BUYER_ENO = B.BUYER_ENO
+	</sql>
+	
+	<!-- (1) 영업일 2일(익일) 내 담당MD 미배정 시, 매일 1건 발송 -->
+	<select id="retrieveCsltRqSendList_1" parameterType="java.util.Map" resultMap="sendMap">
+		<include refid="sql_retrieveCsltRqSendList" />
+		 WHERE N.RLTM_NTC_SMS = '1'
+		   AND N.SQNO = 1
+		   AND R.BUYER_ENO IS NULL
+		 ORDER BY N.CSLT_RQ_NO, N.SQNO
+	</select>
+	
+	<!-- (2) 영업일 3일 내 미처리 시, 매일 1건 발송 -->
+	<select id="retrieveCsltRqSendList_2" parameterType="java.util.Map" resultMap="sendMap">
+		<include refid="sql_retrieveCsltRqSendList" />
+		 WHERE N.RLTM_NTC_SMS = '1'
+		   AND N.SQNO = 1
+		   AND R.BUYER_ENO IS NOT NULL
+		   AND R.STS = '1'
+		 ORDER BY N.CSLT_RQ_NO, N.SQNO
+	</select>
+	
+	<!-- (3) 전송되지 않은 통보내역 발송 -->
+	<select id="retrieveCsltRqSendList_3" parameterType="java.util.Map" resultMap="sendMap">
+		<include refid="sql_retrieveCsltRqSendList" />
+		 WHERE N.RLTM_NTC_SMS = '1'
+		   AND N.SMS_NATV_NO IS NULL  /* SMS고유번호 */
+		 ORDER BY N.CSLT_RQ_NO, N.SQNO
+	</select>
+	
+	<!-- 수신내역 수정 -->
+	<update id="updateCtrCsltNtc" parameterType="java.util.Map">
+		UPDATE BT_CTR_CSLT_NTC
+		   SET SMS_NATV_NO = #{SMS_NATV_NO}  /* SMS고유번호 */
+		     , LSCHG_DTM   = SYSDATE
+		     , LS_CHGM     = #{LS_CHGM}
+		 WHERE CSLT_RQ_NO  = #{CSLT_RQ_NO}
+		   AND SQNO        = #{SQNO}
+	</update>
+	
+	<!-- 상담관리자 정보 목록 -->
+	<select id="retrieveManagerInfoList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveManagerInfoList */
+		       BUYER_ENO AS MB_ID
+		     , BUYER_NM AS USR_NM
+		     , ecl_decrypt(MPNO) AS USR_MPNO  /* 상담관리자 휴대전화번호 */
+		  FROM TB_CM_BUYER
+		 WHERE NA_BZPLC = '8808983000015'  /* 상품본부 바이어정보만 사용 */
+		   AND NA_TEAM_C = '00'
+		   AND BUYER_ENO IN
+		       (SELECT MB_ID FROM MG_HUR_INF WHERE BSN_DSC = 'BT' AND UYN = 'Y')
+	</select>
+	
+	<!-- 영업일 구하기 (15일 후 날짜내에서 검색하기 때문에, 1~5 사이의 영업일을 구할 수 있다.) -->
+	<select id="retrieveBusinessDay" parameterType="java.util.Map" resultType="String">
+	<![CDATA[
+		SELECT /* retrieveBusinessDay */
+		       BUSINESS_DT
+		  FROM (
+		           SELECT A.ALL_DT AS BUSINESS_DT  /* 영업일 */
+		                , ROW_NUMBER() OVER(ORDER BY A.ALL_DT) AS RN
+		             FROM (
+		                      SELECT TO_CHAR(TO_DATE(#{BASE_DT}, 'YYYYMMDD') + LEVEL - 1, 'YYYYMMDD') AS ALL_DT
+		                        FROM DUAL CONNECT BY LEVEL <= 15  /* 15일 */
+		                  ) A LEFT OUTER JOIN (
+		                      SELECT BAS_DT
+		                        FROM TB_CM_DTHLDY_ORGZ
+		                       WHERE BAS_DT BETWEEN #{BASE_DT} AND TO_CHAR(TO_DATE(#{BASE_DT}, 'YYYYMMDD') + 14, 'YYYYMMDD')  /* 15일 */
+		                         AND HLDY_DSC != '0'  /* 휴일 */
+		                         AND DEL_YN = '0'
+		                         AND NA_TRPL_C = '8808983000015'
+		                       GROUP BY BAS_DT
+		                  ) B ON A.ALL_DT = B.BAS_DT
+		            WHERE B.BAS_DT IS NULL  /* 영업일 */
+		       )
+		 WHERE RN = #{COUNT}  /* 영업일 수 */
+	]]>
+	</select>
+	
+	<!-- 영업시간인지 구하기 -->
+	<select id="isBusinessTime" parameterType="java.util.Map" resultType="String">
+
+		SELECT CASE 
+		       WHEN VW_DATE.currentDtm BETWEEN VW_DATE.openDtm AND VW_DATE.closeDtm THEN
+		          'Y'
+		        ELSE
+		           'N'
+		        END isBusinessHour
+		FROM
+		(
+		    SELECT    TO_DATE('20170906 09:00', 'YYYYMMDD HH:mi') openDtm
+		            , TO_DATE('20170906 18:00', 'YYYYMMDD HH24:mi') closeDtm
+		            , SYSDATE currentDtm
+		    FROM DUAL
+		) VW_DATE
+
+	</select>
+	
+</mapper>

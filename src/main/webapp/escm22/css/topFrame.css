@@ -1,0 +1,71 @@
+﻿/******************************************************************************************************/
+/***** PROJECT NAME		: NEXACRO DEFAULT THEME	********/
+/***** CREATION DATES		: 2015.04.13		********/
+/***** DRAFTER 			: TOBESOFT DESIGN TEAM	********/
+/***** DISTRIBUTION DATE 	: 2015.00.00		********/
+/******************************************************************************************************/
+/****************************************** Top Farme Area ********************************************/
+
+/***** util menu BTN *****/
+Button.btn_TF_UtilMenu, Button.btn_TF_UtilMenu:selected, Button.btn_TF_UtilMenu:disabled, Button.btn_TF_UtilMenu:mouseover
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #eaf59d;
+}
+Button.btn_TF_UtilMenu:pushed, Button.btn_TF_UtilMenu:focused
+{
+	background			: #ffffff00;
+	border				: 0 none;
+	color				: #e4ff2b;
+	font				: underline 9 Gulim;
+}
+/***** help BTN *****/
+Button.btn_TF_Help, Button.btn_TF_Help:focused, Button.btn_TF_Help:selected, Button.btn_TF_Help:disabled
+{
+	background			: URL('theme://images/btn_TF_Help.png') center middle;
+	border				: 0 none;
+}
+Button.btn_TF_Help:mouseover
+{
+	background			: URL('theme://images/btn_TF_Help_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_TF_Help:pushed
+{
+	background			: URL('theme://images/btn_TF_Help_P.png') center middle;
+	border				: 0 none;
+}
+/***** help BTN *****/
+Button.btn_TF_Help, Button.btn_TF_Help:focused, Button.btn_TF_Help:selected, Button.btn_TF_Help:disabled
+{
+	background			: URL('theme://images/btn_TF_Help.png') center middle;
+	border				: 0 none;
+}
+Button.btn_TF_Help:mouseover
+{
+	background			: URL('theme://images/btn_TF_Help_O.png') center middle;
+	border				: 0 none;
+}
+Button.btn_TF_Help:pushed
+{
+	background			: URL('theme://images/btn_TF_Help_P.png') center middle;
+	border				: 0 none;
+}
+/***** top BG *****/
+Static.sta_TF_Bg, Static.sta_TF_Bg:mouseover
+{
+	background		: URL('theme://images/sta_TF_Bg.png') repeat-x;
+	border			: 0 none;
+	shadow			: outer 0,1 3 #b0b0b0ff;		
+}
+/***** 로고 *****/
+Static.sta_TF_Logo, Static.sta_TF_Logo:mouseover
+{
+	background		: URL('theme://images/sta_TF_Logo.png') left middle;	
+}
+/****** user name *****/
+Static.sta_TF_User, Static.sta_TF_User:mouseover
+{
+	color			: #eaf59d;	
+}

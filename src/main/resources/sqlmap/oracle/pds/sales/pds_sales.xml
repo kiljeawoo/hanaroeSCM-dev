@@ -1,0 +1,1812 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	판매정보
+ -->
+ 
+<mapper namespace="pdsSalesDAO">
+
+	<!--일자별정보, 기간별정보 -->
+	<resultMap id="SalesDailyStroeSumMap" type="com.nh.escm.pds.sales.vo.PDSSalesDailyStoreSumVO">										
+		<result column="SL_DT" property="SL_DT" />
+		<result column="SL_QT" property="SL_QT" />
+		<result column="SL_AM" property="SL_AM" />
+		<result column="SHARE_SLAM" property="SHARE_SLAM" />
+	</resultMap>
+	
+	<!--기간별 점포별/상품별 정보 -->
+	<resultMap id="SalesPeriodStoreSumMap" type="com.nh.escm.pds.sales.vo.PDSSalesPeriodStoreSumVO">										
+		<result column="BZPLC" property="BZPLC" />
+		<result column="BZPLCNM" property="BZPLCNM" />
+		<result column="SL_QT" property="SL_QT" />
+		<result column="SL_AM" property="SL_AM" />
+		<result column="SRH_BY_DT_FR" property="SRH_BY_DT_FR" />
+		<result column="SRH_BY_DT_TO" property="SRH_BY_DT_TO" />		
+		<result column="SRH_TRPL_C" property="SRH_TRPL_C" />
+		<result column="TOTAL_SL_QT" property="TOTAL_SL_QT" />
+		<result column="TOTAL_SL_AM" property="TOTAL_SL_AM" />
+		<result column="SHARE_SLAM" property="SHARE_SLAM" />
+	</resultMap>	
+
+	<!--기간별 상품별/점포별 정보 -->
+	<resultMap id="SalesPeriodSkuSumMap" type="com.nh.escm.pds.sales.vo.PDSSalesPeriodSkuSumVO">										
+		<result column="WRS_C" property="WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="SL_QT" property="SL_QT" />
+		<result column="SL_AM" property="SL_AM" />
+		<result column="SRH_BY_DT_FR" property="SRH_BY_DT_FR" />
+		<result column="SRH_BY_DT_TO" property="SRH_BY_DT_TO" />		
+		<result column="SRH_TRPL_C" property="SRH_TRPL_C" />
+		<result column="TOTAL_SL_QT" property="TOTAL_SL_QT" />
+		<result column="TOTAL_SL_AM" property="TOTAL_SL_AM" />
+		<result column="SHARE_SLAM" property="SHARE_SLAM" />
+	</resultMap>
+	
+	<!--주류실적 -->
+	<resultMap id="SalesLiquorMap" type="com.nh.escm.pds.sales.vo.PDSSalesLiquorVO">
+		<result column="RN" property="RN" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="NA_RGN_C" property="NA_RGN_C" />
+		<result column="RGN_CNM" property="RGN_CNM" />
+		<result column="TRPL_C" property="TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="WRS_C" property="WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="SL_YM" property="SL_YM" />
+		<result column="SQWW" property="SQWW" />
+		<result column="SL_QT" property="SL_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+	</resultMap>
+			  
+	<!--일자별정보 -->
+	<select id="retrieveSalesDailyStoreSumList" parameterType="java.util.Map" resultMap="SalesDailyStroeSumMap">	
+	SELECT 
+		SL_DT
+		, SL_QT
+		, SL_AM
+		<!-- , ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+		, NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+	FROM
+	(
+	SELECT SL_DT, SUM(SL_QT) SL_QT,SUM(SL_AM) SL_AM 
+	FROM IAS_SL_DD_ALL
+	WHERE 1=1
+	AND SL_DT LIKE #{srhByDt} || '%'
+	AND TRPL_C IN
+    <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+  		#{item}
+	</foreach>
+	GROUP BY SL_DT	
+	)
+	ORDER BY SL_DT
+	</select>
+	
+	<!--일자별정보 엑셀-->
+	<select id="retrieveSalesDailyStoreExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">	
+		SELECT 
+			SL_DT
+			, SL_QT
+			, (SL_AM/1000) SL_AM
+			<!-- , ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+			, NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+		FROM
+		(
+		SELECT SL_DT, SUM(SL_QT) SL_QT,SUM(SL_AM) SL_AM 
+		FROM IAS_SL_DD_ALL
+		WHERE 1=1
+		AND SL_DT LIKE #{srhByDt} || '%'
+		AND TRPL_C IN
+	    <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	  		#{item}
+		</foreach>
+		GROUP BY SL_DT	
+		)
+		ORDER BY SL_DT
+	</select>
+	
+
+	<!--기간별정보 -->
+	<select id="retrieveSalesPeriodSumList" parameterType="java.util.Map" resultMap="SalesDailyStroeSumMap">
+	SELECT 
+		SL_DT
+		, SL_QT		
+		, SL_AM
+		<!-- , ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+		, NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+	FROM
+	(
+	SELECT SL_DT, SUM(SL_QT) SL_QT,SUM(SL_AM) SL_AM 
+	FROM IAS_SL_DD_ALL
+	WHERE 1=1
+	AND SL_DT BETWEEN #{srhByDtFr} AND #{srhByDtTo}
+	AND TRPL_C IN
+    <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+  		#{item}
+	</foreach>
+	GROUP BY SL_DT	
+	)
+	ORDER BY SL_DT
+	</select>
+	
+	<!--기간별정보 엑셀 -->
+	<select id="retrieveSalesPeriodSumExcel" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+	SELECT 
+		SL_DT
+		, SL_QT		
+		, (SL_AM/1000) SL_AM
+		<!-- , ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+		, NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+	FROM
+	(
+	SELECT SL_DT, SUM(SL_QT) SL_QT,SUM(SL_AM) SL_AM 
+	FROM IAS_SL_DD_ALL
+	WHERE 1=1
+	AND SL_DT BETWEEN #{srhByDtFr} AND #{srhByDtTo}
+	AND TRPL_C IN
+    <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+  		#{item}
+	</foreach>
+	GROUP BY SL_DT	
+	)
+	ORDER BY SL_DT
+	</select>
+	
+	<!-- 기간별 점포별/상품별 정보 (점포조회 쿼리) -->	
+	<sql id="sql_retrieveSalesPeriodStoreSumList">
+		with temp_tab AS (
+			SELECT /*+ index(a IDX_SL_DD_BZPLC_01) index(b XPK_TR_TRPL_CIF)  */
+			                     A.BZPLC AS BZPLC , 
+			                     A.BZPLCNM AS BZPLCNM , 
+			                     SUM(A.SL_QT) AS SL_QT , 
+			                     SUM(A.SL_AM) AS SL_AM 
+			                FROM NHVANSTS.IAS_SL_DD_BZPLC A , 
+			                     nhvaninf.TB_TR_TRPL_CIF B 
+			               WHERE A.BZPLC = B.NA_TRPL_C 
+			                     AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+							   	AND A.TRPL_C IN
+						    <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+						   		#{item}
+							</foreach>
+							<if test="naRgnC != null and naRgnC.length() >  0">
+								AND B.NA_RGN_C LIKE #{naRgnC}||'%' 
+							</if>
+							<if test ="TRPL_C != null and TRPL_C.length() >  0">
+								AND A.BZPLC = #{TRPL_C}
+							</if>
+			               GROUP BY A.BZPLC, 
+			                     A.BZPLCNM 
+			)
+			SELECT BZPLC , 
+			              BZPLCNM , 
+			              SL_QT , 
+			              SL_AM , 
+			              <!-- ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM , -->
+			              NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM,
+						  #{srhDtFr} AS SRH_BY_DT_FR,
+						  #{srhDtTo} AS SRH_BY_DT_TO
+			         FROM 
+			             temp_tab A
+	</sql>
+	
+	
+	<!-- 기간별 점포별/상품별 정보 페이지 추가 쿼리 -->	
+	<select id="retrieveSalesPeriodStoreSumPgList" parameterType="java.util.Map" resultMap="SalesPeriodStoreSumMap">
+		<bind name="sortName" value="'BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 기간별 점포별/상품별 정보 총 카운트 -->
+	<select id="retrieveSalesPeriodStoreSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 기간별 점포별/상품별 정보 총 합계 수량/금액 -->
+	<select id="getSalesPeriodStoreSumTotal" parameterType="java.util.Map" resultMap="SalesPeriodStoreSumMap">
+		SELECT
+			NVL(SUM(LIST.SL_QT), 0) AS TOTAL_SL_QT 
+		  , (SUM(LIST.SL_AM)/1000) AS TOTAL_SL_AM
+		FROM
+		(
+			with temp_tab AS (
+			SELECT /*+ index(a IDX_SL_DD_BZPLC_01) index(b XPK_TR_TRPL_CIF)  */
+			                     A.BZPLC AS BZPLC , 
+			                     A.BZPLCNM AS BZPLCNM , 
+			                     SUM(A.SL_QT) AS SL_QT , 
+			                     SUM(A.SL_AM) AS SL_AM 
+			                FROM NHVANSTS.IAS_SL_DD_BZPLC A , 
+			                     nhvaninf.TB_TR_TRPL_CIF B 
+			               WHERE 1=1 
+			                     AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+							   	AND A.TRPL_C IN
+						    <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+						   		#{item}
+							</foreach>
+								AND A.BZPLC = B.NA_TRPL_C
+							<if test="naRgnC != null and naRgnC.length() >  0">
+								AND B.NA_RGN_C LIKE #{naRgnC}||'%' 
+							</if>
+			               GROUP BY A.BZPLC, 
+			                     A.BZPLCNM 
+			)
+			SELECT BZPLC , 
+			              BZPLCNM , 
+			              SL_QT , 
+			              SL_AM , 
+			              <!-- ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM , -->
+			              NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM ,
+						  #{srhDtFr} AS SRH_BY_DT_FR,
+						  #{srhDtTo} AS SRH_BY_DT_TO
+			         FROM 
+			             temp_tab A
+		) LIST
+	</select>
+		
+	<!-- 기간별 점포별/상품별 정보 - 상세 (상품 조회 쿼리) -->
+	<sql id="sql_retrieveSalesPeriodStoreSumDetailList">
+		SELECT
+			NA_WRS_C
+			, WRSNM
+			, SL_QT		
+			<!-- , ROUND(SL_QT/SUM(SL_QT) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+			, NVL(ROUND(SL_QT/SUM(DECODE(SL_QT,0,NULL,SL_QT)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+			, #{srhDtFr} AS SRH_BY_DT_FR
+			, #{srhDtTo} AS SRH_BY_DT_TO
+		FROM
+			(
+			SELECT
+				A.NA_WRS_C
+				, B.WRSNM				
+				, SUM(A.SL_QT) AS SL_QT			
+			FROM TB_SA_TD_WRS_SPYPL A, TB_GD_WRS B			
+			WHERE 1=1			
+				AND A.NA_WRS_C = B.NA_WRS_C
+				AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+				AND A.NA_BZPLC = #{bzplc}
+				AND A.SPY_NA_TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			GROUP BY A.NA_WRS_C , B.WRSNM
+			)
+	</sql>
+	
+	<!-- 기간별 점포별/상품별 정보 페이지 추가 쿼리 -->	
+	<select id="retrieveSalesPeriodStoreSumTrunkPgList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumDetailTrunkList" />
+		<include refid="common.paging_end" />
+	</select>
+		
+	<!-- 기간별 간선해제 점포별/상품별 정보 - 상세 (상품 조회 쿼리) -->
+	<sql id="sql_retrieveSalesPeriodStoreSumDetailTrunkList">
+		SELECT AA.NA_BZPLC
+		  , AA.CLNTNM
+		  , AA.NA_WRS_C
+		  , BB.WRSNM
+		  , AA.SL_QT
+		  , AA.TOT_SLAM
+		  , NVL(ROUND(AA.SL_QT/SUM(DECODE(AA.SL_QT,0,NULL,AA.SL_QT)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+		  , #{srhDtFr} AS SRH_BY_DT_FR
+		  , #{srhDtTo} AS SRH_BY_DT_TO
+		FROM
+		  (SELECT A.NA_BZPLC ,
+		      A.NA_WRS_C,
+		      D.CLNTNM,
+		      SUM(A.SL_QT)    AS SL_QT,
+		      SUM(A.TOT_SLAM) AS TOT_SLAM
+		    FROM
+		      TB_SA_TD_WRS_SPYPL A ,
+		      TB_TR_TRPL_CIF B ,
+		      TB_TR_TRPL_CIF D ,
+		      TB_OD_TRTWRS C
+		    WHERE A.SPY_NA_TRPL_C = B.NA_TRPL_C
+		    AND A.SPY_NA_TRPL_C   = C.NA_BZPLC
+		    AND A.NA_BZPLC        = D.NA_TRPL_C
+		    AND A.NA_WRS_C        = C.NA_WRS_C
+		    <if test="naRgnC != null and naRgnC.length() >  0">
+		    	AND D.NA_RGN_C LIKE #{naRgnC}||'%' 
+		    </if>
+		    <if test="TRPL_C != null and TRPL_C.length() >  0">
+		    	AND A.NA_BZPLC = #{TRPL_C}
+		    </if>
+		    AND B.USR_SYS_C       = '54' /*물류센터*/
+		    AND C.SPYPL_NA_TRPL_C IN 
+			<foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		    AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+		    GROUP BY A.NA_BZPLC,
+			    D.CLNTNM,
+			    A.NA_WRS_C
+		    ) AA,
+		    TB_GD_WRS BB
+		  WHERE AA.NA_WRS_C = BB.NA_WRS_C
+	</sql>
+	
+	<!-- 기간별 점포별/상품별 정보  -상세 페이지 추가 쿼리 -->
+	<select id="retrieveSalesPeriodStoreSumDetailPgList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'NA_WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 기간별 점포별/상품별 정보 -상세  총 카운트 -->
+	<select id="getSalesPeriodStoreSumDetailCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 기간별 점포별/상품별 - 상세 (상품) 총 합계 수량/금액 -->
+	<select id="getSalesPeriodStoreSumDetailTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.SL_QT), 0) AS TOTAL_SL_QT		  
+		FROM
+		(
+		<include refid="sql_retrieveSalesPeriodStoreSumDetailList" />
+		) LIST
+	</select>
+	
+	
+	<!-- 기간별 상품별/점포별 정보 조회 -->
+	<sql id="sql_retrieveSalesPeriodSkuSumList">
+		SELECT
+			WRS_C
+			, WRSNM
+			, SL_QT			
+			, SL_AM
+			<!-- , ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+			, NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+			, #{srhDtFr} AS SRH_BY_DT_FR
+			, #{srhDtTo} AS SRH_BY_DT_TO
+		FROM
+			(
+			SELECT /*+ full(a) */
+				WRS_C AS WRS_C
+				, WRSNM AS WRSNM
+				, SUM(SL_QT) AS SL_QT
+				, SUM(SL_AM) AS SL_AM	
+			FROM NHVANSTS.IAS_SL_DD_WRS_C	a	
+			WHERE 1=1		      	
+			AND SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+		   	AND TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		    <if test="srhWrsC != null and srhWrsC.length() >  0">
+		    	<if test="type != null and type eq '1'.toString()">
+		      		AND WRS_C LIKE #{srhWrsC}||'%'
+		    	</if>
+		    	<if test="type != null and type eq '2'.toString()">
+		    		AND WRSNM LIKE '%'||#{srhWrsC}||'%'
+		    	</if>
+		    </if>		
+		    <if test ="TRPL_C != null">
+				AND TRPL_C like #{TRPL_C}
+			</if> <!-- 조건 추가 -->
+	
+			GROUP BY WRS_C, WRSNM
+		)
+	</sql>
+	
+	<!-- 기간별 상품별/점포별 정보 조회쿼리 -->
+	<select id="retrieveSalesPeriodSkuSumPgList" parameterType="java.util.Map" resultMap="SalesPeriodSkuSumMap">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodSkuSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 기간별 상품별/점포별 정보 총 Count -->
+	<select id="getSalesPeriodSkuSumCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSalesPeriodSkuSumList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 기간별 상품별/점포별 정보 총 합계 수량/금액 -->
+	<select id="getSalesPeriodSkuSumTotal" parameterType="java.util.Map" resultMap="SalesPeriodSkuSumMap">
+		SELECT
+			NVL(SUM(LIST.SL_QT), 0) AS TOTAL_SL_QT		  
+		  , (SUM(LIST.SL_AM)/1000) AS TOTAL_SL_AM
+		FROM
+		(
+		SELECT
+			WRS_C
+			, WRSNM
+			, SL_QT			
+			, SL_AM
+			<!-- , ROUND(SL_AM/SUM(SL_AM) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+			, NVL(ROUND(SL_AM/SUM(DECODE(SL_AM,0,NULL,SL_AM)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+			, #{srhDtFr} AS SRH_BY_DT_FR
+			, #{srhDtTo} AS SRH_BY_DT_TO
+		FROM
+			(
+			SELECT /*+ full(a) */
+				WRS_C AS WRS_C
+				, WRSNM AS WRSNM
+				, SUM(SL_QT) AS SL_QT
+				, SUM(SL_AM) AS SL_AM	
+			FROM NHVANSTS.IAS_SL_DD_WRS_C	a	
+			WHERE 1=1		      	
+			AND SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+		   	AND TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		    <if test="srhWrsC != null and srhWrsC.length() >  0">
+		      <if test="type != null and type eq '1'.toString()">
+		      		AND WRS_C LIKE #{srhWrsC}||'%'
+		    	</if>
+		    	<if test="type != null and type eq '2'.toString()">
+		    		AND WRSNM LIKE '%'||#{srhWrsC}||'%'
+		    	</if>
+		    </if>		
+	
+			GROUP BY WRS_C, WRSNM
+			)
+		) LIST
+	</select>
+	
+	<!-- 기간별 상품별/점포별 정보 - 상세 조회 -->
+	<sql id="sql_retrieveSalesPeriodSkuSumDetailList">
+		SELECT
+			NA_BZPLC
+			, CLNTNM
+			, SL_QT
+			, TOT_SLAM
+			<!-- , ROUND(SL_QT/SUM(SL_QT) OVER (ORDER BY 1), 4)*100 AS SHARE_SLAM -->
+			, NVL(ROUND(SL_QT/SUM(DECODE(SL_QT,0,NULL,SL_QT)) OVER (ORDER BY 1), 4)*100,0) AS SHARE_SLAM
+		FROM
+			(
+			SELECT 
+				A.NA_BZPLC
+				, B.CLNTNM
+				, SUM(A.SL_QT) AS SL_QT
+				, SUM(A.TOT_SLAM) AS TOT_SLAM
+			FROM TB_SA_TD_WRS_SPYPL A, TB_TR_TRPL_CIF B	
+			WHERE 1=1
+				AND A.NA_BZPLC = B.NA_TRPL_C
+				<if test="naRgnC != null and naRgnC.length() >  0">
+				AND B.NA_RGN_C LIKE #{naRgnC}||'%'
+				</if>
+				AND SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}					
+				AND A.NA_WRS_C = #{wrsC}
+				AND A.SPY_NA_TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}	    	
+			</foreach>
+			GROUP BY A.NA_BZPLC , B.CLNTNM
+			)
+	</sql>
+	
+	<!-- 기간별 상품별/점포별 정보  -상세 페이지 추가 쿼리 -->
+	<select id="retrieveSalesPeriodSkuSumDetailPgList" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodSkuSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 기간별 상품별/점포별 정보 -상세  총 카운트 -->
+	<select id="getSalesPeriodSkuSumDetailCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSalesPeriodSkuSumDetailList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 기간별 상품별/점포별 - 상세 총 합계 수량/금액 -->
+	<select id="getSalesPeriodSkuSumDetailTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.SL_QT), 0) AS TOTAL_SL_QT
+		  , NVL(SUM(LIST.TOT_SLAM), 0) AS TOTAL_TOT_SLAM
+		FROM
+		(
+		<include refid="sql_retrieveSalesPeriodSkuSumDetailList" />
+		) LIST
+	</select>
+
+	<!--주류 실적 -->
+	<sql id="sql_retrieveSalesLiquorList">				
+		with temp_tab as (
+		<choose>			
+		<when test="srhDateType == '1'.toString()"> <!-- 일 -->		
+		SELECT /*+ LEADING(A C D F) USE_NL(A C D F) */
+					A.SPY_NA_TRPL_C
+					,A.NA_BZPLC
+					, F.NA_RGN_C
+					, A.NA_TRPL_C
+					, D.CLNTNM
+					, A.NA_WRS_C
+					, C.WRSNM /*상품코드명*/
+					, A.SL_DT
+					, 0   TR_TRCN	        /* 주차 - 의미없음 */
+					, (A.SL_QT   ) SL_QT
+					, C.BOXPE_AQZ
+					, (A.SL_QT) SEL_QT1
+					, (C.BOXPE_AQZ) BOXPE_AQZ1
+					, (ROUND(DECODE(C.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/C.BOXPE_AQZ),2) ) BOX_QT1
+					, C.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+					, C.NA_WRS_MCLC /*15경제통합상품중분류코드*/			
+					, '['||C.NA_WRS_SCLC||'] '|| (SELECT X.WRS_SCLFNM 
+												             FROM TB_GD_WRS_CLF X /* 상품소분류명 */ 
+												            WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+												                  AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+												                  AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+												                  AND C.NA_WRS_SCLC != '000' 
+												                  AND C.NA_WRS_SCLC IS NOT NULL 
+												                  AND X.NA_WRS_DTCF_C = '000' 
+			           ) AS NA_WRS_SCLC /*16경제통합상품소분류코드*/ 
+			          , '['||C.NA_WRS_DTCF_C||'] '|| (SELECT X.WRS_DTCFNM 
+													                FROM TB_GD_WRS_CLF X /* 상품세분류명 */ 
+													               WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+													                     AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+													                     AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+													                     AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C 
+			          ) AS NA_WRS_DTCF_C /*17경제통합상품세분류코드*/								
+				FROM 
+					TB_SA_TD_WRS_SPYPL A
+					, TB_GD_WRS C
+					, TB_TR_TRPL_CIF D
+					, TB_TR_TRPL_CIF F
+				WHERE 1=1					
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND A.SPY_NA_TRPL_C = D.NA_TRPL_C	
+					AND A.NA_BZPLC = F.NA_TRPL_C
+					AND A.SL_DT BETWEEN '${fromDate}' AND '${toDate}'
+					<choose>			
+						<when test="searchType == '3'.toString()"> <!-- 자사 -->						
+							AND A.SPY_NA_TRPL_C IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		'${item}'
+							</foreach>
+							AND EXISTS ( SELECT X.NA_TRPL_C
+												FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+												WHERE X.NA_BYNG_SLPL_DSC = '2'
+													AND X.NA_BZ_TPC        = '12'
+													AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+													AND X.DEL_DTM IS NULL
+													AND X.NA_TRPL_C = A.SPY_NA_TRPL_C
+												)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND A.SPY_NA_TRPL_C = '${mrCenter}'
+						</if>
+						</when>	
+						<when test="searchType == '4'.toString()"> <!-- 경쟁사 -->							
+							AND A.SPY_NA_TRPL_C NOT IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		'${item}'
+							</foreach>
+							AND A.SPY_NA_TRPL_C IN (	SELECT X.NA_TRPL_C
+															FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+															WHERE X.NA_BYNG_SLPL_DSC = '2'
+																AND X.NA_BZ_TPC        = '12'
+																AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+																AND X.DEL_DTM IS NULL														
+															)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND A.SPY_NA_TRPL_C IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF                     
+															START WITH NA_TRPL_C  = '${mrCenter}'                      
+															CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C)
+						</if>
+						</when>
+					</choose>			
+					AND C.LIQ_YN = '1'		
+				    <if test="naCode != null and naCode.length() >  0">
+				      AND A.NA_BZPLC = '${naCode}'
+				    </if>
+				    <if test="wrsCode != null and wrsCode.length() >  0">
+				      AND A.NA_WRS_C = '${wrsCode}'
+				    </if>							
+			</when>	
+			<when test="srhDateType == '2'.toString()"> <!-- 월 -->			
+				SELECT /*+ index(a IDX_TB_SA_TD_WRS01)  */
+					 A.TRPL_C AS SPY_NA_TRPL_C					
+					, A.BZPLC AS NA_BZPLC
+					, D.NA_RGN_C
+					, D.NA_TRPL_C
+					, D.CLNTNM
+					, A.WRS_C AS NA_WRS_C
+					, C.WRSNM /*상품코드명*/
+					, A.SL_YM AS SL_DT
+					, 0   TR_TRCN	        /* 주차 - 의미없음 */
+					, (A.SL_QT   ) SL_QT
+					, C.BOXPE_AQZ
+					, (A.SL_QT) SEL_QT1
+					, (C.BOXPE_AQZ) BOXPE_AQZ1
+					, (ROUND(DECODE(C.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/C.BOXPE_AQZ),2) ) BOX_QT1
+					, C.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+					, C.NA_WRS_MCLC /*15경제통합상품중분류코드*/			
+					, '['||C.NA_WRS_SCLC||'] '|| (SELECT X.WRS_SCLFNM 
+												             FROM TB_GD_WRS_CLF X /* 상품소분류명 */ 
+												            WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+												                  AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+												                  AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+												                  AND C.NA_WRS_SCLC != '000' 
+												                  AND C.NA_WRS_SCLC IS NOT NULL 
+												                  AND X.NA_WRS_DTCF_C = '000' 
+			           ) AS NA_WRS_SCLC /*16경제통합상품소분류코드*/ 
+			          , '['||C.NA_WRS_DTCF_C||'] '|| (SELECT X.WRS_DTCFNM 
+													                FROM TB_GD_WRS_CLF X /* 상품세분류명 */ 
+													               WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+													                     AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+													                     AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+													                     AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C 
+			          ) AS NA_WRS_DTCF_C /*17경제통합상품세분류코드*/
+					, C.NA_WRS_SCLC AS NA_WRS_SCLC_CODE /*16경제통합상품소분류코드*/
+					, C.NA_WRS_DTCF_C AS NA_WRS_DTCF_C_CODE /*17경제통합상품세분류코드*/
+					, ( SELECT X.WRS_LCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_LCLC != '000' AND C.NA_WRS_LCLC IS NOT NULL
+							AND X.NA_WRS_MCLC = '000' ) WRS_LCLFNM					
+					, ( SELECT X.WRS_MCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_MCLC != '000' AND C.NA_WRS_MCLC IS NOT NULL
+							AND X.NA_WRS_SCLC = '000' ) WRS_MCLFNM					
+					, ( SELECT X.WRS_SCLFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_SCLC != '000' AND C.NA_WRS_SCLC IS NOT NULL
+							AND X.NA_WRS_DTCF_C = '000' ) WRS_SCLFNM					
+					, ( SELECT X.WRS_DTCFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C ) WRS_DTCFNM
+				FROM 
+					IAS_SL_MM_BZPLC_WRS A
+					, TB_OD_TRTWRS B
+					, TB_GD_WRS C
+					, TB_TR_TRPL_CIF D
+				WHERE 1=1
+					AND A.TRPL_C = B.NA_BZPLC
+					AND A.WRS_C = B.NA_WRS_C					
+					AND A.WRS_C = C.NA_WRS_C 
+					AND B.SPYPL_NA_TRPL_C = D.NA_TRPL_C
+					AND A.SL_YM = #{srhMonth}
+					<!--AND D.NA_TRPL_C IN ('8801119000262') /* 8801119000019 - 하이트진로 */
+					AND D.UP_NA_TRPL_C IN ('8801119000019') -->			 
+					<choose>			
+						<when test="searchType == '3'.toString()"> <!-- 자사 -->						
+							AND B.SPYPL_NA_TRPL_C IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND EXISTS ( SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+												FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+												WHERE X.NA_BYNG_SLPL_DSC = '2'
+													AND X.NA_BZ_TPC        = '12'
+													AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+													AND X.DEL_DTM IS NULL
+													AND X.NA_TRPL_C = B.SPYPL_NA_TRPL_C
+												)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C = #{mrCenter}
+						</if>
+						</when>	
+						<when test="searchType == '4'.toString()"> <!-- 경쟁사 -->							
+							AND B.SPYPL_NA_TRPL_C NOT IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND B.SPYPL_NA_TRPL_C IN (	SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+															FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+															WHERE X.NA_BYNG_SLPL_DSC = '2'
+																AND X.NA_BZ_TPC        = '12'
+																AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+																AND X.DEL_DTM IS NULL														
+															)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF                     
+															START WITH NA_TRPL_C  = #{mrCenter}                      
+															CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C)
+						</if>
+						</when>
+					</choose>			
+					AND C.LIQ_YN = '1'		
+				    <if test="naCode != null and naCode.length() >  0">
+				      AND A.NA_BZPLC = #{naCode}
+				    </if>
+				    <if test="wrsCode != null and wrsCode.length() >  0">
+				      AND A.NA_WRS_C = #{wrsCode}
+				    </if>																		
+			</when>
+		</choose>
+		)
+		SELECT
+			A.NA_BZPLC /*경제통합사업장코드*/
+			, X.CLNTNM AS SHRT_BZPLNM /*경제통합사업장명*/
+			, A.NA_RGN_C /*02경제통합지역코드*/
+			, R2.RGN_CNM||'/'||R1.RGN_CNM AS RGN_CNM /*02경제통합지역명*/
+			<!-- , A.NA_TRPL_C AS TRPL_C /*04경제통합거래처코드*/ -->
+			, A.SPY_NA_TRPL_C AS TRPL_C /*04경제통합거래처코드*/
+			, A.CLNTNM /*04경제통합거래처명*/
+			, A.NA_WRS_C AS WRS_C /*06경제통합상품코드*/
+			, A.WRSNM /*06경제통합상품명*/
+			, A.SL_DT AS SL_YM /*거래년월*/
+			, TR_TRCN AS SQWW         /*09거래주수 - 안씀 0*/  
+			, A.SL_QT /*10판매수량*/
+			, A.BOXPE_AQZ /*11박스당입수*/
+			, ROUND(DECODE(A.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/A.BOXPE_AQZ),2) AS BOX_QT  /*박스수량*/			
+			, '['||Z.PRGR_C||'] '|| NVL(E.PGNM,' ') AS PRGR_C /*13가격군코드명*/
+			, A.NA_WRS_SCLC /*16경제통합상품소분류코드*/
+			, A.NA_WRS_DTCF_C /*17경제통합상품세분류코드*/			
+			FROM			
+			temp_tab A			
+			, TB_TR_TRPL_CIF X
+			, TB_TR_TRPL_PRGR Z
+			, TB_CM_PRGR_BASE E
+			, TB_TR_RGN     R1
+			, TB_TR_RGN     R2
+			WHERE 1=1			
+			AND A.NA_BZPLC  =  X.NA_TRPL_C
+			AND A.NA_RGN_C          = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C      = R2.NA_RGN_C
+			AND A.NA_BZPLC  =  Z.NA_TRPL_C
+			AND A.NA_TRPL_C = Z.JURD_PHDCT_NA_TRPL_C
+			AND Z.NA_BYNG_SLPL_DSC = '3'
+			AND Z.NA_BZ_TPC        = '12'
+			AND Z.PRGR_C    =  E.PRGR_C
+			AND E.PRGR_DSC  =  '1'
+			<if test="naRgnC != null and naRgnC.length() >  0">
+				AND A.NA_RGN_C LIKE #{naRgnC}||'%' 
+			</if>
+			<if test="naRgnC2 != null and naRgnC2.length() >  0">
+				AND A.NA_RGN_C = #{naRgnC2}
+			</if>
+			<if test="prgrC != null and prgrC.length() >  0 and prgrC != 'all'.toString()">
+				AND Z.PRGR_C = #{prgrC}
+			</if>	
+	</sql>
+
+	<!-- 주류 실적 페이지 추가 쿼리 -->
+	<select id="retrieveSalesLiquorList" parameterType="java.util.Map" resultMap="SalesLiquorMap">
+		<bind name="sortName" value="'TRPL_C,CLNTNM,NA_BZPLC,SHRT_BZPLNM,NA_RGN_C,RGN_CNM,WRS_C,WRSNM,SL_YM'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesLiquorList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 주류 실적  총 카운트 -->
+	<select id="getSalesLiquorCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveSalesLiquorList" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 주류 실적 합계 수량/금액 -->
+	<select id="getSalesLiquorTotal" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NVL(SUM(LIST.SL_QT), 0) AS TOTAL_SL_QT
+		  , NVL(SUM(LIST.BOXPE_AQZ), 0) AS TOTAL_BOXPE_AQZ
+		  , NVL(SUM(LIST.BOX_QT), 0) AS TOTAL_BOX_QT
+		FROM
+		(
+		<include refid="sql_retrieveSalesLiquorList" />
+		) LIST
+	</select>	
+	
+	<!-- 주류실적 경쟁사코드 -->
+	<select id="retrieveMrCenterList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.NA_TRPL_C, B.CLNTNM
+		FROM TB_TR_TRPL_PRGR A,TB_TR_TRPL_CIF B
+		WHERE 1=1
+			AND A.LIQ_INF_US_CNCL_DSC = '1' /*주류정보이용체결구분코드 0: 대상아님 1: 여 2: 부*/
+      		AND A.NA_TRPL_C = B.NA_TRPL_C
+		<if test="mbcoType != null and mbcoType == '0'.toString()">
+			AND B.NA_MBCO_DSC = '1' /*1 : 본사, 2: 지사 5: 위탁대리점*/
+		</if>		
+		<!-- <![CDATA[AND ROWNUM <= 20]]> /*임의적 20줄 출력*/ -->
+		ORDER BY A.NA_TRPL_C, B.CLNTNM
+	</select>
+	
+	<!-- 주류실적 지역코드 -->
+	<select id="retrieveRgnCList" resultType="java.util.Map">
+		SELECT 
+			NA_RGN_C
+			, RGN_CNM
+		FROM TB_TR_RGN
+		WHERE 1=1
+			AND RGN_LVL_C = '1'
+		ORDER BY NA_RGN_C		
+	</select>
+	
+	<!-- 주류실적 지역코드2 -->
+	<select id="retrieveRgnC2List" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			NA_RGN_C
+			, RGN_CNM
+			FROM TB_TR_RGN
+		WHERE 1=1
+			AND RGN_LVL_C = '2'
+			AND UP_NA_RGN_C = #{naRgnC}
+		ORDER BY NA_RGN_C
+	</select>
+	
+	<!-- 주류실적 권한 체크 카운트0만 가능 -->
+	<select id="getLiquorYn" parameterType="java.util.Map" resultType="java.util.Map">	
+		SELECT
+			COUNT(NA_TRPL_C) AS LIQUOR_YN
+			FROM TB_TR_TRPL_PRGR
+		WHERE NA_BYNG_SLPL_DSC = '2'
+			AND NA_BZ_TPC        = '12'
+			AND NA_TRPL_C        = #{glncode}                      /* 거래처코드       */
+			AND DEL_DTM          IS NULL
+			AND LIQ_INF_US_CNCL_DSC = '1' /*주류정보이용체결구분코드 0: 대상아님 1: 여 2: 부*/
+	</select>
+	
+	<!-- 주류 판매실적 엑셀다운로드 -->
+	<select id="downloadExcelSalesLiquor" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*+ index(a IDX_TB_SA_TD_WRS01)  */
+			A.NA_BZPLC /*수주처코드*/ 
+			, X.CLNTNM AS SHRT_BZPLNM /*수주처명*/
+			, A.SL_DT AS SL_YM /*거래년월*/
+			, A.NA_WRS_C AS WRS_C /*06경제통합상품코드*/ 
+			, A.WRSNM /*06경제통합상품명*/
+			, E.PGNM AS PRGR_C /*13 다매가*/
+			, R2.RGN_CNM||'/'||R1.RGN_CNM AS RGN_CNM /*02경제통합지역명*/
+			, A.WRS_SCLFNM AS NA_WRS_SCLC  /* 상품소분류명         */
+			, A.WRS_DTCFNM AS NA_WRS_DTCF_C /* 상품세분류명         */                     
+			, A.SL_QT /*10판매수량*/ 
+			, A.BOXPE_AQZ /*11박스당입수*/ 
+			, ROUND(DECODE(A.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/A.BOXPE_AQZ),2) AS BOX_QT /*박스수량*/
+			, A.NA_TRPL_C AS TRPL_C /*04경제통합거래처코드*/ 
+			, A.CLNTNM /*04경제통합거래처명*/	
+			FROM		
+			<choose>			
+				<when test="srhDateType == '1'.toString()"> <!-- 일 -->
+				(
+				SELECT /*+ index(a IDX_SA_TD_WRS_SPYPL_01)  */
+					A.NA_BZPLC
+					, F.NA_RGN_C
+					, D.NA_TRPL_C
+					, D.CLNTNM
+					, A.NA_WRS_C
+					, C.WRSNM /*상품코드명*/
+					, A.SL_DT
+					, 0   TR_TRCN	        /* 주차 - 의미없음 */
+					, (A.SL_QT   ) SL_QT
+					, C.BOXPE_AQZ
+					, (A.SL_QT) SEL_QT1
+					, (C.BOXPE_AQZ) BOXPE_AQZ1
+					, (ROUND(DECODE(C.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/C.BOXPE_AQZ),2) ) BOX_QT1
+					, C.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+					, C.NA_WRS_MCLC /*15경제통합상품중분류코드*/			
+					, '['||C.NA_WRS_SCLC||'] '|| (SELECT X.WRS_SCLFNM 
+												             FROM TB_GD_WRS_CLF X /* 상품소분류명 */ 
+												            WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+												                  AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+												                  AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+												                  AND C.NA_WRS_SCLC != '000' 
+												                  AND C.NA_WRS_SCLC IS NOT NULL 
+												                  AND X.NA_WRS_DTCF_C = '000' 
+			           ) AS NA_WRS_SCLC /*16경제통합상품소분류코드*/ 
+			          , '['||C.NA_WRS_DTCF_C||'] '|| (SELECT X.WRS_DTCFNM 
+													                FROM TB_GD_WRS_CLF X /* 상품세분류명 */ 
+													               WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+													                     AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+													                     AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+													                     AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C 
+			          ) AS NA_WRS_DTCF_C /*17경제통합상품세분류코드*/
+					, C.NA_WRS_SCLC AS NA_WRS_SCLC_CODE /*16경제통합상품소분류코드*/
+					, C.NA_WRS_DTCF_C AS NA_WRS_DTCF_C_CODE /*17경제통합상품세분류코드*/
+					, ( SELECT X.WRS_LCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_LCLC != '000' AND C.NA_WRS_LCLC IS NOT NULL
+							AND X.NA_WRS_MCLC = '000' ) WRS_LCLFNM					
+					, ( SELECT X.WRS_MCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_MCLC != '000' AND C.NA_WRS_MCLC IS NOT NULL
+							AND X.NA_WRS_SCLC = '000' ) WRS_MCLFNM					
+					, ( SELECT X.WRS_SCLFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_SCLC != '000' AND C.NA_WRS_SCLC IS NOT NULL
+							AND X.NA_WRS_DTCF_C = '000' ) WRS_SCLFNM					
+					, ( SELECT X.WRS_DTCFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C ) WRS_DTCFNM
+				FROM 
+					  TB_SA_TD_WRS_SPYPL A 
+					, TB_OD_TRTWRS B
+					, TB_GD_WRS C
+					, TB_TR_TRPL_CIF D
+					, TB_TR_TRPL_CIF F
+				WHERE 1=1
+					AND A.SPY_NA_TRPL_C = B.NA_BZPLC
+					AND A.NA_WRS_C = B.NA_WRS_C
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND B.SPYPL_NA_TRPL_C = D.NA_TRPL_C	
+					AND A.NA_BZPLC = F.NA_TRPL_C			
+					AND A.SL_DT BETWEEN #{fromDate} AND #{toDate}			
+					<!--AND D.NA_TRPL_C IN ('8801119000262') /* 8801119000019 - 하이트진로 */
+					AND D.UP_NA_TRPL_C IN ('8801119000019') -->			 
+					<choose>			
+						<when test="searchType == '3'.toString()"> <!-- 자사 -->						
+							AND B.SPYPL_NA_TRPL_C IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND EXISTS ( SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+												FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+												WHERE X.NA_BYNG_SLPL_DSC = '2'
+													AND X.NA_BZ_TPC        = '12'
+													AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+													AND X.DEL_DTM IS NULL
+													AND X.NA_TRPL_C = B.SPYPL_NA_TRPL_C
+												)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C = #{mrCenter}
+						</if>
+						</when>	
+						<when test="searchType == '4'.toString()"> <!-- 경쟁사 -->							
+							AND B.SPYPL_NA_TRPL_C NOT IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND B.SPYPL_NA_TRPL_C IN (	SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+															FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+															WHERE X.NA_BYNG_SLPL_DSC = '2'
+																AND X.NA_BZ_TPC        = '12'
+																AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+																AND X.DEL_DTM IS NULL														
+															)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF                     
+															START WITH NA_TRPL_C  = #{mrCenter}                      
+															CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C)
+						</if>
+						</when>
+					</choose>			
+					AND C.LIQ_YN = '1'		
+				    <if test="naCode != null and naCode.length() >  0">
+				      AND A.NA_BZPLC = #{naCode}
+				    </if>
+				    <if test="wrsCode != null and wrsCode.length() >  0">
+				      AND A.NA_WRS_C = #{wrsCode}
+				    </if>			
+				) A			
+			</when>	
+			<when test="srhDateType == '2'.toString()"> <!-- 월 -->
+			(
+				SELECT /*+ index(a IDX_TB_SA_TD_WRS01)  */
+					 A.TRPL_C AS SPY_NA_TRPL_C					
+					, A.BZPLC AS NA_BZPLC
+					, D.NA_RGN_C
+					, D.NA_TRPL_C
+					, D.CLNTNM
+					, A.WRS_C AS NA_WRS_C
+					, C.WRSNM /*상품코드명*/
+					, A.SL_YM AS SL_DT
+					, 0   TR_TRCN	        /* 주차 - 의미없음 */
+					, (A.SL_QT   ) SL_QT
+					, C.BOXPE_AQZ
+					, (A.SL_QT) SEL_QT1
+					, (C.BOXPE_AQZ) BOXPE_AQZ1
+					, (ROUND(DECODE(C.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/C.BOXPE_AQZ),2) ) BOX_QT1
+					, C.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+					, C.NA_WRS_MCLC /*15경제통합상품중분류코드*/			
+					, '['||C.NA_WRS_SCLC||'] '|| (SELECT X.WRS_SCLFNM 
+												             FROM TB_GD_WRS_CLF X /* 상품소분류명 */ 
+												            WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+												                  AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+												                  AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+												                  AND C.NA_WRS_SCLC != '000' 
+												                  AND C.NA_WRS_SCLC IS NOT NULL 
+												                  AND X.NA_WRS_DTCF_C = '000' 
+			           ) AS NA_WRS_SCLC /*16경제통합상품소분류코드*/ 
+			          , '['||C.NA_WRS_DTCF_C||'] '|| (SELECT X.WRS_DTCFNM 
+													                FROM TB_GD_WRS_CLF X /* 상품세분류명 */ 
+													               WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+													                     AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+													                     AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+													                     AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C 
+			          ) AS NA_WRS_DTCF_C /*17경제통합상품세분류코드*/
+					, C.NA_WRS_SCLC AS NA_WRS_SCLC_CODE /*16경제통합상품소분류코드*/
+					, C.NA_WRS_DTCF_C AS NA_WRS_DTCF_C_CODE /*17경제통합상품세분류코드*/
+					, ( SELECT X.WRS_LCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_LCLC != '000' AND C.NA_WRS_LCLC IS NOT NULL
+							AND X.NA_WRS_MCLC = '000' ) WRS_LCLFNM					
+					, ( SELECT X.WRS_MCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_MCLC != '000' AND C.NA_WRS_MCLC IS NOT NULL
+							AND X.NA_WRS_SCLC = '000' ) WRS_MCLFNM					
+					, ( SELECT X.WRS_SCLFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_SCLC != '000' AND C.NA_WRS_SCLC IS NOT NULL
+							AND X.NA_WRS_DTCF_C = '000' ) WRS_SCLFNM					
+					, ( SELECT X.WRS_DTCFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C ) WRS_DTCFNM
+				FROM 
+					IAS_SL_MM_BZPLC_WRS A
+					, TB_OD_TRTWRS B
+					, TB_GD_WRS C
+					, TB_TR_TRPL_CIF D
+				WHERE 1=1
+					AND A.TRPL_C = B.NA_BZPLC
+					AND A.WRS_C = B.NA_WRS_C					
+					AND A.WRS_C = C.NA_WRS_C 
+					AND B.SPYPL_NA_TRPL_C = D.NA_TRPL_C
+					AND A.SL_YM = #{srhMonth}
+					<!--AND D.NA_TRPL_C IN ('8801119000262') /* 8801119000019 - 하이트진로 */
+					AND D.UP_NA_TRPL_C IN ('8801119000019') -->			 
+					<choose>			
+						<when test="searchType == '3'.toString()"> <!-- 자사 -->						
+							AND B.SPYPL_NA_TRPL_C  IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND EXISTS ( SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+												FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+												WHERE X.NA_BYNG_SLPL_DSC = '2'
+													AND X.NA_BZ_TPC        = '12'
+													AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+													AND X.DEL_DTM IS NULL
+													AND X.NA_TRPL_C = B.SPYPL_NA_TRPL_C 
+												)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C  = #{mrCenter}
+						</if>
+						</when>	
+						<when test="searchType == '4'.toString()"> <!-- 경쟁사 -->							
+							AND B.SPYPL_NA_TRPL_C  NOT IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND B.SPYPL_NA_TRPL_C  IN (	SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+															FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+															WHERE X.NA_BYNG_SLPL_DSC = '2'
+																AND X.NA_BZ_TPC        = '12'
+																AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+																AND X.DEL_DTM IS NULL														
+															)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C  IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF                     
+															START WITH NA_TRPL_C  = #{mrCenter}                      
+															CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C)
+						</if>
+						</when>
+					</choose>			
+					AND C.LIQ_YN = '1'		
+				    <if test="naCode != null and naCode.length() >  0">
+				      AND A.NA_BZPLC = #{naCode}
+				    </if>
+				    <if test="wrsCode != null and wrsCode.length() >  0">
+				      AND A.NA_WRS_C = #{wrsCode}
+				    </if>			
+				) A														
+				</when>
+			</choose>			
+			, TB_TR_TRPL_CIF X
+			, TB_TR_TRPL_PRGR Z
+			, TB_CM_PRGR_BASE E
+			, TB_TR_RGN     R1
+			, TB_TR_RGN     R2
+			WHERE 1=1			
+			AND A.NA_BZPLC  =  X.NA_TRPL_C
+			AND A.NA_RGN_C          = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C      = R2.NA_RGN_C
+			AND A.NA_BZPLC  =  Z.NA_TRPL_C(+)
+			AND Z.NA_BYNG_SLPL_DSC(+) = '3'
+			AND Z.NA_BZ_TPC       (+) = '12'
+			AND Z.PRGR_C    =  E.PRGR_C
+			AND E.PRGR_DSC  =  '1'
+			<if test="naRgnC != null and naRgnC.length() >  0">
+				AND A.NA_RGN_C LIKE #{naRgnC}||'%' 
+			</if>
+			<if test="naRgnC2 != null and naRgnC2.length() >  0">
+				AND A.NA_RGN_C = #{naRgnC2}
+			</if>
+			<if test="prgrC != null and prgrC.length() >  0 and prgrC != 'all'.toString()">
+				AND Z.PRGR_C = #{prgrC}
+			</if>	
+	</select>
+		
+	
+		
+	<!-- 자료수신 -->
+	
+	<!-- 월별집계 -사업장별 -->
+	<select id="downloadExcelSalesMonthlyBzplc" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">	
+		SELECT
+			SL_YM
+			, BZPLC
+			, BZPLCNM
+			, SUM(SL_QT) AS SL_QT
+			, SUM(SL_AM) AS SL_AM
+		FROM IAS_SL_MM_BZPLC
+		WHERE 1=1
+			AND SL_YM BETWEEN #{srhDtFr} AND #{srhDtTo}
+			AND TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		GROUP BY SL_YM,BZPLC,BZPLCNM
+		ORDER BY SL_YM,BZPLC
+	</select>
+	
+	<!-- 월별집계 -상품별 -->
+	<select id="downloadExcelSalesMonthlyWrsC" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			SL_YM
+			, WRS_C
+			, WRSNM
+			, SUM(SL_QT) AS SL_QT
+			, SUM(SL_AM) AS SL_AM
+		FROM IAS_SL_MM_WRS_C
+		WHERE 1=1
+			AND SL_YM BETWEEN #{srhDtFr} AND #{srhDtTo}
+			AND TRPL_C IN
+	        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+		GROUP BY SL_YM,WRS_C,WRSNM
+		ORDER BY SL_YM, WRS_C
+	</select>
+	
+	<!-- 일일자료 -->
+	<select id="downloadExcelSalesDaliy" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT 
+		
+		             A.NA_BZPLC
+		           , B.CLNTNM AS SHRT_BZPLNM
+		           , A.NA_WRS_C
+		           , D.WRSNM AS WRSNM
+		           , A.SL_DT         
+		           , A.SL_QT AS SL_QT
+		           , A.TOT_SLAM
+		       , 'N' AS ATL_YN
+		        
+		  FROM TB_SA_TD_WRS_SPYPL A
+		
+		  JOIN TB_TR_TRPL_CIF B
+		    ON A.NA_BZPLC = B.NA_TRPL_C
+		
+		  JOIN TB_TR_TRPL_CIF C
+		    ON A.SPY_NA_TRPL_C = C.NA_TRPL_C
+		
+		  JOIN TB_GD_WRS D
+		    ON A.NA_WRS_C  = D.NA_WRS_C
+		
+		 WHERE 1=1
+		 
+		   AND A.SL_DT BETWEEN  '${srhDtFr}' AND '${srhDtTo}'
+   
+            <choose>
+                <when test="SEARCH_TYPE == '1'.toString()">
+
+                    AND C.UP_NA_TRPL_C='${srhTrplC}'
+                </when>
+                <when test="SEARCH_TYPE == '2'.toString()">
+                    AND C.NA_TRPL_C='${srhTrplC}'
+                </when>
+            </choose>   
+            
+		<if test="chkAtl != null and chkAtl == '1'.toString()">
+
+        UNION ALL
+        
+        SELECT 
+        
+                     A.NA_BZPLC
+                   , B.CLNTNM AS SHRT_BZPLNM
+                   , A.NA_WRS_C
+                   , D.WRSNM AS WRSNM
+                   , A.SL_DT         
+                   , A.SL_QT AS SL_QT
+                   , A.TOT_SLAM
+                   , 'Y' AS ATL_YN
+                
+          FROM TB_SA_TD_WRS_SPYPL_ATL A
+        
+          JOIN TB_TR_TRPL_CIF B
+            ON A.NA_BZPLC = B.NA_TRPL_C
+        
+          JOIN TB_TR_TRPL_CIF C
+            ON A.SPY_NA_TRPL_C = C.NA_TRPL_C
+        
+          JOIN TB_GD_WRS D
+            ON A.NA_WRS_C  = D.NA_WRS_C
+        
+         WHERE 1=1
+         
+           AND A.SL_DT BETWEEN  '${srhDtFr}' AND '${srhDtTo}'
+   
+            <choose>
+                <when test="SEARCH_TYPE == '1'.toString()">
+
+                    AND C.UP_NA_TRPL_C='${srhTrplC}'
+                </when>
+                <when test="SEARCH_TYPE == '2'.toString()">
+                    AND C.NA_TRPL_C='${srhTrplC}'
+                </when>
+            </choose>   
+
+		</if>
+		
+         ORDER BY SL_DT, NA_BZPLC , NA_WRS_C
+         
+	</select>
+
+	<!--주류 실적 엑셀 다운로드 -->
+	<select id="downloadExcelSalesLiquorList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT /*+ index(a IDX_TB_SA_TD_WRS01)  */
+			A.NA_BZPLC /*경제통합사업장코드*/
+			, X.CLNTNM AS SHRT_BZPLNM /*경제통합사업장명*/
+			, A.NA_RGN_C /*02경제통합지역코드*/
+			, R2.RGN_CNM||'/'||R1.RGN_CNM AS RGN_CNM /*02경제통합지역명*/
+			<!-- , A.NA_TRPL_C AS TRPL_C /*04경제통합거래처코드*/ -->
+			, A.SPY_NA_TRPL_C AS TRPL_C /*04경제통합거래처코드*/			
+			, A.CLNTNM /*04경제통합거래처명*/
+			, A.NA_WRS_C AS WRS_C /*06경제통합상품코드*/
+			, A.WRSNM /*06경제통합상품명*/
+			, A.SL_DT AS SL_YM /*거래년월*/
+			, TO_CHAR(TR_TRCN,'fm999,999,999,999,990.00') AS SQWW         /*09거래주수 - 안씀 0*/			  
+			, TO_CHAR(A.SL_QT,'fm999,999,999,999,990.00') AS SL_QT /*10판매수량*/
+			, A.BOXPE_AQZ /*11박스당입수*/
+			, ROUND(DECODE(A.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/A.BOXPE_AQZ),2) AS BOX_QT  /*박스수량*/			
+			, Z.PRGR_C AS PRGR_C /*13가격군코드*/			
+			, NVL(E.PGNM,' ') AS PRGR_C_NM /*13가격군코드명*/
+			, A.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+			, A.NA_WRS_MCLC /*15경제통합상품중분류코드*/
+			, A.NA_WRS_SCLC_CODE /*16경제통합상품소분류코드*/
+			, A.NA_WRS_DTCF_C_CODE /*17경제통합상품세분류코드*/
+			, A.WRS_LCLFNM	/* 상품대분류명         */
+			, A.WRS_MCLFNM	/* 상품중분류명         */
+			, A.WRS_SCLFNM /* 상품소분류명         */
+			, A.WRS_DTCFNM /* 상품세분류명         */
+			, '0.00' ZERO_00
+			, '0' ZERO_0
+			FROM		
+			<choose>			
+				<when test="srhDateType == '1'.toString()"> <!-- 일 -->
+				(
+				SELECT /*+ index(a IDX_TB_SA_TD_WRS01)  */
+					A.SPY_NA_TRPL_C
+					, A.NA_BZPLC
+					, F.NA_RGN_C
+					, A.NA_TRPL_C
+					, D.CLNTNM
+					, A.NA_WRS_C
+					, C.WRSNM /*상품코드명*/
+					, A.SL_DT
+					, 0   TR_TRCN	        /* 주차 - 의미없음 */
+					, (A.SL_QT   ) SL_QT
+					, C.BOXPE_AQZ
+					, (A.SL_QT) SEL_QT1
+					, (C.BOXPE_AQZ) BOXPE_AQZ1
+					, (ROUND(DECODE(C.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/C.BOXPE_AQZ),2) ) BOX_QT1
+					, C.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+					, C.NA_WRS_MCLC /*15경제통합상품중분류코드*/			
+					, '['||C.NA_WRS_SCLC||'] '|| (SELECT X.WRS_SCLFNM 
+												             FROM TB_GD_WRS_CLF X /* 상품소분류명 */ 
+												            WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+												                  AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+												                  AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+												                  AND C.NA_WRS_SCLC != '000' 
+												                  AND C.NA_WRS_SCLC IS NOT NULL 
+												                  AND X.NA_WRS_DTCF_C = '000' 
+			           ) AS NA_WRS_SCLC /*16경제통합상품소분류코드*/ 
+			          , '['||C.NA_WRS_DTCF_C||'] '|| (SELECT X.WRS_DTCFNM 
+													                FROM TB_GD_WRS_CLF X /* 상품세분류명 */ 
+													               WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+													                     AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+													                     AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+													                     AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C 
+			          ) AS NA_WRS_DTCF_C /*17경제통합상품세분류코드*/
+					, C.NA_WRS_SCLC AS NA_WRS_SCLC_CODE /*16경제통합상품소분류코드*/
+					, C.NA_WRS_DTCF_C AS NA_WRS_DTCF_C_CODE /*17경제통합상품세분류코드*/
+					, ( SELECT X.WRS_LCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_LCLC != '000' AND C.NA_WRS_LCLC IS NOT NULL
+							AND X.NA_WRS_MCLC = '000' ) WRS_LCLFNM					
+					, ( SELECT X.WRS_MCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_MCLC != '000' AND C.NA_WRS_MCLC IS NOT NULL
+							AND X.NA_WRS_SCLC = '000' ) WRS_MCLFNM					
+					, ( SELECT X.WRS_SCLFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_SCLC != '000' AND C.NA_WRS_SCLC IS NOT NULL
+							AND X.NA_WRS_DTCF_C = '000' ) WRS_SCLFNM					
+					, ( SELECT X.WRS_DTCFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C ) WRS_DTCFNM
+				FROM 
+					TB_SA_TD_WRS_SPYPL A					
+					, TB_GD_WRS C
+					, TB_TR_TRPL_CIF D
+					, TB_TR_TRPL_CIF F
+				WHERE 1=1					
+					AND A.NA_WRS_C = C.NA_WRS_C
+					AND A.SPY_NA_TRPL_C = D.NA_TRPL_C	
+					AND A.NA_BZPLC = F.NA_TRPL_C
+					AND A.SL_DT BETWEEN #{fromDate} AND #{toDate}
+					<choose>			
+						<when test="searchType == '3'.toString()"> <!-- 자사 -->						
+							AND A.SPY_NA_TRPL_C IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND EXISTS ( SELECT X.NA_TRPL_C
+												FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+												WHERE X.NA_BYNG_SLPL_DSC = '2'
+													AND X.NA_BZ_TPC        = '12'
+													AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+													AND X.DEL_DTM IS NULL
+													AND X.NA_TRPL_C = A.SPY_NA_TRPL_C
+												)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND A.SPY_NA_TRPL_C = #{mrCenter}
+						</if>
+						</when>	
+						<when test="searchType == '4'.toString()"> <!-- 경쟁사 -->							
+							AND A.SPY_NA_TRPL_C NOT IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND A.SPY_NA_TRPL_C IN (	SELECT X.NA_TRPL_C
+															FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+															WHERE X.NA_BYNG_SLPL_DSC = '2'
+																AND X.NA_BZ_TPC        = '12'
+																AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+																AND X.DEL_DTM IS NULL														
+															)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND A.SPY_NA_TRPL_C IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF                     
+															START WITH NA_TRPL_C  = #{mrCenter}                      
+															CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C)
+						</if>
+						</when>
+					</choose>			
+					AND C.LIQ_YN = '1'		
+				    <if test="naCode != null and naCode.length() >  0">
+				      AND A.NA_BZPLC = #{naCode}
+				    </if>
+				    <if test="wrsCode != null and wrsCode.length() >  0">
+				      AND A.NA_WRS_C = #{wrsCode}
+				    </if>			
+				) A			
+			</when>	
+			<when test="srhDateType == '2'.toString()"> <!-- 월 -->
+			(
+				SELECT /*+ index(a IDX_TB_SA_TD_WRS01)  */
+					 A.TRPL_C AS SPY_NA_TRPL_C					
+					, A.BZPLC AS NA_BZPLC
+					, D.NA_RGN_C
+					, D.NA_TRPL_C
+					, D.CLNTNM
+					, A.WRS_C AS NA_WRS_C
+					, C.WRSNM /*상품코드명*/
+					, A.SL_YM AS SL_DT
+					, 0   TR_TRCN	        /* 주차 - 의미없음 */
+					, (A.SL_QT   ) SL_QT
+					, C.BOXPE_AQZ
+					, (A.SL_QT) SEL_QT1
+					, (C.BOXPE_AQZ) BOXPE_AQZ1
+					, (ROUND(DECODE(C.BOXPE_AQZ, 0, A.SL_QT, A.SL_QT/C.BOXPE_AQZ),2) ) BOX_QT1
+					, C.NA_WRS_LCLC /*14경제통합상품대분류코드*/
+					, C.NA_WRS_MCLC /*15경제통합상품중분류코드*/			
+					, '['||C.NA_WRS_SCLC||'] '|| (SELECT X.WRS_SCLFNM 
+												             FROM TB_GD_WRS_CLF X /* 상품소분류명 */ 
+												            WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+												                  AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+												                  AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+												                  AND C.NA_WRS_SCLC != '000' 
+												                  AND C.NA_WRS_SCLC IS NOT NULL 
+												                  AND X.NA_WRS_DTCF_C = '000' 
+			           ) AS NA_WRS_SCLC /*16경제통합상품소분류코드*/ 
+			          , '['||C.NA_WRS_DTCF_C||'] '|| (SELECT X.WRS_DTCFNM 
+													                FROM TB_GD_WRS_CLF X /* 상품세분류명 */ 
+													               WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC 
+													                     AND C.NA_WRS_MCLC = X.NA_WRS_MCLC 
+													                     AND C.NA_WRS_SCLC = X.NA_WRS_SCLC 
+													                     AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C 
+			          ) AS NA_WRS_DTCF_C /*17경제통합상품세분류코드*/
+					, C.NA_WRS_SCLC AS NA_WRS_SCLC_CODE /*16경제통합상품소분류코드*/
+					, C.NA_WRS_DTCF_C AS NA_WRS_DTCF_C_CODE /*17경제통합상품세분류코드*/
+					, ( SELECT X.WRS_LCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_LCLC != '000' AND C.NA_WRS_LCLC IS NOT NULL
+							AND X.NA_WRS_MCLC = '000' ) WRS_LCLFNM					
+					, ( SELECT X.WRS_MCLFNM FROM TB_GD_WRS_CLF X                               /* 상품대분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_MCLC != '000' AND C.NA_WRS_MCLC IS NOT NULL
+							AND X.NA_WRS_SCLC = '000' ) WRS_MCLFNM					
+					, ( SELECT X.WRS_SCLFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_SCLC != '000' AND C.NA_WRS_SCLC IS NOT NULL
+							AND X.NA_WRS_DTCF_C = '000' ) WRS_SCLFNM					
+					, ( SELECT X.WRS_DTCFNM FROM TB_GD_WRS_CLF X                               /* 상품소분류명         */
+						WHERE C.NA_WRS_LCLC = X.NA_WRS_LCLC
+							AND C.NA_WRS_MCLC = X.NA_WRS_MCLC
+							AND C.NA_WRS_SCLC = X.NA_WRS_SCLC
+							AND C.NA_WRS_DTCF_C = X.NA_WRS_DTCF_C ) WRS_DTCFNM
+				FROM 
+					IAS_SL_MM_BZPLC_WRS A
+					, TB_OD_TRTWRS B
+					, TB_GD_WRS C
+					, TB_TR_TRPL_CIF D
+				WHERE 1=1
+					AND A.TRPL_C = B.NA_BZPLC
+					AND A.WRS_C = B.NA_WRS_C					
+					AND A.WRS_C = C.NA_WRS_C 
+					AND B.SPYPL_NA_TRPL_C = D.NA_TRPL_C
+					AND A.SL_YM = #{srhMonth}
+					<!-- AND D.NA_TRPL_C IN ('8801119000262') /* 8801119000019 하이트진로 */
+					AND D.UP_NA_TRPL_C IN ('8801119000019') -->
+					<choose>			
+						<when test="searchType == '3'.toString()"> <!-- 자사 -->						
+							AND B.SPYPL_NA_TRPL_C IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND EXISTS ( SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+												FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+												WHERE X.NA_BYNG_SLPL_DSC = '2'
+													AND X.NA_BZ_TPC        = '12'
+													AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+													AND X.DEL_DTM IS NULL
+													AND X.NA_TRPL_C = B.SPYPL_NA_TRPL_C
+												)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C = #{mrCenter}
+						</if>
+						</when>	
+						<when test="searchType == '4'.toString()"> <!-- 경쟁사 -->							
+							AND B.SPYPL_NA_TRPL_C NOT IN
+					        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+					    		#{item}
+							</foreach>
+							AND B.SPYPL_NA_TRPL_C IN (	SELECT /*+ NO_UNNEST */ X.NA_TRPL_C
+															FROM TB_TR_TRPL_PRGR X /*거래처별가격군기본*/
+															WHERE X.NA_BYNG_SLPL_DSC = '2'
+																AND X.NA_BZ_TPC        = '12'
+																AND X.LIQ_INF_US_CNCL_DSC ='1' /*주류여부*/
+																AND X.DEL_DTM IS NULL														
+															)
+						<if test="mrCenter != null and mrCenter.length() >  0"> <!-- 경쟁사코드 -->
+							AND B.SPYPL_NA_TRPL_C IN (SELECT NA_TRPL_C FROM TB_TR_TRPL_CIF                     
+															START WITH NA_TRPL_C  = #{mrCenter}                      
+															CONNECT BY NOCYCLE UP_NA_TRPL_C = PRIOR NA_TRPL_C)
+						</if>
+						</when>
+					</choose>			
+					AND C.LIQ_YN = '1'		
+				    <if test="naCode != null and naCode.length() >  0">
+				      AND A.NA_BZPLC = #{naCode}
+				    </if>
+				    <if test="wrsCode != null and wrsCode.length() >  0">
+				      AND A.NA_WRS_C = #{wrsCode}
+				    </if>			
+				) A														
+				</when>
+			</choose>
+			, TB_TR_TRPL_CIF X
+			, TB_TR_TRPL_PRGR Z
+			, TB_CM_PRGR_BASE E
+			, TB_TR_RGN     R1
+			, TB_TR_RGN     R2
+			WHERE 1=1			
+			AND A.NA_BZPLC  =  X.NA_TRPL_C
+			AND A.NA_RGN_C          = R1.NA_RGN_C
+			AND R1.UP_NA_RGN_C      = R2.NA_RGN_C
+			AND A.NA_BZPLC  =  Z.NA_TRPL_C
+			AND A.NA_TRPL_C = Z.JURD_PHDCT_NA_TRPL_C
+			AND Z.NA_BYNG_SLPL_DSC = '3'
+			AND Z.NA_BZ_TPC        = '12'
+			AND Z.PRGR_C    =  E.PRGR_C
+			AND E.PRGR_DSC  =  '1'
+			<if test="naRgnC != null and naRgnC.length() >  0">
+				AND A.NA_RGN_C LIKE #{naRgnC}||'%' 
+			</if>
+			<if test="naRgnC2 != null and naRgnC2.length() >  0">
+				AND A.NA_RGN_C = #{naRgnC2}
+			</if>
+			<if test="prgrC != null and prgrC.length() >  0 and prgrC != 'all'.toString()">
+				AND Z.PRGR_C = #{prgrC}
+			</if>
+			ORDER BY 5,6,1,2,3,4,7,8,9,10
+	</select>
+	
+
+	<!-- 판매정보 자료수신 일일자료 과금 -->
+    <insert id="markUpSalesDaliy" parameterType="java.util.Map">
+    
+        MERGE INTO COM_PDS_RMS_LOG A
+        
+        USING (
+	        
+	            SELECT 
+	                     SPY_NA_TRPL_C                   
+	                   , SL_DT       
+	                   , SUM(WRS_CNT) WRS_CNT
+	            
+	              FROM 
+	                (
+	                
+				            SELECT 
+				            
+		                             A.SPY_NA_TRPL_C                   
+		                           , A.SL_DT
+		                           , COUNT(SPY_NA_TRPL_C) AS WRS_CNT
+				              FROM TB_SA_TD_WRS_SPYPL A
+				            
+				              JOIN TB_TR_TRPL_CIF B
+				                ON A.NA_BZPLC = B.NA_TRPL_C
+				            
+	                
+				              JOIN TB_GD_WRS C
+				                ON A.NA_WRS_C  = C.NA_WRS_C
+				            
+				             WHERE 1=1
+				               AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+				             
+	                          AND A.SPY_NA_TRPL_C IN
+	                          <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	                              #{item}
+	                          </foreach>
+	                          
+	                     GROUP BY 
+	                             A.SPY_NA_TRPL_C
+	                           , A.SL_DT
+	                    
+				            UNION ALL
+				            
+	                        SELECT 
+	                        
+	                                 A.SPY_NA_TRPL_C                   
+	                               , A.SL_DT
+	                               , COUNT(SPY_NA_TRPL_C) AS WRS_CNT
+	                          FROM TB_SA_TD_WRS_SPYPL_ATL A  -- 테이블명이 중요함
+	                        
+	                          JOIN TB_TR_TRPL_CIF B
+	                            ON A.NA_BZPLC = B.NA_TRPL_C
+	                        
+	                
+	                          JOIN TB_GD_WRS C
+	                            ON A.NA_WRS_C  = C.NA_WRS_C
+	                        
+	                         WHERE 1=1
+	                           AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+	                         
+	                          AND A.SPY_NA_TRPL_C IN
+	                          <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+	                              #{item}
+	                          </foreach>
+	                          
+	                     GROUP BY 
+	                             A.SPY_NA_TRPL_C
+	                           , A.SL_DT
+	               )     
+	                      
+	         GROUP BY 
+	                     SPY_NA_TRPL_C                   
+	                   , SL_DT  
+        ) B
+        
+        ON
+        
+        (
+                A.RMS_YM        = TO_CHAR(SYSDATE, 'YYYYMM')        
+            AND A.RMS_SPYPL_C   = #{sessionGlnCode}
+            AND A.ACTL_SPYPL_C  = B.SPY_NA_TRPL_C
+            AND A.SL_DT         = B.SL_DT
+            AND B.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+            
+            AND B.SPY_NA_TRPL_C IN
+            <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+            </foreach>
+        )
+        
+        WHEN MATCHED THEN
+        
+        UPDATE SET
+                   A.RMS_WRS_CN = B.WRS_CNT,
+                   A.MB_ID      = #{sessionUserId} ,
+                   A.RMS_DTM    = SYSDATE     
+                   
+        WHEN NOT MATCHED THEN
+        INSERT (
+                   A.RMS_YM
+                 , A.RMS_SPYPL_C
+                 , A.ACTL_SPYPL_C
+                 , A.SL_DT
+                 , A.RMS_WRS_CN
+                 , A.MB_ID
+                 , A.RMS_DTM            
+        ) 
+        VALUES (
+                  TO_CHAR(SYSDATE, 'YYYYMM')             
+                , #{sessionGlnCode}       
+                , B.SPY_NA_TRPL_C
+                , B.SL_DT
+                , B.WRS_CNT
+                , #{sessionUserId}
+                , SYSDATE           
+        )
+    </insert>
+
+	
+
+	<!-- 주류실적 본사만 조회가능 -->
+	<select id="retrieveMbcoDsc" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT NA_MBCO_DSC /*본사 : 1 지사 :2*/        
+		FROM TB_TR_TRPL_CIF
+		WHERE 1=1
+		AND NA_TRPL_C = #{TRPL_C}		
+	</select>
+
+
+    <insert id="saveAtlSalesData" parameterType="java.util.Map">
+
+		MERGE INTO TB_SA_TD_WRS_SPYPL_ATL X
+		USING
+		(
+	         SELECT    
+	                   A.NA_BZPLC
+	                 , C.SPYPL_NA_TRPL_C AS SPY_NA_TRPL_C
+	                 , A.SL_DT  
+	                 , A.NA_WRS_C
+	                 , A.ROTS_CTR_DSC
+	                 , A.SL_QT
+	                 , A.TOT_SLAM
+	                 , A.NA_TRPL_C
+	                 , A.SPY_NA_TRPL_C AS PHD_NA_BZPLC
+	          FROM 
+	               NHVANSTS.TB_SA_TD_WRS_SPYPL A 
+	            
+	          JOIN NHVANINF.TB_OD_TRTWRS C
+	            ON A.SPY_NA_TRPL_C   = C.NA_BZPLC
+	           AND A.NA_WRS_C        = C.NA_WRS_C
+
+	         WHERE
+	               A.SPY_NA_TRPL_C    = '8808983300108'
+               AND C.NA_BZPLC         = '8808983300108'
+               
+	           AND A.SL_DT BETWEEN #{srhDtFr} AND #{srhDtTo}
+
+
+              AND C.SPYPL_NA_TRPL_C IN
+            <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+               #{item}
+            </foreach>
+		
+		) Y
+        ON
+        
+        (
+                X.NA_BZPLC       =  Y.NA_BZPLC 
+            AND X.SPY_NA_TRPL_C  =  Y.SPY_NA_TRPL_C 
+            AND X.SL_DT          =  Y.SL_DT 
+            AND X.NA_WRS_C       =  Y.NA_WRS_C 
+
+        )
+        
+        WHEN MATCHED THEN
+        
+        UPDATE SET
+                     X.SL_QT           = Y.SL_QT 
+                   , X.TOT_SLAM        = Y.TOT_SLAM
+                   , X.ROTS_CTR_DSC    = Y.ROTS_CTR_DSC
+                   , X.NA_TRPL_C       = Y.NA_TRPL_C
+                   , X.PHD_NA_BZPLC    = Y.SPY_NA_TRPL_C
+                   
+        WHEN NOT MATCHED THEN
+        INSERT 
+        (
+                 NA_BZPLC          -- 경제통합사업장코드
+               , SPY_NA_TRPL_C   -- 공급처거래처코드
+               , SL_DT           -- 매출일자
+               , NA_WRS_C          -- 경제통합상품코드
+               , ROTS_CTR_DSC      -- 계약구분코드
+               , SL_QT           -- 매출수량
+               , TOT_SLAM          -- 매출금액
+               , NA_TRPL_C       -- R1물류센터코드
+               , PHD_NA_BZPLC      -- 간선물류센터코드
+        )
+        
+        VALUES 
+        (
+                  Y.NA_BZPLC
+                , Y.SPY_NA_TRPL_C
+                , Y.SL_DT  
+                , Y.NA_WRS_C
+                , Y.ROTS_CTR_DSC
+                , Y.SL_QT
+                , Y.TOT_SLAM
+                , Y.NA_TRPL_C
+                , Y.PHD_NA_BZPLC      
+        )
+
+    </insert>
+    
+	<select id="downloadExcelSalesPeriodStoreSumList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelSalesPeriodStoreSumTrunkList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumDetailTrunkList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelSalesPeriodStoreSumDetailPgList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'NA_WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodStoreSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelSalesPeriodSkuSumList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'WRS_C'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodSkuSumList" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelSalesPeriodSkuSumDetailList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveSalesPeriodSkuSumDetailList" />
+		<include refid="common.paging_end" />
+	</select>
+</mapper>

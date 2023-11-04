@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<bean id="abstractDao" abstract="true">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- user -->
+	<bean id="userDao" class="com.nh.escm.dao.UserDao" parent="abstractDao" />
+	<bean id="portalDao" class="com.nh.escm.dao.PortalDao" parent="abstractDao" />
+	<bean id="dashboardDao" class="com.nh.escm.dao.DashboardDao" parent="abstractDao" />
+	
+	<!-- 입고 예약 업무 -->
+	<bean id="reserveCenterDAO" class="com.nh.escm.scm.reserve.dao.ReserveCenterDAO" parent="abstractDao" />
+	<bean id="carDao" class="com.nh.escm.scm.reserve.dao.CarDAO" parent="abstractDao" />	
+	
+	<!-- 수주업무 -->
+	<bean id="orderOrdersDao" class="com.nh.escm.scm.order.dao.OrderOrdersDAO" parent="abstractDao" />
+	<bean id="ordersRSVDao" class="com.nh.escm.scm.order.dao.OrdersRSVDAO" parent="abstractDao" />
+	
+	<!-- 행사업무 -->
+	<bean id="ordersDao" class="com.nh.escm.scm.event.dao.OrdersDAO" parent="abstractDao" />
+	
+	<!-- 정보분석 -->
+	<bean id="infoChangeDAO" class="com.nh.escm.analysis.info.dao.InfoChangeDAO" parent="abstractDao" />
+	
+	<!-- 시장분석 -->
+	<bean id="marketDAO" class="com.nh.escm.analysis.market.dao.MarketDAO" parent="abstractDao" />
+	
+	<!-- 신규통계 -->
+    <bean id="StsDAO" class="com.nh.escm.analysis.sts.dao.StsDAO" parent="abstractDao" />
+    
+	<!-- 출고정보-->
+	<bean id="centerDao" class="com.nh.escm.pds.outer.dao.CenterDAO" parent="abstractDao" />
+	<bean id="centerNaDao" class="com.nh.escm.pds.outer.na.dao.CenterNaDAO" parent="abstractDao" />
+	
+	<!-- 본지사 관리 -->
+	<bean id="companyDao" class="com.nh.escm.pds.company.dao.CompanyDAO" parent="abstractDao" />
+
+	<!-- 검수업무 -->
+	<bean id="recadvDao" class="com.nh.escm.scm.recadv.dao.RecadvDAO" parent="abstractDao" />
+	
+	<!-- 상품정보 관리 -->
+	<bean id="productDao" class="com.nh.escm.pds.pricat.dao.ProductDAO" parent="abstractDao" />
+	
+	<!-- 납품정보 -->
+	<bean id="PdsRecadvDao" class="com.nh.escm.pds.recadv.dao.PDSRecadvDAO" parent="abstractDao" />
+	
+	<!-- 정산정보-Tax -->
+	<bean id="taxDao" class="com.nh.escm.pds.pay.dao.TaxDAO" parent="abstractDao" />
+
+	<!-- 생활물자 가격정보 -->
+	<bean id="lifeGoodsDAO" class="com.nh.escm.pds.pricat.dao.LifeGoodsDAO" parent="abstractDao" />
+	
+	<!-- 관심 점포/상품 등록 -->
+	<bean id="InfoChangeDao" class="com.nh.escm.analysis.info.dao.InfoChangeDAO" parent="abstractDao" />
+	
+	<!-- 정산정보-Payment -->
+	<bean id="paymentDao" class="com.nh.escm.pds.pay.dao.PaymentDAO" parent="abstractDao" />
+	<bean id="creditSaleDAO" class="com.nh.escm.pds.pay.dao.CreditSaleDAO" parent="abstractDao" />
+	
+	<!-- 배송업무 -->
+	<bean id="deliveryCenterDao" class="com.nh.escm.scm.delivery.dao.DeliveryCenterDAO" parent="abstractDao" />
+	<bean id="deliveryNoticeDao" class="com.nh.escm.scm.delivery.dao.DeliveryNoticeDAO" parent="abstractDao" />
+	<bean id="deliveryNoticeLiveStockDao" class="com.nh.escm.scm.delivery.livestock.dao.DeliveryNoticeLiveStockDAO" parent="abstractDao" />
+	
+	<!-- 수산 배송업무 -->
+	<bean id="deliveryNoticeSeaDao" class="com.nh.escm.scm.delivery.sea.dao.DeliveryNoticeSeaDAO" parent="abstractDao" />
+	
+	<!-- 중도매인(공판장) 배송업무 -->
+	<bean id="deliveryNoticeBrokerageWholesalerDAO" class="com.nh.escm.scm.delivery.brokerageWholesaler.dao.DeliveryNoticeBrokerageWholesalerDAO" parent="abstractDao" />
+	
+	<!-- 반품업무 -->
+	<bean id="retannDAO" class="com.nh.escm.scm.retann.dao.RetannDAO" parent="abstractDao" />
+	
+	<!-- 거래관계 관리 -->
+	<bean id="tradeDAO" class="com.nh.escm.pds.partner.dao.TradeDAO" parent="abstractDao"/>
+	
+	<!-- BI조회 -->
+	<bean id="intelligenceDAO" class="com.nh.escm.analysis.biz.dao.IntelligenceDAO" parent="abstractDao"/>
+	
+	<!-- 재고분석 -->
+	<bean id="stockDAO" class="com.nh.escm.pds.stock.dao.StockDAO" parent="abstractDao"/>
+	
+	<!-- 판매정보 -->
+	<bean id="pdsSalesDAO" class="com.nh.escm.pds.sales.dao.PDSSalesDAO" parent="abstractDao" />
+	
+	<!-- 쿠폰업무 -->
+	<bean id="couponDAO" class="com.nh.escm.pds.coupon.dao.CouponDAO" parent="abstractDao" />
+	<bean id="couponSaleResultDAO" class="com.nh.escm.pds.coupon.dao.CouponSaleResultDAO" parent="abstractDao" />
+	
+	<!-- 잔액장 -->
+	<bean id="balanceDAO" class="com.nh.escm.pds.balance.dao.BalanceDAO" parent="abstractDao" />
+	
+	<!-- 모바일 PUSH 기기정보 저장 -->
+	<bean id="mblDvcAmnDAO" class="com.nh.escm.pt.comn.dao.MblDvcAmnDAO" parent="abstractDao" />
+	
+	<!-- Portal 메인화면 미확인건수 -->
+	<bean id="UnCnfCnInqDAO" class="com.nh.escm.pt.comn.dao.UnCnfCnInqDAO" parent="abstractDao" />
+	
+	<!-- pda 검수디테일  -->
+	<bean id="PdaInspectionDao" class="com.nh.escm.pda.dao.PdaInspectionDao" parent="abstractDao" />  
+	 
+	<!-- pda 프로그램다운  -->
+	<bean id="PdaProgramDao" class="com.nh.escm.pda.dao.PdaProgramDao" parent="abstractDao" />
+	
+	<!-- pda 검수실적 엑셀 다운  -->
+	<bean id="PdaInsByCenterDao" class="com.nh.escm.pda.dao.PdaInsByCenterDao" parent="abstractDao" />
+	
+	<!-- pda 단말기관리 -->
+	<bean id="pdaMacAddrDao" class="com.nh.escm.pda.dao.PdaMacAddressDao" parent="abstractDao" />
+	
+	<!-- Smartpda 검수사진조회 -->
+	<bean id="SmartPdaInspectionDao" class="com.nh.escm.pda.dao.SmartPdaInspectionDao" parent="abstractDao" />
+	
+	<!-- Smartpda 공지사항 -->
+	<bean id="PdaNoticeDao" class="com.nh.escm.pda.dao.PdaNoticeDao" parent="abstractDao" />
+	
+	<!-- Smartpda 검수실적  -->
+	<bean id="smartPdaKpi" class="com.nh.escm.pda.dao.SmartPdaKpiDao" parent="abstractDao" />
+
+	<!-- Smartpda 경통오류조회  -->
+	<bean id="smartPdaBzplcInf" class="com.nh.escm.pda.dao.SmartPdaBzplcInfDao" parent="abstractDao" />
+
+	<!-- 교육신청 -->
+	<bean id="educationDAO" class="com.nh.escm.mg.edu.dao.EducationDAO" parent="abstractDao" />
+	
+	<!-- 가격할인 사용자관리 -->
+	<bean id="mdUsrMgr" class="com.nh.escm.mob.markDown.dao.MdUsrMgrDao" parent="abstractDao" />
+
+	<!-- 가격할인 이력관리 -->
+	<bean id="mdInfMgr" class="com.nh.escm.mob.markDown.dao.MdInfMgrDao" parent="abstractDao" />
+	
+    <!-- 가격할인 공통정보 -->
+    <bean id="mdCommonDao" class="com.nh.escm.mob.markDown.dao.MdCommonDao" parent="abstractDao" />
+
+	<!-- 만족도 설문조사 -->
+	<bean id="surveyDAO" class="com.nh.escm.pt.survey.dao.SurveyDAO" parent="abstractDao" />
+	
+	<!-- 데이터마트-->
+    <bean id="dmartDAO" class="com.nh.escm.pds.dmart.dao.DmartDAO" parent="abstractDao" />
+    
+	<!-- 인증서정보 -->
+	<bean id="CertInfoDao" class="com.nh.escm.system.dao.CertInfoDao" parent="abstractDao" />
+
+	<!--주류직매장정보-->
+	<bean id="liqBizPlaceSelectDao" class="com.nh.escm.common.dao.LiqBizPlaceSelectDao" parent="abstractDao"/>
+	    
+</beans>

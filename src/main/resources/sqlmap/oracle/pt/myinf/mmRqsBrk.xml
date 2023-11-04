@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mmRqsBrkDAO">
+	
+	<select id="retrieveMmRqsBrkInit" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveMmRqsBrkInit */
+		       PAY.NA_TRPL_C AS SIMP_C,
+		       '[' || PAY.NA_TRPL_C || '] ' || CIF.CLNTNM AS SIMP_CNM,
+		       CASE PAY_YN
+		            WHEN 'Y' THEN 'M'
+		            WHEN 'N' THEN 'S' END AS SIMP_C_EXPL,
+		       PAY_COMP_NM
+		  FROM BL_PAY_COMP PAY, TB_TR_TRPL_CIF CIF
+		 WHERE PAY.PRXP_COMP_TRPL_C = #{NA_TRPL_C}  /* 대납업체거래처코드 */
+		   AND PAY.UYN = 'Y'
+		   AND PAY.NA_TRPL_C = CIF.NA_TRPL_C
+		 ORDER BY SIMP_C_EXPL, SIMP_C
+	</select>
+	
+	<select id="retrieveMmRqsBrkInit1" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveMmRqsBrkInit1 */
+		       NA_TRPL_C AS SIMP_C,
+		       '[' || NA_TRPL_C || '] ' || CLNTNM AS SIMP_CNM,
+		       'M' AS SIMP_C_EXPL,
+		       CLNTNM AS PAY_COMP_NM
+		  FROM TB_TR_TRPL_CIF
+		 WHERE NA_TRPL_C = #{NA_TRPL_C}
+	</select>
+	
+	<!-- 월별이용료명세서 > 이용료청구내역 조회 -->
+	<select id="retrieveMmRqsBrk" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /* retrieveMmRqsBrk */
+		       #{RMS_MM} AS RMS_MM,
+		       #{TRPL_C} AS TRPL_C,
+		       FN_TRPL_CIF_NM(#{TRPL_C}) AS CLNTNM,
+		       (
+		           SELECT COUNT(*)
+		             FROM BL_MM_RQS_AM B
+		            WHERE B.RMS_MM = #{RMS_MM}
+		              AND B.RMS_TRPL_C != B.PRXP_COMP_TRPL_C  /* 자신 제외 */
+		              AND B.PRXP_COMP_TRPL_C = #{TRPL_C}
+		       ) AS SUP_CNT,  /* 대납업체수 - 자신을 제외한 수 */
+		       LS_RQS_AM_SUM,
+		       DC_BF_UG_AM_SUM,
+		       SPPR_SUM,
+		       DC_AM_SUM,
+		       VAT_AM_SUM,
+		       EDI_UGQT_SUM,
+		       ADINF_UGQT_SUM,
+		       BASIC_RATE_SUM,
+		       EDI_UG_AM_SUM,
+		       ADINF_UG_AM_SUM,
+		       IA_BI_UG_AM_SUM,
+		       IA_PG_UG_AM_SUM,
+		       IA_MA_UG_AM_SUM,
+		       IA_CTGR_UG_AM_SUM,
+		       IA_BLBD_UG_AM_SUM,
+		       CTGR_SL_UGQT_SUM,
+		       CTGR_SL_UG_AM_SUM,
+		       TXBIL_RPBC_CNT,
+		       SMS_UG_AM_SUM,
+		       LATE_AM_SUM,
+		       XMLEDI_BASIC_RATE_SUM
+		  FROM (
+		           SELECT SUM(NVL(A.LS_RQS_AM, 0))         AS LS_RQS_AM_SUM,         /* 최종청구금액 */
+		                  SUM(NVL(A.DC_BF_UG_AM, 0))       AS DC_BF_UG_AM_SUM,       /* 사용요금 */
+		                  SUM(NVL(A.SPPR, 0))              AS SPPR_SUM,              /* 공급가액 */
+		                  SUM(NVL(A.DC_AM, 0))             AS DC_AM_SUM,             /* 할인금액 */
+		                  SUM(NVL(A.VAT_AM, 0))            AS VAT_AM_SUM,            /* 부가세(VAT) */
+		                  SUM(NVL(A.EDI_UGQT, 0))          AS EDI_UGQT_SUM,          /* EDI 사용량 */
+		                  SUM(NVL(A.ADINF_UGQT, 0))        AS ADINF_UGQT_SUM,        /* 부가정보 사용량 */
+		                  SUM(NVL(A.BASIC_RATE, 0))        AS BASIC_RATE_SUM,        /* 기본료 */
+		                  SUM(NVL(A.EDI_UG_AM, 0))         AS EDI_UG_AM_SUM,         /* EDI 사용금액 */
+		                  SUM(NVL(A.ADINF_UG_AM, 0))       AS ADINF_UG_AM_SUM,       /* 부가정보 사용금액 */
+		                  SUM(NVL(A.IA_BI_UG_AM, 0))       AS IA_BI_UG_AM_SUM,       /* 정보분석 BI조회 */
+		                  SUM(NVL(A.IA_PG_UG_AM, 0))       AS IA_PG_UG_AM_SUM,       /* 정보분석 추이분석 */
+		                  SUM(NVL(A.IA_MA_UG_AM, 0))       AS IA_MA_UG_AM_SUM,       /* 정보분석 시장분석(자사) */
+		                  SUM(NVL(A.IA_CTGR_UG_AM, 0))     AS IA_CTGR_UG_AM_SUM,     /* 정보분석 시장분석(타사) */
+		                  SUM(NVL(A.IA_BLBD_UG_AM, 0))     AS IA_BLBD_UG_AM_SUM,     /* 정보분석 파일제공 */
+		                  SUM(NVL(A.CTGR_SL_UGQT, 0))      AS CTGR_SL_UGQT_SUM,      /* 카테고리 판매정보 사용량 */
+		                  SUM(NVL(A.CTGR_SL_UG_AM, 0))     AS CTGR_SL_UG_AM_SUM,     /* 카테고리 판매정보 사용금액 */
+		                  SUM(
+		                      CASE WHEN A.NA_MBCO_DSC = '4' THEN (  /* 세금계산서 전용 */
+		                          SELECT COUNT(U.NA_TRPL_C)  /* 승인한 건수 */
+		                            FROM TX_TXBIL T
+		                                 INNER JOIN PT_USR_INF U
+		                                         ON T.LS_CHGM = U.MB_ID  /* 승인한 회원ID */
+		                           WHERE T.PBC_DT LIKE #{RMS_MM} || '%'
+		                             AND T.RPBC_DSC   = '2'   /* 역발행구분 (1: 순발행, 2: 역발행) */
+		                             AND T.TXBIL_STSC = '00'  /* 계산서발행상태 (00: 국세청신고완료, 02: 미발행) */
+		                             AND U.NA_TRPL_C  = A.RMS_TRPL_C  /* 승인한 회원GLN */
+		                      ) ELSE (
+		                          SELECT COUNT(B.NA_TRPL_C)
+		                            FROM TX_TXBIL B
+		                           WHERE B.PBC_DT LIKE #{RMS_MM} || '%'
+		                             AND B.RPBC_DSC   = '2'   /* 역발행구분 (1: 순발행, 2: 역발행) */
+		                             AND B.TXBIL_STSC = '00'  /* 계산서발행상태 (00: 국세청신고완료, 02: 미발행) */
+		                             AND B.NA_TRPL_C  = A.RMS_TRPL_C
+		                      ) END
+		                  ) AS TXBIL_RPBC_CNT,                                       /* 세금계산서 발행건수 */
+		                  SUM(NVL(A.SMS_UG_AM, 0))         AS SMS_UG_AM_SUM,         /* 기타 SMS */
+		                  SUM(NVL(A.LATE_AM, 0))           AS LATE_AM_SUM,           /* 기타 연체료 */
+		                  SUM(NVL(A.XMLEDI_BASIC_RATE, 0)) AS XMLEDI_BASIC_RATE_SUM  /* XMLEDI 사용료 */
+		             FROM BL_MM_RQS_AM A
+		            WHERE A.RMS_MM = #{RMS_MM}
+		          <choose>
+		          <when test="RMS_TRPL_C == 'A'.toString()">
+		              AND (
+		                      A.RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		                      OR
+		                      A.PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		                  )
+		          </when>
+		          <otherwise>
+		              AND A.RMS_TRPL_C = #{TRPL_C}
+		          </otherwise>
+		          </choose>
+		       )
+	</select>
+	
+	<select id="retrieveDetailMmRqsBrk" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT /*retrieveDetailMmRqsBrk*/	
+        	RMS_MM,
+			RMS_TRPL_C,
+		    EDI_UGQT,
+		    ADINF_UGQT,
+		    EDI_UG_AM,
+		    ADINF_UG_AM,
+		    IA_UG_AM,
+		    CTGR_UG_AM,
+		    BLBD_UG_AM
+		FROM BL_MM_RQS_AM 
+		WHERE 
+			 RMS_MM =#{RMS_MM}
+             AND RMS_TRPL_C= #{RMS_TRPL_C} 
+             AND PRXP_COMP_TRPL_C=  #{NA_TRPL_C} 
+	</select>
+ 	
+	<!-- 월별이용료명세서 > 거래처별 이용료청구내역 목록 조회 (엑셀다운) -->
+	<select id="downloadExcelMmRqsBrk" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT /* downloadExcelMmRqsBrk */
+		       A.RMS_TRPL_C AS TRPL_C,
+		       A.CLNTNM,
+		       0 AS SUP_CNT,  /* 대납업체수 - 거래처별이므로 항상 0 이다 */
+		       NVL(A.LS_RQS_AM, 0)         AS LS_RQS_AM_SUM,         /* 최종청구금액 */
+		       NVL(A.DC_BF_UG_AM, 0)       AS DC_BF_UG_AM_SUM,       /* 사용요금 */
+		       NVL(A.SPPR, 0)              AS SPPR_SUM,              /* 공급가액 */
+		       NVL(A.DC_AM, 0)             AS DC_AM_SUM,             /* 할인금액 */
+		       NVL(A.VAT_AM, 0)            AS VAT_AM_SUM,            /* 부가세(VAT) */
+		       NVL(A.EDI_UGQT, 0)          AS EDI_UGQT_SUM,          /* EDI 사용량 */
+		       NVL(A.ADINF_UGQT, 0)        AS ADINF_UGQT_SUM,        /* 부가정보 사용량 */
+		       NVL(A.BASIC_RATE, 0)        AS BASIC_RATE_SUM,        /* 기본료 */
+		       NVL(A.EDI_UG_AM, 0)         AS EDI_UG_AM_SUM,         /* EDI 사용금액 */
+		       NVL(A.ADINF_UG_AM, 0)       AS ADINF_UG_AM_SUM,       /* 부가정보 사용금액 */
+		       NVL(A.IA_BI_UG_AM, 0)       AS IA_BI_UG_AM_SUM,       /* 정보분석 BI조회 */
+		       NVL(A.IA_PG_UG_AM, 0)       AS IA_PG_UG_AM_SUM,       /* 정보분석 추이분석 */
+		       NVL(A.IA_MA_UG_AM, 0)       AS IA_MA_UG_AM_SUM,       /* 정보분석 시장분석(자사) */
+		       NVL(A.IA_CTGR_UG_AM, 0)     AS IA_CTGR_UG_AM_SUM,     /* 정보분석 시장분석(타사) */
+		       NVL(A.IA_BLBD_UG_AM, 0)     AS IA_BLBD_UG_AM_SUM,     /* 정보분석 파일제공 */
+		       NVL(A.CTGR_SL_UGQT, 0)      AS CTGR_SL_UGQT_SUM,      /* 카테고리 판매정보 사용량  */
+		       NVL(A.CTGR_SL_UG_AM, 0)     AS CTGR_SL_UG_AM_SUM,     /* 카테고리 판매정보 사용금액 */
+		       CASE WHEN A.NA_MBCO_DSC = '4' THEN (  /* 세금계산서 전용 */
+		           SELECT COUNT(U.NA_TRPL_C)  /* 승인한 건수 */
+		             FROM TX_TXBIL T
+		                  INNER JOIN PT_USR_INF U
+		                          ON T.LS_CHGM = U.MB_ID  /* 승인한 회원ID */
+		            WHERE T.PBC_DT LIKE #{RMS_MM} || '%'
+		              AND T.RPBC_DSC   = '2'   /* 역발행구분 (1: 순발행, 2: 역발행) */
+		              AND T.TXBIL_STSC = '00'  /* 계산서발행상태 (00: 국세청신고완료, 02: 미발행) */
+		              AND U.NA_TRPL_C  = A.RMS_TRPL_C  /* 승인한 회원GLN */
+		       ) ELSE (
+		           SELECT COUNT(B.NA_TRPL_C)
+		             FROM TX_TXBIL B
+		            WHERE B.PBC_DT LIKE #{RMS_MM} || '%'
+		              AND B.RPBC_DSC   = '2'   /* 역발행구분 (1: 순발행, 2: 역발행) */
+		              AND B.TXBIL_STSC = '00'  /* 계산서발행상태 (00: 국세청신고완료, 02: 미발행) */
+		              AND B.NA_TRPL_C  = A.RMS_TRPL_C
+		       ) END AS TXBIL_RPBC_CNT,                       /* 세금계산서 발행건수 */
+		       NVL(A.SMS_UG_AM, 0)         AS SMS_UG_AM_SUM,         /* 기타 SMS */
+		       NVL(A.LATE_AM, 0)           AS LATE_AM_SUM,           /* 기타 연체료 */
+		       NVL(A.XMLEDI_BASIC_RATE, 0) AS XMLEDI_BASIC_RATE_SUM  /* XMLEDI 사용료 */
+		  FROM BL_MM_RQS_AM A
+		 WHERE A.RMS_MM = #{RMS_MM}
+		<choose>
+		<when test="RMS_TRPL_C == 'A'.toString()">
+		   AND (
+		           A.RMS_TRPL_C = #{TRPL_C}        /* 대납업체가 되기전인 경우, PRXP_COMP_TRPL_C IS NULL 이다. */
+		           OR
+		           A.PRXP_COMP_TRPL_C = #{TRPL_C}  /* 대납업체거래처코드 */
+		       )
+		</when>
+		<otherwise>
+		   AND A.RMS_TRPL_C = #{TRPL_C}
+		</otherwise>
+		</choose>
+		 ORDER BY A.RMS_TRPL_C
+	</select>
+ 
+</mapper>

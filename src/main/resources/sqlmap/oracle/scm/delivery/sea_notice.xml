@@ -1,0 +1,4001 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	배송업무
+ -->
+ 
+ <mapper namespace="deliveryNoticeSeaDAO">
+ 	
+ 	<resultMap id="orderMap" type="com.nh.escm.scm.delivery.sea.vo.NoticeOrderVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="TEAMNM" property="TEAMNM" />
+		<result column="DVYAA_C" property="DVYAA_C" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="DVY_RQR_CNTN" property="DVY_RQR_CNTN" />
+		<result column="DVY_VHC_DSC" property="DVY_VHC_DSC" />
+		<result column="DVY_VHC" property="DVY_VHC" />
+		<result column="DVY_VHC_STS" property="DVY_VHC_STS" />
+		<result column="TOTAL_ODR_AM" property="TOTAL_ODR_AM" />
+		<result column="TOTAL_ODR_VAT" property="TOTAL_ODR_VAT" />
+		<result column="TOTAL_DVY_AM" property="TOTAL_DVY_AM" />
+		<result column="TOTAL_DVY_VAT" property="TOTAL_DVY_VAT" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="IS_OD_BE_ORDER" property="IS_OD_BE_ORDER" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="SLGT_ETR_DSC" property="SLGT_ETR_DSC" />
+		<result column="DVY_FAR_ASTCS" property="DVY_FAR_ASTCS" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TEAM_C" property="DVYAA_NA_TEAM_C" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="TOTAL_VCBT_AM" property="TOTAL_VCBT_AM" />
+		<result column="TOTAL_VCBX_AM" property="TOTAL_VCBX_AM" />
+		<result column="TOTAL_DYY_SSDY" property="TOTAL_DYY_SSDY" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TEAM_C" property="MNGT_NA_TEAM_C" />
+		<result column="MNGT_NA_TR_TPC" property="MNGT_NA_TR_TPC" />
+		<result column="GRS_SOJU_YN" property="GRS_SOJU_YN" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="ADJPL_NA_TRPL_C" property="ADJPL_NA_TRPL_C" />
+		<result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		<result column="MNGT_TR_REL_AMNNO" property="MNGT_TR_REL_AMNNO" />
+		<result column="CSER_TR_REL_AMNNO" property="CSER_TR_REL_AMNNO" />
+		<result column="LDTM_DDS" property="LDTM_DDS" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="DVY_PLASH_STSC" property="DVY_PLASH_STSC" />
+		<result column="DVY_PLASH_STSC_N" property="DVY_PLASH_STSC_N" />
+		<result column="NORDER_YN" property="NORDER_YN" />
+		<result column="PGNM" property="PGNM" />
+		<result column="PRC_YN" property="PRC_YN" />
+		<result column="ROTS_FLEX_PR_APL_YN" property="ROTS_FLEX_PR_APL_YN" />
+		<result column="TEMP_YN" property="TEMP_YN" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="BYNG_UPR_MOD_YN" property="BYNG_UPR_MOD_YN" />
+		<result column="RES_DESC" property="RES_DESC" />
+ 	</resultMap>
+ 	
+ 	<resultMap id="orderDetailMap" type="com.nh.escm.scm.delivery.sea.vo.NoticeOrderDetailVO">
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="VAN_SEQ" property="VAN_SEQ" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="ODR_PCS" property="ODR_PCS" />
+		<result column="NEW_ODR_PCS" property="NEW_ODR_PCS" />
+		<result column="ODR_VAT" property="ODR_VAT" />
+		<result column="ODR_AM" property="ODR_AM" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DQPD_RSNC" property="DQPD_RSNC" />
+		<result column="DQPD_RSN_CNTN" property="DQPD_RSN_CNTN" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+ 		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+ 		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+ 		<result column="DVY_PLA_SQNO" property="DVY_PLA_SQNO" />
+ 		<result column="VCBT_UPR" property="VCBT_UPR" />
+ 		<result column="VCBX_UPR" property="VCBX_UPR" />
+ 		<result column="VCBT_AM" property="VCBT_AM" />
+ 		<result column="VCBX_AM" property="VCBX_AM" />
+ 		<result column="SSDYRT" property="SSDYRT" />
+ 		<result column="SSDY_BAS_AM" property="SSDY_BAS_AM" />
+ 		<result column="SPY_PSB_DT" property="SPY_PSB_DT" />
+ 		<result column="TXT_DSC" property="TXT_DSC" />
+ 		<result column="SVS_QT" property="SVS_QT" />		
+ 		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+ 		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+ 		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+ 		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+ 		<result column="DDLY_ST_DT" property="DDLY_ST_DT" />
+ 		<result column="DDLY_ED_DT" property="DDLY_ED_DT" />
+ 		<result column="DDLY_BAS_QT" property="DDLY_BAS_QT" />
+ 		<result column="MIN_ODR_QT" property="MIN_ODR_QT" />
+ 		<result column="MAX_ODR_QT" property="MAX_ODR_QT" />
+ 		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+ 		<result column="VCBT_QT" property="VCBT_QT" />
+ 		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+ 		<result column="DSTR_TER_MRK_DSC" property="DSTR_TER_MRK_DSC" />
+ 		<result column="DSTR_TER_DT" property="DSTR_TER_DT" />
+ 		<result column="NA_WRS_CSTD_METC" property="NA_WRS_CSTD_METC" />
+ 		<result column="ODR_FBID_YN" property="ODR_FBID_YN" />
+		<result column="DEL_YN" property="DEL_YN" />
+		<result column="BOX_QT" property="BOX_QT" />
+	</resultMap>
+	
+	<resultMap id="vhcnoMap" type="com.nh.escm.scm.delivery.sea.vo.NoticeVhcnoVO">
+		<result column="PHD_NA_BZPLC"  property="PHD_NA_BZPLC"/>
+		<result column="SPYPL_VHC_PHD_IDVD_NO"  property="SPYPL_VHC_PHD_IDVD_NO"/>
+		<result column="NA_TRPL_C"  property="NA_TRPL_C"/>
+		<result column="VHCNO"  property="VHCNO"/>
+	</resultMap>
+	
+	<resultMap id="noticeOrderMTmpMap" type="com.nh.escm.scm.delivery.sea.vo.NoticeOrderTempFileMasterVO">
+		<result column="TEMP_SEQ" property="TEMP_SEQ" />
+		<result column="ROW_SEQ" property="ROW_SEQ" />
+		<result column="ITEM_CNT" property="ITEM_CNT" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="ADJPL_NA_TRPL_C" property="ADJPL_NA_TRPL_C" />
+		<result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		<result column="MNGT_NA_TR_TPC" property="MNGT_NA_TR_TPC" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TEAM_C" property="MNGT_NA_TEAM_C" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TEAM_C" property="DVYAA_NA_TEAM_C" />
+		<result column="DVYAA_C" property="DVYAA_C" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="SLGT_ETR_DSC" property="SLGT_ETR_DSC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="ACCP_C" property="ACCP_C" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VCBX_AM" property="VCBX_AM" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_TROT_FEE" property="DVY_TROT_FEE" />
+		<result column="DVY_PHD_FEE" property="DVY_PHD_FEE" />
+		<result column="DVY_FAR_ASTCS" property="DVY_FAR_ASTCS" />
+		<result column="WD_PLTT_QT" property="WD_PLTT_QT" />
+		<result column="PSC_PLTT_QT" property="PSC_PLTT_QT" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="BUY_UPR_DSC" property="BUY_UPR_DSC" />
+		<result column="BYNG_UPR_GR_C" property="BYNG_UPR_GR_C" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="FSRGMN_NA_BZPLC" property="FSRGMN_NA_BZPLC" />
+	</resultMap>
+	
+	<resultMap id="noticeOrderDTmpMap" type="com.nh.escm.scm.delivery.sea.vo.NoticeOrderTempFileDetailVO">
+		<result column="TEMP_SEQ" property="TEMP_SEQ" />
+		<result column="ROW_SEQ" property="ROW_SEQ" />
+		<result column="ITEM_SEQ" property="ITEM_SEQ" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="NA_SOGMN_C" property="NA_SOGMN_C" />
+		<result column="PDAA_NA_TRPL_C" property="PDAA_NA_TRPL_C" />
+		<result column="PDAA_NA_TEAM_C" property="PDAA_NA_TEAM_C" />
+		<result column="RCPMNM" property="RCPMNM" />
+		<result column="RCPMN_TELNO" property="RCPMN_TELNO" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="DVY_VCBT_AM" property="DVY_VCBT_AM" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_TROT_FEE" property="DVY_TROT_FEE" />
+		<result column="DVY_PHD_FEE" property="DVY_PHD_FEE" />
+		<result column="DVY_FAR_ASTCS" property="DVY_FAR_ASTCS" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="SL_UPR_TPC" property="SL_UPR_TPC" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="BUY_BZ_METC" property="BUY_BZ_METC" />
+	</resultMap>
+	
+	<!-- 발주번호_배송요청일 정보조회 팝업 -->
+	<resultMap id="ordersPopUpMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderPopUpVO">
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="CSER_CTR_TPC_N" property="CSER_CTR_TPC_N" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="DVY_VHC_DSC" property="DVY_VHC_DSC" />
+		<result column="SPY_TPC_N" property="SPY_TPC_N" />
+		<result column="DVY_RQR_DT" property="DVY_RQR_DT" />
+		<result column="ODR_QTTT" property="ODR_QTTT" />
+		<result column="ODR_SAM" property="ODR_SAM" />
+		<result column="VATTT" property="VATTT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VCBX_AM" property="VCBX_AM" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="NA_ODR_STS_DSC" property="NA_ODR_STS_DSC" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="RVOPL_NA_TEAM_N" property="RVOPL_NA_TEAM_N" />
+		<result column="ROGO_INF_CRT_DSC" property="ROGO_INF_CRT_DSC" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="DVYAA_NA_TEAM_C" property="DVYAA_NA_TEAM_C" />
+		<result column="DVYAA_NA_TEAM_N" property="DVYAA_NA_TEAM_N" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="CSER_NA_USR_SYS_KDC" property="CSER_NA_USR_SYS_KDC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="DDLY_YN_N" property="DDLY_YN_N" />
+		<result column="C_CSER_CTR_TPC" property="C_CSER_CTR_TPC" />
+		
+	</resultMap>
+	
+	<!-- 배송예정 거래처별 조회 -->
+	<resultMap id="retrieveDeliveryTradingPatnersMMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersMVO">
+		<result column="RN" property="RN" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="DVY_PLA_STS" property="DVY_PLA_STS" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_SSDYRT" property="DVY_SSDYRT" />
+		<result column="BYAM" property="BYAM" />
+		<result column="BYNG_QT" property="BYNG_QT" />
+		<result column="SLP_DT" property="SLP_DT" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="STS_DVY_AM" property="STS_DVY_AM" />
+		<result column="STS_BYAM" property="STS_BYAM" />
+		<result column="STS_BYNG_QT" property="STS_BYNG_QT" />
+		<result column="GRS_SOJU_YN" property="GRS_SOJU_YN" />
+		<result column="DVY_PLA_STS" property="DVY_PLA_STS" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="SLPNO_RMS_DTM" property="SLPNO_RMS_DTM" />
+	</resultMap>
+	
+	<!-- 배송예정 거래처별 조회 상세-->
+	<resultMap id= "retrieveDeliveryTradingPatnersDMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersDVO">
+		<result column="RN" property="RN" />
+		<result column="DVY_PLA_SQNO" property="DVY_PLA_SQNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="PD_YY" property="PD_YY" />
+		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="DVY_VCBT_AM" property="DVY_VCBT_AM" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_TROT_FEE" property="DVY_TROT_FEE" />
+		<result column="DVY_PHD_FEE" property="DVY_PHD_FEE" />
+		<result column="DVY_FAR_ASTCS" property="DVY_FAR_ASTCS" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="BYNG_QT" property="BYNG_QT" />
+		<result column="BYNG_WT" property="BYNG_WT" />
+		<result column="BYAM" property="BYAM" />
+		<result column="DVY_PLASH_STAC" property="DVY_PLASH_STAC" />
+		<result column="DVY_SSDYRT" property="DVY_SSDYRT" />
+	</resultMap>
+	
+	<!-- 배송예정 상품별 조회 Master-->
+	<resultMap id="deliverySkusMMap" type="com.nh.escm.scm.delivery.sea.vo.DeliverySkusMVO">
+		<result column="RN" property="RN" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="CNT" property="CNT" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="GRS_SOJU_YN" property="GRS_SOJU_YN" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="DVY_PLASH_STAC" property="DVY_PLASH_STAC" />
+	</resultMap>
+	
+	<!-- 배송예정 상품별 조회 Detail-->
+	<resultMap id="deliverySkusDMap" type="com.nh.escm.scm.delivery.sea.vo.DeliverySkusDVO">
+		<result column="RN" property="RN" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="DVY_FEE" property="DVY_FEE" />
+	</resultMap>
+
+	
+	<!-- 배송예정 거래처별 조회 Excel -->
+	<resultMap id="excelDeliveryTradingPatners" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersExcelVO">
+		<result column="private StringSPYPL_NA_TRPL_C" property="private StringSPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="ODRPL_NA_TEAM_C" property="ODRPL_NA_TEAM_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="RVOPL_NA_TEAM_C" property="RVOPL_NA_TEAM_C" />
+		<result column="ADJPL_NA_TRPL_C" property="ADJPL_NA_TRPL_C" />
+		<result column="ADJPL_NA_TEAM_C" property="ADJPL_NA_TEAM_C" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TEAM_C" property="MNGT_NA_TEAM_C" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="DVYAA_NA_TEAM_C" property="DVYAA_NA_TEAM_C" />
+		<result column="DVYAA_C" property="DVYAA_C" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="SLGT_ETR_DSC" property="SLGT_ETR_DSC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="NA_USR_SYS_KDC" property="NA_USR_SYS_KDC" />
+		<result column="SLP_DT" property="SLP_DT" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="DVY_VCBT_AM" property="DVY_VCBT_AM" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_TROT_FEE" property="DVY_TROT_FEE" />
+		<result column="DVY_PHD_FEE" property="DVY_PHD_FEE" />
+		<result column="DVY_FAR_ASTCS" property="DVY_FAR_ASTCS" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="DVY_PLASH_KDC" property="DVY_PLASH_KDC" />
+		<result column="DVY_PLASH_STSC" property="DVY_PLASH_STSC" />
+		<result column="OGN_NA_DVY_PLASH_SLPNO" property="OGN_NA_DVY_PLASH_SLPNO" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="DVY_SSDYRT" property="DVY_SSDYRT" />
+		<result column="GRS_SOJU_YN" property="GRS_SOJU_YN" />
+		<result column="BYNG_QT" property="BYNG_QT" />
+		<result column="BYNT_WT" property="BYNT_WT" />
+		<result column="BYAM" property="BYAM" />
+		<result column="BYNG_VAT" property="BYNG_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="BYNG_SSDY" property="BYNG_SSDY" />
+		<result column="CSER_CTR_TPC_N" property="CSER_CTR_TPC_N" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+	</resultMap>
+		
+	<!-- 배송예정 거래처별 조회 Excel -->
+	<resultMap id="excelDeliveryTradingPatnersM" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersExcelMVO">
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_C" property="RVOPL_NA_TRPL_C" />
+		<result column="RVOPL_NA_TRPL_N" property="RVOPL_NA_TRPL_N" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="NA_DVY_PLASH_SLPNO" property="NA_DVY_PLASH_SLPNO" />
+		<result column="DVY_PLA_DT" property="DVY_PLA_DT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_SSDYRT" property="DVY_SSDYRT" />
+		<result column="BYAM" property="BYAM" />
+		<result column="BYNG_QT" property="BYNG_QT" />
+		<result column="SLP_DT" property="SLP_DT" />
+		<result column="NA_SLPNO" property="NA_SLPNO" />
+		<result column="ODRPL_NA_TRPL_C" property="ODRPL_NA_TRPL_C" />
+		<result column="ODRPL_NA_TRPL_N" property="ODRPL_NA_TRPL_N" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="ODRPL_NA_TEAM_N" property="ODRPL_NA_TEAM_N" />
+		<result column="STS_DVY_PLA_QT" property="STS_DVY_PLA_QT" />
+		<result column="STS_DVY_AM" property="STS_DVY_AM" />
+		<result column="STS_BYAM" property="STS_BYAM" />
+		<result column="STS_BYNG_QT" property="STS_BYNG_QT" />
+		<result column="GRS_SOJU_YN" property="GRS_SOJU_YN" />
+		<result column="DVY_PLA_STS" property="DVY_PLA_STS" />
+		<result column="B_NA_WRS_C" property="B_NA_WRS_C" />
+		<result column="B_WRSNM" property="B_WRSNM" />
+		<result column="B_ODR_DT" property="B_ODR_DT" />
+		<result column="B_ODR_SLPNO" property="B_ODR_SLPNO" />
+		<result column="B_ODR_DSQNO" property="B_ODR_DSQNO" />
+		<result column="B_TXT_DSC" property="B_TXT_DSC" />
+		<result column="B_PD_YY" property="B_PD_YY" />
+		<result column="B_DVY_WRS_UPR" property="B_DVY_WRS_UPR" />
+		<result column="B_DVY_PLA_QT" property="B_DVY_PLA_QT" />
+		<result column="B_DVY_AM" property="B_DVY_AM" />
+		<result column="B_DVY_VAT" property="B_DVY_VAT" />
+		<result column="B_DVY_VCBT_AM" property="B_DVY_VCBT_AM" />
+		<result column="B_DVY_SSDY" property="B_DVY_SSDY" />
+		<result column="B_DVY_TROT_FEE" property="B_DVY_TROT_FEE" />
+		<result column="B_DVY_PHD_FEE" property="B_DVY_PHD_FEE" />
+		<result column="B_DVY_FAR_ASTCS" property="B_DVY_FAR_ASTCS" />
+		<result column="B_BYNG_UPR" property="B_BYNG_UPR" />
+		<result column="B_BYNG_QT" property="B_BYNG_QT" />
+		<result column="B_BYNG_WT" property="B_BYNG_WT" />
+		<result column="B_BYAM" property="B_BYAM" />
+		<result column="B_NA_DVY_PLASH_SLPNO" property="B_NA_DVY_PLASH_SLPNO" />
+		<result column="B_DVYAA_NA_TRPL_C" property="B_DVYAA_NA_TRPL_C" />
+		<result column="B_SPYPL_NA_TRPL_C" property="B_SPYPL_NA_TRPL_C" />
+		<result column="B_DVY_PLASH_STAC" property="B_DVY_PLASH_STAC" />
+		<result column="B_DVY_SSDYRT" property="B_DVY_SSDYRT" />
+	</resultMap>
+	
+	<!-- 배송예정서 일반등록 거래명세서 출력 -->
+	<resultMap id="printDeliveryNoticeOrderMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderPrintVO">
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="SPYPL_NA_TRPL_N" property="SPYPL_NA_TRPL_N" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_BIZ_NUMBER" property="SPYPL_BIZ_NUMBER" />
+		<result column="SPYPL_REPMNM" property="SPYPL_REPMNM" />
+		<result column="SPYPL_ADDRESS" property="SPYPL_ADDRESS" />
+		<result column="SPYPL_TEL" property="SPYPL_TEL" />
+		<result column="DVYAA_NA_TRPL_N" property="DVYAA_NA_TRPL_N" />
+		<result column="DVYAA_NA_TRPL_C" property="DVYAA_NA_TRPL_C" />
+		<result column="DVYAA_BIZ_NUMBER" property="DVYAA_BIZ_NUMBER" />
+		<result column="DVYAA_REPMNM" property="DVYAA_REPMNM" />
+		<result column="CNR_DT" property="CNR_DT" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_UNT_N" property="NA_WRS_UNT_N" />
+		<result column="BOX_QT" property="BOX_QT" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="SPYPL_AM" property="SPYPL_AM" />
+		<result column="DQPD_RSN" property="DQPD_RSN" />
+		<result column="DVY_PLA_SQNO" property="DVY_PLA_SQNO" />
+		<result column="DSTR_TER_MRK_DSC" property="DSTR_TER_MRK_DSC" />
+		<result column="DSTR_TER_DT" property="DSTR_TER_DT" />
+		<result column="BKG_EVT_DSC" property="BKG_EVT_DSC" />
+		<result column="ODR_QT" property="ODR_QT" />
+		<result column="PDAA_NM" property="PDAA_NM" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="NA_TRPL_SEAL_FLNM" property="NA_TRPL_SEAL_FLNM" />
+	</resultMap>
+	
+	<resultMap id="printDeliveryTradingPatnersDMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersPrintDVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="NA_WRS_STD_UNT_N" property="NA_WRS_STD_UNT_N" />
+		<result column="NA_WRS_UNT_N" property="NA_WRS_UNT_N" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+		<result column="DVY_PLA_QT" property="DVY_PLA_QT" />
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="VCBT_UPR" property="VCBT_UPR" />
+		<result column="DVY_VCBT_AM" property="DVY_VCBT_AM" />
+	</resultMap>
+	
+	<!-- Data in Format -->
+	<resultMap id="ExcelDeliveryTradingPatnersE" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersExcelEVO">
+		<result column="DVY_AM" property="DVY_AM" />
+		<result column="DVY_VAT" property="DVY_VAT" />
+		<result column="VCBT_AM" property="VCBT_AM" />
+		<result column="VCBX_AM" property="VCBX_AM" />
+		<result column="DVY_SSDY" property="DVY_SSDY" />
+		<result column="DVY_TROT_FEE" property="DVY_TROT_FEE" />
+		<result column="DVY_PHD_FEE" property="DVY_PHD_FEE" />
+		<result column="DVY_FAR_ASTCS" property="DVY_FAR_ASTCS" />
+		<result column="C59" property="C59" />
+		<result column="C60" property="C60" />
+		<result column="C61" property="C61" />
+		<result column="C62" property="C62" />
+		<result column="C63" property="C63" />
+		<result column="RMK_CNTN" property="RMK_CNTN" />
+		<result column="DVY_PLA_SQNO" property="DVY_PLA_SQNO" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="C10" property="C10" />
+		<result column="C11" property="C11" />
+		<result column="C12" property="C12" />
+		<result column="C13" property="C13" />
+		<result column="C14" property="C14" />
+		<result column="ODR_DT" property="ODR_DT" />
+		<result column="ODR_SLPNO" property="ODR_SLPNO" />
+		<result column="ODR_DSQNO" property="ODR_DSQNO" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="DVY_WRS_UPR" property="DVY_WRS_UPR" />
+		<result column="DVY_PLA_QT_D" property="DVY_PLA_QT_D" />
+		<result column="DVY_AM_D" property="DVY_AM_D" />
+		<result column="DVY_VAT_D" property="DVY_VAT_D" />
+		<result column="DVY_VCBT_AM" property="DVY_VCBT_AM" />
+		<result column="DVY_SSDY_D" property="DVY_SSDY_D" />
+		<result column="DVY_TROT_FEE_D" property="DVY_TROT_FEE_D" />
+		<result column="DVY_PHD_FEE_D" property="DVY_PHD_FEE_D" />
+		<result column="DVY_FAR_ASTCS_D" property="DVY_FAR_ASTCS_D" />
+		<result column="C38" property="C38" />
+		<result column="C39" property="C39" />
+		<result column="C41" property="C41" />
+		<result column="C42" property="C42" />
+		<result column="ROWNUM" property="ROWNUM" />
+	</resultMap>
+	
+	<!-- TC 리스트 -->
+	<resultMap id="TCMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTcVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="BZPL_TPC" property="BZPL_TPC" />
+		<result column="BZPL_DTI_TPC" property="BZPL_DTI_TPC" />
+		<result column="BZPL_TPNM" property="BZPL_TPNM" />
+		<result column="BZPL_DTI_TPNM" property="BZPL_DTI_TPNM" />
+	</resultMap>
+	
+	<!-- 거래관계조회 -->
+	<resultMap id="trnrelMap" type="com.nh.escm.scm.delivery.sea.vo.DeliveryTrnrelVO">
+		<result column="CSER_NA_TRPL_C" property="CSER_NA_TRPL_C" />
+		<result column="CSER_NA_TEAM_C" property="CSER_NA_TEAM_C" />
+		<result column="SPLR_NA_TRPL_C" property="SPLR_NA_TRPL_C" />
+		<result column="SPLR_NA_TEAM_C" property="SPLR_NA_TEAM_C" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TEAM_C" property="MNGT_NA_TEAM_C" />
+		<result column="MNGT_NA_TR_TPC" property="MNGT_NA_TR_TPC" />
+		<result column="BZ_METH_DSC" property="BZ_METH_DSC" />
+		<result column="CSER_NA_USR_SYS_KDC" property="CSER_NA_USR_SYS_KDC" />
+		<result column="CSER_NAAC_DSC" property="CSER_NAAC_DSC" />
+		<result column="SPLR_NA_USR_SYS_KDC" property="SPLR_NA_USR_SYS_KDC" />
+		<result column="SPLR_NAAC_DSC" property="SPLR_NAAC_DSC" />
+		<result column="CSER_ADJPL_NA_TRPL_C" property="CSER_ADJPL_NA_TRPL_C" />
+		<result column="CSER_ADJPL_NA_TEAM_C" property="CSER_ADJPL_NA_TEAM_C" />
+		<result column="CSER_CTR_CHRRNM" property="CSER_CTR_CHRRNM" />
+		<result column="CSER_CTR_CHRR_TELNO" property="CSER_CTR_CHRR_TELNO" />
+		<result column="CSER_CTR_CHRR_MPNO" property="CSER_CTR_CHRR_MPNO" />
+		<result column="SPLR_ADJPL_NA_TRPL_C" property="SPLR_ADJPL_NA_TRPL_C" />
+		<result column="SPLR_ADJPL_NA_TEAM_C" property="SPLR_ADJPL_NA_TEAM_C" />
+		<result column="SPYPL_HOFF_NA_TRPL_C" property="SPYPL_HOFF_NA_TRPL_C" />
+		<result column="SPLR_BNK_C" property="SPLR_BNK_C" />
+		<result column="SPLR_STL_ACNO" property="SPLR_STL_ACNO" />
+		<result column="SPLR_DPRNM" property="SPLR_DPRNM" />
+		<result column="SPLR_CTR_CHRRNM" property="SPLR_CTR_CHRRNM" />
+		<result column="SPLR_CTR_CHRR_TELNO" property="SPLR_CTR_CHRR_TELNO" />
+		<result column="SPLR_CTR_CHRR_MPNO" property="SPLR_CTR_CHRR_MPNO" />
+		<result column="CTR_ST_DT" property="CTR_ST_DT" />
+		<result column="CTR_ED_DT" property="CTR_ED_DT" />
+		<result column="CTR_STOP_DT" property="CTR_STOP_DT" />
+		<result column="CTR_CLO_DT" property="CTR_CLO_DT" />
+		<result column="CTR_CLO_RSNC" property="CTR_CLO_RSNC" />
+		<result column="TR_STOP_RSNC" property="TR_STOP_RSNC" />
+		<result column="PRGR_DSC" property="PRGR_DSC" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="ROTS_FLEX_PR_APL_YN" property="ROTS_FLEX_PR_APL_YN" />
+		<result column="BYNG_UPR_MOD_YN" property="BYNG_UPR_MOD_YN" />
+		<result column="NA_ODR_FBID_RSNC" property="NA_ODR_FBID_RSNC" />
+		<result column="ODR_FBID_DT" property="ODR_FBID_DT" />
+		<result column="ODRPL_BUYER_ENO" property="ODRPL_BUYER_ENO" />
+		<result column="NA_RVO_FBID_RSNC" property="NA_RVO_FBID_RSNC" />
+		<result column="RVO_FBID_DT" property="RVO_FBID_DT" />
+		<result column="RVOPL_BUYER_ENO" property="RVOPL_BUYER_ENO" />
+		<result column="LDTM_DDS" property="LDTM_DDS" />
+		<result column="RGD_AMN_DSC" property="RGD_AMN_DSC" />
+		<result column="NA_PMI_SBJ_DSC" property="NA_PMI_SBJ_DSC" />
+		<result column="STL_FDT_BASCD" property="STL_FDT_BASCD" />
+		<result column="SSDYRT_BASCD" property="SSDYRT_BASCD" />
+		<result column="SSDYRT" property="SSDYRT" />
+		<result column="SSDY_BAS_AM" property="SSDY_BAS_AM" />
+		<result column="DDLY_SSDYRT" property="DDLY_SSDYRT" />
+		<result column="SSDY_PY_PTM_DSC" property="SSDY_PY_PTM_DSC" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="PY_FDTCN" property="PY_FDTCN" />
+		<result column="CSER_TR_REL_AMNNO" property="CSER_TR_REL_AMNNO" />
+		<result column="MNGT_TR_REL_AMNNO" property="MNGT_TR_REL_AMNNO" />
+	</resultMap>
+	
+	<!-- 영업가능일 체크 -->
+	<select id="getBizDtYn" parameterType="java.util.Map" resultType="string">
+		SELECT
+			BIZDT_YN
+		FROM TB_CM_DTHLDY_ORGZ
+		WHERE 1=1
+			AND NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		  AND BAS_DT = #{SEARCH_DATE}
+		  AND DEL_YN = '0'
+		  AND ROWNUM = 1
+		<!--
+		SELECT 
+			FN_BIZDT_YN(#{ODRPL_NA_TRPL_C}, #{SEARCH_DATE}) AS BIZDT_YN
+		FROM DUAL
+		 -->
+	</select>
+	
+	<!-- 영업가능일 일자 -->
+	<select id="getBizDt" parameterType="java.util.Map" resultType="string">
+		SELECT 
+			FN_NEAR_DVY_PLA_DT(#{TRPL_O}, #{TEAM_O}, #{TRPL_R}, #{TEAM_R}, #{SEARCH_DATE}) AS BIZDT
+		FROM DUAL
+	</select>
+	
+	
+	<!-- 일반 배송예정전표번호 -->
+	<select id="getNaDvyPlashSlpno" parameterType="java.util.Map" resultType="string">
+		SELECT
+			<choose>
+				<when test="DDLY_YN != null and DDLY_YN == '1'.toString()">
+					<!-- 직송 발주처 , 발주 팀, 배송예정일자 -->
+					FN_NA_DP_GET__DIR_GVNO(#{TRPL_C},#{TEAM_C}, #{DVY_PLA_DT}) AS NA_DVY_PLASH_SLPNO	
+				</when>
+				<otherwise>
+					<!-- 일반 수주처 , 수주처팀,  배송예정일자 -->
+					FN_NA_DP_GET_GVNO(#{TRPL_C}, #{TEAM_C}, #{DVY_PLA_DT}) AS NA_DVY_PLASH_SLPNO	
+				</otherwise>
+			</choose>
+		FROM DUAL
+	</select>
+	
+	
+	
+ 	<!-- 발주정보 -->
+ 	<select id="getOrder" parameterType="java.util.Map" resultMap="orderMap">
+ 		SELECT
+			 A.ODRPL_NA_TRPL_C /* 발주거래처코드 */
+			, A.ODRPL_NA_TEAM_C /* 발주팀코드 */
+			, A.ODR_DT /* 발주일자 */
+			, A.ODR_SLPNO /* 발주전표번호 */
+			, FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) SHRT_BZPLNM /* 발주처명 */
+			, C.TEAMNM /* 발주처팀명 */
+			, A.DVYAA_C /* 배송지 코드 */
+			, A.DVY_RQR_CNTN /* 배송요청내용 */
+			, A.DVY_VHC_DSC /* 배송차량구분 */
+			, A.VHCNO /* 배송차량번호 */
+			, D.TOTAL_ODR_AM /* 발주총액 */
+			, D.TOTAL_ODR_VAT /* 발주부가세 */
+			, D.TOTAL_ODR_AM AS TOTAL_DVY_AM /* 배송금액 */
+			, D.TOTAL_ODR_VAT AS TOTAL_DVY_VAT /* 배송부가세 */
+			, A.SPY_TPC /* 공급유형 */
+			,(	
+				SELECT
+				  CASE 
+					WHEN NVL(COUNT(ODRPL_NA_TRPL_C), 0) <![CDATA[>]]> 0 THEN 'Y'
+					 ELSE 'N'
+				   END  AS IS_OD_BE_ORDER
+				 FROM TB_OD_BE_ORDER
+				 WHERE  ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+				   AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+				   AND ODR_DT = #{ODR_DT}
+				   AND ODR_SLPNO = #{ODR_SLPNO}
+				) AS IS_OD_BE_ORDER /* 예약행사 여부 */
+			, FN_CM_SIMP_CNM('NA_ODR_STS_DSC', A.NA_ODR_STS_DSC)||A.NA_ODR_STS_DSC/* 배송예정서상태_발주상태구분코드 */
+			, '0' AS DVY_FAR_ASTCS /* 운임보조비 */
+			, A.SPYPL_NA_TRPL_C /* 공급처거래처코드 */
+			, A.SPYPL_NA_TEAM_C /* 공급처팀코드 */
+			, A.RVOPL_NA_TRPL_C /* 수주처거래처코드 */
+			, A.RVOPL_NA_TEAM_C /* 수주처팀코드 */
+			, A.DVYAA_NA_TRPL_C /* 배송처거래처코드 */
+			, A.DVYAA_NA_TEAM_C /* 배송처팀코드 */
+			, NVL(A.VCBT_AM, 0) AS TOTAL_VCBT_AM /* 공병금액 */
+			, NVL(A.VCBX_AM, 0) AS TOTAL_VCBX_AM/* 공상자금액 */ 
+			, I.MNGT_NA_TRPL_C
+			, I.MNGT_NA_TEAM_C
+			, I.MNGT_NA_TR_TPC
+			, A.GRS_SOJU_YN /* 지방소주여부 */
+			, I.NA_WRS_LCLC /* 상품대분류코드 */
+			, I.NA_WRS_MCLC /* 상품중분류코드 */
+			, A.CSER_CTR_TPC /* 계약유형 */
+			, I.CSER_ADJPL_NA_TRPL_C AS ADJPL_NA_TRPL_C
+      		, I.CSER_ADJPL_NA_TEAM_C AS ADJPL_NA_TEAM_C
+      		, A.MNGT_TR_REL_AMNNO
+      		, A.CSER_TR_REL_AMNNO
+      		, A.DVY_RQR_DT AS DVY_PLA_DT 
+      		, I.LDTM_DDS
+      		, I.ROTS_FLEX_PR_APL_YN
+			, '' AS TEMP_YN /* 임시저장여부 */
+			, CASE WHEN A.RMK_CNTN IS NULL THEN NVL(A.DVYAA_NA_TRPL_C ||' '|| FN_TRPL_CIF_NM(A.DVYAA_NA_TRPL_C),'')
+			       ELSE NVL(A.DVYAA_NA_TRPL_C ||' '|| FN_TRPL_CIF_NM(A.DVYAA_NA_TRPL_C),'') || '/' || A.RMK_CNTN 
+			   END RMK_CNTN
+			, I.BYNG_UPR_MOD_YN
+		FROM
+			TB_OD_ORDER_M A,
+		  	TB_CM_BZPL B,
+		  	TB_CM_TEAM C,
+		  (
+			SELECT
+				  ODRPL_NA_TRPL_C
+				 ,ODRPL_NA_TEAM_C
+				 ,ODR_DT
+				 ,ODR_SLPNO
+				 ,NVL(SUM(ODR_AM), 0) AS TOTAL_ODR_AM
+				 ,NVL(SUM(ODR_VAT), 0) AS TOTAL_ODR_VAT
+			 FROM TB_OD_ORDER_D
+			WHERE 1=1
+				AND DEL_DTM IS NULL
+			GROUP BY ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, ODR_DT, ODR_SLPNO
+		  ) D,
+      		TB_TR_TRNREL I
+		WHERE 1=1
+			AND A.DEL_DTM IS NULL
+			AND A.ODRPL_NA_TRPL_C = B.NA_BZPLC(+)
+			AND A.ODRPL_NA_TRPL_C = C.NA_BZPLC(+)
+			AND A.ODRPL_NA_TEAM_C = C.NA_TEAM_C(+)
+			AND A.ODRPL_NA_TRPL_C = D.ODRPL_NA_TRPL_C(+)
+			AND A.ODRPL_NA_TEAM_C = D.ODRPL_NA_TEAM_C(+)
+			AND A.ODR_DT = D.ODR_DT(+)
+			AND A.ODR_SLPNO = D.ODR_SLPNO(+)
+			AND A.ODRPL_NA_TRPL_C = I.CSER_NA_TRPL_C
+      		AND A.ODRPL_NA_TEAM_C = I.CSER_NA_TEAM_C
+      		AND A.SPYPL_NA_TRPL_C = I.SPLR_NA_TRPL_C
+      		AND A.SPYPL_NA_TEAM_C = I.SPLR_NA_TEAM_C
+      		AND A.SPY_TPC = I.SPY_TPC
+      		AND A.CSER_CTR_TPC = I.CSER_CTR_TPC
+      		AND A.MNGT_NA_TRPL_C = I.MNGT_NA_TRPL_C
+      		AND A.MNGT_NA_TEAM_C = I.MNGT_NA_TEAM_C
+      		AND A.MNGT_NA_TR_TPC = I.MNGT_NA_TR_TPC
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND A.ODR_DT = #{ODR_DT}
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+			AND NVL(A.TEMP_YN, 'N') != 'Y'
+ 	</select>
+ 	
+ 	<!-- 발주 상품정보 List -->
+	<select id="retrieveOrderDetail" parameterType="java.util.Map" resultMap="orderDetailMap">
+		SELECT
+			ODRPL_NA_TRPL_C,
+			ODRPL_NA_TEAM_C,
+			ODR_DT,
+			ODR_SLPNO,
+			ODR_DSQNO AS DVY_PLA_SQNO,
+			ODR_DSQNO,
+			VAN_SEQ,
+			NA_WRS_C,
+			WRSNM,
+			BOXPE_AQZ,
+			WRS_STDNM,
+			FN_CM_SIMP_CNM('NA_WRS_UNT_C', NA_WRS_UNT_C) AS NA_WRS_UNT_C ,/* 단위 */
+			ODR_QT,
+			BYNG_UPR AS ODR_PCS,
+			BYNG_UPR AS NEW_ODR_PCS,
+			/* TRUNC((ODR_QT * BYNG_UPR * VCBT_QT) / 11) AS ODR_VAT, */
+			DECODE(TXT_DSC, 1, TRUNC((ODR_QT * BYNG_UPR * VCBT_QT) / 11, 0), 0) AS ODR_VAT,
+			(ODR_QT * BYNG_UPR * VCBT_QT) AS ODR_AM,
+			DVY_PLA_QT,
+			DVY_PLASH_IMP_RSN_DSC,
+			VCBT_UPR,
+			VCBX_UPR,
+			VCBT_AM,
+			(ODR_QT / BOXPE_AQZ * VCBX_UPR) AS VCBX_AM,
+			SSDYRT,
+			SSDY_BAS_AM,
+			SPYPL_NA_TRPL_C,
+			SPYPL_NA_TEAM_C,
+			CSER_CTR_TPC,
+			SPY_TPC,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_TEAM_C,
+			MNGT_NA_TR_TPC,
+			TXT_DSC,
+			SVS_QT,
+			CTR_TPC,
+			PD_YY,
+			DDLY_YN,
+			NA_USR_SYS_KDC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			NA_WRS_SCLC,
+			NA_WRS_DTCF_C,
+			NVL(MIN_ODR_QT, '1') AS MIN_ODR_QT,
+			MAX_ODR_QT,
+			VCBT_NA_WRS_C,
+			VCBT_QT,
+			BYNG_UPR AS DVY_WRS_UPR,
+			DSTR_TER_MRK_DSC,
+			DSTR_TER_DT,
+			NA_WRS_CSTD_METC,
+			ODR_FBID_YN,
+			DEL_YN,
+			CASE WHEN CEIL(ODR_QT / BOXPE_AQZ) = 0 THEN 1
+			     ELSE CEIL(ODR_QT / BOXPE_AQZ)
+			 END BOX_QT 
+		FROM(
+			SELECT A.ODRPL_NA_TRPL_C /* 발주처 */ 
+				  ,A.ODRPL_NA_TEAM_C /* 발주처팀코드 */ 
+				  ,A.ODR_DT /* 발주일자 */ 
+				  ,A.ODR_SLPNO /* 발주전표번호 */ 
+				  ,A.ODR_DSQNO/* 발주상세일련번호 */ 
+				  ,A.VAN_SEQ /* VAN생성일련번호 */ 
+				  ,A.NA_WRS_C /* 상품코드 */ 
+				  ,B.WRSNM /* 상품명 */ 
+				  ,CASE WHEN F.NA_USR_SYS_KDC IN ('52', '54') 
+				  				THEN DECODE(FN_GET_SVS_QT(A.ODRPL_NA_TRPL_C, A.NA_WRS_C), 0, B.BOXPE_AQZ, FN_GET_SVS_QT(A.ODRPL_NA_TRPL_C, A.NA_WRS_C)) 
+						ELSE B.BOXPE_AQZ 
+					END AS BOXPE_AQZ /* 박스입수 */ 
+				  ,B.WRS_STDNM /* 규격 */ 
+				  ,B.NA_WRS_UNT_C /* 단위 */ 
+				  ,A.ODR_QT /* 수주량 */
+			<choose>
+				<when test="DVY_PLA_DT != null and DVY_PLA_DT.length() > 0">
+					,SP_NA_DP_WRSPR_UT
+					(
+						FN_PCSGUBUN(TRN.CSER_CTR_TPC, TRN.CSER_NA_TRPL_C, TRN.MNGT_NA_TRPL_C), 
+						#{DVY_PLA_DT}, 
+						C.SPYPL_NA_TRPL_C , 
+						C.SPYPL_NA_TEAM_C, 
+						C.ODRPL_NA_TRPL_C, 
+						C.ODRPL_NA_TEAM_C, 
+						TRN.MNGT_NA_TRPL_C, 
+						TRN.MNGT_NA_TEAM_C, 
+						C.CSER_CTR_TPC, 
+						TRN.SPY_TPC, 
+						TRN.MNGT_NA_TR_TPC, 
+						A.NA_WRS_C, D.PD_YY, 
+						TRN.SPLR_NA_USR_SYS_KDC, 
+						TRN.CSER_NA_USR_SYS_KDC, 
+						E.NA_USR_SYS_KDC, 
+						A.DDLY_YN 
+					) AS ODR_PCS
+					,'99999999' AS NEW_ODR_PCS
+				</when>
+				<otherwise>
+					,A.ODR_PCS /* 수주원가 */
+					,SP_NA_DP_WRSPR_UT
+					(
+						FN_PCSGUBUN(TRN.CSER_CTR_TPC, TRN.CSER_NA_TRPL_C, TRN.MNGT_NA_TRPL_C), 
+						C.DVY_RQR_DT, 
+						C.SPYPL_NA_TRPL_C , 
+						C.SPYPL_NA_TEAM_C, 
+						C.ODRPL_NA_TRPL_C, 
+						C.ODRPL_NA_TEAM_C, 
+						TRN.MNGT_NA_TRPL_C, 
+						TRN.MNGT_NA_TEAM_C, 
+						C.CSER_CTR_TPC, 
+						TRN.SPY_TPC, 
+						TRN.MNGT_NA_TR_TPC, 
+						A.NA_WRS_C, D.PD_YY, 
+						TRN.SPLR_NA_USR_SYS_KDC, 
+						TRN.CSER_NA_USR_SYS_KDC, 
+						E.NA_USR_SYS_KDC, 
+						A.DDLY_YN 
+					) AS NEW_ODR_PCS
+				</otherwise>
+			</choose>
+				,FN_ODR_FBID_YN
+				(
+					FN_PCSGUBUN(TRN.CSER_CTR_TPC, TRN.CSER_NA_TRPL_C, TRN.MNGT_NA_TRPL_C), 
+					C.DVY_RQR_DT, 
+					C.SPYPL_NA_TRPL_C , 
+					C.SPYPL_NA_TEAM_C, 
+					C.ODRPL_NA_TRPL_C, 
+					C.ODRPL_NA_TEAM_C, 
+					TRN.MNGT_NA_TRPL_C, 
+					TRN.MNGT_NA_TEAM_C, 
+					C.CSER_CTR_TPC, 
+					TRN.SPY_TPC, 
+					TRN.MNGT_NA_TR_TPC, 
+					A.NA_WRS_C, D.PD_YY, 
+					TRN.SPLR_NA_USR_SYS_KDC, 
+					TRN.CSER_NA_USR_SYS_KDC, 
+					E.NA_USR_SYS_KDC, 
+					A.DDLY_YN 
+				) AS ODR_FBID_YN
+				,A.ODR_VAT /* 수주부가세 */ 
+				,A.ODR_AM /* 수주금액 */ 
+				,A.ODR_QT AS DVY_PLA_QT /* 배송예정량 Default */ 
+				,'' AS DVY_PLASH_IMP_RSN_DSC /* 결품사유 코드 */ 
+				,NVL(D.VCBT_UPR, 0) AS VCBT_UPR /* 공병단가 */ 
+				,NVL(D.VCBX_UPR, 0) AS VCBX_UPR /* 공상자단가 */ 
+				,NVL(A.VCBT_AM, 0) AS VCBT_AM /* 공병금액 */ 
+				,NVL(A.VCBX_AM, 0) AS VCBX_AM /* 공상자금액 */ 
+				,NVL(TRN.SSDYRT, 0) AS SSDYRT /* 장려금율 */ 
+				,NVL(TRN.SSDY_BAS_AM, 0) AS SSDY_BAS_AM /* 장려금액 */ 
+				,C.SPYPL_NA_TRPL_C /* 공급처거래처코드 */ 
+				,C.SPYPL_NA_TEAM_C /* 공급처팀코드 */ 
+				,C.CSER_CTR_TPC /* 수요자계약유형코드 */ 
+				,C.SPY_TPC /* 공급유형 */ 
+				,C.MNGT_NA_TRPL_C /* 주관거래처코드 */ 
+				,C.MNGT_NA_TEAM_C /* 주관거래처팀코드 */ 
+				,C.MNGT_NA_TR_TPC /* 주관거래유형코드 */ 
+				,A.TXT_DSC  
+				,FN_GET_SVS_QT(A.ODRPL_NA_TRPL_C, A.NA_WRS_C) AS SVS_QT
+				,D.CTR_TPC 
+				,D.PD_YY 
+				,D.DDLY_YN  
+				,E.NA_USR_SYS_KDC 
+				,D.NA_WRS_LCLC 
+				,D.NA_WRS_MCLC 
+				,D.NA_WRS_SCLC 
+				,D.NA_WRS_DTCF_C
+				,D.VCBT_NA_WRS_C
+				,D.MIN_ODR_QT
+				,D.MAX_ODR_QT
+				,DECODE(NVL(B.VCBT_QT, '1'), '0', 1, B.VCBT_QT) AS VCBT_QT
+				,B.DSTR_TER_MRK_DSC /* 유통기한 */
+				,B.NA_WRS_CSTD_METC /* 상품보관방식코드 */
+				,TO_CHAR(SYSDATE, 'YYYYMMDD') AS DSTR_TER_DT
+				,'0' AS DEL_YN /* 삭제여부 */
+				,D.BYNG_UPR 
+			FROM TB_OD_ORDER_D A, 
+					TB_GD_WRS B, 
+					TB_OD_ORDER_M C, 
+					TB_OD_TRTWRS D, 
+					TB_TR_TRPL_CIF E, 
+					TB_TR_TRPL_CIF F ,
+					TB_TR_TRNREL TRN
+			WHERE 1=1 
+					AND A.DEL_DTM IS NULL
+					AND A.NA_ODR_STS_DSC = '03'
+					AND A.NA_WRS_C = B.NA_WRS_C(+) 
+					AND A.ODRPL_NA_TRPL_C = C.ODRPL_NA_TRPL_C 
+					AND A.ODRPL_NA_TEAM_C = C.ODRPL_NA_TEAM_C 
+					AND A.ODR_DT = C.ODR_DT 
+					AND A.ODR_SLPNO = C.ODR_SLPNO 
+					AND A.ODRPL_NA_TRPL_C = D.NA_BZPLC(+) 
+					AND A.NA_WRS_C = D.NA_WRS_C(+)
+					AND C.MNGT_NA_TRPL_C = E.NA_TRPL_C 
+					AND A.ODRPL_NA_TRPL_C = F.NA_TRPL_C 
+					AND C.ODRPL_NA_TRPL_C = TRN.CSER_NA_TRPL_C
+					AND C.ODRPL_NA_TEAM_C = TRN.CSER_NA_TEAM_C
+					AND C.SPYPL_NA_TRPL_C = TRN.SPLR_NA_TRPL_C
+					AND C.SPYPL_NA_TEAM_C = TRN.SPLR_NA_TEAM_C
+					AND C.MNGT_NA_TRPL_C = TRN.MNGT_NA_TRPL_C
+					AND C.MNGT_NA_TEAM_C = TRN.MNGT_NA_TEAM_C
+					AND C.MNGT_NA_TR_TPC = TRN.MNGT_NA_TR_TPC
+					AND C.SPY_TPC =  TRN.SPY_TPC
+					AND C.CSER_CTR_TPC = TRN.CSER_CTR_TPC
+					AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+					AND A.ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+					AND A.ODR_DT = #{ODR_DT}
+					AND A.ODR_SLPNO = #{ODR_SLPNO}
+		) LIST
+	</select>
+	
+	<!-- 결품사유코드 조회 -->
+	<select id="retrieveShortageReason" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			   SIMP_C
+			 , SIMP_CNM
+		  FROM MG_COMN_C_AMN
+		 WHERE SIMP_TPC = #{code}
+	</select>
+	
+	<!-- 수산부 결품내역 조회 -->
+	<select id="retrieveShortageReasonList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			   ODM.ODRPL_NA_TRPL_C											/* 발주처 */
+			 , FN_TRPL_CIF_NM(ODM.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_NM		/* 발주처명 */
+			 , ODM.ODRPL_NA_TEAM_C											/* 발주처팀 */
+			 , FN_CM_TEAM_NM(ODM.ODRPL_NA_TRPL_C, ODM.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_NM	/* 발주처팀명 */
+			 , DVM.DVY_PLA_DT												/* 배송예정일 */
+			 , ODD.NA_WRS_C													/* 상품코드 */
+			 , WRS.WRSNM													/* 상품명 */
+			 , ODD.ODR_QT													/* 수주량 */
+			 , DVD.DVY_PLA_QT												/* 배송예정량 or 매입수량 */
+			 , (ODD.ODR_QT - DVD.DVY_PLA_QT) AS SHORTAGE_QT					/* 결품수량 */
+			 , DVD.DVY_WRS_UPR													/* 납품단가 */
+			 , ((ODD.ODR_QT - DVD.DVY_PLA_QT) * DVD.DVY_WRS_UPR) AS SHORTAGE_AMT	/* 결품금액 */
+			 , DVM.DVYAA_NA_TRPL_C											/* 비고(배송처) */
+			 , FN_TRPL_CIF_NM(DVM.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_NM		/* 비고(배송처명) */
+			 , DVM.RMK_CNTN  /* 비고(실배송처) */
+			 , CASE DQPD_RSNC
+					WHEN '99'
+					THEN SUBSTR(DQPD_RSN_CNTN, 4)
+					ELSE ( SELECT SIMP_CNM
+							 FROM MG_COMN_C_AMN
+							WHERE SIMP_TPC = 'DQPD_SEA_RSNC'
+							  AND SIMP_C = DQPD_RSNC
+						 )
+			   END AS SHORTAGE_REASON
+		  FROM TB_OD_ORDER_M ODM
+			   INNER JOIN TB_OD_ORDER_D ODD
+					   ON ODM.ODRPL_NA_TRPL_C		= ODD.ODRPL_NA_TRPL_C
+					  AND ODM.ODRPL_NA_TEAM_C		= ODD.ODRPL_NA_TEAM_C
+					  AND ODM.ODR_DT				= ODD.ODR_DT
+					  AND ODM.ODR_SLPNO				= ODD.ODR_SLPNO
+					  AND ODM.DEL_DTM IS NULL
+					  AND ODD.DEL_DTM IS NULL
+			   INNER JOIN TB_OD_DLVPNSHT_D DVD
+					   ON ODD.ODR_DT				= DVD.ODR_DT
+					  AND ODD.ODR_SLPNO				= DVD.ODR_SLPNO
+					  AND ODD.ODR_DSQNO				= DVD.ODR_DSQNO
+					  AND ODD.NA_WRS_C				= DVD.NA_WRS_C
+			   INNER JOIN TB_OD_DLVPNSHT_M DVM
+					   ON DVM.SPYPL_NA_TRPL_C		= DVD.SPYPL_NA_TRPL_C
+					  AND DVM.DVYAA_NA_TRPL_C		= DVD.DVYAA_NA_TRPL_C
+					  AND DVM.NA_DVY_PLASH_SLPNO	= DVD.NA_DVY_PLASH_SLPNO
+					  AND DVM.DVY_PLA_DT			= DVD.DVY_PLA_DT
+					  AND DVM.TEMP_YN = 'N'
+					  AND DVM.PRC_YN IN ('Y', 'R')
+					-- AND DVD.WK_DS != 'D' /* 작업구분(I:등록, U:수정, D:취소, X:공병) */
+			   LEFT OUTER JOIN TB_GD_WRS WRS
+							ON ODD.NA_WRS_C			= WRS.NA_WRS_C
+			   LEFT OUTER JOIN TB_TR_TRNREL TRN
+							ON DVM.ODRPL_NA_TRPL_C	= TRN.CSER_NA_TRPL_C
+						   AND DVM.ODRPL_NA_TEAM_C	= TRN.CSER_NA_TEAM_C
+						   AND DVM.MNGT_NA_TRPL_C	= TRN.MNGT_NA_TRPL_C
+						   AND DVM.MNGT_NA_TEAM_C	= TRN.MNGT_NA_TEAM_C
+						   AND DVM.MNGT_NA_TR_TPC	= TRN.MNGT_NA_TR_TPC
+						   AND DVM.SPYPL_NA_TRPL_C	= TRN.SPLR_NA_TRPL_C
+						   AND DVM.DVY_PLA_QT BETWEEN TRN.CTR_ST_DT AND TRN.CTR_ED_DT
+		 WHERE ODD.ODR_QT <![CDATA[>]]> DVD.DVY_PLA_QT
+		   AND ODM.SPYPL_NA_TRPL_C IN
+		<foreach collection="spyplNaTrplCArr" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		   AND ODM.ODRPL_NA_TRPL_C					= #{dvyaaNaTrplC}
+		   AND ODM.ODRPL_NA_TEAM_C					= #{dvyaaNaTeamC}
+		   AND DVM.DVY_PLA_DT BETWEEN #{dvyFrom} AND #{dvyTo}
+		 ORDER BY DVD.DVY_PLA_QT
+	</select>
+	
+	<!-- 공급처차량 조회 -->
+	<select id="retrieveVhcno" parameterType="java.util.Map" resultMap="vhcnoMap">
+		SELECT
+		  	PHD_NA_BZPLC
+		  , SPYPL_VHC_PHD_IDVD_NO
+		  , NA_TRPL_C
+		  , VHCNO
+		FROM TB_LG_SPYPLVHC
+		WHERE 1=1
+			AND NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+	</select>
+	
+	<!-- 배송예정서 기본 저장 -->
+	<insert id="insertDeliveryNoticeOrder" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderVO">
+		INSERT INTO TB_OD_DLVPNSHT_M
+		(
+			  SPYPL_NA_TRPL_C
+			, SPYPL_NA_TEAM_C
+			, DVYAA_NA_TRPL_C
+			, DVYAA_NA_TEAM_C
+			, NA_DVY_PLASH_SLPNO
+			, ODRPL_NA_TRPL_C
+			, ODRPL_NA_TEAM_C
+			, RVOPL_NA_TRPL_C
+			, RVOPL_NA_TEAM_C
+			, DVYAA_C
+			, DVY_PLA_DT
+			, DDLY_YN
+			, CSER_CTR_TPC
+			, SPY_TPC
+			, SLGT_ETR_DSC
+			, DVY_VHC_DSC
+			, VHCNO
+			, DVY_PLA_QT
+			, DVY_AM
+			, DVY_VAT
+			, DVY_FAR_ASTCS
+			, VCBT_AM
+			, VCBX_AM
+			, DVY_SSDY
+			, MNGT_NA_TRPL_C
+			, MNGT_NA_TEAM_C
+			, MNGT_NA_TR_TPC
+			, NA_WRS_LCLC
+			, NA_WRS_MCLC
+			, DVY_PLASH_KDC
+			, ADJPL_NA_TRPL_C
+			, ADJPL_NA_TEAM_C
+			, MNGT_TR_REL_AMNNO
+			, CSER_TR_REL_AMNNO
+			, GRS_SOJU_YN
+			, FSRGMN_ENO
+			, DOC_RMS_LOC_DSC
+			, HDNGCN
+			, DVY_PLASH_STSC
+			, TEMP_YN
+			, PRC_YN		/* N: 최초등록, P: 대기상태, R: 응답완료, E: 에러 */
+			, WK_DS			/* 작업구분코드 (I: 등록, U: 수정, D: 삭제, X: 공병) */
+			, NORDER_YN
+			, LSCHG_DTM
+			, LS_CMENO
+			, RMK_CNTN
+			, BYNG_UPR_MOD_YN
+			, SLPNO_RMS_DTM
+			, INS_CODE		/* 배송예정서등록구분코드(1: WEB, 2: EDI, null: 경통) */
+		)VALUES
+		(
+			  #{SPYPL_NA_TRPL_C}
+			, #{SPYPL_NA_TEAM_C}
+			, #{DVYAA_NA_TRPL_C}
+			, #{DVYAA_NA_TEAM_C}
+			, #{NA_DVY_PLASH_SLPNO} 
+			, #{ODRPL_NA_TRPL_C}
+			, #{ODRPL_NA_TEAM_C}
+			, #{RVOPL_NA_TRPL_C}
+			, #{RVOPL_NA_TEAM_C}
+			, #{DVYAA_C}
+			, #{DVY_PLA_DT}
+			, #{DDLY_YN}
+			, #{CSER_CTR_TPC}
+			, #{SPY_TPC}
+			, #{SLGT_ETR_DSC}
+			, #{DVY_VHC_DSC}
+			, #{VHCNO}
+			, #{DVY_PLA_QT}
+			, #{DVY_AM}
+			, #{DVY_VAT}
+			, #{DVY_FAR_ASTCS}
+			, #{VCBT_AM}
+			, #{VCBX_AM}
+			, #{DVY_SSDY}
+			, #{MNGT_NA_TRPL_C}
+			, #{MNGT_NA_TEAM_C}
+			, #{MNGT_NA_TR_TPC}
+			, #{NA_WRS_LCLC}
+			, #{NA_WRS_MCLC}
+			, #{DVY_PLASH_KDC}
+			, #{ADJPL_NA_TRPL_C}
+			, #{ADJPL_NA_TEAM_C}
+			, #{MNGT_TR_REL_AMNNO}
+			, #{CSER_TR_REL_AMNNO}
+			, #{GRS_SOJU_YN}
+			, #{FSRGMN_ENO}
+			, #{DOC_RMS_LOC_DSC}
+			, #{HDNGCN}
+			, '00'
+			, #{TEMP_YN}
+			, #{PRC_YN}
+			, #{WK_DS}
+			, #{NORDER_YN}
+			, SYSDATE
+			, #{FSRGMN_ENO}
+			, #{RMK_CNTN}
+			, #{BYNG_UPR_MOD_YN}
+			, SYSDATE
+			, '1'
+		)
+	</insert>
+	
+	<insert id="insertDeliveryNoticeOrderDetail" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderDetailVO">
+		INSERT INTO TB_OD_DLVPNSHT_D
+		(
+			 SPYPL_NA_TRPL_C
+			,DVYAA_NA_TRPL_C
+			,NA_DVY_PLASH_SLPNO
+			,DVY_PLA_SQNO
+			,NA_WRS_C
+			,ODR_DT
+			,ODR_SLPNO
+			,ODR_DSQNO
+			,DVY_WRS_UPR
+			,DVY_PLA_QT
+			,DVY_AM
+			,DVY_VAT
+			,DQPD_RSNC
+			,DQPD_RSN_CNTN
+			,DVY_VCBT_AM
+			,DVY_SSDY
+			,DVY_PLA_DT
+			,SPY_PSB_DT
+			,TXT_DSC
+			,VCBT_NA_WRS_C
+			,WK_DS
+			,CTR_UPR
+			,DSTR_TER_MRK_DSC
+			,DSTR_TER_DT
+			,BOX_QT
+		) 
+		VALUES
+		(
+			 #{SPYPL_NA_TRPL_C}
+			,#{DVYAA_NA_TRPL_C}
+			,#{NA_DVY_PLASH_SLPNO}
+			,FN_NEXT_DVY_PLA_SQNO(#{SPYPL_NA_TRPL_C}, #{DVYAA_NA_TRPL_C}, #{NA_DVY_PLASH_SLPNO}, #{DVY_PLA_SQNO})
+			,#{NA_WRS_C}
+			,#{ODR_DT}
+			,#{ODR_SLPNO}
+			,#{ODR_DSQNO}
+			,#{DVY_WRS_UPR}
+			,#{DVY_PLA_QT}
+			,#{DVY_AM}
+			,#{DVY_VAT}
+			,#{DQPD_RSNC}
+			,CASE #{DQPD_RSNC}
+				  WHEN '99'
+				  THEN #{DQPD_RSNC} || ' ' || #{DQPD_RSN_CNTN}
+				  ELSE ( SELECT SIMP_C || ' ' || SIMP_CNM
+						   FROM MG_COMN_C_AMN
+						  WHERE SIMP_TPC = 'DQPD_SEA_RSNC'
+							AND SIMP_C = #{DQPD_RSNC}
+					   ) END
+			,#{DVY_VCBT_AM}
+			,#{DVY_SSDY}
+			,#{DVY_PLA_DT}
+			,#{SPY_PSB_DT}
+			,#{TXT_DSC}
+			,#{VCBT_NA_WRS_C}
+			,#{WK_DS}
+			,#{CTR_UPR}
+			,#{DSTR_TER_MRK_DSC}
+			,#{DSTR_TER_DT}
+			,#{BOX_QT}
+		)
+	</insert>
+	
+	<!-- 수주 상세의 배송일련번호 Update -->
+	<update id="updateOrderDetail">
+		UPDATE TB_OD_ORDER_D
+		SET
+			<if test="NA_DVY_PLASH_SLPNO != null and NA_DVY_PLASH_SLPNO.length() > 0">
+			NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			</if>
+		WHERE 1=1
+			AND ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+			AND ODRPL_NA_TEAM_C = #{ODRPL_NA_TEAM_C}
+			AND ODR_DT = #{ODR_DT}
+			AND ODR_SLPNO = #{ODR_SLPNO}
+			AND NA_WRS_C = #{NA_WRS_C}
+	</update>
+	
+	<!-- 배송예정서 기본  조회 -->
+	<select id="getDeliveryNoticeOrder"  parameterType="java.util.Map" resultMap="orderMap">
+		SELECT
+			  SPYPL_NA_TRPL_C
+			, SPYPL_NA_TEAM_C
+			, FN_TRPL_CIF_NM(SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N
+			, DVYAA_NA_TRPL_C
+			, NA_DVY_PLASH_SLPNO
+			, ODRPL_NA_TRPL_C
+			, ODRPL_NA_TEAM_C
+			, FN_TRPL_CIF_NM(ODRPL_NA_TRPL_C) AS SHRT_BZPLNM
+			, FN_CM_TEAM_NM(ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C) AS TEAMNM
+			, DVYAA_C
+			, CSER_CTR_TPC
+			, DVY_PLA_DT
+			, SLGT_ETR_DSC
+			, DVY_VHC_DSC
+			, VHCNO
+			, SPY_TPC
+			, NVL(DVY_AM, 0)  AS TOTAL_DVY_AM
+			, NVL(DVY_VAT, 0)  AS TOTAL_DVY_VAT
+			, DVY_FAR_ASTCS
+			, RVOPL_NA_TRPL_C
+			, RVOPL_NA_TEAM_C
+			, DVYAA_NA_TEAM_C
+			, ADJPL_NA_TRPL_C
+			, ADJPL_NA_TEAM_C
+			, MNGT_NA_TRPL_C
+			, MNGT_NA_TEAM_C
+			, MNGT_NA_TR_TPC
+			, DDLY_YN
+			, DVY_PLASH_STSC
+			, FN_CM_SIMP_CNM('DVY_PLASH_STSC', DVY_PLASH_STSC) AS DVY_PLASH_STSC_N
+			, NORDER_YN
+			, DECODE(DDLY_YN, '0', 
+              	FN_CM_PRGR_NM(ODRPL_NA_TRPL_C, ODRPL_NA_TEAM_C, SPYPL_NA_TRPL_C, SPYPL_NA_TEAM_C, CSER_CTR_TPC),
+                FN_CM_PRGR_NM(RVOPL_NA_TRPL_C, RVOPL_NA_TEAM_C, SPYPL_NA_TRPL_C, SPYPL_NA_TEAM_C, CSER_CTR_TPC)
+              ) AS PGNM
+			, PRC_YN
+			, TEMP_YN
+			, RMK_CNTN
+			, BYNG_UPR_MOD_YN
+			, RES_DESC
+		FROM
+			TB_OD_DLVPNSHT_M
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+			AND NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO} 
+	</select>
+	
+	<!-- 배송예정서 상세 -->
+	<select id="getDeliveryNoticeOrderDetail"  parameterType="java.util.Map" resultMap="orderDetailMap">
+		SELECT
+			 LIST.SPYPL_NA_TRPL_C
+			,LIST.DVYAA_NA_TRPL_C
+			,LIST.NA_DVY_PLASH_SLPNO
+			,LIST.DVY_PLA_SQNO
+			,LIST.NA_WRS_C
+			,LIST.WRSNM
+			,LIST.WRS_STDNM
+			,LIST.NA_WRS_UNT_C
+			,LIST.BOXPE_AQZ
+			,LIST.ODR_DT
+			,LIST.ODR_SLPNO
+			,LIST.ODR_DSQNO
+			,LIST.DVY_WRS_UPR
+			,LIST.DVY_PLA_QT
+			,(LIST.DVY_PLA_QT * LIST.DVY_WRS_UPR * LIST.VCBT_QT) AS ODR_AM
+			,DECODE(LIST.TXT_DSC, 1, TRUNC((LIST.DVY_PLA_QT * LIST.DVY_WRS_UPR * LIST.VCBT_QT) / 11), 0) AS ODR_VAT
+			,LIST.DQPD_RSNC
+			,LIST.DQPD_RSN_CNTN
+			,LIST.SSDYRT
+			,LIST.SSDY_BAS_AM
+			,LIST.ODR_DT
+			,LIST.ODR_QT
+			,LIST.CTR_UPR AS ODR_PCS
+			,LIST.DVY_WRS_UPR AS NEW_ODR_PCS
+			,LIST.VCBT_UPR
+			,LIST.VCBX_UPR
+			,(LIST.DVY_PLA_QT * LIST.VCBT_UPR * LIST.VCBT_QT) AS VCBT_AM
+			,(LIST.DVY_PLA_QT / LIST.BOXPE_AQZ * LIST.VCBX_UPR) AS VCBX_AM
+			,LIST.SPY_PSB_DT
+			,LIST.DDLY_ST_DT
+			,LIST.DDLY_ED_DT
+			,LIST.DDLY_BAS_QT
+			,NVL(LIST.MIN_ODR_QT, '1') AS MIN_ODR_QT
+			,LIST.MAX_ODR_QT
+			,LIST.VCBT_NA_WRS_C
+			,LIST.TXT_DSC
+			,LIST.VCBT_QT
+			,LIST.DSTR_TER_MRK_DSC
+			,LIST.NA_WRS_CSTD_METC
+			,LIST.DSTR_TER_DT
+			,LIST.BOX_QT
+		FROM(
+			SELECT
+				 A.SPYPL_NA_TRPL_C
+				,A.DVYAA_NA_TRPL_C
+				,A.NA_DVY_PLASH_SLPNO
+				,A.DVY_PLA_SQNO
+				,A.NA_WRS_C
+				,C.WRSNM
+				,C.WRS_STDNM
+				,FN_CM_SIMP_CNM('NA_WRS_UNT_C', C.NA_WRS_UNT_C) AS NA_WRS_UNT_C
+				, CASE
+					WHEN D.CSER_NA_USR_SYS_KDC IN ('52', '54') THEN
+						DECODE(FN_GET_SVS_QT(B.ODRPL_NA_TRPL_C, A.NA_WRS_C), 0, C.BOXPE_AQZ, FN_GET_SVS_QT(B.ODRPL_NA_TRPL_C, A.NA_WRS_C))
+					ELSE
+						C.BOXPE_AQZ
+				END  AS BOXPE_AQZ /* 박스입수 */
+				,A.ODR_DT
+				,A.ODR_SLPNO
+				,A.ODR_DSQNO
+				,A.DVY_WRS_UPR
+				,A.CTR_UPR
+				,A.DVY_PLA_QT
+				,A.DVY_AM
+				,A.DVY_VAT
+				,A.DQPD_RSNC
+				,CASE A.DQPD_RSNC
+					  WHEN '99'
+					  THEN SUBSTR(A.DQPD_RSN_CNTN, 4)
+					  ELSE ''
+				 END AS DQPD_RSN_CNTN
+				,NVL(D.SSDYRT, 0) AS SSDYRT /* 장려금율 */
+				,NVL(D.SSDY_BAS_AM, 0) AS SSDY_BAS_AM /* 장려금액 */
+			    ,NVL((
+			      SELECT Z.odr_qt
+			      FROM TB_OD_ORDER_D Z
+			      WHERE 1=1
+				      AND B.ODRPL_NA_TRPL_C    	= Z.ODRPL_NA_TRPL_C
+				      AND B.ODRPL_NA_TEAM_C    	= Z.ODRPL_NA_TEAM_C
+				      AND A.ODR_DT		             	= Z.ODR_DT
+				      AND A.ODR_SLPNO          		= Z.ODR_SLPNO
+				      AND A.ODR_DSQNO          		= Z.ODR_DSQNO ), 0) AS ODR_QT
+			      <choose>
+					<when test="DVY_PLA_DT != null and DVY_PLA_DT.length() > 0 and DDLY_YN == '0'.toString()">
+						,DECODE(A.CTR_UPR, NULL, A.DVY_WRS_UPR, A.CTR_UPR) AS ODR_PCS /* 납품단가 */ 
+						,SP_NA_DP_WRSPR_UT
+						(
+							FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+							#{DVY_PLA_DT}, 
+							B.SPYPL_NA_TRPL_C , 
+							B.SPYPL_NA_TEAM_C, 
+							B.ODRPL_NA_TRPL_C, 
+							B.ODRPL_NA_TEAM_C, 
+							B.MNGT_NA_TRPL_C,	
+							B.MNGT_NA_TEAM_C, 
+							F.CTR_TPC, 
+							B.SPY_TPC, 
+							B.MNGT_NA_TR_TPC, 
+							A.NA_WRS_C, 
+							F.PD_YY, 
+							D.SPLR_NA_USR_SYS_KDC, 
+							D.CSER_NA_USR_SYS_KDC, 
+							I.NA_USR_SYS_KDC, 
+							B.DDLY_YN 
+						) AS NEW_ODR_PCS
+						/* ,'99999999' AS NEW_ODR_PCS */
+						,FN_ODR_FBID_YN(
+							FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+							#{DVY_PLA_DT}, 
+							B.SPYPL_NA_TRPL_C , 
+							B.SPYPL_NA_TEAM_C, 
+							B.ODRPL_NA_TRPL_C, 
+							B.ODRPL_NA_TEAM_C, 
+							B.MNGT_NA_TRPL_C,	
+							B.MNGT_NA_TEAM_C, 
+							F.CTR_TPC, 
+							B.SPY_TPC, 
+							B.MNGT_NA_TR_TPC, 
+							A.NA_WRS_C, 
+							F.PD_YY, 
+							D.SPLR_NA_USR_SYS_KDC, 
+							D.CSER_NA_USR_SYS_KDC, 
+							I.NA_USR_SYS_KDC, 
+							B.DDLY_YN
+						) AS ODR_FBID_YN
+					</when>
+					<when test="DVY_PLA_DT != null and DVY_PLA_DT.length() > 0 and DDLY_YN == '1'.toString()">
+						, DECODE(A.CTR_UPR, NULL, A.DVY_WRS_UPR, A.CTR_UPR) AS ODR_PCS /* 납품단가 */
+						,SP_NA_DP_WRSPR_UT
+						(
+							FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+							#{DVY_PLA_DT}, 
+							B.RVOPL_NA_TRPL_C , 
+							B.RVOPL_NA_TEAM_C, 
+							B.ODRPL_NA_TRPL_C, 
+							B.ODRPL_NA_TEAM_C, 
+							B.MNGT_NA_TRPL_C, 
+							B.MNGT_NA_TEAM_C, 
+							F.CTR_TPC, 
+							B.SPY_TPC, 
+							B.MNGT_NA_TR_TPC, 
+							A.NA_WRS_C, 
+							F.PD_YY, 
+							D.SPLR_NA_USR_SYS_KDC, 
+							D.CSER_NA_USR_SYS_KDC, 
+							I.NA_USR_SYS_KDC, 
+							B.DDLY_YN 
+						) AS NEW_ODR_PCS
+						/* ,'99999999' AS NEW_ODR_PCS */ 
+						,FN_ODR_FBID_YN
+						(
+							FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+							#{DVY_PLA_DT}, 
+							B.RVOPL_NA_TRPL_C , 
+							B.RVOPL_NA_TEAM_C, 
+							B.ODRPL_NA_TRPL_C, 
+							B.ODRPL_NA_TEAM_C, 
+							B.MNGT_NA_TRPL_C, 
+							B.MNGT_NA_TEAM_C, 
+							F.CTR_TPC, 
+							B.SPY_TPC, 
+							B.MNGT_NA_TR_TPC, 
+							A.NA_WRS_C, 
+							F.PD_YY, 
+							D.SPLR_NA_USR_SYS_KDC, 
+							D.CSER_NA_USR_SYS_KDC, 
+							I.NA_USR_SYS_KDC, 
+							B.DDLY_YN
+						) AS ODR_FBID_YN
+					</when>
+					<otherwise>
+						,DECODE(A.CTR_UPR, NULL, A.DVY_WRS_UPR, A.CTR_UPR) AS ODR_PCS /* 납품단가 */ 
+						,DECODE(B.DDLY_YN, '0'
+							, SP_NA_DP_WRSPR_UT(
+								FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+								B.DVY_PLA_DT, 
+								B.SPYPL_NA_TRPL_C , 
+								B.SPYPL_NA_TEAM_C, 
+								B.ODRPL_NA_TRPL_C, 
+								B.ODRPL_NA_TEAM_C, 
+								B.MNGT_NA_TRPL_C,	
+								B.MNGT_NA_TEAM_C, 
+								F.CTR_TPC, 
+								B.SPY_TPC, 
+								B.MNGT_NA_TR_TPC, 
+								A.NA_WRS_C, 
+								F.PD_YY, 
+								D.SPLR_NA_USR_SYS_KDC, 
+								D.CSER_NA_USR_SYS_KDC, 
+								I.NA_USR_SYS_KDC, 
+								B.DDLY_YN 
+							)
+							, SP_NA_DP_WRSPR_UT(
+								FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+								B.DVY_PLA_DT, 
+								B.RVOPL_NA_TRPL_C , 
+								B.RVOPL_NA_TEAM_C, 
+								B.ODRPL_NA_TRPL_C, 
+								B.ODRPL_NA_TEAM_C, 
+								B.MNGT_NA_TRPL_C, 
+								B.MNGT_NA_TEAM_C, 
+								F.CTR_TPC, 
+								B.SPY_TPC, 
+								B.MNGT_NA_TR_TPC, 
+								A.NA_WRS_C, 
+								F.PD_YY, 
+								D.SPLR_NA_USR_SYS_KDC, 
+								D.CSER_NA_USR_SYS_KDC, 
+								I.NA_USR_SYS_KDC, 
+								B.DDLY_YN 
+							) 
+						) AS NEW_ODR_PCS
+						,DECODE(B.DDLY_YN, '0'
+							, FN_ODR_FBID_YN(
+								FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+								B.DVY_PLA_DT, 
+								B.SPYPL_NA_TRPL_C , 
+								B.SPYPL_NA_TEAM_C, 
+								B.ODRPL_NA_TRPL_C, 
+								B.ODRPL_NA_TEAM_C, 
+								B.MNGT_NA_TRPL_C,	
+								B.MNGT_NA_TEAM_C, 
+								F.CTR_TPC, 
+								B.SPY_TPC, 
+								B.MNGT_NA_TR_TPC, 
+								A.NA_WRS_C, 
+								F.PD_YY, 
+								D.SPLR_NA_USR_SYS_KDC, 
+								D.CSER_NA_USR_SYS_KDC, 
+								I.NA_USR_SYS_KDC, 
+								B.DDLY_YN 
+							)
+							, FN_ODR_FBID_YN(
+								FN_PCSGUBUN(D.CSER_CTR_TPC, D.CSER_NA_TRPL_C, D.MNGT_NA_TRPL_C), 
+								B.DVY_PLA_DT, 
+								B.RVOPL_NA_TRPL_C , 
+								B.RVOPL_NA_TEAM_C, 
+								B.ODRPL_NA_TRPL_C, 
+								B.ODRPL_NA_TEAM_C, 
+								B.MNGT_NA_TRPL_C, 
+								B.MNGT_NA_TEAM_C, 
+								F.CTR_TPC, 
+								B.SPY_TPC, 
+								B.MNGT_NA_TR_TPC, 
+								A.NA_WRS_C, 
+								F.PD_YY, 
+								D.SPLR_NA_USR_SYS_KDC, 
+								D.CSER_NA_USR_SYS_KDC, 
+								I.NA_USR_SYS_KDC, 
+								B.DDLY_YN 
+							) 
+						) AS ODR_FBID_YN
+					</otherwise>
+				</choose>
+				,A.DVY_VAT AS ODR_VAT
+				,A.DVY_AM AS ODR_AM
+				,NVL(F.VCBT_UPR, 0) AS VCBT_UPR
+				,NVL(F.VCBX_UPR, 0) AS VCBX_UPR
+				,A.DVY_VCBT_AM AS VCBT_AM
+				,'0' AS VCBX_AM
+				,A.SPY_PSB_DT
+				,F.DDLY_ST_DT
+				,F.DDLY_ED_DT
+				,F.DDLY_BAS_QT
+				,F.MIN_ODR_QT
+				,F.MAX_ODR_QT
+				,F.VCBT_NA_WRS_C
+				,A.TXT_DSC
+				,DECODE(NVL(C.VCBT_QT, '1'), '0', '1', NVL(C.VCBT_QT, '1')) AS VCBT_QT
+				,A.DSTR_TER_MRK_DSC /* 유통기한 */
+				,C.NA_WRS_CSTD_METC /* 상품보관방식코드 */
+				,A.DSTR_TER_DT
+				,A.BOX_QT
+			FROM
+				TB_OD_DLVPNSHT_D A,
+				TB_OD_DLVPNSHT_M B,
+				TB_GD_WRS C,
+				TB_TR_TRNREL D,
+				TB_OD_TRTWRS F,
+	      		TB_TR_TRPL_CIF I
+			WHERE 1=1
+				AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+				AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+				AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+				AND A.NA_WRS_C = C.NA_WRS_C(+)
+				AND B.ODRPL_NA_TRPL_C = D.CSER_NA_TRPL_C(+)
+				AND B.ODRPL_NA_TEAM_C = D.CSER_NA_TEAM_C(+)
+				AND A.WK_DS != 'D'
+				AND A.WK_DS != 'X'
+				<choose>
+					<when test="DDLY_YN == '0'.toString()">
+						AND B.SPYPL_NA_TRPL_C = D.SPLR_NA_TRPL_C(+)	
+					</when>
+					<otherwise>
+						AND B.RVOPL_NA_TRPL_C = D.SPLR_NA_TRPL_C(+)
+					</otherwise>
+				</choose>
+				AND B.CSER_CTR_TPC = D.CSER_CTR_TPC(+)
+				AND B.SPY_TPC 		= D.SPY_TPC(+)
+				AND B.MNGT_NA_TRPL_C = D.MNGT_NA_TRPL_C(+)
+				AND B.MNGT_NA_TEAM_C = D.MNGT_NA_TEAM_C(+)
+				AND B.MNGT_NA_TR_TPC = D.MNGT_NA_TR_TPC(+)
+				<choose>
+					<when test="DDLY_YN != null and DDLY_YN == '1'.toString()">
+						AND B.RVOPL_NA_TRPL_C = F.NA_BZPLC(+)
+					</when>
+					<otherwise>
+						<choose>
+							<when test="CSER_CTR_TPC == '1'.toString() or CSER_CTR_TPC == '2'.toString() or CSER_CTR_TPC == '3'.toString()">
+								AND B.MNGT_NA_TRPL_C = F.NA_BZPLC(+)
+							</when>
+							<otherwise>
+								AND A.DVYAA_NA_TRPL_C = F.NA_BZPLC(+)	
+							</otherwise>
+						</choose>
+						
+					</otherwise>
+				</choose>
+				AND A.NA_WRS_C = F.NA_WRS_C
+	      		AND B.MNGT_NA_TRPL_C = I.NA_TRPL_C
+	      		AND A.SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+				AND A.DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+				AND A.NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			ORDER BY A.DVY_PLA_SQNO
+		) LIST
+	</select>
+	
+	<!-- 배송예정서 기본 수정 -->
+	<update id="updateDeliveryNoticeOrder" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderVO">
+		UPDATE TB_OD_DLVPNSHT_M
+		<set>
+			<if test="CSER_CTR_TPC != null and CSER_CTR_TPC.length() > 0">
+			CSER_CTR_TPC = #{CSER_CTR_TPC},
+			</if>
+			<if test="SPY_TPC != null and SPY_TPC.length() > 0">
+			SPY_TPC = #{SPY_TPC},
+			</if>
+			<if test="SLGT_ETR_DSC != null and SLGT_ETR_DSC.length() > 0">
+			SLGT_ETR_DSC = #{SLGT_ETR_DSC},
+			</if>
+			<if test="VHCNO != null and VHCNO.length() > 0">
+			VHCNO = #{VHCNO},
+			</if>
+			<if test="DVY_PLA_QT != null and DVY_PLA_QT >= 0">
+			DVY_PLA_QT = #{DVY_PLA_QT},
+			</if>
+			<if test="DVY_AM != null and DVY_AM >=  0">
+			DVY_AM = #{DVY_AM},
+			</if>
+			<if test="DVY_VAT != null and DVY_VAT  >= 0">
+			DVY_VAT = #{DVY_VAT},
+			</if>
+			<if test="DVY_FAR_ASTCS != null and DVY_FAR_ASTCS >= 0">
+			DVY_FAR_ASTCS = #{DVY_FAR_ASTCS},
+			</if>
+			<if test="VCBT_AM != null and VCBT_AM >= 0">
+			VCBT_AM = #{VCBT_AM},
+			</if>
+			<if test="VCBX_AM != null and VCBX_AM >= 0">
+			VCBX_AM = #{VCBX_AM},
+			</if>
+			<if test="DVY_SSDY != null and DVY_SSDY >= 0">
+			DVY_SSDY = #{DVY_SSDY},
+			</if>
+			<if test="HDNGCN != null">
+			HDNGCN = #{HDNGCN},
+			</if>
+			<if test="LS_CMENO != null and LS_CMENO.length() > 0">
+			LS_CMENO = #{LS_CMENO},
+			LSCHG_DTM = SYSDATE,
+			</if>
+			<if test="TEMP_YN != null and TEMP_YN == 'N'.toString() ">
+			PRC_YN = 'N',
+			</if>
+			<if test="WK_DS != null and WK_DS.length() > 0">
+			WK_DS = #{WK_DS},
+			</if>
+			<if test="TEMP_YN != null and TEMP_YN.length() > 0">
+			TEMP_YN = #{TEMP_YN},
+			</if>
+			<if test="RMK_CNTN != null and RMK_CNTN.length() > 0">
+			RMK_CNTN = #{RMK_CNTN},
+			</if>
+			<if test="BYNG_UPR_MOD_YN != null and BYNG_UPR_MOD_YN.length() > 0">
+			BYNG_UPR_MOD_YN = #{BYNG_UPR_MOD_YN},
+			</if>
+			EDI_IF_ID = NULL, EDI_IF_DT = NULL, EDI_IF_RSND_SEQ = 0, DOC_RMS_LOC_DSC='WEB'
+		</set>
+		 WHERE SPYPL_NA_TRPL_C		= #{SPYPL_NA_TRPL_C}
+		   AND DVYAA_NA_TRPL_C		= #{DVYAA_NA_TRPL_C} 
+		   AND NA_DVY_PLASH_SLPNO	= #{NA_DVY_PLASH_SLPNO}
+		   AND DVY_PLA_DT			= #{DVY_PLA_DT}
+	</update>
+	
+	
+	<!-- 배송예정서 상세 수정 -->
+	<update id="updateDeliveryNoticeOrderDetail" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderDetailVO">
+		UPDATE TB_OD_DLVPNSHT_D
+		<set>
+			<if test="DVY_PLA_QT != null and DVY_PLA_QT >= 0">
+			DVY_PLA_QT = #{DVY_PLA_QT},
+			</if>
+			<if test="DVY_AM != null and DVY_AM >= 0">
+			DVY_AM = #{DVY_AM},
+			</if>
+			<if test="DVY_VAT != null and DVY_VAT >=  0">
+			DVY_VAT = #{DVY_VAT},
+			</if>
+			<if test="DVY_VCBT_AM != null and DVY_VCBT_AM >=  0">
+			DVY_VCBT_AM = #{DVY_VCBT_AM},
+			</if>
+			DQPD_RSNC = #{DQPD_RSNC},
+			DQPD_RSN_CNTN = ( CASE #{DQPD_RSNC}
+								   WHEN '99'
+								   THEN #{DQPD_RSNC} || ' ' || #{DQPD_RSN_CNTN}
+								   ELSE ( SELECT SIMP_C || ' ' || SIMP_CNM
+											FROM MG_COMN_C_AMN
+										   WHERE SIMP_TPC = 'DQPD_SEA_RSNC'
+											 AND SIMP_C = #{DQPD_RSNC}
+										) END
+							),
+			<if test="SPY_PSB_DT != null and SPY_PSB_DT.length() > 0 ">
+			SPY_PSB_DT = #{SPY_PSB_DT},
+			</if>
+			<if test="WK_DS != null">
+			WK_DS = #{WK_DS},
+			</if>
+			<if test="DVY_WRS_UPR != null and DVY_WRS_UPR > 0">
+			DVY_WRS_UPR = #{DVY_WRS_UPR},
+			</if>
+			<if test="CTR_UPR != null and CTR_UPR > 0">
+			CTR_UPR = #{CTR_UPR},
+			</if>
+			<if test="DSTR_TER_MRK_DSC != null">
+			DSTR_TER_MRK_DSC = #{DSTR_TER_MRK_DSC},
+			</if>
+			<if test="DSTR_TER_DT != null and DSTR_TER_DT.length() > 0">
+			DSTR_TER_DT = #{DSTR_TER_DT},
+			</if>
+			<if test="BOX_QT != null and BOX_QT > 0">
+			BOX_QT = #{BOX_QT},
+			</if>
+			
+		</set>
+		 WHERE SPYPL_NA_TRPL_C		= #{SPYPL_NA_TRPL_C}
+		   AND DVYAA_NA_TRPL_C		= #{DVYAA_NA_TRPL_C} 
+		   AND NA_DVY_PLASH_SLPNO	= #{NA_DVY_PLASH_SLPNO}
+		   AND DVY_PLA_SQNO			= #{DVY_PLA_SQNO}
+		   AND DVY_PLA_DT			= #{DVY_PLA_DT}
+	</update>
+	
+	<!-- 배송예정서 상세 삭제 -->
+	<delete id="deleteDeliveryNoticeOrderDetail" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderDetailVO">
+		DELETE 
+		FROM TB_OD_DLVPNSHT_D
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+			AND NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			AND DVY_PLA_SQNO = #{DVY_PLA_SQNO}
+	</delete>
+	
+	<!-- 배송예정서 상세 삭제 업데이트-->
+	<update id="updateDeleteDeliveryNoticeOrderDetail" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryNoticeOrderDetailVO">
+		UPDATE TB_OD_DLVPNSHT_D
+		SET 
+			WK_DS = #{WK_DS},
+			DVY_PLA_QT = '0'
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+			AND NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			AND DVY_PLA_SQNO = #{DVY_PLA_SQNO}
+	</update>
+	
+	<!-- 배송예정서 기본 삭제 -->
+	<delete id="deleteDeliveryNoticeOrder" parameterType="java.util.Map">
+		DELETE 
+		FROM TB_OD_DLVPNSHT_M
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+			AND NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+	</delete>
+	
+	<!-- 배송예정서 상세 전체 삭제 -->
+	<delete id="deleteDeliveryNoticeOrderDetailAll"  parameterType="java.util.Map">
+		DELETE 
+		FROM TB_OD_DLVPNSHT_D
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C} 
+			AND NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+	</delete>
+	
+	<!-- 배송예정서 Master 임시저장 -->
+	<insert id="insertNoticeOrderMTmp" parameterType="com.nh.escm.scm.delivery.sea.vo.NoticeOrderTempFileMasterVO">
+		INSERT INTO TB_OD_DLVPNSHT_TEMP_M
+		(
+			TEMP_SEQ,
+			ROW_SEQ,
+			ITEM_CNT,
+			SPYPL_NA_TRPL_C,
+			SPYPL_NA_TEAM_C,
+			DVY_PLA_DT,
+			NA_DVY_PLASH_SLPNO,
+			ODRPL_NA_TRPL_C,
+			ODRPL_NA_TEAM_C,
+			RVOPL_NA_TRPL_C,
+			RVOPL_NA_TEAM_C,
+			ADJPL_NA_TRPL_C,
+			ADJPL_NA_TEAM_C,
+			MNGT_NA_TR_TPC,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_TEAM_C,
+			DVYAA_NA_TRPL_C,
+			DVYAA_NA_TEAM_C,
+			DVYAA_C,
+			CSER_CTR_TPC,
+			SPY_TPC,
+			SLGT_ETR_DSC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			ACCP_C,
+			DVY_PLA_QT,
+			DVY_AM,
+			DVY_VAT,
+			VCBT_AM,
+			VCBX_AM,
+			DVY_SSDY,
+			DVY_TROT_FEE,
+			DVY_PHD_FEE,
+			DVY_FAR_ASTCS,
+			WD_PLTT_QT,
+			PSC_PLTT_QT,
+			PRGR_C,
+			BUY_UPR_DSC,
+			BYNG_UPR_GR_C,
+			RMK_CNTN,
+			FSRG_DTM,
+			FSRGMN_NA_BZPLC,
+			BYNG_UPR_MOD_YN
+		)
+		VALUES
+		(
+			#{TEMP_SEQ},
+			#{ROW_SEQ},
+			#{ITEM_CNT},
+			#{SPYPL_NA_TRPL_C},
+			#{SPYPL_NA_TEAM_C},
+			#{DVY_PLA_DT},
+			#{NA_DVY_PLASH_SLPNO},
+			#{ODRPL_NA_TRPL_C},
+			#{ODRPL_NA_TEAM_C},
+			#{RVOPL_NA_TRPL_C},
+			#{RVOPL_NA_TEAM_C},
+			#{ADJPL_NA_TRPL_C},
+			#{ADJPL_NA_TEAM_C},
+			#{MNGT_NA_TR_TPC},
+			#{MNGT_NA_TRPL_C},
+			#{MNGT_NA_TEAM_C},
+			#{DVYAA_NA_TRPL_C},
+			#{DVYAA_NA_TEAM_C},
+			#{DVYAA_C},
+			#{CSER_CTR_TPC},
+			#{SPY_TPC},
+			#{SLGT_ETR_DSC},
+			#{NA_WRS_LCLC},
+			#{NA_WRS_MCLC},
+			#{ACCP_C},
+			#{DVY_PLA_QT},
+			#{DVY_AM},
+			#{DVY_VAT},
+			#{VCBT_AM},
+			#{VCBX_AM},
+			#{DVY_SSDY},
+			#{DVY_TROT_FEE},
+			#{DVY_PHD_FEE},
+			#{DVY_FAR_ASTCS},
+			#{WD_PLTT_QT},
+			#{PSC_PLTT_QT},
+			#{PRGR_C},
+			#{BUY_UPR_DSC},
+			#{BYNG_UPR_GR_C},
+			#{RMK_CNTN},
+			SYSDATE,
+			#{FSRGMN_NA_BZPLC},
+			#{BYNG_UPR_MOD_YN}
+		)
+	</insert>
+	
+	<!-- 배송예정서 Detail 임시저장 -->
+	<insert id="insertNoticeOrderDTmp" parameterType="com.nh.escm.scm.delivery.sea.vo.NoticeOrderTempFileDetailVO">
+		INSERT INTO TB_OD_DLVPNSHT_TEMP_D
+		(
+			TEMP_SEQ,
+			ROW_SEQ,
+			ITEM_SEQ,
+			NA_WRS_C,
+			NA_SOGMN_C,
+			PDAA_NA_TRPL_C,
+			PDAA_NA_TEAM_C,
+			RCPMNM,
+			RCPMN_TELNO,
+			ODR_DT,
+			ODR_SLPNO,
+			ODR_DSQNO,
+			TXT_DSC,
+			DVY_WRS_UPR,
+			DVY_PLA_QT,
+			DVY_AM,
+			DVY_VAT,
+			DVY_VCBT_AM,
+			DVY_SSDY,
+			DVY_TROT_FEE,
+			DVY_PHD_FEE,
+			DVY_FAR_ASTCS,
+			RMK_CNTN,
+			SL_UPR_TPC,
+			CSER_CTR_TPC,
+			BUY_BZ_METC,
+			BOX_QT
+		)
+		VALUES
+		(
+			#{TEMP_SEQ},
+			#{ROW_SEQ},
+			#{ITEM_SEQ},
+			#{NA_WRS_C},
+			#{NA_SOGMN_C},
+			#{PDAA_NA_TRPL_C},
+			#{PDAA_NA_TEAM_C},
+			ecl_encrypt(#{RCPMNM}),
+			ecl_encrypt(#{RCPMN_TELNO}),
+			#{ODR_DT},
+			#{ODR_SLPNO},
+			#{ODR_DSQNO},
+			#{TXT_DSC},
+			#{DVY_WRS_UPR},
+			#{DVY_PLA_QT},
+			#{DVY_AM},
+			#{DVY_VAT},
+			#{DVY_VCBT_AM},
+			#{DVY_SSDY},
+			#{DVY_TROT_FEE},
+			#{DVY_PHD_FEE},
+			#{DVY_FAR_ASTCS},
+			#{RMK_CNTN},
+			#{SL_UPR_TPC},
+			#{CSER_CTR_TPC},
+			#{BUY_BZ_METC},
+			#{BOX_QT}
+		)
+	</insert>
+	
+	<select id="retrieveNoticeOrderMTmp"   parameterType="java.util.Map" resultMap="noticeOrderMTmpMap" >
+		SELECT
+			TEMP_SEQ,
+			ROW_SEQ,
+			ITEM_CNT,
+			SPYPL_NA_TRPL_C,
+			SPYPL_NA_TEAM_C,
+			DVY_PLA_DT,
+			NA_DVY_PLASH_SLPNO,
+			ODRPL_NA_TRPL_C,
+			ODRPL_NA_TEAM_C,
+			RVOPL_NA_TRPL_C,
+			RVOPL_NA_TEAM_C,
+			ADJPL_NA_TRPL_C,
+			ADJPL_NA_TEAM_C,
+			MNGT_NA_TR_TPC,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_TEAM_C,
+			DVYAA_NA_TRPL_C,
+			DVYAA_NA_TEAM_C,
+			DVYAA_C,
+			CSER_CTR_TPC,
+			SPY_TPC,
+			SLGT_ETR_DSC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			ACCP_C,
+			DVY_PLA_QT,
+			DVY_AM,
+			DVY_VAT,
+			VCBT_AM,
+			VCBX_AM,
+			DVY_SSDY,
+			DVY_TROT_FEE,
+			DVY_PHD_FEE,
+			DVY_FAR_ASTCS,
+			WD_PLTT_QT,
+			PSC_PLTT_QT,
+			PRGR_C,
+			BUY_UPR_DSC,
+			BYNG_UPR_GR_C,
+			RMK_CNTN,
+			FSRGMN_NA_BZPLC
+		FROM
+			TB_OD_DLVPNSHT_TEMP_M
+		WHERE 1=1
+			AND TEMP_SEQ = #{tempSeq}
+			
+	</select>
+	
+	<select id="retrieveNoticeOrderDTmp"   parameterType="java.util.Map" resultMap="noticeOrderDTmpMap" >
+		SELECT 
+			TEMP_SEQ,
+			ROW_SEQ,
+			ITEM_SEQ,
+			NA_WRS_C,
+			NA_SOGMN_C,
+			PDAA_NA_TRPL_C,
+			PDAA_NA_TEAM_C,
+			ecl_decrypt(RCPMNM) as RCPMNM,
+			ecl_decrypt(RCPMN_TELNO) as RCPMN_TELNO,
+			ODR_DT,
+			ODR_SLPNO,
+			ODR_DSQNO,
+			TXT_DSC,
+			DVY_WRS_UPR,
+			DVY_PLA_QT,
+			DVY_AM,
+			DVY_VAT,
+			DVY_VCBT_AM,
+			DVY_SSDY,
+			DVY_TROT_FEE,
+			DVY_PHD_FEE,
+			DVY_FAR_ASTCS,
+			RMK_CNTN,
+			SL_UPR_TPC,
+			CSER_CTR_TPC,
+			BUY_BZ_METC,
+			BOX_QT
+		FROM 
+			TB_OD_DLVPNSHT_TEMP_D
+		WHERE 1=1
+			AND TEMP_SEQ = #{tempSeq}
+	</select>
+	
+	<!-- 배송예정 거래처별 조회 -->
+	<sql id="sql_retrieveDeliveryTradingPatnersM">
+		SELECT /*+ index(TB_BY_BYNG_M IDX_BY_BYNG_M_05) */ 
+						DM.RVOPL_NA_TRPL_C, 
+						FN_TRPL_CIF_NM(DM.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N, 
+						DM.DVYAA_NA_TRPL_C, 
+						FN_TRPL_CIF_NM(DM.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N, 
+						DM.NA_DVY_PLASH_SLPNO, 
+						DM.DVY_PLA_DT, 
+						DM.DVY_AM, 
+						DM.DVY_VAT, 
+						DM.DVY_PLASH_STSC || ' ' ||FN_CM_SIMP_CNM('DVY_PLASH_STSC', DM.DVY_PLASH_STSC) AS DVY_PLA_STS, 
+						DM.CSER_CTR_TPC || ' ' ||FN_CM_SIMP_CNM('CSER_CTR_TPC', DM.CSER_CTR_TPC) AS CSER_CTR_TPC, 
+						DM.FSRGMN_ENO, 
+						MAX(DM.DVY_SSDY) AS DVY_SSDY, 
+						MAX(DD.DVY_SSDYRT) AS DVY_SSDYRT, 
+						BD.BYAM,
+						BD.BYNG_QT, 
+						BM.SLP_DT, 
+						BM.NA_SLPNO, 
+						DM.ODRPL_NA_TRPL_C, 
+						FN_TRPL_CIF_NM(DM.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N, 
+						DM.DDLY_YN, 
+						'[' || DM.ODRPL_NA_TEAM_C || ']' || FN_CM_TEAM_NM (DM.ODRPL_NA_TRPL_C, DM.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N, 
+						CASE 
+										WHEN BD.NA_BZPLC IS NULL 
+										THEN DM.DVY_PLA_QT 
+										ELSE 0 
+						END AS STS_DVY_PLA_QT, 
+						/* 배송예정수량 */ 
+						CASE 
+										WHEN BD.NA_BZPLC IS NULL 
+										THEN DM.DVY_AM 
+										ELSE 0 
+						END AS STS_DVY_AM, 
+						CASE 
+										WHEN BD.NA_BZPLC IS NOT NULL 
+										THEN DM.DVY_AM 
+										ELSE 0 
+						END AS STS_BYAM, 
+						CASE 
+										WHEN BD.NA_BZPLC IS NOT NULL 
+										THEN DM.DVY_PLA_QT 
+										ELSE 0 
+						END AS STS_BYNG_QT, 
+						DM.GRS_SOJU_YN, 
+						DM.SPYPL_NA_TRPL_C,
+						DM.LS_CMENO,
+						DM.LSCHG_DTM,
+						DM.RMK_CNTN,
+						DM.SLPNO_RMS_DTM
+					FROM TB_OD_DLVPNSHT_M DM, 
+					TB_OD_DLVPNSHT_D DD, 
+					(SELECT ACTL_BUYPL_NA_TRPL_C
+					       ,NA_BZPLC,NA_TEAM_C
+					       ,NA_DVY_PLASH_SLPNO
+					       ,SLP_DT
+					       ,NA_SLPNO
+				       FROM TB_BY_BYNG_M
+				      WHERE NA_CRC_CAN_DSC = 1
+				    ) BM,
+					(SELECT NA_BZPLC, NA_TEAM_C, SLP_DT, NA_SLPNO, SUM(BYAM) AS BYAM, SUM(BYNG_VAT) AS BYNG_VAT, SUM(BYNG_QT) AS BYNG_QT
+						FROM TB_BY_BYNG_WRS
+					GROUP BY NA_BZPLC, NA_TEAM_C, SLP_DT, NA_SLPNO) BD
+				WHERE 1=1 
+				AND DM.PRC_YN IN ('Y', 'R') 
+				AND DM.TEMP_YN = 'N' 
+				--AND DD.WK_DS != 'D' 
+				AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C 
+				AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C 
+				AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO 
+       			AND DM.SPYPL_NA_TRPL_C = BM.ACTL_BUYPL_NA_TRPL_C(+)
+       			AND DM.ODRPL_NA_TRPL_C = BM.NA_BZPLC(+)
+        		--AND DM.ADJPL_NA_TRPL_C = BM.ADJ_NA_BZPLC(+)
+        		--AND DM.ADJPL_NA_TEAM_C = BM.ADJ_NA_TEAM_C(+) 
+				AND DM.NA_DVY_PLASH_SLPNO = BM.NA_DVY_PLASH_SLPNO(+)
+				AND BM.NA_BZPLC = BD.NA_BZPLC(+) 
+				AND BM.NA_TEAM_C = BD.NA_TEAM_C(+) 
+				AND BM.SLP_DT = BD.SLP_DT(+) 
+				AND BM.NA_SLPNO = BD.NA_SLPNO(+)
+			<if test="dvy_pla_sts_rdo != null and dvy_pla_sts_rdo != 'all' and dvy_pla_sts_rdo.length() > 0">
+				<choose>
+					<when test="dvy_pla_sts_rdo == 'OZ'"> <!-- 전체 출력시 삭제(05), 취소(06)를 제외한다 -->
+						AND DM.DVY_PLASH_STSC NOT IN ('05', '06')
+					</when>
+					<otherwise>
+						AND DM.DVY_PLASH_STSC = #{dvy_pla_sts_rdo}
+					</otherwise>
+				</choose>
+			</if>
+			<if test="dvy_plash_slpno_rdo != null and dvy_plash_slpno_rdo == '2'.toString() and na_dvy_plash_slpno.length() > 0">/* 배송예정서 번호 */
+				AND DM.NA_DVY_PLASH_SLPNO = #{na_dvy_plash_slpno}
+			</if>
+			<if test="odrpl_na_trpl_rdo != null and odrpl_na_trpl_rdo == '2'.toString() and odrpl_na_trpl_c.length() > 0">/* 발주처 */
+				AND DM.ODRPL_NA_TRPL_C = #{odrpl_na_trpl_c}
+			</if>
+			<if test="cser_ctr_tpc != null and cser_ctr_tpc != 'all' and cser_ctr_tpc.length() > 0 ">/* 계약유형 */
+				AND DM.CSER_CTR_TPC = #{cser_ctr_tpc}
+			</if>
+			<if test="ddly_yn != '2'.toString() and ddly_yn != null">/* 배송구분 */
+				AND DM.DDLY_YN = #{ddly_yn}
+			</if>
+			<if test="dvy_pla_dt_from != null and dvy_pla_dt_from.length() > 0 and dvy_pla_dt_to != null and dvy_pla_dt_to.length() > 0">/* 배송일자 */
+				AND DM.DVY_PLA_DT BETWEEN #{dvy_pla_dt_from} AND #{dvy_pla_dt_to}
+			</if>
+			<if test="ngrs_soju_yn != null and ngrs_soju_yn != 'all' ">/* 지방소주여부 */
+				AND DM.GRS_SOJU_YN = #{ngrs_soju_yn}
+			</if>
+				AND DM.SPYPL_NA_TRPL_C IN
+			<foreach collection="trpl" item="item" index="index" separator="," open="(" close=")">
+							#{item}
+			</foreach> 	 			
+						GROUP BY 
+							BD.BYAM,
+							BD.BYNG_QT,
+							DM.RVOPL_NA_TRPL_C,
+							DM.DVYAA_NA_TRPL_C,
+							DM.NA_DVY_PLASH_SLPNO,
+							DM.DVY_PLA_DT,
+							DM.DVY_AM,
+							DM.DVY_VAT,
+							DM.DVY_PLASH_STSC,
+							DM.CSER_CTR_TPC,
+							DM.FSRGMN_ENO,
+							BM.SLP_DT,  
+							BM.NA_SLPNO, 
+							DM.ODRPL_NA_TRPL_C,
+							DM.DDLY_YN,
+							DM.ODRPL_NA_TEAM_C, 
+							DM.GRS_SOJU_YN,
+							BD.NA_BZPLC,
+							DM.DVY_PLA_QT,
+							DM.SPYPL_NA_TRPL_C,
+							DM.LS_CMENO,
+							DM.LSCHG_DTM,
+							DM.RMK_CNTN,
+							DM.SLPNO_RMS_DTM
+	</sql>
+	
+	
+	<select id="retrieveDeliveryTradingPatnersM" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersSrhVO" resultMap="retrieveDeliveryTradingPatnersMMap">
+		<choose>
+			<when test="sort != null and sort.toString() == '1'.toString() ">
+					<bind name="sortName" value="'NA_DVY_PLASH_SLPNO, DVY_PLA_DT, SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C'" />
+					<bind name="sortType" value="'DSC'" />
+			</when>
+			<when test="sort != null and sort.toString() == '2'.toString() ">
+					<bind name="sortName" value="'DVY_PLA_DT, SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C, NA_DVY_PLASH_SLPNO'" />
+					<bind name="sortType" value="'DSC'" />
+			</when>
+			<otherwise>
+					<bind name="sortName" value="'DVYAA_NA_TRPL_C, DVY_PLA_DT, SPYPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO'" />
+					<bind name="sortType" value="'DSC'" />
+			</otherwise>
+		</choose>
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryTradingPatnersM" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveDeliveryTradingPatnersMCount" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersSrhVO" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveDeliveryTradingPatnersM" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 배송예정 거래처별 조회 배송금액 합계-->
+	<select id="getDeliveryTradingPatnersMSum" parameterType="com.nh.escm.scm.delivery.sea.vo.DeliveryTradingPatnersSrhVO" resultType="java.util.Map">
+		SELECT 
+			NVL(SUM(LIST.DVY_AM), 0) AS DVY_AM, 
+			NVL(SUM(LIST.DVY_VAT), 0) AS DVY_VAT, 
+			NVL(SUM(LIST.DVY_SSDY), 0) AS DVY_SSDY, 
+			NVL(SUM(LIST.DVY_SSDYRT), 0) AS DVY_SSDYRT, 
+			NVL(SUM(LIST.BYNG_QT), 0) AS BYNG_QT, 
+			NVL(SUM(LIST.BYAM), 0) AS BYAM, 
+			NVL(SUM(LIST.STS_DVY_PLA_QT), 0) AS STS_DVY_PLA_QT, 
+			NVL(SUM(LIST.STS_DVY_AM), 0) AS STS_DVY_AM, 
+			NVL(SUM(LIST.STS_BYNG_QT), 0) AS STS_BYNG_QT, 
+			NVL(SUM(LIST.STS_BYAM), 0) AS STS_BYAM 
+		FROM(
+			<include refid="sql_retrieveDeliveryTradingPatnersM" />
+		) LIST
+	</select>
+	
+	<sql id="sql_retrieveDeliveryTradingPatnersD">
+		SELECT
+				A.*,
+			 	E.BYNG_UPR, 
+		    /* 매입확정단가 */ 
+		    E.BYNG_QT, 
+		    /* 매입확정수량 */ 
+		    E.BYNG_WT, 
+		    /* 매입확정중량 */ 
+		    E.BYAM
+		    /* 매입확정금액 */ 
+		FROM 
+		(
+		SELECT
+				A.NA_WRS_C, 
+				C.WRSNM, 
+				A.ODR_DT, 
+				(A.ODR_DT || '-' || A.ODR_SLPNO || '-' || A.ODR_DSQNO) AS ODR_SLPNO,  
+				A.ODR_DSQNO, 
+				FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC, 
+				/* 과세구분 */ 
+				'0000' AS PD_YY, 
+				/* 생산년도 */ 
+				A.DVY_WRS_UPR, 
+				/* 배송상품단가 */ 
+				A.DVY_PLA_QT, 
+				/* 배송예정수량 */ 
+				A.DVY_AM, 
+				/* 배송금액 */ 
+				A.DVY_VAT, 
+				/* 배송부가세 */ 
+				A.DVY_VCBT_AM, 
+				/* 배송공병금액 */ 
+				( 
+					CASE 
+									WHEN A.DVY_SSDYRT <![CDATA[<>]]> 0 
+													AND A.DVY_SSDY = 0 
+									THEN ( A.DVY_AM * A.DVY_SSDYRT ) / 100 
+									ELSE A.DVY_SSDY 
+					END 
+				) AS DVY_SSDY, 
+				/* 배송장려금 */ 
+				A.DVY_TROT_FEE, 
+				/* 배송환급수수료 */ 
+				A.DVY_PHD_FEE, 
+				/* 배송물류수수료 */ 
+				A.DVY_FAR_ASTCS, 
+				/* 배송운임보조비 */ 
+				B.DVY_PLASH_STSC || FN_CM_SIMP_CNM('DVY_PLASH_STSC', B.DVY_PLASH_STSC) ||' ' AS DVY_PLASH_STAC, 
+				/* 배송예정서상태코드 */ 
+				A.DVY_SSDYRT, 
+				/* 배송장려금율 */ 
+				A.DVY_PLA_SQNO, 
+				B.DVY_PLA_DT, 
+				A.NA_DVY_PLASH_SLPNO, 
+				B.RVOPL_NA_TRPL_C, 
+				B.SPYPL_NA_TRPL_C,
+	          D.NA_BZPLC,
+	          D.NA_TEAM_C,
+	          D.SLP_DT,
+	          D.NA_SLPNO
+		FROM TB_OD_DLVPNSHT_D A, 
+			 TB_OD_DLVPNSHT_M B, 
+			 TB_GD_WRS C, 
+			 TB_BY_BYNG_M D 
+	   WHERE 1=1 
+		 AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C 
+		 AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C 
+		 AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO 
+		 AND A.NA_WRS_C = C.NA_WRS_C(+)
+		 AND A.WK_DS != 'X'
+		 AND A.WK_DS != 'D' 
+		 AND B.SPYPL_NA_TRPL_C = D.ACTL_BUYPL_NA_TRPL_C(+) 
+		 AND B.NA_DVY_PLASH_SLPNO = D.NA_DVY_PLASH_SLPNO(+)
+		 AND B.ODRPL_NA_TRPL_C = D.NA_BZPLC(+) 
+		 AND A.SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+		 AND A.DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C}
+		 AND A.NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+		 AND 1 = D.NA_CRC_CAN_DSC(+)
+		 <if test="NA_SLPNO != null and NA_SLPNO.length() > 0">
+		 AND D.NA_SLPNO = #{NA_SLPNO}
+		 </if>
+		 <if test="SLP_DT != null and SLP_DT.length() > 0">
+		 AND D.SLP_DT = #{SLP_DT}
+		 </if>
+							
+		)A 
+		,TB_BY_BYNG_WRS E
+		WHERE 1=1
+		  AND A.NA_BZPLC 	= E.NA_BZPLC(+)
+		  AND A.NA_TEAM_C = E.NA_TEAM_C(+)
+		  AND A.SLP_DT 	= E.SLP_DT(+)
+		  AND A.NA_SLPNO = E.NA_SLPNO(+)
+		  AND A.DVY_PLA_SQNO = E.SLP_SQNO(+)
+		  AND A.NA_WRS_C	= E.NA_WRS_C(+)
+		ORDER BY A.NA_WRS_C	
+	</sql>
+	
+	<select id="retrieveDeliveryTradingPatnersD" parameterType="java.util.Map" resultMap="retrieveDeliveryTradingPatnersDMap">		
+		<choose>
+			<when test="sort != null and sort.toString() == '1'.toString() ">
+					<bind name="sortName" value="'NA_DVY_PLASH_SLPNO, DVY_PLA_SQNO, DVY_PLA_DT, RVOPL_NA_TRPL_C,  SPYPL_NA_TRPL_C'" />
+					<bind name="sortType" value="'DSC'" />
+			</when>
+			<when test="sort != null and sort.toString() == '2'.toString() ">
+					<bind name="sortName" value="'DVY_PLA_DT, RVOPL_NA_TRPL_C, SPYPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO, DVY_PLA_SQNO'" />
+					<bind name="sortType" value="'DSC'" />
+			</when>
+			<otherwise>
+					<bind name="sortName" value="'RVOPL_NA_TRPL_C, SPYPL_NA_TRPL_C, DVY_PLA_DT, NA_DVY_PLASH_SLPNO, DVY_PLA_SQNO'" />
+					<bind name="sortType" value="'DSC'" />
+			</otherwise>
+		</choose>
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryTradingPatnersD" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="retrieveDeliveryTradingPatnersDCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveDeliveryTradingPatnersD" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 배송예정 거래처별 조회 Detail Print -->
+	<select id="printDeliveryTradingPatnersD" parameterType="java.util.Map" resultMap="printDeliveryTradingPatnersDMap">
+  
+		SELECT
+		  		 A.NA_WRS_C,
+		         B.WRSNM,
+		         <!-- FN_CM_SIMP_CNM('NA_WRS_STD_UNT_C', B.NA_WRS_STD_UNT_C) AS NA_WRS_STD_UNT_N, -->
+		         B.WRS_STDNM NA_WRS_STD_UNT_N,
+		         FN_CM_SIMP_CNM('NA_WRS_UNT_C', B.NA_WRS_UNT_C) AS NA_WRS_UNT_N,
+		         NVL(B.BOXPE_AQZ, 1) AS BOXPE_AQZ,
+		         A.DVY_WRS_UPR,
+		         NVL(A.DVY_PLA_QT, 0) AS DVY_PLA_QT,
+		         NVL(A.DVY_AM, 0) AS DVY_AM,
+		         NVL(A.DVY_VAT, 0) AS DVY_VAT,
+		         NVL(D.VCBT_UPR, 0) AS VCBT_UPR,
+		         NVL(A.DVY_VCBT_AM, 0) AS DVY_VCBT_AM
+		FROM (
+				SELECT
+		         A.NA_WRS_C,
+		         A.DVY_WRS_UPR,
+		         C.ODRPL_NA_TRPL_C,
+		         NVL(A.DVY_PLA_QT, 0) AS DVY_PLA_QT,
+		         NVL(A.DVY_AM, 0) AS DVY_AM,
+		         NVL(A.DVY_VAT, 0) AS DVY_VAT,
+		         NVL(A.DVY_VCBT_AM, 0) AS DVY_VCBT_AM
+		      FROM 
+		         TB_OD_DLVPNSHT_D A,
+		         TB_OD_DLVPNSHT_M C
+		      WHERE 1=1
+		         AND A.SPYPL_NA_TRPL_C = C.SPYPL_NA_TRPL_C
+		         AND A.DVYAA_NA_TRPL_C = C.DVYAA_NA_TRPL_C
+		         AND A.NA_DVY_PLASH_SLPNO = C.NA_DVY_PLASH_SLPNO
+		         --AND A.WK_DS != 'D'
+		        AND A.DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C}
+				AND A.SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+				AND A.NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+		        ) A,
+		         TB_GD_WRS B,
+		         TB_OD_TRTWRS D
+		      WHERE    1=1
+		       AND A.NA_WRS_C = B.NA_WRS_C
+		       AND A.NA_WRS_C = D.NA_WRS_C(+)
+		       AND A.ODRPL_NA_TRPL_C = D.NA_BZPLC(+)
+		ORDER BY A.NA_WRS_C
+	</select>
+	
+	<!-- 발주번호_배송요청일 정보조회 팝업 -->
+	<select id="retrieveOrdersPopUp" parameterType="java.util.Map" resultMap="ordersPopUpMap">
+		 SELECT 
+		 	DISTINCT
+	         A.ODR_DT/* 발주일자 */,
+	         A.ODR_SLPNO /* 전표번호 */,
+	         A.CSER_CTR_TPC,
+	            '[' || A.CSER_CTR_TPC || ']' || FN_CM_SIMP_CNM ('CSER_CTR_TPC', A.CSER_CTR_TPC) AS CSER_CTR_TPC_N /* 계약구분 */,
+	         A.ODRPL_NA_TRPL_C /* 발주처코드 */,
+	         FN_TRPL_CIF_NM (A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N/* 발주처명 */,
+	         A.ODRPL_NA_TEAM_C /* 발주처팀코드 */,
+	         FN_CM_TEAM_NM (A.ODRPL_NA_TRPL_C, A.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N /* 발주처팀명 */,
+	         '[' || A.DVY_VHC_DSC || ']' || FN_CM_SIMP_CNM ('DVY_VHC_DSC', A.DVY_VHC_DSC) AS DVY_VHC_DSC /* 배송구분 */,
+	         '[' || A.SPY_TPC || ']' || FN_CM_SIMP_CNM ('SPY_TPC', A.SPY_TPC) AS SPY_TPC_N /* 공급구분 */,
+	         A.DVY_RQR_DT /* 배송요청일 */,
+	         A.ODR_QTTT, /* 발주수량합계*/
+	         A.ODR_SAM, /* 발주금액합계*/
+	         A.VATTT,
+	         A.VCBT_AM,
+	         A.VCBX_AM,
+	         A.DDLY_YN/* 직송여부 */,
+	         A.NA_ODR_STS_DSC /* 발주상태 */,
+	         A.RVOPL_NA_TRPL_C/* 수주처 코드 */ ,
+	         FN_TRPL_CIF_NM (A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N      /* 수주처명 */ ,
+	         A.RVOPL_NA_TEAM_C,
+	         FN_CM_TEAM_NM (A.RVOPL_NA_TRPL_C, A.RVOPL_NA_TEAM_C) AS RVOPL_NA_TEAM_N  /* 수주처팀명 */,
+	         '['|| A.ROGO_INF_CRT_DSC || ']' || FN_CM_SIMP_CNM ('ROGO_INF_CRT_DSC', A.ROGO_INF_CRT_DSC) AS ROGO_INF_CRT_DSC/* 수발주정보생성구분코드 */,
+	         A.DVYAA_NA_TRPL_C/* 배송처코드 */,
+	         FN_TRPL_CIF_NM (A.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N      /* 배송처명 */ ,
+	         A.DVYAA_NA_TEAM_C/* 배송처팀코드 */ ,
+	         FN_TRPL_CIF_NM (A.DVYAA_NA_TEAM_C) AS DVYAA_NA_TEAM_N     /* 배송처팀명 */ ,
+	         A.SPYPL_NA_TRPL_C,
+	         A.SPYPL_NA_TEAM_C,
+	         C.CSER_CTR_TPC C_CSER_CTR_TPC,
+	         C.PRGR_C /* 가격군코드 */,
+	         C.CSER_NA_USR_SYS_KDC /* 발주처시스템코드 */,
+	         A.SPY_TPC,
+	         CASE WHEN A.DDLY_YN = '1' THEN '직송' ELSE '일반' END AS DDLY_YN_N
+	    FROM 
+	    		TB_OD_ORDER_M A, 
+	    		TB_OD_ORDER_D B, 
+	    		TB_TR_TRNREL C
+	   	WHERE 1 = 1
+ <if test="ODR_SLPNO != null and ODR_SLPNO.length() > 0">
+			AND A.ODR_SLPNO = #{ODR_SLPNO}
+</if>
+<if test="RVOPL_NA_TRPL_C != null and RVOPL_NA_TRPL_C.length() > 0">
+			AND A.RVOPL_NA_TRPL_C = #{RVOPL_NA_TRPL_C}
+</if>
+<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+			AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+</if>
+<if test="ODRPL_NA_TRPL_N != null and ODRPL_NA_TRPL_N.length() > 0">
+			AND FN_TRPL_CIF_NM (A.ODRPL_NA_TRPL_C) LIKE #{ODRPL_NA_TRPL_N}||'%'
+</if>
+<if test="DVY_RQR_DT_FROM != null and DVY_RQR_DT_FROM.length() > 0 and DVY_RQR_DT_TO != null and DVY_RQR_DT_TO.length() > 0">
+			AND A.DVY_RQR_DT BETWEEN #{DVY_RQR_DT_FROM} AND #{DVY_RQR_DT_TO}
+</if>
+<choose>
+	<when test="DDLY_YN != null and DDLY_YN == '1'.toString() ">
+			AND A.DDLY_YN = #{DDLY_YN}
+	</when>
+	<otherwise>
+			AND A.DDLY_YN = #{DDLY_YN}
+	</otherwise>
+</choose> 
+		AND (B.NA_DVY_PLASH_SLPNO IS NULL OR B.NA_DVY_PLASH_SLPNO = '.')
+		AND A.DEL_DTM IS NULL
+		AND B.DEL_DTM IS NULL
+		AND A.ODRPL_NA_TRPL_C = B.ODRPL_NA_TRPL_C
+		AND A.ODRPL_NA_TEAM_C = B.ODRPL_NA_TEAM_C
+		AND A.ODR_DT = B.ODR_DT
+		AND A.ODR_SLPNO = B.ODR_SLPNO
+		AND A.ODRPL_NA_TRPL_C = C.CSER_NA_TRPL_C(+) 
+		AND A.ODRPL_NA_TEAM_C = C.CSER_NA_TEAM_C(+) 
+		AND A.RVOPL_NA_TRPL_C = C.SPLR_NA_TRPL_C(+)
+		AND A.RVOPL_NA_TEAM_C = C.SPLR_NA_TEAM_C (+)
+		AND A.SPY_TPC = C.SPY_TPC (+)
+		AND A.MNGT_NA_TRPL_C = C.MNGT_NA_TRPL_C(+) 
+		AND A.MNGT_NA_TEAM_C = C.MNGT_NA_TEAM_C(+)
+		AND A.MNGT_NA_TR_TPC = C.MNGT_NA_TR_TPC(+)         
+		AND A.PRC_YN IN ('R')
+		AND A.NA_ODR_STS_DSC = '03'
+	ORDER BY A.ODR_DT DESC, A.ODR_SLPNO DESC
+	</select>
+	
+	<!-- 배송예정 상품별조회 -->
+	<sql id="sql_retrieveDeliverySkusM">
+		SELECT
+			A.SPYPL_NA_TRPL_C,
+			A.RVOPL_NA_TRPL_C,
+			A.RVOPL_NA_TEAM_C,
+			B.NA_WRS_C,
+			C.WRSNM,
+			C.WRS_STDNM, /* 규격 */
+			COUNT(DISTINCT A.SPYPL_NA_TRPL_C||A.DVYAA_NA_TRPL_C||A.SPYPL_NA_TRPL_C) AS CNT,
+			SUM(B.DVY_PLA_QT) AS DVY_PLA_QT,
+			SUM(B.DVY_AM) AS DVY_AM,
+			SUM(B.DVY_VAT) AS DVY_VAT,
+			MIN(FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C)) AS SPYPL_NA_TRPL_N,
+			MIN(FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C)) AS RVOPL_NA_TRPL_N,
+			A.GRS_SOJU_YN,
+			A.VHCNO,
+			MIN(FN_CM_SIMP_CNM('DVY_PLASH_STSC',A.DVY_PLASH_STSC)) AS DVY_PLASH_STAC,
+			B.BOX_QT
+			/*
+			MIN(CASE
+				WHEN B.NA_DVY_PLASH_SLPNO IS NULL THEN '03 매입'
+				ELSE '01 배송예정'
+			END) AS DVY_PLASH_STAC  배송예정서상태코드 
+			*/
+		FROM
+			TB_OD_DLVPNSHT_M A,
+			TB_OD_DLVPNSHT_D B,
+			TB_GD_WRS C
+		WHERE 1=1
+			AND B.SPYPL_NA_TRPL_C = A.SPYPL_NA_TRPL_C
+			AND B.DVYAA_NA_TRPL_C = A.DVYAA_NA_TRPL_C
+			AND B.NA_DVY_PLASH_SLPNO = A.NA_DVY_PLASH_SLPNO
+			AND B.NA_WRS_C = C.NA_WRS_C(+)
+			--AND B.WK_DS != 'D'
+			AND A.TEMP_YN='N'
+			AND A.PRC_YN IN ('R', 'Y')
+<if test="WRS_GUBUN != null and WRS_GUBUN.length() > 0 and NA_WRS_C != null and NA_WRS_C.length() > 0">
+			AND B.NA_WRS_C = #{NA_WRS_C}
+</if>
+<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+			AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+</if>
+			AND A.SPYPL_NA_TRPL_C IN 
+			<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+		GROUP BY 
+			A.SPYPL_NA_TRPL_C, 
+			A.RVOPL_NA_TRPL_C, 
+			A.RVOPL_NA_TEAM_C, 
+			B.NA_WRS_C, 
+			C.WRSNM, 
+			C.WRS_STDNM, 
+			A.GRS_SOJU_YN, 
+			A.VHCNO
+	</sql>
+	
+	<select id="retrieveDeliverySkusM" parameterType="java.util.Map" resultMap="deliverySkusMMap">
+		<bind name="sortName" value="'WRSNM'" />
+		<bind name="sortType" value="'DSC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliverySkusM" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getDeliverySkusMCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveDeliverySkusM" />
+		<include refid="common.count_end" />
+	</select>
+	
+	
+	<sql id="sql_retrieveDeliverySkusD">
+		SELECT
+			A.RVOPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N,
+			A.NA_DVY_PLASH_SLPNO,
+			A.DVYAA_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N,
+			A.ODRPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			A.ODRPL_NA_TEAM_C,
+			A.DVY_PLA_DT,
+			SUM(B.DVY_WRS_UPR) AS DVY_WRS_UPR,
+			SUM(B.DVY_PLA_QT) AS DVY_PLA_QT,
+			SUM(B.DVY_AM) AS DVY_AM,
+			SUM(B.DVY_VAT) AS DVY_VAT,
+			(SUM(B.DVY_PHD_FEE) + SUM(B.DVY_TROT_FEE)) AS DVY_FEE,
+			B.BOX_QT
+		FROM
+			TB_OD_DLVPNSHT_M A,
+			TB_OD_DLVPNSHT_D B
+		WHERE 1=1
+			AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND B.NA_WRS_C = #{NA_WRS_C}
+			AND A.TEMP_YN='N'
+			--AND B.WK_DS != 'D'
+			AND A.PRC_YN IN ('Y', 'R')
+			AND A.SPYPL_NA_TRPL_C IN 
+<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+</foreach>
+<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+			AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+</if>
+		GROUP BY A.RVOPL_NA_TRPL_C, A.NA_DVY_PLASH_SLPNO, A.DVYAA_NA_TRPL_C, A.ODRPL_NA_TRPL_C, A.ODRPL_NA_TEAM_C, A.DVY_PLA_DT, B.BOX_QT
+	</sql>
+	
+	<select id="retrieveDeliverySkusD" parameterType="java.util.Map" resultMap="deliverySkusDMap">
+		<bind name="sortName" value="'RVOPL_NA_TRPL_C'" />
+		<bind name="sortType" value="'DSC'" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliverySkusD" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getDeliverySkusDCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveDeliverySkusD" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 배송예정 상품별 조회 Excel Down -->
+	<select id="downloadExcelDeliverySkus" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+	
+		SELECT 
+			 B.NA_WRS_C
+			,C.WRSNM
+			,C.WRS_STDNM  /* 규격 */
+		    ,1 AS CNT
+		    ,B.DVY_PLA_QT
+		    ,B.DVY_VAT
+		    ,B.DVY_AM
+		    ,A.RVOPL_NA_TRPL_C
+		    ,FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N
+		    ,A.NA_DVY_PLASH_SLPNO
+		    ,A.DVYAA_NA_TRPL_C
+		    ,FN_TRPL_CIF_NM(A.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N
+		    ,A.ODRPL_NA_TRPL_C
+		    ,FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N
+			,A.DVY_PLA_DT
+		    ,B.DVY_WRS_UPR
+		    ,A.DVY_PLA_QT DVY_PLA_QT_A
+		    ,A.DVY_AM DVY_AM_A
+		    ,A.DVY_VAT DVY_VAT_A
+			,A.DVY_TROT_FEE+A.DVY_PHD_FEE AS DVY_FEE
+			,A.GRS_SOJU_YN
+		    ,A.VHCNO
+		    ,A.DVY_PLASH_STSC
+		    ,FN_CM_SIMP_CNM('DVY_PLASH_STSC',A.DVY_PLASH_STSC) DVY_PLASH_STSN
+		    ,B.BOX_QT
+		FROM
+		TB_OD_DLVPNSHT_M A,
+		TB_OD_DLVPNSHT_D B,
+		TB_GD_WRS C
+		WHERE 1=1
+		AND B.SPYPL_NA_TRPL_C = A.SPYPL_NA_TRPL_C
+		AND B.DVYAA_NA_TRPL_C = A.DVYAA_NA_TRPL_C
+		AND B.NA_DVY_PLASH_SLPNO = A.NA_DVY_PLASH_SLPNO
+		AND B.NA_WRS_C = C.NA_WRS_C(+)
+		AND (A.TEMP_YN='N' OR A.TEMP_YN IS NULL)
+		--AND B.WK_DS != 'D'
+		AND A.PRC_YN IN ('Y', 'R')
+		AND A.SPYPL_NA_TRPL_C IN 
+		<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<if test="WRS_GUBUN != null and WRS_GUBUN.length() > 0 and NA_WRS_C != null and NA_WRS_C.length() > 0">
+			AND B.NA_WRS_C = #{NA_WRS_C}
+		</if>
+		<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+			AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+		</if>
+		ORDER BY B.NA_WRS_C
+	</select>
+	
+	<!-- 배송예정 결과 조회 -->
+	<sql id="sql_retrieveDeliveryResult">
+		SELECT 
+			A.DVY_PLASH_STSC,
+			A.DVYAA_NA_TRPL_C,
+			DECODE(A.DVY_PLASH_STSC,'00', '[00] 전송상태','['||A.DVY_PLASH_STSC||'] '||FN_CM_SIMP_CNM('DVY_PLASH_STSC', A.DVY_PLASH_STSC)) DVY_PLASH_STSNM,
+			A.ODRPL_NA_TRPL_C,
+            A.ODRPL_NA_TEAM_C,
+            A.SPYPL_NA_TRPL_C,
+			FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N,
+            A.NA_DVY_PLASH_SLPNO,
+            A.DVY_AM,
+            A.DVY_VAT,
+			A.DVY_PLA_DT,
+			B.ODR_SLPNO,
+			B.ODR_DT,
+			A.DDLY_YN,
+			A.CSER_CTR_TPC,
+			TO_CHAR(A.LSCHG_DTM, 'YYYY-MM-DD HH:MI:SS') LSCHG_DTM,
+			A.LS_CMENO,
+			DECODE(A.PRC_YN,'Y','R', A.PRC_YN) PRC_YN,
+			A.RES_CODE R_CODE, 
+			DECODE(A.PRC_YN,'R','정상', NULL,'', '오류') RES_CODE,
+            DECODE(A.PRC_YN, 'P', '전송중', A.RES_DESC) RES_DESC,
+            B.BOX_QT
+		FROM 
+			TB_OD_DLVPNSHT_M A,
+			(
+			SELECT
+				SPYPL_NA_TRPL_C,
+				DVYAA_NA_TRPL_C,
+				NA_DVY_PLASH_SLPNO,
+				max(ODR_DT) ODR_DT,
+				max(ODR_SLPNO) ODR_SLPNO,
+				BOX_QT
+			FROM TB_OD_DLVPNSHT_D
+			WHERE 1=1
+			<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+					AND DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+			</if>
+			AND SPYPL_NA_TRPL_C IN 
+			
+			<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+			GROUP BY SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C, NA_DVY_PLASH_SLPNO, BOX_QT
+			) B
+		WHERE 1=1
+			AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND (A.TEMP_YN = 'N' OR A.TEMP_YN IS NULL)
+			AND A.PRC_YN != 'T' 
+			AND A.SPYPL_NA_TRPL_C IN 
+			<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+		<if test="DDLY_YN != null and DDLY_YN != '1'.toString()">
+			<choose>
+				<when test="DDLY_YN == '2'.toString()">
+					AND A.DDLY_YN = '0'	
+				</when>
+				<otherwise>
+					AND A.DDLY_YN = '1'
+				</otherwise>
+			</choose>
+		</if>
+		<if test="ODRPL_NA_TRPL_C != null and ODRPL_NA_TRPL_C.length() > 0">
+					AND A.ODRPL_NA_TRPL_C = #{ODRPL_NA_TRPL_C}
+		</if>
+		<if test="DVY_PLA_DT_FR != null and DVY_PLA_DT_FR.length() > 0 and DVY_PLA_DT_TO != null and DVY_PLA_DT_TO.length() > 0">
+					AND A.DVY_PLA_DT BETWEEN #{DVY_PLA_DT_FR} AND #{DVY_PLA_DT_TO}
+		</if>
+
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '1'.toString()">
+			AND A.PRC_YN = 'E'
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '2'.toString()">
+			 AND A.DVY_PLASH_STSC ='04'
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '3'.toString()">
+			AND A.PRC_YN IN ('Y', 'R')
+		</if>
+		<if test="RES_CODE != null and RES_CODE.length() > 0 and RES_CODE == '4'.toString()">
+			AND A.PRC_YN = 'P'
+		</if>
+	</sql>
+	
+	<select id="retrieveDeliveryResult" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'ODRPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO DESC'" />
+		<bind name="sortType" value="''" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryResult" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="getDeliveryResultCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_retrieveDeliveryResult" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<!-- 배송예정 거래처별 조회 Excel -->
+	<select id="downloadExcelDeliveryTradingPatners" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+			SELECT
+			  AA.SPYPL_NA_TRPL_C,
+			  AA.SPYPL_NA_TEAM_C,
+			  AA.DVY_PLA_DT,
+			  AA.NA_DVY_PLASH_SLPNO,
+			  AA.ODRPL_NA_TRPL_C,
+			  FN_TRPL_CIF_NM(AA.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+			  AA.ODRPL_NA_TEAM_C,
+			  FN_CM_TEAM_NM(AA.ODRPL_NA_TRPL_C, AA.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N,
+			  AA.RVOPL_NA_TRPL_C,
+			  FN_TRPL_CIF_NM(AA.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N,
+			  AA.RVOPL_NA_TEAM_C,
+			  AA.ADJPL_NA_TRPL_C,
+			  AA.ADJPL_NA_TEAM_C,
+			  AA.MNGT_NA_TRPL_C,
+			  AA.MNGT_NA_TEAM_C,
+			  AA.DVYAA_NA_TRPL_C,
+			  FN_TRPL_CIF_NM(AA.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N,
+			  AA.DVYAA_NA_TEAM_C,
+			  AA.DVYAA_C,
+			  AA.CSER_CTR_TPC,
+			  AA.SPY_TPC,
+			  AA.SLGT_ETR_DSC,
+			  AA.NA_WRS_LCLC,
+			  AA.NA_WRS_MCLC,
+			  AA.VHCNO,
+			  AA.DDLY_YN,
+			  AA.NA_USR_SYS_KDC,
+			  AA.SLP_DT,
+			  AA.NA_SLPNO,
+			  SUM(AA.DVY_PLA_QT) AS DVY_PLA_QT,
+			  SUM(AA.DVY_AM) AS DVY_AM,
+			  SUM(AA.DVY_VAT) AS DVY_VAT,
+			  SUM(AA.DVY_VCBT_AM) AS DVY_VCBT_AM,
+			  SUM(AA.DVY_SSDY) AS DVY_SSDY,
+			  SUM(AA.DVY_TROT_FEE) AS DVY_TROT_FEE,
+			  SUM(AA.DVY_PHD_FEE) AS DVY_PHD_FEE,
+			  SUM(AA.DVY_FAR_ASTCS) AS DVY_FAR_ASTCS,
+			  AA.PRGR_C,
+			  AA.DVY_PLASH_KDC,
+			  AA.DVY_PLASH_STSC || ' (' || FN_CM_SIMP_CNM('DVY_PLASH_STSC',AA.DVY_PLASH_STSC) || ')' DVY_PLASH_STSC,
+			  AA.OGN_NA_DVY_PLASH_SLPNO,
+			  AA.RMK_CNTN,
+			  AA.FSRGMN_ENO,
+			  AA.LSCHG_DTM,
+			  AA.LS_CMENO,
+			  SUM(AA.DVY_SSDYRT) AS DVY_SSDYRT,
+			  AA.GRS_SOJU_YN,
+			  SUM(BB.BYNG_QT) AS BYNG_QT,
+			  SUM(BB.BYNG_WT) AS BYNT_WT,
+			  SUM(BB.BYAM) AS BYAM,
+			  SUM(BB.BYNG_VAT) AS BYNG_VAT,
+			  SUM(BB.VCBT_AM) AS VCBT_AM,
+			  SUM(BB.BYNG_SSDY) AS BYNG_SSDY,
+			  FN_CM_SIMP_CNM('CSER_CTR_TPC', AA.CSER_CTR_TPC) AS CSER_CTR_TPC_N,
+			  FN_TRPL_CIF_NM(AA.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N,
+			  AA.BOX_QT
+			FROM(
+			  SELECT 
+			  	/*+ index(TB_BY_BYNG_M IDX_BY_BYNG_M_05) */
+			    DD.NA_WRS_C,
+			    DM.SPYPL_NA_TRPL_C,
+			    DM.SPYPL_NA_TEAM_C,
+			    DM.DVY_PLA_DT,
+			    DM.NA_DVY_PLASH_SLPNO,
+			    DM.ODRPL_NA_TRPL_C,
+			    DM.ODRPL_NA_TEAM_C,
+			    DM.RVOPL_NA_TRPL_C,
+			    DM.RVOPL_NA_TEAM_C,
+			    DM.ADJPL_NA_TRPL_C,
+			    DM.ADJPL_NA_TEAM_C,
+			    DM.MNGT_NA_TRPL_C,
+			    DM.MNGT_NA_TEAM_C,
+			    DM.DVYAA_NA_TRPL_C,
+			    DM.DVYAA_NA_TEAM_C,
+			    DM.DVYAA_C,
+			    DM.CSER_CTR_TPC,
+			    DM.SPY_TPC,
+			    DM.SLGT_ETR_DSC,
+			    DM.NA_WRS_LCLC,
+			    DM.NA_WRS_MCLC,
+			    DM.VHCNO,
+			    DM.DDLY_YN,
+			    CIF.NA_USR_SYS_KDC,
+			    BM.SLP_DT,
+			    BM.NA_SLPNO,
+			    DD.DVY_PLA_QT,
+			    DD.DVY_AM,
+			    DD.DVY_VAT,
+			    DD.DVY_VCBT_AM,
+			    DD.DVY_SSDY,
+			    DD.DVY_TROT_FEE,
+			    DD.DVY_PHD_FEE,
+			    DD.DVY_FAR_ASTCS,
+			    BM.NA_BZPLC,
+			    BM.NA_TEAM_C,
+			    TRN.PRGR_C,
+			    DM.DVY_PLASH_KDC,
+			    DM.DVY_PLASH_STSC,
+			    DM.OGN_NA_DVY_PLASH_SLPNO,
+			    DM.RMK_CNTN,
+			    DM.FSRGMN_ENO,
+			    DM.LSCHG_DTM,
+			    DM.LS_CMENO,
+			    DD.DVY_SSDYRT,
+			    DM.GRS_SOJU_YN,
+			    DD.BOX_QT
+			  FROM 
+			       TB_OD_DLVPNSHT_M DM
+			      ,TB_OD_DLVPNSHT_D DD
+			      ,TB_BY_BYNG_M BM
+			      ,TB_TR_TRNREL TRN
+			      ,TB_TR_TRPL_CIF CIF
+			  WHERE 1=1
+				AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C 
+				AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C 
+				AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO 
+				AND DM.SPYPL_NA_TRPL_C = BM.ACTL_BUYPL_NA_TRPL_C(+)
+				AND DM.NA_DVY_PLASH_SLPNO = BM.NA_DVY_PLASH_SLPNO(+)
+				AND DM.ODRPL_NA_TRPL_C = BM.NA_BZPLC(+) 
+				AND DM.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C 
+				AND DM.ODRPL_NA_TRPL_C = TRN.CSER_NA_TRPL_C 
+				AND DM.ODRPL_NA_TEAM_C = TRN.CSER_NA_TEAM_C 
+				AND DM.SPYPL_NA_TRPL_C = TRN.SPLR_NA_TRPL_C 
+				AND DM.SPYPL_NA_TEAM_C = TRN.SPLR_NA_TEAM_C 
+				AND DM.CSER_CTR_TPC = TRN.CSER_CTR_TPC 
+			    AND BM.DEL_DTM IS NULL
+			    AND DD.WK_DS != 'D'
+				AND DM.TEMP_YN = 'N'
+				AND DM.PRC_YN IN ('Y', 'R')
+<if test="dvy_plash_slpno_rdo != null and dvy_plash_slpno_rdo == '2'.toString() and na_dvy_plash_slpno.length() > 0"><!-- 배송예정서 번호 -->
+				AND DM.NA_DVY_PLASH_SLPNO = #{na_dvy_plash_slpno}
+</if>
+<if test="odrpl_na_trpl_rdo != null and odrpl_na_trpl_rdo == '2'.toString() and odrpl_na_trpl_c.length() > 0"><!-- 발주처 -->
+				AND DM.ODRPL_NA_TRPL_C = #{odrpl_na_trpl_c}
+</if>
+<if test="cser_ctr_tpc != null and cser_ctr_tpc != 'all' and cser_ctr_tpc.length() > 0 "><!-- 계약유형 -->
+				AND DM.CSER_CTR_TPC = #{cser_ctr_tpc}
+</if>
+<if test="ddly_yn != '2'.toString() and ddly_yn != null and ddly_yn.length() > 0 "><!-- 배송구분 -->
+				AND DM.DDLY_YN = #{ddly_yn}
+</if>
+<if test="dvy_pla_dt_from != null and dvy_pla_dt_from.length() > 0 and dvy_pla_dt_to != null and dvy_pla_dt_to.length() > 0"><!-- 배송일자 -->
+				AND DM.DVY_PLA_DT BETWEEN #{dvy_pla_dt_from} AND #{dvy_pla_dt_to}
+</if>
+<if test="ngrs_soju_yn != null and ngrs_soju_yn != 'all' "><!-- 지방소주여부 -->
+				AND DM.GRS_SOJU_YN = #{ngrs_soju_yn}
+</if>
+				AND DM.SPYPL_NA_TRPL_C IN 
+<foreach collection="trpl" item="item" index="index" separator="," open="(" close=")">
+		 				#{item}
+</foreach>	
+<if test="dvy_pla_sts_rdo != null and dvy_pla_sts_rdo.length() > 0"><!-- 배송예정서 상태 -->
+				AND DM.DVY_PLASH_STSC = #{dvy_pla_sts_rdo} 
+</if>
+			) AA,
+			TB_BY_BYNG_WRS BB
+			WHERE 1=1
+			  AND AA.NA_BZPLC = BB.NA_BZPLC(+)
+			  AND AA.NA_TEAM_C = BB.NA_TEAM_C(+)
+			  AND AA.SLP_DT = BB.SLP_DT(+)
+			  AND AA.NA_SLPNO = BB.NA_SLPNO(+)
+			  AND AA.NA_WRS_C = BB.NA_WRS_C(+)
+			GROUP BY 
+				AA.SPYPL_NA_TRPL_C,
+				AA.SPYPL_NA_TEAM_C,
+				AA.DVY_PLA_DT,
+				AA.NA_DVY_PLASH_SLPNO,
+				AA.ODRPL_NA_TRPL_C,
+				AA.ODRPL_NA_TEAM_C,
+				AA.RVOPL_NA_TRPL_C,
+				AA.RVOPL_NA_TEAM_C,
+				AA.ADJPL_NA_TRPL_C,
+				AA.ADJPL_NA_TEAM_C,
+				AA.MNGT_NA_TRPL_C,
+				AA.MNGT_NA_TEAM_C,
+				AA.DVYAA_NA_TRPL_C,
+				AA.DVYAA_NA_TEAM_C,
+				AA.DVYAA_C,
+				AA.CSER_CTR_TPC,
+				AA.SPY_TPC,
+				AA.SLGT_ETR_DSC,
+				AA.NA_WRS_LCLC,
+				AA.NA_WRS_MCLC,
+				AA.VHCNO,
+				AA.DDLY_YN,
+				AA.NA_USR_SYS_KDC,
+				AA.SLP_DT,
+				AA.NA_SLPNO,
+				AA.NA_BZPLC,
+				AA.NA_TEAM_C,
+				AA.PRGR_C,
+				AA.DVY_PLASH_KDC,
+				AA.DVY_PLASH_STSC,
+				AA.OGN_NA_DVY_PLASH_SLPNO,
+				AA.RMK_CNTN,
+				AA.FSRGMN_ENO,
+				AA.LSCHG_DTM,
+				AA.LS_CMENO,
+				AA.GRS_SOJU_YN,
+				AA.BOX_QT
+		ORDER BY AA.SPYPL_NA_TRPL_C, AA.DVY_PLA_DT, AA.ODRPL_NA_TRPL_C
+	</select>
+	
+	<select  id="downloadExcelDeliveryTradingPatnersM_back" parameterType="java.util.Map" resultMap="excelDeliveryTradingPatnersM">
+		SELECT
+			AA.*, BB.*
+		FROM(		
+		        SELECT
+		          LIST.*
+		        FROM
+		        (
+		                  SELECT
+		                    A.SPYPL_NA_TRPL_C,
+		                    A.RVOPL_NA_TRPL_C,
+		                    FN_TRPL_CIF_NM(A.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N,
+		                    A.DVYAA_NA_TRPL_C,
+		                    FN_TRPL_CIF_NM(A.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N,
+		                    A.NA_DVY_PLASH_SLPNO,/* 배송예정서번호 */
+		                    A.DVY_PLA_DT,/* 배송예정일 */
+		                    A.DVY_AM, /* 배송예정금액 */
+		                    A.DVY_VAT, /* 부가세 */
+		                    A.CSER_CTR_TPC  || ' ' ||  FN_CM_SIMP_CNM('CSER_CTR_TPC', A.CSER_CTR_TPC) AS CSER_CTR_TPC,/* 수요자계약유형 */
+		                    FN_TRPL_CIF_NM(A.SPYPL_NA_TRPL_C) AS SPYPL_NA_TRPL_N,
+		                    A.FSRGMN_ENO,/* 최초등록자 */
+		                    A.DVY_SSDY, /* 배송장려금 */
+		                    NVL((
+		                      SELECT
+		                        NVL(SUM(DVY_SSDYRT), 0) / COUNT(*)
+		                      FROM TB_OD_DLVPNSHT_D
+		                      WHERE 1=1
+		                        AND SPYPL_NA_TRPL_C = A.SPYPL_NA_TRPL_C
+		                        AND DVYAA_NA_TRPL_C = A.DVYAA_NA_TRPL_C
+		                        AND NA_DVY_PLASH_SLPNO = A.NA_DVY_PLASH_SLPNO
+		                      GROUP BY SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C, NA_DVY_PLASH_SLPNO
+		                    ), 0) AS DVY_SSDYRT, /* 배송장려금율 */
+		                    NVL(B.BYAM, 0) AS BYAM,/* 매입확정금액 */
+		                    NVL(C.BYNG_QT, 0) AS BYNG_QT, /* 매입확정수량 */
+		                    B.SLP_DT, /* 매입전표일자 */
+		                    B.NA_SLPNO, /* 매입전표번호 */
+		                    A.ODRPL_NA_TRPL_C,
+		                    FN_TRPL_CIF_NM(A.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N,
+		                    A.DDLY_YN, /* 직송여부 */
+		                    '['|| A.ODRPL_NA_TEAM_C ||']'||FN_CM_TEAM_NM(A.ODRPL_NA_TRPL_C, A.ODRPL_NA_TEAM_C) AS ODRPL_NA_TEAM_N ,
+		                    CASE
+		                      WHEN C.NA_BZPLC IS NULL THEN A.DVY_PLA_QT
+		                      ELSE 0
+		                    END AS STS_DVY_PLA_QT,/* 배송예정수량 */
+		                    CASE
+		                      WHEN C.NA_BZPLC IS NULL THEN A.DVY_AM
+		                      ELSE 0
+		                    END AS STS_DVY_AM, /* 배송예정금액 */
+		                    NVL(B.BYAM, 0) AS STS_BYAM,/* 매입금액 */
+		                    NVL(C.BYNG_QT, 0) AS STS_BYNG_QT, /* 매입수량 */
+		                    A.GRS_SOJU_YN, /* 지방소주여부 */
+		                    CASE 
+		                            WHEN B.NA_SLPNO IS NULL THEN '1' /* 배송예정 */
+		                            ELSE '2'/* 매입 */
+							END AS DVY_PLA_STS /* 배송예정서상태 */
+		                  FROM
+		                    TB_OD_DLVPNSHT_M A,
+		                    TB_BY_BYNG_M B,
+		                    (
+		                      SELECT
+		                        NA_BZPLC,
+		                        NA_TEAM_C,
+		                        SLP_DT,
+		                        NA_SLPNO,
+		                        SLP_SQNO,
+		                        SUM(BYNG_QT) AS BYNG_QT
+		                      FROM
+		                        TB_BY_BYNG_WRS
+		                      GROUP BY NA_BZPLC, NA_TEAM_C, SLP_DT, NA_SLPNO, SLP_SQNO
+		                    ) C
+		                  WHERE 1=1
+		                    AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO(+)
+		                    AND B.NA_BZPLC = C.NA_BZPLC(+)
+		                    AND B.NA_TEAM_C = C.NA_TEAM_C(+)
+		                    AND B.SLP_DT = C.SLP_DT(+)
+		                    AND B.NA_SLPNO = C.NA_SLPNO(+)
+		                    AND B.DEL_DTM IS NULL
+		                    AND A.TEMP_YN = 'N'
+		                    AND A.PRC_YN IN ('Y', 'R')
+				<if test="dvy_plash_slpno_rdo != null and dvy_plash_slpno_rdo == '2'.toString() and na_dvy_plash_slpno.length() > 0"><!-- 배송예정서 번호 -->
+							AND A.NA_DVY_PLASH_SLPNO = #{na_dvy_plash_slpno}
+				</if>
+				<if test="odrpl_na_trpl_rdo != null and odrpl_na_trpl_rdo == '2'.toString() and odrpl_na_trpl_c.length() > 0"><!-- 발주처 -->
+							AND A.ODRPL_NA_TRPL_C = #{odrpl_na_trpl_c}
+				</if>
+				<if test="cser_ctr_tpc != null and cser_ctr_tpc != 'all' and cser_ctr_tpc.length() > 0 "><!-- 계약유형 -->
+							AND A.CSER_CTR_TPC = #{cser_ctr_tpc}
+				</if>
+				<if test="ddly_yn != '1'.toString() and ddly_yn != null and ddly_yn.length() > 0 "><!-- 배송구분 -->
+							AND A.DDLY_YN = #{ddly_yn}
+				</if>
+				<if test="dvy_pla_dt_from != null and dvy_pla_dt_from.length() > 0 and dvy_pla_dt_to != null and dvy_pla_dt_to.length() > 0"><!-- 배송일자 -->
+							AND A.DVY_PLA_DT BETWEEN #{dvy_pla_dt_from} AND #{dvy_pla_dt_to}
+				</if>
+				<if test="ngrs_soju_yn != null and ngrs_soju_yn != 'all' "><!-- 지방소주여부 -->
+							AND A.GRS_SOJU_YN = #{ngrs_soju_yn}
+				</if>
+							AND A.SPYPL_NA_TRPL_C IN 
+							<foreach collection="trpl" item="item" index="index" separator="," open="(" close=")">
+				 				#{item}
+							</foreach>
+		          ) LIST
+					WHERE 1=1
+				<if test="dvy_pla_sts_rdo != null and dvy_pla_sts_rdo.length() > 1"><!-- 배송예정서 상태 -->
+						AND AA.DVY_PLA_STS = #{dvy_pla_sts_rdo}
+				</if>
+		) AA,
+		(
+			SELECT
+					A.NA_WRS_C AS B_NA_WRS_C,
+					C.WRSNM AS B_WRSNM,
+					A.ODR_DT AS B_ODR_DT,
+					A.ODR_SLPNO AS B_ODR_SLPNO,
+					A.ODR_DSQNO AS B_ODR_DSQNO,
+					A.TXT_DSC AS B_TXT_DSC, /* 과세구분 */
+					TW.PD_YY AS B_PD_YY, /* 생산년도 */
+					A.DVY_WRS_UPR AS B_DVY_WRS_UPR, /* 배송상품단가 */
+					A.DVY_PLA_QT AS B_DVY_PLA_QT, /* 배송예정수량 */
+					A.DVY_AM AS B_DVY_AM, /* 배송금액 */
+					A.DVY_VAT AS B_DVY_VAT, /* 배송부가세 */
+					A.DVY_VCBT_AM AS B_DVY_VCBT_AM, /* 배송공병금액 */
+					( CASE WHEN A.DVY_SSDYRT <![CDATA[<>]]> 0 AND A.DVY_SSDY = 0 THEN ( A.DVY_AM * A.DVY_SSDYRT ) / 100 ELSE A.DVY_SSDY END ) AS B_DVY_SSDY, /* 배송장려금 */
+					A.DVY_TROT_FEE AS B_DVY_TROT_FEE, /* 배송환급수수료 */
+					A.DVY_PHD_FEE AS B_DVY_PHD_FEE, /* 배송물류수수료 */
+					A.DVY_FAR_ASTCS AS B_DVY_FAR_ASTCS, /* 배송운임보조비 */
+					E.BYNG_UPR AS B_BYNG_UPR, /* 매입확정단가 */
+					E.BYNG_QT AS B_BYNG_QT, /* 매입확정수량 */
+					E.BYNG_WT AS B_BYNG_WT, /* 매입확정중량 */
+					E.BYAM AS B_BYAM,/* 매입확정금액 */
+				    A.NA_DVY_PLASH_SLPNO AS B_NA_DVY_PLASH_SLPNO,
+				    A.DVYAA_NA_TRPL_C AS B_DVYAA_NA_TRPL_C,
+				    A.SPYPL_NA_TRPL_C AS B_SPYPL_NA_TRPL_C,
+					CASE
+						WHEN D.NA_DVY_PLASH_SLPNO IS NULL THEN '03 매입'
+						ELSE '01 배송예정'
+					END AS B_DVY_PLASH_STAC, /* 배송예정서상태코드 */
+					A.DVY_SSDYRT AS B_DVY_SSDYRT, /* 배송장려금율 */
+					B.BOX_QT
+				FROM
+					TB_OD_DLVPNSHT_D A,
+					TB_OD_DLVPNSHT_M B,
+					TB_GD_WRS C,
+					TB_OD_TRTWRS TW,
+					TB_BY_BYNG_M D,
+					TB_BY_BYNG_WRS E
+				WHERE 1=1
+					AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+					AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+					AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+					AND A.NA_WRS_C = C.NA_WRS_C(+)
+					AND A.NA_DVY_PLASH_SLPNO = D.NA_DVY_PLASH_SLPNO(+)
+					AND D.NA_BZPLC = E.NA_BZPLC(+)
+					AND D.NA_TEAM_C = E.NA_TEAM_C(+)
+					AND D.SLP_DT = E.SLP_DT(+)
+					AND D.NA_SLPNO = E.NA_SLPNO(+)
+					AND A.SPYPL_NA_TRPL_C = TW.NA_BZPLC(+)
+					AND A.NA_WRS_C =  TW.NA_WRS_C(+)
+					AND B.TEMP_YN = 'N'
+					--AND A.WK_DS != 'D'
+					AND B.PRC_YN IN ('Y', 'R')
+<if test="g_spypl_na_trpl_c != null and g_spypl_na_trpl_c.length() > 0">
+					AND A.SPYPL_NA_TRPL_C = #{g_spypl_na_trpl_c}
+</if>
+<if test="g_dvyaa_na_trpl_c != null and g_dvyaa_na_trpl_c.length() > 0">
+					AND A.DVYAA_NA_TRPL_C = #{g_dvyaa_na_trpl_c}
+</if>
+<if test="g_na_dvy_plash_slpno != null and g_na_dvy_plash_slpno.length() > 0">
+					AND A.NA_DVY_PLASH_SLPNO = #{g_na_dvy_plash_slpno}
+</if>
+		) BB
+		WHERE 1=1
+			AND AA.SPYPL_NA_TRPL_C = BB.B_SPYPL_NA_TRPL_C
+		  	AND AA.DVYAA_NA_TRPL_C = BB.B_DVYAA_NA_TRPL_C
+		 	AND AA.NA_DVY_PLASH_SLPNO = BB.B_NA_DVY_PLASH_SLPNO
+
+	</select>
+	
+	<!-- 배송예정서 거래처별 조회 엑셀상세 -->
+	<select id="downloadExcelDetailDeliveryTradingPatners" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+	 SELECT A.* ,D.VCBT_UPR
+		FROM
+		(
+		<![CDATA[
+		SELECT /*+ index(TB_BY_BYNG_M IDX_BY_BYNG_M_05) */ 
+					DM.SPYPL_NA_TRPL_C, /* 0 */
+					DM.SPYPL_NA_TEAM_C,
+					DM.RVOPL_NA_TRPL_C, 
+					FN_TRPL_CIF_NM(DM.RVOPL_NA_TRPL_C) AS RVOPL_NA_TRPL_N,
+					DM.DVYAA_NA_TRPL_C,
+					FN_TRPL_CIF_NM(DM.DVYAA_NA_TRPL_C) AS DVYAA_NA_TRPL_N,
+					DM.NA_DVY_PLASH_SLPNO, 
+					DM.DVY_PLA_DT,
+					DM.ODRPL_NA_TRPL_C,
+					FN_TRPL_CIF_NM(DM.ODRPL_NA_TRPL_C) AS ODRPL_NA_TRPL_N, 
+					DM.ODRPL_NA_TEAM_C,
+					DM.DVY_AM AS TOTAL_DVY_AM,
+					DM.DVY_VAT AS TOTAL_DVY_VAT,
+					DM.DVY_PLASH_STSC || ' ' || FN_CM_SIMP_CNM('DVY_PLASH_STSC', DM.DVY_PLASH_STSC) AS DVY_PLASH_STSC, 
+					DM.RMK_CNTN,
+					DD.NA_WRS_C,
+					WRS.WRSNM,
+					WRS.WRS_STDNM,
+					WRS.NA_WRS_UNT_C,
+				 	FN_CM_SIMP_CNM('NA_WRS_UNT_C', WRS.NA_WRS_UNT_C) AS NA_WRS_UNT_C_NM,
+					WRS.BOXPE_AQZ,
+					DD.DVY_WRS_UPR,
+					DD.DVY_PLA_QT,
+					DD.DVY_AM,
+					DD.DVY_VAT,
+					DD.DVY_VCBT_AM,
+					DD.DVY_PLA_SQNO,
+					DM.CSER_CTR_TPC,
+					DD.BOX_QT,
+					(DD.ODR_DT || '-' || DD.ODR_SLPNO || '-' || DD.ODR_DSQNO) AS ODR_SLPNO		
+				]]>				
+			   FROM TB_OD_DLVPNSHT_M DM ,
+					TB_OD_DLVPNSHT_D DD ,
+					TB_BY_BYNG_M BM ,
+					TB_TR_TRNREL TRN ,
+					TB_TR_TRPL_CIF CIF,
+					TB_GD_WRS WRS
+					<!-- ,TB_OD_TRTWRS TWRS -->
+	WHERE 1=1 
+				AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C 
+				AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C 
+				AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO 
+				AND DM.SPYPL_NA_TRPL_C = BM.ACTL_BUYPL_NA_TRPL_C(+)
+				AND DM.ODRPL_NA_TRPL_C = BM.NA_BZPLC(+) 
+				AND DM.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C(+) 
+				AND DM.NA_DVY_PLASH_SLPNO = BM.NA_DVY_PLASH_SLPNO(+) 
+				AND DM.ODRPL_NA_TRPL_C = TRN.CSER_NA_TRPL_C 
+				AND DM.ODRPL_NA_TEAM_C = TRN.CSER_NA_TEAM_C 
+				AND DM.SPYPL_NA_TRPL_C = TRN.SPLR_NA_TRPL_C 
+				AND DM.SPYPL_NA_TEAM_C = TRN.SPLR_NA_TEAM_C 
+				AND DM.CSER_CTR_TPC = TRN.CSER_CTR_TPC 
+				AND DD.NA_WRS_C = WRS.NA_WRS_C 
+				AND BM.DEL_DTM IS NULL 
+				AND DM.TEMP_YN = 'N'
+				--AND DD.WK_DS != 'D'
+				AND DM.PRC_YN IN ('Y', 'R')
+<if test="dvy_plash_slpno_rdo != null and dvy_plash_slpno_rdo == '2'.toString() and na_dvy_plash_slpno.length() > 0"><!-- 배송예정서 번호 -->
+				AND DM.NA_DVY_PLASH_SLPNO = #{na_dvy_plash_slpno}
+</if>
+<if test="odrpl_na_trpl_rdo != null and odrpl_na_trpl_rdo == '2'.toString() and odrpl_na_trpl_c.length() > 0"><!-- 발주처 -->
+				AND DM.ODRPL_NA_TRPL_C = #{odrpl_na_trpl_c}
+</if>
+<if test="cser_ctr_tpc != null and cser_ctr_tpc != 'all' and cser_ctr_tpc.length() > 0 "><!-- 계약유형 -->
+				AND DM.CSER_CTR_TPC = #{cser_ctr_tpc}
+</if>
+<if test="ddly_yn != '2'.toString() and ddly_yn != null and ddly_yn.length() > 0 "><!-- 배송구분 -->
+				AND DM.DDLY_YN = #{ddly_yn}
+</if>
+<if test="dvy_pla_dt_from != null and dvy_pla_dt_from.length() > 0 and dvy_pla_dt_to != null and dvy_pla_dt_to.length() > 0"><!-- 배송일자 -->
+				AND DM.DVY_PLA_DT BETWEEN #{dvy_pla_dt_from} AND #{dvy_pla_dt_to}
+</if>
+<if test="ngrs_soju_yn != null and ngrs_soju_yn != 'all' "><!-- 지방소주여부 -->
+				AND DM.GRS_SOJU_YN = #{ngrs_soju_yn}
+</if>
+				AND DM.SPYPL_NA_TRPL_C IN 
+<foreach collection="trpl" item="item" index="index" separator="," open="(" close=")">
+		 				#{item}
+</foreach>	
+<if test="dvy_pla_sts_rdo != null and dvy_pla_sts_rdo.length() > 0"><!-- 배송예정서 상태 -->
+				AND DM.DVY_PLASH_STSC = #{dvy_pla_sts_rdo} 
+</if>
+		) A ,
+		TB_OD_TRTWRS D
+		WHERE 1=1
+		AND A.NA_WRS_C = D.NA_WRS_C(+)
+		AND A.ODRPL_NA_TRPL_C = D.NA_BZPLC(+)
+		AND A.CSER_CTR_TPC = D.CSER_CTR_TPC(+)	
+<choose>
+	<when test="sort != null and sort.toString() == '1'.toString() ">
+		ORDER BY A.NA_DVY_PLASH_SLPNO, A.DVY_PLA_SQNO, A.DVY_PLA_DT, A.RVOPL_NA_TRPL_C,  A.SPYPL_NA_TRPL_C, A.ODR_SLPNO
+	</when>
+	<when test="sort != null and sort.toString() == '2'.toString() ">
+		ORDER BY  A.DVY_PLA_DT, A.SPYPL_NA_TRPL_C, A.DVYAA_NA_TRPL_C, A.NA_DVY_PLASH_SLPNO, A.ODR_SLPNO
+	</when>
+	<otherwise>
+		ORDER BY  A.DVYAA_NA_TRPL_C, A.DVY_PLA_DT, A.SPYPL_NA_TRPL_C, A.NA_DVY_PLASH_SLPNO, A.ODR_SLPNO
+	</otherwise>
+</choose>
+	</select>
+	
+	<!-- 배송예정서거래처별조회 다운로드 -->
+	<select id="downloadExcelDeliveryTradingPatnersE" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT A.*, ROWNUM FROM (
+		 SELECT /*+ INDEX(A XPK_TB_OD_DLVPNSHT_M)  */
+		      'I' rec_sts
+		      /* , ( SELECT COUNT(*) FROM TB_OD_DLVPNSHT_D X
+			  WHERE A.spypl_na_trpl_c   = X.spypl_na_trpl_c
+			    AND A.dvyaa_na_trpl_c   = X.dvyaa_na_trpl_c
+			    AND A.na_dvy_plash_slpno= X.na_dvy_plash_slpno ) cnt */
+			  ,  COUNT(8) OVER (PARTITION BY A.SPYPL_NA_TRPL_C,A.DVYAA_NA_TRPL_C, A.NA_DVY_PLASH_SLPNO ) CNT
+		      ,  A.SPYPL_NA_TRPL_C /* 03 */
+		      ,   '' AS C04 /* 04 공급처팀코드*/
+		      ,  A.DVY_PLA_DT /* 05 */
+		      ,  '' AS NA_DVY_PLASH_SLPNO /* 06 */
+		      ,  A.ODRPL_NA_TRPL_C /* 07 */
+		      ,  A.ODRPL_NA_TEAM_C /* 08 */
+		      ,  A.RVOPL_NA_TRPL_C /* 09 */
+		      ,  A.RVOPL_NA_TEAM_C /* 10 */
+		      ,  '' AS ADJPL_NA_TRPL_C /* 11 */
+		      ,  '' AS ADJPL_NA_TEAM_C /* 12 */
+		      ,  A.MNGT_NA_TR_TPC /* 13 */
+		      ,  A.MNGT_NA_TRPL_C /* 14 */
+		      ,  A.MNGT_NA_TEAM_C /* 15 */
+		      ,  A.DVYAA_NA_TRPL_C /* 16 */
+		      ,  A.DVYAA_NA_TEAM_C /* 17 */
+		      ,  A.DVYAA_C /* 18 */
+		      ,  A.CSER_CTR_TPC /* 19 */
+		      ,  A.SPY_TPC /* 20 */
+		      ,  A.SLGT_ETR_DSC /* 21 */
+		      ,  A.NA_WRS_LCLC /* 22 */
+		      ,  A.NA_WRS_MCLC /* 23 */
+		      , '' AS C33/* 33 인수도코드*/
+		      ,  A.DVY_PLA_QT/* 39 */
+		      ,  A.DVY_AM/* 41 */
+		      ,  A.DVY_VAT /* 42 */
+		      ,  A.VCBT_AM /* 43 */
+		      ,  A.VCBX_AM /* 44 */
+		      ,  A.DVY_SSDY /* 45 */
+		      ,  A.DVY_TROT_FEE /* 46 */
+			  ,  A.DVY_PHD_FEE /* 47 */
+		      ,  A.DVY_FAR_ASTCS /* 48 */
+		      ,  '' AS C59/* 59 목재파렛트수량 */
+		      ,  '' AS C60/* 60 플라스틱파렛트수량 */
+		      ,  '' AS C61/* 61 가격군코드 */
+		      ,  '' AS C62/* 62 구매단가구분코드 */
+		      ,  '' AS C63/* 63 매입단가구분코드 */
+		      ,  A.RMK_CNTN/* 69 */
+		      ,  B.DVY_PLA_SQNO /* 06 */
+		      ,  B.NA_WRS_C /* 07 */
+		      , '' AS C10/* 10 경제통합출하자코드 */
+		      , '' AS C11/* 11산지경제통합사업장코드 */
+		      , '' AS C12/* 12산지경제통합팀코드 */
+		      , '' AS C13/* 13수령인명 */
+		      , '' AS C14/* 14수령인전화번호 */
+		      , B.ODR_DT /* 18 */
+		      , B.ODR_SLPNO /* 19 */
+		      , B.ODR_DSQNO /* 20 */
+		      , B.TXT_DSC /* 21 */
+		      , B.DVY_WRS_UPR /* 25 */
+		      , B.DVY_PLA_QT AS DVY_PLA_QT_D /* 26 */
+		      , B.DVY_AM AS DVY_AM_D/* 28 */
+		      , B.DVY_VAT AS DVY_VAT_D/* 29 */
+		      , B.DVY_VCBT_AM /* 30 */
+		      , B.DVY_SSDY AS DVY_SSDY_D/* 31 */
+		      , B.DVY_TROT_FEE AS DVY_TROT_FEE_D/* 32 */
+		      , B.DVY_PHD_FEE AS DVY_PHD_FEE_D/* 33 */
+		      , B.DVY_FAR_ASTCS AS DVY_FAR_ASTCS_D/* 34 */
+		      , '' AS C38/* 38비고 내용 */
+		      , '' AS C39/* 40매출단가유형코드 */
+		      , '' AS C41/* 41수요자계약유형코드*/
+		      , '' AS C42/* 42구매사업방식코드*/
+		      , B.BOX_QT
+		  FROM
+			TB_OD_DLVPNSHT_M A,
+			TB_OD_DLVPNSHT_D B
+		  WHERE 1=1
+			AND A.spypl_na_trpl_c   IN
+			<foreach collection="trpl" item="item" index="index" separator="," open="(" close=")">
+				 			#{item}
+			</foreach>
+			<if test="na_dvy_plash_slpno != null and na_dvy_plash_slpno.length() > 0">
+			AND A.na_dvy_plash_slpno= #{na_dvy_plash_slpno}
+			</if>
+		    AND A.spypl_na_trpl_c   = B.spypl_na_trpl_c
+		    AND A.dvyaa_na_trpl_c   = B.dvyaa_na_trpl_c
+		    AND A.na_dvy_plash_slpno= B.na_dvy_plash_slpno
+		    AND A.TEMP_YN='N'
+		    AND B.WK_DS != 'D'
+		    AND A.PRC_YN = 'R'
+		   	AND A.DVY_PLA_DT BETWEEN #{dvy_pla_dt_from} AND #{dvy_pla_dt_to}
+		  ORDER BY A.SPYPL_NA_TRPL_C, A.DVYAA_NA_TRPL_C, A.NA_DVY_PLASH_SLPNO, B.DVY_PLA_SQNO
+		) A
+		WHERE ROWNUM <![CDATA[<=]]> 100
+	</select>
+	
+	<select id="printDeliveryNoticeOrder" parameterType="java.util.Map" resultMap="printDeliveryNoticeOrderMap">
+		SELECT 
+			(SELECT NA_TRPL_SEAL_FLNM FROM tb_tr_trpl_cif WHERE na_trpl_c = A.SPYPL_NA_TRPL_C) AS NA_TRPL_SEAL_FLNM,
+			FN_CM_SIMP_CNM('CSER_CTR_TPC',A.CSER_CTR_TPC) CSER_CTR_TPC, /* 계약유형 */
+			C.CLNTNM AS SPYPL_NA_TRPL_N, /* 공급처 상호 */
+			A.SPYPL_NA_TRPL_C,/* 공급처 코드 */
+			C.BIZ_NUMBER AS SPYPL_BIZ_NUMBER, /* 사업자 번호 */
+			C.REPMNM AS SPYPL_REPMNM, /* 대표자 */
+			C.DONGUP ||' ' || C.DONGBW AS SPYPL_ADDRESS, /* 주소 */
+			C.ATEL||'-'||C.HTEL||'-'||C.STEL AS SPYPL_TEL, /* 전화번호 */
+			E.CLNTNM AS DVYAA_NA_TRPL_N, /* 배송처 상호 */
+			E.NA_TRPL_C DVYAA_NA_TRPL_C, /* 배송처코드 */
+			E.BIZ_NUMBER AS DVYAA_BIZ_NUMBER, /* 사업자 번호 */
+			E.REPMNM AS DVYAA_REPMNM, /* 대표자 */
+			A.DVY_PLA_DT AS CNR_DT,
+			B.DVY_PLA_SQNO,
+			B.NA_WRS_C,
+			WRS.WRSNM,
+			WRS.WRS_STDNM AS NA_WRS_UNT_N, /* 규격 */			
+            CASE WHEN D.na_usr_sys_kdc in ('52','54') then
+            ( SELECT G.MIN_ODR_QT
+              FROM TB_OD_TRTWRS G
+              WHERE G.NA_BZPLC = A.ODRPL_NA_TRPL_C            
+                  AND G.NA_WRS_C = B.NA_WRS_C           
+                AND ROWNUM = 1)
+   			ELSE WRS.BOXPE_AQZ END AS BOXPE_AQZ, /* 입수 */
+             CASE WHEN D.na_usr_sys_kdc in ('52','54') then
+            ( SELECT CEIL(B.DVY_PLA_QT/DECODE(G.MIN_ODR_QT, 0,1,G.MIN_ODR_QT))
+              FROM TB_OD_TRTWRS G
+              WHERE G.NA_BZPLC = A.ODRPL_NA_TRPL_C            
+                  AND G.NA_WRS_C = B.NA_WRS_C           
+                AND ROWNUM = 1)
+   			ELSE CEIL(B.DVY_PLA_QT / WRS.BOXPE_AQZ) END AS BOX_QT, /* 박스 수량 */
+			B.DVY_PLA_QT, /* 낱개수량 */
+			B.DVY_WRS_UPR, /* 단가 */
+			B.DVY_AM, /* 금액 */
+			B.DVY_VAT, /* 부가세 */
+			(B.DVY_AM - B.DVY_VAT) AS SPYPL_AM, /* 공급금액 */
+			DECODE(B.DQPD_RSNC,'99',B.DQPD_RSN_CNTN||' ('||B.DQPD_RSNC||')', NVL2(B.DQPD_RSNC, FN_CM_SIMP_CNM('DQPD_RSNC',B.DQPD_RSNC)||' ('||B.DQPD_RSNC||')', ' ')) AS DQPD_RSN, /* 결품사유코드가 99일경우 수기등록 결품사유기타내용 보여줌*/
+			DECODE(B.DSTR_TER_MRK_DSC, '1', '유통기한', '2', '제조일자', '해당없음') AS DSTR_TER_MRK_DSC,
+			B.DSTR_TER_DT
+			, CASE WHEN D.na_usr_sys_kdc in ('52','54') then
+            ( SELECT CASE WHEN G.PHD_FCLT_C = 'DC' THEN 'DC'
+			WHEN G.PHD_FCLT_C = 'TC' AND G.SRTR_PRC_YN='1' THEN 'TS'
+			WHEN G.PHD_FCLT_C = 'TC' AND G.SRTR_PRC_YN='0' THEN 'TB'
+			ELSE '' END
+                FROM TB_FD_GM_GOOD_WH G
+                WHERE G.NA_BZPLC = A.ODRPL_NA_TRPL_C            
+                  AND G.NA_WRS_C = B.NA_WRS_C          
+                  AND ROWNUM = 1 )
+   			ELSE '' END AS BKG_EVT_DSC,
+   			B.BOX_QT,
+   			FN_PDAA_NM(WRS.NA_WRS_PDAA_C) PDAA_NM,
+   			NVL(A.RMK_CNTN,' ') RMK_CNTN, 
+	        NVL((SELECT ODR_QT 
+	         	   FROM TB_OD_ORDER_D 
+	              WHERE ODRPL_NA_TRPL_C = A.ODRPL_NA_TRPL_C 
+  	                AND ODRPL_NA_TEAM_C = A.ODRPL_NA_TEAM_C 
+	                AND NA_WRS_C = B.NA_WRS_C 
+	                AND ODR_DT = B.ODR_DT 
+	                AND ODR_SLPNO = B.ODR_SLPNO 
+	                AND ODR_DSQNO = B.ODR_DSQNO
+	             ),0) ODR_QT 
+		FROM 
+			TB_OD_DLVPNSHT_M A,
+			TB_OD_DLVPNSHT_D B,
+			TB_TR_TRPL_CIF C,
+			TB_TR_TRPL_CIF D,
+			TB_TR_TRPL_CIF E,
+			TB_GD_WRS WRS,
+			TB_TR_TRPL_CIF G
+		WHERE 1=1
+			AND A.NA_DVY_PLASH_SLPNO = B.NA_DVY_PLASH_SLPNO
+			AND A.DVYAA_NA_TRPL_C = B.DVYAA_NA_TRPL_C
+			AND A.SPYPL_NA_TRPL_C = B.SPYPL_NA_TRPL_C
+			AND A.SPYPL_NA_TRPL_C = C.NA_TRPL_C
+			AND A.DVYAA_NA_TRPL_C = D.NA_TRPL_C
+			AND A.ODRPL_NA_TRPL_C = G.NA_TRPL_C
+			AND A.ODRPL_NA_TRPL_C = E.NA_TRPL_C
+			AND B.NA_WRS_C = WRS.NA_WRS_C
+			AND A.TEMP_YN='N'
+			AND B.WK_DS != 'D'
+			AND A.NA_DVY_PLASH_SLPNO = #{NA_DVY_PLASH_SLPNO}
+			AND A.SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND A.DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C}
+			ORDER BY B.NA_WRS_C
+	</select>
+	
+	<!-- 거래관계 공급처 팀코드 -->
+	<select id="searchTeam" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT
+			SPLR_NA_TEAM_C
+		FROM
+			TB_TR_TRNREL
+		WHERE 1=1
+			AND CSER_NA_TRPL_C = #{CSER_NA_TRPL_C}
+			AND SPLR_NA_TRPL_C = #{SPLR_NA_TRPL_C}
+			AND DEL_DTM IS NULL
+	</select>
+	
+	<!-- 단가 '0' 일 경우 바이어 검색 -->
+	<select id="getBuyer" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			#{NA_WRS_N} AS NA_WRS_N,
+			#{NA_WRS_C} AS NA_WRS_C,
+			BUYER_ENO
+		FROM
+			TB_GD_WRS_BUYER
+		WHERE 1=1
+			AND WRS_BIZTP_DSC = '1'
+            AND DEL_DTM IS NULL
+			AND NA_BZPLC = '8808983000015'
+			AND NA_WRS_LCLC = #{NA_WRS_LCLC}	
+			AND NA_WRS_MCLC = #{NA_WRS_MCLC}
+			AND NA_WRS_SCLC = #{NA_WRS_SCLC}
+			AND NA_WRS_DTCF_C = #{NA_WRS_DTCF_C}
+	</select>
+	
+	<select id="retrieveTC" parameterType="java.util.Map" resultMap="TCMap">
+		 SELECT  
+		 	A.NA_BZPLC, 
+		 	('[ '|| A.NA_BZPLC || ' ]' || ' ' || D.CLNTNM) AS CLNTNM, 
+		 	A.BZPL_TPC, 
+		 	A.BZPL_DTI_TPC, 
+		 	B.BZPL_TPNM, 
+		 	B.BZPL_DTI_TPNM                                 
+		FROM 
+			TB_CM_BZPL A, 
+			TB_TR_BZPL_TP B, 
+			TB_TR_TRNREL C, 
+			TB_TR_TRPL_CIF D
+		WHERE A.bzpl_tpc     = B.bzpl_tpc                                          
+		  AND A.bzpl_dti_tpc = B.bzpl_dti_tpc                                    
+		  AND A.bzpl_tpc    in ( '504' , '505')   /* 사업장유형코드 504 : 생활물자 , 505 : 도매전담조직  */
+		  AND A.na_bzplc     = C.cser_na_trpl_c
+		  AND A.NA_BZPLC = D.NA_TRPL_C                                    
+		  AND C.splr_na_trpl_c = #{trplC} 
+		  AND A.NA_BZPLC != '8808983000015'                                          
+		  AND C.DEL_DTM IS NULL 
+		  AND D.DEL_YN = '0'
+		  ORDER BY A.bzpl_tpc, A.bzpl_dti_tpc, A.na_bzplc
+	</select>
+	
+	<!-- 배송예정서 Master 취소 -->
+	<update id="deliveryNoticeCancelMProc" parameterType="java.util.Map">
+		UPDATE TB_OD_DLVPNSHT_M
+		SET
+			DVY_PLASH_STSC='06',
+			WK_DS = 'D',
+			PRC_YN='N',
+			LSCHG_DTM=SYSDATE,
+			LS_CMENO= #{LS_CMENO},
+			EDI_IF_ID = NULL, EDI_IF_DT = NULL, EDI_IF_RSND_SEQ = 0, DOC_RMS_LOC_DSC='WEB'
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C}
+			AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}
+	</update>
+	
+	<!-- 배송예정서 Detail 취소 -->
+	<update id="deliveryNoticeCancelDProc" parameterType="java.util.Map">
+		UPDATE TB_OD_DLVPNSHT_D
+		SET
+			WK_DS='D'
+		WHERE 1=1
+			AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND DVYAA_NA_TRPL_C = #{DVYAA_NA_TRPL_C}
+			AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}
+	</update>
+	
+	<select id="retrieveTrnrel" parameterType="java.util.Map" resultMap="trnrelMap">
+		SELECT 
+			CSER_NA_TRPL_C,
+			CSER_NA_TEAM_C,
+			SPLR_NA_TRPL_C,
+			SPLR_NA_TEAM_C,
+			CSER_CTR_TPC,
+			SPY_TPC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			MNGT_NA_TRPL_C,
+			MNGT_NA_TEAM_C,
+			MNGT_NA_TR_TPC,
+			BZ_METH_DSC,
+			CSER_NA_USR_SYS_KDC,
+			CSER_NAAC_DSC,
+			SPLR_NA_USR_SYS_KDC,
+			SPLR_NAAC_DSC,
+			CSER_ADJPL_NA_TRPL_C,
+			CSER_ADJPL_NA_TEAM_C,
+			CSER_CTR_CHRRNM,
+			CSER_CTR_CHRR_TELNO,
+			CSER_CTR_CHRR_MPNO,
+			SPLR_ADJPL_NA_TRPL_C,
+			SPLR_ADJPL_NA_TEAM_C,
+			SPYPL_HOFF_NA_TRPL_C,
+			SPLR_BNK_C,
+			SPLR_STL_ACNO,
+			SPLR_DPRNM,
+			SPLR_CTR_CHRRNM,
+			SPLR_CTR_CHRR_TELNO,
+			SPLR_CTR_CHRR_MPNO,
+			CTR_ST_DT,
+			CTR_ED_DT,
+			CTR_STOP_DT,
+			CTR_CLO_DT,
+			CTR_CLO_RSNC,
+			TR_STOP_RSNC,
+			PRGR_DSC,
+			PRGR_C,
+			ROTS_FLEX_PR_APL_YN,
+			BYNG_UPR_MOD_YN,
+			NA_ODR_FBID_RSNC,
+			ODR_FBID_DT,
+			ODRPL_BUYER_ENO,
+			NA_RVO_FBID_RSNC,
+			RVO_FBID_DT,
+			RVOPL_BUYER_ENO,
+			LDTM_DDS,
+			RGD_AMN_DSC,
+			NA_PMI_SBJ_DSC,
+			STL_FDT_BASCD,
+			SSDYRT_BASCD,
+			SSDYRT,
+			SSDY_BAS_AM,
+			DDLY_SSDYRT,
+			SSDY_PY_PTM_DSC,
+			FSRG_DTM,
+			LSCHG_DTM,
+			DEL_DTM,
+			LS_CMENO,
+			PY_FDTCN,
+			CSER_TR_REL_AMNNO,
+			MNGT_TR_REL_AMNNO
+		FROM 
+			TB_TR_TRNREL
+		WHERE 1=1 
+			AND DEL_DTM IS NULL
+			AND CSER_NA_TRPL_C 		= #{ODRPL_NA_TRPL_C}
+			AND CSER_NA_TEAM_C 		= #{ODRPL_NA_TEAM_C}
+			AND SPLR_NA_TRPL_C 		= #{SPYPL_NA_TRPL_C}
+			AND SPLR_NA_TEAM_C 		= #{SPYPL_NA_TEAM_C}
+			AND CSER_CTR_TPC 			= #{CSER_CTR_TPC}
+			AND SPY_TPC 					= #{SPY_TPC}
+			<!-- AND MNGT_NA_TRPL_C 		= #{MNGT_NA_TRPL_C}
+			AND MNGT_NA_TEAM_C 	= #{MNGT_NA_TEAM_C}
+			AND MNGT_NA_TR_TPC 	= #{MNGT_NA_TR_TPC} 
+			AND NA_WRS_LCLC 			= #{NA_WRS_LCLC}
+  			AND NA_WRS_MCLC 			= #{NA_WRS_MCLC}-->
+  			AND ROWNUM = 1
+	</select>
+	
+
+    <!-- 배송예정 Rollback용 마스터 -->
+	<select id="getDeliveryMasterForRollback" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		 A.*
+		FROM TB_OD_DLVPNSHT_M A
+		WHERE A.SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+		AND A.DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+		AND A.NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}
+		<if test="DVY_PLA_DT != null and DVY_PLA_DT != ''">
+			AND A.DVY_PLA_DT=#{DVY_PLA_DT}
+		</if>
+
+	</select>
+
+
+    <!-- 배송예정 Rollback용 디테일 -->
+	<select id="getDeliveryDetailsForRollback" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		 A.*
+		FROM TB_OD_DLVPNSHT_D A
+		WHERE A.SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+		AND A.DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+		AND A.NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}
+		<if test="DVY_PLA_DT != null and DVY_PLA_DT != ''">
+			AND A.DVY_PLA_DT=#{DVY_PLA_DT}
+		</if>
+	</select>
+	
+	
+	<insert id="rollbackDeliveryNoticeOrder" parameterType="java.util.Map">
+		{call
+	        declare
+	        begin
+	        
+				DELETE TB_OD_DLVPNSHT_M_RB
+				WHERE SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+				AND DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+				AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO};
+				
+				DELETE TB_OD_DLVPNSHT_D_RB
+				WHERE SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+				AND DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+				AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO};
+				
+				INSERT INTO TB_OD_DLVPNSHT_M_RB(
+				   SPYPL_NA_TRPL_C,
+			       DVYAA_NA_TRPL_C,
+			       NA_DVY_PLASH_SLPNO,
+			       DVY_PLA_DT,
+			       SPYPL_NA_TEAM_C,
+			       ODRPL_NA_TRPL_C,
+			       ODRPL_NA_TEAM_C,
+			       RVOPL_NA_TRPL_C,
+			       RVOPL_NA_TEAM_C,
+			       ADJPL_NA_TRPL_C,
+			       ADJPL_NA_TEAM_C,
+			       MNGT_NA_TR_TPC,
+			       MNGT_NA_TRPL_C,
+			       MNGT_NA_TEAM_C,
+			       DVYAA_NA_TEAM_C,
+			       DVYAA_C,
+			       DDLY_YN,
+			       CSER_CTR_TPC,
+			       SPY_TPC,
+			       SLGT_ETR_DSC,
+			       DVY_VHC_DSC,
+			       VHCNO,
+			       VCBT_AM,
+			       VCBX_AM,
+			       DVY_PLA_QT,
+			       DVY_AM,
+			       DVY_VAT,
+			       DVY_SSDY,
+			       DVY_TROT_FEE,
+			       DVY_PHD_FEE,
+			       DVY_FAR_ASTCS,
+			       DVY_PLASH_KDC,
+			       OGN_NA_DVY_PLASH_SLPNO,
+			       GRS_SOJU_YN,
+			       FSRGMN_ENO,
+			       NA_WRS_LCLC,
+			       NA_WRS_MCLC,
+			       DVY_PLASH_STSC,
+			       RMK_CNTN,
+			       LSCHG_DTM,
+			       LS_CMENO,
+			       TEMP_YN,
+			       PRC_YN,
+			       RES_CODE,
+			       RES_DESC,
+			       INQ_CN,
+			       LINE_CN,
+			       FS_RMS_DT,
+			       FS_RMS_HR,
+			       LS_RMS_DT,
+			       LS_RMS_HR,
+			       EDIRG_DTM,
+			       ACK_RMS_YN,
+			       RMS_SPYPL_C,
+			       MB_ID,
+			       APPLICATION_ID,
+			       DOC_NAME,
+			       DOC_RMS_LOC_DSC,
+			       EDI_IF_ID,
+			       MNGT_TR_REL_AMNNO,
+			       CSER_TR_REL_AMNNO,
+			       HDNGCN,
+			       WK_DS,
+			       NORDER_YN,
+			       EDI_IF_DT,
+			       EDI_IF_RSND_SEQ,
+			       BYNG_UPR_MOD_YN,
+			       SLPNO_RMS_DTM,
+			       INS_CODE
+				) (
+					SELECT
+					   SPYPL_NA_TRPL_C,
+				       DVYAA_NA_TRPL_C,
+				       NA_DVY_PLASH_SLPNO,
+				       DVY_PLA_DT,
+				       SPYPL_NA_TEAM_C,
+				       ODRPL_NA_TRPL_C,
+				       ODRPL_NA_TEAM_C,
+				       RVOPL_NA_TRPL_C,
+				       RVOPL_NA_TEAM_C,
+				       ADJPL_NA_TRPL_C,
+				       ADJPL_NA_TEAM_C,
+				       MNGT_NA_TR_TPC,
+				       MNGT_NA_TRPL_C,
+				       MNGT_NA_TEAM_C,
+				       DVYAA_NA_TEAM_C,
+				       DVYAA_C,
+				       DDLY_YN,
+				       CSER_CTR_TPC,
+				       SPY_TPC,
+				       SLGT_ETR_DSC,
+				       DVY_VHC_DSC,
+				       VHCNO,
+				       VCBT_AM,
+				       VCBX_AM,
+				       DVY_PLA_QT,
+				       DVY_AM,
+				       DVY_VAT,
+				       DVY_SSDY,
+				       DVY_TROT_FEE,
+				       DVY_PHD_FEE,
+				       DVY_FAR_ASTCS,
+				       DVY_PLASH_KDC,
+				       OGN_NA_DVY_PLASH_SLPNO,
+				       GRS_SOJU_YN,
+				       FSRGMN_ENO,
+				       NA_WRS_LCLC,
+				       NA_WRS_MCLC,
+				       DVY_PLASH_STSC,
+				       RMK_CNTN,
+				       LSCHG_DTM,
+				       LS_CMENO,
+				       TEMP_YN,
+				       PRC_YN,
+				       RES_CODE,
+				       RES_DESC,
+				       INQ_CN,
+				       LINE_CN,
+				       FS_RMS_DT,
+				       FS_RMS_HR,
+				       LS_RMS_DT,
+				       LS_RMS_HR,
+				       EDIRG_DTM,
+				       ACK_RMS_YN,
+				       RMS_SPYPL_C,
+				       MB_ID,
+				       APPLICATION_ID,
+				       DOC_NAME,
+				       DOC_RMS_LOC_DSC,
+				       EDI_IF_ID,
+				       MNGT_TR_REL_AMNNO,
+				       CSER_TR_REL_AMNNO,
+				       HDNGCN,
+				       WK_DS,
+				       NORDER_YN,
+				       EDI_IF_DT,
+				       EDI_IF_RSND_SEQ,
+				       BYNG_UPR_MOD_YN,
+				       SLPNO_RMS_DTM,
+				       INS_CODE
+					FROM TB_OD_DLVPNSHT_M
+				    WHERE SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+				AND DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+				AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO});    
+				
+				INSERT INTO TB_OD_DLVPNSHT_D_RB(
+				   SPYPL_NA_TRPL_C,
+			       DVYAA_NA_TRPL_C,
+			       NA_DVY_PLASH_SLPNO,
+			       DVY_PLA_SQNO,
+			       DVY_PLA_DT,
+			       NA_WRS_C,
+			       VCBT_NA_WRS_C,
+			       ODR_DT,
+			       ODR_SLPNO,
+			       ODR_DSQNO,
+			       TXT_DSC,
+			       DVY_WRS_UPR,
+			       DVY_PLA_QT,
+			       DVY_AM,
+			       DVY_VAT,
+			       DVY_VCBT_AM,
+			       DVY_SSDY,
+			       DVY_TROT_FEE,
+			       DVY_PHD_FEE,
+			       DVY_FAR_ASTCS,
+			       DQPD_RSNC,
+			       DQPD_RSN_CNTN,
+			       DVY_SSDYRT,
+			       DVY_TROT_FEERT,
+			       LS_CMENO,
+			       SPY_PSB_DT,
+			       WK_DS,
+			       CTR_UPR,
+			       OGN_DVY_PLA_DSQNO,
+			       DSTR_TER_MRK_DSC,
+			       DSTR_TER_DT,
+			       BOX_QT
+				) (
+					SELECT
+					   SPYPL_NA_TRPL_C,
+				       DVYAA_NA_TRPL_C,
+				       NA_DVY_PLASH_SLPNO,
+				       DVY_PLA_SQNO,
+				       DVY_PLA_DT,
+				       NA_WRS_C,
+				       VCBT_NA_WRS_C,
+				       ODR_DT,
+				       ODR_SLPNO,
+				       ODR_DSQNO,
+				       TXT_DSC,
+				       DVY_WRS_UPR,
+				       DVY_PLA_QT,
+				       DVY_AM,
+				       DVY_VAT,
+				       DVY_VCBT_AM,
+				       DVY_SSDY,
+				       DVY_TROT_FEE,
+				       DVY_PHD_FEE,
+				       DVY_FAR_ASTCS,
+				       DQPD_RSNC,
+				       DQPD_RSN_CNTN,
+				       DVY_SSDYRT,
+				       DVY_TROT_FEERT,
+				       LS_CMENO,
+				       SPY_PSB_DT,
+				       WK_DS,
+				       CTR_UPR,
+				       OGN_DVY_PLA_DSQNO,
+				       DSTR_TER_MRK_DSC,
+				       DSTR_TER_DT,
+				       BOX_QT
+					FROM TB_OD_DLVPNSHT_D
+				    WHERE SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+				AND DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+				AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}); 
+				
+				DELETE FROM TB_OD_DLVPNSHT_D
+				    WHERE SPYPL_NA_TRPL_C=#{SPYPL_NA_TRPL_C}
+				AND DVYAA_NA_TRPL_C=#{DVYAA_NA_TRPL_C}
+				AND NA_DVY_PLASH_SLPNO=#{NA_DVY_PLASH_SLPNO}
+				AND WK_DS = 'X';
+
+	        end
+	    }
+	</insert>
+	
+	<select id="getDvyVat" parameterType="java.util.Map" resultType="string">
+		SELECT 
+			TRUNC( TRUNC( #{DVY_PLA_QT} * #{DVY_WRS_UPR} ) * ( DECODE(#{TXT_DSC}, '1', 10, 0) / 100 ) / ( 1 + ( DECODE(#{TXT_DSC}, '1', 10, 0) / 100 ) ) ) AS DVY_VAT
+		FROM DUAL
+	</select>
+		
+	<select id="downloadExcelDeliveryResult" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'ODRPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO DESC'" />
+		<bind name="sortType" value="''" />
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryResult" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelDeliveryTradingPatnersM" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<choose>
+			<when test="sort != null and sort.toString() == '1'.toString() ">
+					<bind name="sortName" value="'NA_DVY_PLASH_SLPNO, DVY_PLA_DT, SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C'" />
+					<bind name="sortType" value="'DSC'" />
+			</when>
+			<when test="sort != null and sort.toString() == '2'.toString() ">
+					<bind name="sortName" value="'DVY_PLA_DT, SPYPL_NA_TRPL_C, DVYAA_NA_TRPL_C, NA_DVY_PLASH_SLPNO'" />
+					<bind name="sortType" value="'DSC'" />
+			</when>
+			<otherwise>
+					<bind name="sortName" value="'DVYAA_NA_TRPL_C, DVY_PLA_DT, SPYPL_NA_TRPL_C, NA_DVY_PLASH_SLPNO'" />
+					<bind name="sortType" value="'DSC'" />
+			</otherwise>
+		</choose>
+
+		<include refid="common.paging_start" />
+		<include refid="sql_retrieveDeliveryTradingPatnersM" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<select id="downloadExcelDetailDeliveryTradingPatnersBilling" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+	 SELECT A.SPYPL_NA_TRPL_C, A.DVYAA_NA_TRPL_C, A.DVY_PLA_DT, A.NA_DVY_PLASH_SLPNO 
+		FROM
+		(
+		SELECT /*+ index(TB_BY_BYNG_M IDX_BY_BYNG_M_05) */ 
+					DM.SPYPL_NA_TRPL_C, /* 0 */
+					DM.DVYAA_NA_TRPL_C,
+					DM.DVY_PLA_DT,
+					DM.NA_DVY_PLASH_SLPNO, 
+					DD.NA_WRS_C,
+					DM.ODRPL_NA_TRPL_C,
+					DM.CSER_CTR_TPC			
+			   FROM TB_OD_DLVPNSHT_M DM ,
+					TB_OD_DLVPNSHT_D DD ,
+					TB_BY_BYNG_M BM ,
+					TB_TR_TRNREL TRN ,
+					TB_TR_TRPL_CIF CIF,
+					TB_GD_WRS WRS
+					<!-- ,TB_OD_TRTWRS TWRS -->
+	WHERE 1=1 
+				AND DM.SPYPL_NA_TRPL_C = DD.SPYPL_NA_TRPL_C 
+				AND DM.DVYAA_NA_TRPL_C = DD.DVYAA_NA_TRPL_C 
+				AND DM.NA_DVY_PLASH_SLPNO = DD.NA_DVY_PLASH_SLPNO 
+				AND DM.SPYPL_NA_TRPL_C = BM.ACTL_BUYPL_NA_TRPL_C(+)
+				AND DM.ODRPL_NA_TRPL_C = BM.NA_BZPLC(+) 
+				AND DM.ODRPL_NA_TRPL_C = CIF.NA_TRPL_C(+) 
+				AND DM.NA_DVY_PLASH_SLPNO = BM.NA_DVY_PLASH_SLPNO(+) 
+				AND DM.ODRPL_NA_TRPL_C = TRN.CSER_NA_TRPL_C 
+				AND DM.ODRPL_NA_TEAM_C = TRN.CSER_NA_TEAM_C 
+				AND DM.SPYPL_NA_TRPL_C = TRN.SPLR_NA_TRPL_C 
+				AND DM.SPYPL_NA_TEAM_C = TRN.SPLR_NA_TEAM_C 
+				AND DM.CSER_CTR_TPC = TRN.CSER_CTR_TPC 
+				AND DD.NA_WRS_C = WRS.NA_WRS_C 
+				AND BM.DEL_DTM IS NULL 
+				AND DM.TEMP_YN = 'N'
+				--AND DD.WK_DS != 'D'
+				AND DM.PRC_YN IN ('Y', 'R')
+<if test="dvy_plash_slpno_rdo != null and dvy_plash_slpno_rdo == '2'.toString() and na_dvy_plash_slpno.length() > 0"><!-- 배송예정서 번호 -->
+				AND DM.NA_DVY_PLASH_SLPNO = #{na_dvy_plash_slpno}
+</if>
+<if test="odrpl_na_trpl_rdo != null and odrpl_na_trpl_rdo == '2'.toString() and odrpl_na_trpl_c.length() > 0"><!-- 발주처 -->
+				AND DM.ODRPL_NA_TRPL_C = #{odrpl_na_trpl_c}
+</if>
+<if test="cser_ctr_tpc != null and cser_ctr_tpc != 'all' and cser_ctr_tpc.length() > 0 "><!-- 계약유형 -->
+				AND DM.CSER_CTR_TPC = #{cser_ctr_tpc}
+</if>
+<if test="ddly_yn != '2'.toString() and ddly_yn != null and ddly_yn.length() > 0 "><!-- 배송구분 -->
+				AND DM.DDLY_YN = #{ddly_yn}
+</if>
+<if test="dvy_pla_dt_from != null and dvy_pla_dt_from.length() > 0 and dvy_pla_dt_to != null and dvy_pla_dt_to.length() > 0"><!-- 배송일자 -->
+				AND DM.DVY_PLA_DT BETWEEN #{dvy_pla_dt_from} AND #{dvy_pla_dt_to}
+</if>
+<if test="ngrs_soju_yn != null and ngrs_soju_yn != 'all' "><!-- 지방소주여부 -->
+				AND DM.GRS_SOJU_YN = #{ngrs_soju_yn}
+</if>
+				AND DM.SPYPL_NA_TRPL_C IN 
+<foreach collection="trpl" item="item" index="index" separator="," open="(" close=")">
+		 				#{item}
+</foreach>	
+<if test="dvy_pla_sts_rdo != null and dvy_pla_sts_rdo.length() > 0"><!-- 배송예정서 상태 -->
+				AND DM.DVY_PLASH_STSC = #{dvy_pla_sts_rdo} 
+</if>
+		) A ,
+		TB_OD_TRTWRS D
+		WHERE 1=1
+		AND A.NA_WRS_C = D.NA_WRS_C(+)
+		AND A.ODRPL_NA_TRPL_C = D.NA_BZPLC(+)
+		AND A.CSER_CTR_TPC = D.CSER_CTR_TPC(+)	
+	GROUP BY A.SPYPL_NA_TRPL_C, A.DVYAA_NA_TRPL_C, A.DVY_PLA_DT, A.NA_DVY_PLASH_SLPNO
+    ORDER BY A.SPYPL_NA_TRPL_C, A.DVYAA_NA_TRPL_C, A.DVY_PLA_DT, A.NA_DVY_PLASH_SLPNO
+	</select>
+					
+ </mapper>

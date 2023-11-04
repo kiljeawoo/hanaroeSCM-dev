@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pdaProgram">
+
+	<!-- resultMap 생략 (java.util.HashMap 사용) -->
+	
+	<sql id="sql_mainSelect">
+		SELECT PGM_FL_ID, PGM_FL_VER, PGM_FL_PATH, RMK_CNTN, REG_USR_ID, REG_DTM
+		    FROM TB_PD_CLNT_PGM
+	    <where>
+        	<if test="PGM_FL_ID != null and PGM_FL_ID.length() > 0">
+				AND PGM_FL_ID LIKE #{PGM_FL_ID}||'%'
+        	</if>
+      	</where>
+	</sql>
+	
+	<!-- 이력 총 카운트 -->
+	<select id="getMainCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="mainSelect" parameterType="Map" resultType="java.util.HashMap">
+		<bind name="sortName" value="'PGM_FL_VER desc'"/>
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_mainSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<!-- 상세 조회 (list 아님) -->
+	<select id="detailList" parameterType="Map" resultType="java.util.HashMap">
+		SELECT PGM_FL_ID, PGM_FL_VER, PGM_FL_PATH, RMK_CNTN, REG_USR_ID, REG_DTM
+		  FROM TB_PD_CLNT_PGM
+ 		 WHERE PGM_FL_ID = #{PGM_FL_ID}
+		   AND PGM_FL_VER = #{PGM_FL_VER}
+	     ORDER BY PGM_FL_VER DESC
+	</select>
+	
+	<sql id="sql_finalSelect">
+		SELECT PGM_FL_ID, PGM_FL_VER, PGM_FL_PATH, RMK_CNTN, REG_USR_ID, REG_DTM
+		    FROM TB_PD_CLNT_PGM
+	    <where>
+	    	(PGM_FL_ID, PGM_FL_VER) IN
+	    	(SELECT PGM_FL_ID, MAX(PGM_FL_VER) AS PGM_FL_VER
+	    		FROM TB_PD_CLNT_PGM GROUP BY PGM_FL_ID )
+        	<if test="PGM_FL_ID != null and PGM_FL_ID.length() > 0">
+				AND PGM_FL_ID LIKE #{PGM_FL_ID}||'%'
+        	</if>
+      	</where>
+	</sql>
+	
+	<!-- 최종버전 총 카운트 -->
+	<select id="getFinalCount" parameterType="Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_finalSelect" />
+		<include refid="common.count_end" />
+	</select>
+	
+	<select id="finalSelect" parameterType="Map" resultType="java.util.HashMap">
+		<bind name="sortName" value="'PGM_FL_ID, PGM_FL_VER desc'"/>
+		<!-- <bind name="start" value="-1" />
+		<bind name="end" value="-1" /> -->
+		
+		<include refid="common.paging_start" />
+		<include refid="sql_finalSelect" />
+		<include refid="common.paging_end" />
+	</select>
+	
+	<insert id="pgmInsert" parameterType="Map">
+		MERGE INTO TB_PD_CLNT_PGM /* mergeUsrMenuAuth */
+		USING DUAL
+		   ON (PGM_FL_ID = #{PGM_FL_ID} AND PGM_FL_VER = #{PGM_FL_VER})  /* PK */
+		 WHEN MATCHED THEN
+		      UPDATE
+		         SET PGM_FL_PATH   = #{PGM_FL_PATH}
+		           , RMK_CNTN      = #{RMK_CNTN}
+		           , REG_USR_ID    = #{REG_USR_ID}
+		           , REG_DTM       = #{REG_DTM}
+		 WHEN NOT MATCHED THEN
+		      INSERT (
+		             PGM_FL_ID      /* 프로그램파일ID*/
+		           , PGM_FL_VER     /* 프로그램파일버전 */
+		           , PGM_FL_PATH    /* 프로그램파일경로 */
+		           , RMK_CNTN       /* 비고내용 */
+		           , REG_USR_ID     /* 등록자ID */
+		           , REG_DTM        /* 등록일시 */
+		      ) VALUES (
+		             #{PGM_FL_ID}
+		           , #{PGM_FL_VER}
+		           , #{PGM_FL_PATH}
+		           , #{RMK_CNTN}
+		           , #{REG_USR_ID}
+		           , SYSDATE
+		      )
+	</insert>
+	
+	<!-- 프로그램 삭제 -->
+	<delete id="deletePdaDetail" parameterType="map">
+		DELETE TB_PD_CLNT_PGM
+		WHERE PGM_FL_ID = #{PGM_FL_ID}
+		AND	PGM_FL_VER = #{PGM_FL_VER}
+	</delete>		
+	
+</mapper>

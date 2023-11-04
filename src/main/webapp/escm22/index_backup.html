@@ -1,0 +1,107 @@
+﻿<!--[if gt IE 8]><!DOCTYPE html><![endif]-->
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="viewport" content="user-scalable=1, initial-scale=1.0, width=device-width, target-densitydpi=device-dpi" />
+	
+	<title>하나로 eSCM</title>
+	
+	<script type="text/javascript" src="./nexacro14lib/framework/Framework.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/CompBase.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/ComComp.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/Grid.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/DeviceAPI.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/EcoLibrary.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/ExtAPI/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="./nexacro14lib/component/ExtAPI/jquery.filedown.js"></script>
+	<script type="text/javascript" src="dev/test.js"></script>
+	
+	<style type="text/css">
+		div {
+			-moz-user-select: -moz-none;
+			-webkit-user-select: none;
+			-webkit-touch-callout: none;
+			-webkit-appearance: none;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			outline: none;
+		}
+		
+		v\:shape    { behavior: url(#default#VML); display: inline-block; }
+		v\:fill     { behavior: url(#default#VML); display: inline-block; }
+		v\:path     { behavior: url(#default#VML); display: inline-block; }
+		v\:line     { behavior: url(#default#VML); display: inline-block; }
+		v\:textpath { behavior: url(#default#VML); display: inline-block; }
+		o\:opacity2 { behavior: url(#default#VML); }
+		
+		input::-ms-clear  { display: none; }
+		input::-ms-reveal { display: none; }
+	</style>
+	
+	<script type="text/javascript">
+		function excelDownHandler(_url, _form) {
+			if (!_url || !_form) {
+				alert("엑셀다운로드를 위한 정보가 없습니다.\n관리자에게 문의하세요.");
+				return;
+			}
+			
+			_url = $.trim(_url);
+			
+			var url   = "";
+			var param = "";
+			
+			if (_url.indexOf("?") != -1) {
+				url   = _url.split("?")[0];  
+				param = _url.split("?")[1];
+			} else {
+				url = _url;
+			}
+			
+			param += "&glnCode=" + application.gv_glnCode;
+			
+			_form.setWaitCursor();
+			
+			$.fileDownload(url, {
+				successCallback: function(loc) {
+					_form.setWaitCursor(false);
+				},
+				failCallback: function(responseHtml) {
+					_form.setWaitCursor(false);
+				},
+				httpMethod: "POST",
+				data: param
+			});
+		}
+		
+		function oninitframework() {
+			nexacro._initHTMLSysEvent(window, document);
+			nexacro._prepareManagerFrame();
+			application.load("escm", "escm.xadl.js");
+		}
+		
+		function onfinalframework() {
+		}
+		
+		
+	</script>
+</head>
+<body style="margin: 0; border: none; -ms-touch-action: none;" onload="oninitframework();">
+<!--
+<textarea style="padding: 50px 50px; border: currentColor; border-image: none; left: 0px; top: 0px; width: 615px; height: 615px; text-align: left; color: rgb(51, 51, 51); line-height: 17px; overflow: scroll; font-family: Gulim; font-size: 9pt; white-space: pre; position: absolute; cursor: text; -ms-word-wrap: normal; wrap="off">
+안녕하십니까? 하나로eSCM 운영자입니다.
+
+현재 서버 유지보수 작업이 진행중입니다.
+
+작업일시: 2016.05.26 (목) 22:00 - 24:00
+
+유지보수 작업시간 동안 서비스가 불가하오니 업무에 참고하시기 바랍니다.
+
+감사합니다.
+</textarea>
+-->
+</body>
+</html>

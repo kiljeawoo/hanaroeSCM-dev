@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="InfoChangeDAO">
+
+	<!-- 관심점포 리스트 -->
+	<select id="retrieveStoreList" resultType="map">
+		SELECT 
+			    A.NA_BZPLC AS CODE
+			   ,B.CLNTNM   AS NAME
+			   ,'0' AS CHECK_BOX
+		FROM 
+		    	TB_CM_BZPL A, TB_TR_TRPL_CIF B, TB_TR_TRNREL C
+		WHERE
+				A.NA_BZPLC = B.NA_TRPL_C
+			<if test="RGN_C != null and RGN_C > 0">
+				AND B.NA_RGN_C LIKE #{RGN_C}||'%'
+			</if>
+				AND C.SPLR_NA_TRPL_C = #{TRPL_C}
+				AND A.NA_BZPLC = C.CSER_NA_TRPL_C
+		<if test="saveDsList != null and !saveDsList.equals('')">
+				AND A.NA_BZPLC NOT IN
+			<foreach collection="saveDsList" item="item" index="index" separator="," open="(" close=")">
+	    			#{item}
+			</foreach>
+		</if>	
+		MINUS 
+				SELECT 
+				    BZPLC AS CODE
+				    ,BZPLCNM AS NAME
+				    ,'0' AS CHECK_BOX
+				FROM 
+				    IAS_INTE_BZPLC
+				WHERE TRPL_C = #{TRPL_C}
+		ORDER BY NAME
+	</select>
+	
+	<!-- 관심상품 리스트 -->
+	<select id="retrieveGoodsList" parameterType="map" resultType="map">
+		SELECT 
+				 CODE
+				,NAME
+		FROM(		 
+			SELECT
+					NA_WRS_C AS CODE
+					,WRSNM   AS NAME
+			FROM 
+					TB_GD_WRS
+			WHERE 
+					MFT_NA_TRPL_C = #{TRPL_C}
+			<if test="saveDsList != null and !saveDsList.equals('')">
+				AND NA_WRS_C IN
+				<foreach collection="saveDsList" item="item" index="index" separator="," open="(" close=")">
+		    			#{item}
+				</foreach>
+			</if>
+			MINUS 
+			SELECT
+					WRS_C  AS CODE
+					,WRSNM AS NAME
+			FROM 
+					IAS_INTE_WRS_C
+		)
+		ORDER BY
+				NAME
+	</select>
+	
+	<!-- 관심점포/상픔 저장 리스트 -->
+	<select id="retrieveSaveStoreGoodsList" parameterType="map" resultType="map">
+		SELECT
+		<if test="analysis == '1'.toString()">
+				BZPLC 		 AS CODE 
+				,BZPLCNM 	 AS NAME
+		</if> 
+		<if test="analysis == '2'.toString()">
+				WRS_C       AS CODE
+				,WRSNM    	 AS NAME
+		</if>
+				,TO_CHAR(MOD_DTM, 'YYYY-MM-DD') AS YMD
+		FROM 
+		<if test="analysis == '1'.toString()">IAS_INTE_BZPLC</if>
+		<if test="analysis == '2'.toString()">IAS_INTE_WRS_C</if>
+		WHERE
+				TRPL_C = #{TRPL_C}
+		ORDER BY
+				MOD_DTM
+	</select>
+	
+	<!-- 관심점포/상픔 카운트 -->
+	<select id="retrieveSaveStoreGoodsCount" parameterType="map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+		<if test="analysis == '1'.toString()">IAS_INTE_BZPLC</if>
+		<if test="analysis == '2'.toString()">IAS_INTE_WRS_C</if>
+		WHERE
+			TRPL_C = #{TRPL_C}
+	</select>
+	
+	<!-- 관심점포/상품 등록 -->
+	<insert id="insertStoreGoods" parameterType="map">
+		INSERT INTO
+		<if test="analysis == '1'.toString()">IAS_INTE_BZPLC</if>
+		<if test="analysis == '2'.toString()">IAS_INTE_WRS_C</if>
+		(TRPL_C,
+		<if test="analysis == '1'.toString()">BZPLC, BZPLCNM</if>
+		<if test="analysis == '2'.toString()">WRS_C, WRSNM</if>
+			)VALUES(#{TRPL_C}, #{CODE}, #{NAME})
+	</insert>
+	
+	<!-- 관심점포/상품 삭제 -->
+	<delete id="deleteStoreGoods" parameterType="map">
+		DELETE 
+		<if test="analysis == '1'.toString()">IAS_INTE_BZPLC</if> 
+		<if test="analysis == '2'.toString()">IAS_INTE_WRS_C</if> 
+		WHERE 
+			TRPL_C = #{TRPL_C}
+		AND
+		<if test="analysis == '1'.toString()">BZPLC</if> 
+		<if test="analysis == '2'.toString()">WRS_C</if>
+		=#{CODE}	
+	</delete>		
+	
+	<sql id="sql_salesMonthlyList">
+		SELECT 
+			<if test="analysis == '1'.toString()">
+				/*+ INDEX(A IDX_SL_MM_BZPLC_01) */
+			</if>	
+			<if test="analysis == '2'.toString()">
+				/*+ INDEX(A IDX_SL_MM_WRS_C_01) */
+			</if>
+				A.SL_YM	   			 AS YMD
+				,TRUNC(A.SL_AM/1000) AS AMOUNT				
+				,A.SL_QT   			 AS QTY
+			<if test="analysis == '1'.toString()">
+				,A.BZPLC   AS CODE
+				,A.BZPLCNM AS NAME
+			</if>	
+			<if test="analysis == '2'.toString()">
+				,A.WRS_C AS CODE
+				,A.WRSNM AS NAME
+			</if>
+		FROM
+			<if test="analysis == '1'.toString()">
+				IAS_SL_MM_BZPLC A, IAS_INTE_BZPLC B
+			</if>	
+			<if test="analysis == '2'.toString()">
+				IAS_SL_MM_WRS_C A, IAS_INTE_WRS_C B
+			</if>
+		WHERE
+				A.TRPL_C = B.TRPL_C
+			AND				
+			<if test="analysis == '1'.toString()">
+				A.BZPLC = B.BZPLC
+			</if>	
+			<if test="analysis == '2'.toString()">
+				A.WRS_C = B.WRS_C
+			</if>
+				AND A.TRPL_C = #{TRPL_C}								
+				AND A.SL_YM BETWEEN #{sDate} AND #{eDate}
+		ORDER BY
+				NAME, A.SL_YM DESC
+	</sql>
+	
+	<!-- 자사 월별 [점포,상품] 매출 추이 -->
+	<select id="retrieveSalesMonthlyList" parameterType="map" resultType="map">
+		<include refid="sql_salesMonthlyList" />
+	</select>
+	
+	<sql id="sql_salesWeeklyList">
+		SELECT
+			<if test="analysis == '1'.toString()">
+				/*+ INDEX(A IDX_SL_WW_BZPLC_01) */
+			</if>	
+			<if test="analysis == '2'.toString()">
+				/*+ INDEX(A IDX_SL_WW_WRS_C_01) */
+			</if>
+				A.SQWW	 	AS YMD
+				,TRUNC(A.SL_AM/1000) AS AMOUNT				
+				,A.SL_QT    AS QTY	
+				,(SELECT SUBSTR(SQWW,0,4)||'년 '||SQ_MM||'월'||SQ_MM_TRCN||'주차' FROM IAS_SQWW WHERE SQWW = A.SQWW)AS WEEKS 		
+			<if test="analysis == '1'.toString()">
+				,A.BZPLC	AS CODE
+				,A.BZPLCNM	AS NAME
+			</if>	
+			<if test="analysis == '2'.toString()">
+				,A.WRS_C 	AS CODE
+				,A.WRSNM 	AS NAME
+			</if>
+		FROM
+			<if test="analysis == '1'.toString()">
+				IAS_SL_WW_BZPLC A, IAS_INTE_BZPLC B
+			</if>	
+			<if test="analysis == '2'.toString()">
+				IAS_SL_WW_WRS_C A, IAS_INTE_WRS_C B
+			</if>
+		WHERE
+				A.TRPL_C = B.TRPL_C		
+			AND				
+			<if test="analysis == '1'.toString()">
+				A.BZPLC = B.BZPLC
+			</if>	
+			<if test="analysis == '2'.toString()">
+				A.WRS_C = B.WRS_C
+			</if>	
+				AND A.TRPL_C = #{TRPL_C}	
+				AND A.SQWW BETWEEN #{sWeek} AND #{eWeek}
+		ORDER BY
+				NAME, A.SQWW DESC
+	</sql>
+	
+	<!-- 자사 주별 [점포,상품] 매출 추이 -->
+	<select id="retrieveSalesWeeklyList" parameterType="map" resultType="map">
+		<include refid="sql_salesWeeklyList" />
+	</select>
+	
+	<!-- 최근 N주차 리스트 -->
+	<select id="retrieveWeekList" parameterType="map" resultType="map">
+		<![CDATA[
+		SELECT 
+				A.SQWW 	AS SQWW
+				,A.SQ_MM  AS MM
+				,A.SQ_MM_TRCN AS TURN
+				,ROWNUM AS RN 
+		FROM
+		(
+			SELECT 
+					SQWW 
+					,SQ_MM
+					,SQ_MM_TRCN
+			FROM 
+					IAS_SQWW
+			WHERE 
+			SQWW <= (
+						SELECT 
+								SQWW 
+						FROM 
+								IAS_SQWW 
+						WHERE 
+								SQWW_ST_DT = #{sDate}
+							AND SQWW_ED_DT = #{eDate}
+					)
+			ORDER BY 
+					SQWW DESC
+		)A 
+		WHERE 
+			ROWNUM <= #{weekCount}	
+		]]>
+	</select>
+	
+	<!-- 저번 주차 -->
+	<select id="retrievePreWeek" parameterType="map" resultType="string">
+		SELECT 
+			    A.SQWW AS SQWW
+			    ,A.SQ_MM  AS MM
+				,A.SQ_MM_TRCN AS TURN
+			FROM    
+				(SELECT 
+				    SQWW
+				    ,SQ_MM
+					,SQ_MM_TRCN
+				    ,ROWNUM AS RN 
+				FROM 
+				(
+        		SELECT SQWW, SQ_MM, SQ_MM_TRCN 
+        		FROM   IAS_SQWW
+				WHERE
+				<![CDATA[
+				    SQWW < #{SQWW}
+				]]>
+				ORDER BY SQWW DESC)) A
+			WHERE RN = 1
+	</select>
+	
+	<sql id="sql_salesDailyList">
+		SELECT
+				A.SL_DT		AS YMD
+				,TRUNC(A.SL_AM/1000) AS AMOUNT
+				,A.SL_QT    AS QTY				
+			<if test="analysis == '1'.toString()">
+				,A.BZPLC	AS CODE
+				,A.BZPLCNM	AS NAME
+			</if>	
+			<if test="analysis == '2'.toString()">
+				,A.WRS_C AS CODE
+				,A.WRSNM AS NAME
+			</if>
+		FROM
+			<if test="analysis == '1'.toString()">
+				IAS_SL_DD_BZPLC A
+			</if>	
+			<if test="analysis == '2'.toString()">
+				IAS_SL_DD_WRS_C A
+			</if>
+		WHERE
+				A.TRPL_C = #{TRPL_C}					
+			AND A.SL_DT BETWEEN #{sDate} AND #{eDate}
+			AND EXISTS (
+	            SELECT 'X' FROM 
+            <if test="analysis == '1'.toString()">
+	            IAS_INTE_BZPLC B
+	            WHERE A.BZPLC  = B.BZPLC
+            </if>
+            <if test="analysis == '2'.toString()">
+            	IAS_INTE_WRS_C B
+            	 WHERE A.WRS_C  = B.WRS_C
+            </if>
+	            AND A.TRPL_C = B.TRPL_C          
+         	)	
+		ORDER BY
+				NAME, A.SL_DT DESC
+	</sql>
+		
+	<!-- 자사 일별 [점포,상품] 매출 추이 -->
+	<select id="retrieveSalesDailyList" parameterType="map" resultType="map">
+		<include refid="sql_salesDailyList" />
+	</select>
+	
+	<sql id="sql_stockMonthlyList">
+		SELECT
+			<if test="analysis == '1'.toString()">
+				/*+ INDEX(A IDX_STPL_MM_BZPLC_01) */
+			</if>	
+			<if test="analysis == '2'.toString()">
+				/*+ INDEX(A IDX_STPL_MM_WRS_C_01) */
+			</if>
+				A.STPL_YM	AS YMD
+				,TRUNC(A.STPL_AM/1000) AS AMOUNT	
+				,A.STPL_QT  AS QTY		
+			<if test="analysis == '1'.toString()">
+				,A.BZPLC	AS CODE
+				,A.BZPLCNM	AS NAME
+			</if>	
+			<if test="analysis == '2'.toString()">
+				,A.WRS_C AS CODE
+				,A.WRSNM AS NAME
+			</if>
+		FROM
+			<if test="analysis == '1'.toString()">
+				IAS_STPL_MM_BZPLC A, IAS_INTE_BZPLC B
+			</if>	
+			<if test="analysis == '2'.toString()">
+				IAS_STPL_MM_WRS_C A, IAS_INTE_WRS_C B
+			</if>
+		WHERE		
+				A.TRPL_C = B.TRPL_C
+			AND				
+			<if test="analysis == '1'.toString()">
+				A.BZPLC = B.BZPLC
+			</if>	
+			<if test="analysis == '2'.toString()">
+				A.WRS_C = B.WRS_C
+			</if>	
+				AND A.TRPL_C = #{TRPL_C}						
+				AND A.STPL_YM BETWEEN #{sDate} AND #{eDate}
+		ORDER BY
+				NAME, A.STPL_YM DESC
+	</sql>
+	
+	<select id="retrieveStockMonthlyList" parameterType="map" resultType="map">
+		<include refid="sql_stockMonthlyList" />
+	</select>
+	
+	<sql id="sql_stockDailyList">
+		SELECT
+				A.STPL_DT	AS YMD
+				,TRUNC(A.STPL_AM/1000) AS AMOUNT	
+				,A.STPL_QT  AS QTY		
+			<if test="analysis == '1'.toString()">
+				,A.BZPLC   	AS CODE
+				,A.BZPLCNM 	AS NAME
+			</if>	
+			<if test="analysis == '2'.toString()">
+				,A.WRS_C	AS CODE
+				,A.WRSNM	AS NAME
+			</if>
+		FROM
+			<if test="analysis == '1'.toString()">
+				IAS_STPL_DD_BZPLC A
+			</if>	
+			<if test="analysis == '2'.toString()">
+				IAS_STPL_DD_WRS_C A
+			</if>
+		WHERE		
+				A.TRPL_C = #{TRPL_C}						
+			AND A.STPL_DT BETWEEN #{sDate} AND #{eDate}				
+			AND EXISTS(
+	            SELECT 'X' FROM 
+	        <if test="analysis == '1'.toString()">    
+	            IAS_INTE_BZPLC B
+	            WHERE A.BZPLC = B.BZPLC 
+	        </if>
+	        <if test="analysis == '2'.toString()">
+	        	IAS_INTE_WRS_C B
+	        	WHERE A.WRS_C = B.WRS_C
+	        </if>    
+	            AND A.TRPL_C = B.TRPL_C         
+        	 )
+		ORDER BY
+				NAME, A.STPL_DT DESC
+	</sql>
+	
+	<!-- 자사 일별 [점포,상품] 재고 추이 -->
+	<select id="retrieveStockDailyList" parameterType="map" resultType="map">
+		<include refid="sql_stockDailyList" />
+	</select>
+	
+	
+	<!-- 정보분석 테이블 최근 작업일 -->
+	<select id="retrieveGetUpdateDt" parameterType="map" resultType="string">
+		SELECT AA.* FROM
+			(SELECT A.*, ROWNUM RN FROM
+				(SELECT 
+						PROC_DATE 
+				FROM
+						IAS_BATCH_PROC_RESULT
+						-- IAS_BATCH_RE_PROC_RESULT
+				WHERE
+						TOT_STSC = 'Y'
+				AND 
+						IF_ID = #{table}
+				ORDER BY 
+						PROC_DATE DESC, PROC_TIME DESC
+				)A
+			)AA
+		WHERE AA.RN = 1
+	</select>
+	
+	<select id="downloadExcelSalesMonthlyList" parameterType="map" resultType="map" fetchSize="1000">
+		<include refid="sql_salesMonthlyList" />
+	</select>
+	
+	<select id="downloadExcelSalesWeeklyList" parameterType="map" resultType="map" fetchSize="1000">
+		<include refid="sql_salesWeeklyList" />
+	</select>
+	
+	<select id="downloadExcelSalesDailyList" parameterType="map" resultType="map" fetchSize="1000">
+		<include refid="sql_salesDailyList" />
+	</select>
+	
+	<select id="downloadExcelStockMonthlyList" parameterType="map" resultType="map" fetchSize="1000">
+		<include refid="sql_stockMonthlyList" />
+	</select>
+	
+	<select id="downloadExcelStockDailyList" parameterType="map" resultType="map" fetchSize="1000">
+		<include refid="sql_stockDailyList" />
+	</select>
+	
+</mapper>

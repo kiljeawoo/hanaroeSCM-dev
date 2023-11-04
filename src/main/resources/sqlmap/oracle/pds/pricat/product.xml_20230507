@@ -1,0 +1,4805 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="productDAO">
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductVO" id="ProductVO">
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRS_C_DSC" property="WRS_C_DSC" />
+		<result column="WRS_DSC" property="WRS_DSC" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_ABR_NM" property="WRS_ABR_NM" />
+		<result column="WRS_ENM" property="WRS_ENM" />
+		<result column="WRS_TPC" property="WRS_TPC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="WRS_LCLFNM" property="WRS_LCLFNM" />
+		<result column="WRS_MCLFNM" property="WRS_MCLFNM" />
+		<result column="WRS_SCLFNM" property="WRS_SCLFNM" />
+		<result column="WRS_DTCFNM" property="WRS_DTCFNM" />
+		<result column="WRS_ID_DSC" property="WRS_ID_DSC" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="SMA_APL_TPC" property="SMA_APL_TPC" />
+		<result column="LIQ_YN" property="LIQ_YN" />
+		<result column="COMM_WRS_YN" property="COMM_WRS_YN" />
+		<result column="MFT_NA_TRPL_C" property="MFT_NA_TRPL_C" />
+		<result column="MFT_NA_TRPL_NM" property="MFT_NA_TRPL_NM" />
+		<result column="WHT" property="WHT" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="NA_WRS_PAK_C" property="NA_WRS_PAK_C" />
+		<result column="NA_WRS_SZE_SEX_C" property="NA_WRS_SZE_SEX_C" />
+		<result column="NA_WRS_QLT_GRDC" property="NA_WRS_QLT_GRDC" />
+		<result column="NA_WRS_BRAN_C" property="NA_WRS_BRAN_C" />
+		<result column="NA_WRS_PROENV_DSC" property="NA_WRS_PROENV_DSC" />
+		<result column="GAP_ATTC_YN" property="GAP_ATTC_YN" />
+		<result column="NA_WRS_NACF_QLT_ATTC_C" property="NA_WRS_NACF_QLT_ATTC_C" />
+		<result column="NA_WRS_CSTD_METC" property="NA_WRS_CSTD_METC" />
+		<result column="NA_WRS_DSTR_STSC" property="NA_WRS_DSTR_STSC" />
+		<result column="NA_WRS_UZC" property="NA_WRS_UZC" />
+		<result column="NA_WRS_IPO_DSC" property="NA_WRS_IPO_DSC" />
+		<result column="NA_WRS_PDAA_C" property="NA_WRS_PDAA_C" />
+		<result column="VLD_PRD_CN" property="VLD_PRD_CN" />
+		<result column="VLD_PRD_DSC" property="VLD_PRD_DSC" />
+		<result column="NA_WRS_STD_UNT_C" property="NA_WRS_STD_UNT_C" />
+		<result column="WRS_HGHT" property="WRS_HGHT" />
+		<result column="WRS_LEN_LEN" property="WRS_LEN_LEN" />
+		<result column="WRS_WDTH_LEN" property="WRS_WDTH_LEN" />
+		<result column="WRS_SGRT" property="WRS_SGRT" />
+		<result column="WRS_SDL_DSC" property="WRS_SDL_DSC" />
+		<result column="WRS_AHL_CN" property="WRS_AHL_CN" />
+		<result column="MTRL_STD_THKN" property="MTRL_STD_THKN" />
+		<result column="CICL_WRS_STD_DMTR_CN" property="CICL_WRS_STD_DMTR_CN" />
+		<result column="CICL_WRS_STD_DPTH_CN" property="CICL_WRS_STD_DPTH_CN" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="VCBT_QT" property="VCBT_QT" />
+		<result column="VCBX_NA_WRS_C" property="VCBX_NA_WRS_C" />
+		<result column="CVS_QT" property="CVS_QT" />
+		<result column="CVS_NA_WRS_UNT_C" property="CVS_NA_WRS_UNT_C" />
+		<result column="WRS_DTL_EXPL" property="WRS_DTL_EXPL" />
+		<result column="BSC_UNT_DSC" property="BSC_UNT_DSC" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_FL_CN" property="WRS_FL_CN" />
+		<result column="KNET_WRS_NO" property="KNET_WRS_NO" />
+		<result column="TR_STOP_YN" property="TR_STOP_YN" />
+		<result column="TR_STOP_RSNC" property="TR_STOP_RSNC" />
+		<result column="TR_STOP_DT" property="TR_STOP_DT" />
+		<result column="DEL_YN" property="DEL_YN" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRGMN_NA_BZPLC" property="FSRGMN_NA_BZPLC" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LSCGMN_NA_BZPLC" property="LSCGMN_NA_BZPLC" />
+		<result column="NA_WRS_CLNM" property="NA_WRS_CLNM"/>
+		<result column="VAN_C_RQ_NO" property="VAN_C_RQ_NO" />
+		<result column="NA_C_RQ_NO" property="NA_C_RQ_NO" />
+		<result column="NA_C_RQ_OBJ_DSC" property="NA_C_RQ_OBJ_DSC" />
+		<result column="CTCPL_TELNO" property="CTCPL_TELNO" />
+		<result column="RQ_CNTN" property="RQ_CNTN" />
+		<result column="BUYER_ENO" property="BUYER_ENO" />
+		<result column="RQ_NA_WRS_C" property="RQ_NA_WRS_C" />
+		<result column="RFID_UYN" property="RFID_UYN" />
+		<result column="FOMNM" property="FOMNM" />
+		<result column="SLGT_ETR_DSC" property="SLGT_ETR_DSC" />
+		<result column="DSTR_TER_YN" property="DSTR_TER_YN" />
+		<result column="DSTR_TER_MRK_DSC" property="DSTR_TER_MRK_DSC" />
+		<result column="WRS_MODIFY_YN" property="WRS_MODIFY_YN" />
+		<result column="PRC_YN" property="PRC_YN" />
+		<result column="RSP_C_CNTN" property="RSP_C_CNTN" />
+		<result column="REQ_RESULT" property="REQ_RESULT" />
+		<result column="CNF_ENO" property="CNF_ENO" />
+		<result column="CNF_DATE" property="CNF_DATE" />
+		<result column="CNF_NAME" property="CNF_NAME" />
+		<result column="NA_C_RQ_REJ_RSNC" property="NA_C_RQ_REJ_RSNC" />
+		<result column="NA_C_RQ_STSC" property="NA_C_RQ_STSC" />
+		<result column="STPL_AMN_NA_WRS_C" property="STPL_AMN_NA_WRS_C" />
+		<result column="NA_SPYPL_C" property="NA_SPYPL_C" />
+		<result column="NA_SPYPL_TEAM_C" property="NA_SPYPL_TEAM_C" />
+		<result column="PLTPE_LYNO" property="PLTPE_LYNO" />
+		<result column="PLTPE_SGNO" property="PLTPE_SGNO" />
+		<result column="PLTPE_BOX_CN" property="PLTPE_BOX_CN" />
+		<result column="BOX_WT" property="BOX_WT" />
+		<result column="BOX_BULK" property="BOX_BULK" />
+		<result column="BOX_WRS_YN" property="BOX_WRS_YN" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="SEL_UPR" property="SEL_UPR" />
+		<result column="TEMP_YN" property="TEMP_YN" />
+		<result column="APV_RQ_NA_BZPLC" property="APV_RQ_NA_BZPLC" />
+		<result column="CUD_DSC" property="CUD_DSC" />
+		<result column="CNTN_QT" property="PR_MRK_WHT" />
+		<result column="UNTP_UPR_BASQT" property="PR_MRK_STD_BAS_WHT" />
+		<result column="BAS_PR_UNT_DSC" property="PR_MRK_BAS_UNIT" />
+	</resultMap>
+
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductTrtVO" id="ProductTrtVO">
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="SHRT_BZPLNM" property="SHRT_BZPLNM" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="PD_YY" property="PD_YY" />
+		<result column="CSER_CTR_TPC" property="CSER_CTR_TPC" />
+		<result column="BUY_TXT_DSC" property="BUY_TXT_DSC" />
+		<result column="BUY_BZ_METC" property="BUY_BZ_METC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_ABR_NM" property="WRS_ABR_NM" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="SL_UPR_TPC" property="SL_UPR_TPC" />
+		<result column="INPD_QT" property="INPD_QT" />
+		<result column="MIN_ODR_QT" property="MIN_ODR_QT" />
+		<result column="MAX_ODR_QT" property="MAX_ODR_QT" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="SL_UPR" property="SL_UPR" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="VCBT_UPR" property="VCBT_UPR" />
+		<result column="VCBX_NA_WRS_C" property="VCBX_NA_WRS_C" />
+		<result column="VCBX_UPR" property="VCBX_UPR" />
+		<result column="SPYPL_NA_TRPL_C" property="SPYPL_NA_TRPL_C" />
+		<result column="SPYPL_NA_TEAM_C" property="SPYPL_NA_TEAM_C" />
+		<result column="MNGT_NA_TRPL_C" property="MNGT_NA_TRPL_C" />
+		<result column="MNGT_NA_TEAM_C" property="MNGT_NA_TEAM_C" />
+		<result column="CTR_TPC" property="CTR_TPC" />
+		<result column="SPY_TPC" property="SPY_TPC" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="RVO_PSB_YN" property="RVO_PSB_YN" />
+		<result column="ODR_PSB_YN" property="ODR_PSB_YN" />
+		<result column="DDLY_YN" property="DDLY_YN" />
+		<result column="STPL_PD_VIAPD_DSC" property="STPL_PD_VIAPD_DSC" />
+		<result column="STPL_PD_GRD_DSC" property="STPL_PD_GRD_DSC" />
+		<result column="VIAPD_YN" property="VIAPD_YN" />
+		<result column="SVS_YN" property="SVS_YN" />
+		<result column="SVS_UNT_QT" property="SVS_UNT_QT" />
+		<result column="BOX_BULK" property="BOX_BULK" />
+		<result column="WRS_WDTH_LEN" property="WRS_WDTH_LEN" />
+		<result column="WRS_LEN_LEN" property="WRS_LEN_LEN" />
+		<result column="BOX_WRS_YN" property="BOX_WRS_YN" />
+		<result column="DDLY_ST_DT" property="DDLY_ST_DT" />
+		<result column="DDLY_ED_DT" property="DDLY_ED_DT" />
+		<result column="DDLY_BAS_QT" property="DDLY_BAS_QT" />
+		<result column="MART_DIV_BKG_ODR_YN" property="MART_DIV_BKG_ODR_YN" />
+		<result column="SRA_WRS_DSC" property="SRA_WRS_DSC" />
+		<result column="STPL_AMN_WRS_YN" property="STPL_AMN_WRS_YN" />
+		<result column="STPL_NA_WRS_C" property="STPL_NA_WRS_C" />
+		<result column="STPL_AMN_DSC" property="STPL_AMN_DSC" />
+		<result column="PD_YY_AMN_YN" property="PD_YY_AMN_YN" />
+		<result column="NA_ODR_FBID_RSNC" property="NA_ODR_FBID_RSNC" />
+		<result column="NA_ODR_FBID_RSNC_NM" property="NA_ODR_FBID_RSNC_NM" />
+		<result column="NA_RVO_FBID_RSNC" property="NA_RVO_FBID_RSNC" />
+		<result column="NA_RVO_FBID_RSNC_NM" property="NA_RVO_FBID_RSNC_NM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="NA_USR_SYS_KDC" property="NA_USR_SYS_KDC" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="DEL_DTM" property="DEL_DTM" />
+	</resultMap>
+
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductReqVO" id="ProductReqVO">
+		<result column="VAN_C_RQ_NO" property="VAN_C_RQ_NO" />
+		<result column="NA_C_RQ_NO" property="NA_C_RQ_NO" />
+		<result column="NA_C_RQ_OBJ_DSC" property="NA_C_RQ_OBJ_DSC" />
+		<result column="NA_C_RQ_OBJ_DSC_NM" property="NA_C_RQ_OBJ_DSC_NM" />
+		<result column="CTCPL_TELNO" property="CTCPL_TELNO" />
+		<result column="RQ_CNTN" property="RQ_CNTN" />
+		<result column="APV_RQ_NA_BZPLC" property="APV_RQ_NA_BZPLC" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRGMN_NA_BZPLC" property="FSRGMN_NA_BZPLC" />
+		<result column="BUYER_ENO" property="BUYER_ENO" />
+		<result column="RQ_NA_WRS_C" property="RQ_NA_WRS_C" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRS_C_DSC" property="WRS_C_DSC" />
+		<result column="WRS_DSC" property="WRS_DSC" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_ABR_NM" property="WRS_ABR_NM" />
+		<result column="WRS_ENM" property="WRS_ENM" />
+		<result column="WRS_TPC" property="WRS_TPC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="SMA_APL_TPC" property="SMA_APL_TPC" />
+		<result column="LIQ_YN" property="LIQ_YN" />
+		<result column="COMM_WRS_YN" property="COMM_WRS_YN" />
+		<result column="MFT_NA_TRPL_C" property="MFT_NA_TRPL_C" />
+		<result column="WHT" property="WHT" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="NA_WRS_PAK_C" property="NA_WRS_PAK_C" />
+		<result column="NA_WRS_BRAN_C" property="NA_WRS_BRAN_C" />
+		<result column="NA_WRS_CSTD_METC" property="NA_WRS_CSTD_METC" />
+		<result column="NA_WRS_DSTR_STSC" property="NA_WRS_DSTR_STSC" />
+		<result column="NA_WRS_UZC" property="NA_WRS_UZC" />
+		<result column="NA_WRS_IPO_DSC" property="NA_WRS_IPO_DSC" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="VCBT_QT" property="VCBT_QT" />
+		<result column="VCBX_NA_WRS_C" property="VCBX_NA_WRS_C" />
+		<result column="WRS_DTL_EXPL" property="WRS_DTL_EXPL" />
+		<result column="BSC_UNT_DSC" property="BSC_UNT_DSC" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="RFID_UYN" property="RFID_UYN" />
+		<result column="FOMNM" property="FOMNM" />
+		<result column="SLGT_ETR_DSC" property="SLGT_ETR_DSC" />
+		<result column="DSTR_TER_YN" property="DSTR_TER_YN" />
+		<result column="DSTR_TER_MRK_DSC" property="DSTR_TER_MRK_DSC" />
+		<result column="WRS_MODIFY_YN" property="WRS_MODIFY_YN" />
+		<result column="TEMP_YN" property="TEMP_YN" />
+		<result column="SEND_YN" property="SEND_YN" />
+		<result column="REQ_RESULT" property="REQ_RESULT" />
+		<result column="CNF_ENO" property="CNF_ENO" />
+		<result column="CNF_DATE" property="CNF_DATE" />
+		<result column="CNF_NAME" property="CNF_NAME" />
+		<result column="RESULT_CODE" property="RESULT_CODE" />
+
+		<result column="STPL_AMN_NA_WRS_C" property="STPL_AMN_NA_WRS_C" />
+		<result column="NA_SPYPL_C" property="NA_SPYPL_C" />
+		<result column="NA_SPYPL_TEAM_C" property="NA_SPYPL_TEAM_C" />
+		<result column="PLTPE_LYNO" property="PLTPE_LYNO" />
+		<result column="PLTPE_SGNO" property="PLTPE_SGNO" />
+		<result column="PLTPE_BOX_CN" property="PLTPE_BOX_CN" />
+		<result column="BOX_WT" property="BOX_WT" />
+		<result column="BOX_BULK" property="BOX_BULK" />
+		<result column="WDTH_LEN" property="WRS_WDTH_LEN" />
+		<result column="LEN_LEN" property="WRS_LEN_LEN" />
+		<result column="WRS_WDTH_LEN" property="WRS_WDTH_LEN" />
+		<result column="WRS_LEN_LEN" property="WRS_LEN_LEN" />
+		<result column="WRS_HGHT" property="WRS_HGHT" />
+		<result column="BOX_WRS_YN" property="BOX_WRS_YN" />
+	</resultMap>
+
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductReqPrgrVO" id="ProductReqPrgrVO">
+		<result column="VAN_C_RQ_NO" property="VAN_C_RQ_NO" />
+		<result column="NA_BZPLC" property="NA_BZPLC" />
+		<result column="NA_TEAM_C" property="NA_TEAM_C" />
+		<result column="PRGR_C" property="PRGR_C" />
+		<result column="RQ_NA_WRS_C" property="RQ_NA_WRS_C" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="SEL_UPR" property="SEL_UPR" />
+		<result column="BYNG_UPR" property="BYNG_UPR" />
+		<result column="COMP_FEERT" property="COMP_FEERT" />
+		<result column="PHD_FEERT" property="PHD_FEERT" />
+		<result column="DDLY_PHD_FEERT" property="DDLY_PHD_FEERT" />
+		<result column="TROT_FEERT" property="TROT_FEERT" />
+		<result column="AMN_FEERT" property="AMN_FEERT" />
+		<result column="PY_FDTCN" property="PY_FDTCN" />
+		<result column="ORGRNAME" property="ORGRNAME" />
+	</resultMap>
+
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductTempFileVO" id="ProductTempFileVO">
+		<result column="TEMP_SEQ" property="TEMP_SEQ" />
+		<result column="ROW_SEQ" property="ROW_SEQ" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="WRS_LCLFNM" property="WRS_LCLFNM" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="WRS_MCLFNM" property="WRS_MCLFNM" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="WRS_SCLFNM" property="WRS_SCLFNM" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="WRS_DTCFNM" property="WRS_DTCFNM" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_ABR_NM" property="WRS_ABR_NM" />
+		<result column="WRS_ENM" property="WRS_ENM" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="TXT_NM" property="TXT_NM" />
+		<result column="SMA_APL_TPC" property="SMA_APL_TPC" />
+		<result column="SMA_APL_TPNM" property="SMA_APL_TPNM" />
+		<result column="COMM_WRS_YN" property="COMM_WRS_YN" />
+		<result column="COMM_WRS_NM" property="COMM_WRS_NM" />
+		<result column="MFT_NA_TRPL_C" property="MFT_NA_TRPL_C" />
+		<result column="MFT_NA_TRPL_NM" property="MFT_NA_TRPL_NM" />
+		<result column="WRS_TPC" property="WRS_TPC" />
+		<result column="WRS_TPNM" property="WRS_TPNM" />
+		<result column="LIQ_YN" property="LIQ_YN" />
+		<result column="LIQ_NM" property="LIQ_NM" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="VCBT_NA_WRS_NM" property="VCBT_NA_WRS_NM" />
+		<result column="VCBT_QT" property="VCBT_QT" />
+		<result column="VCBX_NA_WRS_C" property="VCBX_NA_WRS_C" />
+		<result column="VCBX_NA_WRS_NM" property="VCBX_NA_WRS_NM" />
+		<result column="WHT" property="WHT" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="NA_WRS_UNT_NM" property="NA_WRS_UNT_NM" />
+		<result column="NA_WRS_PAK_C" property="NA_WRS_PAK_C" />
+		<result column="NA_WRS_PAK_NM" property="NA_WRS_PAK_NM" />
+		<result column="NA_WRS_BRAN_C" property="NA_WRS_BRAN_C" />
+		<result column="NA_WRS_BRAN_NM" property="NA_WRS_BRAN_NM" />
+		<result column="NA_WRS_CSTD_METC" property="NA_WRS_CSTD_METC" />
+		<result column="NA_WRS_CSTD_METNM" property="NA_WRS_CSTD_METNM" />
+		<result column="NA_WRS_UZC" property="NA_WRS_UZC" />
+		<result column="NA_WRS_UZNM" property="NA_WRS_UZNM" />
+		<result column="VLD_PRD_CN" property="VLD_PRD_CN" />
+		<result column="DSTR_TER_MRK_DSC" property="DSTR_TER_MRK_DSC" />
+		<result column="DSTR_TER_MRK_DSNM" property="DSTR_TER_MRK_DSNM" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="NA_WRS_IPO_DSC" property="NA_WRS_IPO_DSC" />
+		<result column="NA_WRS_IPO_DSNM" property="NA_WRS_IPO_DSNM" />
+		<result column="RFID_UYN" property="RFID_UYN" />
+		<result column="RFID_UNM" property="RFID_UNM" />
+		<result column="WRS_DTL_EXPL" property="WRS_DTL_EXPL" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FSRGMN_NA_BZPLC" property="FSRGMN_NA_BZPLC" />
+		<result column="SUCCESS_YN" property="SUCCESS_YN" />
+	</resultMap>
+
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductNewGoodsVO" id="ProductNewGoodsVO">
+		<result column="NA_C_RQ_NO" property="NA_C_RQ_NO" />
+		<result column="NA_C_RQ_STSC" property="NA_C_RQ_STSC" />
+		<result column="NA_C_RQ_OBJ_DSC" property="NA_C_RQ_OBJ_DSC" />
+		<result column="CTCPL_TELNO" property="CTCPL_TELNO" />
+		<result column="CNF_DMT" property="CNF_DMT" />
+		<result column="CNF_ENO" property="CNF_ENO" />
+		<result column="NA_C_RQ_REJ_RSNC" property="NA_C_RQ_REJ_RSNC" />
+		<result column="RQ_CNTN" property="RQ_CNTN" />
+		<result column="APV_RQ_NA_BZPLC" property="APV_RQ_NA_BZPLC" />
+		<result column="DEL_YN" property="DEL_YN" />
+		<result column="FSRG_DTM" property="FSRG_DTM" />
+		<result column="FSRGMN_ENO" property="FSRGMN_ENO" />
+		<result column="FSRGMN_NA_BZPLC" property="FSRGMN_NA_BZPLC" />
+		<result column="LSCHG_DTM" property="LSCHG_DTM" />
+		<result column="LS_CMENO" property="LS_CMENO" />
+		<result column="LSCGMN_NA_BZPLC" property="LSCGMN_NA_BZPLC" />
+	</resultMap>
+
+	<resultMap type="com.nh.escm.pds.pricat.vo.ProductSearchVO" id="ProductSearchVO">
+		<result column="VAN_C_RQ_NO" property="VAN_C_RQ_NO" />
+		<result column="NA_C_RQ_NO" property="NA_C_RQ_NO" />
+		<result column="RQ_NA_WRS_C" property="RQ_NA_WRS_C" />
+		<result column="NA_WRS_C" property="NA_WRS_C" />
+		<result column="WRS_C_DSC" property="WRS_C_DSC" />
+		<result column="WRS_DSC" property="WRS_DSC" />
+		<result column="WRSNM" property="WRSNM" />
+		<result column="WRS_ABR_NM" property="WRS_ABR_NM" />
+		<result column="WRS_ENM" property="WRS_ENM" />
+		<result column="WRS_TPC" property="WRS_TPC" />
+		<result column="NA_WRS_LCLC" property="NA_WRS_LCLC" />
+		<result column="NA_WRS_MCLC" property="NA_WRS_MCLC" />
+		<result column="NA_WRS_SCLC" property="NA_WRS_SCLC" />
+		<result column="NA_WRS_DTCF_C" property="NA_WRS_DTCF_C" />
+		<result column="WRS_STDNM" property="WRS_STDNM" />
+		<result column="TXT_DSC" property="TXT_DSC" />
+		<result column="SMA_APL_TPC" property="SMA_APL_TPC" />
+		<result column="LIQ_YN" property="LIQ_YN" />
+		<result column="COMM_WRS_YN" property="COMM_WRS_YN" />
+		<result column="MFT_NA_TRPL_C" property="MFT_NA_TRPL_C" />
+		<result column="WHT" property="WHT" />
+		<result column="NA_WRS_UNT_C" property="NA_WRS_UNT_C" />
+		<result column="NA_WRS_PAK_C" property="NA_WRS_PAK_C" />
+		<result column="NA_WRS_SZE_SEX_C" property="NA_WRS_SZE_SEX_C" />
+		<result column="NA_WRS_QLT_GRDC" property="NA_WRS_QLT_GRDC" />
+		<result column="NA_WRS_BRAN_C" property="NA_WRS_BRAN_C" />
+		<result column="NA_WRS_PROENV_DSC" property="NA_WRS_PROENV_DSC" />
+		<result column="GAP_ATTC_YN" property="GAP_ATTC_YN" />
+		<result column="NA_WRS_NACF_QLT_ATTC_C" property="NA_WRS_NACF_QLT_ATTC_C" />
+		<result column="NA_WRS_CSTD_METC" property="NA_WRS_CSTD_METC" />
+		<result column="NA_WRS_DSTR_STSC" property="NA_WRS_DSTR_STSC" />
+		<result column="NA_WRS_UZC" property="NA_WRS_UZC" />
+		<result column="NA_WRS_IPO_DSC" property="NA_WRS_IPO_DSC" />
+		<result column="NA_WRS_PDAA_C" property="NA_WRS_PDAA_C" />
+		<result column="VLD_PRD_CN" property="VLD_PRD_CN" />
+		<result column="VLD_PRD_DSC" property="VLD_PRD_DSC" />
+		<result column="NA_WRS_STD_UNT_C" property="NA_WRS_STD_UNT_C" />
+		<result column="WRS_HGHT" property="WRS_HGHT" />
+		<result column="WRS_LEN_LEN" property="WRS_LEN_LEN" />
+		<result column="WRS_WDTH_LEN" property="WRS_WDTH_LEN" />
+		<result column="WRS_SGRT" property="WRS_SGRT" />
+		<result column="WRS_SDL_DSC" property="WRS_SDL_DSC" />
+		<result column="WRS_AHL_CN" property="WRS_AHL_CN" />
+		<result column="MTRL_STD_THKN" property="MTRL_STD_THKN" />
+		<result column="CICL_WRS_STD_DMTR_CN" property="CICL_WRS_STD_DMTR_CN" />
+		<result column="CICL_WRS_STD_DPTH_CN" property="CICL_WRS_STD_DPTH_CN" />
+		<result column="VCBT_NA_WRS_C" property="VCBT_NA_WRS_C" />
+		<result column="VCBT_QT" property="VCBT_QT" />
+		<result column="VCBX_NA_WRS_C" property="VCBX_NA_WRS_C" />
+		<result column="CVS_QT" property="CVS_QT" />
+		<result column="CVS_NA_WRS_UNT_C" property="CVS_NA_WRS_UNT_C" />
+		<result column="WRS_DTL_EXPL" property="WRS_DTL_EXPL" />
+		<result column="BSC_UNT_DSC" property="BSC_UNT_DSC" />
+		<result column="BOXPE_AQZ" property="BOXPE_AQZ" />
+		<result column="WRS_FL_CN" property="WRS_FL_CN" />
+		<result column="KNET_WRS_NO" property="KNET_WRS_NO" />
+		<result column="RFID_UYN" property="RFID_UYN" />
+		<result column="TR_STOP_YN" property="TR_STOP_YN" />
+		<result column="TR_STOP_RSNC" property="TR_STOP_RSNC" />
+		<result column="FOMNM" property="FOMNM" />
+	</resultMap>
+
+	<!-- 상품기준정보조회 로우 count -->
+	<select id="selectWRSCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_selectWrs"/>
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 상품기준정보조회 -->
+	<select id="selectWrs" parameterType="java.util.Map" resultMap="ProductVO">
+		<bind name="sortName" value="'WRSNM'" />
+		<bind name="sortType" value="'asc'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_selectWrs"/>
+		<include refid="common.paging_end" />
+	</select>
+	<!-- 상품기준정보조회 출력 -->
+	<select id="selectWRSprint" parameterType="java.util.Map" resultMap="ProductVO">
+		<include refid="sql_selectWrs"/>
+	</select>
+	<!-- 상품기준정보조회 엑셀 -->
+	<select id="downloadExcelPricatStandards" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_selectWrs"/>
+	</select>
+
+	<sql id="sql_selectWrs">
+		SELECT
+		    A.NA_WRS_C 			/* 상품코드  */
+		    ,A.WRSNM   			/* 상품명  */
+		    ,A.WRS_DSC 			/*  상품구분코드  */
+		    ,FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM
+		    ,A.WRS_STDNM 		/*  규격  */
+		    ,A.TXT_DSC 			/* 과세구분  */
+		    ,FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM
+		    ,A.MFT_NA_TRPL_C 	/* 거래처코드  */
+		    ,(SELECT
+	          	CLNTNM
+	          FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = A.MFT_NA_TRPL_C
+	        )AS MFT_NA_TRPL_NM	/*  거래처명  */
+		    ,B.WRS_LCLFNM||		/*  분류  */
+		    DECODE(B.WRS_MCLFNM,'','','/'||B.WRS_MCLFNM)||
+		    DECODE(B.WRS_SCLFNM,'','','/'||B.WRS_SCLFNM)||
+		    DECODE(B.WRS_DTCFNM,'','','/'||B.WRS_DTCFNM)AS NA_WRS_CLNM
+		    ,TO_CHAR(A.FSRG_DTM,'YYYY-MM-DD') AS FSRG_DTM			/*  등록일  */
+        	,TO_CHAR(A.LSCHG_DTM,'YYYY-MM-DD') AS LSCHG_DTM 		/* 변경일 */
+		FROM TB_GD_WRS A,TB_GD_WRS_CLF B
+		WHERE
+			A.NA_WRS_LCLC = B.NA_WRS_LCLC(+)
+			AND A.NA_WRS_MCLC = B.NA_WRS_MCLC(+)
+			AND A.NA_WRS_SCLC = B.NA_WRS_SCLC(+)
+			AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C(+)
+		 	AND A.NA_WRS_C IN
+            (
+
+			    SELECT NA_WRS_C
+			      FROM TB_OD_TRTWRS
+			     WHERE SPYPL_NA_TRPL_C
+                    IN
+                    (
+                        SELECT NA_TRPL_C
+                          FROM TB_TR_TRPL_CIF
+                         WHERE UP_NA_TRPL_C IN
+                        (
+                            SELECT UP_NA_TRPL_C
+                              FROM TB_TR_TRPL_CIF
+                             WHERE NA_TRPL_C = #{TRPL_C}
+                         )
+
+                    )
+
+
+            )
+			<if test="MNGT_C != null and MNGT_C.length() > 0">
+				AND A.MFT_NA_TRPL_C = #{MNGT_C}
+			</if>
+			AND A.WRS_C_DSC IN
+			<foreach collection="WRS_C_DSC" item="item2" index="index" separator="," open="(" close=")">
+	    		#{item2}
+			</foreach>
+			<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+
+				AND A.NA_WRS_C LIKE #{NA_WRS_C} || '%'
+			</if>
+			<if test="NA_WRS_LCLC != null and NA_WRS_LCLC.length() > 0">
+				AND A.NA_WRS_LCLC = #{NA_WRS_LCLC}
+				AND A.NA_WRS_MCLC = #{NA_WRS_MCLC}
+				AND A.NA_WRS_SCLC = #{NA_WRS_SCLC}
+				AND A.NA_WRS_DTCF_C = #{NA_WRS_DTCF_C}
+			</if>
+			<if test="WRS_DSC != 0 and WRS_DSC != null">
+				AND A.WRS_DSC = #{WRS_DSC}
+			</if>
+			<if test="FROM_DATE != null and FROM_DATE.length() >0">
+				AND TO_CHAR(FSRG_DTM, 'YYYYMMDD') BETWEEN #{FROM_DATE} AND #{TO_DATE}
+			</if>
+			<if test="FROM_DATE2 !=null and FROM_DATE2.length() > 0">
+				AND TO_CHAR(LSCHG_DTM, 'YYYYMMDD') BETWEEN #{FROM_DATE2} AND #{TO_DATE2}
+			</if>
+			ORDER BY A.NA_WRS_C ASC
+	</sql>
+
+	<select id="searchTrnrel" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			CSER_CTR_TPC,
+        	SPY_TPC
+		FROM
+			TB_TR_TRNREL
+		WHERE
+			SPLR_NA_TRPL_C = #{TRPL_C}
+			AND CSER_NA_TRPL_C = #{bzplc_code}
+			AND CSER_NA_TEAM_C = #{bzplc_team}
+	</select>
+
+	<select id="searchCIF" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NA_TRPL_C,
+			UP_NA_TRPL_C
+		FROM
+			TB_TR_TRPL_CIF
+		WHERE
+			1=1
+			AND NA_TRPL_C = #{TRPL_C}
+	</select>
+
+	<!-- 상품 상세 조회 로우 count -->
+	<select id="selectTRTCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_selectTrtwrs"/>
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 상품 상세 조회 -->
+	<select id="selectTrtwrs" parameterType="java.util.Map" resultMap="ProductTrtVO">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_selectTrtwrs"/>
+		<include refid="common.paging_end" />
+	</select>
+
+	<!-- 상품 상세 조회 출력화면 -->
+	<select id="selectTRTprint" parameterType="java.util.Map" resultMap="ProductTrtVO">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_selectTrtwrs"/>
+		<include refid="common.paging_end" />
+	</select>
+
+	<!-- 상품 상세 조회 엑셀화면 -->
+	<select id="downloadExcelPricatDetails" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<bind name="sortName" value="'NA_BZPLC'" />
+		<bind name="sortType" value="'asc'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_selectTrtwrs"/>
+		<include refid="common.paging_end" />
+	</select>
+
+	<sql id="sql_selectTrtwrs">
+		SELECT
+		    A.NA_BZPLC,
+		    B.CLNTNM,
+		    (SELECT TEAMNM FROM TB_CM_TEAM WHERE NA_BZPLC = A.NA_BZPLC
+		    AND NA_TEAM_C = A.NA_TEAM_C
+  			) AS TEAM_NM,
+		    A.NA_WRS_C,
+		    A.PD_YY,
+		    A.CSER_CTR_TPC,
+		    A.BUY_TXT_DSC,
+		    A.BUY_BZ_METC,
+		    A.NA_TEAM_C,
+		    A.WRSNM,
+		    A.WRS_ABR_NM,
+		    A.NA_WRS_LCLC,
+		    A.NA_WRS_MCLC,
+		    A.NA_WRS_SCLC,
+		    A.NA_WRS_DTCF_C,
+		    A.SL_UPR_TPC,
+		    A.INPD_QT,
+		    A.MIN_ODR_QT,
+		    A.MAX_ODR_QT,
+			CASE A.BYNG_UPR
+                   WHEN 0 THEN '0.00'
+                   ELSE TO_CHAR(A.BYNG_UPR, 'fm9999999.99')
+               END AS BYNG_UPR,
+		    A.SL_UPR,
+		    A.VCBT_NA_WRS_C,
+		    A.VCBT_UPR,
+		    A.VCBX_NA_WRS_C,
+		    A.VCBX_UPR,
+		    A.SPYPL_NA_TRPL_C,
+		    (SELECT CLNTNM
+			FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = A.SPYPL_NA_TRPL_C
+			) AS SPYPL_NA_TRPL_NM,
+			A.SPYPL_NA_TEAM_C,
+			NVL((SELECT DISTINCT TEAMNM FROM TB_CM_TEAM
+			WHERE NA_BZPLC = A.SPYPL_NA_TRPL_C AND NA_TEAM_C = A.SPYPL_NA_TEAM_C),'팀없음'
+			) AS SPYPL_NA_TEAM_NM,
+			A.MNGT_NA_TRPL_C,
+			(SELECT CLNTNM
+			FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = A.MNGT_NA_TRPL_C
+			) AS MNGT_NA_TRPL_NM,
+			A.MNGT_NA_TEAM_C,
+			NVL((SELECT DISTINCT TEAMNM FROM TB_CM_TEAM
+			WHERE NA_BZPLC = A.MNGT_NA_TRPL_C AND NA_TEAM_C = A.MNGT_NA_TEAM_C),'팀없음'
+			) AS MNGT_NA_TEAM_NM,
+		    A.CTR_TPC,
+		    CASE WHEN A.CTR_TPC IS NOT NULL THEN (FN_CM_SIMP_CNM('CTR_TPC',A.CTR_TPC)) ELSE '' END AS CTR_TPC_NM,
+		    A.SPY_TPC,
+		    A.TXT_DSC,
+		    CASE WHEN A.TXT_DSC IS NOT NULL THEN (FN_CM_SIMP_CNM('TXT_DSC',A.TXT_DSC)) ELSE '' END AS TXT_DSC_NM,
+		    A.RVO_PSB_YN,
+		    A.ODR_PSB_YN,
+		    A.DDLY_YN,
+		    A.STPL_PD_VIAPD_DSC,
+		    A.STPL_PD_GRD_DSC,
+		    A.VIAPD_YN,
+		    A.SVS_YN,
+		    A.SVS_UNT_QT,
+		    A.BOX_BULK,
+		    A.WRS_WDTH_LEN,
+		    A.WRS_LEN_LEN,
+		    A.BOX_WRS_YN,
+		    A.DDLY_ST_DT,
+		    A.DDLY_ED_DT,
+		    A.DDLY_BAS_QT,
+		    A.MART_DIV_BKG_ODR_YN,
+		    A.SRA_WRS_DSC,
+		    A.STPL_AMN_WRS_YN,
+		    A.STPL_NA_WRS_C,
+		    A.STPL_AMN_DSC,
+		    A.PD_YY_AMN_YN,
+		    A.NA_ODR_FBID_RSNC,
+		    FN_CM_SIMP_CNM('NA_ODR_FBID_RSNC', A.NA_ODR_FBID_RSNC) AS NA_ODR_FBID_RSNC_NM,
+		    A.NA_RVO_FBID_RSNC,
+        	FN_CM_SIMP_CNM('NA_RVO_FBID_RSNC', A.NA_RVO_FBID_RSNC) AS NA_RVO_FBID_RSNC_NM,
+		    A.BOXPE_AQZ,
+		    A.NA_USR_SYS_KDC,
+		    TO_CHAR(A.FSRG_DTM,'YYYY-MM-DD') AS FSRG_DTM,
+		    A.FSRGMN_ENO,
+		    TO_CHAR(A.LSCHG_DTM,'YYYY-MM-DD') AS LSCHG_DTM,
+		    A.LS_CMENO,
+		    TO_CHAR(A.DEL_DTM,'YYYY-MM-DD') AS DEL_DTM
+		FROM TB_OD_TRTWRS A,TB_TR_TRPL_CIF B
+		<where>
+    		B.NA_TRPL_C(+) = A.NA_BZPLC
+    		<if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+    			AND A.NA_BZPLC = #{NA_BZPLC}
+    			AND A.NA_TEAM_C = #{NA_BZPLC_TEAM}
+    		</if>
+    		AND A.SPYPL_NA_TRPL_C IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND A.NA_WRS_C LIKE #{NA_WRS_C} || '%'
+			</if>
+
+			<if test="CTR_TPC != 'all'">
+				AND A.CTR_TPC = #{CTR_TPC}
+			</if>
+			<!-- <if test="CSER_CTR_TPC != 'all'">
+				AND A.CSER_CTR_TPC #{CSER_CTR_TPC}
+			</if> -->
+			<if test="FROM_DATE != null and FROM_DATE.length() >0">
+				<if test="DATE_SEL == 1">
+					AND A.FSRG_DTM <![CDATA[>=]]> TO_DATE(#{FROM_DATE},'YYYYMMDD')
+        			AND A.FSRG_DTM <![CDATA[<=]]> TO_DATE(#{TO_DATE} ,'YYYYMMDD')
+				</if>
+				<if test="DATE_SEL == 2">
+					AND A.LSCHG_DTM <![CDATA[>=]]> TO_DATE(#{FROM_DATE},'YYYYMMDD')
+        			AND A.LSCHG_DTM <![CDATA[<=]]> TO_DATE(#{TO_DATE} ,'YYYYMMDD')
+				</if>
+				<if test="DATE_SEL == 3">
+					AND A.DEL_DTM <![CDATA[>=]]> TO_DATE(#{FROM_DATE},'YYYYMMDD')
+        			AND A.DEL_DTM <![CDATA[<=]]> TO_DATE(#{TO_DATE} ,'YYYYMMDD')
+				</if>
+			</if>
+			ORDER BY A.NA_BZPLC ASC
+		</where>
+	</sql>
+
+	<!-- 등록신청내역조회 -->
+	<select id="newGoodsPopUp" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.VAN_C_RQ_NO
+			,A.NA_C_RQ_NO
+			,A.NA_C_RQ_OBJ_DSC
+			,FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM
+			,A.CTCPL_TELNO
+			,A.RQ_CNTN
+			,A.APV_RQ_NA_BZPLC
+			,A.FSRGMN_ENO
+			,A.FSRGMN_NA_BZPLC
+			,A.BUYER_ENO
+			,A.RQ_NA_WRS_C
+			,A.NA_WRS_C
+			,A.WRS_C_DSC
+			,A.WRS_DSC
+			,A.WRSNM
+			,A.WRS_ABR_NM
+			,A.WRS_ENM
+			,A.WRS_TPC
+			,A.NA_WRS_LCLC
+			,A.NA_WRS_MCLC
+			,A.NA_WRS_SCLC
+			,A.NA_WRS_DTCF_C
+			,A.WRS_STDNM
+			,A.TXT_DSC
+			,A.SMA_APL_TPC
+			,A.LIQ_YN
+			,A.COMM_WRS_YN
+			,A.MFT_NA_TRPL_C
+			,A.WHT
+			,A.NA_WRS_UNT_C
+			,A.NA_WRS_PAK_C
+			,A.NA_WRS_BRAN_C
+			,A.NA_WRS_CSTD_METC
+			,A.NA_WRS_DSTR_STSC
+			,A.NA_WRS_UZC
+			,A.NA_WRS_IPO_DSC
+			,A.VCBT_NA_WRS_C
+			,A.VCBT_QT
+			,A.VCBX_NA_WRS_C
+			,A.WRS_DTL_EXPL
+			,A.BSC_UNT_DSC
+			,A.BOXPE_AQZ
+			,A.RFID_UYN
+			,A.FOMNM
+			,A.SLGT_ETR_DSC
+			,A.DSTR_TER_YN
+			,A.DSTR_TER_MRK_DSC
+			,A.WRS_MODIFY_YN
+			,A.TEMP_YN
+			,A.PRC_YN
+			,A.RSP_C_CNTN
+			,A.REQ_RESULT
+			,A.CNF_ENO
+			,A.CNF_DMT
+			,A.CNF_NAME
+			,A.NA_C_RQ_REJ_RSNC
+			,A.NA_C_RQ_STSC
+			,C.BOXPE_DLVG_UPR
+			,C.SLAM_PER_FEERT
+			,C.PMTN_SPT_PERS
+			,C.WRS_TRT_CMBR_CN
+			,C.ASP_SL_CNAM
+		FROM
+			TB_GD_WRS_RG_REQ A
+			<choose>
+				<when test="GUBUN == T">
+					,TB_GD_WRS B
+				</when>
+				<otherwise>
+					,(SELECT NA_WRS_C FROM TB_GD_WRS WHERE NA_WRS_C = #{NA_WRS_C}) B
+				</otherwise>
+			</choose>
+			,TB_GD_WRS_BS_CM_RG_RQ C
+		WHERE
+			<choose>
+				<when test="GUBUN == T">
+					A.RQ_NA_WRS_C = B.NA_WRS_C(+)
+					AND A.NA_C_RQ_NO = C.NA_C_RQ_NO(+)
+				</when>
+				<otherwise>
+					B.NA_WRS_C IS NULL
+					AND A.NA_C_RQ_NO = C.NA_C_RQ_NO
+					AND A.RQ_NA_WRS_C = B.NA_WRS_C(+)
+				</otherwise>
+			</choose>
+			AND A.PRC_YN = 'Y'
+
+			AND A.FSRGMN_NA_BZPLC IN
+		  	<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+	</select>
+
+	<!-- 거래처조회 -->
+	<select id="newGoodsTrplPopUp" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			NA_TRPL_C,
+			CLNTNM,
+			NA_TRPL_DSC,
+			NAAC_DSC,
+			CASE WHEN NAAC_DSC IS NOT NULL THEN (FN_CM_SIMP_CNM('NAAC_DSC',NAAC_DSC)) ELSE '' END AS NAAC_DSC_NM,
+			NA_MBCO_DSC,
+			TR_STOP_YN,
+			DEL_YN
+		FROM
+			TB_TR_TRPL_CIF
+			WHERE
+			<if test="cOMBO_TR == 1">
+				NA_TRPL_C = #{searChText}
+			</if>
+			<if test="cOMBO_TR == 2">
+				CLNTNM LIKE #{searChText} || '%%'
+			</if>
+	</select>
+
+	<select id="wrsCheck" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM TB_GD_WRS WHERE NA_WRS_C = #{WRS_C}
+	</select>
+
+	<!-- A"."WRS_FL_CN": 부적합한 식별자 해당컬럼 삭제 -->
+	<select id="selectGD" parameterType="string" resultMap="ProductVO">
+		SELECT
+			A.NA_WRS_C,
+			A.WRS_C_DSC,
+			A.WRS_DSC,
+			A.WRSNM,
+			A.WRS_ABR_NM,
+			A.WRS_ENM,
+			A.WRS_TPC,
+			A.NA_WRS_LCLC,
+			A.NA_WRS_MCLC,
+			A.NA_WRS_SCLC,
+			A.NA_WRS_DTCF_C,
+			B.WRS_LCLFNM,
+			B.WRS_MCLFNM,
+			B.WRS_SCLFNM,
+			B.WRS_DTCFNM,
+			B.WRS_ID_DSC,
+			A.WRS_STDNM,
+			A.TXT_DSC,
+			A.SMA_APL_TPC,
+			A.LIQ_YN,
+			A.LIQ_UZ_DSC,
+			A.MFT_NA_TRPL_C,
+			A.WHT,
+			A.NA_WRS_UNT_C,
+			A.NA_WRS_SZE_SEX_C,
+			A.NA_WRS_QLT_GRDC,
+			A.NA_WRS_BRAN_C,
+			A.NA_WRS_PROENV_DSC,
+			A.GAP_ATTC_YN,
+			A.NA_WRS_NACF_QLT_ATTC_C,
+			A.NA_WRS_CSTD_METC,
+			A.NA_WRS_DSTR_STSC,
+			A.NA_WRS_UZC,
+			A.NA_WRS_IPO_DSC,
+			A.NA_WRS_PDAA_C,
+			A.VLD_PRD_CN,
+			A.VLD_PRD_DSC,
+			A.NA_WRS_STD_UNT_C,
+			A.WRS_HGHT,
+			A.WRS_LEN_LEN,
+			A.WRS_WDTH_LEN,
+			A.VCBT_NA_WRS_C,
+			A.VCBT_QT,
+			A.VCBX_NA_WRS_C,
+			A.CVS_QT,
+			A.CVS_NA_WRS_UNT_C,
+			A.WRS_DTL_EXPL,
+			A.BSC_UNT_DSC,
+			A.BOXPE_AQZ,
+			A.KNET_WRS_NO,
+			A.TR_STOP_YN,
+			A.TR_STOP_RSNC,
+			A.TR_STOP_DT,
+			A.DEL_YN,
+			A.FSRG_DTM,
+			A.FSRGMN_ENO,
+			A.FSRGMN_NA_BZPLC,
+			A.LSCHG_DTM,
+			A.LS_CMENO,
+			A.LSCGMN_NA_BZPLC,
+			'' AS VAN_C_RQ_NO,
+			'' AS NA_C_RQ_NO,
+			'' AS NA_C_RQ_OBJ_DSC,
+			'' AS CTCPL_TELNO,
+			'' AS RQ_CNTN,
+			'' AS BUYER_ENO,
+			'' AS RQ_NA_WRS_C,
+			'' AS RFID_UYN,
+			'' AS FOMNM,
+			'' AS SLGT_ETR_DSC,
+			A.DSTR_TER_AMN_YN AS DSTR_TER_YN,
+			A.DSTR_TER_MRK_DSC,
+			'' AS WRS_MODIFY_YN,
+			'' AS PRC_YN,
+			'' AS RSP_C_CNTN,
+			'' AS REQ_RESULT,
+			'' AS CNF_ENO,
+			'' AS CNF_DATE,
+			'' AS CNF_NAME,
+			'' AS NA_C_RQ_REJ_RSNC,
+			'' AS NA_C_RQ_STSC,
+			'' AS STPL_AMN_NA_WRS_C,
+			'' AS NA_SPYPL_C,
+			'' AS NA_SPYPL_TEAM_C,
+			'' AS PLTPE_LYNO,
+			'' AS PLTPE_SGNO,
+			'' AS PLTPE_BOX_CN,
+			'0' AS BOX_WT,
+			'0' AS BOX_BULK,
+			'' AS BOX_WRS_YN,
+			'0' AS BYNG_UPR,
+			'0' AS SEL_UPR,
+			'0' AS TEMP_YN,
+			'0' AS APV_RQ_NA_BZPLC,
+			C.CNTN_QT,
+			C.UNTP_UPR_BASQT,
+			C.BAS_PR_UNT_DSC
+		FROM TB_GD_WRS A,TB_GD_WRS_CLF B, TB_BS_GM_PR_UNIT C
+		WHERE A.NA_WRS_C = #{NA_WRS_C}
+			AND A.NA_WRS_LCLC =B.NA_WRS_LCLC
+			AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
+			AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
+			AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
+			AND A.NA_WRS_C = C.NA_WRS_C (+)
+	</select>
+
+	<!-- 분류코드에 따른 2차정보 콤보박스 값 -->
+	<select id="selectCLC" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_WRS_ATTR_C,
+			A.NA_WRS_ATTNM
+		FROM
+			TB_GD_WRS_ATTR A,TB_GD_GH_WRS_ATTR_ID B
+		WHERE
+			A.WRS_ATTR_DSC = B.WRS_ATTR_DSC
+		  	AND A.NA_WRS_ATTR_C = B.NA_WRS_ATTR_C
+			AND B.WRS_ID_DSC = #{clc_gubun}
+			AND B.WRS_ATTR_DSC = #{clc_dsc}
+			AND A.DEL_YN = '0'
+			AND B.DEL_YN = '0'
+			ORDER BY B.NA_WRS_ATTR_C
+	</select>
+
+	<select id="selectReq" parameterType="string" resultMap="ProductReqVO">
+		SELECT
+			A.VAN_C_RQ_NO,		/* VAN상품요청번호 */
+			A.NA_C_RQ_NO,		/* 경제통합코드신청번호 */
+			A.NA_C_RQ_OBJ_DSC,	/* 경제통합코드신청대상구분코드 */
+			A.CTCPL_TELNO,		/* 연락처전화번호 */
+			A.RQ_CNTN,			/* 신청내용 */
+			A.APV_RQ_NA_BZPLC,	/* 승인신청경제통합사업장코드 */
+			A.FSRGMN_ENO,		/* 최초등록자개인번호 */
+			A.FSRGMN_NA_BZPLC,	/* 최초등록자경제통합사업장코드 */
+			A.BUYER_ENO,		/* 바이어개인번호 */
+			A.RQ_NA_WRS_C,		/* 신청경제통합상품코드 */
+			A.NA_WRS_C,			/* 경제통합상품코드 */
+			A.WRS_C_DSC,		/* 상품코드구분코드 */
+			A.WRS_DSC,			/* 상품구분코드 */
+			A.WRSNM,			/* 상품명 */
+			A.WRS_ABR_NM,		/* 상품약어명 */
+			A.WRS_ENM,			/* 상품영문명 */
+			A.WRS_TPC,			/* 상품유형코드 */
+			A.NA_WRS_LCLC,		/* 경제통합상품대분류코드 */
+			A.NA_WRS_MCLC,		/* 경제통합상품중분류코드 */
+			A.NA_WRS_SCLC,		/* 경제통합상품소분류코드 */
+			A.NA_WRS_DTCF_C,	/* 경제통합상품세분류코드 */
+			A.WRS_STDNM,		/* 상품규격명 */
+			A.TXT_DSC,			/* 과세구분코드 */
+			A.SMA_APL_TPC,		/* 영세적용유형코드 */
+			A.LIQ_YN,			/* 주류여부 */
+			A.COMM_WRS_YN,		/* 공동상품여부 */
+			A.MFT_NA_TRPL_C,	/* 제조경제통합거래처코드 */
+			A.WHT,				/* 단량 */
+			A.NA_WRS_UNT_C,		/* 경제통합상품단위코드 */
+			A.NA_WRS_PAK_C,		/* 경제통합상품포장코드 */
+			A.NA_WRS_BRAN_C,	/* 경제통합상품브랜드코드 */
+			A.NA_WRS_CSTD_METC,	/* 경제통합상품보관방식코드 */
+			A.NA_WRS_DSTR_STSC,	/* 경제통합상품유통상태코드 */
+			A.NA_WRS_UZC,		/* 경제통합상품용도코드 */
+			A.NA_WRS_IPO_DSC,	/* 경제통합상품수입구분코드 */
+			A.VCBT_NA_WRS_C,	/* 공병경제통합상품코드 */
+			A.VCBT_QT,			/* 공병수량 */
+			A.VCBX_NA_WRS_C,	/* 공상자경제통합상품코드 */
+			A.WRS_DTL_EXPL,		/* 상품상세설명 */
+			A.BSC_UNT_DSC,		/* 기본단위구분코드 */
+			A.BOXPE_AQZ,		/* 박스당입수 */
+			A.RFID_UYN,			/* RFID사용여부 */
+			A.FOMNM,			/* 형식명 */
+			A.SLGT_ETR_DSC,		/* 매취수탁구분코드 */
+			A.DSTR_TER_YN,		/* 유통기한관리여부 */
+			A.DSTR_TER_MRK_DSC,	/* 유통기한표기방법구분코드 */
+			A.WRS_MODIFY_YN,	/* 상품변경요청여부 */
+			A.TEMP_YN,			/* 임시저장여부 */
+			A.PRC_YN,			/* 경통전송여부 */
+			A.RSP_C_CNTN,		/* 결과수신 */
+			A.REQ_RESULT,		/* 상품등록신청결과메시지 */
+			A.CNF_ENO,			/* 승인/거절개인번호 */
+			A.CNF_DMT,			/* 승일/거절일시 */
+			A.CNF_NAME,			/* 승인/거절자명 */
+			A.NA_C_RQ_REJ_RSNC,	/* 경제통합코드신청거절사유코드 */
+			A.NA_C_RQ_STSC,		/* 경제통합코드신청상태코드 */
+		    B.NA_BZPLC,			/* 사업장코드 */
+		    B.STPL_AMN_NA_WRS_C,/* 재고상품코드 */
+		    B.NA_SPYPL_C,		/* 경제통합공급처코드 */
+		    B.NA_SPYPL_TEAM_C,	/* 거래처팀코드 */
+		    B.PLTPE_LYNO,		/* 파렛트당층수 */
+		    B.PLTPE_SGNO,		/* 파렛트당단수 */
+		    B.PLTPE_BOX_CN,		/* 파렛트당박스수 */
+		    B.BOX_WT,			/* 박스중량 */
+		    B.BOX_BULK,			/* 박스용적 */
+		    B.WDTH_LEN AS WRS_WDTH_LEN,			/* 가로길이 */
+		    B.LEN_LEN AS WRS_LEN_LEN,			/* 세로길이 */
+		    B.WRS_HGHT,			/* 상품높이 */
+		    B.BOX_WRS_YN,		/* 박스상품여부 */
+		    B.BYNG_UPR,			/* 매입단가 */
+			B.SEL_UPR			/* 판매단가 */
+		FROM TB_GD_WRS_RG_REQ A,TB_GD_WRS_RG_REQ_LG B
+		WHERE
+		    A.VAN_C_RQ_NO = B.VAN_C_RQ_NO
+			AND A.VAN_C_RQ_NO = #{VAN_C_NO}
+	</select>
+
+	<select id="selectGridReq" parameterType="string" resultMap="ProductReqPrgrVO">
+		SELECT
+			DISTINCT
+		    NA_TEAM_C,			/* 팀코드 */
+		    PRGR_C,				/* 가격군코드 */
+		    BYNG_UPR,			/* 매입단가 */
+		    SEL_UPR,			/* 판매단가 */
+		    (AMN_FEERT)+(TROT_FEERT) COMP_FEERT,	/* 업체수수료율 */
+			PHD_FEERT,			/* 물류수수료율 */
+			DDLY_PHD_FEERT,		/* 직송물류수수료율 */
+			TROT_FEERT,			/* 환급수수료율 */
+			AMN_FEERT,			/* 관리수수료율 */
+			PY_FDTCN,			/* 지급기일수 */
+			'0' AS DEL_YN		/* 삭제여부 */
+		FROM TB_GD_WRS_RG_REQ_PRGR
+		WHERE
+			VAN_C_RQ_NO = #{VAN_C_NO}
+	</select>
+
+	<select id="selectfileREQ" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			VAN_C_RQ_NO,
+			FILE_SEQ,
+			FILE_NAME,
+			FILE_SYSTEM_NAME,
+			FILE_SIZE
+		FROM TB_GD_WRS_RG_REQ_FILE
+		WHERE
+			VAN_C_RQ_NO = #{VAN_C_NO}
+	</select>
+
+	<select id="selectAddREQ" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			A.NA_BZPLC,
+			(
+			SELECT SHRT_BZPLNM FROM TB_CM_BZPL
+			WHERE NA_BZPLC = A.NA_BZPLC
+			) NA_BZPLC_NM,
+			'' AS DEL_YN,
+			B.APV_RQ_NA_BZPLC AS CSER_TRPL_C,
+			(
+			SELECT CLNTNM FROM TB_TR_TRPL_CIF
+			WHERE NA_TRPL_C = B.APV_RQ_NA_BZPLC
+			) CSER_TRPL_NM
+		FROM
+			TB_GD_WRS_RG_REQ_LG A ,
+			TB_GD_WRS_RG_REQ B
+		WHERE
+			A.VAN_C_RQ_NO = B.VAN_C_RQ_NO
+			AND A.VAN_C_RQ_NO = #{VAN_C_NO}
+	</select>
+
+	<insert id="insertReq" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		<include refid="sql_insertReq"/>
+	</insert>
+
+	<insert id="insertINPD" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		<include refid="sql_insertINPD"/>
+	</insert>
+
+	<insert id="insertReq_sub" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		<include refid="sql_insertReq_sub"/>
+	</insert>
+
+	<insert id="insertReq_th" parameterType="com.nh.escm.pds.pricat.vo.ProductReqPrgrVO">
+		<include refid="sql_insertReq_th"/>
+	</insert>
+
+	<sql id="sql_insertReq">
+		INSERT INTO TB_GD_WRS_RG_REQ
+		(
+			VAN_C_RQ_NO,
+			NA_C_RQ_NO,
+			NA_C_RQ_OBJ_DSC,
+			CTCPL_TELNO,
+			RQ_CNTN,
+			APV_RQ_NA_BZPLC,
+			FSRGMN_ENO,
+			FSRGMN_NA_BZPLC,
+			BUYER_ENO,
+			RQ_NA_WRS_C,
+			NA_WRS_C,
+			WRS_C_DSC,
+			WRS_DSC,
+			WRSNM,
+			WRS_ABR_NM,
+			WRS_ENM,
+			WRS_TPC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			NA_WRS_SCLC,
+			NA_WRS_DTCF_C,
+			WRS_STDNM,
+			TXT_DSC,
+			SMA_APL_TPC,
+			LIQ_YN,
+			COMM_WRS_YN,
+			MFT_NA_TRPL_C,
+			WHT,
+			NA_WRS_UNT_C,
+			NA_WRS_PAK_C,
+			NA_WRS_BRAN_C,
+			NA_WRS_CSTD_METC,
+			NA_WRS_DSTR_STSC,
+			NA_WRS_UZC,
+			NA_WRS_IPO_DSC,
+			VCBT_NA_WRS_C,
+			VCBT_QT,
+			VCBX_NA_WRS_C,
+			WRS_DTL_EXPL,
+			BSC_UNT_DSC,
+			BOXPE_AQZ,
+			RFID_UYN,
+			FOMNM,
+			SLGT_ETR_DSC,
+			DSTR_TER_YN,
+			DSTR_TER_MRK_DSC,
+			WRS_MODIFY_YN,
+			TEMP_YN,
+			PRC_YN,
+			CUD_DSC
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{NA_C_RQ_NO},
+			#{NA_C_RQ_OBJ_DSC},
+			#{CTCPL_TELNO},
+			#{RQ_CNTN},
+			#{APV_RQ_NA_BZPLC},
+			#{FSRGMN_ENO},
+			#{FSRGMN_NA_BZPLC},
+			#{BUYER_ENO},
+			#{RQ_NA_WRS_C},
+			#{NA_WRS_C},
+			#{WRS_C_DSC},
+			#{WRS_DSC},
+			#{WRSNM},
+			#{WRS_ABR_NM},
+			#{WRS_ENM},
+			#{WRS_TPC},
+			#{NA_WRS_LCLC},
+			#{NA_WRS_MCLC},
+			#{NA_WRS_SCLC},
+			#{NA_WRS_DTCF_C},
+			#{WRS_STDNM},
+			#{TXT_DSC},
+			#{SMA_APL_TPC},
+			#{LIQ_YN},
+			#{COMM_WRS_YN},
+			#{MFT_NA_TRPL_C},
+			#{WHT},
+			#{NA_WRS_UNT_C},
+			#{NA_WRS_PAK_C},
+			#{NA_WRS_BRAN_C},
+			#{NA_WRS_CSTD_METC},
+			#{NA_WRS_DSTR_STSC},
+			#{NA_WRS_UZC},
+			#{NA_WRS_IPO_DSC},
+			#{VCBT_NA_WRS_C},
+			#{VCBT_QT},
+			#{VCBX_NA_WRS_C},
+			#{WRS_DTL_EXPL},
+			#{BSC_UNT_DSC},
+			#{BOXPE_AQZ},
+			#{RFID_UYN},
+			#{FOMNM},
+			#{SLGT_ETR_DSC},
+			#{DSTR_TER_YN},
+			#{DSTR_TER_MRK_DSC},
+			#{WRS_MODIFY_YN},
+			#{TEMP_YN},
+			#{PRC_YN},
+			#{CUD_DSC}
+		)
+	</sql>
+
+
+	<sql id="sql_insertINPD">
+		INSERT INTO TB_GD_WRS_RG_REQ_INPD
+		(
+			VAN_C_RQ_NO,
+			INPD_NA_WRS_C,
+			INPD_QT
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{STPL_AMN_NA_WRS_C},
+			#{BOXPE_AQZ}
+		)
+	</sql>
+
+	<!--  
+	<sql id="sql_insertReq_sub">
+		INSERT INTO TB_GD_WRS_RG_REQ_LG
+		(
+			VAN_C_RQ_NO,
+			NA_BZPLC,
+			RQ_NA_WRS_C,
+			NA_WRS_C,
+			PLTPE_LYNO,
+			PLTPE_SGNO,
+			PLTPE_BOX_CN,
+			BOX_WT,
+			BOX_BULK,
+			WDTH_LEN,
+			LEN_LEN,
+			WRS_HGHT,
+			BOX_WRS_YN,
+			BYNG_UPR,
+			SEL_UPR
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{NA_BZPLC},
+			#{RQ_NA_WRS_C},
+			#{NA_WRS_C},
+			#{PLTPE_LYNO},
+			#{PLTPE_SGNO},
+			#{PLTPE_BOX_CN},
+			#{BOX_WT},
+			#{BOX_BULK},
+			#{WRS_WDTH_LEN},
+			#{WRS_LEN_LEN},
+			#{WRS_HGHT},
+			#{BOX_WRS_YN},
+			#{BYNG_UPR},
+			#{SEL_UPR}
+		)
+	</sql>
+	-->
+	
+	<sql id="sql_insertReq_sub">
+		INSERT INTO TB_GD_WRS_RG_REQ_LG
+		(
+			VAN_C_RQ_NO,
+			NA_BZPLC,
+			RQ_NA_WRS_C,
+			NA_WRS_C,
+			NA_SPYPL_C,
+			NA_SPYPL_TEAM_C,
+			PLTPE_LYNO,
+			PLTPE_SGNO,
+			PLTPE_BOX_CN,
+			BOX_WT,
+			BOX_BULK,
+			WDTH_LEN,
+			LEN_LEN,
+			WRS_HGHT,
+			BOX_WRS_YN,
+			BYNG_UPR,
+			SEL_UPR
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{NA_BZPLC},
+			#{RQ_NA_WRS_C},
+			#{NA_WRS_C},			
+			#{NA_SPYPL_C},
+			#{NA_SPYPL_TEAM_C},
+			#{PLTPE_LYNO},
+			#{PLTPE_SGNO},
+			#{PLTPE_BOX_CN},
+			#{BOX_WT},
+			#{BOX_BULK},
+			#{WDTH_LEN},
+			#{WDTH_LEN},
+			#{WRS_HGHT},
+			#{BOX_WRS_YN},
+			#{BYNG_UPR},
+			#{SEL_UPR}
+		)
+	</sql>
+	
+	<sql id="sql_insertReq_th">
+		INSERT INTO TB_GD_WRS_RG_REQ_PRGR
+		(
+			VAN_C_RQ_NO,
+		    NA_BZPLC,
+		    NA_TEAM_C,
+			PRGR_C,
+			RQ_NA_WRS_C,
+			NA_WRS_C,
+			SEL_UPR,
+			BYNG_UPR,
+			COMP_FEERT,
+			PHD_FEERT,
+			DDLY_PHD_FEERT,
+			TROT_FEERT,
+			AMN_FEERT,
+			PY_FDTCN
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{NA_BZPLC},
+			#{NA_TEAM_C},
+			#{PRGR_C},
+			#{RQ_NA_WRS_C},
+			#{NA_WRS_C},
+			#{SEL_UPR},
+			#{BYNG_UPR},
+			#{COMP_FEERT},
+			#{PHD_FEERT},
+			#{DDLY_PHD_FEERT},
+			#{TROT_FEERT},
+			#{AMN_FEERT},
+			#{PY_FDTCN}
+		)
+	</sql>
+
+	<insert id="updateReq" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		<include refid="sql_insertReq"/>
+	</insert>
+
+	<insert id="updateReq_sub" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		<include refid="sql_insertReq_sub"/>
+	</insert>
+
+	<insert id="updateINPD" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		<include refid="sql_insertINPD"/>
+	</insert>
+
+	<insert id="updateReq_th" parameterType="com.nh.escm.pds.pricat.vo.ProductReqPrgrVO">
+		<include refid="sql_insertReq_th"/>
+	</insert>
+
+	<delete id="deleteREQ_th" parameterType="java.util.Map">
+		DELETE FROM TB_GD_WRS_RG_REQ_PRGR
+		WHERE
+			VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+			AND PRGR_C = #{ORGNAME}
+			AND NA_BZPLC = #{NA_BZPLC}
+	</delete>
+
+	<insert id="fileReqIn" parameterType="com.nh.escm.pds.pricat.vo.ProductReqFile">
+		INSERT INTO TB_GD_WRS_RG_REQ_FILE
+		(
+			VAN_C_RQ_NO,
+			FILE_SEQ,
+			FILE_NAME,
+			FILE_SYSTEM_NAME,
+			FILE_SIZE,
+			WRS_IMG_KDC
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{FILE_SEQ},
+			#{FILE_NAME},
+			#{FILE_SYSTEM_NAME},
+			#{FILE_SIZE},
+			#{WRS_IMG_KDC}
+		)
+	</insert>
+
+	<insert id="insertTempFile" parameterType="com.nh.escm.pds.pricat.vo.ProductTempFileVO">
+		INSERT INTO TB_GD_WRS_RG_REQ_TEMP
+		(
+			TEMP_SEQ,
+			ROW_SEQ,
+			NA_WRS_C,
+			NA_WRS_LCLC,
+			WRS_LCLFNM,
+			NA_WRS_MCLC,
+			WRS_MCLFNM,
+			NA_WRS_SCLC,
+			WRS_SCLFNM,
+			NA_WRS_DTCF_C,
+			WRS_DTCFNM,
+			WRSNM,
+			WRS_ABR_NM,
+			WRS_ENM,
+			WRS_STDNM,
+			TXT_DSC,
+			TXT_NM,
+			SMA_APL_TPC,
+			SMA_APL_TPNM,
+			COMM_WRS_YN,
+			COMM_WRS_NM,
+			MFT_NA_TRPL_C,
+			MFT_NA_TRPL_NM,
+			WRS_TPC,
+			WRS_TPNM,
+			LIQ_YN,
+			LIQ_NM,
+			VCBT_NA_WRS_C,
+			VCBT_NA_WRS_NM,
+			VCBT_QT,
+			VCBX_NA_WRS_C,
+			VCBX_NA_WRS_NM,
+			WHT,
+			NA_WRS_UNT_C,
+			NA_WRS_UNT_NM,
+			NA_WRS_PAK_C,
+			NA_WRS_PAK_NM,
+			NA_WRS_BRAN_C,
+			NA_WRS_BRAN_NM,
+			NA_WRS_CSTD_METC,
+			NA_WRS_CSTD_METNM,
+			NA_WRS_UZC,
+			NA_WRS_UZNM,
+			VLD_PRD_CN,
+			DSTR_TER_MRK_DSC,
+			DSTR_TER_MRK_DSNM,
+			BOXPE_AQZ,
+			NA_WRS_IPO_DSC,
+			NA_WRS_IPO_DSNM,
+			RFID_UYN,
+			RFID_UNM,
+			WRS_DTL_EXPL,
+			FSRG_DTM,
+			FSRGMN_NA_BZPLC
+		)
+		VALUES
+		(
+			#{TEMP_SEQ},
+			#{ROW_SEQ},
+			#{NA_WRS_C},
+			#{NA_WRS_LCLC},
+			#{WRS_LCLFNM},
+			#{NA_WRS_MCLC},
+			#{WRS_MCLFNM},
+			#{NA_WRS_SCLC},
+			#{WRS_SCLFNM},
+			#{NA_WRS_DTCF_C},
+			#{WRS_DTCFNM},
+			#{WRSNM},
+			#{WRS_ABR_NM},
+			#{WRS_ENM},
+			#{WRS_STDNM},
+			#{TXT_DSC},
+			#{TXT_NM},
+			#{SMA_APL_TPC},
+			#{SMA_APL_TPNM},
+			#{COMM_WRS_YN},
+			#{COMM_WRS_NM},
+			#{MFT_NA_TRPL_C},
+			#{MFT_NA_TRPL_NM},
+			#{WRS_TPC},
+			#{WRS_TPNM},
+			#{LIQ_YN},
+			#{LIQ_NM},
+			#{VCBT_NA_WRS_C},
+			#{VCBT_NA_WRS_NM},
+			#{VCBT_QT},
+			#{VCBX_NA_WRS_C},
+			#{VCBX_NA_WRS_NM},
+			#{WHT},
+			#{NA_WRS_UNT_C},
+			#{NA_WRS_UNT_NM},
+			#{NA_WRS_PAK_C},
+			#{NA_WRS_PAK_NM},
+			#{NA_WRS_BRAN_C},
+			#{NA_WRS_BRAN_NM},
+			#{NA_WRS_CSTD_METC},
+			#{NA_WRS_CSTD_METNM},
+			#{NA_WRS_UZC},
+			#{NA_WRS_UZNM},
+			#{VLD_PRD_CN},
+			#{DSTR_TER_MRK_DSC},
+			#{DSTR_TER_MRK_DSNM},
+			#{BOXPE_AQZ},
+			#{NA_WRS_IPO_DSC},
+			#{NA_WRS_IPO_DSNM},
+			#{RFID_UYN},
+			#{RFID_UNM},
+			#{WRS_DTL_EXPL},
+			SYSDATE,
+			#{FSRGMN_NA_BZPLC}
+		)
+	</insert>
+
+	<!-- 신규상품등록 내역조회 페이징 -->
+	<select id="selectNewGoodsCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<choose>
+			<when test="GUBUN == 1">
+				<include refid="sql_selectNewGoods"/>
+			</when>
+			<otherwise>
+				<include refid="sql_selectNewGoodsExcel"/>
+			</otherwise>
+		</choose>
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 신규상품등록 내역조회 -->
+	<select id="selectNewGoods" parameterType="java.util.Map" resultMap="ProductReqVO">
+		<bind name="sortName" value="'NA_C_RQ_NO'" />
+		<bind name="sortType" value="'asc'" />
+
+		<include refid="common.paging_start" />
+		<choose>
+			<when test="GUBUN == 1">
+				<include refid="sql_selectNewGoods"/>
+			</when>
+			<otherwise>
+				<include refid="sql_selectNewGoodsExcel"/>
+			</otherwise>
+		</choose>
+		<include refid="common.paging_end" />
+	</select>
+
+	<sql id="sql_selectNewGoods">
+		SELECT
+			A.VAN_C_RQ_NO
+			,A.NA_C_RQ_NO
+			,A.NA_C_RQ_OBJ_DSC
+			,FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM
+			,A.CTCPL_TELNO
+			,A.RQ_CNTN
+			,A.APV_RQ_NA_BZPLC
+			,A.FSRGMN_ENO
+			,A.FSRGMN_NA_BZPLC
+			,A.BUYER_ENO
+			,A.RQ_NA_WRS_C
+			,A.NA_WRS_C
+			,A.WRS_C_DSC
+			,A.WRS_DSC
+			,A.WRSNM
+			,A.WRS_ABR_NM
+			,A.WRS_ENM
+			,A.WRS_TPC
+			,A.NA_WRS_LCLC
+			,A.NA_WRS_MCLC
+			,A.NA_WRS_SCLC
+			,A.NA_WRS_DTCF_C
+			,A.WRS_STDNM
+			,A.TXT_DSC
+			,A.SMA_APL_TPC
+			,A.LIQ_YN
+			,A.COMM_WRS_YN
+			,A.MFT_NA_TRPL_C
+			,A.WHT
+			,A.NA_WRS_UNT_C
+			,A.NA_WRS_PAK_C
+			,A.NA_WRS_BRAN_C
+			,A.NA_WRS_CSTD_METC
+			,A.NA_WRS_DSTR_STSC
+			,A.NA_WRS_UZC
+			,A.NA_WRS_IPO_DSC
+			,A.VCBT_NA_WRS_C
+			,A.VCBT_QT
+			,A.VCBX_NA_WRS_C
+			,A.WRS_DTL_EXPL
+			,A.BSC_UNT_DSC
+			,A.BOXPE_AQZ
+			,A.RFID_UYN
+			,A.FOMNM
+			,A.SLGT_ETR_DSC
+			,A.DSTR_TER_YN
+			,A.DSTR_TER_MRK_DSC
+			,A.WRS_MODIFY_YN
+			,A.TEMP_YN
+			,A.PRC_YN
+			,A.RSP_C_CNTN
+			,A.REQ_RESULT
+			,A.CNF_ENO
+			,A.CNF_DMT
+			,A.CNF_NAME
+			,A.NA_C_RQ_REJ_RSNC
+			,A.NA_C_RQ_STSC
+			, '' NA_WRS_SZE_SEX_C			/*  경제통합상품크기성별코드 */
+			, '' NA_WRS_QLT_GRDC			/*  경제통합상품품질등급코드 */
+			, '' NA_WRS_PROENV_DSC			/*  경제통합상품친환경구분코드 */
+			, '' GAP_ATTC_YN				/*  GAP인증여부 */
+			, '' NA_WRS_NACF_QLT_ATTC_C		/*  경제통합상품농협품질인증코드 */
+			, '' NA_WRS_PDAA_C				/*  경제통합상품산지코드 */
+			, '' ACHMI_LATCNM   			/*  농약품목명 */
+			, '' ACHMI_IGRQT    			/*  농약성분량 */
+			, '' FTLZ_PHAC_IGRDRT      		/*  비료인산성분비 */
+			, '' FTLZ_NTRG_IGRDRT      		/*  비료질소성분비 */
+			, '' FTLZ_KLM_IGRDRT			/*  비료칼륨성분비 */
+			, '' FMACH_PATS_CLF_DSC    		/*  농기계부품분류구분코드 */
+			, '' NUMN_YN        			/*  본체여부 */
+			, '' GEN_LON_LMT_AM 			/*  일반융자한도금액 */
+			, '' COMM_LON_LMT_AM			/*  공동융자한도금액 */
+			, '' NA_WRS_STD_UNT_C      		/*  경제통합상품규격단위코드 */
+			, '' WRS_HGHT       			/*  상품높이 */
+			, '0' WRS_LEN_LEN    			/*  상품세로길이 */
+			, '0' WRS_WDTH_LEN   			/*  상품가로길이 */
+			, '0' WRS_SGRT       			/*  상품비중률 */
+			, '0' WRS_SDL_DSC    			/*  상품외쌍겹구분코드 */
+			, '' WRS_AHL_CN     			/*  상품유공개수 */
+			, '' MTRL_STD_THKN  			/*  자재규격두께 */
+			, '' CICL_WRS_STD_DMTR_CN  		/*  원형상품규격지름수 */
+			, '' CICL_WRS_STD_DPTH_CN  		/*  원형상품규격깊이수 */
+			, '' FED_PD_METC    			/*  사료생산방식코드 */
+			, '' SNUM_CNTN      			/*  찾기번호내용 */
+			, '' CVS_QT						/*  환산수량 */
+			, '' CVS_NA_WRS_UNT_C 			/*  환산경제통합상품단위코드 */
+			, '' WRS_FL_CN					/*  상품파일개수 */
+			, '' KNET_WRS_NO				/*  코리안넷상품번호 */
+			, '' TR_STOP_YN     			/*  거래중지여부 */
+			, '' TR_STOP_RSNC   			/*  거래중지사유코드 */
+			, '' FMACH_FOMNM 				/*  농기계형식명 */
+			, NVL(B.BOXPE_DLVG_UPR,'0') BOXPE_DLVG_UPR
+			, NVL(B.SLAM_PER_FEERT,'0') SLAM_PER_FEERT
+			, NVL(B.PMTN_SPT_PERS,'0') PMTN_SPT_PERS
+			, NVL(B.WRS_TRT_CMBR_CN,'0') WRS_TRT_CMBR_CN
+			, NVL(B.ASP_SL_CNAM,'0') ASP_SL_CNAM
+			, B.DEL_YN
+		FROM
+			TB_GD_WRS_RG_REQ A, 			/* 상품등록신청내역 */
+			TB_GD_WRS_BS_CM_RG_RQ B			/* 등록신청기본 */
+		WHERE
+			A.NA_C_RQ_NO = B.NA_C_RQ_NO(+)
+			AND A.APV_RQ_NA_BZPLC IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			AND CUD_DSC != 'D'
+	</sql>
+
+	<sql id="sql_selectNewGoodsExcel">
+		SELECT
+			DISTINCT
+			A.TEMP_SEQ AS NA_C_RQ_NO
+			, '' NA_C_RQ_OBJ_DSC
+			, '' CTCPL_TELNO
+			, '' RC_DTM
+			, '' RCST_ENO
+			, '' RCST_NA_BZPLC
+			, '' PRC_DTM
+			, '' PRCMN_ENO
+			, '' PRCMN_NA_BZPLC
+			, '' NA_C_RQ_REJ_RSNC
+			, '' RQ_CNTN
+			, '' PRC_CNTN
+			, '' APV_RQ_NA_BZPLC
+			, '' DEL_YN
+			, '' FSRG_DTM
+			, '' FSRGMN_ENO
+			, '' FSRGMN_NA_BZPLC
+			, '' LSCHG_DTM
+			, '' LS_CMENO
+			, '' LSCGMN_NA_BZPLC
+			, '' OSLF_WRS_RQ_RSNC
+			, '' BUYER_RC_DTM
+			, '' BUYER_RCST_ENO
+			, '' BUYER_RCST_NA_BZPLC
+			, '' BUYER_PRC_DTM
+			, '' BUYER_PRCMN_ENO
+			, '' BUYER_PRCMN_NA_BZPLC
+			, '' PU_DLVG_UPR
+			, '' BOXPE_DLVG_UPR
+			, '' SLAM_PER_FEERT
+			, '' PMTN_SPT_PERS
+			, '' WRS_TRT_CMBR_CN
+			, '' ASP_SL_CNAM
+			, '' TFR_DEL_WRS_C
+			, '' ROTS_WRS_CNF_YN
+			, '' DLVG_CLNTNM
+			, '' DLVG_TRPL_TELNO
+		FROM TB_GD_WRS_RG_REQ_TEMP A
+		WHERE
+			1=1
+			<if test="center_code != null and center_code.length() > 0">
+				AND A.NA_BZPLC = #{center_code}
+			</if>
+			<if test="NA_WRS_RADIO == 1">
+				<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+					AND A.NA_WRS_C LIKE #{NA_WRS_C} || '%'
+				</if>
+			</if>
+			<if test="NA_WRS_RADIO == 2">
+				<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+					AND A.WRSNM LIKE #{NA_WRS_C} || '%'
+				</if>
+			</if>
+			AND A.FSRGMN_NA_BZPLC IN
+			<foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+	    		#{item}
+			</foreach>
+			AND TO_CHAR(FSRG_DTM,'YYYYMMDD') <![CDATA[>=]]> #{start_date}
+			AND TO_CHAR(FSRG_DTM,'YYYYMMDD') <![CDATA[<=]]> #{end_date}
+	</sql>
+
+	<!-- 1560 디테일 조회 -->
+	<select id="selectDetailNewGoods" parameterType="java.util.Map" resultMap="ProductSearchVO">
+		<choose>
+			<when test="GUBUN == 1">
+				<include refid="sql_DetailNewGoods"/>
+			</when>
+			<otherwise>
+				<include refid="sql_ExcelDetailNewGoods"/>
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 디테일 조회 -->
+	<sql id="sql_DetailNewGoods">
+		SELECT
+			A.NA_C_RQ_NO,
+			A.RQ_NA_WRS_C,
+			A.NA_WRS_C,
+			A.WRS_C_DSC,
+			A.WRS_DSC,
+			A.WRSNM,
+			A.WRS_ABR_NM,
+			A.WRS_ENM,
+			A.WRS_TPC,
+			A.NA_WRS_LCLC,
+			A.NA_WRS_MCLC,
+			A.NA_WRS_SCLC,
+			A.NA_WRS_DTCF_C,
+			A.WRS_STDNM,
+			A.TXT_DSC,
+			A.SMA_APL_TPC,
+			A.LIQ_YN,
+			A.COMM_WRS_YN,
+			A.MFT_NA_TRPL_C,
+			A.WHT,
+			A.NA_WRS_UNT_C,
+			A.NA_WRS_PAK_C,
+			B.NA_WRS_SZE_SEX_C,
+			B.NA_WRS_QLT_GRDC,
+			A.NA_WRS_BRAN_C,
+			B.NA_WRS_PROENV_DSC,
+			B.GAP_ATTC_YN,
+			B.NA_WRS_NACF_QLT_ATTC_C,
+			A.NA_WRS_CSTD_METC,
+			A.NA_WRS_DSTR_STSC,
+			A.NA_WRS_UZC,
+			A.NA_WRS_IPO_DSC,
+			B.NA_WRS_PDAA_C,
+			B.VLD_PRD_CN,
+			B.VLD_PRD_DSC,
+			B.NA_WRS_STD_UNT_C,
+			B.WRS_HGHT,
+			B.WRS_LEN_LEN,
+			B.WRS_WDTH_LEN,
+			B.WRS_SGRT,
+			B.WRS_SDL_DSC,
+			B.WRS_AHL_CN,
+			B.MTRL_STD_THKN,
+			B.CICL_WRS_STD_DMTR_CN,
+			B.CICL_WRS_STD_DPTH_CN,
+			A.VCBT_NA_WRS_C,
+			A.VCBT_QT,
+			A.VCBX_NA_WRS_C,
+			B.CVS_QT,
+			B.CVS_NA_WRS_UNT_C,
+			A.WRS_DTL_EXPL,
+			A.BSC_UNT_DSC,
+			A.BOXPE_AQZ,
+			B.WRS_FL_CN,
+			B.KNET_WRS_NO,
+			A.RFID_UYN,
+			B.TR_STOP_YN,
+			B.TR_STOP_RSNC,
+			A.FOMNM
+		FROM TB_GD_WRS_RG_REQ A,TB_GD_WRS B
+		WHERE
+			A.RQ_NA_WRS_C = B.NA_WRS_C(+)
+			AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+			AND A.RQ_NA_WRS_C = #{RQ_TRPL}
+	</sql>
+
+	<!-- 디테일 일괄 등록 조회 -->
+	<sql id="sql_ExcelDetailNewGoods">
+		SELECT
+			A.TEMP_SEQ AS NA_C_RQ_NO
+			, A.NA_WRS_C AS RQ_NA_WRS_C
+			, A.NA_WRS_C
+			, '' WRS_C_DSC
+			, '' WRS_DSC
+			, A.WRSNM
+			, A.WRS_ABR_NM
+			, A.WRS_ENM
+			, A.WRS_TPC
+			, A.NA_WRS_LCLC
+			, A.NA_WRS_MCLC
+			, A.NA_WRS_SCLC
+			, A.NA_WRS_DTCF_C
+			, A.WRS_STDNM
+			, A.TXT_DSC
+			, A.SMA_APL_TPC
+			, A.LIQ_YN
+			, A.COMM_WRS_YN
+			, A.MFT_NA_TRPL_C
+			, A.WHT
+			, A.NA_WRS_UNT_C
+			, A.NA_WRS_PAK_C
+			, '' NA_WRS_SZE_SEX_C
+			, '' NA_WRS_QLT_GRDC
+			, A.NA_WRS_BRAN_C
+			, '' NA_WRS_PROENV_DSC
+			, '' GAP_ATTC_YN
+			, '' NA_WRS_NACF_QLT_ATTC_C
+			, A.NA_WRS_CSTD_METC
+			, '' NA_WRS_DSTR_STSC
+			, A.NA_WRS_UZC
+			, A.NA_WRS_IPO_DSC
+			, '' NA_WRS_PDAA_C
+			, A.VLD_PRD_CN
+			/* , A.VLD_PRD_DSC */
+			, '' ACHMI_LATCNM
+			, '' ACHMI_IGRQT
+			, '' FTLZ_PHAC_IGRDRT
+			, '' FTLZ_NTRG_IGRDRT
+			, '' FTLZ_KLM_IGRDRT
+			, '' FMACH_PATS_CLF_DSC
+			, '' NUMN_YN
+			, '' GEN_LON_LMT_AM
+			, '' COMM_LON_LMT_AM
+			, '' NA_WRS_STD_UNT_C
+			, '' WRS_HGHT
+			, '' WRS_LEN_LEN
+			, '' WRS_WDTH_LEN
+			, '' WRS_SGRT
+			, '' WRS_SDL_DSC
+			, '' WRS_AHL_CN
+			, '' MTRL_STD_THKN
+			, '' CICL_WRS_STD_DMTR_CN
+			, '' CICL_WRS_STD_DPTH_CN
+			, A.VCBT_NA_WRS_C
+			, A.VCBT_QT
+			, A.VCBX_NA_WRS_C
+			, '' FED_PD_METC
+			, '' SNUM_CNTN
+			, '' CVS_QT
+			, '' CVS_NA_WRS_UNT_C
+			, A.WRS_DTL_EXPL
+			, '' BSC_UNT_DSC
+			, A.BOXPE_AQZ
+			, '' WRS_FL_CN
+			, '' KNET_WRS_NO
+			, A.RFID_UYN
+			, '' TR_STOP_YN
+			, '' TR_STOP_RSNC
+			, '' FMACH_FOMNM
+			FROM
+				TB_GD_WRS_RG_REQ_TEMP A
+			WHERE
+			  1=1
+			  AND A.TEMP_SEQ = #{VAN_C_RQ_NO}
+	</sql>
+
+	<!-- 마스터 데이터 엑셀 -->
+	<select id="excelNewGoods" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<choose>
+			<when test="GUBUN == 1">
+				<include refid="sql_selectNewGoods"/>
+			</when>
+			<otherwise>
+				<include refid="sql_selectNewGoodsExcel"/>
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="excelDetailNewGoods" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		<choose>
+			<when test="GUBUN == 1">
+				<include refid="sql_DetailNewGoods"/>
+			</when>
+			<otherwise>
+				<include refid="sql_ExcelDetailNewGoods"/>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectOnWrsInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT CASE WHEN B.NA_WRS_C IS NULL THEN '0' ELSE '1' END AS ON_REG_YN /* 온라인취급상품등록여부 */
+		     , A.NA_WRS_C /* 경제통합상품코드  */
+		     , A.NA_WRS_LCLC /* 경제통합대분류코드 */
+		     , A.NA_WRS_MCLC /* 경제통합중분류코드 */
+		     , A.NA_WRS_SCLC /* 경제통합소분류코드 */
+		     , A.NA_WRS_DTCF_C /* 경제통합세분류코드 */
+		     , C.WRS_LCLFNM || ' > ' || C.WRS_MCLFNM || ' > ' || C.WRS_SCLFNM || ' > ' || C.WRS_DTCFNM AS WRS_LFNM /* 경제통합상품분류명 */
+		     , 0 AS SL_UPR /* 판매단가 */
+		     , A.TXT_DSC /* 과세구분코드 */
+		     , B.PDM_MFTCO /* 생산자제조사 */
+		     , A.WRS_STDNM AS WRS_STD /* 상품규격 */
+		     , B.ORGPL_NATCD /* 원산지국가코드 */
+		     , B.PD_RGN /* 생산지역 */
+		     , B.AGLVPD_MFCPD_YN /* 농축산물가공품여부 */
+		     , B.MTR_AGLVPD_ORG_ORGPL /* 원료농축산물원산지 */
+		     , B.TOT_CAP /* 총용량 */
+		     , B.UNT_CAP /* 단위용량 */
+		     , B.WRS_UNT_C /* 상품단위코드 */
+		     , B.ADLT_ATTC_REQUIRED_YN /* 성인인증필수여부 */
+		     , B.IMG_EXPL_FL_NM /* 상품상세내용파일명 */
+		     , B.IMG_FL0_NM /* 대표상품이미지명 */
+		     , B.IMG_FL1_NM /* 추가상품1이미지명 */
+		     , B.IMG_FL2_NM /* 추가상품2이미지명 */
+		     , B.IMG_FL3_NM /* 추가상품3이미지명 */
+		     , B.IMG_DTL1_NM /* 나모상세이미지1 */
+		     , B.IMG_DTL2_NM /* 나모상세이미지2 */
+		     , B.IMG_DTL3_NM /* 나모상세이미지3 */
+		     , B.IMG_DTL4_NM /* 나모상세이미지4 */
+		     , B.IMG_DTL5_NM /* 나모상세이미지5 */
+		     , D.WRS_NTFY_C /* 상품고시코드 */
+		     , #{FILE_PATH} AS FILE_PATH
+		     , '' AS HTML_DATA
+		  FROM TB_GD_WRS            A
+		     , TB_GD_WRS_ONLINE     B
+		     , TB_GD_WRS_CLF        C
+		     , (
+			    SELECT DISTINCT NA_WRS_C
+		             , WRS_NTFY_C
+		          FROM TB_GD_WRS_ONLINE_NTFY
+				 WHERE NA_WRS_C = #{NA_WRS_C}
+		       ) D
+		 WHERE A.NA_WRS_C      = B.NA_WRS_C(+)
+		   AND A.NA_WRS_LCLC   = C.NA_WRS_LCLC
+		   AND A.NA_WRS_MCLC   = C.NA_WRS_MCLC
+		   AND A.NA_WRS_SCLC   = C.NA_WRS_SCLC
+		   AND A.NA_WRS_DTCF_C = C.NA_WRS_DTCF_C
+		   AND A.NA_WRS_C      = D.NA_WRS_C(+)
+		   AND A.NA_WRS_C      = #{NA_WRS_C}
+	</select>
+
+	<select id="selectGdWrsNtfy" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT ROWNUM      AS RN
+		     , WRS_NTFY_C
+		     , WRS_NTFY_NM
+		  FROM TB_AM_ONLINE_NTFY_M
+		 WHERE UYN    = 'Y'
+		   AND DEL_YN = 'N'
+		 ORDER BY WRS_NTFY_C
+	</select>
+
+	<!-- 차세대 이전  
+	<select id="selectOnGdWrsNtfyDtl" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT ROWNUM   AS SORT_SEQ  /* 정렬순서   */
+		     , A.WRS_NTFY_C          /* 고시코드   */
+		     , B.WRS_NTFY_HDNG_C     /* 고시항목코드 */
+		     , B.WRS_NTFY_HDNG_NM    /* 고시항목명  */
+		     , B.WRS_NTFY_HDNG_EXPL  /* 고시항목설명 */
+		     , C.WRS_NTFY_HDNG_CNTN
+		  FROM TB_AM_ONLINE_NTFY_M   A
+		     , TB_AM_ONLINE_NTFY_D   B
+		     , TB_GD_WRS_ONLINE_NTFY C
+		 WHERE A.WRS_NTFY_C      = B.WRS_NTFY_C
+		   AND B.WRS_NTFY_C      = C.WRS_NTFY_C(+)
+		   AND B.WRS_NTFY_HDNG_C = C.WRS_NTFY_HDNG_C(+)
+		   AND C.NA_WRS_C(+)     = #{NA_WRS_C}
+		   AND A.DEL_YN          = 'N'
+		   AND A.UYN             = 'Y'
+		   AND B.DEL_YN          = 'N'
+		   AND B.UYN             = 'Y'
+		   AND A.WRS_NTFY_C      = #{WRS_NTFY_C}
+		 ORDER BY B.WRS_NTFY_HDNG_C
+	</select>
+	-->
+	
+	<select id="selectOnGdWrsNtfyDtl" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT ROWNUM   AS SORT_SEQ  /* 정렬순서   */
+		     , A.WRS_NTFY_C          /* 고시코드   */
+		     , B.WRS_NTFY_HDNG_C     /* 고시항목코드 */
+		     , B.WRS_NTFY_HDNG_NM    /* 고시항목명  */
+		     , B.WRS_NTFY_HDNG_EXPL  /* 고시항목설명 */
+		     , '' WRS_NTFY_HDNG_CNTN
+		  FROM TB_AM_ONLINE_NTFY_M   A
+		     , TB_AM_ONLINE_NTFY_D   B
+		 WHERE A.WRS_NTFY_C      = B.WRS_NTFY_C
+		   AND A.DEL_YN          = 'N'
+		   AND A.UYN             = 'Y'
+		   AND B.DEL_YN          = 'N'
+		   AND B.UYN             = 'Y'
+		   AND A.WRS_NTFY_C      = #{WRS_NTFY_C}
+		 ORDER BY B.WRS_NTFY_HDNG_C
+	</select>
+	
+	<select id="selectCommCode1590" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT B.C_DTL_C     AS SIMP_C
+		     , B.DTL_C_NM    AS SIMP_CNM
+		     , B.DTL_C_SNM   AS SIMP_C_EXPL
+		  FROM TB_AM_CM_CODE     A
+		     , TB_AM_CM_CODE_DTL B
+		 WHERE A.C_TP_C = B.C_TP_C
+		   AND A.C_TP_C = #{C_TP_C}
+		 ORDER BY B.SORT_SQNO
+	</select>
+
+	<select id="selectBanWord" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT BANNED_WORD_NO
+		     , BANNED_WORD_NM
+		  FROM TB_AM_BAN_WORD
+		 ORDER BY BANNED_WORD_NO
+	</select>
+
+	<insert id="insertOnTrtWrs" parameterType="java.util.Map">
+		MERGE INTO TB_GD_WRS_ONLINE
+		     USING DUAL
+		        ON (   NA_WRS_C = #{NA_WRS_C}
+		           )
+		WHEN MATCHED THEN
+			  UPDATE SET PDM_MFTCO             = #{PDM_MFTCO}
+		               , ORGPL_NATCD           = #{ORGPL_NATCD}
+		               , PD_RGN                = #{PD_RGN}
+		               , AGLVPD_MFCPD_YN       = #{AGLVPD_MFCPD_YN}
+		               , MTR_AGLVPD_ORG_ORGPL  = #{MTR_AGLVPD_ORG_ORGPL}
+		               , TOT_CAP               = #{TOT_CAP}
+		               , UNT_CAP               = #{UNT_CAP}
+		               , WRS_UNT_C             = #{WRS_UNT_C}
+		               , ADLT_ATTC_REQUIRED_YN = #{ADLT_ATTC_REQUIRED_YN}
+		               , IMG_EXPL_FL_NM        = #{IMG_EXPL_FL_NM}
+		               , IMG_FL0_NM            = #{IMG_FL0_NM}
+		               , IMG_FL1_NM            = #{IMG_FL1_NM}
+		               , IMG_FL2_NM            = #{IMG_FL2_NM}
+		               , IMG_FL3_NM            = #{IMG_FL3_NM}
+		               , SU_BZPL_NM = #{CLNTNM}
+		               , SU_NA_BZPLC = #{BIZ_NUMBER}
+		               , PRC_YN                = 'N'
+		               , LS_CHGMN_ID           = #{USERID}
+		               , LS_CHG_DTM            = SYSDATE
+		               , IMG_DTL1_NM            = #{IMG_DTL1_NM}
+		               , IMG_DTL2_NM            = #{IMG_DTL2_NM}
+		               , IMG_DTL3_NM            = #{IMG_DTL3_NM}
+		               , IMG_DTL4_NM            = #{IMG_DTL4_NM}
+		               , IMG_DTL5_NM            = #{IMG_DTL5_NM}
+
+		WHEN NOT MATCHED THEN
+		    INSERT (
+		             NA_WRS_C
+		           , PDM_MFTCO
+		           , ORGPL_NATCD
+		           , PD_RGN
+		           , AGLVPD_MFCPD_YN
+		           , MTR_AGLVPD_ORG_ORGPL
+		           , TOT_CAP
+		           , UNT_CAP
+		           , WRS_UNT_C
+		           , ADLT_ATTC_REQUIRED_YN
+		           , IMG_EXPL_FL_NM
+		           , IMG_FL0_NM
+		           , IMG_FL1_NM
+		           , IMG_FL2_NM
+		           , IMG_FL3_NM
+		           , SU_BZPL_NM
+		           , SU_NA_BZPLC
+		           , PRC_YN
+		           , FIR_RGMN_ID
+		           , FIR_RG_DTM
+		           , LS_CHGMN_ID
+		           , LS_CHG_DTM
+		           , IMG_DTL1_NM
+		           , IMG_DTL2_NM
+		           , IMG_DTL3_NM
+		           , IMG_DTL4_NM
+		           , IMG_DTL5_NM
+		    )VALUES(
+		             #{NA_WRS_C}
+		           , #{PDM_MFTCO}
+		           , #{ORGPL_NATCD}
+		           , #{PD_RGN}
+		           , #{AGLVPD_MFCPD_YN}
+		           , #{MTR_AGLVPD_ORG_ORGPL}
+		           , #{TOT_CAP}
+		           , #{UNT_CAP}
+		           , #{WRS_UNT_C}
+		           , #{ADLT_ATTC_REQUIRED_YN}
+		           , #{IMG_EXPL_FL_NM}
+				   , #{IMG_FL0_NM}
+		           , #{IMG_FL1_NM}
+		           , #{IMG_FL2_NM}
+		           , #{IMG_FL3_NM}
+		           , #{CLNTNM}
+		           , #{BIZ_NUMBER}
+		           , 'N'
+		           , #{USERID}
+		           , SYSDATE
+		           , #{USERID}
+		           , SYSDATE
+		           , #{IMG_DTL1_NM}
+		           , #{IMG_DTL2_NM}
+		           , #{IMG_DTL3_NM}
+		           , #{IMG_DTL4_NM}
+		           , #{IMG_DTL5_NM}
+		    )
+    </insert>
+
+	<update id="deleteOnNtfyHdng" parameterType="java.util.Map">
+		DELETE
+		  FROM TB_GD_WRS_ONLINE_NTFY
+		 WHERE NA_WRS_C = #{NA_WRS_C}
+	</update>
+	
+	<!--  
+	<insert id="insertOnNtfyHdng" parameterType="java.util.Map">
+	        INSERT INTO TB_GD_WRS_ONLINE_NTFY (
+				     NA_WRS_C
+	               , WRS_NTFY_C
+		    	   , WRS_NTFY_HDNG_C
+				   , WRS_NTFY_HDNG_CNTN
+				   , LS_CHG_DTM
+	        )VALUES(
+	                 #{NA_WRS_C}
+		    	   , #{WRS_NTFY_C}
+				   , #{WRS_NTFY_HDNG_C}
+				   , #{WRS_NTFY_HDNG_CNTN}
+	               , SYSDATE
+	        )
+	</insert>
+	-->
+	
+	<insert id="insertOnNtfyHdng" parameterType="java.util.Map">
+	        INSERT INTO TB_GD_WRS_ONLINE_NTFY (
+				     VAN_C_RQ_NO
+				   , NA_WRS_C
+	               , WRS_NTFY_C
+		    	   , WRS_NTFY_HDNG_C
+				   , WRS_NTFY_HDNG_CNTN
+				   , LS_CHG_DTM
+	        )VALUES(
+	                 #{VAN_C_RQ_NO}
+	               , #{NA_WRS_C}
+		    	   , #{WRS_NTFY_C}
+				   , #{WRS_NTFY_HDNG_C}
+				   , #{WRS_NTFY_HDNG_CNTN}
+	               , SYSDATE
+	        )
+	</insert>
+	
+	<sql id="sql_goodWhList">	
+          SELECT    ROWNUM      AS RN
+                  , A.* FROM
+          (
+	          SELECT   A.NA_BZPLC
+	                 , B.SHRT_BZPLNM      AS NA_BZPLC_NM
+	                 , A.NA_WRS_C
+	                 , C.WRSNM
+	                 , A.NA_SPYPL_C
+	                 , D.CLNTNM           AS NA_SPYPL_C_NM
+	                 , NVL(A.ATL_YN, '0') AS ATL_YN
+	                 , A.PHD_FCLT_C
+	                 , A.SRTR_PRC_YN
+	                 , A.BOXPE_AQZQT
+	                 , NVL(A.BOX_WRS_C_YN, '0') AS BOX_WRS_C_YN
+	                 , NVL(A.SVS_YN, '0') AS SVS_YN
+	                 , A.SVS_QT
+	                 , TO_CHAR(A.DEL_DTM, 'YYYY-MM-DD') DEL_DT
+
+	            FROM   TB_FD_GM_GOOD_WH A
+	                 , TB_CM_BZPL B
+	                 , TB_GD_WRS C
+	                 , TB_TR_TRPL_CIF D
+	                 , TB_TR_BZPL_TP E
+	           WHERE A.NA_BZPLC   = B.NA_BZPLC
+	             AND A.NA_WRS_C   = C.NA_WRS_C
+	             AND A.NA_SPYPL_C = D.NA_TRPL_C
+	             AND B.BZPL_TPC     = E.BZPL_TPC
+	             AND B.BZPL_DTI_TPC = E.BZPL_DTI_TPC
+	             AND E.BZPL_TPC IN ( '504' , '505')
+	             AND B.DEL_DTM IS NULL
+	             AND A.NA_SPYPL_C = #{TRPL_C}
+	             AND NVL(A.ATL_YN, '0') = #{ATL_YN}
+	             AND NVL(A.BOX_WRS_C_YN, '0') = #{BOX_WRS_C_YN}
+	             AND NVL(A.SVS_YN, '0') = #{SVS_YN}
+
+
+
+
+            <if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+                AND A.NA_WRS_C LIKE #{NA_WRS_C} || '%'
+            </if>
+
+            <if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+                AND A.NA_BZPLC = #{NA_BZPLC}
+            </if>
+
+			<if test="DEL_YN != null and DEL_YN.length() >0">
+
+				<if test="DEL_YN == 0">
+	                AND A.DEL_DTM IS NULL
+				</if>
+
+				<if test="DEL_YN == 1">
+                    AND A.DEL_DTM IS NOT NULL
+				</if>
+
+			</if>
+
+	             AND ROWNUM <![CDATA[< ]]> 10000
+
+	        ORDER BY   A.NA_BZPLC
+	                 , A.NA_WRS_C
+	                 , A.NA_SPYPL_C
+             ) A
+	</sql>
+	
+    <!-- 상품별 물류기능정보  -->
+    <select id="selectGoodWhList" parameterType="java.util.Map"  resultType="java.util.Map">
+		<include refid="sql_goodWhList" />
+    </select>
+
+    <!-- 필수상품속성정보등록 (엑셀다운로드) -->
+	<select id="downloadExcelTempOdTrtwrsInfo" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+	  	SELECT
+	  		ROWNUM AS RN
+	  		, AA.SPYPL_NA_TRPL_C
+	  		, AA.CLNTNM
+	  		, AA.NA_WRS_C
+	  		, AA.WRSNM
+		FROM (
+			SELECT
+	    		A.SPYPL_NA_TRPL_C
+	    		, B.CLNTNM
+	    		, A.NA_WRS_C
+	    		, A.WRSNM
+			FROM
+	  			TB_OD_TRTWRS A,
+	    		TB_TR_TRPL_CIF B
+			WHERE
+	  			A.SPYPL_NA_TRPL_C = #{NA_BZPLC}
+	  			AND A.SPYPL_NA_TRPL_C = B.NA_TRPL_C
+	  			AND A.DEL_DTM IS NULL
+	  			AND A.WRSNM IS NOT NULL
+			GROUP BY
+				A.SPYPL_NA_TRPL_C,
+				A.NA_WRS_C,
+				A.WRSNM,
+				B.CLNTNM
+			ORDER BY
+				A.SPYPL_NA_TRPL_C,
+				A.NA_WRS_C
+		) AA
+	</select>
+
+	<!-- 필수상품속성정보등록(엑셀업로드) -->
+	<insert id="insertTempOdTrtwrsInfo" parameterType="com.nh.escm.pds.pricat.vo.TempOdTrtwrsInfoUploadFileVO">
+		INSERT INTO NHVANINF.TEMP_OD_TRTWRS_INFO
+		(
+			SPYPL_NA_TRPL_C,
+			SPYPL_NA_TRPL_NM,
+			NA_WRS_C,
+			STPL_NA_WRS_C,
+			BOX_WRS_C,
+			PHD_WRS_C,
+			WRSNM,
+			WRS_STDNM,
+			INPD_QT,
+			BOXPE_AQZ,
+			NA_WRS_UNT_C,
+			MIN_ODR_UNT_C,
+			TXT_DSC,
+			NA_WRS_CSTD_METC,
+			VLD_PRD_CN,
+			NA_WRS_IPO_DSC,
+			DVY_DSC,
+			SL_UPR,
+			UPR_01,
+			UPR_02,
+			UPR_03,
+			MD_NM,
+			BZTPNM,
+			FSRG_DTM,
+			FSRGMN_ENO,
+			LSCHG_DTM,
+			LS_CMENO
+		)
+		VALUES
+		(
+			#{SPYPL_NA_TRPL_C},
+			#{SPYPL_NA_TRPL_NM},
+			#{NA_WRS_C},
+			#{STPL_NA_WRS_C},
+			#{BOX_WRS_C},
+			#{PHD_WRS_C},
+			#{WRSNM},
+			#{WRS_STDNM},
+			#{INPD_QT},
+			#{BOXPE_AQZ},
+			#{NA_WRS_UNT_C},
+			#{MIN_ODR_UNT_C},
+			#{TXT_DSC},
+			#{NA_WRS_CSTD_METC},
+			#{VLD_PRD_CN},
+			#{NA_WRS_IPO_DSC},
+			#{DVY_DSC},
+			#{SL_UPR},
+			#{UPR_01},
+			#{UPR_02},
+			#{UPR_03},
+			#{MD_NM},
+			#{BZTPNM},
+			SYSDATE,
+			#{FSRGMN_ENO},
+			SYSDATE,
+			#{LS_CMENO}
+		)
+	</insert>
+
+	<!-- 필수상품속성정보등록 -->
+	<delete id="deleteTempOdTrtwrsInfo" parameterType="java.util.Map">
+		DELETE FROM NHVANINF.TEMP_OD_TRTWRS_INFO
+		WHERE
+			SPYPL_NA_TRPL_C = #{NA_BZPLC}
+	</delete>
+
+	 <!-- 필수상품속성정보등록  -->
+	<select id="selectTempOdTrtwrsList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+       		SPYPL_NA_TRPL_C,
+			SPYPL_NA_TRPL_NM,
+			NA_WRS_C,
+			STPL_NA_WRS_C,
+			BOX_WRS_C,
+			PHD_WRS_C,
+			WRSNM,
+			WRS_STDNM,
+			INPD_QT,
+			BOXPE_AQZ,
+			NA_WRS_UNT_C,
+			MIN_ODR_UNT_C,
+			TXT_DSC,
+			NA_WRS_CSTD_METC,
+			VLD_PRD_CN,
+			NA_WRS_IPO_DSC,
+			DVY_DSC,
+			SL_UPR,
+			UPR_01,
+			UPR_02,
+			UPR_03,
+			MD_NM,
+			BZTPNM
+  		FROM
+  			NHVANINF.TEMP_OD_TRTWRS_INFO
+  		WHERE
+  			SPYPL_NA_TRPL_C = #{NA_BZPLC}
+  		ORDER BY
+			SPYPL_NA_TRPL_C,
+			NA_WRS_C
+	</select>
+
+	<sql id = "sql_selectMDTempOdTrtwrsList">
+	    SELECT
+			MD_NM,
+			SPYPL_NA_TRPL_C,
+			SPYPL_NA_TRPL_NM,
+			COUNT(SPYPL_NA_TRPL_C) AS NA_WRS_C_CNT
+		FROM
+			NHVANINF.TEMP_OD_TRTWRS_INFO
+		<where>
+			<if test="MD_NM != null and MD_NM.length() > 0" >
+			   	AND MD_NM LIKE '%' || #{MD_NM} || '%'
+			</if>
+			<if test="SPYPL_NA_TRPL_C != null and SPYPL_NA_TRPL_C > 0" >
+			   	AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			</if>
+		</where>
+		GROUP BY
+			SPYPL_NA_TRPL_C,
+			SPYPL_NA_TRPL_NM,
+			MD_NM
+		ORDER BY
+			SPYPL_NA_TRPL_C
+	</sql>
+
+	<select id="selectMDTempOdTrtwrsList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_selectMDTempOdTrtwrsList" />
+	</select>
+
+	<select id="getNaWrsCntSum" parameterType="map" resultType="long">
+		SELECT
+			SUM(NA_WRS_C_CNT) AS SUM_NA_WRS_C_CNT
+		FROM (
+			<include refid="sql_selectMDTempOdTrtwrsList" />
+		)
+	</select>
+
+	<sql id = "sql_selectMDMngTempOdTrtwrsList">
+	    SELECT
+	    	MD_NM,
+		  	SPYPL_NA_TRPL_C,
+		  	SPYPL_NA_TRPL_NM,
+		  	NA_WRS_C,
+		  	STPL_NA_WRS_C,
+		  	BOX_WRS_C,
+		  	PHD_WRS_C,
+		  	WRSNM,
+		  	WRS_STDNM,
+		  	INPD_QT,
+		  	BOXPE_AQZ,
+		  	NA_WRS_UNT_C,
+		  	MIN_ODR_UNT_C,
+		  	TXT_DSC,
+		  	NA_WRS_CSTD_METC,
+		  	VLD_PRD_CN,
+		  	NA_WRS_IPO_DSC,
+		  	DVY_DSC,
+		  	SL_UPR,
+		  	UPR_01,
+		  	UPR_02,
+		  	UPR_03,
+		  	BZTPNM,
+		  	TO_CHAR(FSRG_DTM,'YYYY-MM-DD') AS FSRG_DTM,
+		  	FSRGMN_ENO,
+		  	(SELECT USR_NM FROM PT_USR_INF WHERE MB_ID = FSRGMN_ENO) AS FSRGMN_ENO_NM,
+		  	TO_CHAR(LSCHG_DTM,'YYYY-MM-DD') AS LSCHG_DTM,
+		  	LS_CMENO,
+		  	(SELECT USR_NM FROM PT_USR_INF WHERE MB_ID = LS_CMENO) AS LS_CMENO_NM
+		FROM
+			NHVANINF.TEMP_OD_TRTWRS_INFO
+		<where>
+			<if test="MD_NM != null and MD_NM.length() > 0" >
+			   	AND MD_NM LIKE '%' || #{MD_NM} || '%'
+			</if>
+			<if test="SPYPL_NA_TRPL_C != null and SPYPL_NA_TRPL_C > 0" >
+			   	AND SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			</if>
+		</where>
+		ORDER BY
+			SPYPL_NA_TRPL_C,
+			NA_WRS_C
+	</sql>
+
+	<select id="selectMDMngTempOdTrtwrsList" parameterType="java.util.Map" resultType="java.util.Map">
+		<include refid="sql_selectMDMngTempOdTrtwrsList" />
+	</select>
+
+	<select id="downloadExcelMDMngTempOdTrtwrsList" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			ROWNUM AS RN,
+			A.MD_NM,
+		  	A.SPYPL_NA_TRPL_C,
+		  	A.SPYPL_NA_TRPL_NM,
+		  	A.NA_WRS_C,
+		  	A.STPL_NA_WRS_C,
+		  	A.BOX_WRS_C,
+		  	A.PHD_WRS_C,
+		  	A.WRSNM,
+		  	A.WRS_STDNM,
+		  	A.INPD_QT,
+		  	A.BOXPE_AQZ,
+		  	A.NA_WRS_UNT_C,
+		  	A.MIN_ODR_UNT_C,
+		  	A.TXT_DSC,
+		  	A.NA_WRS_CSTD_METC,
+		  	A.VLD_PRD_CN,
+		  	A.NA_WRS_IPO_DSC,
+		  	A.DVY_DSC,
+		  	A.SL_UPR,
+		  	A.UPR_01,
+		  	A.UPR_02,
+		  	A.UPR_03,
+		  	A.BZTPNM
+		FROM (
+		<include refid="sql_selectMDMngTempOdTrtwrsList" />
+		) A
+	</select>
+
+	<update id="updateMDMngTempOdTrtwrsInfo" parameterType="com.nh.escm.pds.pricat.vo.TempOdTrtwrsInfoUploadFileVO">
+		UPDATE NHVANINF.TEMP_OD_TRTWRS_INFO
+		SET
+			SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C},
+			SPYPL_NA_TRPL_NM = #{SPYPL_NA_TRPL_NM},
+			NA_WRS_C = #{NA_WRS_C},
+			STPL_NA_WRS_C = #{STPL_NA_WRS_C},
+			BOX_WRS_C = #{BOX_WRS_C},
+			PHD_WRS_C = #{PHD_WRS_C},
+			WRSNM = #{WRSNM},
+			WRS_STDNM = #{WRS_STDNM},
+			INPD_QT = #{INPD_QT},
+			BOXPE_AQZ = #{BOXPE_AQZ},
+			NA_WRS_UNT_C = #{NA_WRS_UNT_C},
+			MIN_ODR_UNT_C = #{MIN_ODR_UNT_C},
+			TXT_DSC = #{TXT_DSC},
+			NA_WRS_CSTD_METC = #{NA_WRS_CSTD_METC},
+			VLD_PRD_CN = #{VLD_PRD_CN},
+			NA_WRS_IPO_DSC = #{NA_WRS_IPO_DSC},
+			DVY_DSC = #{DVY_DSC},
+			SL_UPR = #{SL_UPR},
+			UPR_01 = #{UPR_01},
+			UPR_02 = #{UPR_02},
+			UPR_03 = #{UPR_03},
+			MD_NM = #{MD_NM},
+			BZTPNM = #{BZTPNM},
+			LSCHG_DTM = SYSDATE,
+			LS_CMENO = #{LS_CMENO}
+		WHERE
+			SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+			AND SPYPL_NA_TRPL_NM = #{SPYPL_NA_TRPL_NM}
+			AND NA_WRS_C = #{NA_WRS_C}
+			AND STPL_NA_WRS_C = #{STPL_NA_WRS_C}
+			AND MD_NM = #{MD_NM}
+			AND WRSNM = #{WRSNM}
+			AND	ROWID = (
+				SELECT
+					MAX(ROWID)
+				FROM
+					NHVANINF.TEMP_OD_TRTWRS_INFO
+	  			WHERE
+	  				SPYPL_NA_TRPL_C = #{SPYPL_NA_TRPL_C}
+	  				AND SPYPL_NA_TRPL_NM = #{SPYPL_NA_TRPL_NM}
+	  				AND NA_WRS_C = #{NA_WRS_C}
+	  				AND STPL_NA_WRS_C = #{STPL_NA_WRS_C}
+	  				AND MD_NM = #{MD_NM}
+	  				AND WRSNM = #{WRSNM}
+	  		)
+	</update>
+
+	<!-- 코리안넷 상품조회 -->
+	<select id="selectKornetProduct" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			  A.GLN
+			, B.DOCID
+			, B.ANCIGRADE
+			, B.CREATEDDATE
+			, A.KBN
+			, A.GTIN
+			, A.BARCODETYPE
+			, A.KANCLASS_CODE
+			, A.KANCLASS
+			, A.MANUFACT
+			, A.BRAND
+			, A.PRNM
+			, A.PRNMENG
+			, A.PRGUBUN
+			, A.HGT_UNIT
+			, A.HGT
+			, A.WDT_UNIT
+			, A.WDT
+			, A.DTH_UNIT
+			, A.DTH
+			, A.VOLUME_UNIT
+			, A.VOLUME
+			, A.PACKWGT_UNIT
+			, A.PACKWGT
+			, A.GROSSWGT_UNIT
+			, A.GROSSWGT
+			, A.MADEIN
+			, A.TAXTYPE
+			, A.RRP_YN
+			, A.RRP_HGT_UNIT
+			, A.RRP_HGT
+			, A.RRP_WDT_UNIT
+			, A.RRP_WDT
+			, A.RRP_DTH_UNIT
+			, A.RRP_DTH
+			, A.SEASON
+			, A.SIZE_CODE
+			, A.P_SIZE
+			, A.COLOR_CODE
+			, A.COLOR
+			, A.PIECEPRICEUNIT
+			, A.PFANDOBJYN
+			, A.HFHSTRTRCMGTOBJYN
+			, A.BFHSTRTRCMGTOBJYN
+			, A.HOMEPAGE
+			, A.GENRE
+			, A.STORAGETYPE
+			, A.ISBN
+			, A.EXPIRYDAY_UNIT
+			, A.EXPIRYDAY
+			, A.ALCOLDEGREE_UNIT
+			, A.ALCOLDEGREE
+			, A.IMPORTER
+			, A.STARTDATE
+			, A.STOPDATE
+			, A.INFORMATION
+		FROM
+			NHVANINF.KORNET_PRODUCT A,
+			NHVANINF.KORNET_BARCODE_INSDOC B
+		WHERE A.GLN = B.GLN(+)
+			AND A.GTIN = B.GTIN(+)
+			AND A.GLN = #{GLN}
+			AND A.GTIN = #{NA_WRS_C}
+	</select>
+
+	<!-- 상품수정 신청(코리안넷) -->
+	<insert id="insertReqByKornet" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		INSERT INTO TB_GD_WRS_RG_REQ
+		(			
+			VAN_C_RQ_NO,
+			APV_RQ_NA_BZPLC,
+			BOXPE_AQZ,
+			BSC_UNT_DSC,
+			BUYER_ENO,
+			CNF_DMT,
+			CNF_ENO,
+			CNF_NAME,
+			CTCPL_TELNO,
+			CUD_DSC,
+			CUS_AG_LRG_DSC,
+			DSTR_TER_MRK_DSC,
+			DSTR_TER_YN,
+			EDI_IF_ID,
+			FOMNM,
+			FSRG_DTM,
+			FSRGMN_ENO,
+			FSRGMN_NA_BZPLC,
+			FTS_SET_YN,
+			GAP_ATTC_YN,
+			HACCP_ATTC_YN,
+			KC_ATTC_ESS_YN,
+			LIQ_DSC,
+			LIQ_UZ_DSC,
+			LIQ_YN,
+			LS_CHGM,
+			LSCHG_DTM,
+			LWCRBN_ATTC_YN,
+			MFT_NA_TRPL_C,
+			MN1_HSH_WRS_YN,
+			NA_C_RQ_NO,
+			NA_C_RQ_OBJ_DSC,
+			NA_C_RQ_REJ_RSNC,
+			NA_C_RQ_STSC,
+			NA_WRS_BRAN_C,
+			NA_WRS_C,
+			NA_WRS_CSTD_METC,
+			NA_WRS_DSTR_STSC,
+			NA_WRS_DTCF_C,
+			NA_WRS_IPO_DSC,
+			NA_WRS_LCLC,
+			NA_WRS_MCLC,
+			NA_WRS_PROENV_DSC,
+			NA_WRS_QLT_GRDC,
+			NA_WRS_SCLC,
+			NA_WRS_STD_UNT_C,
+			NA_WRS_SZE_SEX_C,
+			NA_WRS_UNT_C,
+			NA_WRS_UZC,
+			NACF_XUSE_WRS_YN,
+			NEW_SEX_DSC,
+			NEW_SSN_DSC,
+			ONL_OBJ_YN,
+			PAK_METH_DSC,
+			PAK_QLT_DSC,
+			PLG_WRS_KD,
+			PR_MRK_BAS_UNIT,
+			PR_MRK_STD_BAS_WHT,
+			PR_MRK_WHT,
+			PRC_YN,
+			REQ_RESULT,
+			RFID_UYN,
+			RQ_CNTN,
+			RQ_NA_WRS_C,
+			RSP_C_CNTN,
+			SLGT_ETR_DSC,
+			SMA_APL_TPC,
+			TEMP_YN,
+			TXT_DSC,
+			VCBT_NA_WRS_C,
+			VCBT_QT,
+			VCBX_NA_WRS_C,
+			VLD_PRD_CN,
+			VLD_PRD_DSC,
+			WHT,
+			WRS_ABR_NM,
+			WRS_BIZTP_DSC,
+			WRS_C_DSC,
+			WRS_DSC,
+			WRS_DTL_EXPL,
+			WRS_ENM,
+			WRS_HGHT,
+			WRS_LEN_LEN,
+			WRS_MODIFY_YN,
+			WRS_STDNM,
+			WRS_TPC,
+			WRS_WDTH_LEN,
+			WRSNM
+		)
+		VALUES
+		(
+			#{VAN_C_RQ_NO},
+			#{APV_RQ_NA_BZPLC},
+			#{BOXPE_AQZ},
+			#{BSC_UNT_DSC},
+			#{BUYER_ENO},
+			#{CNF_DMT},
+			#{CNF_ENO},
+			#{CNF_NAME},
+			#{CTCPL_TELNO},
+			#{CUD_DSC},
+			#{CUS_AG_LRG_DSC},
+			#{DSTR_TER_MRK_DSC},
+			#{DSTR_TER_YN},
+			#{EDI_IF_ID},
+			#{FOMNM},
+			SYSDATE,
+			#{FSRGMN_ENO},
+			#{FSRGMN_NA_BZPLC},
+			#{FTS_SET_YN},
+			#{GAP_ATTC_YN},
+			#{HACCP_ATTC_YN},
+			#{KC_ATTC_ESS_YN},
+			#{LIQ_DSC},
+			#{LIQ_UZ_DSC},
+			#{LIQ_YN},
+			#{LS_CHGM},
+			SYSDATE,
+			#{LWCRBN_ATTC_YN},
+			#{MFT_NA_TRPL_C},
+			#{MN1_HSH_WRS_YN},
+			#{NA_C_RQ_NO},
+			#{NA_C_RQ_OBJ_DSC},
+			#{NA_C_RQ_REJ_RSNC},
+			#{NA_C_RQ_STSC},
+			#{NA_WRS_BRAN_C},
+			#{NA_WRS_C},
+			#{NA_WRS_CSTD_METC},
+			#{NA_WRS_DSTR_STSC},
+			#{NA_WRS_DTCF_C},
+			#{NA_WRS_IPO_DSC},
+			#{NA_WRS_LCLC},
+			#{NA_WRS_MCLC},
+			#{NA_WRS_PROENV_DSC},
+			#{NA_WRS_QLT_GRDC},
+			#{NA_WRS_SCLC},
+			#{NA_WRS_STD_UNT_C},
+			#{NA_WRS_SZE_SEX_C},
+			#{NA_WRS_UNT_C},
+			#{NA_WRS_UZC},
+			#{NACF_XUSE_WRS_YN},
+			#{NEW_SEX_DSC},
+			#{NEW_SSN_DSC},
+			#{ONL_OBJ_YN},
+			#{PAK_METH_DSC},
+			#{PAK_QLT_DSC},
+			#{PLG_WRS_KD},
+			#{PR_MRK_BAS_UNIT},
+			#{PR_MRK_STD_BAS_WHT},
+			#{PR_MRK_WHT},
+			#{PRC_YN},
+			#{REQ_RESULT},
+			#{RFID_UYN},
+			#{RQ_CNTN},
+			#{RQ_NA_WRS_C},
+			#{RSP_C_CNTN},
+			#{SLGT_ETR_DSC},
+			#{SMA_APL_TPC},
+			#{TEMP_YN},
+			#{TXT_DSC},
+			#{VCBT_NA_WRS_C},
+			#{VCBT_QT},
+			#{VCBX_NA_WRS_C},
+			#{VLD_PRD_CN},
+			#{VLD_PRD_DSC},
+			#{WHT},
+			#{WRS_ABR_NM},
+			#{WRS_BIZTP_DSC},
+			#{WRS_C_DSC},
+			#{WRS_DSC},
+			#{WRS_DTL_EXPL},
+			#{WRS_ENM},
+			#{WRS_HGHT},
+			#{WRS_LEN_LEN},
+			#{WRS_MODIFY_YN},
+			#{WRS_STDNM},
+			#{WRS_TPC},
+			#{WRS_WDTH_LEN},
+			#{WRSNM}
+		)
+	</insert>
+
+	<!-- 상품수정 신청(코리안넷) -->
+	<insert id="insertModReqByKornet" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		INSERT INTO TB_GD_WRS_RG_MOD_REQ
+		(
+			  VAN_C_RQ_NO
+			, NA_C_RQ_OBJ_DSC
+			, RQ_NA_WRS_C
+			, NA_WRS_C
+			, CTCPL_TELNO
+			, RQ_CNTN
+			, FSRGMN_ENO
+			, FSRGMN_NA_BZPLC
+			<if test="WRS_C_DSC != null and WRS_C_DSC.length() > 0">
+				, WRS_C_DSC
+			</if>
+			<if test="WRS_DSC != null and WRS_DSC.length() > 0">
+				, WRS_DSC
+			</if>
+			<if test="WRSNM != null and WRSNM.length() > 0">
+				, WRSNM
+			</if>
+			<if test="WRS_ABR_NM != null and WRS_ABR_NM.length() > 0">
+				, WRS_ABR_NM
+			</if>
+			<if test="WRS_ENM != null and WRS_ENM.length() > 0">
+				, WRS_ENM
+			</if>
+			<if test="WRS_TPC != null and WRS_TPC.length() > 0">
+				, WRS_TPC
+			</if>
+			<if test="NA_WRS_LCLC != null and NA_WRS_LCLC.length() > 0">
+				, NA_WRS_LCLC
+			</if>
+			<if test="NA_WRS_MCLC != null and NA_WRS_MCLC.length() > 0">
+				, NA_WRS_MCLC
+			</if>
+			<if test="NA_WRS_SCLC != null and NA_WRS_SCLC.length() > 0">
+				, NA_WRS_SCLC
+			</if>
+			<if test="NA_WRS_DTCF_C != null and NA_WRS_DTCF_C.length() > 0">
+				, NA_WRS_DTCF_C
+			</if>
+			<if test="WRS_STDNM != null and WRS_STDNM.length() > 0">
+				, WRS_STDNM
+			</if>
+			<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+				, TXT_DSC
+			</if>
+			<if test="SMA_APL_TPC != null and SMA_APL_TPC.length() > 0">
+				, SMA_APL_TPC
+			</if>
+			<if test="LIQ_YN != null and LIQ_YN.length() > 0">
+				, LIQ_YN
+			</if>
+			<if test="COMM_WRS_YN != null and COMM_WRS_YN.length() > 0">
+				, COMM_WRS_YN
+			</if>
+			<if test="MFT_NA_TRPL_C != null and MFT_NA_TRPL_C.length() > 0">
+				, MFT_NA_TRPL_C
+			</if>
+			<if test="WHT != null and WHT.length() > 0">
+				, WHT
+			</if>
+			<if test="NA_WRS_UNT_C != null and NA_WRS_UNT_C.length() > 0">
+				, NA_WRS_UNT_C
+			</if>
+			<if test="NA_WRS_PAK_C != null and NA_WRS_PAK_C.length() > 0">
+				, NA_WRS_PAK_C
+			</if>
+			<if test="NA_WRS_SZE_SEX_C != null and NA_WRS_SZE_SEX_C.length() > 0">
+				, NA_WRS_SZE_SEX_C
+			</if>
+			<if test="NA_WRS_QLT_GRDC != null and NA_WRS_QLT_GRDC.length() > 0">
+				, NA_WRS_QLT_GRDC
+			</if>
+			<if test="NA_WRS_BRAN_C != null and NA_WRS_BRAN_C.length() > 0">
+				, NA_WRS_BRAN_C
+			</if>
+			<if test="NA_WRS_PROENV_DSC != null and NA_WRS_PROENV_DSC.length() > 0">
+				, NA_WRS_PROENV_DSC
+			</if>
+			<if test="GAP_ATTC_YN != null and GAP_ATTC_YN.length() > 0">
+				, GAP_ATTC_YN
+			</if>
+			<if test="NA_WRS_NACF_QLT_ATTC_C != null and NA_WRS_NACF_QLT_ATTC_C.length() > 0">
+				, NA_WRS_NACF_QLT_ATTC_C
+			</if>
+			<if test="NA_WRS_CSTD_METC != null and NA_WRS_CSTD_METC.length() > 0">
+				, NA_WRS_CSTD_METC
+			</if>
+			<if test="NA_WRS_DSTR_STSC != null and NA_WRS_DSTR_STSC.length() > 0">
+				, NA_WRS_DSTR_STSC
+			</if>
+			<if test="NA_WRS_UZC != null and NA_WRS_UZC.length() > 0">
+				, NA_WRS_UZC
+			</if>
+			<if test="NA_WRS_IPO_DSC != null and NA_WRS_IPO_DSC.length() > 0">
+				, NA_WRS_IPO_DSC
+			</if>
+			<if test="NA_WRS_PDAA_C != null and NA_WRS_PDAA_C.length() > 0">
+				, NA_WRS_PDAA_C
+			</if>
+			<if test="VLD_PRD_CN != null and VLD_PRD_CN.length() > 0">
+				, VLD_PRD_CN
+			</if>
+			<if test="VLD_PRD_DSC != null and VLD_PRD_DSC.length() > 0">
+				, VLD_PRD_DSC
+			</if>
+			<if test="ACHMI_LATCNM != null and ACHMI_LATCNM.length() > 0">
+				, ACHMI_LATCNM
+			</if>
+			<if test="ACHMI_IGRQT != null and ACHMI_IGRQT.length() > 0">
+				, ACHMI_IGRQT
+			</if>
+			<if test="FTLZ_PHAC_IGRDRT != null and FTLZ_PHAC_IGRDRT.length() > 0">
+				, FTLZ_PHAC_IGRDRT
+			</if>
+			<if test="FTLZ_NTRG_IGRDRT != null and FTLZ_NTRG_IGRDRT.length() > 0">
+				, FTLZ_NTRG_IGRDRT
+			</if>
+			<if test="FTLZ_KLM_IGRDRT != null and FTLZ_KLM_IGRDRT.length() > 0">
+				, FTLZ_KLM_IGRDRT
+			</if>
+			<if test="FMACH_PATS_CLF_DSC != null and FMACH_PATS_CLF_DSC.length() > 0">
+				, FMACH_PATS_CLF_DSC
+			</if>
+			<if test="NUMN_YN != null and NUMN_YN.length() > 0">
+				, NUMN_YN
+			</if>
+			<if test="GEN_LON_LMT_AM != null and GEN_LON_LMT_AM.length() > 0">
+				, GEN_LON_LMT_AM
+			</if>
+			<if test="COMM_LON_LMT_AM != null and COMM_LON_LMT_AM.length() > 0">
+				, COMM_LON_LMT_AM
+			</if>
+			<if test="NA_WRS_STD_UNT_C != null and NA_WRS_STD_UNT_C.length() > 0">
+				, NA_WRS_STD_UNT_C
+			</if>
+			<if test="WRS_HGHT != null and WRS_HGHT.length() > 0">
+				, WRS_HGHT
+			</if>
+			<if test="WRS_LEN_LEN != null and WRS_LEN_LEN.length() > 0">
+				, WRS_LEN_LEN
+			</if>
+			<if test="WRS_WDTH_LEN != null and WRS_WDTH_LEN.length() > 0">
+				, WRS_WDTH_LEN
+			</if>
+			<if test="WRS_SGRT != null and WRS_SGRT.length() > 0">
+				, WRS_SGRT
+			</if>
+			<if test="WRS_SDL_DSC != null and WRS_SDL_DSC.length() > 0">
+				, WRS_SDL_DSC
+			</if>
+			<if test="WRS_AHL_CN != null and WRS_AHL_CN.length() > 0">
+				, WRS_AHL_CN
+			</if>
+			<if test="MTRL_STD_THKN != null and MTRL_STD_THKN.length() > 0">
+				, MTRL_STD_THKN
+			</if>
+			<if test="CICL_WRS_STD_DMTR_CN != null and CICL_WRS_STD_DMTR_CN.length() > 0">
+				, CICL_WRS_STD_DMTR_CN
+			</if>
+			<if test="CICL_WRS_STD_DPTH_CN != null and CICL_WRS_STD_DPTH_CN.length() > 0">
+				, CICL_WRS_STD_DPTH_CN
+			</if>
+			<if test="VCBT_NA_WRS_C != null and VCBT_NA_WRS_C.length() > 0">
+				, VCBT_NA_WRS_C
+			</if>
+			<if test="VCBT_QT != null and VCBT_QT.length() > 0">
+				, VCBT_QT
+			</if>
+			<if test="VCBX_NA_WRS_C != null and VCBX_NA_WRS_C.length() > 0">
+				, VCBX_NA_WRS_C
+			</if>
+			<if test="FED_PD_METC != null and FED_PD_METC.length() > 0">
+				, FED_PD_METC
+			</if>
+			<if test="SNUM_CNTN != null and SNUM_CNTN.length() > 0">
+				, SNUM_CNTN
+			</if>
+			<if test="CVS_QT != null and CVS_QT.length() > 0">
+				, CVS_QT
+			</if>
+			<if test="CVS_NA_WRS_UNT_C != null and CVS_NA_WRS_UNT_C.length() > 0">
+				, CVS_NA_WRS_UNT_C
+			</if>
+			<if test="WRS_DTL_EXPL != null and WRS_DTL_EXPL.length() > 0">
+				, WRS_DTL_EXPL
+			</if>
+			<if test="BSC_UNT_DSC != null and BSC_UNT_DSC.length() > 0">
+				, BSC_UNT_DSC
+			</if>
+			<if test="BOXPE_AQZ != null and BOXPE_AQZ.length() > 0">
+				, BOXPE_AQZ
+			</if>
+			<if test="WRS_FL_CN != null and WRS_FL_CN.length() > 0">
+				, WRS_FL_CN
+			</if>
+			<if test="KNET_WRS_NO != null and KNET_WRS_NO.length() > 0">
+				, KNET_WRS_NO
+			</if>
+			<if test="RFID_UYN != null and RFID_UYN.length() > 0">
+				, RFID_UYN
+			</if>
+			<if test="TR_STOP_YN != null and TR_STOP_YN.length() > 0">
+				, TR_STOP_YN
+			</if>
+			<if test="TR_STOP_RSNC != null and TR_STOP_RSNC.length() > 0">
+				, TR_STOP_RSNC
+			</if>
+			<if test="TR_STOP_DT != null and TR_STOP_DT.length() > 0">
+				, TR_STOP_DT
+			</if>
+			<if test="FMACH_FOMNM != null and FMACH_FOMNM.length() > 0">
+				, FMACH_FOMNM
+			</if>
+			<if test="LIQ_UZ_DSC != null and LIQ_UZ_DSC.length() > 0">
+				, LIQ_UZ_DSC
+			</if>
+			<if test="DSTR_TER_YN != null and DSTR_TER_YN.length() > 0">
+				, DSTR_TER_AMN_YN
+			</if>
+			<if test="DSTR_TER_MRK_DSC != null and DSTR_TER_MRK_DSC.length() > 0">
+				, DSTR_TER_MRK_DSC
+			</if>
+			<if test="FMACH_DCRT != null and FMACH_DCRT.length() > 0">
+				, FMACH_DCRT
+			</if>
+			<if test="LWCRBN_ATTC_YN != null and LWCRBN_ATTC_YN.length() > 0">
+				, LWCRBN_ATTC_YN
+			</if>
+			<if test="CUD_DSC != null and CUD_DSC.length() > 0">
+				, CUD_DSC
+			</if>
+			<if test="PR_MRK_WHT != null and PR_MRK_WHT.length() > 0">
+				, PR_MRK_WHT
+			</if>
+			<if test="PR_MRK_STD_BAS_WHT != null and PR_MRK_STD_BAS_WHT.length() > 0">
+				, PR_MRK_STD_BAS_WHT
+			</if>
+			<if test="PR_MRK_BAS_UNIT != null and PR_MRK_BAS_UNIT.length() > 0">
+				, PR_MRK_BAS_UNIT
+			</if>
+			, FSRG_DTM
+			, LSCHG_DTM
+			, LS_CHGM
+		)
+		VALUES
+		(
+			  #{VAN_C_RQ_NO}
+			, #{NA_C_RQ_OBJ_DSC}
+			, #{RQ_NA_WRS_C}
+			, #{NA_WRS_C}
+			, #{CTCPL_TELNO}
+			, #{RQ_CNTN}
+			, #{FSRGMN_ENO}
+			, #{FSRGMN_NA_BZPLC}
+			<if test="WRS_C_DSC != null and WRS_C_DSC.length() > 0">
+				, #{WRS_C_DSC}
+			</if>
+			<if test="WRS_DSC != null and WRS_DSC.length() > 0">
+				, #{WRS_DSC}
+			</if>
+			<if test="WRSNM != null and WRSNM.length() > 0">
+				, #{WRSNM}
+			</if>
+			<if test="WRS_ABR_NM != null and WRS_ABR_NM.length() > 0">
+				, #{WRS_ABR_NM}
+			</if>
+			<if test="WRS_ENM != null and WRS_ENM.length() > 0">
+				, #{WRS_ENM}
+			</if>
+			<if test="WRS_TPC != null and WRS_TPC.length() > 0">
+				, #{WRS_TPC}
+			</if>
+			<if test="NA_WRS_LCLC != null and NA_WRS_LCLC.length() > 0">
+				, #{NA_WRS_LCLC}
+			</if>
+			<if test="NA_WRS_MCLC != null and NA_WRS_MCLC.length() > 0">
+				, #{NA_WRS_MCLC}
+			</if>
+			<if test="NA_WRS_SCLC != null and NA_WRS_SCLC.length() > 0">
+				, #{NA_WRS_SCLC}
+			</if>
+			<if test="NA_WRS_DTCF_C != null and NA_WRS_DTCF_C.length() > 0">
+				, #{NA_WRS_DTCF_C}
+			</if>
+			<if test="WRS_STDNM != null and WRS_STDNM.length() > 0">
+				, #{WRS_STDNM}
+			</if>
+			<if test="TXT_DSC != null and TXT_DSC.length() > 0">
+				, #{TXT_DSC}
+			</if>
+			<if test="SMA_APL_TPC != null and SMA_APL_TPC.length() > 0">
+				, #{SMA_APL_TPC}
+			</if>
+			<if test="LIQ_YN != null and LIQ_YN.length() > 0">
+				, #{LIQ_YN}
+			</if>
+			<if test="COMM_WRS_YN != null and COMM_WRS_YN.length() > 0">
+				, #{COMM_WRS_YN}
+			</if>
+			<if test="MFT_NA_TRPL_C != null and MFT_NA_TRPL_C.length() > 0">
+				, #{MFT_NA_TRPL_C}
+			</if>
+			<if test="WHT != null and WHT.length() > 0">
+				, #{WHT}
+			</if>
+			<if test="NA_WRS_UNT_C != null and NA_WRS_UNT_C.length() > 0">
+				, #{NA_WRS_UNT_C}
+			</if>
+			<if test="NA_WRS_PAK_C != null and NA_WRS_PAK_C.length() > 0">
+				, #{NA_WRS_PAK_C}
+			</if>
+			<if test="NA_WRS_SZE_SEX_C != null and NA_WRS_SZE_SEX_C.length() > 0">
+				, #{NA_WRS_SZE_SEX_C}
+			</if>
+			<if test="NA_WRS_QLT_GRDC != null and NA_WRS_QLT_GRDC.length() > 0">
+				, #{NA_WRS_QLT_GRDC}
+			</if>
+			<if test="NA_WRS_BRAN_C != null and NA_WRS_BRAN_C.length() > 0">
+				, #{NA_WRS_BRAN_C}
+			</if>
+			<if test="NA_WRS_PROENV_DSC != null and NA_WRS_PROENV_DSC.length() > 0">
+				, #{NA_WRS_PROENV_DSC}
+			</if>
+			<if test="GAP_ATTC_YN != null and GAP_ATTC_YN.length() > 0">
+				, #{GAP_ATTC_YN}
+			</if>
+			<if test="NA_WRS_NACF_QLT_ATTC_C != null and NA_WRS_NACF_QLT_ATTC_C.length() > 0">
+				, #{NA_WRS_NACF_QLT_ATTC_C}
+			</if>
+			<if test="NA_WRS_CSTD_METC != null and NA_WRS_CSTD_METC.length() > 0">
+				, #{NA_WRS_CSTD_METC}
+			</if>
+			<if test="NA_WRS_DSTR_STSC != null and NA_WRS_DSTR_STSC.length() > 0">
+				, #{NA_WRS_DSTR_STSC}
+			</if>
+			<if test="NA_WRS_UZC != null and NA_WRS_UZC.length() > 0">
+				, #{NA_WRS_UZC}
+			</if>
+			<if test="NA_WRS_IPO_DSC != null and NA_WRS_IPO_DSC.length() > 0">
+				, #{NA_WRS_IPO_DSC}
+			</if>
+			<if test="NA_WRS_PDAA_C != null and NA_WRS_PDAA_C.length() > 0">
+				, #{NA_WRS_PDAA_C}
+			</if>
+			<if test="VLD_PRD_CN != null and VLD_PRD_CN.length() > 0">
+				, #{VLD_PRD_CN}
+			</if>
+			<if test="VLD_PRD_DSC != null and VLD_PRD_DSC.length() > 0">
+				, #{VLD_PRD_DSC}
+			</if>
+			<if test="ACHMI_LATCNM != null and ACHMI_LATCNM.length() > 0">
+				, #{ACHMI_LATCNM}
+			</if>
+			<if test="ACHMI_IGRQT != null and ACHMI_IGRQT.length() > 0">
+				, #{ACHMI_IGRQT}
+			</if>
+			<if test="FTLZ_PHAC_IGRDRT != null and FTLZ_PHAC_IGRDRT.length() > 0">
+				, #{FTLZ_PHAC_IGRDRT}
+			</if>
+			<if test="FTLZ_NTRG_IGRDRT != null and FTLZ_NTRG_IGRDRT.length() > 0">
+				, #{FTLZ_NTRG_IGRDRT}
+			</if>
+			<if test="FTLZ_KLM_IGRDRT != null and FTLZ_KLM_IGRDRT.length() > 0">
+				, #{FTLZ_KLM_IGRDRT}
+			</if>
+			<if test="FMACH_PATS_CLF_DSC != null and FMACH_PATS_CLF_DSC.length() > 0">
+				, #{FMACH_PATS_CLF_DSC}
+			</if>
+			<if test="NUMN_YN != null and NUMN_YN.length() > 0">
+				, #{NUMN_YN}
+			</if>
+			<if test="GEN_LON_LMT_AM != null and GEN_LON_LMT_AM.length() > 0">
+				, #{GEN_LON_LMT_AM}
+			</if>
+			<if test="COMM_LON_LMT_AM != null and COMM_LON_LMT_AM.length() > 0">
+				, #{COMM_LON_LMT_AM}
+			</if>
+			<if test="NA_WRS_STD_UNT_C != null and NA_WRS_STD_UNT_C.length() > 0">
+				, #{NA_WRS_STD_UNT_C}
+			</if>
+			<if test="WRS_HGHT != null and WRS_HGHT.length() > 0">
+				, #{WRS_HGHT}
+			</if>
+			<if test="WRS_LEN_LEN != null and WRS_LEN_LEN.length() > 0">
+				, #{WRS_LEN_LEN}
+			</if>
+			<if test="WRS_WDTH_LEN != null and WRS_WDTH_LEN.length() > 0">
+				, #{WRS_WDTH_LEN}
+			</if>
+			<if test="WRS_SGRT != null and WRS_SGRT.length() > 0">
+				, #{WRS_SGRT}
+			</if>
+			<if test="WRS_SDL_DSC != null and WRS_SDL_DSC.length() > 0">
+				, #{WRS_SDL_DSC}
+			</if>
+			<if test="WRS_AHL_CN != null and WRS_AHL_CN.length() > 0">
+				, #{WRS_AHL_CN}
+			</if>
+			<if test="MTRL_STD_THKN != null and MTRL_STD_THKN.length() > 0">
+				, #{MTRL_STD_THKN}
+			</if>
+			<if test="CICL_WRS_STD_DMTR_CN != null and CICL_WRS_STD_DMTR_CN.length() > 0">
+				, #{CICL_WRS_STD_DMTR_CN}
+			</if>
+			<if test="CICL_WRS_STD_DPTH_CN != null and CICL_WRS_STD_DPTH_CN.length() > 0">
+				, #{CICL_WRS_STD_DPTH_CN}
+			</if>
+			<if test="VCBT_NA_WRS_C != null and VCBT_NA_WRS_C.length() > 0">
+				, #{VCBT_NA_WRS_C}
+			</if>
+			<if test="VCBT_QT != null and VCBT_QT.length() > 0">
+				, #{VCBT_QT}
+			</if>
+			<if test="VCBX_NA_WRS_C != null and VCBX_NA_WRS_C.length() > 0">
+				, #{VCBX_NA_WRS_C}
+			</if>
+			<if test="FED_PD_METC != null and FED_PD_METC.length() > 0">
+				, #{FED_PD_METC}
+			</if>
+			<if test="SNUM_CNTN != null and SNUM_CNTN.length() > 0">
+				, #{SNUM_CNTN}
+			</if>
+			<if test="CVS_QT != null and CVS_QT.length() > 0">
+				, #{CVS_QT}
+			</if>
+			<if test="CVS_NA_WRS_UNT_C != null and CVS_NA_WRS_UNT_C.length() > 0">
+				, #{CVS_NA_WRS_UNT_C}
+			</if>
+			<if test="WRS_DTL_EXPL != null and WRS_DTL_EXPL.length() > 0">
+				, #{WRS_DTL_EXPL}
+			</if>
+			<if test="BSC_UNT_DSC != null and BSC_UNT_DSC.length() > 0">
+				, #{BSC_UNT_DSC}
+			</if>
+			<if test="BOXPE_AQZ != null and BOXPE_AQZ.length() > 0">
+				, #{BOXPE_AQZ}
+			</if>
+			<if test="WRS_FL_CN != null and WRS_FL_CN.length() > 0">
+				, #{WRS_FL_CN}
+			</if>
+			<if test="KNET_WRS_NO != null and KNET_WRS_NO.length() > 0">
+				, #{KNET_WRS_NO}
+			</if>
+			<if test="RFID_UYN != null and RFID_UYN.length() > 0">
+				, #{RFID_UYN}
+			</if>
+			<if test="TR_STOP_YN != null and TR_STOP_YN.length() > 0">
+				, #{TR_STOP_YN}
+			</if>
+			<if test="TR_STOP_RSNC != null and TR_STOP_RSNC.length() > 0">
+				, #{TR_STOP_RSNC}
+			</if>
+			<if test="TR_STOP_DT != null and TR_STOP_DT.length() > 0">
+				, #{TR_STOP_DT}
+			</if>
+			<if test="FMACH_FOMNM != null and FMACH_FOMNM.length() > 0">
+				, #{FMACH_FOMNM}
+			</if>
+			<if test="LIQ_UZ_DSC != null and LIQ_UZ_DSC.length() > 0">
+				, #{LIQ_UZ_DSC}
+			</if>
+			<if test="DSTR_TER_YN != null and DSTR_TER_YN.length() > 0">
+				, #{DSTR_TER_YN}
+			</if>
+			<if test="DSTR_TER_MRK_DSC != null and DSTR_TER_MRK_DSC.length() > 0">
+				, #{DSTR_TER_MRK_DSC}
+			</if>
+			<if test="FMACH_DCRT != null and FMACH_DCRT.length() > 0">
+				, #{FMACH_DCRT}
+			</if>
+			<if test="LWCRBN_ATTC_YN != null and LWCRBN_ATTC_YN.length() > 0">
+				, #{LWCRBN_ATTC_YN}
+			</if>
+			<if test="CUD_DSC != null and CUD_DSC.length() > 0">
+				, #{CUD_DSC}
+			</if>
+			<if test="PR_MRK_WHT != null and PR_MRK_WHT.length() > 0">
+				, #{PR_MRK_WHT}
+			</if>
+			<if test="PR_MRK_STD_BAS_WHT != null and PR_MRK_STD_BAS_WHT.length() > 0">
+				, #{PR_MRK_STD_BAS_WHT}
+			</if>
+			<if test="PR_MRK_BAS_UNIT != null and PR_MRK_BAS_UNIT.length() > 0">
+				, #{PR_MRK_BAS_UNIT}
+			</if>
+			, SYSDATE
+			, SYSDATE
+			, #{LS_CHGM}
+		)
+	</insert>
+
+	<!-- 신규상품등록 내역조회 페이징 -->
+	<select id="selectNewGoodsByKornetCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_selectNewGoodsByKornet"/>
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 신규상품등록 내역조회 -->
+	<select id="selectNewGoodsByKornet" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'FSRG_DTM DESC'" />
+		<bind name="sortType" value="'DSC'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_selectNewGoodsByKornet"/>
+		<include refid="common.paging_end" />
+	</select>
+
+	<!-- 차세대 이전
+	<sql id="sql_selectNewGoodsByKornet">
+		SELECT
+			AA.VAN_C_RQ_NO,
+			AA.NA_C_RQ_NO,
+			AA.APV_RQ_NA_BZPLC,
+			AA.GBN,
+			AA.RES_CODE,
+			AA.RQ_NA_WRS_C,
+			AA.WRSNM,
+			AA.FSRG_DTM,
+			AA.REQ_DT,
+			AA.FSRGMN_NA_BZPLC ,
+			FN_TRPL_CIF_NM(AA.FSRGMN_NA_BZPLC) AS FSRGMN_NA_BZPL_NM ,
+			AA.FSRGMN_ENO,
+			AA.RES_DT,
+			AA.BUYER_ENO,
+			AA.BUYER_NM,
+			AA.RSP_C_CNTN,
+			AA.NA_C_RQ_REJ_RSNC,
+			FN_CM_SIMP_CNM('NA_C_RQ_REJ_RSNC', AA.NA_C_RQ_REJ_RSNC) AS NA_C_RQ_REJ_RSNC_NM,
+			AA.NA_C_RQ_STSC,
+			FN_CM_SIMP_CNM('NA_C_RQ_STSC', AA.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM
+		FROM (
+			SELECT
+				A.VAN_C_RQ_NO
+				, A.NA_C_RQ_NO
+			    , A.APV_RQ_NA_BZPLC
+			    , '신청' AS GBN
+			    , CASE
+			      WHEN A.PRC_YN IN ('Y', 'R')
+			      THEN '정상'
+			      WHEN A.PRC_YN IS NULL
+			      THEN ''
+			      WHEN A.PRC_YN IN ('N', 'P')
+			      THEN '전송중'
+			      ELSE '오류'
+			    END RES_CODE
+			    , A.RQ_NA_WRS_C
+			    , A.WRSNM
+			    , A.FSRG_DTM
+			    , TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS REQ_DT
+			    , A.FSRGMN_NA_BZPLC
+			    , A.FSRGMN_ENO
+			    , TO_CHAR(A.CNF_DMT, 'YYYY-MM-DD') AS RES_DT
+			    , A.CNF_ENO  AS BUYER_ENO
+			    , A.CNF_NAME AS BUYER_NM
+			    , A.RSP_C_CNTN
+			    , A.EDI_IF_ID
+				, A.NA_C_RQ_REJ_RSNC
+				, A.NA_C_RQ_STSC
+			FROM TB_GD_WRS_RG_REQ A
+		    WHERE 1=1
+		    	<if test="TRPL_C != null and TRPL_C.length > 0">
+					AND A.FSRGMN_NA_BZPLC IN
+					<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+						#{item}
+					</foreach>
+				</if>
+				<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+					AND A.NA_C_RQ_STSC = #{CBO_RESDSC}
+				</if>
+				<if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+					<choose>
+						<when test="CBO_WRSDSC == 'CODE'.toString()">
+							AND A.RQ_NA_WRS_C = #{EDT_WRS}
+						</when>
+						<when test="CBO_WRSDSC == 'NAME'.toString()">
+							AND A.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+						</when>
+					</choose>
+				</if>
+				<if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+					AND TO_CHAR(A.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+				</if>
+				<if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+					<choose>
+						<when test="CBO_BUYERDSC == 'ENO'.toString()">
+							AND TRIM(A.CNF_ENO) = #{EDT_BUYER}
+						</when>
+						<when test="CBO_BUYERDSC == 'NAME'.toString()">
+							AND A.CNF_NAME = #{EDT_BUYER}
+						</when>
+					</choose>
+				</if>
+				AND A.CUD_DSC != 'D'
+		    UNION ALL
+		    SELECT
+				B.VAN_C_RQ_NO
+				,B.NA_C_RQ_NO
+				,B.APV_RQ_NA_BZPLC
+				,'수정' AS GBN
+				,CASE
+				  WHEN B.PRC_YN IN ('Y', 'R')
+				  THEN '정상'
+				  WHEN B.PRC_YN IS NULL
+				  THEN ''
+				  WHEN B.PRC_YN IN ('N', 'P')
+				  THEN '전송중'
+				  ELSE '오류'
+				END RES_CODE
+				,B.RQ_NA_WRS_C
+				,NVL(B.WRSNM, WRS.WRSNM) AS WRSNM
+				,B.FSRG_DTM
+				,TO_CHAR(B.FSRG_DTM, 'YYYY-MM-DD') AS REQ_DT
+				,B.FSRGMN_NA_BZPLC
+				,B.FSRGMN_ENO
+				,BB.PRC_DTM  AS RES_DT
+				,BB.PRCMN_ENO  AS BUYER_ENO
+				,BB.PRCMN AS BUYER_NM
+				,B.RSP_C_CNTN
+				,B.EDI_IF_ID
+				,B.NA_C_RQ_REJ_RSNC
+				,BB.NA_C_RQ_STSC
+			FROM TB_GD_WRS_RG_MOD_REQ B, TB_GD_WRS WRS, TB_GD_WRS_RG_MOD_REQ_RESULT BB
+		    WHERE 1=1
+		    	AND B.RQ_NA_WRS_C = WRS.NA_WRS_C(+)
+		    	AND B.NA_C_RQ_NO = BB.NA_C_RQ_NO(+)
+		    	<if test="TRPL_C != null and TRPL_C.length > 0">
+					AND B.FSRGMN_NA_BZPLC IN
+					<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+						#{item}
+					</foreach>
+				</if>
+				<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+					AND BB.NA_C_RQ_STSC = #{CBO_RESDSC}
+				</if>
+				<if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+					<choose>
+						<when test="CBO_WRSDSC == 'CODE'.toString()">
+							AND B.RQ_NA_WRS_C = #{EDT_WRS}
+						</when>
+						<when test="CBO_WRSDSC == 'NAME'.toString()">
+							AND B.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+						</when>
+					</choose>
+				</if>
+				<if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+					AND TO_CHAR(B.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+				</if>
+				<if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+					<choose>
+						<when test="CBO_BUYERDSC == 'ENO'.toString()">
+							AND TRIM(BB.PRCMN_ENO) = #{EDT_BUYER}
+						</when>
+						<when test="CBO_BUYERDSC == 'NAME'.toString()">
+							AND BB.PRCMN = #{EDT_BUYER}
+						</when>
+					</choose>
+				</if>
+				AND B.CUD_DSC != 'D') AA
+		      , TB_TR_TRPL_CIF C
+		WHERE
+			AA.FSRGMN_NA_BZPLC = C.NA_TRPL_C
+			<if test="CBO_CORPDSC != null and CBO_CORPDSC != 'all' and EDT_CORP != null and EDT_CORP.length() > 0">
+				<choose>
+					<when test="CBO_CORPDSC == 'GLN'.toString()">
+						AND AA.FSRGMN_NA_BZPLC = #{EDT_CORP}
+					</when>
+					<when test="CBO_CORPDSC == 'NAME'.toString()">
+						AND C.CLNTNM LIKE '%' || #{EDT_CORP} || '%'
+					</when>
+					<when test="CBO_CORPDSC == 'CORP'.toString()">
+						AND C.BIZ_NUMBER = #{EDT_CORP}
+					</when>
+				</choose>
+			</if>
+	</sql>
+	-->
+	
+	<sql id="sql_selectNewGoodsByKornet">
+      SELECT
+         AA.VAN_C_RQ_NO,
+         AA.NA_C_RQ_NO,
+         AA.APV_RQ_NA_BZPLC,
+         AA.GBN,
+         AA.RES_CODE,
+         AA.RQ_NA_WRS_C,
+         AA.WRSNM,
+         AA.FSRG_DTM,
+         AA.REQ_DT,
+         AA.FSRGMN_NA_BZPLC ,
+         FN_TRPL_CIF_NM(AA.FSRGMN_NA_BZPLC) AS FSRGMN_NA_BZPL_NM ,
+         AA.FSRGMN_ENO,
+         AA.RES_DT,
+         AA.BUYER_ENO,
+         AA.BUYER_NM,
+         AA.RSP_C_CNTN,
+         AA.NA_C_RQ_REJ_RSNC,
+         FN_CM_SIMP_CNM('NA_C_RQ_REJ_RSNC', AA.NA_C_RQ_REJ_RSNC) AS NA_C_RQ_REJ_RSNC_NM,
+         AA.NA_C_RQ_STSC,
+         FN_CM_SIMP_CNM('NA_C_RQ_STSC', AA.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM
+      FROM (
+         SELECT
+            A.VAN_C_RQ_NO
+            , A.NA_C_RQ_NO
+             , A.APV_RQ_NA_BZPLC 
+             , DECODE(A.CUD_DSC, 'I', '신청', 'U', '수정' ) AS GBN
+             , CASE
+               WHEN A.PRC_YN IN ('Y', 'R')
+               THEN '정상'
+               WHEN A.PRC_YN IS NULL
+               THEN ''
+               WHEN A.PRC_YN IN ('N', 'P')
+               THEN '전송중'
+               ELSE '오류'
+             END RES_CODE
+             , A.RQ_NA_WRS_C
+             , A.WRSNM
+             , A.FSRG_DTM
+             , TO_CHAR(A.FSRG_DTM, 'YYYY-MM-DD') AS REQ_DT
+             , A.FSRGMN_NA_BZPLC
+             , A.FSRGMN_ENO
+             , TO_CHAR(A.CNF_DMT, 'YYYY-MM-DD') AS RES_DT
+             , A.CNF_ENO  AS BUYER_ENO
+             , A.CNF_NAME AS BUYER_NM
+             , A.RSP_C_CNTN
+             , A.EDI_IF_ID
+            , A.NA_C_RQ_REJ_RSNC
+            , A.NA_C_RQ_STSC
+         FROM TB_GD_WRS_RG_REQ A
+          WHERE 1=1
+             <if test="TRPL_C != null and TRPL_C.length > 0">
+               AND A.FSRGMN_NA_BZPLC IN
+               <foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+                  #{item}
+               </foreach>
+            </if>
+            <if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+               AND A.NA_C_RQ_STSC = #{CBO_RESDSC}
+            </if>
+            <if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+               <choose>
+                  <when test="CBO_WRSDSC == 'CODE'.toString()">
+                     AND A.RQ_NA_WRS_C = #{EDT_WRS}
+                  </when>
+                  <when test="CBO_WRSDSC == 'NAME'.toString()">
+                     AND A.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+                  </when>
+               </choose>
+            </if>
+            <if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+               AND TO_CHAR(A.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+            </if>
+            <if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+               <choose>
+                  <when test="CBO_BUYERDSC == 'ENO'.toString()">
+                     AND TRIM(A.CNF_ENO) = #{EDT_BUYER}
+                  </when>
+                  <when test="CBO_BUYERDSC == 'NAME'.toString()">
+                     AND A.CNF_NAME = #{EDT_BUYER}
+                  </when>
+               </choose>
+            </if>
+            AND A.CUD_DSC != 'D'
+         <!--  
+          UNION ALL
+          SELECT
+            B.VAN_C_RQ_NO
+            ,B.NA_C_RQ_NO
+            ,B.APV_RQ_NA_BZPLC
+            ,'수정' AS GBN
+            ,CASE
+              WHEN B.PRC_YN IN ('Y', 'R')
+              THEN '정상'
+              WHEN B.PRC_YN IS NULL
+              THEN ''
+              WHEN B.PRC_YN IN ('N', 'P')
+              THEN '전송중'
+              ELSE '오류'
+            END RES_CODE
+            ,B.RQ_NA_WRS_C
+            ,NVL(B.WRSNM, WRS.WRSNM) AS WRSNM
+            ,B.FSRG_DTM
+            ,TO_CHAR(B.FSRG_DTM, 'YYYY-MM-DD') AS REQ_DT
+            ,B.FSRGMN_NA_BZPLC
+            ,B.FSRGMN_ENO
+            ,BB.PRC_DTM  AS RES_DT
+            ,BB.PRCMN_ENO  AS BUYER_ENO
+            ,BB.PRCMN AS BUYER_NM
+            ,B.RSP_C_CNTN
+            ,B.EDI_IF_ID
+            ,B.NA_C_RQ_REJ_RSNC
+            ,BB.NA_C_RQ_STSC
+         FROM TB_GD_WRS_RG_MOD_REQ B, TB_GD_WRS WRS, TB_GD_WRS_RG_MOD_REQ_RESULT BB
+          WHERE 1=1
+             AND B.RQ_NA_WRS_C = WRS.NA_WRS_C(+)
+             AND B.NA_C_RQ_NO = BB.NA_C_RQ_NO(+)
+             <if test="TRPL_C != null and TRPL_C.length > 0">
+               AND B.FSRGMN_NA_BZPLC IN
+               <foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+                  #{item}
+               </foreach>
+            </if>
+            <if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+               AND BB.NA_C_RQ_STSC = #{CBO_RESDSC}
+            </if>
+            <if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+               <choose>
+                  <when test="CBO_WRSDSC == 'CODE'.toString()">
+                     AND B.RQ_NA_WRS_C = #{EDT_WRS}
+                  </when>
+                  <when test="CBO_WRSDSC == 'NAME'.toString()">
+                     AND B.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+                  </when>
+               </choose>
+            </if>
+            <if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+               AND TO_CHAR(B.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+            </if>
+            <if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+               <choose>
+                  <when test="CBO_BUYERDSC == 'ENO'.toString()">
+                     AND TRIM(BB.PRCMN_ENO) = #{EDT_BUYER}
+                  </when>
+                  <when test="CBO_BUYERDSC == 'NAME'.toString()">
+                     AND BB.PRCMN = #{EDT_BUYER}
+                  </when>
+               </choose>
+            </if>
+            AND B.CUD_DSC != 'D'-->) AA
+            , TB_TR_TRPL_CIF C
+      WHERE
+         AA.FSRGMN_NA_BZPLC = C.NA_TRPL_C
+         <if test="CBO_CORPDSC != null and CBO_CORPDSC != 'all' and EDT_CORP != null and EDT_CORP.length() > 0">
+            <choose>
+               <when test="CBO_CORPDSC == 'GLN'.toString()">
+                  AND AA.FSRGMN_NA_BZPLC = #{EDT_CORP}
+               </when>
+               <when test="CBO_CORPDSC == 'NAME'.toString()">
+                  AND C.CLNTNM LIKE '%' || #{EDT_CORP} || '%'
+               </when>
+               <when test="CBO_CORPDSC == 'CORP'.toString()">
+                  AND C.BIZ_NUMBER = #{EDT_CORP}
+               </when>
+            </choose>
+         </if>
+   </sql>
+	
+	<sql id="sql_selectModGoodsByKornet">
+		SELECT
+			 A.VAN_C_RQ_NO
+			,A.NA_C_RQ_NO
+			,A.APV_RQ_NA_BZPLC
+			,CASE WHEN A.CUD_DSC = 'I' THEN '신청'
+				WHEN A.CUD_DSC = 'U' THEN '수정'
+				ELSE ''
+			END AS GBN
+			,CASE WHEN A.PRC_YN IN ('Y', 'R') THEN '정상'
+				 WHEN A.PRC_YN IS NULL THEN ''
+				 WHEN A.PRC_YN IN ('N', 'P') THEN '전송중'
+				 ELSE '오류'
+		 	 END RES_CODE
+			,A.RQ_NA_WRS_C
+			,A.WRSNM
+			,'' AS REQ_DT
+			,FN_TRPL_CIF_NM(A.FSRGMN_NA_BZPLC) AS FSRGMN_NA_BZPL_NM
+			,A.FSRGMN_ENO
+			,'' AS BCD_NO
+			,A.CNF_DMT AS RES_DT
+			,A.CNF_ENO AS BUYER_ENO
+			,A.CNF_NAME AS BUYER_NM
+			,A.REQ_RESULT
+			,'' AS ETC
+			, (SELECT COUNT(*) FROM TB_GD_WRS_RG_REQ_FILE B WHERE B.VAN_C_RQ_NO = A.VAN_C_RQ_NO AND B.FILE_SEQ = 1) AS IMG1
+			, (SELECT COUNT(*) FROM TB_GD_WRS_RG_REQ_FILE B WHERE B.VAN_C_RQ_NO = A.VAN_C_RQ_NO AND B.FILE_SEQ = 2) AS IMG2
+			, (SELECT COUNT(*) FROM TB_GD_WRS_RG_REQ_FILE B WHERE B.VAN_C_RQ_NO = A.VAN_C_RQ_NO AND B.FILE_SEQ = 3) AS IMG3
+			, (SELECT COUNT(*) FROM TB_GD_WRS_RG_REQ_FILE B WHERE B.VAN_C_RQ_NO = A.VAN_C_RQ_NO AND B.FILE_SEQ = 4) AS IMG4
+		FROM TB_GD_WRS_RG_MOD_REQ A, TB_TR_TRPL_CIF C
+		WHERE
+			A.FSRGMN_NA_BZPLC = C.NA_TRPL_C
+			<if test="TRPL_C != null and TRPL_C.length > 0">
+				AND A.FSRGMN_NA_BZPLC IN
+				<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+
+			</if>
+			<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+					AND A.NA_C_RQ_STSC = #{CBO_RESDSC}
+			</if>
+			<if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+				<choose>
+					<when test="CBO_WRSDSC == 'CODE'.toString()">
+						AND A.RQ_NA_WRS_C = #{EDT_WRS}
+					</when>
+					<when test="CBO_WRSDSC == 'NAME'.toString()">
+						AND A.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+					</when>
+				</choose>
+			</if>
+			<if test="CBO_CORPDSC != null and CBO_CORPDSC != 'all' and EDT_CORP != null and EDT_CORP.length() > 0">
+				<choose>
+					<when test="CBO_CORPDSC == 'GLN'.toString()">
+						AND A.FSRGMN_NA_BZPLC = #{EDT_CORP}
+					</when>
+					<when test="CBO_CORPDSC == 'NAME'.toString()">
+						AND C.CLNTNM LIKE '%' || #{EDT_CORP} || '%'
+					</when>
+					<when test="CBO_CORPDSC == 'CORP'.toString()">
+						AND C.BIZ_NUMBER = #{EDT_CORP}
+					</when>
+				</choose>
+			</if>
+			<if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+				<choose>
+					<when test="CBO_BUYERDSC == 'ENO'.toString()">
+						AND A.CNF_ENO = #{EDT_BUYER}
+					</when>
+					<when test="CBO_BUYERDSC == 'NAME'.toString()">
+						AND A.CNF_NAME = #{EDT_BUYER}
+					</when>
+				</choose>
+			</if>
+			AND A.CUD_DSC != 'D'
+	</sql>
+
+	<!-- 신규상품등록 첨부파일 내역조회 -->
+	<!--  차세대이전
+	<select id="selectNewGoodsAtchByKornet" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 A.VAN_C_RQ_NO
+			,B.FILE_SEQ
+			,B.FILE_NAME AS ORGFNAME
+			,B.FILE_SYSTEM_NAME AS SYSTEMFILENAME
+			,'reqWrs' AS SEAL
+		FROM
+			<if test="GBN eq 'I'.toString()">
+				TB_GD_WRS_RG_REQ A
+			</if>
+			<if test="GBN eq 'U'.toString()">
+				TB_GD_WRS_RG_MOD_REQ A
+			</if>
+		, TB_GD_WRS_RG_REQ_FILE B
+		WHERE A.VAN_C_RQ_NO = B.VAN_C_RQ_NO
+		AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+		<if test="TRPL_C != null and TRPL_C.length > 0">
+			AND A.FSRGMN_NA_BZPLC IN
+			<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		ORDER BY B.FILE_SEQ
+	</select>
+	-->
+	
+	<!-- 신규상품등록 첨부파일 내역조회 --> 
+	<select id="selectNewGoodsAtchByKornet" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			 A.VAN_C_RQ_NO
+			,B.FILE_SEQ
+			,B.FILE_NAME AS ORGFNAME
+			,B.FILE_SYSTEM_NAME AS SYSTEMFILENAME
+			,'reqWrs' AS SEAL
+		FROM
+		  TB_GD_WRS_RG_REQ A
+		, TB_GD_WRS_RG_REQ_FILE B
+		WHERE A.VAN_C_RQ_NO = B.VAN_C_RQ_NO
+		AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+		<if test="TRPL_C != null and TRPL_C.length > 0">
+			AND A.FSRGMN_NA_BZPLC IN
+			<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		ORDER BY B.FILE_SEQ
+	</select>
+	
+	<!-- 상품정보 신청 내역 조회  차세대 이후 통합
+	<select id="retrieveWRSReqExist" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.*
+		FROM
+			<if test="GBN eq 'I'.toString()">
+				TB_GD_WRS_RG_REQ A
+			</if>
+			<if test="GBN eq 'U'.toString()">
+				TB_GD_WRS_RG_MOD_REQ A,
+				TB_GD_WRS_RG_MOD_REQ_RESULT B
+			</if>
+		WHERE A.RQ_NA_WRS_C = #{NA_WRS_C}
+		<if test="GBN eq 'I'.toString()">
+			AND ( A.NA_C_RQ_STSC NOT IN ('3', '4') /* 3:승인, 4:반려 */
+				OR A.NA_C_RQ_STSC IS NULL
+			)
+		</if>
+		<if test="GBN eq 'U'.toString()">
+			AND A.NA_C_RQ_NO = B.NA_C_RQ_NO(+)
+			AND ( B.NA_C_RQ_STSC NOT IN ('3', '4') /* 3:승인, 4:반려 */
+				OR B.NA_C_RQ_STSC IS NULL
+			)
+		</if>
+		AND A.PRC_YN != 'E'
+	</select>
+	 -->
+	 
+	<!-- 상품정보 신청 내역 조회-->
+	<select id="retrieveWRSReqExist" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.*
+		FROM
+			TB_GD_WRS_RG_REQ A
+		WHERE A.RQ_NA_WRS_C = #{NA_WRS_C}
+		  AND ( A.NA_C_RQ_STSC NOT IN ('3', '4') /* 3:승인, 4:반려 */
+				OR A.NA_C_RQ_STSC IS NULL
+			  )
+		  AND CUD_DSC = #{GBN}	  
+		  AND A.PRC_YN != 'E'
+	</select>
+	
+	<!-- 상품정보 수정신청 내역 조회(삭제신청) -->
+	<select id="retrieveWRSModReqExist" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM TB_GD_WRS_RG_MOD_REQ WHERE NA_C_RQ_NO = #{NA_C_RQ_NO}
+	</select>
+
+	<!-- 상품정보 수정 취소 요청 -->
+	<insert id="insertWRSDelReq" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO">
+		INSERT INTO TB_GD_WRS_RG_DEL_REQ (
+			  NA_C_RQ_NO
+			, FSRGMN_ENO
+			, FSRGMN_NA_BZPLC
+		) VALUES (
+			  #{NA_C_RQ_NO}
+			, #{FSRGMN_ENO}
+			, #{FSRGMN_NA_BZPLC}
+		)
+	</insert>
+	
+<!-- 차세대 이전 쿼리 -->
+<!-- 	<select id="excelNewGoodsKornet" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			AA.*
+		FROM (
+			SELECT
+				A.NA_C_RQ_NO	/*경제통합코드신청번호*/
+				, FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM	/*경제통합코드신청대상구분코드*/
+				, A.CTCPL_TELNO	/*연락처전화번호*/
+				, A.RQ_CNTN	/*신청내용*/
+				, A.APV_RQ_NA_BZPLC	/*승인신청경제통합사업장코드*/
+				, A.FSRGMN_ENO	/*최초등록자개인번호*/
+				, A.FSRGMN_NA_BZPLC	/*최초등록자경제통합사업장코드*/
+				, A.BUYER_ENO	/*바이어개인번호*/
+				, A.RQ_NA_WRS_C	/*신청경제통합상품코드*/
+				, A.NA_WRS_C	/*경제통합상품코드*/
+				, A.WRS_C_DSC	/*상품코드구분코드*/
+				, A.WRS_DSC	/*상품구분코드*/
+				, A.WRSNM	/*상품명*/
+				, A.WRS_ABR_NM	/*상품약어명*/
+				, A.WRS_ENM	/*상품영문명*/
+				, A.WRS_TPC	/*상품유형코드*/
+				, A.NA_WRS_LCLC	/*경제통합상품대분류코드*/
+				, A.NA_WRS_MCLC	/*경제통합상품중분류코드*/
+				, A.NA_WRS_SCLC	/*경제통합상품소분류코드*/
+				, A.NA_WRS_DTCF_C	/*경제통합상품세분류코드*/
+				, A.WRS_STDNM	/*상품규격명*/
+				, A.TXT_DSC	/*과세구분코드*/
+				, A.SMA_APL_TPC	/*영세적용유형코드*/
+				, A.LIQ_YN	/*주류여부*/
+				, A.COMM_WRS_YN	/*공동상품여부*/
+				, A.MFT_NA_TRPL_C	/*제조경제통합거래처코드*/
+				, A.WHT	/*단량*/
+				, A.NA_WRS_UNT_C	/*경제통합상품단위코드*/
+				, A.NA_WRS_PAK_C	/*경제통합상품포장코드*/
+				, A.NA_WRS_BRAN_C	/*경제통합상품브랜드코드*/
+				, A.NA_WRS_CSTD_METC	/*경제통합상품보관방식코드*/
+				, A.NA_WRS_DSTR_STSC	/*경제통합상품유통상태코드*/
+				, A.NA_WRS_UZC	/*경제통합상품용도코드*/
+				, A.NA_WRS_IPO_DSC	/*경제통합상품수입구분코드*/
+				, A.VCBT_NA_WRS_C	/*공병경제통합상품코드*/
+				, A.VCBT_QT	/*공병수량*/
+				, A.VCBX_NA_WRS_C	/*공상자경제통합상품코드*/
+				, A.WRS_DTL_EXPL	/*상품상세설명*/
+				, A.BSC_UNT_DSC	/*기본단위구분코드*/
+				, A.BOXPE_AQZ	/*박스당입수*/
+				, A.RFID_UYN	/*RFID사용여부*/
+				, A.FOMNM	/*형식명*/
+				, A.SLGT_ETR_DSC	/*매취수탁구분코드*/
+				, A.DSTR_TER_YN	/*유통기한관리여부*/
+				, A.DSTR_TER_MRK_DSC	/*유통기한표기방법구분코드*/
+				, A.WRS_MODIFY_YN	/*상품변경요청여부*/
+				, A.TEMP_YN	/*임시저장여부*/
+				, A.PRC_YN	/*경통전송여부*/
+				, A.RSP_C_CNTN	/*결과수신*/
+				, A.REQ_RESULT	/*상품등록신청결과메시지*/
+				, A.CNF_ENO	/*승인/거절개인번호*/
+				, TO_CHAR(A.CNF_DMT) AS CNF_DMT   /*승일/거절일시*/
+				, A.CNF_NAME	/*승인/거절자명*/
+				, A.NA_C_RQ_REJ_RSNC	/*경제통합코드신청거절사유코드*/
+				, FN_CM_SIMP_CNM('NA_C_RQ_REJ_RSNC', A.NA_C_RQ_REJ_RSNC) AS NA_C_RQ_REJ_RSNC_NM	/*경제통합코드신청거절사유코드명*/
+				, A.NA_C_RQ_STSC	/*경제통합코드신청상태코드*/
+				, FN_CM_SIMP_CNM('NA_C_RQ_STSC', A.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM	/*경제통합코드신청상태코드명*/
+				, TO_CHAR(A.PR_MRK_WHT) AS PR_MRK_WHT
+				, A.PR_MRK_STD_BAS_WHT
+				, TO_CHAR(A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT
+				, FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
+				, A.FSRG_DTM
+			FROM TB_GD_WRS_RG_REQ A
+		    WHERE 1=1
+		    	<if test="TRPL_C != null and TRPL_C.length > 0">
+					AND A.FSRGMN_NA_BZPLC IN
+					<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+						#{item}
+					</foreach>
+				</if>
+				<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+					AND A.NA_C_RQ_STSC = #{CBO_RESDSC}
+				</if>
+				<if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+					<choose>
+						<when test="CBO_WRSDSC == 'CODE'.toString()">
+							AND A.RQ_NA_WRS_C = #{EDT_WRS}
+						</when>
+						<when test="CBO_WRSDSC == 'NAME'.toString()">
+							AND A.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+						</when>
+					</choose>
+				</if>
+				<if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+					AND TO_CHAR(A.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+				</if>
+				<if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+					<choose>
+						<when test="CBO_BUYERDSC == 'ENO'.toString()">
+							AND TRIM(A.CNF_ENO) = #{EDT_BUYER}
+						</when>
+						<when test="CBO_BUYERDSC == 'NAME'.toString()">
+							AND A.CNF_NAME = #{EDT_BUYER}
+						</when>
+					</choose>
+				</if>
+				AND A.CUD_DSC != 'D'
+		    UNION ALL
+		    SELECT
+				B.NA_C_RQ_NO	/*경제통합코드신청번호*/
+				, FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', B.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM	/*경제통합코드신청대상구분코드*/
+				, B.CTCPL_TELNO	/*연락처전화번호*/
+				, B.RQ_CNTN	/*신청내용*/
+				, B.APV_RQ_NA_BZPLC	/*승인신청경제통합사업장코드*/
+				, B.FSRGMN_ENO	/*최초등록자개인번호*/
+				, B.FSRGMN_NA_BZPLC	/*최초등록자경제통합사업장코드*/
+				, B.BUYER_ENO	/*바이어개인번호*/
+				, B.RQ_NA_WRS_C	/*신청경제통합상품코드*/
+				, B.NA_WRS_C	/*경제통합상품코드*/
+				, B.WRS_C_DSC	/*상품코드구분코드*/
+				, B.WRS_DSC	/*상품구분코드*/
+				, NVL(B.WRSNM, WRS.WRSNM) AS WRSNM	/*상품명*/
+				, B.WRS_ABR_NM	/*상품약어명*/
+				, B.WRS_ENM	/*상품영문명*/
+				, B.WRS_TPC	/*상품유형코드*/
+				, B.NA_WRS_LCLC	/*경제통합상품대분류코드*/
+				, B.NA_WRS_MCLC	/*경제통합상품중분류코드*/
+				, B.NA_WRS_SCLC	/*경제통합상품소분류코드*/
+				, B.NA_WRS_DTCF_C	/*경제통합상품세분류코드*/
+				, B.WRS_STDNM	/*상품규격명*/
+				, B.TXT_DSC	/*과세구분코드*/
+				, B.SMA_APL_TPC	/*영세적용유형코드*/
+				, B.LIQ_YN	/*주류여부*/
+				, B.COMM_WRS_YN	/*공동상품여부*/
+				, B.MFT_NA_TRPL_C	/*제조경제통합거래처코드*/
+				, B.WHT	/*단량*/
+				, B.NA_WRS_UNT_C	/*경제통합상품단위코드*/
+				, B.NA_WRS_PAK_C	/*경제통합상품포장코드*/
+				, B.NA_WRS_BRAN_C	/*경제통합상품브랜드코드*/
+				, B.NA_WRS_CSTD_METC	/*경제통합상품보관방식코드*/
+				, B.NA_WRS_DSTR_STSC	/*경제통합상품유통상태코드*/
+				, B.NA_WRS_UZC	/*경제통합상품용도코드*/
+				, B.NA_WRS_IPO_DSC	/*경제통합상품수입구분코드*/
+				, B.VCBT_NA_WRS_C	/*공병경제통합상품코드*/
+				, B.VCBT_QT	/*공병수량*/
+				, B.VCBX_NA_WRS_C	/*공상자경제통합상품코드*/
+				, B.WRS_DTL_EXPL	/*상품상세설명*/
+				, B.BSC_UNT_DSC	/*기본단위구분코드*/
+				, B.BOXPE_AQZ	/*박스당입수*/
+				, B.RFID_UYN	/*RFID사용여부*/
+				, B.FOMNM	/*형식명*/
+				, B.SLGT_ETR_DSC	/*매취수탁구분코드*/
+				, B.DSTR_TER_AMN_YN AS DSTR_TER_YN	/*유통기한관리여부*/
+				, B.DSTR_TER_MRK_DSC	/*유통기한표기방법구분코드*/
+				, B.WRS_MODIFY_YN	/*상품변경요청여부*/
+				, B.TEMP_YN	/*임시저장여부*/
+				, B.PRC_YN	/*경통전송여부*/
+				, B.RSP_C_CNTN	/*결과수신*/
+				, B.REQ_RESULT	/*상품등록신청결과메시지*/
+				, BB.PRCMN_ENO AS CNF_ENO  /*승인/거절개인번호*/
+				, BB.PRC_DTM AS CNF_DMT  /*승일/거절일시*/
+				, BB.PRCMN AS CNF_NAME  /*승인/거절자명*/
+				, B.NA_C_RQ_REJ_RSNC	/*경제통합코드신청거절사유코드*/
+				, FN_CM_SIMP_CNM('NA_C_RQ_REJ_RSNC', B.NA_C_RQ_REJ_RSNC) AS NA_C_RQ_REJ_RSNC_NM	/*경제통합코드신청거절사유코드명*/
+				, B.NA_C_RQ_STSC	/*경제통합코드신청상태코드*/
+				, FN_CM_SIMP_CNM('NA_C_RQ_STSC', BB.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM	/*경제통합코드신청상태코드명*/
+				, TO_CHAR(B.PR_MRK_WHT) AS PR_MRK_WHT
+				, B.PR_MRK_STD_BAS_WHT
+				, TO_CHAR(B.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT
+				, FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', B.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
+				, B.FSRG_DTM
+			FROM TB_GD_WRS_RG_MOD_REQ B, TB_GD_WRS WRS, TB_GD_WRS_RG_MOD_REQ_RESULT BB
+		    WHERE 1=1
+		    	AND B.RQ_NA_WRS_C = WRS.NA_WRS_C(+)
+    			AND B.NA_C_RQ_NO = BB.NA_C_RQ_NO(+)
+		    	<if test="TRPL_C != null and TRPL_C.length > 0">
+					AND B.FSRGMN_NA_BZPLC IN
+					<foreach item="item" collection="TRPL_C" open="(" close=")" separator=",">
+						#{item}
+					</foreach>
+				</if>
+				<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+					AND B.NA_C_RQ_STSC = #{CBO_RESDSC}
+				</if>
+				<if test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+					<choose>
+						<when test="CBO_WRSDSC == 'CODE'.toString()">
+							AND B.RQ_NA_WRS_C = #{EDT_WRS}
+						</when>
+						<when test="CBO_WRSDSC == 'NAME'.toString()">
+							AND B.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+						</when>
+					</choose>
+				</if>
+				<if test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+					AND TO_CHAR(B.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+				</if>
+				<if test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+					<choose>
+						<when test="CBO_BUYERDSC == 'ENO'.toString()">
+							AND TRIM(B.CNF_ENO) = #{EDT_BUYER}
+						</when>
+						<when test="CBO_BUYERDSC == 'NAME'.toString()">
+							AND B.CNF_NAME = #{EDT_BUYER}
+						</when>
+					</choose>
+				</if>
+				AND B.CUD_DSC != 'D') AA
+		      , TB_TR_TRPL_CIF C
+		WHERE
+			AA.FSRGMN_NA_BZPLC = C.NA_TRPL_C
+			<if test="CBO_CORPDSC != null and CBO_CORPDSC != 'all' and EDT_CORP != null and EDT_CORP.length() > 0">
+				<choose>
+					<when test="CBO_CORPDSC == 'GLN'.toString()">
+						AND AA.FSRGMN_NA_BZPLC = #{EDT_CORP}
+					</when>
+					<when test="CBO_CORPDSC == 'NAME'.toString()">
+						AND C.CLNTNM LIKE '%' || #{EDT_CORP} || '%'
+					</when>
+					<when test="CBO_CORPDSC == 'CORP'.toString()">
+						AND C.BIZ_NUMBER = #{EDT_CORP}
+					</when>
+				</choose>
+			</if>
+		ORDER BY AA.FSRG_DTM
+	</select> -->
+	
+	<!-- 신규상품 등록내역조회 엑셀다운로드 관련 쿼리 -->
+	<select id="excelNewGoodsKornet" parameterType="java.util.Map" resultType="java.util.Map" fetchSize="1000">
+		SELECT
+			A.NA_C_RQ_NO /*경제통합코드신청번호*/
+			, FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM /*경제통합코드신청대상구분코드*/
+			, A.CTCPL_TELNO /*연락처전화번호*/
+			, A.RQ_CNTN /*신청내용*/
+			, A.APV_RQ_NA_BZPLC /*승인신청경제통합사업장코드*/
+			, A.FSRGMN_ENO /*최초등록자개인번호*/
+			, A.FSRGMN_NA_BZPLC /*최초등록자경제통합사업장코드*/
+			, A.BUYER_ENO /*바이어개인번호*/
+			, A.RQ_NA_WRS_C /*신청경제통합상품코드*/
+			, A.NA_WRS_C /*경제통합상품코드*/
+			, A.WRS_C_DSC /*상품코드구분코드*/
+			, A.WRS_DSC /*상품구분코드*/
+			, A.WRSNM /*상품명*/
+			, A.WRS_ABR_NM /*상품약어명*/
+			, A.WRS_ENM /*상품영문명*/
+			, A.WRS_TPC /*상품유형코드*/
+			, A.NA_WRS_LCLC /*경제통합상품대분류코드*/
+			, A.NA_WRS_MCLC /*경제통합상품중분류코드*/
+			, A.NA_WRS_SCLC /*경제통합상품소분류코드*/
+			, A.NA_WRS_DTCF_C /*경제통합상품세분류코드*/
+			, A.WRS_STDNM /*상품규격명*/
+			, A.TXT_DSC /*과세구분코드*/
+			, A.SMA_APL_TPC /*영세적용유형코드*/
+			, A.LIQ_YN /*주류여부*/
+			, A.MFT_NA_TRPL_C /*제조경제통합거래처코드*/
+			, A.WHT /*단량*/
+			, A.NA_WRS_UNT_C /*경제통합상품단위코드*/
+			, A.NA_WRS_BRAN_C /*경제통합상품브랜드코드*/
+			, A.NA_WRS_CSTD_METC /*경제통합상품보관방식코드*/
+			, A.NA_WRS_DSTR_STSC /*경제통합상품유통상태코드*/
+			, A.NA_WRS_UZC /*경제통합상품용도코드*/
+			, A.NA_WRS_IPO_DSC /*경제통합상품수입구분코드*/
+			, A.VCBT_NA_WRS_C /*공병경제통합상품코드*/
+			, A.VCBT_QT /*공병수량*/
+			, A.VCBX_NA_WRS_C /*공상자경제통합상품코드*/
+			, A.WRS_DTL_EXPL /*상품상세설명*/
+			, A.BSC_UNT_DSC /*기본단위구분코드*/
+			, A.BOXPE_AQZ /*박스당입수*/
+			, A.RFID_UYN /*RFID사용여부*/
+			, A.FOMNM /*형식명*/
+			, A.SLGT_ETR_DSC /*매취수탁구분코드*/
+			, A.DSTR_TER_YN /*유통기한관리여부*/
+			, A.DSTR_TER_MRK_DSC /*유통기한표기방법구분코드*/
+			, A.WRS_MODIFY_YN /*상품변경요청여부*/
+			, A.TEMP_YN /*임시저장여부*/
+			, A.PRC_YN /*경통전송여부*/
+			, A.RSP_C_CNTN /*결과수신*/
+			, A.REQ_RESULT /*상품등록신청결과메시지*/
+			, A.CNF_ENO /*승인/거절개인번호*/
+			, TO_CHAR(A.CNF_DMT) AS CNF_DMT /*승일/거절일시*/
+			, A.CNF_NAME /*승인/거절자명*/
+			, A.NA_C_RQ_REJ_RSNC /*경제통합코드신청거절사유코드*/
+			, FN_CM_SIMP_CNM('NA_C_RQ_REJ_RSNC', A.NA_C_RQ_REJ_RSNC) AS NA_C_RQ_REJ_RSNC_NM /*경제통합코드신청거절사유코드명*/
+			, A.NA_C_RQ_STSC /*경제통합코드신청상태코드*/
+			, FN_CM_SIMP_CNM('NA_C_RQ_STSC', A.NA_C_RQ_STSC) AS NA_C_RQ_STSC_NM /*경제통합코드신청상태코드명*/
+			, TO_CHAR(A.PR_MRK_WHT) AS PR_MRK_WHT
+			, A.PR_MRK_STD_BAS_WHT
+			, TO_CHAR(A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT
+			, FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
+			, A.FSRG_DTM
+			/* 새로추가 */
+			, LG.NA_SPYPL_C /*경제통합공급처코드*/
+			, LG.NA_SPYPL_TEAM_C /*거래처팀코드*/
+			, LG.BOX_WRS_YN /*박스상품여부*/
+			, LG.BOX_WT /*박스중량*/
+			, LG.BOX_BULK /*박스용적*/
+			, LG.BYNG_UPR /*매입단가*/
+			, LG.SEL_UPR /*판매단가*/
+			, LG.WDTH_LEN /*가로길이*/
+			, LG.LEN_LEN /*세로길이*/
+			, LG.WRS_HGHT /*상품높이*/
+			, LG.PLTPE_LYNO /*파렛트당층수*/
+			, LG.PLTPE_SGNO /*파렛트당단수*/
+			, LG.PLTPE_BOX_CN /*파렛트당박스수*/
+		FROM 
+			TB_GD_WRS_RG_REQ A,
+			TB_GD_WRS_RG_REQ_LG LG
+		WHERE 1=1
+			<if test="TRPL_C != null and TRPL_C.length > 0">
+				AND A.FSRGMN_NA_BZPLC IN
+				<foreach item="item" collection="TRPL_C" open="(" close=")"
+					separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test="CBO_RESDSC != null and CBO_RESDSC != 'all'">
+				AND A.NA_C_RQ_STSC = #{CBO_RESDSC}
+			</if>
+			<if
+				test="CBO_WRSDSC != null and CBO_WRSDSC.length() > 0 and EDT_WRS != null and EDT_WRS.length() > 0">
+				<choose>
+					<when test="CBO_WRSDSC == 'CODE'.toString()">
+						AND A.RQ_NA_WRS_C = #{EDT_WRS}
+					</when>
+					<when test="CBO_WRSDSC == 'NAME'.toString()">
+						AND A.WRSNM LIKE '%' || #{EDT_WRS} || '%'
+					</when>
+				</choose>
+			</if>
+			<if
+				test="DT_STDT != null and DT_STDT.length() > 0 and DT_EDDT != null and DT_EDDT.length() > 0">
+				AND TO_CHAR(A.FSRG_DTM, 'YYYYMMDD') BETWEEN #{DT_STDT} AND #{DT_EDDT}
+			</if>
+			<if
+				test="CBO_BUYERDSC != null and CBO_BUYERDSC != 'all' and EDT_BUYER != null and EDT_BUYER.length() > 0">
+				<choose>
+					<when test="CBO_BUYERDSC == 'ENO'.toString()">
+						AND TRIM(A.CNF_ENO) = #{EDT_BUYER}
+					</when>
+					<when test="CBO_BUYERDSC == 'NAME'.toString()">
+						AND A.CNF_NAME = #{EDT_BUYER}
+					</when>
+				</choose>
+			</if>
+			AND A.CUD_DSC != 'D'
+			AND A.VAN_C_RQ_NO = LG.VAN_C_RQ_NO
+		ORDER BY FSRG_DTM
+	</select>
+	
+	<!--  차세대 이전 쿼리 -->
+	<select id="retrieveNewGoodsDetailByKornet_asis" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO" resultType="java.util.Map">
+		SELECT
+			<!-- 공통정보 -->
+			  A.RQ_NA_WRS_C	/*신청경제통합상품코드*/
+			, FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM	/*경제통합코드신청대상구분코드*/
+			, DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */
+			, A.WRS_C_DSC	/*상품코드구분코드*/
+			, FN_CM_SIMP_CNM('WRS_C_DSC', A.WRS_C_DSC) AS WRS_C_DSC_NM	/*상품코드구분명*/
+			, A.NA_WRS_LCLC	/*경제통합상품대분류코드*/
+			, A.NA_WRS_MCLC	/*경제통합상품중분류코드*/
+			, A.NA_WRS_SCLC	/*경제통합상품소분류코드*/
+			, A.NA_WRS_DTCF_C	/*경제통합상품세분류코드*/
+			, B.WRS_LCLFNM	/*경제통합상품대분류명*/
+			, B.WRS_MCLFNM	/*경제통합상품중분류명*/
+			, B.WRS_SCLFNM	/*경제통합상품소분류명*/
+			, B.WRS_DTCFNM	/*경제통합상품세분류명*/
+			, A.WRS_DSC /*상품구분코드*/
+			, FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM	/*상품구분명*/
+			, A.WRSNM	/*상품명*/
+			, A.WRS_ABR_NM	/*상품약어명*/
+			, A.WRS_ENM	/*상품영문명*/
+			, A.WRS_DTL_EXPL	/*상품상세설명*/
+			, A.WRS_STDNM	/*상품규격명*/
+			, A.TXT_DSC /*과세구분코드*/
+			, FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM	/*과세구분명*/
+			, A.SMA_APL_TPC	/*영세적용유형코드*/
+			, FN_CM_SIMP_CNM('SMA_APL_TPC', A.SMA_APL_TPC) AS SMA_APL_TPC_NM	/*영세적용유형명*/
+			, A.COMM_WRS_YN /* 공동상품여부 */
+			, A.MFT_NA_TRPL_C	/*제조경제통합거래처코드*/
+			, FN_TRPL_CIF_NM(A.MFT_NA_TRPL_C) AS MFT_NA_TRPL_NM	/*제조경제통합거래처명*/
+			, A.GAP_ATTC_YN /* GAP인증여부 */
+			, A.LWCRBN_ATTC_YN /* 저탄소인증여부 */
+
+			<!-- 상세정보 -->
+			, A.WRS_TPC	/*상품유형코드*/
+			, FN_CM_SIMP_CNM('WRS_TPC', A.WRS_TPC) AS WRS_TPC_NM	/*상품유형명*/
+			, A.LIQ_YN /* 주류상품여부 */
+			, A.VCBT_NA_WRS_C	/*공병경제통합상품코드*/
+			, A.VCBT_QT	/*공병수량*/
+			, A.VCBX_NA_WRS_C	/*공상자경제통합상품코드*/
+			, A.WHT	/*단량*/
+			, A.NA_WRS_UNT_C	/* 경제통합상품단위코드 */
+			, FN_CM_SIMP_CNM('NA_WRS_UNT_C', A.NA_WRS_UNT_C) AS NA_WRS_UNT_NM	/* 경제통합상품단위명 */
+			, A.NA_WRS_PAK_C 	/* 경제통합상품포장코드 */
+			, FN_CM_SIMP_CNM('NA_WRS_PAK_C', A.NA_WRS_PAK_C) AS NA_WRS_PAK_NM	/* 경제통합상품포장명 */
+			, A.NA_WRS_IPO_DSC /* 경제통합상품수입구분코드 */
+			, A.RFID_UYN /* RFID사용여부 */
+			, A.NA_WRS_CSTD_METC	/* 경제통합상품보관방식코드 */
+			, FN_CM_SIMP_CNM('NA_WRS_CSTD_METC', A.NA_WRS_CSTD_METC) AS NA_WRS_CSTD_METC_NM	/* 경제통합상품보관방식명 */
+			, FN_CM_SIMP_CNM('NA_WRS_UZC', A.NA_WRS_UZC) AS NA_WRS_UZC	/* 경제통합상품용도코드 */
+			, A.DSTR_TER_YN /* 유통기한관리여부 */
+			, A.DSTR_TER_MRK_DSC /* 유통기한표기방법구분코드 */
+			, FN_CM_SIMP_CNM('DSTR_TER_MRK_DSC', A.DSTR_TER_MRK_DSC) AS DSTR_TER_MRK_DSC_NM /* 유통기한표기방법구분코드명 */
+			, A.NA_WRS_PROENV_DSC	/* 친환경인증 */
+			, FN_CM_SIMP_CNM('NA_WRS_PROENV_DSC', A.NA_WRS_PROENV_DSC) AS NA_WRS_PROENV_DSC_NM  /*친환경인증구분명*/
+			, A.BOXPE_AQZ	/*박스당입수*/
+			, A.LIQ_UZ_DSC /* 주류용도 */
+			, FN_CM_SIMP_CNM('LIQ_UZ_DSC', A.LIQ_UZ_DSC) AS LIQ_UZ_DSC_NM /* 주류용도명 */
+			, A.NA_WRS_QLT_GRDC /* 품질(등급) */
+			, FN_CM_SIMP_CNM('NA_WRS_QLT_GRDC', A.NA_WRS_QLT_GRDC) AS NA_WRS_QLT_GRDC_NM /* 품질(등급)명 */
+			, A.NA_WRS_SZE_SEX_C /* 크기(성별) */
+			, FN_CM_SIMP_CNM('NA_WRS_SZE_SEX_C', A.NA_WRS_SZE_SEX_C) AS NA_WRS_SZE_SEX_C_NM /* 크기(성별)명 */
+			, A.NA_WRS_DSTR_STSC	/*경제통합상품유통상태코드*/
+			, FN_CM_SIMP_CNM('NA_WRS_DSTR_STSC', A.NA_WRS_DSTR_STSC) AS NA_WRS_DSTR_STSC_NM	/*경제통합상품유통상태명*/
+			, A.VLD_PRD_CN /* 유효기간 */
+			, A.VLD_PRD_DSC	/*유효기간구분코드*/
+			, FN_CM_SIMP_CNM('VLD_PRD_DSC', A.VLD_PRD_DSC) AS VLD_PRD_DSC_NM	/*유효기간구분명*/
+			, A.BSC_UNT_DSC	/*기본단위구분코드*/
+			, FN_CM_SIMP_CNM('BSC_UNT_DSC', A.BSC_UNT_DSC) AS BSC_UNT_DSC_NM	/*기본단위구분명*/
+			, A.PR_MRK_WHT
+			, A.PR_MRK_STD_BAS_WHT
+			, A.PR_MRK_BAS_UNIT
+			, FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
+		FROM
+			TB_GD_WRS_RG_REQ A, 			/* 상품등록신청내역 */
+			TB_GD_WRS_CLF B
+		WHERE 1=1
+			AND A.NA_WRS_LCLC =B.NA_WRS_LCLC
+			AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
+			AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
+			AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
+			AND A.FSRGMN_NA_BZPLC = #{FSRGMN_NA_BZPLC}
+			AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+			AND A.CUD_DSC != 'D'
+	</select>
+	
+	<!-- 상세보기 조회 쿼리 -->
+	<select id="retrieveNewGoodsDetailByKornet" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.RQ_NA_WRS_C /*신청경제통합상품코드*/
+			 , FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM /*경제통합코드신청대상구분코드*/
+			 , DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */
+			 , A.WRS_C_DSC /*상품코드구분코드*/
+			 , FN_CM_SIMP_CNM('WRS_C_DSC', A.WRS_C_DSC) AS WRS_C_DSC_NM /*상품코드구분명*/
+			 , A.NA_WRS_LCLC /*경제통합상품대분류코드*/
+			 , A.NA_WRS_MCLC /*경제통합상품중분류코드*/
+			 , A.NA_WRS_SCLC /*경제통합상품소분류코드*/
+			 , A.NA_WRS_DTCF_C /*경제통합상품세분류코드*/
+			 , B.WRS_LCLFNM /*경제통합상품대분류명*/
+			 , B.WRS_MCLFNM /*경제통합상품중분류명*/
+			 , B.WRS_SCLFNM /*경제통합상품소분류명*/
+			 , B.WRS_DTCFNM /*경제통합상품세분류명*/
+		     , A.WRS_DSC /*상품구분코드*/
+		     , FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM /*상품구분명*/
+		     , A.WRSNM /*상품명*/
+		     , A.WRS_ABR_NM /*상품약어명*/
+		     , A.WRS_ENM /*상품영문명*/
+		     , A.WRS_DTL_EXPL /*상품상세설명*/
+		     , A.WRS_STDNM /*상품규격명*/
+		     , A.TXT_DSC /*과세구분코드*/
+		     , FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM /*과세구분명*/
+		     ,
+		      A.SMA_APL_TPC
+		      /*영세적용유형코드*/
+		     ,
+		      FN_CM_SIMP_CNM('SMA_APL_TPC', A.SMA_APL_TPC) AS SMA_APL_TPC_NM
+		      /*영세적용유형명*/
+		     ,
+		      A.MFT_NA_TRPL_C
+		      /*제조경제통합거래처코드*/
+		     ,
+		      FN_TRPL_CIF_NM(A.MFT_NA_TRPL_C) AS MFT_NA_TRPL_NM
+		      /*제조경제통합거래처명*/
+		     ,
+		      A.GAP_ATTC_YN
+		      /* GAP인증여부 */
+		     ,
+		      A.LWCRBN_ATTC_YN
+		      /* 저탄소인증여부 */
+		     ,
+		      A.WRS_TPC
+		      /*상품유형코드*/
+		     ,
+		      FN_CM_SIMP_CNM('WRS_TPC', A.WRS_TPC) AS WRS_TPC_NM
+		      /*상품유형명*/
+		     ,
+		      A.LIQ_YN
+		      /* 주류상품여부 */
+		     ,
+		      A.VCBT_NA_WRS_C
+		      /*공병경제통합상품코드*/
+		     ,
+		      A.VCBT_QT
+		      /*공병수량*/
+		     ,
+		      A.VCBX_NA_WRS_C
+		      /*공상자경제통합상품코드*/
+		     ,
+		      A.WHT
+		      /*단량*/
+		     ,
+		      A.NA_WRS_UNT_C
+		      /* 경제통합상품단위코드 */
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_UNT_C', A.NA_WRS_UNT_C) AS NA_WRS_UNT_NM
+		      /* 경제통합상품단위명 */
+		     ,
+		      A.NA_WRS_IPO_DSC
+		      /* 경제통합상품수입구분코드 */
+		     ,
+		      A.RFID_UYN
+		      /* RFID사용여부 */
+		     ,
+		      A.NA_WRS_CSTD_METC
+		      /* 경제통합상품보관방식코드 */
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_CSTD_METC', A.NA_WRS_CSTD_METC) AS NA_WRS_CSTD_METC_NM
+		      /* 경제통합상품보관방식명 */
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_UZC', A.NA_WRS_UZC) AS NA_WRS_UZC
+		      /* 경제통합상품용도코드 */
+		     ,
+		      A.DSTR_TER_YN
+		      /* 유통기한관리여부 */
+		     ,
+		      A.DSTR_TER_MRK_DSC
+		      /* 유통기한표기방법구분코드 */
+		     ,
+		      FN_CM_SIMP_CNM('DSTR_TER_MRK_DSC', A.DSTR_TER_MRK_DSC) AS DSTR_TER_MRK_DSC_NM
+		      /* 유통기한표기방법구분코드명 */
+		     ,
+		      A.NA_WRS_PROENV_DSC
+		      /* 친환경인증 */
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_PROENV_DSC', A.NA_WRS_PROENV_DSC) AS NA_WRS_PROENV_DSC_NM
+		      /*친환경인증구분명*/
+		     ,
+		      A.BOXPE_AQZ
+		      /*박스당입수*/
+		     ,
+		      A.LIQ_UZ_DSC
+		      /* 주류용도 */
+		     ,
+		      FN_CM_SIMP_CNM('LIQ_UZ_DSC', A.LIQ_UZ_DSC) AS LIQ_UZ_DSC_NM
+		      /* 주류용도명 */
+		     ,
+		      A.NA_WRS_QLT_GRDC
+		      /* 품질(등급) */
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_QLT_GRDC', A.NA_WRS_QLT_GRDC) AS NA_WRS_QLT_GRDC_NM
+		      /* 품질(등급)명 */
+		     ,
+		      A.NA_WRS_SZE_SEX_C
+		      /* 크기(성별) */
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_SZE_SEX_C', A.NA_WRS_SZE_SEX_C) AS NA_WRS_SZE_SEX_C_NM
+		      /* 크기(성별)명 */
+		     ,
+		      A.NA_WRS_DSTR_STSC
+		      /*경제통합상품유통상태코드*/
+		     ,
+		      FN_CM_SIMP_CNM('NA_WRS_DSTR_STSC', A.NA_WRS_DSTR_STSC) AS NA_WRS_DSTR_STSC_NM
+		      /*경제통합상품유통상태명*/
+		     ,
+		      A.VLD_PRD_CN
+		      /* 유효기간 */
+		     ,
+		      A.VLD_PRD_DSC
+		      /*유효기간구분코드*/
+		     ,
+		      FN_CM_SIMP_CNM('VLD_PRD_DSC', A.VLD_PRD_DSC) AS VLD_PRD_DSC_NM
+		      /*유효기간구분명*/
+		     ,
+		      A.BSC_UNT_DSC
+		      /*기본단위구분코드*/
+		     ,
+		      FN_CM_SIMP_CNM('BSC_UNT_DSC', A.BSC_UNT_DSC) AS BSC_UNT_DSC_NM
+		      /*기본단위구분명*/
+		     ,
+		      A.PR_MRK_WHT ,
+		      A.PR_MRK_STD_BAS_WHT ,
+		      A.PR_MRK_BAS_UNIT ,
+		      FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM ,
+		      A.CUS_AG_LRG_DSC ,
+		      FN_CM_SIMP_CNM('CUS_AG_LRG_DSC', A.CUS_AG_LRG_DSC) AS CUS_AG_LRG_DSC_NM ,
+		      A.FTS_SET_YN ,
+		      A.HACCP_ATTC_YN ,
+		      A.KC_ATTC_ESS_YN ,
+		      A.MN1_HSH_WRS_YN ,
+		      A.NEW_SSN_DSC ,
+		      FN_CM_SIMP_CNM('NEW_SSN_DSC', A.NEW_SSN_DSC) AS NEW_SSN_DSC_NM ,
+		      A.ONL_OBJ_YN ,
+		      A.PAK_METH_DSC ,
+		      FN_CM_SIMP_CNM('PAK_METH_DSC', A.PAK_METH_DSC) AS PAK_METH_DSC_NM ,
+		      A.PAK_QLT_DSC ,
+		      FN_CM_SIMP_CNM('PAK_QLT_DSC', A.PAK_QLT_DSC) AS PAK_QLT_DSC_NM ,
+		      A.PLG_WRS_KD ,
+		      DECODE(A.PLG_WRS_KD, '0', '해당없음', '1', '농협전용상품', '2', '기획상품', '') AS PLG_WRS_KD_NM ,
+		      A.WRS_BIZTP_DSC ,
+		      DECODE(A.WRS_BIZTP_DSC, '1', '겸용', '2', '소매', '3', '식자재', '') AS WRS_BIZTP_DSC_NM ,
+		      A.WRS_WDTH_LEN ,
+		      A.WRS_LEN_LEN ,
+		      A.WRS_HGHT ,
+		      A.NA_WRS_STD_UNT_C ,
+		      FN_CM_SIMP_CNM('BOX_STD_UNT_C', A.NA_WRS_STD_UNT_C) AS NA_WRS_STD_UNT_C_NM ,
+		      LG.NA_SPYPL_C ,
+		      LG.NA_SPYPL_TEAM_C ,
+		      LG.BOX_WRS_YN ,
+		      LG.BOX_WT ,
+		      LG.BOX_BULK ,
+		      LG.BYNG_UPR ,
+		      LG.SEL_UPR ,
+		      LG.WDTH_LEN ,
+		      LG.LEN_LEN ,
+		      LG.WRS_HGHT AS LG_WRS_HGHT,
+		      LG.PLTPE_LYNO ,
+		      LG.PLTPE_SGNO ,
+		      LG.PLTPE_BOX_CN ,
+		      '' AS HTML_DATA
+		      ,(SELECT WRS.WRSNM FROM TB_GD_WRS WRS WHERE WRS.NA_WRS_C = A.VCBT_NA_WRS_C ) AS VCBT_NA_WRS_NM
+		      ,(SELECT WRS.WRSNM FROM TB_GD_WRS WRS WHERE WRS.NA_WRS_C = A.VCBX_NA_WRS_C ) AS VCBX_NA_WRS_NM
+		      , FN_TRPL_CIF_NM(LG.NA_SPYPL_C) AS NA_SPYPL_NM
+		      FROM TB_GD_WRS_RG_REQ A,
+		      /* 상품등록신청내역 */
+		      TB_GD_WRS_CLF B,
+		      TB_GD_WRS_RG_REQ_LG LG
+		      /* r1상품 관련 테이블 */
+		      WHERE 1 =1
+		      AND A.NA_WRS_LCLC = B.NA_WRS_LCLC
+		      AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
+		      AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
+		      AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
+		      AND A.FSRGMN_NA_BZPLC = #{FSRGMN_NA_BZPLC} /* ${FSRGMN_NA_BZPLC} */
+		      AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO} /* ${VAN_C_RQ_NO} */
+		      AND A.CUD_DSC != 'D'
+		      AND A.VAN_C_RQ_NO = LG.VAN_C_RQ_NO
+	</select>
+   
+   <select id="retrieveNewGoodsOnlNtfy" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT DISTINCT A.WRS_NTFY_NM, A.WRS_NTFY_C
+		  FROM TB_AM_ONLINE_NTFY_M A,
+           TB_GD_WRS_ONLINE_NTFY W
+		 WHERE A.UYN    = 'Y'
+		   AND A.DEL_YN = 'N'
+       	   AND A.WRS_NTFY_C = W.WRS_NTFY_C
+           AND W.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+		  ORDER BY A.WRS_NTFY_C
+   </select>
+   
+   <select id="retrieveNewGoodsOnlNtfyD" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT ROWNUM   AS SORT_SEQ  /* 정렬순서   */
+		    , B.WRS_NTFY_HDNG_NM    /* 고시항목명  */
+         	, W.WRS_NTFY_HDNG_CNTN
+		    , B.WRS_NTFY_HDNG_EXPL  /* 고시항목설명 */
+		 FROM TB_AM_ONLINE_NTFY_M   A
+		    , TB_AM_ONLINE_NTFY_D   B
+         	, TB_GD_WRS_ONLINE_NTFY W
+		WHERE A.WRS_NTFY_C      = B.WRS_NTFY_C
+		  AND A.DEL_YN          = 'N'
+		  AND A.UYN             = 'Y'
+		  AND B.DEL_YN          = 'N'
+		  AND B.UYN             = 'Y'
+		  AND A.WRS_NTFY_C      = W.WRS_NTFY_C       
+       	  AND W.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+       	  AND B.WRS_NTFY_HDNG_C = W.WRS_NTFY_HDNG_C
+		ORDER BY B.WRS_NTFY_HDNG_C  
+   </select>
+   
+	<select id="retrieveModGoodsDetailByKornet" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO" resultType="java.util.Map">
+		SELECT
+			<!-- 공통정보 -->
+			  A.RQ_NA_WRS_C	/*신청경제통합상품코드*/
+			, FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM	/*경제통합코드신청대상구분코드*/
+			, DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */
+			, A.WRS_C_DSC	/*상품코드구분코드*/
+			, FN_CM_SIMP_CNM('WRS_C_DSC', A.WRS_C_DSC) AS WRS_C_DSC_NM	/*상품코드구분명*/
+			, A.NA_WRS_LCLC	/*경제통합상품대분류코드*/
+			, A.NA_WRS_MCLC	/*경제통합상품중분류코드*/
+			, A.NA_WRS_SCLC	/*경제통합상품소분류코드*/
+			, A.NA_WRS_DTCF_C	/*경제통합상품세분류코드*/
+			, B.WRS_LCLFNM	/*경제통합상품대분류명*/
+			, B.WRS_MCLFNM	/*경제통합상품중분류명*/
+			, B.WRS_SCLFNM	/*경제통합상품소분류명*/
+			, B.WRS_DTCFNM	/*경제통합상품세분류명*/
+			, A.WRS_DSC /*상품구분코드*/
+			, FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM	/*상품구분명*/
+			, NVL(A.WRSNM, WRS.WRSNM) AS WRSNM	/*상품명*/
+			, A.WRS_ABR_NM	/*상품약어명*/
+			, A.WRS_ENM	/*상품영문명*/
+			, A.WRS_DTL_EXPL	/*상품상세설명*/
+			, A.WRS_STDNM	/*상품규격명*/
+			, A.TXT_DSC /*과세구분코드*/
+			, FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM	/*과세구분명*/
+			, A.SMA_APL_TPC	/*영세적용유형코드*/
+			, FN_CM_SIMP_CNM('SMA_APL_TPC', A.SMA_APL_TPC) AS SMA_APL_TPC_NM	/*영세적용유형명*/
+			, A.COMM_WRS_YN /* 공동상품여부 */
+			, A.MFT_NA_TRPL_C	/*제조경제통합거래처코드*/
+			, FN_TRPL_CIF_NM(A.MFT_NA_TRPL_C) AS MFT_NA_TRPL_NM	/*제조경제통합거래처명*/
+			, A.GAP_ATTC_YN /* GAP인증여부 */
+			, A.LWCRBN_ATTC_YN /* 저탄소인증여부 */
+
+			<!-- 상세정보 -->
+			, A.WRS_TPC	/*상품유형코드*/
+			, FN_CM_SIMP_CNM('WRS_TPC', A.WRS_TPC) AS WRS_TPC_NM	/*상품유형명*/
+			, A.LIQ_YN /* 주류상품여부 */
+			, A.VCBT_NA_WRS_C	/*공병경제통합상품코드*/
+			, A.VCBT_QT	/*공병수량*/
+			, A.VCBX_NA_WRS_C	/*공상자경제통합상품코드*/
+			, A.WHT	/*단량*/
+			, A.NA_WRS_UNT_C	/* 경제통합상품단위코드 */
+			, FN_CM_SIMP_CNM('NA_WRS_UNT_C', A.NA_WRS_UNT_C) AS NA_WRS_UNT_NM	/* 경제통합상품단위명 */
+			, A.NA_WRS_PAK_C 	/* 경제통합상품포장코드 */
+			, FN_CM_SIMP_CNM('NA_WRS_PAK_C', A.NA_WRS_PAK_C) AS NA_WRS_PAK_NM	/* 경제통합상품포장명 */
+			, A.NA_WRS_IPO_DSC /* 경제통합상품수입구분코드 */
+			, A.RFID_UYN /* RFID사용여부 */
+			, A.NA_WRS_CSTD_METC	/* 경제통합상품보관방식코드 */
+			, FN_CM_SIMP_CNM('NA_WRS_CSTD_METC', A.NA_WRS_CSTD_METC) AS NA_WRS_CSTD_METC_NM	/* 경제통합상품보관방식명 */
+			, FN_CM_SIMP_CNM('NA_WRS_UZC', A.NA_WRS_UZC) AS NA_WRS_UZC	/* 경제통합상품용도코드 */
+			, A.DSTR_TER_AMN_YN AS DSTR_TER_YN /* 유통기한관리여부 */
+			, A.DSTR_TER_MRK_DSC /* 유통기한표기방법구분코드 */
+			, FN_CM_SIMP_CNM('DSTR_TER_MRK_DSC', A.DSTR_TER_MRK_DSC) AS DSTR_TER_MRK_DSC_NM /* 유통기한표기방법구분코드명 */
+			, A.NA_WRS_PROENV_DSC	/* 친환경인증 */
+			, FN_CM_SIMP_CNM('NA_WRS_PROENV_DSC', A.NA_WRS_PROENV_DSC) AS NA_WRS_PROENV_DSC_NM  /*친환경인증구분명*/
+			, A.BOXPE_AQZ	/*박스당입수*/
+			, A.LIQ_UZ_DSC /* 주류용도 */
+			, FN_CM_SIMP_CNM('LIQ_UZ_DSC', A.LIQ_UZ_DSC) AS LIQ_UZ_DSC_NM /* 주류용도명 */
+			, A.NA_WRS_QLT_GRDC /* 품질(등급) */
+			, FN_CM_SIMP_CNM('NA_WRS_QLT_GRDC', A.NA_WRS_QLT_GRDC) AS NA_WRS_QLT_GRDC_NM /* 품질(등급)명 */
+			, A.NA_WRS_SZE_SEX_C /* 크기(성별) */
+			, FN_CM_SIMP_CNM('NA_WRS_SZE_SEX_C', A.NA_WRS_SZE_SEX_C) AS NA_WRS_SZE_SEX_C_NM /* 크기(성별)명 */
+			, A.NA_WRS_DSTR_STSC	/*경제통합상품유통상태코드*/
+			, FN_CM_SIMP_CNM('NA_WRS_DSTR_STSC', A.NA_WRS_DSTR_STSC) AS NA_WRS_DSTR_STSC_NM	/*경제통합상품유통상태명*/
+			, A.VLD_PRD_CN /* 유효기간 */
+			, A.VLD_PRD_DSC	/*유효기간구분코드*/
+			, FN_CM_SIMP_CNM('VLD_PRD_DSC', A.VLD_PRD_DSC) AS VLD_PRD_DSC_NM	/*유효기간구분명*/
+			, A.BSC_UNT_DSC	/*기본단위구분코드*/
+			, FN_CM_SIMP_CNM('BSC_UNT_DSC', A.BSC_UNT_DSC) AS BSC_UNT_DSC_NM	/*기본단위구분명*/
+			, A.PR_MRK_WHT
+			, A.PR_MRK_STD_BAS_WHT
+			, A.PR_MRK_BAS_UNIT
+			, FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
+		FROM
+			TB_GD_WRS_RG_MOD_REQ A, 			/* 상품등록신청내역 */
+			TB_GD_WRS_CLF B,
+			TB_GD_WRS WRS
+		WHERE 1=1
+			AND A.NA_WRS_LCLC =B.NA_WRS_LCLC
+			AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
+			AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
+			AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
+			AND A.RQ_NA_WRS_C = WRS.NA_WRS_C(+)
+			AND A.FSRGMN_NA_BZPLC = #{FSRGMN_NA_BZPLC}
+			AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+			AND A.CUD_DSC != 'D'
+	</select>
+
+	<select id="retrieveModGoodsDetailOrg" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO" resultType="java.util.Map">
+		SELECT
+	       A.NA_WRS_C  /*신청경제통합상품코드*/
+	      , DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */
+	      , A.WRS_C_DSC  /*상품코드구분코드*/
+	      , FN_CM_SIMP_CNM('WRS_C_DSC', A.WRS_C_DSC) AS WRS_C_DSC_NM  /*상품코드구분명*/
+	      , A.NA_WRS_LCLC  /*경제통합상품대분류코드*/
+	      , A.NA_WRS_MCLC  /*경제통합상품중분류코드*/
+	      , A.NA_WRS_SCLC  /*경제통합상품소분류코드*/
+	      , A.NA_WRS_DTCF_C  /*경제통합상품세분류코드*/
+	      , B.WRS_LCLFNM  /*경제통합상품대분류명*/
+	      , B.WRS_MCLFNM  /*경제통합상품중분류명*/
+	      , B.WRS_SCLFNM  /*경제통합상품소분류명*/
+	      , B.WRS_DTCFNM  /*경제통합상품세분류명*/
+	      , A.WRS_DSC /*상품구분코드*/
+	      , FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM  /*상품구분명*/
+	      , A.WRSNM  /*상품명*/
+	      , A.WRS_ABR_NM  /*상품약어명*/
+	      , A.WRS_ENM  /*상품영문명*/
+	      , A.WRS_DTL_EXPL  /*상품상세설명*/
+	      , A.WRS_STDNM  /*상품규격명*/
+	      , A.TXT_DSC /*과세구분코드*/
+	      , FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM  /*과세구분명*/
+	      , A.SMA_APL_TPC  /*영세적용유형코드*/
+	      , FN_CM_SIMP_CNM('SMA_APL_TPC', A.SMA_APL_TPC) AS SMA_APL_TPC_NM  /*영세적용유형명*/
+	      , A.COMM_WRS_YN /* 공동상품여부 */
+	      , A.MFT_NA_TRPL_C  /*제조경제통합거래처코드*/
+	      , FN_TRPL_CIF_NM(A.MFT_NA_TRPL_C) AS MFT_NA_TRPL_NM  /*제조경제통합거래처명*/
+	      , A.GAP_ATTC_YN /* GAP인증여부 */
+	      , '0' AS LWCRBN_ATTC_YN /* 저탄소인증여부 */
+	      , A.WRS_TPC  /*상품유형코드*/
+	      , FN_CM_SIMP_CNM('WRS_TPC', A.WRS_TPC) AS WRS_TPC_NM  /*상품유형명*/
+	      , A.LIQ_YN /* 주류상품여부 */
+	      , A.VCBT_NA_WRS_C  /*공병경제통합상품코드*/
+	      , A.VCBT_QT  /*공병수량*/
+	      , A.VCBX_NA_WRS_C  /*공상자경제통합상품코드*/
+	      , A.WHT  /*단량*/
+	      , A.NA_WRS_UNT_C  /* 경제통합상품단위코드 */
+	      , FN_CM_SIMP_CNM('NA_WRS_UNT_C', A.NA_WRS_UNT_C) AS NA_WRS_UNT_NM  /* 경제통합상품단위명 */
+	      , A.NA_WRS_PAK_C   /* 경제통합상품포장코드 */
+	      , FN_CM_SIMP_CNM('NA_WRS_PAK_C', A.NA_WRS_PAK_C) AS NA_WRS_PAK_NM  /* 경제통합상품포장명 */
+	      , A.NA_WRS_IPO_DSC /* 경제통합상품수입구분코드 */
+	      , '0' AS RFID_UYN /* RFID사용여부 */
+	      , A.NA_WRS_CSTD_METC  /* 경제통합상품보관방식코드 */
+	      , FN_CM_SIMP_CNM('NA_WRS_CSTD_METC', A.NA_WRS_CSTD_METC) AS NA_WRS_CSTD_METC_NM  /* 경제통합상품보관방식명 */
+	      , FN_CM_SIMP_CNM('NA_WRS_UZC', A.NA_WRS_UZC) AS NA_WRS_UZC  /* 경제통합상품용도코드 */
+	      , A.DSTR_TER_AMN_YN AS DSTR_TER_YN /* 유통기한관리여부 */
+	      , A.DSTR_TER_MRK_DSC /* 유통기한표기방법구분코드 */
+	      , FN_CM_SIMP_CNM('DSTR_TER_MRK_DSC', A.DSTR_TER_MRK_DSC) AS DSTR_TER_MRK_DSC_NM /* 유통기한표기방법구분코드명 */
+	      , A.NA_WRS_PROENV_DSC  /* 친환경인증 */
+	      , FN_CM_SIMP_CNM('NA_WRS_PROENV_DSC', A.NA_WRS_PROENV_DSC) AS NA_WRS_PROENV_DSC_NM  /*친환경인증구분명*/
+	      , A.BOXPE_AQZ  /*박스당입수*/
+	      , A.LIQ_UZ_DSC /* 주류용도 */
+	      , FN_CM_SIMP_CNM('LIQ_UZ_DSC', A.LIQ_UZ_DSC) AS LIQ_UZ_DSC_NM /* 주류용도명 */
+	      , A.NA_WRS_QLT_GRDC /* 품질(등급) */
+	      , FN_CM_SIMP_CNM('NA_WRS_QLT_GRDC', A.NA_WRS_QLT_GRDC) AS NA_WRS_QLT_GRDC_NM /* 품질(등급)명 */
+	      , A.NA_WRS_SZE_SEX_C /* 크기(성별) */
+	      , FN_CM_SIMP_CNM('NA_WRS_SZE_SEX_C', A.NA_WRS_SZE_SEX_C) AS NA_WRS_SZE_SEX_C_NM /* 크기(성별)명 */
+	      , A.NA_WRS_DSTR_STSC  /*경제통합상품유통상태코드*/
+	      , FN_CM_SIMP_CNM('NA_WRS_DSTR_STSC', A.NA_WRS_DSTR_STSC) AS NA_WRS_DSTR_STSC_NM  /*경제통합상품유통상태명*/
+	      , A.VLD_PRD_CN /* 유효기간 */
+	      , A.VLD_PRD_DSC  /*유효기간구분코드*/
+	      , FN_CM_SIMP_CNM('VLD_PRD_DSC', A.VLD_PRD_DSC) AS VLD_PRD_DSC_NM  /*유효기간구분명*/
+	      , A.BSC_UNT_DSC  /*기본단위구분코드*/
+	      , FN_CM_SIMP_CNM('BSC_UNT_DSC', A.BSC_UNT_DSC) AS BSC_UNT_DSC_NM  /*기본단위구분명*/
+		  , C.CNTN_QT AS PR_MRK_WHT
+		  , C.UNTP_UPR_BASQT  AS PR_MRK_STD_BAS_WHT
+		  , C.BAS_PR_UNT_DSC AS PR_MRK_BAS_UNIT
+		  , FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', C.BAS_PR_UNT_DSC) AS PR_MRK_BAS_UNIT_NM
+	    FROM
+	      TB_GD_WRS_CLF B,
+	      TB_GD_WRS A,
+	      TB_BS_GM_PR_UNIT C
+	    WHERE 1=1
+	      AND A.NA_WRS_LCLC =B.NA_WRS_LCLC
+	      AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
+	      AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
+	      AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
+	      AND A.NA_WRS_C = C.NA_WRS_C (+)
+	      AND A.NA_WRS_C = #{NA_WRS_C}
+	</select>
+
+	<select id="retrieveNaWrsPdaaC" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			  NA_WRS_PDAA_C
+			, PDAA_PROVNM
+			, PDAA_CCONM
+			, PDATTS_NM
+			, PDAA_ZIP
+			, PDAA_LVL_C
+		FROM
+			TB_BS_GC_PDAA
+		WHERE 1=1
+			AND DEL_YN = '0'
+			<if test="searchText != null and searchText.length() > 0">
+				<choose>
+					<when test="searchMode == 'NAME'.toString()">
+						AND PDATTS_NM LIKE '%' || #{searchText} || '%'
+					</when>
+					<when test="searchMode == 'CODE'.toString()">
+						AND NA_WRS_PDAA_C = #{searchText}
+					</when>
+				</choose>
+			</if>
+		ORDER BY NA_WRS_PDAA_C
+	</select>
+
+<!-- 온라인 취급상품 조회 -->
+	<!-- 온라인 취급상품 조회 low count -->
+	<select id="selectOnLineModyCount" parameterType="java.util.Map" resultType="int">
+		<include refid="common.count_start" />
+		<include refid="sql_selectOnLine"/>
+		<include refid="common.count_end" />
+	</select>
+
+	<!-- 온라인 취급상품 조회 -->
+	<select id="selectOnLineMody" parameterType="java.util.Map" resultType="java.util.Map">
+		<bind name="sortName" value="'FIR_RG_DTM'" />
+		<bind name="sortType" value="'asc'" />
+
+		<include refid="common.paging_start" />
+		<include refid="sql_selectOnLine"/>
+		<include refid="common.paging_end" />
+	</select>
+
+	<sql id="sql_selectOnLine">
+		SELECT O.NA_WRS_C
+				, W.WRSNM
+				, O.PDM_MFTCO
+				, O.ORGPL_NATCD
+				, O.PD_RGN
+				, DECODE(O.AGLVPD_MFCPD_YN, '0', '여', '부') AGLVPD_MFCPD_YN
+				, O.MTR_AGLVPD_ORG_ORGPL
+				, O.TOT_CAP
+				, O.UNT_CAP
+				, C.SIMP_CNM WRS_UNT_C
+				, DECODE(O.ADLT_ATTC_REQUIRED_YN, '0', '여', '부') ADLT_ATTC_REQUIRED_YN
+				, TO_CHAR(O.FIR_RG_DTM, 'YYYY-MM-DD HH24:MI:SS') FIR_RG_DTM
+				, TO_CHAR(O.LS_CHG_DTM, 'YYYY-MM-DD HH24:MI:SS') LS_CHG_DTM
+		FROM  TB_GD_WRS_ONLINE O,
+			TB_GD_WRS W,
+			PT_USR_INF INF,
+			(SELECT B.C_DTL_C AS SIMP_C ,
+			  B.DTL_C_NM      AS SIMP_CNM ,
+			  B.DTL_C_SNM     AS SIMP_C_EXPL
+			  FROM TB_AM_CM_CODE A ,
+			    TB_AM_CM_CODE_DTL B
+			  WHERE A.C_TP_C = B.C_TP_C
+			  AND A.C_TP_C   = 'GD0017'
+			) C
+		WHERE  O.NA_WRS_C = W.NA_WRS_C
+			AND O.WRS_UNT_C = C.SIMP_C (+)
+			AND O.FIR_RGMN_ID = INF.MB_ID
+			<if test="TRPL != null">
+				AND INF.NA_TRPL_C IN
+				<foreach collection="TRPL" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+				AND O.NA_WRS_C LIKE #{NA_WRS_C} || '%'
+			</if>
+			<if test="FROM_DATE != null and FROM_DATE.length() >0">
+				<if test="DATE_SEL == 1">
+					AND TO_CHAR(O.FIR_RG_DTM) BETWEEN TO_DATE(#{FROM_DATE},'YYYYMMDD') AND TO_DATE(#{TO_DATE} ,'YYYYMMDD')
+				</if>
+				<if test="DATE_SEL == 2">
+					AND TO_CHAR(O.LS_CHG_DTM) BETWEEN TO_DATE(#{FROM_DATE},'YYYYMMDD') AND TO_DATE(#{TO_DATE} ,'YYYYMMDD')
+				</if>
+			</if>
+	</sql>
+	
+	<select id="downloadExcelGoodWhList" parameterType="java.util.Map"  resultType="java.util.Map" fetchSize="1000">
+		<include refid="sql_goodWhList" />
+    </select>
+    
+    <!-- 덤 기준상품 조회 -->
+    <select id="retrieveFdGoodDum" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT B.NA_BZPLC
+			 , (SELECT CLNTNM FROM TB_TR_TRPL_CIF WHERE NA_TRPL_C = B.NA_BZPLC AND DEL_YN='0' ) NA_BZPLC_NM
+			 , FN_CM_SIMP_CNM('DUM_DSC', B.DUM_DSC) DUM_DSC
+			 , FN_CM_SIMP_CNM('DUM_EVT_DSC', B.DUM_EVT_DSC) UM_EVT_DSC
+			 , FN_CM_SIMP_CNM('QSLPR_TPC', B.PRGR_C) PRGR_C
+			 , B.NA_WRS_C
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.NA_WRS_C) NA_WRS_NM
+			 , B.DUM_QT
+			 , B.BAS_WRS_QT
+			 , B.DUM_RTO
+			 , B.APL_DT
+			 , B.ED_DT
+			 , DECODE(B.LMT_YN, 0, '부', '여') LMT_YN
+			 , B.BAS_NA_WRS_C
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C) BAS_NA_WRS_NM
+			 , B.BAS_NA_WRS_C2
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C2) BAS_NA_WRS_NM2
+			 , B.BAS_NA_WRS_C3
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C3) BAS_NA_WRS_NM3
+			 , B.BAS_NA_WRS_C4
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C2) BAS_NA_WRS_NM4
+			 , B.BAS_NA_WRS_C5
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C3) BAS_NA_WRS_NM5
+			 , B.BAS_NA_WRS_C6
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C2) BAS_NA_WRS_NM6
+			 , B.BAS_NA_WRS_C7
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C3) BAS_NA_WRS_NM7
+			 , B.BAS_NA_WRS_C8
+			 , FN_OD_TRTWRS(A.SPYPL_NA_TRPL_C,B.NA_BZPLC, B.BAS_NA_WRS_C2) BAS_NA_WRS_NM8
+			 , TO_CHAR(B.FSRG_DTM, 'YYYYMMDD') FSRG_DTM
+			 , TO_CHAR(B.LSCHG_DTM, 'YYYYMMDD') LSCHG_DTM
+			 , TO_CHAR(B.DEL_DTM, 'YYYYMMDD') DEL_DTM
+			 , DECODE(B.DEL_DTM, NULL, '부', '여') DEL_YN
+		  FROM TB_OD_TRTWRS A
+		     , TB_FD_GM_GOOD_DUM B
+	    WHERE A.NA_BZPLC = B.NA_BZPLC
+		  AND A.NA_WRS_C = B.NA_WRS_C
+		  AND B.DUM_DSC = '1'
+	      AND B.PRGR_C = '00'
+	      AND A.SPYPL_NA_TRPL_C IN
+	      <foreach collection="TRPL_C" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+		  </foreach>
+		  AND B.APL_DT BETWEEN #{FROM_DATE} AND #{TO_DATE}
+		  <if test="NA_BZPLC != null and NA_BZPLC.length() > 0">
+		  		AND B.NA_BZPLC = #{NA_BZPLC}
+		  </if>
+		  <if test="NA_WRS_C != null and NA_WRS_C.length() > 0">
+		  		AND B.NA_WRS_C = #{NA_WRS_C}
+		  </if>
+		  <if test="NA_WRS1_C != null and NA_WRS1_C.length() > 0">
+		  		AND B.BAS_NA_WRS_C = #{NA_WRS1_C}
+		  </if>
+		  <if test="DELYN != 'all'">
+		  		DECODE(B.DEL_DTM, NULL, '2', '1') = #{CONFIRM}
+		  </if>
+		ORDER BY B.APL_DT DESC, B.NA_BZPLC DESC  
+	</select>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ctrwBatChgDAO">
+		 	
+ 		<select id="retrieveStyVerList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT /* retrieveStyVerList */ DISTINCT(CTRW_STY_VER) ,CTRW_KDC FROM CT_ETC_ELT_STYL_AMM                   
+				WHERE CTRW_KDC = #{CTRW_KDC} 
+					AND  UYN = 'Y'
+					AND SQNO = '01'
+					<![CDATA[
+					AND ROWNUM <=  '2'
+					]]>
+						ORDER BY CTRW_STY_VER DESC
+ 		</select>
+
+		<select id="retrieveCntnList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT  /*retrieveCntnList */ A.CTRW_KDC , A.SQNO , A.CTRW_STY_VER , A.CTRW_CNTN 
+				FROM  CT_ETC_ELT_STYL_AMM A,
+							(SELECT MAX(CTRW_STY_VER) AS CTRW_STY_VER FROM CT_ETC_ELT_STYL_AMM                   
+								WHERE CTRW_KDC = #{CTRW_KDC} 
+									AND  UYN = 'Y') B
+					WHERE A.CTRW_KDC = #{CTRW_KDC}  
+						AND  A.UYN = 'Y'
+						AND A.CTRW_STY_VER = B.CTRW_STY_VER
+ 		</select>
+ 		
+ 		<select id="retrieveCtrwBatChgList" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT /* retrieveCtrwBatChgList */ 
+			 '' AS ISCHECKED , AA.*, BB.SIMP_CNM 
+				FROM (
+							SELECT   M.ELT_CTRW_NO  , M.NA_TRPL_C, M.MTALNM,   CD.MN_CTRW_KDC AS CTRW_KDC ,CD.CTRW_STY_VER  
+								FROM  CT_ELT_CTRW_AMN M,   CT_ELT_CTRW_DTL CD                   
+							        WHERE M.ELT_CTRW_NO = CD.ELT_CTRW_NO
+								        AND SUBSTR(M.ELT_CTRW_NO,0,4)  =  TO_CHAR(SYSDATE, 'YYYY')
+								        AND M.STS = '9' 
+								        AND CD.MN_CTRW_KDC = #{CTRW_KDC}
+								        AND CD.CTRW_STY_VER = #{CTRW_STY_VER} 
+								        AND CD.CTRW_STY_CHG_VER IS NULL
+					UNION ALL
+							SELECT    M.ELT_CTRW_NO  , M.NA_TRPL_C,M.MTALNM,   ACD.ADD_CTRW_KDC AS CTRW_KDC ,ACD.CTRW_STY_VER  
+								FROM  CT_ELT_CTRW_AMN M,   CT_ADD_ELT_CTRW_DTL ACD                   
+									WHERE M.ELT_CTRW_NO = ACD.ELT_CTRW_NO
+										AND SUBSTR(M.ELT_CTRW_NO,0,4)  =  TO_CHAR(SYSDATE, 'YYYY')
+										AND M.STS = '9' 
+							      AND ACD.ADD_CTRW_KDC = #{CTRW_KDC}
+							      AND ACD.CTRW_STY_VER = #{CTRW_STY_VER}
+										AND ACD.CTRW_STY_CHG_VER IS NULL
+					UNION ALL
+						SELECT    M.ELT_CTRW_NO  , M.NA_TRPL_C,M.MTALNM,   PD.PMIW_KDC AS CTRW_KDC,PD.CTRW_STY_VER  
+							FROM  CT_ELT_CTRW_AMN M,   CT_PMIW_DTL PD                   
+								WHERE M.ELT_CTRW_NO = PD.ELT_CTRW_NO
+									AND SUBSTR(M.ELT_CTRW_NO,0,4)  =  TO_CHAR(SYSDATE, 'YYYY')
+									AND M.STS = '9' 
+									AND PD.PMIW_KDC = #{CTRW_KDC}
+									AND PD.CTRW_STY_VER = #{CTRW_STY_VER}
+									AND PD.CTRW_STY_CHG_VER IS NULL
+				UNION ALL
+						SELECT    M.ELT_CTRW_NO  , M.NA_TRPL_C,M.MTALNM,   SD.SCTRW_KDC AS CTRW_KDC ,SD.CTRW_STY_VER  
+							FROM  CT_ELT_CTRW_AMN M,   CT_SCTRW_DTL SD                   
+								WHERE M.ELT_CTRW_NO = SD.ELT_CTRW_NO
+									AND SUBSTR(M.ELT_CTRW_NO,0,4)  =  TO_CHAR(SYSDATE, 'YYYY')
+									AND M.STS = '9' 
+									AND SD.SCTRW_KDC = #{CTRW_KDC}
+									AND SD.CTRW_STY_VER = #{CTRW_STY_VER}
+									AND SD.CTRW_STY_CHG_VER IS NULL
+				UNION ALL
+					SELECT    M.ELT_CTRW_NO  , M.NA_TRPL_C,M.MTALNM,   EED.ETC_CTRW_KDC AS CTRW_KDC ,EED.CTRW_STY_VER  
+						FROM  CT_ELT_CTRW_AMN M,   CT_ETC_ELT_CTRW EED                   
+							WHERE M.ELT_CTRW_NO = EED.ELT_CTRW_NO
+								AND SUBSTR(M.ELT_CTRW_NO,0,4)  =  TO_CHAR(SYSDATE, 'YYYY')
+								AND M.STS = '9' 
+								AND EED.ETC_CTRW_KDC = #{CTRW_KDC}
+								AND EED.CTRW_STY_VER = #{CTRW_STY_VER}
+								AND EED.CTRW_STY_CHG_VER IS NULL  
+				)AA  ,
+				(SELECT * FROM MG_COMN_C_AMN
+				    WHERE SIMP_TPC IN
+				    ('MN_CTRW_KDC','ADD_CTRW_KDC','PMIW_KDC','SCTRW_KDC','ETC_CTRW_KDC') 
+				) BB
+				WHERE AA.CTRW_KDC = BB.SIMP_C(+)
+				ORDER BY AA.ELT_CTRW_NO ASC
+ 		</select>
+ 		
+ 		
+ 		
+ 		<insert id="insertCtrwStyl" parameterType="com.nh.escm.ct.eltctrwamn.vo.EtcEltStylAmnVO">
+		INSERT INTO CT_ETC_ELT_STYL_AMM (			
+				CTRW_KDC,
+				CTRW_STY_VER,
+				SQNO,
+				UYN,
+				CTRW_CNTN,
+				
+				FSRG_DTM,
+				FS_RGM,
+				LSCHG_DTM,
+				LS_CHGM
+		) VALUES (			
+			#{CTRW_KDC},                   
+			LPAD( #{CTRW_STY_VER}, '4','0' ),                     
+			LPAD( #{SQNO}, '2','0' )   ,
+			#{UYN},
+			#{CTRW_CNTN},
+			SYSDATE,
+			#{FS_RGM},
+			SYSDATE,
+			#{LS_CHGM}
+		)
+	</insert>
+	<update id="updateCtrwStyl"  parameterType="java.util.Map" >
+		 	UPDATE /*  updateCtrwStyl  */	CT_ETC_ELT_STYL_AMM 
+					SET UYN = #{UYN},
+							LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+				WHERE  	CTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>
+	
+	
+	<update id="updateEltCtrwAmn"  parameterType="com.nh.escm.ct.eltctrwchg.vo.CtrwBatChgVO">
+		 	UPDATE /* 계약서 관리 테이블  updateEltCtrwAmn  */	CT_ELT_CTRW_AMN 
+					SET CTRW_STY_CHG_VER_YN = #{CTRW_STY_CHG_VER_YN},
+							LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+				WHERE ELT_CTRW_NO = #{ELT_CTRW_NO} 	
+	</update>
+	<update id="updateEltCtrwDtl"  parameterType="com.nh.escm.ct.eltctrwchg.vo.CtrwBatChgVO">
+		 	UPDATE /* 메인 계약서 상세 테이블 updateEltCtrwDtl  */	CT_ELT_CTRW_DTL 
+					SET CTRW_STY_CHG_VER = #{CTRW_STY_CHG_VER},
+							LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+				WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}  	
+				  AND MN_CTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>	
+	<update id="updateAddEltCtrwDtl"  parameterType="com.nh.escm.ct.eltctrwchg.vo.CtrwBatChgVO">
+		 	UPDATE /* 부가 계약서 상세 테이블  updateAddEltCtrwDtl  */	CT_ADD_ELT_CTRW_DTL 
+					SET CTRW_STY_CHG_VER = #{CTRW_STY_CHG_VER},
+							LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+				WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}  	
+				  AND ADD_CTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>
+
+	<update id="updatePmiwDtl"  parameterType="com.nh.escm.ct.eltctrwchg.vo.CtrwBatChgVO">
+		 	UPDATE /* 약정서 상세 테이블  updatePmiwDtl  */	CT_PMIW_DTL 
+					SET CTRW_STY_CHG_VER = #{CTRW_STY_CHG_VER},
+							LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+				WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}  	
+				  AND PMIW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>		
+	
+	<update id="updateSctrwDtl"  parameterType="com.nh.escm.ct.eltctrwchg.vo.CtrwBatChgVO">
+		 	UPDATE /* 특약서 상세 테이블 updateSctrwDtl  */	CT_SCTRW_DTL 
+					SET CTRW_STY_CHG_VER = #{CTRW_STY_CHG_VER},
+						LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+								WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}  	
+				  AND SCTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>		
+	
+	<update id="updateEtcEltCtrw"  parameterType="com.nh.escm.ct.eltctrwchg.vo.CtrwBatChgVO">
+		 	UPDATE /* 기타 상세 테이블 updateEtcEltCtrw  */	CT_ETC_ELT_CTRW 
+					SET CTRW_STY_CHG_VER = #{CTRW_STY_CHG_VER},
+						LSCHG_DTM= 	SYSDATE,
+							LS_CHGM = #{LS_CHGM}
+								WHERE ELT_CTRW_NO = #{ELT_CTRW_NO}  	
+				  AND ETC_CTRW_KDC = #{CTRW_KDC}
+					AND CTRW_STY_VER = #{CTRW_STY_VER}
+	</update>				
+
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CarDAO">
+	<resultMap id="carMap" type="com.nh.escm.scm.reserve.vo.CarVO">
+		<result column="PHD_NA_BZPLC" property="PHD_NA_BZPLC" />
+		<result column="SPYPL_VHC_PHD_IDVD_NO" property="SPYPL_VHC_PHD_IDVD_NO" />
+		<result column="NA_TRPL_C" property="NA_TRPL_C" />
+		<result column="CLNTNM" property="CLNTNM" />
+		<result column="VHCNO" property="VHCNO" />
+		<result column="PHD_DVY_CAFFNM" property="PHD_DVY_CAFFNM" />
+		<result column="TELNO" property="TELNO" />
+		<result column="UYN" property="UYN" />
+		<result column="DEL_YN" property="DEL_YN" />
+	</resultMap>
+
+	<select id="select" resultMap="carMap">
+		SELECT 
+			   PHD_NA_BZPLC,
+			   SPYPL_VHC_PHD_IDVD_NO,
+			   NA_TRPL_C,
+			   VHCNO,
+			   ecl_decrypt(PHD_DVY_CAFFNM) as PHD_DVY_CAFFNM -- AS PHD_DVY_CAFFNM,
+			   ecl_decrypt(TELNO) AS TELNO,
+			   UYN,
+			   FSRG_DTM,
+			   FSRGMN_ENO,
+			   LSCHG_DTM,
+			   LS_CMENO,
+			   DEL_YN,
+			   DEL_DTM,
+			   DLMN_ENO
+		FROM TB_LG_SPYPLVHC
+		WHERE VHCNO = #{vhcno:VARCHAR}
+		ORDER BY
+			PHD_NA_BZPLC,
+			SPYPL_VHC_PHD_IDVD_NO,
+			NA_TRPL_C,
+			VHCNO
+	</select>
+
+	<sql id="sql_selectList">
+		SELECT 
+			A.PHD_NA_BZPLC  /*사업장코드*/
+			, A.SPYPL_VHC_PHD_IDVD_NO  /*개별번호*/
+			, A.NA_TRPL_C  /*거래처코드*/
+			, B.CLNTNM  /*거래처명*/
+			, A.VHCNO  /*차량번호*/
+			, ecl_decrypt(A.PHD_DVY_CAFFNM) as PHD_DVY_CAFFNM  /*기사명*/
+			, ecl_decrypt(A.TELNO) as TELNO  /*연락처*/
+			, A.UYN  /*사용여부*/
+			, A.DEL_YN  /*삭제여부*/
+		FROM TB_LG_SPYPLVHC A, TB_TR_TRPL_CIF B
+		WHERE 1=1
+			AND A.NA_TRPL_C = B.NA_TRPL_C
+			AND A.DEL_YN = '0'
+			AND A.NA_TRPL_C IN
+        <foreach collection="srhTrplC" item="item" index="index" separator="," open="(" close=")">
+    		#{item}
+		</foreach>
+			<choose>			
+			<when test="SEARCH_TYPE == '1'.toString()">				
+				AND A.VHCNO like CONCAT(#{SEARCH_WORD},'%')				
+			</when>
+			<when test="SEARCH_TYPE == '2'.toString()">
+				AND A.PHD_DVY_CAFFNM = ecl_encrypt(#{SEARCH_WORD})					
+			</when>
+			</choose>
+	</sql>
+
+	<select id="retrieveCarList" parameterType="java.util.Map" resultMap="carMap">
+		<include refid="sql_selectList" />
+		ORDER BY NA_TRPL_C,SPYPL_VHC_PHD_IDVD_NO ASC
+	</select>
+	
+	<!-- 공급처 차량 정보 삽입 -->
+	<insert id="insertCar" parameterType="com.nh.escm.scm.reserve.vo.CarVO">
+		INSERT INTO TB_LG_SPYPLVHC
+		(
+			PHD_NA_BZPLC  /*사업장코드*/
+			, SPYPL_VHC_PHD_IDVD_NO  /*개별번호*/
+			, NA_TRPL_C  /*거래처코드*/			
+			, VHCNO  /*차량번호*/
+			, PHD_DVY_CAFFNM  /*기사명*/
+			, TELNO  /*연락처*/
+			, UYN  /*사용여부*/
+			, FSRG_DTM  /*최초등록일시*/
+			, FSRGMN_ENO  /*최초등록자개인번호*/
+			, LSCHG_DTM /*최종변경일시*/
+			, LS_CMENO  /*최종변경자개인번호*/
+			, DEL_YN  /*삭제여부*/		
+		)
+		VALUES
+		(
+			#{PHD_NA_BZPLC}
+			 , (SELECT					
+					NVL(MAX(SPYPL_VHC_PHD_IDVD_NO),CONCAT(TO_CHAR(sysdate , 'YYYYMMDD'),LPAD(0,5,'0')))+1
+					SPYPL_VHC_PHD_IDVD_NO
+					FROM TB_LG_SPYPLVHC 
+				WHERE 1=1				
+				AND SPYPL_VHC_PHD_IDVD_NO LIKE CONCAT(TO_CHAR(sysdate , 'YYYYMMDD'),'%')) /*개별번호 채번*/
+			 , #{NA_TRPL_C}
+			 , #{VHCNO}
+			 , ecl_encrypt(#{PHD_DVY_CAFFNM})
+			 , ecl_encrypt(#{TELNO})
+			 , #{UYN}
+			 , SYSDATE
+			 , #{FSRGMN_ENO}
+			 , SYSDATE
+			 , #{LS_CMENO}
+			 , '0'
+		)
+	</insert>	
+	
+	<!--  공급처 차량 정보 업데이트 -->
+	<update id="updateCar"  parameterType="com.nh.escm.scm.reserve.vo.CarVO">
+		UPDATE	TB_LG_SPYPLVHC
+		SET
+			VHCNO = #{VHCNO} 
+			, PHD_DVY_CAFFNM = ecl_encrypt(#{PHD_DVY_CAFFNM})
+			, TELNO = ecl_encrypt(#{TELNO})
+			, UYN = #{UYN}
+			, LSCHG_DTM = SYSDATE
+			, LS_CMENO = #{LS_CMENO}		
+		WHERE 1=1
+			AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			AND SPYPL_VHC_PHD_IDVD_NO = #{SPYPL_VHC_PHD_IDVD_NO}		
+	</update>
+	
+	<!--  공급처 차량 정보 삭제여부만 1(삭제)로 업데이트 -->
+	<update id="updateDeleteFlagCar"  parameterType="com.nh.escm.scm.reserve.vo.CarVO">	
+		UPDATE	TB_LG_SPYPLVHC
+		SET
+			DEL_YN = '1'
+			, DEL_DTM = SYSDATE
+			, DLMN_ENO = #{DLMN_ENO}		
+		WHERE 1=1
+			AND PHD_NA_BZPLC = #{PHD_NA_BZPLC}
+			AND SPYPL_VHC_PHD_IDVD_NO = #{SPYPL_VHC_PHD_IDVD_NO}			
+	</update>
+	
+</mapper>

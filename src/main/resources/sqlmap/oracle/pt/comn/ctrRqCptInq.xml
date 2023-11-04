@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ctrRqCptInqDAO">
+	
+    <resultMap id="rcResultMap" type="com.nh.escm.pt.comn.vo.CtrRqCptInqVO">
+		<result column="CSLT_RQ_NO"                         property="CSLT_RQ_NO" />
+		<result column="BZNO"                               property="BZNO" />
+		<result column="CHRRNM"                             property="CHRRNM" />
+		<result column="CHRR_MPNO"                         	property="CHRR_MPNO" />
+	</resultMap>
+	
+	
+	<select id="retrieveCtrRqCptInq" parameterType="java.util.Map" resultMap="rcResultMap">
+	     SELECT  /*retrieveCtrRqCptInq*/ 
+	        Q.CSLT_RQ_NO,
+	     		Q.BZNO,
+	     		Q.CHRRNM,
+	     		ecl_decrypt(Q.CHRR_MPNO) as CHRR_MPNO,
+	     		Q.RQ_DT,     /* 신청일자*/
+          Q.MAJ_LATC,  /* 주요 품목*/
+          Q.CONM      /* 업체명 */
+          
+	     FROM
+	     		BT_CTR_CSLT_RQ Q,  BT_CTR_COMP_SLT_BASTBL T
+	  	WHERE
+	  			Q.CSLT_RQ_NO = T.CSLT_RQ_NO
+			    AND BZNO = #{MAE_BZNO}
+	</select>
+	
+	
+	
+</mapper>
