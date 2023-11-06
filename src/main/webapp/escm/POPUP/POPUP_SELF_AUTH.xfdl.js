@@ -237,9 +237,10 @@
         		else if(this.ds_api_result.getColumn(0,'tgrmRspC') == '1'){
         			alert('존재하지 않는 사번입니다.');
         		}else if(this.ds_api_result.getColumn(0,'tgrmRspC') == '2'){
-        			alert('없는 이메일 입니다.');
+        			alert('소비유통시스템 10-2001 사용자정보 화면에서 이메일 주소를 등록후 재시도 바랍니다.');
         		}else if(this.ds_api_result.getColumn(0,'tgrmRspC') == '3'){
-        			alert('맞지 않는 이메일 입니다.');
+        			alert('소비유통시스템에 등록된 이메일주소와 입력한 이메일주소가 다릅니다. \n '
+        					+'소비유통시스템 10-2001 사용자정보에서 등록한 이메일주소를 입력해주시기 바랍니다.');
         		}else if(this.ds_api_result.getColumn(0,'tgrmRspC') == '0'){
         			//사원 정보 요청결과 
         			let ds_api_result_obj={};
