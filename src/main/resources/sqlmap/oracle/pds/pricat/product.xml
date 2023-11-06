@@ -4948,4 +4948,14 @@
 	<insert id="insert_html_file_info" parameterType="java.util.Map">
 		insert into TB_GD_WRS_RG_REQ_FILE values ('${VAN_C_RQ_NO}','${FILE_SEQ}','${FILE_NAME}','${FILE_SYSTEM_NAME}','${FILE_SIZE}','${WRS_IMG_KDC}')
 	</insert>
+
+	<select id="retrieve_file_name" parameterType="java.util.Map" resultType="java.util.Map">
+		select rg_req.RQ_NA_WRS_C, rg_req_file.FILE_NAME
+		from TB_GD_WRS_RG_REQ rg_req
+				 inner join TB_GD_WRS_RG_REQ_FILE rg_req_file
+							on rg_req.VAN_C_RQ_NO = rg_req_file.VAN_C_RQ_NO
+								and rg_req_file.VAN_C_RQ_NO=#{VAN_C_RQ_NO}
+								and rg_req_file.FILE_SYSTEM_NAME = #{img_file_name}
+		where 1=1
+	</select>
 </mapper>

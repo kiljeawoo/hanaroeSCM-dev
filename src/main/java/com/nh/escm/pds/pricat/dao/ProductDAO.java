@@ -998,4 +998,8 @@ public class ProductDAO extends AbstractDao{
 	public void insert_html_file_info(Map<String,Object>html_param){
 		getSqlSession().insert("productDAO.insert_html_file_info",html_param);
 	}
+
+	public Map<String,Object> retrieve_file_name(Map<String,Object> param){
+		return getSqlSession().selectOne("productDAO.retrieve_file_name", param);
+	}
 }

@@ -3004,8 +3004,15 @@ public class ProductController extends AbstractController{
 //							System.out.println();
 
 							String img_file_name = image.attr("src").split("/")[image.attr("src").split("/").length-1];
+
+							/*retrieve RQ_NA_WRS_C from TB_GD_WRS_RG_REQ
+							 * and FILE_NAME from TB_GD_WRS_RG_REQ*/
+							Map<String,Object> info_to_make_src = productSev.retrieve_file_name(VAN_C_RQ_NO, img_file_name);
 							image.removeAttr("src");
 							image.attr("src", "/nhvan/rest/ce/nhmimg/" + VAN_C_RQ_NO + "/" + img_file_name);
+							image.attr("src", "/nhvan/rest/ce/nhmimg/" +
+									info_to_make_src.get("RQ_NA_WRS_C") + "/" +
+									info_to_make_src.get("RQ_NA_WRS_C")+"_"+info_to_make_src.get("FILE_NAME"));
 //							System.out.println(doc);
 //							System.out.println();
 						}

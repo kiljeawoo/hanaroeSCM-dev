@@ -2,6 +2,7 @@ package com.nh.escm.pds.pricat.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -1023,5 +1024,18 @@ public class ProductService {
 	 **/
 	public void insert_html_file_info(Map<String,Object>html_param){
 		productDao.insert_html_file_info(html_param);
+	}
+
+	/**
+	 * html파일을 구성할 RQ_NA_WRS_C, FILE_NAME 조회
+	 * @params VAN_C_RQ_NO, img_file_name
+	 * @return List<Map<String,Object>>
+	 **/
+	public Map<String,Object> retrieve_file_name(String VAN_C_RQ_NO, String img_file_name){
+		img_file_name= img_file_name.split("#")[0];
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("VAN_C_RQ_NO", VAN_C_RQ_NO);
+		param.put("img_file_name", img_file_name);
+		return productDao.retrieve_file_name(param);
 	}
 }
