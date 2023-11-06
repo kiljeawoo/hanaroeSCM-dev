@@ -410,12 +410,9 @@ public class MbEntService extends AbstractService {
 
 
 			//mbEntDAO.isExistMbId(userInfo.getMB_ID() ) ;
-
-
-			logger.debug("isExistMbId = >> ");
+			
 			if ("03".equals(userInfo.getUSR_TPC()) && !this.isExistMbId(userInfo.getMB_ID())) {
 				mbEntDAO.insertMsgrUser(userInfo.getMB_ID(), userInfo.getUSR_NM(), userInfo.getUSR_MPNO(), userInfo.getUSR_EMAIL());
-				logger.debug("isExistMbId = >> false ");
 			}
 		} catch (DataAccessException e) {
 			logger.error(e.getMessage(), e);
