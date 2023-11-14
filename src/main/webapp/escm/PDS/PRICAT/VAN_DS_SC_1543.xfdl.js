@@ -2231,6 +2231,7 @@
             obj.set_enable("false");
             obj.set_tabstop("false");
             obj.set_taborder("172");
+            obj.set_visible("false");
             this.addChild(obj.name, obj);
 
             obj = new TextArea("txa_contents01", "absolute", "113", "164", "291", "73", null, null, this);
