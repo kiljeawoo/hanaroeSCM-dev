@@ -2,6 +2,7 @@ package com.nh.escm.pds.pricat.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -791,7 +792,7 @@ public class ProductService {
 	 * 화면ID : VAN_DS_SC_1543
 	 * 화면설명 : 신규상품 요청등록 추가,수정 (코리안넷)
 	 */
-	public void insertKornetREQ(ProductReqVO vo, ProductReqVO r1vo, String rdo_sep, String temp_yn, String del_yn) {
+	public void insertKornetREQ(ProductReqVO vo, ProductReqVO r1vo, String rdo_sep, String temp_yn, String del_yn) throws SQLException {
 		try {
 			if (rdo_sep.equals("2")) {
 				vo.setCUD_DSC("U");
@@ -801,13 +802,14 @@ public class ProductService {
 			} else {
 				vo.setCUD_DSC("I");
 			}
+//			vo.setVAN_C_RQ_NO("for test over size than field");
 			r1vo.setVAN_C_RQ_NO(vo.getVAN_C_RQ_NO());
-			
 			productDao.insertKornetREQ(vo, rdo_sep, temp_yn);
-			
+
 			productDao.insertREQ_sub(r1vo);	// 2차상품정보
-		} catch (DataAccessException e) {
-			throw new AppetizerException(e);
+		}
+		catch (DataAccessException e) {
+			throw new SQLException(e);
 		}
 	}
 
