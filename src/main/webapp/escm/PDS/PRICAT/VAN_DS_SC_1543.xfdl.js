@@ -263,17 +263,29 @@
 
             obj = new Dataset("ds_wrs_rg_req", this);
             obj.getSetter("firenextcount").set("0");
-            obj._setContents("<ColumnInfo><Column id=\"RN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_C_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRSNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ABR_NM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ENM\" type=\"string\" size=\"32\"/><Column id=\"WRS_TPC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_LCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_MCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DTCF_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_LCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_MCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_SCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTCFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ID_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_STDNM\" type=\"string\" size=\"32\"/><Column id=\"TXT_DSC\" type=\"string\" size=\"32\"/><Column id=\"SMA_APL_TPC\" type=\"string\" size=\"32\"/><Column id=\"LIQ_YN\" type=\"string\" size=\"32\"/><Column id=\"LIQ_UZ_DSC\" type=\"string\" size=\"32\"/><Column id=\"COMM_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_C\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_NM\" type=\"string\" size=\"32\"/><Column id=\"WHT\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PAK_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SZE_SEX_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_QLT_GRDC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_BRAN_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PROENV_DSC\" type=\"string\" size=\"32\"/><Column id=\"GAP_ATTC_YN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_NACF_QLT_ATTC_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CSTD_METC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DSTR_STSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UZC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_IPO_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PDAA_C\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_CN\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_STD_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_HGHT\" type=\"string\" size=\"32\"/><Column id=\"WRS_LEN_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_WDTH_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_SGRT\" type=\"string\" size=\"32\"/><Column id=\"WRS_SDL_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_AHL_CN\" type=\"string\" size=\"32\"/><Column id=\"MTRL_STD_THKN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DMTR_CN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DPTH_CN\" type=\"string\" size=\"32\"/><Column id=\"VCBT_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"VCBT_QT\" type=\"string\" size=\"32\"/><Column id=\"VCBX_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"CVS_QT\" type=\"string\" size=\"32\"/><Column id=\"CVS_NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTL_EXPL\" type=\"string\" size=\"32\"/><Column id=\"BSC_UNT_DSC\" type=\"string\" size=\"32\"/><Column id=\"BOXPE_AQZ\" type=\"string\" size=\"32\"/><Column id=\"WRS_FL_CN\" type=\"string\" size=\"32\"/><Column id=\"KNET_WRS_NO\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_YN\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_RSNC\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_DT\" type=\"string\" size=\"32\"/><Column id=\"DEL_YN\" type=\"string\" size=\"32\"/><Column id=\"FSRG_DTM\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_ENO\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"LSCHG_DTM\" type=\"string\" size=\"32\"/><Column id=\"LS_CMENO\" type=\"string\" size=\"32\"/><Column id=\"LSCGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CLNM\" type=\"string\" size=\"32\"/><Column id=\"VAN_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_OBJ_DSC\" type=\"string\" size=\"32\"/><Column id=\"CTCPL_TELNO\" type=\"string\" size=\"32\"/><Column id=\"RQ_CNTN\" type=\"string\" size=\"32\"/><Column id=\"BUYER_ENO\" type=\"string\" size=\"32\"/><Column id=\"RQ_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"RFID_UYN\" type=\"string\" size=\"32\"/><Column id=\"FOMNM\" type=\"string\" size=\"32\"/><Column id=\"SLGT_ETR_DSC\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_YN\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_MRK_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_MODIFY_YN\" type=\"string\" size=\"32\"/><Column id=\"PRC_YN\" type=\"string\" size=\"32\"/><Column id=\"RSP_C_CNTN\" type=\"string\" size=\"32\"/><Column id=\"REQ_RESULT\" type=\"string\" size=\"32\"/><Column id=\"CNF_ENO\" type=\"string\" size=\"32\"/><Column id=\"CNF_DATE\" type=\"string\" size=\"32\"/><Column id=\"CNF_NAME\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_REJ_RSNC\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_STSC\" type=\"string\" size=\"32\"/><Column id=\"STPL_AMN_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_TEAM_C\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_LYNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_SGNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_BOX_CN\" type=\"string\" size=\"32\"/><Column id=\"BOX_WT\" type=\"string\" size=\"32\"/><Column id=\"BOX_BULK\" type=\"string\" size=\"32\"/><Column id=\"BOX_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"BYNG_UPR\" type=\"string\" size=\"32\"/><Column id=\"SEL_UPR\" type=\"string\" size=\"32\"/><Column id=\"TEMP_YN\" type=\"string\" size=\"32\"/><Column id=\"APV_RQ_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"CUD_DSC\" type=\"string\" size=\"32\"/><Column id=\"LWCRBN_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_STD_BAS_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_BAS_UNIT\" type=\"STRING\" size=\"256\"/><Column id=\"CUS_AG_LRG_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"FTS_SET_YN\" type=\"STRING\" size=\"256\"/><Column id=\"HACCP_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"KC_ATTC_ESS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"LIQ_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"MN1_HSH_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NACF_XUSE_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SEX_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SSN_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"ONL_OBJ_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_METH_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_QLT_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PLG_WRS_KD\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_BIZTP_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBX_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_NTFY_C\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"RN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_C_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRSNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ABR_NM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ENM\" type=\"string\" size=\"32\"/><Column id=\"WRS_TPC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_LCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_MCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DTCF_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_LCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_MCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_SCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTCFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ID_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_STDNM\" type=\"string\" size=\"32\"/><Column id=\"TXT_DSC\" type=\"string\" size=\"32\"/><Column id=\"SMA_APL_TPC\" type=\"string\" size=\"32\"/><Column id=\"LIQ_YN\" type=\"string\" size=\"32\"/><Column id=\"LIQ_UZ_DSC\" type=\"string\" size=\"32\"/><Column id=\"COMM_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_C\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_NM\" type=\"string\" size=\"32\"/><Column id=\"WHT\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"PAK_METH_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SZE_SEX_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_QLT_GRDC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_BRAN_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PROENV_DSC\" type=\"string\" size=\"32\"/><Column id=\"GAP_ATTC_YN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_NACF_QLT_ATTC_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CSTD_METC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DSTR_STSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UZC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_IPO_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PDAA_C\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_CN\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_STD_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_HGHT\" type=\"string\" size=\"32\"/><Column id=\"WRS_LEN_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_WDTH_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_SGRT\" type=\"string\" size=\"32\"/><Column id=\"WRS_SDL_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_AHL_CN\" type=\"string\" size=\"32\"/><Column id=\"MTRL_STD_THKN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DMTR_CN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DPTH_CN\" type=\"string\" size=\"32\"/><Column id=\"VCBT_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"VCBT_QT\" type=\"string\" size=\"32\"/><Column id=\"VCBX_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"CVS_QT\" type=\"string\" size=\"32\"/><Column id=\"CVS_NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTL_EXPL\" type=\"string\" size=\"32\"/><Column id=\"BSC_UNT_DSC\" type=\"string\" size=\"32\"/><Column id=\"BOXPE_AQZ\" type=\"string\" size=\"32\"/><Column id=\"WRS_FL_CN\" type=\"string\" size=\"32\"/><Column id=\"KNET_WRS_NO\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_YN\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_RSNC\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_DT\" type=\"string\" size=\"32\"/><Column id=\"DEL_YN\" type=\"string\" size=\"32\"/><Column id=\"FSRG_DTM\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_ENO\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"LSCHG_DTM\" type=\"string\" size=\"32\"/><Column id=\"LS_CMENO\" type=\"string\" size=\"32\"/><Column id=\"LSCGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CLNM\" type=\"string\" size=\"32\"/><Column id=\"VAN_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_OBJ_DSC\" type=\"string\" size=\"32\"/><Column id=\"CTCPL_TELNO\" type=\"string\" size=\"32\"/><Column id=\"RQ_CNTN\" type=\"string\" size=\"32\"/><Column id=\"BUYER_ENO\" type=\"string\" size=\"32\"/><Column id=\"RQ_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"RFID_UYN\" type=\"string\" size=\"32\"/><Column id=\"FOMNM\" type=\"string\" size=\"32\"/><Column id=\"SLGT_ETR_DSC\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_YN\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_MRK_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_MODIFY_YN\" type=\"string\" size=\"32\"/><Column id=\"PRC_YN\" type=\"string\" size=\"32\"/><Column id=\"RSP_C_CNTN\" type=\"string\" size=\"32\"/><Column id=\"REQ_RESULT\" type=\"string\" size=\"32\"/><Column id=\"CNF_ENO\" type=\"string\" size=\"32\"/><Column id=\"CNF_DATE\" type=\"string\" size=\"32\"/><Column id=\"CNF_NAME\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_REJ_RSNC\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_STSC\" type=\"string\" size=\"32\"/><Column id=\"STPL_AMN_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_TEAM_C\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_LYNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_SGNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_BOX_CN\" type=\"string\" size=\"32\"/><Column id=\"BOX_WT\" type=\"string\" size=\"32\"/><Column id=\"BOX_BULK\" type=\"string\" size=\"32\"/><Column id=\"BOX_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"BYNG_UPR\" type=\"string\" size=\"32\"/><Column id=\"SEL_UPR\" type=\"string\" size=\"32\"/><Column id=\"TEMP_YN\" type=\"string\" size=\"32\"/><Column id=\"APV_RQ_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"CUD_DSC\" type=\"string\" size=\"32\"/><Column id=\"LWCRBN_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_STD_BAS_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_BAS_UNIT\" type=\"STRING\" size=\"256\"/><Column id=\"CUS_AG_LRG_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"FTS_SET_YN\" type=\"STRING\" size=\"256\"/><Column id=\"HACCP_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"KC_ATTC_ESS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"LIQ_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"MN1_HSH_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NACF_XUSE_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SEX_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SSN_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"ONL_OBJ_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_METH_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_QLT_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PLG_WRS_KD\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_BIZTP_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBX_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_NTFY_C\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
             obj = new Dataset("ds_wrs_rg_req_filter", this);
             obj.getSetter("firenextcount").set("0");
-            obj._setContents("<ColumnInfo><Column id=\"RN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_C_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRSNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ABR_NM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ENM\" type=\"string\" size=\"32\"/><Column id=\"WRS_TPC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_LCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_MCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DTCF_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_LCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_MCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_SCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTCFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ID_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_STDNM\" type=\"string\" size=\"32\"/><Column id=\"TXT_DSC\" type=\"string\" size=\"32\"/><Column id=\"SMA_APL_TPC\" type=\"string\" size=\"32\"/><Column id=\"LIQ_YN\" type=\"string\" size=\"32\"/><Column id=\"LIQ_UZ_DSC\" type=\"string\" size=\"32\"/><Column id=\"COMM_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_C\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_NM\" type=\"string\" size=\"32\"/><Column id=\"WHT\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PAK_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SZE_SEX_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_QLT_GRDC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_BRAN_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PROENV_DSC\" type=\"string\" size=\"32\"/><Column id=\"GAP_ATTC_YN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_NACF_QLT_ATTC_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CSTD_METC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DSTR_STSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UZC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_IPO_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PDAA_C\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_CN\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_STD_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_HGHT\" type=\"string\" size=\"32\"/><Column id=\"WRS_LEN_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_WDTH_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_SGRT\" type=\"string\" size=\"32\"/><Column id=\"WRS_SDL_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_AHL_CN\" type=\"string\" size=\"32\"/><Column id=\"MTRL_STD_THKN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DMTR_CN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DPTH_CN\" type=\"string\" size=\"32\"/><Column id=\"VCBT_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"VCBT_QT\" type=\"string\" size=\"32\"/><Column id=\"VCBX_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"CVS_QT\" type=\"string\" size=\"32\"/><Column id=\"CVS_NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTL_EXPL\" type=\"string\" size=\"32\"/><Column id=\"BSC_UNT_DSC\" type=\"string\" size=\"32\"/><Column id=\"BOXPE_AQZ\" type=\"string\" size=\"32\"/><Column id=\"WRS_FL_CN\" type=\"string\" size=\"32\"/><Column id=\"KNET_WRS_NO\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_YN\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_RSNC\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_DT\" type=\"string\" size=\"32\"/><Column id=\"DEL_YN\" type=\"string\" size=\"32\"/><Column id=\"FSRG_DTM\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_ENO\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"LSCHG_DTM\" type=\"string\" size=\"32\"/><Column id=\"LS_CMENO\" type=\"string\" size=\"32\"/><Column id=\"LSCGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CLNM\" type=\"string\" size=\"32\"/><Column id=\"VAN_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_OBJ_DSC\" type=\"string\" size=\"32\"/><Column id=\"CTCPL_TELNO\" type=\"string\" size=\"32\"/><Column id=\"RQ_CNTN\" type=\"string\" size=\"32\"/><Column id=\"BUYER_ENO\" type=\"string\" size=\"32\"/><Column id=\"RQ_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"RFID_UYN\" type=\"string\" size=\"32\"/><Column id=\"FOMNM\" type=\"string\" size=\"32\"/><Column id=\"SLGT_ETR_DSC\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_YN\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_MRK_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_MODIFY_YN\" type=\"string\" size=\"32\"/><Column id=\"PRC_YN\" type=\"string\" size=\"32\"/><Column id=\"RSP_C_CNTN\" type=\"string\" size=\"32\"/><Column id=\"REQ_RESULT\" type=\"string\" size=\"32\"/><Column id=\"CNF_ENO\" type=\"string\" size=\"32\"/><Column id=\"CNF_DATE\" type=\"string\" size=\"32\"/><Column id=\"CNF_NAME\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_REJ_RSNC\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_STSC\" type=\"string\" size=\"32\"/><Column id=\"STPL_AMN_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_TEAM_C\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_LYNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_SGNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_BOX_CN\" type=\"string\" size=\"32\"/><Column id=\"BOX_WT\" type=\"string\" size=\"32\"/><Column id=\"BOX_BULK\" type=\"string\" size=\"32\"/><Column id=\"BOX_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"BYNG_UPR\" type=\"string\" size=\"32\"/><Column id=\"SEL_UPR\" type=\"string\" size=\"32\"/><Column id=\"TEMP_YN\" type=\"string\" size=\"32\"/><Column id=\"APV_RQ_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"CUD_DSC\" type=\"string\" size=\"32\"/><Column id=\"LWCRBN_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_STD_BAS_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_BAS_UNIT\" type=\"STRING\" size=\"256\"/><Column id=\"CUS_AG_LRG_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"FTS_SET_YN\" type=\"STRING\" size=\"256\"/><Column id=\"HACCP_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"KC_ATTC_ESS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"LIQ_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"MN1_HSH_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NACF_XUSE_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SEX_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SSN_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"ONL_OBJ_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_METH_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_QLT_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PLG_WRS_KD\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_BIZTP_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBX_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_NTFY_C\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"RN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_C_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRSNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ABR_NM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ENM\" type=\"string\" size=\"32\"/><Column id=\"WRS_TPC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_LCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_MCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DTCF_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_LCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_MCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_SCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTCFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ID_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_STDNM\" type=\"string\" size=\"32\"/><Column id=\"TXT_DSC\" type=\"string\" size=\"32\"/><Column id=\"SMA_APL_TPC\" type=\"string\" size=\"32\"/><Column id=\"LIQ_YN\" type=\"string\" size=\"32\"/><Column id=\"LIQ_UZ_DSC\" type=\"string\" size=\"32\"/><Column id=\"COMM_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_C\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_NM\" type=\"string\" size=\"32\"/><Column id=\"WHT\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"PAK_METH_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SZE_SEX_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_QLT_GRDC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_BRAN_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PROENV_DSC\" type=\"string\" size=\"32\"/><Column id=\"GAP_ATTC_YN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_NACF_QLT_ATTC_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CSTD_METC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DSTR_STSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UZC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_IPO_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PDAA_C\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_CN\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_STD_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_HGHT\" type=\"string\" size=\"32\"/><Column id=\"WRS_LEN_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_WDTH_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_SGRT\" type=\"string\" size=\"32\"/><Column id=\"WRS_SDL_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_AHL_CN\" type=\"string\" size=\"32\"/><Column id=\"MTRL_STD_THKN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DMTR_CN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DPTH_CN\" type=\"string\" size=\"32\"/><Column id=\"VCBT_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"VCBT_QT\" type=\"string\" size=\"32\"/><Column id=\"VCBX_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"CVS_QT\" type=\"string\" size=\"32\"/><Column id=\"CVS_NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTL_EXPL\" type=\"string\" size=\"32\"/><Column id=\"BSC_UNT_DSC\" type=\"string\" size=\"32\"/><Column id=\"BOXPE_AQZ\" type=\"string\" size=\"32\"/><Column id=\"WRS_FL_CN\" type=\"string\" size=\"32\"/><Column id=\"KNET_WRS_NO\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_YN\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_RSNC\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_DT\" type=\"string\" size=\"32\"/><Column id=\"DEL_YN\" type=\"string\" size=\"32\"/><Column id=\"FSRG_DTM\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_ENO\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"LSCHG_DTM\" type=\"string\" size=\"32\"/><Column id=\"LS_CMENO\" type=\"string\" size=\"32\"/><Column id=\"LSCGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CLNM\" type=\"string\" size=\"32\"/><Column id=\"VAN_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_OBJ_DSC\" type=\"string\" size=\"32\"/><Column id=\"CTCPL_TELNO\" type=\"string\" size=\"32\"/><Column id=\"RQ_CNTN\" type=\"string\" size=\"32\"/><Column id=\"BUYER_ENO\" type=\"string\" size=\"32\"/><Column id=\"RQ_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"RFID_UYN\" type=\"string\" size=\"32\"/><Column id=\"FOMNM\" type=\"string\" size=\"32\"/><Column id=\"SLGT_ETR_DSC\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_YN\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_MRK_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_MODIFY_YN\" type=\"string\" size=\"32\"/><Column id=\"PRC_YN\" type=\"string\" size=\"32\"/><Column id=\"RSP_C_CNTN\" type=\"string\" size=\"32\"/><Column id=\"REQ_RESULT\" type=\"string\" size=\"32\"/><Column id=\"CNF_ENO\" type=\"string\" size=\"32\"/><Column id=\"CNF_DATE\" type=\"string\" size=\"32\"/><Column id=\"CNF_NAME\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_REJ_RSNC\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_STSC\" type=\"string\" size=\"32\"/><Column id=\"STPL_AMN_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_TEAM_C\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_LYNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_SGNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_BOX_CN\" type=\"string\" size=\"32\"/><Column id=\"BOX_WT\" type=\"string\" size=\"32\"/><Column id=\"BOX_BULK\" type=\"string\" size=\"32\"/><Column id=\"BOX_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"BYNG_UPR\" type=\"string\" size=\"32\"/><Column id=\"SEL_UPR\" type=\"string\" size=\"32\"/><Column id=\"TEMP_YN\" type=\"string\" size=\"32\"/><Column id=\"APV_RQ_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"CUD_DSC\" type=\"string\" size=\"32\"/><Column id=\"LWCRBN_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_STD_BAS_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_BAS_UNIT\" type=\"STRING\" size=\"256\"/><Column id=\"CUS_AG_LRG_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"FTS_SET_YN\" type=\"STRING\" size=\"256\"/><Column id=\"HACCP_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"KC_ATTC_ESS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"LIQ_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"MN1_HSH_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NACF_XUSE_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SEX_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SSN_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"ONL_OBJ_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_METH_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_QLT_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PLG_WRS_KD\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_BIZTP_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBX_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_NTFY_C\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
             obj = new Dataset("ds_gd_wrs", this);
             obj.getSetter("firenextcount").set("0");
-            obj._setContents("<ColumnInfo><Column id=\"RN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_C_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRSNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ABR_NM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ENM\" type=\"string\" size=\"32\"/><Column id=\"WRS_TPC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_LCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_MCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DTCF_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_LCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_MCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_SCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTCFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ID_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_STDNM\" type=\"string\" size=\"32\"/><Column id=\"TXT_DSC\" type=\"string\" size=\"32\"/><Column id=\"SMA_APL_TPC\" type=\"string\" size=\"32\"/><Column id=\"LIQ_YN\" type=\"string\" size=\"32\"/><Column id=\"LIQ_UZ_DSC\" type=\"string\" size=\"32\"/><Column id=\"COMM_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_C\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_NM\" type=\"string\" size=\"32\"/><Column id=\"WHT\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PAK_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SZE_SEX_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_QLT_GRDC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_BRAN_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PROENV_DSC\" type=\"string\" size=\"32\"/><Column id=\"GAP_ATTC_YN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_NACF_QLT_ATTC_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CSTD_METC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DSTR_STSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UZC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_IPO_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PDAA_C\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_CN\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_STD_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_HGHT\" type=\"string\" size=\"32\"/><Column id=\"WRS_LEN_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_WDTH_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_SGRT\" type=\"string\" size=\"32\"/><Column id=\"WRS_SDL_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_AHL_CN\" type=\"string\" size=\"32\"/><Column id=\"MTRL_STD_THKN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DMTR_CN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DPTH_CN\" type=\"string\" size=\"32\"/><Column id=\"VCBT_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"VCBT_QT\" type=\"string\" size=\"32\"/><Column id=\"VCBX_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"CVS_QT\" type=\"string\" size=\"32\"/><Column id=\"CVS_NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTL_EXPL\" type=\"string\" size=\"32\"/><Column id=\"BSC_UNT_DSC\" type=\"string\" size=\"32\"/><Column id=\"BOXPE_AQZ\" type=\"string\" size=\"32\"/><Column id=\"WRS_FL_CN\" type=\"string\" size=\"32\"/><Column id=\"KNET_WRS_NO\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_YN\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_RSNC\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_DT\" type=\"string\" size=\"32\"/><Column id=\"DEL_YN\" type=\"string\" size=\"32\"/><Column id=\"FSRG_DTM\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_ENO\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"LSCHG_DTM\" type=\"string\" size=\"32\"/><Column id=\"LS_CMENO\" type=\"string\" size=\"32\"/><Column id=\"LSCGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CLNM\" type=\"string\" size=\"32\"/><Column id=\"VAN_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_OBJ_DSC\" type=\"string\" size=\"32\"/><Column id=\"CTCPL_TELNO\" type=\"string\" size=\"32\"/><Column id=\"RQ_CNTN\" type=\"string\" size=\"32\"/><Column id=\"BUYER_ENO\" type=\"string\" size=\"32\"/><Column id=\"RQ_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"RFID_UYN\" type=\"string\" size=\"32\"/><Column id=\"FOMNM\" type=\"string\" size=\"32\"/><Column id=\"SLGT_ETR_DSC\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_YN\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_MRK_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_MODIFY_YN\" type=\"string\" size=\"32\"/><Column id=\"PRC_YN\" type=\"string\" size=\"32\"/><Column id=\"RSP_C_CNTN\" type=\"string\" size=\"32\"/><Column id=\"REQ_RESULT\" type=\"string\" size=\"32\"/><Column id=\"CNF_ENO\" type=\"string\" size=\"32\"/><Column id=\"CNF_DATE\" type=\"string\" size=\"32\"/><Column id=\"CNF_NAME\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_REJ_RSNC\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_STSC\" type=\"string\" size=\"32\"/><Column id=\"STPL_AMN_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_TEAM_C\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_LYNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_SGNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_BOX_CN\" type=\"string\" size=\"32\"/><Column id=\"BOX_WT\" type=\"string\" size=\"32\"/><Column id=\"BOX_BULK\" type=\"string\" size=\"32\"/><Column id=\"BOX_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"BYNG_UPR\" type=\"string\" size=\"32\"/><Column id=\"SEL_UPR\" type=\"string\" size=\"32\"/><Column id=\"TEMP_YN\" type=\"string\" size=\"32\"/><Column id=\"APV_RQ_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"CUD_DSC\" type=\"string\" size=\"32\"/><Column id=\"LWCRBN_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_STD_BAS_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_BAS_UNIT\" type=\"STRING\" size=\"256\"/><Column id=\"CUS_AG_LRG_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"FTS_SET_YN\" type=\"STRING\" size=\"256\"/><Column id=\"HACCP_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"KC_ATTC_ESS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"LIQ_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"MN1_HSH_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NACF_XUSE_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SEX_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SSN_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"ONL_OBJ_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_METH_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_QLT_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PLG_WRS_KD\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_BIZTP_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBX_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_NTFY_C\" type=\"STRING\" size=\"256\"/><Column id=\"REQ_STS_DSC\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"RN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_C_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRSNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ABR_NM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ENM\" type=\"string\" size=\"32\"/><Column id=\"WRS_TPC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_LCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_MCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SCLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DTCF_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_LCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_MCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_SCLFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTCFNM\" type=\"string\" size=\"32\"/><Column id=\"WRS_ID_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_STDNM\" type=\"string\" size=\"32\"/><Column id=\"TXT_DSC\" type=\"string\" size=\"32\"/><Column id=\"SMA_APL_TPC\" type=\"string\" size=\"32\"/><Column id=\"LIQ_YN\" type=\"string\" size=\"32\"/><Column id=\"LIQ_UZ_DSC\" type=\"string\" size=\"32\"/><Column id=\"COMM_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_C\" type=\"string\" size=\"32\"/><Column id=\"MFT_NA_TRPL_NM\" type=\"string\" size=\"32\"/><Column id=\"WHT\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"PAK_METH_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_SZE_SEX_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_QLT_GRDC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_BRAN_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PROENV_DSC\" type=\"string\" size=\"32\"/><Column id=\"GAP_ATTC_YN\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_NACF_QLT_ATTC_C\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CSTD_METC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_DSTR_STSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_UZC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_IPO_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_PDAA_C\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_CN\" type=\"string\" size=\"32\"/><Column id=\"VLD_PRD_DSC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_STD_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_HGHT\" type=\"string\" size=\"32\"/><Column id=\"WRS_LEN_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_WDTH_LEN\" type=\"string\" size=\"32\"/><Column id=\"WRS_SGRT\" type=\"string\" size=\"32\"/><Column id=\"WRS_SDL_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_AHL_CN\" type=\"string\" size=\"32\"/><Column id=\"MTRL_STD_THKN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DMTR_CN\" type=\"string\" size=\"32\"/><Column id=\"CICL_WRS_STD_DPTH_CN\" type=\"string\" size=\"32\"/><Column id=\"VCBT_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"VCBT_QT\" type=\"string\" size=\"32\"/><Column id=\"VCBX_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"CVS_QT\" type=\"string\" size=\"32\"/><Column id=\"CVS_NA_WRS_UNT_C\" type=\"string\" size=\"32\"/><Column id=\"WRS_DTL_EXPL\" type=\"string\" size=\"32\"/><Column id=\"BSC_UNT_DSC\" type=\"string\" size=\"32\"/><Column id=\"BOXPE_AQZ\" type=\"string\" size=\"32\"/><Column id=\"WRS_FL_CN\" type=\"string\" size=\"32\"/><Column id=\"KNET_WRS_NO\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_YN\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_RSNC\" type=\"string\" size=\"32\"/><Column id=\"TR_STOP_DT\" type=\"string\" size=\"32\"/><Column id=\"DEL_YN\" type=\"string\" size=\"32\"/><Column id=\"FSRG_DTM\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_ENO\" type=\"string\" size=\"32\"/><Column id=\"FSRGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"LSCHG_DTM\" type=\"string\" size=\"32\"/><Column id=\"LS_CMENO\" type=\"string\" size=\"32\"/><Column id=\"LSCGMN_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"NA_WRS_CLNM\" type=\"string\" size=\"32\"/><Column id=\"VAN_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_NO\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_OBJ_DSC\" type=\"string\" size=\"32\"/><Column id=\"CTCPL_TELNO\" type=\"string\" size=\"32\"/><Column id=\"RQ_CNTN\" type=\"string\" size=\"32\"/><Column id=\"BUYER_ENO\" type=\"string\" size=\"32\"/><Column id=\"RQ_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"RFID_UYN\" type=\"string\" size=\"32\"/><Column id=\"FOMNM\" type=\"string\" size=\"32\"/><Column id=\"SLGT_ETR_DSC\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_YN\" type=\"string\" size=\"32\"/><Column id=\"DSTR_TER_MRK_DSC\" type=\"string\" size=\"32\"/><Column id=\"WRS_MODIFY_YN\" type=\"string\" size=\"32\"/><Column id=\"PRC_YN\" type=\"string\" size=\"32\"/><Column id=\"RSP_C_CNTN\" type=\"string\" size=\"32\"/><Column id=\"REQ_RESULT\" type=\"string\" size=\"32\"/><Column id=\"CNF_ENO\" type=\"string\" size=\"32\"/><Column id=\"CNF_DATE\" type=\"string\" size=\"32\"/><Column id=\"CNF_NAME\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_REJ_RSNC\" type=\"string\" size=\"32\"/><Column id=\"NA_C_RQ_STSC\" type=\"string\" size=\"32\"/><Column id=\"STPL_AMN_NA_WRS_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_C\" type=\"string\" size=\"32\"/><Column id=\"NA_SPYPL_TEAM_C\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_LYNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_SGNO\" type=\"string\" size=\"32\"/><Column id=\"PLTPE_BOX_CN\" type=\"string\" size=\"32\"/><Column id=\"BOX_WT\" type=\"string\" size=\"32\"/><Column id=\"BOX_BULK\" type=\"string\" size=\"32\"/><Column id=\"BOX_WRS_YN\" type=\"string\" size=\"32\"/><Column id=\"BYNG_UPR\" type=\"string\" size=\"32\"/><Column id=\"SEL_UPR\" type=\"string\" size=\"32\"/><Column id=\"TEMP_YN\" type=\"string\" size=\"32\"/><Column id=\"APV_RQ_NA_BZPLC\" type=\"string\" size=\"32\"/><Column id=\"CUD_DSC\" type=\"string\" size=\"32\"/><Column id=\"LWCRBN_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_STD_BAS_WHT\" type=\"STRING\" size=\"256\"/><Column id=\"PR_MRK_BAS_UNIT\" type=\"STRING\" size=\"256\"/><Column id=\"CUS_AG_LRG_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"FTS_SET_YN\" type=\"STRING\" size=\"256\"/><Column id=\"HACCP_ATTC_YN\" type=\"STRING\" size=\"256\"/><Column id=\"KC_ATTC_ESS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"LIQ_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"MN1_HSH_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NACF_XUSE_WRS_YN\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SEX_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"NEW_SSN_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"ONL_OBJ_YN\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_METH_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PAK_QLT_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"PLG_WRS_KD\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_BIZTP_DSC\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBX_NA_WRS_NM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_NTFY_C\" type=\"STRING\" size=\"256\"/><Column id=\"REQ_STS_DSC\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_std_unt_c", this);
+            obj._setContents("");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_cstd_metc", this);
+            obj._setContents("");
+            this.addChild(obj.name, obj);
+
+            obj = new Dataset("ds_wrs_dsc5", this);
+            obj._setContents("<ColumnInfo><Column id=\"NA_WRS_ATTR_C\" type=\"STRING\" size=\"256\"/><Column id=\"NA_WRS_ATTNM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -382,14 +394,14 @@
             obj = new Edit("edt_WRS_ABR_NM", "absolute", "113", "397", "264", "21", null, null, this);
             obj.set_cssclass("WF_Essential");
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("100");
+            obj.set_maxlength("30");
             obj.set_taborder("120");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_WRS_ENM", "absolute", "113", "425", "264", "21", null, null, this);
             obj.set_cssclass("WF_Essential");
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("100");
+            obj.set_maxlength("30");
             obj.set_taborder("121");
             this.addChild(obj.name, obj);
 
@@ -407,7 +419,7 @@
             obj = new Edit("edt_WRS_STDNM", "absolute", "113", "453", "264", "21", null, null, this);
             obj.set_cssclass("WF_Essential");
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("50");
+            obj.set_maxlength("30");
             obj.set_taborder("123");
             this.addChild(obj.name, obj);
 
@@ -484,7 +496,7 @@
             obj.set_wordwrap("char");
             obj.set_scrollbars("autovert");
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("4000");
+            obj.set_maxlength("1000");
             obj.set_taborder("122");
             this.addChild(obj.name, obj);
 
@@ -533,13 +545,13 @@
             obj.set_taborder("127");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_pagename02", "absolute", "0", "896", "140", "21", null, null, this);
+            obj = new Static("sta_pagename02", "absolute", "0", "672", "140", "21", null, null, this);
             obj.set_text("2차상품 상세정보");
             obj.set_cssclass("sta_WF_Subtitle");
             obj.set_taborder("61");
             this.addChild(obj.name, obj);
 
-            obj = new Div("div_search", "absolute", "0", "920", null, "421", "15", null, this);
+            obj = new Div("div_search", "absolute", "0", "696", null, "421", "15", null, this);
             obj.style.set_border("0 solid #808080ff");
             obj.style.set_padding("2 7 0 7");
             obj.style.set_bordertype("normal 0 0");
@@ -626,6 +638,7 @@
             obj.set_cssclass("WF_Essential");
             obj.set_taborder("43");
             obj.set_inputtype("number");
+            obj.set_maxlength("8");
             this.div_search.addChild(obj.name, obj);
             obj = new Static("Static04", "absolute", "0", "84", "110", "29", null, null, this.div_search);
             obj.set_text("수입여부");
@@ -766,6 +779,8 @@
             obj.set_columncount("2");
             obj.set_hotkey("TAB");
             obj.set_value("0");
+            obj.set_readonly("true");
+            obj.set_enable("false");
             obj.set_index("1");
             obj = new Edit("edt_div_data08", "absolute", "548", "32", "110", "21", null, null, this.div_search);
             obj.set_inputtype("number");
@@ -802,6 +817,7 @@
             obj.set_value("1");
             obj.set_inputtype("number");
             obj.set_taborder("61");
+            obj.set_maxlength("4");
             this.div_search.addChild(obj.name, obj);
             obj = new Combo("cbo_liq_uz_dsc", "absolute", "548", "200", "151", "21", null, null, this.div_search);
             this.div_search.addChild(obj.name, obj);
@@ -833,14 +849,15 @@
             this.div_search.addChild(obj.name, obj);
             obj = new Combo("cbo_proenv_dsc", "absolute", "548", "172", "151", "21", null, null, this.div_search);
             this.div_search.addChild(obj.name, obj);
-            obj.set_innerdataset("@ds_proenv_dsc");
-            obj.set_codecolumn("SIMP_C");
-            obj.set_datacolumn("SIMP_CNM");
+            obj.set_innerdataset("@ds_wrs_dsc5");
+            obj.set_codecolumn("NA_WRS_ATTR_C");
+            obj.set_datacolumn("NA_WRS_ATTNM");
             obj.set_taborder("59");
             obj = new Edit("edt_day", "absolute", "113", "172", "48", "21", null, null, this.div_search);
             obj.set_enable("false");
             obj.set_taborder("57");
             obj.set_inputtype("number");
+            obj.set_maxlength("4");
             this.div_search.addChild(obj.name, obj);
             obj = new Combo("cbo_div_list05", "absolute", "164", "172", "100", "21", null, null, this.div_search);
             this.div_search.addChild(obj.name, obj);
@@ -1014,8 +1031,9 @@
             obj.set_codecolumn("NA_WRS_ATTR_C");
             obj.set_datacolumn("NA_WRS_ATTNM");
             obj.set_innerdataset("@ds_wrs_dsc2");
-            obj.set_visible("true");
+            obj.set_visible("false");
             obj.set_taborder("47");
+            obj.set_index("-1");
 
             obj = new Button("btn_clear02", "fixed", null, "0", "53", "21", "59", null, this);
             obj.set_text("초기화");
@@ -1039,7 +1057,7 @@
 
             obj = new Button("btn_search_wrs", "absolute", "258", "285", "106", "21", null, null, this);
             obj.style.set_imagealign("center middle");
-            obj.set_text("코리안넷상품검색");
+            obj.set_text("상품검색");
             obj.set_visible("true");
             obj.set_taborder("107");
             obj.set_tabstop("false");
@@ -1055,16 +1073,15 @@
             obj = new Radio("rdo_search_sep00", "absolute", "116", "313", "314", "21", null, null, this);
             this.addChild(obj.name, obj);
             var rdo_search_sep00_innerdataset = new Dataset("rdo_search_sep00_innerdataset", this.rdo_search_sep00);
-            rdo_search_sep00_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">2</Col><Col id=\"datacolumn\">표준 (상품코드 존재)</Col></Row><Row><Col id=\"codecolumn\">1</Col><Col id=\"datacolumn\">비표준 (상품코드 미존재)</Col></Row></Rows>");
+            rdo_search_sep00_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">1</Col><Col id=\"datacolumn\">코리안넷 등록상품</Col></Row><Row><Col id=\"codecolumn\">2</Col><Col id=\"datacolumn\">코리안넷 미등록 상품</Col></Row></Rows>");
             obj.set_innerdataset(rdo_search_sep00_innerdataset);
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
-            obj.set_value("2");
             obj.set_direction("vertical");
             obj.set_enable("false");
             obj.set_taborder("110");
             obj.set_tabstop("false");
-            obj.set_index("0");
+            obj.set_index("-1");
 
             obj = new Static("sta_title02", "absolute", "0", "281", "110", "29", null, null, this);
             obj.set_text("상품코드");
@@ -1097,7 +1114,7 @@
             obj.set_taborder("109");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01", "absolute", "0", "1936", "160", "29", null, null, this);
+            obj = new Static("Static01", "absolute", "0", "1712", "160", "29", null, null, this);
             obj.set_text("대표 이미지");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_color("red");
@@ -1106,41 +1123,41 @@
             obj.set_taborder("73");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static02", "absolute", "159", "1936", null, "29", "15", null, this);
+            obj = new Static("Static02", "absolute", "159", "1712", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("74");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static07", "absolute", "0", "1964", "160", "29", null, null, this);
+            obj = new Static("Static07", "absolute", "0", "1740", "160", "29", null, null, this);
             obj.set_text("부가 이미지 1");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_padding("2 7 0 7");
             obj.set_taborder("75");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static08", "absolute", "159", "1964", null, "29", "15", null, this);
+            obj = new Static("Static08", "absolute", "159", "1740", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("76");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static09", "absolute", "0", "1992", "160", "29", null, null, this);
+            obj = new Static("Static09", "absolute", "0", "1768", "160", "29", null, null, this);
             obj.set_text("부가 이미지 2");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_padding("2 7 0 7");
             obj.set_taborder("77");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static10", "absolute", "159", "1992", null, "29", "15", null, this);
+            obj = new Static("Static10", "absolute", "159", "1768", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("78");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static13", "absolute", "159", "2020", null, "29", "15", null, this);
+            obj = new Static("Static13", "absolute", "159", "1796", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("80");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static14", "absolute", "0", "1908", "160", "29", null, null, this);
+            obj = new Static("Static14", "absolute", "0", "1684", "160", "29", null, null, this);
             obj.set_text("구 분");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_padding("2 7 0 7");
@@ -1148,7 +1165,7 @@
             obj.set_taborder("71");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static15", "absolute", "159", "1908", null, "29", "15", null, this);
+            obj = new Static("Static15", "absolute", "159", "1684", null, "29", "15", null, this);
             obj.set_text("파 일");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_padding("2 7 0 7");
@@ -1156,7 +1173,7 @@
             obj.set_taborder("72");
             this.addChild(obj.name, obj);
 
-            obj = new FileUpload("FileUpload00", "absolute", "163", "1940", "431", "21", null, null, this);
+            obj = new FileUpload("FileUpload00", "absolute", "163", "1716", "431", "21", null, null, this);
             obj.getSetter("retry").set("0");
             obj.set_tabstop("true");
             obj.set_taborder("162");
@@ -1164,63 +1181,63 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new FileUpload("FileUpload01", "absolute", "163", "1968", "431", "21", null, null, this);
+            obj = new FileUpload("FileUpload01", "absolute", "163", "1744", "431", "21", null, null, this);
             obj.getSetter("retry").set("0");
             obj.set_tabstop("true");
             obj.set_taborder("163");
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new FileUpload("FileUpload02", "absolute", "163", "1996", "431", "21", null, null, this);
+            obj = new FileUpload("FileUpload02", "absolute", "163", "1772", "431", "21", null, null, this);
             obj.getSetter("retry").set("0");
             obj.set_tabstop("true");
             obj.set_taborder("164");
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_atch_del00", "absolute", "598", "1940", "51", "21", null, null, this);
+            obj = new Button("btn_atch_del00", "absolute", "598", "1716", "51", "21", null, null, this);
             obj.set_text("삭제");
             obj.style.set_imagealign("center middle");
             obj.set_taborder("175");
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_atch_del01", "absolute", "598", "1968", "51", "21", null, null, this);
+            obj = new Button("btn_atch_del01", "absolute", "598", "1744", "51", "21", null, null, this);
             obj.set_text("삭제");
             obj.style.set_imagealign("center middle");
             obj.set_taborder("176");
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_atch_del02", "absolute", "598", "1996", "51", "21", null, null, this);
+            obj = new Button("btn_atch_del02", "absolute", "598", "1772", "51", "21", null, null, this);
             obj.set_text("삭제");
             obj.style.set_imagealign("center middle");
             obj.set_taborder("177");
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_pagename00", "absolute", "0", "1878", "129", "21", null, null, this);
+            obj = new Static("sta_pagename00", "absolute", "0", "1654", "129", "21", null, null, this);
             obj.set_text("상품이미지 파일");
             obj.set_cssclass("sta_WF_Subtitle");
             obj.set_taborder("69");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data0", "absolute", "677", "1940", "88", "21", null, null, this);
+            obj = new Static("sta_file_data0", "absolute", "677", "1716", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("179");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data1", "absolute", "677", "1967", "88", "21", null, null, this);
+            obj = new Static("sta_file_data1", "absolute", "677", "1743", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("180");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data2", "absolute", "677", "1996", "88", "21", null, null, this);
+            obj = new Static("sta_file_data2", "absolute", "677", "1772", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("181");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data3", "absolute", "677", "2024", "88", "21", null, null, this);
+            obj = new Static("sta_file_data3", "absolute", "677", "1800", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("182");
             this.addChild(obj.name, obj);
@@ -1271,7 +1288,7 @@
             obj.set_taborder("102");
             this.addChild(obj.name, obj);
 
-            obj = new Div("div_kornet", "absolute", "0", "1256", null, "599", "0", null, this);
+            obj = new Div("div_kornet", "absolute", "0", "1032", null, "599", "0", null, this);
             obj.set_taborder("68");
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
@@ -2051,14 +2068,14 @@
 
             obj = new Edit("edt_div_data14", "absolute", "144", "564", "44", "21", null, null, this);
             obj.set_inputtype("digit");
-            obj.set_maxlength("3");
+            obj.set_maxlength("4");
             obj.set_cssclass("WF_Essential");
             obj.set_taborder("130");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_div_data05", "absolute", "222", "564", "44", "21", null, null, this);
             obj.set_inputtype("digit");
-            obj.set_maxlength("3");
+            obj.set_maxlength("4");
             obj.set_cssclass("WF_Essential");
             obj.set_taborder("132");
             this.addChild(obj.name, obj);
@@ -2070,18 +2087,10 @@
 
             obj = new Edit("edt_div_data13", "absolute", "298", "564", "44", "21", null, null, this);
             obj.set_inputtype("digit");
-            obj.set_maxlength("3");
+            obj.set_maxlength("4");
             obj.set_cssclass("WF_Essential");
             obj.set_taborder("134");
             this.addChild(obj.name, obj);
-
-            obj = new Combo("cbo_div_list02", "absolute", "764", "564", "104", "21", null, null, this);
-            this.addChild(obj.name, obj);
-            obj.set_innerdataset("@ds_pak_meth_dsc");
-            obj.set_codecolumn("SIMP_C");
-            obj.set_datacolumn("SIMP_CNM");
-            obj.set_taborder("137");
-            obj.set_visible("true");
 
             obj = new Combo("cbo_div_list03", "absolute", "655", "564", "104", "21", null, null, this);
             this.addChild(obj.name, obj);
@@ -2098,7 +2107,7 @@
             obj.set_taborder("39");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static22", "absolute", "793", "3157", null, "24", "15", null, this);
+            obj = new Static("Static22", "absolute", "793", "2933", null, "24", "15", null, this);
             obj.set_taborder("185");
             this.addChild(obj.name, obj);
 
@@ -2144,187 +2153,6 @@
             obj.set_taborder("142");
             obj.set_tabstop("false");
             obj.set_index("1");
-
-            obj = new Static("sta_back_bar07", "absolute", "109", "700", null, "29", "15", null, this);
-            obj.set_cssclass("sta_WF_Labelbg");
-            obj.set_taborder("44");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title13", "absolute", "0", "700", "110", "29", null, null, this);
-            obj.set_text("공급처코드");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("43");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_back_bar08", "absolute", "109", "784", null, "29", "15", null, this);
-            obj.set_cssclass("sta_WF_Labelbg");
-            obj.set_taborder("53");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_back_bar10", "absolute", "109", "728", null, "29", "15", null, this);
-            obj.set_cssclass("sta_WF_Labelbg");
-            obj.set_taborder("47");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_back_bar16", "absolute", "109", "756", null, "29", "15", null, this);
-            obj.set_cssclass("sta_WF_Labelbg");
-            obj.set_taborder("50");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_back_bar17", "absolute", "109", "812", null, "29", "15", null, this);
-            obj.set_cssclass("sta_WF_Labelbg");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("56");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title15", "absolute", "0", "728", "110", "29", null, null, this);
-            obj.set_text("박스중량(Kg)");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("46");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title16", "absolute", "0", "784", "110", "29", null, null, this);
-            obj.set_text("박스가로길이(Cm)");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("8 Gulim");
-            obj.set_taborder("52");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title25", "absolute", "0", "840", "110", "29", null, null, this);
-            obj.set_text("파렛트당단수");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("58");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title28", "absolute", "435", "728", "110", "29", null, null, this);
-            obj.set_text("박스용적(㎠)");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("48");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title29", "absolute", "435", "784", "110", "29", null, null, this);
-            obj.set_text("박스세로길이(Cm)");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("8 Gulim");
-            obj.set_taborder("54");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title30", "absolute", "0", "812", "110", "29", null, null, this);
-            obj.set_text("박스높이(Cm)");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("55");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_back_bar18", "absolute", "109", "840", null, "29", "15", null, this);
-            obj.set_cssclass("sta_WF_Labelbg");
-            obj.set_taborder("59");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title31", "absolute", "0", "756", "110", "29", null, null, this);
-            obj.set_text("매입단가");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("49");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title32", "absolute", "435", "756", "110", "29", null, null, this);
-            obj.set_text("판매단가");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("51");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs03", "absolute", "113", "844", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("156");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs04", "absolute", "548", "816", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("155");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs05", "absolute", "548", "760", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("151");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs06", "absolute", "113", "760", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("150");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs08", "absolute", "113", "816", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("154");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs09", "absolute", "548", "788", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("153");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs10", "absolute", "113", "788", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("152");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs11", "absolute", "548", "732", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("149");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_search_wrs12", "absolute", "113", "732", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("148");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_pagename03", "absolute", "0", "674", "175", "21", null, null, this);
-            obj.set_text("R1 상품 물류정보 입력");
-            obj.set_cssclass("sta_WF_Subtitle");
-            obj.set_taborder("186");
-            this.addChild(obj.name, obj);
 
             obj = new Static("sta_pagename04", "absolute", "0", "533", "135", "21", null, null, this);
             obj.set_text("상품상세정보");
@@ -2372,7 +2200,7 @@
             obj.set_innerdataset("@ds_box_std_unt_c");
             obj.set_taborder("136");
 
-            obj = new Static("sta_title40", "absolute", "435", "1200", "110", "29", null, null, this);
+            obj = new Static("sta_title40", "absolute", "435", "976", "110", "29", null, null, this);
             obj.set_text("GAP인증");
             obj.set_cssclass("sta_WF_Label");
             obj.set_visible("false");
@@ -2397,7 +2225,7 @@
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_save01", "absolute", null, "3211", "92", "21", "15", null, this);
+            obj = new Button("btn_save01", "absolute", null, "2987", "92", "21", "15", null, this);
             obj.set_text("신청");
             obj.set_cssclass("btn_WF_CRUD");
             obj.set_enable("false");
@@ -2409,13 +2237,13 @@
             obj.set_scrollbars("autovert");
             obj.set_wordwrap("char");
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("4000");
+            obj.set_maxlength("50");
             obj.set_taborder("105");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_WRSNM", "absolute", "113", "369", "264", "21", null, null, this);
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("200");
+            obj.set_maxlength("50");
             obj.set_taborder("119");
             this.addChild(obj.name, obj);
 
@@ -2436,45 +2264,25 @@
             obj.set_taborder("106");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_NA_SPYPL_C", "absolute", "113", "704", "104", "21", null, null, this);
-            obj.set_inputtype("number");
-            obj.set_lengthunit("ascii");
-            obj.set_maxlength("13");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("143");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_NA_SPYPL_NM", "absolute", "220", "704", "124", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("144");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("btn_search_SPYPL", "absolute", "347", "704", "21", "21", null, null, this);
-            obj.set_cssclass("btn_WF_Searchbtn");
-            obj.set_taborder("145");
-            obj.set_tabstop("false");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("stc_no_b01", "absolute", "109", "2134", null, "29", "15", null, this);
+            obj = new Static("stc_no_b01", "absolute", "109", "1910", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("91");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_namo_msg", "absolute", "8", "2514", "685", "21", null, null, this);
+            obj = new Static("stc_namo_msg", "absolute", "8", "2290", "685", "21", null, null, this);
             obj.set_text("※ 툴바(도구모음)의 그림 버튼을 선택하여 업로드 할 수 있습니다. 상세내용 이미지는 최대 5개까지 업로드 가능합니다.");
             obj.style.set_color("darkblue");
             obj.set_taborder("99");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_no_info_01", "absolute", "0", "2134", "110", "29", null, null, this);
+            obj = new Static("stc_no_info_01", "absolute", "0", "1910", "110", "29", null, null, this);
             obj.set_text("품목");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_color("#222222ff");
             obj.set_taborder("90");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cbo_wrs_ntfy", "absolute", "115", "2138", "365", "21", null, null, this);
+            obj = new Combo("cbo_wrs_ntfy", "absolute", "115", "1914", "365", "21", null, null, this);
             this.addChild(obj.name, obj);
             obj.set_innerdataset("ds_wrs_nfty_sel");
             obj.set_codecolumn("WRS_NTFY_C");
@@ -2485,13 +2293,13 @@
             obj.set_tabstop("false");
             obj.set_taborder("170");
 
-            obj = new Static("stc_namo_msg01", "absolute", "495", "2138", "258", "21", null, null, this);
+            obj = new Static("stc_namo_msg01", "absolute", "495", "1914", "258", "21", null, null, this);
             obj.set_text("※ 취급 상품에 해당하는 고시 품목을 선택");
             obj.style.set_color("blue");
             obj.set_taborder("190");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_wrs_nfty_hdng", "absolute", "0", "2162", null, "196", "15", null, this);
+            obj = new Grid("grd_wrs_nfty_hdng", "absolute", "0", "1938", null, "196", "15", null, this);
             obj.set_binddataset("ds_wrs_nfty_hdng_sel");
             obj.set_autofittype("col");
             obj.set_enable("false");
@@ -2501,37 +2309,37 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"40\" band=\"left\"/><Column size=\"240\" band=\"left\"/><Column size=\"240\"/><Column size=\"240\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"순서\"/><Cell col=\"1\" text=\"품목명\"/><Cell col=\"2\" text=\"품목내용 입력\"/><Cell col=\"3\" text=\"항목설명\"/></Band><Band id=\"body\"><Cell text=\"bind:SORT_SEQ\"/><Cell col=\"1\" style=\"align:left middle;\" text=\"bind:WRS_NTFY_HDNG_NM\"/><Cell col=\"2\" displaytype=\"text\" edittype=\"expr:comp.parent.setNtfyCustomerInfoFix(currow)\" style=\"align:left middle;\" text=\"bind:WRS_NTFY_HDNG_CNTN\" editlimit=\"4000\" editlengthunit=\"ascii\"/><Cell col=\"3\" displaytype=\"normal\" edittype=\"none\" style=\"align:left middle;\" text=\"bind:WRS_NTFY_HDNG_EXPL\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_namo_msg04", "absolute", "205", "2397", "650", "42", null, null, this);
+            obj = new Static("stc_namo_msg04", "absolute", "205", "2173", "650", "42", null, null, this);
             obj.set_text("※ 이미지 사이즈 : <b v='true'>가로1000픽셀*<fc v='#ff0000'>세로제한없음</fc></b> / 이미지 용량 : 1MB 미만 / RGB 이미지(jpg, jpeg) 등록\r\n※ 라벨 이미지는 자동 리사이징을 지원하지 않습니다.(등록한 이미지가 그대로 온라인 반영)");
             obj.set_usedecorate("true");
             obj.style.set_color("blue");
             obj.set_taborder("94");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_img_b04", "absolute", "136", "2438", null, "29", "15", null, this);
+            obj = new Static("stc_img_b04", "absolute", "136", "2214", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("96");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static24", "absolute", "0", "2412", "180", "21", null, null, this);
+            obj = new Static("Static24", "absolute", "0", "2188", "180", "21", null, null, this);
             obj.set_text("라벨(상품표시사항) 이미지");
             obj.set_cssclass("sta_WF_Subtitle");
             obj.set_taborder("93");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_namo_msg02", "absolute", "153", "2493", "232", "21", null, null, this);
+            obj = new Static("stc_namo_msg02", "absolute", "153", "2269", "232", "21", null, null, this);
             obj.set_text("※ 이미지 사이즈 : 900~1000*무제한");
             obj.style.set_color("blue");
             obj.set_taborder("98");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_atch_del12", "absolute", "395", "2442", "56", "21", null, null, this);
+            obj = new Button("btn_atch_del12", "absolute", "395", "2218", "56", "21", null, null, this);
             obj.set_text("삭제");
             obj.set_taborder("191");
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new FileUpload("FileUpload12", "absolute", "139", "2442", "253", "21", null, null, this);
+            obj = new FileUpload("FileUpload12", "absolute", "139", "2218", "253", "21", null, null, this);
             obj.getSetter("timeout").set("0");
             obj.getSetter("retry").set("0");
             obj.getSetter("async").set("true");
@@ -2542,7 +2350,7 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_wrs_img_04", "absolute", "0", "2438", "137", "29", null, null, this);
+            obj = new Static("stc_wrs_img_04", "absolute", "0", "2214", "137", "29", null, null, this);
             obj.set_text("라벨이미지 (필수)");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_color("#ff2222ff");
@@ -2550,14 +2358,14 @@
             obj.set_taborder("95");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static37", "absolute", "0", "2493", "248", "21", null, null, this);
+            obj = new Static("Static37", "absolute", "0", "2269", "248", "21", null, null, this);
             obj.set_text("상품상세내용 (필수)");
             obj.set_cssclass("sta_WF_Subtitle");
             obj.style.set_color("#ff2222ff");
             obj.set_taborder("97");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static23", "absolute", "0", "2109", "150", "21", null, null, this);
+            obj = new Static("Static23", "absolute", "0", "1885", "150", "21", null, null, this);
             obj.set_text("상품고시정보 (필수)");
             obj.set_cssclass("sta_WF_Subtitle");
             obj.style.set_color("#ff2222ff");
@@ -2569,106 +2377,48 @@
             obj.set_taborder("192");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data12", "absolute", "505", "2442", "88", "21", null, null, this);
+            obj = new Static("sta_file_data12", "absolute", "505", "2218", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("193");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_title18", "absolute", "435", "700", "110", "29", null, null, this);
-            obj.set_text("낱개/박스구분코드");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("8 Gulim");
-            obj.set_taborder("45");
-            this.addChild(obj.name, obj);
-
-            obj = new Radio("BOX_WRS_YN", "absolute", "548", "704", "175", "21", null, null, this);
-            this.addChild(obj.name, obj);
-            var BOX_WRS_YN_innerdataset = new Dataset("BOX_WRS_YN_innerdataset", this.BOX_WRS_YN);
-            BOX_WRS_YN_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">1</Col><Col id=\"datacolumn\">여</Col></Row><Row><Col id=\"codecolumn\">0</Col><Col id=\"datacolumn\">부</Col></Row></Rows>");
-            obj.set_innerdataset(BOX_WRS_YN_innerdataset);
-            obj.set_codecolumn("codecolumn");
-            obj.set_datacolumn("datacolumn");
-            obj.set_value("0");
-            obj.set_direction("vertical");
-            obj.set_taborder("147");
-            obj.set_tabstop("false");
-            obj.set_index("1");
-
-            obj = new Edit("edt_search_wrs02", "absolute", "548", "844", "102", "21", null, null, this);
-            obj.set_enable("true");
-            obj.set_inputtype("number");
-            obj.set_maxlength("14");
-            obj.set_cssclass("WF_Essential");
-            obj.set_taborder("157");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title14", "absolute", "435", "812", "110", "29", null, null, this);
-            obj.set_text("파렛트당층수");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("57");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_title26", "absolute", "435", "840", "110", "29", null, null, this);
-            obj.set_text("파렛트당박스수");
-            obj.set_cssclass("sta_WF_Label");
-            obj.style.set_padding("2 7 0 7");
-            obj.style.set_font("9 Gulim");
-            obj.set_taborder("60");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static25", "absolute", "0", "2020", "160", "29", null, null, this);
+            obj = new Static("Static25", "absolute", "0", "1796", "160", "29", null, null, this);
             obj.set_text("POG 이미지");
             obj.set_cssclass("sta_WF_Label");
             obj.style.set_padding("2 7 0 7");
             obj.set_taborder("83");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static26", "absolute", "159", "2020", null, "29", "15", null, this);
+            obj = new Static("Static26", "absolute", "159", "1796", null, "29", "15", null, this);
             obj.set_cssclass("sta_WF_Labelbg");
             obj.set_taborder("84");
             this.addChild(obj.name, obj);
 
-            obj = new FileUpload("FileUpload14", "absolute", "163", "2024", "431", "21", null, null, this);
+            obj = new FileUpload("FileUpload14", "absolute", "163", "1800", "431", "21", null, null, this);
             obj.getSetter("retry").set("0");
             obj.set_tabstop("true");
             obj.set_taborder("167");
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_atch_del14", "absolute", "598", "2024", "51", "21", null, null, this);
+            obj = new Button("btn_atch_del14", "absolute", "598", "1800", "51", "21", null, null, this);
             obj.set_text("삭제");
             obj.style.set_imagealign("center middle");
             obj.set_taborder("198");
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data13", "absolute", "677", "2024", "88", "21", null, null, this);
+            obj = new Static("sta_file_data13", "absolute", "677", "1800", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("199");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_file_data14", "absolute", "677", "2024", "88", "21", null, null, this);
+            obj = new Static("sta_file_data14", "absolute", "677", "1800", "88", "21", null, null, this);
             obj.set_visible("false");
             obj.set_taborder("200");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_NA_SPYPL_TEAM_NM", "absolute", "371", "704", "55", "21", null, null, this);
-            obj.set_enable("false");
-            obj.set_visible("false");
-            obj.set_taborder("201");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("edt_NA_SPYPL_TEAM_C", "absolute", "371", "704", "55", "21", null, null, this);
-            obj.set_enable("false");
-            obj.set_visible("true");
-            obj.set_taborder("146");
-            obj.set_tabstop("false");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("sta_result02", "absolute", "133", "1878", "697", "21", null, null, this);
+            obj = new Static("sta_result02", "absolute", "133", "1654", "697", "21", null, null, this);
             obj.set_text("상품 수정 시 첨부파일 재등록");
             obj.set_visible("false");
             obj.set_taborder("70");
@@ -2698,7 +2448,7 @@
             obj.set_tabstop("false");
             this.addChild(obj.name, obj);
 
-            obj = new WebBrowser("wb_namo", "absolute", "9", "2532", null, "650", "6", null, this);
+            obj = new WebBrowser("wb_namo", "absolute", "9", "2308", null, "650", "6", null, this);
             obj.set_taborder("202");
             obj.set_enable("false");
             this.addChild(obj.name, obj);
@@ -2753,9 +2503,6 @@
 
             
             // BindItem Information
-            obj = new BindItem("item18","edt_NA_SPYPL_C","value","ds_wrs_rg_req_lg","NA_SPYPL_C");
-            this.addChild(obj.name, obj);
-            obj.bind();
             obj = new BindItem("item23","div_search.rdo_store_code07","value","ds_wrs_rg_req","HACCP_ATTC_YN");
             this.addChild(obj.name, obj);
             obj.bind();
@@ -2984,9 +2731,6 @@
             obj = new BindItem("item47","div_search.rdo_store_code04","value","ds_wrs_rg_req","RFID_UYN");
             this.addChild(obj.name, obj);
             obj.bind();
-            obj = new BindItem("item50","div_search.cbo_div_list01","value","ds_wrs_rg_req","NA_WRS_PAK_C");
-            this.addChild(obj.name, obj);
-            obj.bind();
             obj = new BindItem("item33","cbo_list_wrs03","value","ds_wrs_rg_req","SMA_APL_TPC");
             this.addChild(obj.name, obj);
             obj.bind();
@@ -3038,40 +2782,7 @@
             obj = new BindItem("item167","edt_div_data13","value","ds_wrs_rg_req","WRS_HGHT");
             this.addChild(obj.name, obj);
             obj.bind();
-            obj = new BindItem("item169","cbo_div_list02","value","ds_wrs_rg_req","NA_WRS_PAK_C");
-            this.addChild(obj.name, obj);
-            obj.bind();
             obj = new BindItem("item170","cbo_div_list03","value","ds_wrs_rg_req","PAK_QLT_DSC");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item24","edt_search_wrs02","value","ds_wrs_rg_req_lg","PLTPE_BOX_CN");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item25","edt_search_wrs03","value","ds_wrs_rg_req_lg","PLTPE_SGNO");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item58","edt_search_wrs04","value","ds_wrs_rg_req_lg","PLTPE_LYNO");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item59","edt_search_wrs05","value","ds_wrs_rg_req_lg","SEL_UPR");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item153","edt_search_wrs06","value","ds_wrs_rg_req_lg","BYNG_UPR");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item162","edt_search_wrs08","value","ds_wrs_rg_req_lg","WRS_HGHT");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item163","edt_search_wrs09","value","ds_wrs_rg_req_lg","LEN_LEN");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item164","edt_search_wrs10","value","ds_wrs_rg_req_lg","WDTH_LEN");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item171","edt_search_wrs11","value","ds_wrs_rg_req_lg","BOX_BULK");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item173","edt_search_wrs12","value","ds_wrs_rg_req_lg","BOX_WT");
             this.addChild(obj.name, obj);
             obj.bind();
             obj = new BindItem("item175","cbo_div_list07","value","ds_wrs_rg_req","NA_WRS_STD_UNT_C");
@@ -3110,12 +2821,6 @@
             obj = new BindItem("item183","txa_contents01","value","ds_wrs_rg_req","RQ_CNTN");
             this.addChild(obj.name, obj);
             obj.bind();
-            obj = new BindItem("item179","edt_NA_SPYPL_TEAM_C","value","ds_wrs_rg_req_lg","NA_SPYPL_TEAM_C");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item99","BOX_WRS_YN","value","ds_wrs_rg_req_lg","BOX_WRS_YN");
-            this.addChild(obj.name, obj);
-            obj.bind();
             obj = new BindItem("item1","edt_van_c_rq_no","value","ds_wrs_rg_req","VAN_C_RQ_NO");
             this.addChild(obj.name, obj);
             obj.bind();
@@ -3128,10 +2833,7 @@
             obj = new BindItem("item174","div_search.edt_div_data09","value","ds_wrs_rg_req","VCBX_NA_WRS_NM");
             this.addChild(obj.name, obj);
             obj.bind();
-            obj = new BindItem("item176","edt_NA_SPYPL_NM","value","ds_wrs_rg_req_lg","NA_SPYPL_NM");
-            this.addChild(obj.name, obj);
-            obj.bind();
-            obj = new BindItem("item26","cbo_div_list01","value","ds_wrs_rg_req","NA_WRS_PAK_C");
+            obj = new BindItem("item26","cbo_div_list01","value","ds_wrs_rg_req","PAK_METH_DSC");
             this.addChild(obj.name, obj);
             obj.bind();
 
@@ -3240,17 +2942,18 @@
         		{code:"VLD_PRD_DSC", dsName:"ds_vld_prd_dsc", selecttype:"S"}, 	// 3.유통기한표기방법
         		{code:"BSC_UNT_DSC", dsName:"ds_unt_dsc", selecttype:"S"},		// 4.기본단위구분코드
         		{code:"LIQ_UZ_DSC", dsName:"ds_liq_uz_dsc", selecttype:"S"},		// 5.주류용도구분코드
-        		{code:"NA_WRS_PROENV_DSC", dsName:"ds_proenv_dsc", selecttype:"S"},		// 6.친환경 구분코드
+        		//{code:"NA_WRS_PROENV_DSC", dsName:"ds_proenv_dsc", selecttype:"S"},		// 6.친환경 구분코드
         		//{code:"NA_WRS_QLT_GRDC", dsName:"ds_na_wrs_qlt_grdc", selecttype:"S"},		// 7.품질등급코드
         		{code:"NA_WRS_SZE_SEX_C", dsName:"ds_na_wrs_sze_sex_c", selecttype:"S"},		// 8.크기성별코드
         		//{code:"NA_WRS_DSTR_STSC", dsName:"ds_na_wrs_dstr_stsc", selecttype:"S"},		// 9.유통상태
         		{code:"BAS_PR_UNT_DSC", dsName:"ds_bas_pr_unt_dsc", selecttype:"S"},		// 10.기준가격단위구분코드	
         		{code:"CUS_AG_LRG_DSC", dsName:"ds_cus_ag_lrg_dsc", selecttype:"S"},		// 11.연령대 코드  CUS_AG_LRG_DSC  ds_cus_ag_lrg_dsc
         		{code:"NEW_SSN_DSC", dsName:"ds_new_ssn_dsc", selecttype:"S"},			// 12.시즌구분 코드 ds_new_ssn_dsc NEW_SSN_DSC
-        		{code:"PAK_METH_DSC", dsName:"ds_pak_meth_dsc", selecttype:"S"},			// 13.포장방식 구분코드
+        		//{code:"PAK_METH_DSC", dsName:"ds_pak_meth_dsc", selecttype:"S"},			// 13.포장방식 구분코드
         		{code:"PAK_QLT_DSC", dsName:"ds_pak_qlt_dsc", selecttype:"S"},			// 14.포장재질 구분코드
         		{code:"BOX_STD_UNT_C", dsName:"ds_box_std_unt_c", selecttype:"S"},			// 15.가로/세로/높이 단위코드
         		//{code:"PAK_QLT_DSC", dsName:"ds_pak_qlt_dsc", selecttype:"S"},			// 14.포장재질 구분코드
+        		//{code:"NA_WRS_CSTD_METC", dsName:"ds_cstd_metc", selecttype:"S"},
         	];
         	
         	this.gfn_setCommonCode(param);
@@ -3258,6 +2961,7 @@
         	this.fn_getCommCode_1590();
         	
         	var todays = this.gfn_today('yyyy-MM-dd');
+        	console.log(this.ds_std_unt_c);
         	
         	// 신청자 정보
         	this.edt_fsrgmn_nm.set_value(application.gv_userName); //신청자
@@ -3271,7 +2975,7 @@
         	//this.rdo_store_code01.set_value(1); // 공동상품여부
         	
         	//상품상세정보 
-        	this.cbo_div_list02.set_value(""); //포장방식
+        	//this.cbo_div_list02.set_value(""); //포장방식
         	this.cbo_div_list03.set_value(""); //재질
         	this.rdo_store_code06.set_value(0); // 온라인대상여부
         	this.cbo_div_list04.set_value(""); //상품업태
@@ -3279,7 +2983,7 @@
         	this.rdo_store_code09.set_value(0); // 선물세트여부
         	
         	//R1상품 물류정보 
-        	this.BOX_WRS_YN.set_value(0); // 낱개/박스구분코드
+        	//this.BOX_WRS_YN.set_value(0); // 낱개/박스구분코드
         	
         	//2차상품 상세정보
         	this.div_search.rdo_store_code03.set_value('0');//주류상품여부
@@ -3306,7 +3010,12 @@
         		//ceUrl = "ce/blbdNamo.html?type=nhm";
         	}
         	this.wb_namo.set_url(application.gv_serviceHtml_url + ceUrl);
-         	
+        	
+        	console.log(this.ds_wrs_dsc);
+        	console.log(this.ds_wrs_dsc2);
+        	console.log(this.ds_wrs_dsc3);
+        	console.log(this.ds_wrs_dsc4);
+        	
         	
         	
         	// 차세대 이전 주석 부분
@@ -3424,6 +3133,7 @@
 
         this.wb_namo_onusernotify = function(obj,e)
         {
+        	//alert("wb_namo_onusernotify");
         	var result = e.userdata;
         	if (!this.gfn_isNull(result)) {
         		var key = result.substring(0, 6);
@@ -3436,7 +3146,6 @@
         			var lens = value.split(",");
         			var textL = Number(lens[0]);
         			var imgL = Number(lens[1]);
-        			
         			if ((textL + imgL) == 0) {
         				this.alert("상품상세내용은 필수입력항목입니다.\n이미지 업로드 시 '900~1000(가로) * 무제한(세로)' 사이즈로 업로드 해주세요.");
         				this.sta_back_bar07.setFocus();
@@ -3449,7 +3158,7 @@
         			} else {
         				this.wb_namo.callMethod("getImgList");
         				this.wb_namo.callMethod("getImgSize");
-        				this.wb_namo.callMethod("getValue", false); // true : body값만 가져옴				
+        				this.wb_namo.callMethod("getValue", false); // true : body값만 가져옴			
         			}
         		} else if (key == "#IMGS@") {
         			this.CHK_IMG = true;
@@ -3516,11 +3225,12 @@
         				+" wrs_dsc=01"
         				+" wrs_dsc2=02"
         				+" wrs_dsc3=09"
-        				+" wrs_dsc4=11";
+        				+" wrs_dsc4=11"
+        				+" wrs_dsc5=06";
         	var sSvcID        = "search_lclc";//통신아이디
         	var sURL          = "svc::rest/pds/pricat/Product/retrieveCLCGoods";// 호출할 서버 페이지 주소
         	var sInDatasets   = "";//보내는데이터셋
-        	var sOutDatasets  = "ds_wrs_dsc=ds_wrs_dsc ds_wrs_dsc2=ds_wrs_dsc2 ds_wrs_dsc3=ds_wrs_dsc3 ds_wrs_dsc4=ds_wrs_dsc4";
+        	var sOutDatasets  = "ds_wrs_dsc=ds_wrs_dsc ds_wrs_dsc2=ds_wrs_dsc2 ds_wrs_dsc3=ds_wrs_dsc3 ds_wrs_dsc4=ds_wrs_dsc4 ds_wrs_dsc5=ds_wrs_dsc5";
         	var sArgument     = params;// 파라미터
         	var sCallbackFunc = "fn_callback";//콜백
         	var tranType 	  = "U"; // U:저장/삭제, S:조회
@@ -3586,6 +3296,11 @@
         				this.ds_wrs_dsc4.setColumn(0,"NA_WRS_ATTNM","- 선택 -");
         			};
         			
+        			if (this.ds_wrs_dsc5.insertRow(0) != -1) {
+        				this.ds_wrs_dsc5.setColumn(0,"NA_WRS_ATTR_C","");
+        				this.ds_wrs_dsc5.setColumn(0,"NA_WRS_ATTNM","- 선택 -");
+        			};
+        			
         			if (!WRS_LCLC) {
         				this.div_search.cbo_div_list00.set_index(0);
         				this.cbo_div_list01.set_index(0);
@@ -3597,7 +3312,15 @@
         			var kor = this.ds_kornet_wrs.getRowCount();
         			var nh = this.ds_gd_wrs.getRowCount();
         			var is_standard = true;
-        			console.log(this.ds_gd_wrs);
+        			
+        			//if korean-net info is not exist, 
+        			//set 신청코드구분 as 코리안넷 미등록
+        			if(this.ds_kornet_wrs.getRowCount()==0){
+        				this.rdo_search_sep00.set_value(2);
+        			}
+        			else if(this.ds_kornet_wrs.getRowCount()==1){
+        				this.rdo_search_sep00.set_value(1);
+        			}
         			// does product had register requested?
         			if (this.ds_gd_wrs.getColumn(0,'REQ_STS_DSC')=='U') {
         				if (this.ds_kornet_wrs.getRowCount() != 0) {
@@ -3614,7 +3337,7 @@
         				this.btn_save01.set_enable(true);
         				this.rdo_WRS_DSC.set_value(2); // 상품분류 (2차상품) - 기본값
         				//this.rdo_store_code05.set_enable(false);
-        				this.rdo_search_sep00.set_value(2); // 표준상품
+        				//this.rdo_search_sep00.set_value(2); // 표준상품
         				this.ds_wrs_rg_req.setColumn(0,'WRS_DSC','2');
         				
         				//this.edt_search_wrs02.setFocus();
@@ -3622,7 +3345,7 @@
         				this.selectWrsDsc();
         				//this.ds_gd_wrs.setColumn(0, "RQ_NA_WRS_C", this.ds_gd_wrs.getColumn(0, "NA_WRS_C"));
         				this.ds_wrs_rg_req.copyRow(0, this.ds_gd_wrs, 0);
-
+        				
         				this.searchCLC(this.ds_wrs_rg_req.getColumn(0,"WRS_ID_DSC"));
         				
         				this.fn_setDefaultByCLC();
@@ -3664,7 +3387,7 @@
         				this.btn_save01.set_enable(true);
         				this.rdo_WRS_DSC.set_value(2); // 상품분류 (2차상품) - 기본값
         				//this.rdo_store_code05.set_enable(false);
-        				this.rdo_search_sep00.set_value(2); // 표준상품
+        				//this.rdo_search_sep00.set_value(2); // 표준상품
         				// 공동상품여부 기본 '부'
         				this.edt_data15.set_enable(true);
         				this.btn_popup02.set_enable(true);
@@ -3783,7 +3506,7 @@
         // 			return false;
         // 		}
         //	} else 
-        	if (this.rdo_search_sep00.value == "2") { // 표준일 때 상품코드 검사, 비표준은 상품코드 없음 (190211)
+        	if (this.rdo_search_sep00.value == "1") { // 표준일 때 상품코드 검사, 비표준은 상품코드 없음 (190211)
         		if(this.gfn_nullToEmpty(this.edt_gtin.value) == "" || this.gfn_nullToEmpty(this.edt_gtin.value).length < 6){ //상품코드
         			this.gfn_getMessage("alert", 'msg.van_ds_sc_1540.view.simple.text2');
         			// this.edt_gtin.setFocus();
@@ -3863,31 +3586,26 @@
         	*/
         	if (this.gfn_nullToEmpty(this.edt_NA_WRS_LCLC.value) == "") {	//대분류코드
         		this.gfn_getMessage("alert", 'msg.van_ds_sc_1540.view.simple.text13');
-        		// this.edt_NA_WRS_LCLC.setFocus();
         		this.move_and_blink_effect(this.edt_NA_WRS_LCLC, 'E4E4E4');//E4E4E4 is a color that expresses enable false.
         		return false;
         	}
         	if (this.gfn_nullToEmpty(this.edt_NA_WRS_MCLC.value) == "") {	//중분류코드
         		this.gfn_getMessage("alert", 'msg.van_ds_sc_1540.view.simple.text14');
-        		// this.edt_NA_WRS_MCLC.setFocus();
         		this.move_and_blink_effect(this.edt_NA_WRS_MCLC, 'E4E4E4');//E4E4E4 is a color that expresses enable false.
         		return false;
         	}
         	if (this.gfn_nullToEmpty(this.edt_NA_WRS_SCLC.value) == "") {	//소분류코드
         		this.gfn_getMessage("alert", 'msg.van_ds_sc_1540.view.simple.text15');
-        		// this.edt_NA_WRS_SCLC.setFocus();
         		this.move_and_blink_effect(this.edt_NA_WRS_SCLC, 'E4E4E4');//E4E4E4 is a color that expresses enable false.
         		return false;
         	}
         	if (this.gfn_nullToEmpty(this.edt_NA_WRS_DTCF_C.value) == "") {	//세분류코드
         		this.gfn_getMessage("alert", 'msg.van_ds_sc_1540.view.simple.text16');
-        		// this.edt_NA_WRS_DTCF_C.setFocus();
         		this.move_and_blink_effect(this.edt_NA_WRS_DTCF_C, 'E4E4E4');//E4E4E4 is a color that expresses enable false.
         		return false;
         	}
         	if (this.gfn_nullToEmpty(this.edt_WRS_STDNM.value) == "") {	//규격
         		this.gfn_getMessage("alert", 'msg.van_ds_sc_1540.view.simple.text4');
-        		// this.edt_WRS_STDNM.setFocus();
         		this.move_and_blink_effect(this.edt_WRS_STDNM, 'white');
         		return false;
         	}
@@ -3897,15 +3615,13 @@
         // 		this.move_and_blink_effect(this.cbo_div_list06, 'white');
         // 		return false;
         // 	}
-        	if (this.ds_wrs_rg_req.getColumn(0,'PAK_METH_DSC')==''){
+        	if (this.ds_wrs_rg_req.getColumn(0,'NA_WRS_PAK_C')==''){
         		this.alert('포장방식을 선택하여 주십시오');
-        		// this.cbo_div_list06.setFocus();
-        		this.move_and_blink_effect(this.cbo_div_list02, 'white');
+        		this.move_and_blink_effect(this.cbo_div_list01, 'white');
         		return false;
         	}
         	if (this.ds_wrs_rg_req.getColumn(0,'PAK_QLT_DSC')==''){
         		this.alert('재질을 선택하여 주십시오');
-        		// this.cbo_div_list06.setFocus();
         		this.move_and_blink_effect(this.cbo_div_list03, 'white');
         		return false;
         	}
@@ -3923,7 +3639,6 @@
         		if (this.gfn_nullToEmpty(this.cbo_list_wrs03.value) == "") {
         			this.alert("영세적용유형을 선택해주세요.");
         			this.move_and_blink_effect(this.cbo_list_wrs03, 'white');
-
         			return false;
         		}
         	}
@@ -3941,7 +3656,6 @@
         	// 수입여부
         	if (this.gfn_nullToEmpty(this.div_search.rdo_store_code01.value) == "") {
         		this.alert("수입여부를 선택해주세요.");
-        		// this.div_search.rdo_store_code01.setFocus();
         		this.move_and_blink_effect(this.div_search.rdo_store_code01, 'white');
         		return false;
         	}
@@ -3949,7 +3663,6 @@
         	// 용도
         	if (this.gfn_nullToEmpty(this.div_search.cbo_div_list04.value) == "") {
         		this.alert("용도를 선택해주세요.");
-        		// this.div_search.cbo_div_list04.setFocus();
         		this.move_and_blink_effect(this.div_search.cbo_div_list04, 'white');
         		return false;
         	}
@@ -3957,7 +3670,6 @@
         	// 보관방식
         	if (this.gfn_nullToEmpty(this.div_search.cbo_div_list02.value) == "") {
         		this.alert("보관방식을 선택해주세요.");
-        		// this.div_search.cbo_div_list02.setFocus();
         		this.move_and_blink_effect(this.div_search.cbo_div_list02, 'white');
         		return false;
         	}
@@ -3966,7 +3678,6 @@
         	if (this.gfn_nullToEmpty(this.div_search.rdo_store_code02.value) == "1") {
         		if (this.gfn_nullToEmpty(this.div_search.cbo_div_list03.value) == "") {
         			this.alert("유통기한표기방법을 선택해주세요.");
-        			// this.div_search.cbo_div_list03.setFocus();
         			this.move_and_blink_effect(this.div_search.cbo_div_list03, 'white');
         			return false;
         		}
@@ -3977,12 +3688,10 @@
         	} else {
         		if (this.gfn_nullToEmpty(this.div_search.edt_day.value) == "") {
         			this.alert("유효기간을 입력해주세요.");
-        			// this.div_search.edt_day.setFocus();
         			this.move_and_blink_effect(this.div_search.edt_day, 'white');
         			return false;
         		} else if (this.gfn_nullToEmpty(this.div_search.cbo_div_list05.value) == "") {
         			this.alert("유효기간단위를 입력해주세요.");
-        			// this.div_search.cbo_div_list05.setFocus();
         			this.move_and_blink_effect(this.div_search.cbo_div_list05, 'white');
         			return false;
         		}
@@ -4743,12 +4452,12 @@
         		}
         		// r1 상품	공급처코드관련
         		if (strId == "pvopl_trpl") {
-        			this.edt_NA_SPYPL_C.set_value(arrVal[0]);
-        			this.edt_NA_SPYPL_NM.set_value(arrVal[1]);
+        			//this.edt_NA_SPYPL_C.set_value(arrVal[0]);
+        			//this.edt_NA_SPYPL_NM.set_value(arrVal[1]);
         			if (arrVal[3] == "") {
-        				this.edt_NA_SPYPL_TEAM_C.set_value("00");
+        				//this.edt_NA_SPYPL_TEAM_C.set_value("00");
         			} else {
-        				this.edt_NA_SPYPL_TEAM_C.set_value(arrVal[3]);
+        				//this.edt_NA_SPYPL_TEAM_C.set_value(arrVal[3]);
         			}
         			if (arrVal[2] == "") {
         				this.edt_NA_SPYPL_TEAM_NM.set_value("팀없음");
@@ -4787,15 +4496,18 @@
         			this.div_search.cbo_liq_uz_dsc.set_value("02"); // 가정용
         		}
         		this.div_search.rdo_store_code03.set_value(1);
-        		this.div_search.rdo_store_code03.set_enable(false);
+        		this.div_search.rdo_store_code03.set_enable(true);
         		this.div_search.cbo_liq_uz_dsc.set_enable(true);
         	} else {
+        		this.div_search.rdo_store_code03.set_value(0);
         		if(this.ds_wrs_rg_req.getColumn(0,"LIQ_YN")=='0'){
         			this.div_search.rdo_store_code03.set_value(0);
-        			this.div_search.rdo_store_code03.set_enable(true);
+        			//this.div_search.rdo_store_code03.set_enable(true);
         			this.div_search.cbo_liq_uz_dsc.set_enable(false);
         			this.div_search.cbo_liq_uz_dsc.set_value("00"); // 해당없음
         		}
+        		this.div_search.rdo_store_code03.set_value(0);
+        		this.div_search.rdo_store_code03.set_enable(false);
         	}
         	
         	// 친환경인증 구분 필터
@@ -5296,8 +5008,8 @@
         this.btn_search_SPYPL_onclick = function(params)	// param -> true: 자동검색 , false: 수동검색
         {
         	if (params == true) {
-        		var bzplc = this.gfn_nullToEmpty(this.edt_NA_SPYPL_C.value);
-        		var bzplcNm = this.gfn_nullToEmpty(this.edt_NA_SPYPL_NM.value);
+        		//var bzplc = this.gfn_nullToEmpty(this.edt_NA_SPYPL_C.value);
+        		//var bzplcNm = this.gfn_nullToEmpty(this.edt_NA_SPYPL_NM.value);
         		if (bzplc.length != 0 && bzplc.length < 7) {
         			alert("사업장코드 7자리 이상 입력해주세요.");
         			return;
@@ -5307,13 +5019,13 @@
         		}
         	}
 
-        	var code = this.edt_NA_SPYPL_C.value;		// 사업장 코드 Edit 박스
-        	var textname = this.edt_NA_SPYPL_NM.value;	// 사업장 명 Edit 박스
+        	//var code = this.edt_NA_SPYPL_C.value;		// 사업장 코드 Edit 박스
+        	//var textname = this.edt_NA_SPYPL_NM.value;	// 사업장 명 Edit 박스
         	
         	var param = {
         				autoType:params,
-        				searchCode:code,
-        				searchText:textname
+        				//searchCode:code,
+        				//searchText:textname
         	};
         	if (typeof params == "boolean") {
         		if (!this.searPopValue(param)) { return };
@@ -5582,7 +5294,6 @@
         	document.getElementById(obj.stc_namo_msg03._unique_id).style.zIndex = '3';
 
         }
-        
         });
 
 
@@ -5724,26 +5435,10 @@
             this.Static19.addEventHandler("onclick", this.Static03_onclick, this);
             this.Static20.addEventHandler("onclick", this.Static03_onclick, this);
             this.Static21.addEventHandler("onclick", this.Static03_onclick, this);
-            this.cbo_div_list02.addEventHandler("onitemchanged", this.fn_makeWrsName, this);
             this.cbo_div_list03.addEventHandler("onitemchanged", this.fn_makeWrsName, this);
             this.sta_title24.addEventHandler("onclick", this.sta_title24_onclick, this);
             this.rdo_store_code06.addEventHandler("onitemchanged", this.rdo_store_code06_onitemchanged, this);
             this.sta_title27.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_back_bar07.addEventHandler("onclick", this.sta_back_bar07_onclick, this);
-            this.sta_title13.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_back_bar10.addEventHandler("onclick", this.sta_back_bar10_onclick, this);
-            this.sta_back_bar16.addEventHandler("onclick", this.sta_back_bar10_onclick, this);
-            this.sta_back_bar17.addEventHandler("onclick", this.sta_back_bar10_onclick, this);
-            this.sta_title15.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title16.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title25.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title28.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title29.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title30.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_back_bar18.addEventHandler("onclick", this.sta_back_bar10_onclick, this);
-            this.sta_title31.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title32.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.edt_search_wrs04.addEventHandler("oneditclick", this.edt_search_wrs04_oneditclick, this);
             this.sta_pagename04.addEventHandler("onclick", this.sta_pagename04_onclick, this);
             this.Static03.addEventHandler("onclick", this.Static03_onclick, this);
             this.sta_title33.addEventHandler("onclick", this.sta_title33_onclick, this);
@@ -5752,18 +5447,12 @@
             this.txa_contents01.addEventHandler("oneditclick", this.txa_contents00_oneditclick, this);
             this.edt_WRSNM.addEventHandler("oneditclick", this.edt_data03_oneditclick, this);
             this.edt_gtin.addEventHandler("onkeydown", this.edt_gtin_onkeydown, this);
-            this.edt_NA_SPYPL_C.addEventHandler("onkeydown", this.edt_NA_SPYPL_C_onkeydown, this);
-            this.edt_NA_SPYPL_NM.addEventHandler("onkeydown", this.edt_NA_SPYPL_NM_onkeydown, this);
-            this.btn_search_SPYPL.addEventHandler("onclick", this.btn_search_SPYPL_onclick, this);
             this.stc_no_info_01.addEventHandler("onclick", this.stc_no_info_01_onclick, this);
             this.cbo_wrs_ntfy.addEventHandler("onitemchanged", this.cbo_wrs_ntfy_onitemchanged, this);
             this.btn_atch_del12.addEventHandler("onclick", this.btn_atch_del_onclick, this);
             this.FileUpload12.addEventHandler("onsuccess", this.FileUpload_onsuccess, this);
             this.FileUpload12.addEventHandler("onerror", this.FileUpload_onerror, this);
             this.FileUpload12.addEventHandler("onitemchanged", this.div_search_FileUpload00_onitemchanged, this);
-            this.sta_title18.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title14.addEventHandler("onclick", this.sta_title21_onclick, this);
-            this.sta_title26.addEventHandler("onclick", this.sta_title21_onclick, this);
             this.FileUpload14.addEventHandler("onsuccess", this.FileUpload_onsuccess, this);
             this.FileUpload14.addEventHandler("onerror", this.FileUpload_onerror, this);
             this.FileUpload14.addEventHandler("onitemchanged", this.div_search_FileUpload00_onitemchanged, this);
