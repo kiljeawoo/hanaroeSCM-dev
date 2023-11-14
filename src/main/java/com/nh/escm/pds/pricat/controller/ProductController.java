@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.mail.MessagingException;
@@ -1156,6 +1157,7 @@ public class ProductController extends AbstractController{
 			String wrs_dsc2 = requestHelper.getParameter("wrs_dsc2");
 			String wrs_dsc3 = requestHelper.getParameter("wrs_dsc3");
 			String wrs_dsc4 = requestHelper.getParameter("wrs_dsc4");
+			String wrs_dsc5 = requestHelper.getParameter("wrs_dsc5");
 			
 			List<Map<String,Object>> reslit = new ArrayList<Map<String,Object>>();
 			
@@ -1163,6 +1165,7 @@ public class ProductController extends AbstractController{
 			DataSetHelper dHelper2 = new DataSetHelper("ds_wrs_dsc2");
 			DataSetHelper dHelper3 = new DataSetHelper("ds_wrs_dsc3");
 			DataSetHelper dHelper4 = new DataSetHelper("ds_wrs_dsc4");
+			DataSetHelper dHelper5 = new DataSetHelper("ds_wrs_dsc5");
 			
 			//단위
 			if(wrs_dsc.equals("01")){
@@ -1178,6 +1181,14 @@ public class ProductController extends AbstractController{
 				dHelper2.addColumns(ProductAttrVO.class);
 				for(Map<String,Object> map:reslit){
 					dHelper2.setData(map);
+				}
+			}
+			//친환경구분
+			if(wrs_dsc5.equals("06")){
+				reslit = productSev.retrieveCLCGoods(clc_gubun,wrs_dsc5);
+				dHelper5.addColumns(ProductAttrVO.class);
+				for(Map<String,Object> map:reslit){
+					dHelper5.setData(map);
 				}
 			}
 			//보관방식
@@ -1200,6 +1211,7 @@ public class ProductController extends AbstractController{
 			out_PlatformData.addDataSet(dHelper2.getDataSet());
 			out_PlatformData.addDataSet(dHelper3.getDataSet());
 			out_PlatformData.addDataSet(dHelper4.getDataSet());
+			out_PlatformData.addDataSet(dHelper5.getDataSet());
 			sendData(response, out_PlatformData);
 		} catch (AppetizerException e) {
 			sendData(response, new PlatformData(), -1, e.getErrorMsg());
@@ -2732,6 +2744,7 @@ public class ProductController extends AbstractController{
 		String GLN = requestHelper.getParameter("gln"); // 사업체코드
 		String NA_WRS_C = requestHelper.getParameter("na_wrs_c"); // 상품코드
 		String van_c_rq_no = null;
+
 		try {
 			Map<String, Object> resultKornet = null; //variable to get the korean-net product data
 			List<Map<String, Object>> recent_inserting = null;// variable to get a recent inserting of product register.
@@ -2973,7 +2986,14 @@ public class ProductController extends AbstractController{
 			productSev.fileReq(VAN_C_RQ_NO, in_upload, filelist);
 
 			// 신규상품 요청등록 추가,변경 추가
-			productSev.insertKornetREQ(mainlist.get(0), r1Info.get(0), rdo_sep, temp_yn, del_yn);
+			try {
+				productSev.insertKornetREQ(mainlist.get(0), r1Info.get(0), rdo_sep, temp_yn, del_yn);
+			}
+			catch (SQLException sql_e){
+				logger.error(sql_e.getMessage(), sql_e);
+				throw new SQLException(sql_e);
+//				sendData(response, new PlatformData(), -2, "ㅇㅇ");
+			}
 			
 			if(onl_obj_yn.equals("1")) {
 				DataSet ds_wrs_nfty_hdng = in_dsList.get("ds_wrs_nfty_hdng"); // 온라인취급상품고시항목상세
@@ -3017,7 +3037,8 @@ public class ProductController extends AbstractController{
 //							System.out.println();
 						}
 						bytes = doc.toString().getBytes("utf-8");
-					}catch(Exception e){
+					}
+					catch(Exception e){
 						sendData(response, out_PlatformData, -1, e.getMessage());
 					}
 
@@ -3049,9 +3070,17 @@ public class ProductController extends AbstractController{
 			}
 			 
 			sendData(response, out_PlatformData);
-		} catch (AppetizerException e) {
+		}
+		catch (AppetizerException | SQLException e) {
 			logger.error(e.getMessage(), e);
-			sendData(response, new PlatformData(), -1, e.getErrorMsg());
+			if(e instanceof SQLException){
+				String msg ="the_error_had_occurred_for_DB_transaction.";
+				sendData(response, new PlatformData(), -2, msg);
+			}
+			else{
+				sendData(response, new PlatformData(), -1, "");
+			}
+
 		}
 	}
 
