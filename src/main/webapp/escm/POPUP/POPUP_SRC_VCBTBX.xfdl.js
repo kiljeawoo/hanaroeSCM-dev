@@ -95,7 +95,7 @@
             obj.set_taborder("5");
             obj.set_binddataset("ds_vcbtbx");
             obj.set_autofittype("none");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"100\"/><Column size=\"200\"/><Column size=\"80\"/><Column size=\"85\"/><Column size=\"100\"/><Column size=\"100\"/><Column size=\"200\"/><Column size=\"200\"/><Column size=\"100\"/></Columns><Rows><Row size=\"30\" band=\"head\"/><Row size=\"28\"/></Rows><Band id=\"head\"><Cell text=\"상품코드\"/><Cell col=\"1\" text=\"상품명\"/><Cell col=\"2\" text=\"상품규격명\"/><Cell col=\"3\" text=\"상품단위코드\"/><Cell col=\"4\" text=\"상품단위명\"/><Cell col=\"5\" cssclass=\"pack_price\" text=\"공병단가\"/><Cell col=\"6\" text=\"공병수수료\"/><Cell col=\"7\" text=\"상품분류코드\"/><Cell col=\"8\" text=\"상품분류명\"/><Cell col=\"9\" text=\"최초등록일시\"/></Band><Band id=\"body\"><Cell text=\"bind:NA_WRS_C\"/><Cell col=\"1\" style=\"align:left;\" text=\"bind:WRSNM\"/><Cell col=\"2\" text=\"bind:WRS_STDNM\"/><Cell col=\"3\" text=\"bind:NA_WRS_UNT_C\"/><Cell col=\"4\" text=\"bind:NA_WRS_ATTNM\"/><Cell col=\"5\" text=\"bind:VCBT_UPR\"/><Cell col=\"6\" text=\"bind:VCBT_FEE\"/><Cell col=\"7\" text=\"bind:WRS_CLF\"/><Cell col=\"8\" text=\"bind:WRS_CLFNM\"/><Cell col=\"9\" text=\"bind:FSRG_DTM\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"100\"/><Column size=\"200\"/><Column size=\"80\"/><Column size=\"85\"/><Column size=\"100\"/><Column size=\"100\"/><Column size=\"200\"/><Column size=\"200\"/><Column size=\"100\"/></Columns><Rows><Row size=\"30\" band=\"head\"/><Row size=\"28\"/></Rows><Band id=\"head\"><Cell text=\"상품코드\"/><Cell col=\"1\" text=\"상품명\"/><Cell col=\"2\" text=\"상품규격명\"/><Cell col=\"3\" text=\"상품단위코드\"/><Cell col=\"4\" text=\"상품단위명\"/><Cell col=\"5\" cssclass=\"pack_price\" text=\"expr:comp.parent.parent.autoPop.comboType==2 ?'공병단가':'공상자단가'\"/><Cell col=\"6\" text=\"expr:comp.parent.parent.autoPop.comboType==2 ?'공병수수료':'공상자수수료'\"/><Cell col=\"7\" text=\"상품분류코드\"/><Cell col=\"8\" text=\"상품분류명\"/><Cell col=\"9\" text=\"최초등록일시\"/></Band><Band id=\"body\"><Cell text=\"bind:NA_WRS_C\"/><Cell col=\"1\" style=\"align:left;\" text=\"bind:WRSNM\"/><Cell col=\"2\" text=\"bind:WRS_STDNM\"/><Cell col=\"3\" text=\"bind:NA_WRS_UNT_C\"/><Cell col=\"4\" text=\"bind:NA_WRS_ATTNM\"/><Cell col=\"5\" text=\"bind:VCBT_UPR\"/><Cell col=\"6\" text=\"bind:VCBT_FEE\"/><Cell col=\"7\" text=\"bind:WRS_CLF\"/><Cell col=\"8\" text=\"bind:WRS_CLFNM\"/><Cell col=\"9\" text=\"bind:FSRG_DTM\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_ok", "absolute", "289", "307", "54", "29", null, null, this);
@@ -213,9 +213,9 @@
         {
         	trace("paramMode : "+this.getOwnerFrame().paramMode);
         	trace("dsArg : "+this.parent.dsArg.rowcount);
-        	var param = [  
-        		{code:"WRS_TPC", dsName:"ds_vcbtbx_tpc", selecttype:"S"}
-        	];
+         	var param = [  
+         		{code:"WRS_TPC", dsName:"ds_vcbtbx_tpc", selecttype:"S"}
+         	];
         	this.gfn_setCommonCode(param);
         	this.grd_vcbtbx.set_nodatatext(this.gfn_getTextMessage('result.message.search.no.exist.data'));	
         	var searchParam =
@@ -228,10 +228,11 @@
         	};
         	this.addEventEnterSearch(searchParam);
         	
-        	
         	if(autoPop.comboType){
         		this.div_search.WRS_TPC.set_value(autoPop.comboType);
         	}
+            
+            comp.parent.div_search.WRS_TPC.value
         	if(autoPop.autoType){
         		if(autoPop.searchCode && autoPop.searchText){
         			this.div_search.searchType.set_value("code");
@@ -250,12 +251,10 @@
         		}
         		this.btn_search_onclick();
         	}
-
         }
 
         this.fn_commonAfterOnload= function()
         {
-        	this.edit_colnm(autoPop.comboType);
             this.div_search.WRS_TPC.set_index(0);
         }
 
@@ -322,7 +321,8 @@
         		this.gfn_getMessage("alert", ErrorMsg);
         		return;
         	}else{
-        		if(svcID == "searchVCBTBX"){										
+        		if(svcID == "searchVCBTBX"){
+        			this.edit
         			if(this.ds_vcbtbx.rowcount == 0){	
         				this.grd_vcbtbx.set_nodatatext(this.gfn_getTextMessage("result.message.search.no.exist.data"));								
         			}else if(this.grd_vcbtbx.rowcount == 1){
@@ -348,27 +348,6 @@
         this.div_search_WRS_TPC_onitemchanged = function(obj,e)
         {
         	this.edit_colnm(this.div_search.WRS_TPC.index);
-        }
-
-         // 아래로
-        this.get_grid_cell = function (grid_nm,seq) {
-        	console.log(grid_nm);
-        	return document.getElementById(grid_nm.head.bandctrl._unique_id)
-        		.getElementsByTagName("div")[0]
-        		.getElementsByTagName("div")[0]
-        		.getElementsByTagName("div")[0]
-        		.getElementsByTagName("div")[0]
-        		.getElementsByTagName("div")[0]
-        		.getElementsByTagName("div")[seq * 3 - 1];
-        }
-        //아래로
-        this.edit_colnm = function (simp_c) {
-        	if(String(simp_c).match('([2-3]){1}')) {//상품유형(SIMP_C)의 범위를 선택하는 정규식.
-        		this.get_grid_cell(this.grd_vcbtbx, 6).innerText
-        			= this.ds_vcbtbx_tpc.getColumn(simp_c,"SIMP_CNM")+"단가";
-        		this.get_grid_cell(this.grd_vcbtbx, 7).innerText
-        			= this.ds_vcbtbx_tpc.getColumn(simp_c,"SIMP_CNM")+"수수료";
-        	}
         }
         
         });
