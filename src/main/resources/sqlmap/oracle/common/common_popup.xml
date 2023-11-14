@@ -124,6 +124,9 @@
 		AND A.NA_WRS_C=E.NA_WRS_C
 		AND C.DEL_YN='0'
 		AND E.DEL_YN='0'
+		<if test='WRS_TPC.equals("2")'>
+			and E.NA_BZPLC='8808983000015'<!--마트상품부 코드-->
+		</if>
 		<if test="searchType != null and searchType == 'code'">
 			AND A.NA_WRS_C = #{searchText}
 		</if>
