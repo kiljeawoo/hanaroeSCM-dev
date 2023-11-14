@@ -2690,8 +2690,8 @@
 			, A.STOPDATE
 			, A.INFORMATION
 		FROM
-			NHVANINF.KORNET_PRODUCT A,
-			NHVANINF.KORNET_BARCODE_INSDOC B
+			KORNET_PRODUCT A,
+			KORNET_BARCODE_INSDOC B
 		WHERE A.GLN = B.GLN(+)
 			AND A.GTIN = B.GTIN(+)
 			AND A.GLN = #{GLN}
@@ -4434,7 +4434,7 @@
 		     , A.PLG_WRS_KD
 		     , DECODE(A.PLG_WRS_KD, '0', '해당없음', '1', '농협전용상품', '2', '기획상품', '') AS PLG_WRS_KD_NM
 		     , A.WRS_BIZTP_DSC
-		     , DECODE(A.WRS_BIZTP_DSC, '1', '겸용', '2', '소매', '3', '식자재', '') AS WRS_BIZTP_DSC_NM
+		     , DECODE(A.WRS_BIZTP_DSC, '0', '겸용', '1', '소매', '2', '식자재', '') AS WRS_BIZTP_DSC_NM
 		     , A.WRS_WDTH_LEN
 		     , A.WRS_LEN_LEN
 		     , A.WRS_HGHT
