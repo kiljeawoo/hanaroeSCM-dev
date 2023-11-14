@@ -28,7 +28,7 @@
             obj.set_loadkeymode("keep");
             obj.set_loadfiltermode("keep");
             obj.set_reversesubsum("false");
-            obj._setContents("<ColumnInfo><Column id=\"NA_WRS_C\" type=\"STRING\" size=\"256\"/><Column id=\"WRSNM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_STDNM\" type=\"STRING\" size=\"256\"/><Column id=\"NA_WRS_ATTNM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_UPR\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_FEE\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_CLF\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_CLFNM\" type=\"STRING\" size=\"256\"/><Column id=\"FSRG_DTM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"NA_WRS_C\" type=\"STRING\" size=\"256\"/><Column id=\"WRSNM\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_STDNM\" type=\"STRING\" size=\"256\"/><Column id=\"NA_WRS_ATTNM\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_UPR\" type=\"STRING\" size=\"256\"/><Column id=\"VCBT_FEE\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_CLF\" type=\"STRING\" size=\"256\"/><Column id=\"WRS_CLFNM\" type=\"STRING\" size=\"256\"/><Column id=\"FSRG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"SORT_PAC\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows/>");
             this.addChild(obj.name, obj);
 
             obj = new Dataset("ds_searchType", this);
@@ -84,6 +84,8 @@
             obj.set_innerdataset("@ds_vcbtbx_tpc");
             obj.set_codecolumn("SIMP_C");
             obj.set_datacolumn("SIMP_CNM");
+            obj.set_readonly("true");
+            obj.set_index("-1");
             obj = new Static("Static00", "absolute", "5", "11", "50", "21", null, null, this.div_search);
             obj.set_taborder("22");
             obj.set_text("상품유형");
@@ -93,7 +95,7 @@
             obj.set_taborder("5");
             obj.set_binddataset("ds_vcbtbx");
             obj.set_autofittype("none");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"100\"/><Column size=\"200\"/><Column size=\"80\"/><Column size=\"85\"/><Column size=\"100\"/><Column size=\"100\"/><Column size=\"200\"/><Column size=\"200\"/><Column size=\"100\"/></Columns><Rows><Row size=\"30\" band=\"head\"/><Row size=\"28\"/></Rows><Band id=\"head\"><Cell text=\"상품코드\"/><Cell col=\"1\" text=\"상품명\"/><Cell col=\"2\" text=\"상품규격명\"/><Cell col=\"3\" text=\"상품단위코드\"/><Cell col=\"4\" text=\"상품단위명\"/><Cell col=\"5\" text=\"공병단가\"/><Cell col=\"6\" text=\"공병수수료\"/><Cell col=\"7\" text=\"상품분류코드\"/><Cell col=\"8\" text=\"상품분류명\"/><Cell col=\"9\" text=\"최초등록일시\"/></Band><Band id=\"body\"><Cell text=\"bind:NA_WRS_C\"/><Cell col=\"1\" style=\"align:left;\" text=\"bind:WRSNM\"/><Cell col=\"2\" text=\"bind:WRS_STDNM\"/><Cell col=\"3\" text=\"bind:NA_WRS_UNT_C\"/><Cell col=\"4\" text=\"bind:NA_WRS_ATTNM\"/><Cell col=\"5\" text=\"bind:VCBT_UPR\"/><Cell col=\"6\" text=\"bind:VCBT_FEE\"/><Cell col=\"7\" text=\"bind:WRS_CLF\"/><Cell col=\"8\" text=\"bind:WRS_CLFNM\"/><Cell col=\"9\" text=\"bind:FSRG_DTM\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"100\"/><Column size=\"200\"/><Column size=\"80\"/><Column size=\"85\"/><Column size=\"100\"/><Column size=\"100\"/><Column size=\"200\"/><Column size=\"200\"/><Column size=\"100\"/></Columns><Rows><Row size=\"30\" band=\"head\"/><Row size=\"28\"/></Rows><Band id=\"head\"><Cell text=\"상품코드\"/><Cell col=\"1\" text=\"상품명\"/><Cell col=\"2\" text=\"상품규격명\"/><Cell col=\"3\" text=\"상품단위코드\"/><Cell col=\"4\" text=\"상품단위명\"/><Cell col=\"5\" cssclass=\"pack_price\" text=\"공병단가\"/><Cell col=\"6\" text=\"공병수수료\"/><Cell col=\"7\" text=\"상품분류코드\"/><Cell col=\"8\" text=\"상품분류명\"/><Cell col=\"9\" text=\"최초등록일시\"/></Band><Band id=\"body\"><Cell text=\"bind:NA_WRS_C\"/><Cell col=\"1\" style=\"align:left;\" text=\"bind:WRSNM\"/><Cell col=\"2\" text=\"bind:WRS_STDNM\"/><Cell col=\"3\" text=\"bind:NA_WRS_UNT_C\"/><Cell col=\"4\" text=\"bind:NA_WRS_ATTNM\"/><Cell col=\"5\" text=\"bind:VCBT_UPR\"/><Cell col=\"6\" text=\"bind:VCBT_FEE\"/><Cell col=\"7\" text=\"bind:WRS_CLF\"/><Cell col=\"8\" text=\"bind:WRS_CLFNM\"/><Cell col=\"9\" text=\"bind:FSRG_DTM\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_ok", "absolute", "289", "307", "54", "29", null, null, this);
@@ -253,7 +255,8 @@
 
         this.fn_commonAfterOnload= function()
         {
-        	this.div_search.WRS_TPC.set_index(0);
+        	this.edit_colnm(autoPop.comboType);
+            this.div_search.WRS_TPC.set_index(0);
         }
 
         this.btn_cancel_onclick = function(obj,e)
@@ -341,6 +344,32 @@
         		this.btn_ok_onclick();
         	}
         }
+
+        this.div_search_WRS_TPC_onitemchanged = function(obj,e)
+        {
+        	this.edit_colnm(this.div_search.WRS_TPC.index);
+        }
+
+         // 아래로
+        this.get_grid_cell = function (grid_nm,seq) {
+        	console.log(grid_nm);
+        	return document.getElementById(grid_nm.head.bandctrl._unique_id)
+        		.getElementsByTagName("div")[0]
+        		.getElementsByTagName("div")[0]
+        		.getElementsByTagName("div")[0]
+        		.getElementsByTagName("div")[0]
+        		.getElementsByTagName("div")[0]
+        		.getElementsByTagName("div")[seq * 3 - 1];
+        }
+        //아래로
+        this.edit_colnm = function (simp_c) {
+        	if(String(simp_c).match('([2-3]){1}')) {//상품유형(SIMP_C)의 범위를 선택하는 정규식.
+        		this.get_grid_cell(this.grd_vcbtbx, 6).innerText
+        			= this.ds_vcbtbx_tpc.getColumn(simp_c,"SIMP_CNM")+"단가";
+        		this.get_grid_cell(this.grd_vcbtbx, 7).innerText
+        			= this.ds_vcbtbx_tpc.getColumn(simp_c,"SIMP_CNM")+"수수료";
+        	}
+        }
         
         });
 
@@ -351,6 +380,7 @@
         {
             this.addEventHandler("onload", this.form_onload, this);
             this.btn_search.addEventHandler("onclick", this.btn_search_onclick, this);
+            this.div_search.WRS_TPC.addEventHandler("onitemchanged", this.div_search_WRS_TPC_onitemchanged, this);
             this.grd_vcbtbx.addEventHandler("onkeydown", this.grd_vcbtbx_onkeydown, this);
             this.btn_ok.addEventHandler("onclick", this.btn_ok_onclick, this);
             this.btn_cancel.addEventHandler("onclick", this.btn_cancel_onclick, this);
