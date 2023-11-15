@@ -267,7 +267,7 @@ public class FileController extends AbstractController implements HandlerExcepti
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	@RequestMapping(value = "/rest/ce/imageUpload")
+	@RequestMapping(value = "/rest/ce/imageUpload")///rest/ce/imageUpload
 	public @ResponseBody Map<String, Object> uploadNamoImageFile(HttpSession session, MultipartHttpServletRequest request, Model model) throws UnsupportedEncodingException {
 		PlatFormRequestHelper requestHelper = PlatFormRequestHelper.newInstance(request);
 		String imageTitle = requestHelper.getParameter("imageTitle");
