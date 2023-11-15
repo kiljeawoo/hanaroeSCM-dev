@@ -2,7 +2,6 @@ package com.nh.escm.pds.pricat.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -470,25 +469,16 @@ public class ProductService {
 			String srcDir = Configurer.getProperty("file.temp.path");
 			String dstDir = Configurer.getProperty("file.real.wrs.path");
 
-			String nor_file_fold_loc = dstDir + File.separator + VAN_C_RQ_NO;
-
 			for (int i = 0; i < in_upload.getRowCount(); i++) {
 				int rowType = in_upload.getRowType(i);
 				if (rowType == DataSet.ROW_TYPE_INSERTED) {
-//					FileUtil.moveFile(srcDir, dstDir + File.separator + VAN_C_RQ_NO, list3.get(i).getFILE_SYSTEM_NAME());
-					FileUtil.moveFile(srcDir, nor_file_fold_loc, list3.get(i).getFILE_SYSTEM_NAME());
-					//String sys_nm_file = dstDir + File.separator + VAN_C_RQ_NO+ File.separator + list3.get(i).getFILE_SYSTEM_NAME();
-					File sys_nm_file = new File(nor_file_fold_loc + File.separator + list3.get(i).getFILE_SYSTEM_NAME());
-					File nor_file = new File(nor_file_fold_loc +  File.separator + list3.get(i).getFILE_NAME());
-					sys_nm_file.renameTo(nor_file);
-
-					list3.get(i).setVAN_C_RQ_NO(VAN_C_RQ_NO);
 					if(list3.get(i).getFILE_NAME().startsWith("$namo")) {
-						//String[] imgInfo = list3.get(i).getFILE_NAME().split("$namo");
-						String imgInfo = list3.get(i).getFILE_NAME().substring(list3.get(i).getFILE_NAME().indexOf("o")+1,list3.get(i).getFILE_NAME().length());
-						list3.get(i).setFILE_NAME(imgInfo);
-						list3.get(i).setFILE_SYSTEM_NAME(imgInfo);
+						String[] imgInfo = list3.get(i).getFILE_NAME().split("#");
+						list3.get(i).setFILE_NAME(VAN_C_RQ_NO+"_"+i+"."+imgInfo[1]);
 					}
+//					FileUtil.moveFile(srcDir, dstDir + File.separator + VAN_C_RQ_NO, list3.get(i).getFILE_SYSTEM_NAME());
+					FileUtil.moveFile(srcDir, dstDir + File.separator + VAN_C_RQ_NO, list3.get(i).getFILE_SYSTEM_NAME());
+					list3.get(i).setVAN_C_RQ_NO(VAN_C_RQ_NO);
 					productDao.fileReqIn(list3.get(i));
 				}
 			}
@@ -802,7 +792,7 @@ public class ProductService {
 	 * 화면ID : VAN_DS_SC_1543
 	 * 화면설명 : 신규상품 요청등록 추가,수정 (코리안넷)
 	 */
-	public void insertKornetREQ(ProductReqVO vo, ProductReqVO r1vo, String rdo_sep, String temp_yn, String del_yn) {
+	public void insertKornetREQ(ProductReqVO vo, ProductReqVO r1vo, String rdo_sep, String temp_yn, String del_yn) throws SQLException {
 		try {
 			if (rdo_sep.equals("2")) {
 				vo.setCUD_DSC("U");
@@ -819,7 +809,7 @@ public class ProductService {
 			productDao.insertREQ_sub(r1vo);	// 2차상품정보
 		}
 		catch (DataAccessException e) {
-			throw new AppetizerException(e);
+			throw new SQLException(e);
 		}
 	}
 
@@ -1044,14 +1034,10 @@ public class ProductService {
 	 * @return List<Map<String,Object>>
 	 **/
 	public Map<String,Object> retrieve_file_name(String VAN_C_RQ_NO, String img_file_name){
-		try{
-			img_file_name= img_file_name.split("#")[0];
-			Map<String,Object> param = new HashMap<String,Object>();
-			param.put("VAN_C_RQ_NO", VAN_C_RQ_NO);
-			param.put("img_file_name", img_file_name);
-			return productDao.retrieve_file_name(param);
-		} catch (DataAccessException e) {
-			throw new AppetizerException(e);
-		}
+		img_file_name= img_file_name.split("#")[0];
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("VAN_C_RQ_NO", VAN_C_RQ_NO);
+		param.put("img_file_name", img_file_name);
+		return productDao.retrieve_file_name(param);
 	}
 }
