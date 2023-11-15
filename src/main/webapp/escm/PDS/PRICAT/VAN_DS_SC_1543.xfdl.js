@@ -3251,6 +3251,10 @@
         			this.move_and_blink_effect(this.edt_gtin, 'white');
         			return;
         		}
+        		if (svcID == "p_save" && nCD == -2) {
+        			this.alert("입력값이 기준 길이를 초과하였습니다.");
+        			return;
+        		}
         		this.gfn_getMessage("alert", sMSG);
         		return;
         	} else {		
@@ -3420,7 +3424,7 @@
         			// if product is standard cord.
         			else if(this.ds_gd_wrs.getColumn(0,'REQ_STS_DSC')=='S'){
         				this.ds_wrs_rg_req_lg.addRow();
-        				this.sta_result00.set_text("신청가능(표준상품)");
+        				this.sta_result00.set_text("신청가능(등록)");
         				this.btn_save00.set_enable(true);
         				this.ds_wrs_rg_req.setColumn(0,'MFT_NA_TRPL_C',TRPL_C);
         				this.ds_wrs_rg_req.setColumn(0,'WRS_DSC','2');
@@ -5082,14 +5086,6 @@
         		this.ds_namo_editor.clearData();
         		this.ds_wrs_nfty_hdng.clearData();
         		
-        		//ce/nhonfmimg/vancno/
-        		//나모웹에디터MIMEValue 데이터 셋팅
-        		//this.NAMO_DATA = this.NAMO_DATA.replace(/(\/ce\/image\/)/gm, "/ce/nhonfmimg/" + this.edt_na_wrs_c.value + "/"); // 이미지 경로 변경
-        		
-        		aRow = this.ds_namo_editor.addRow();
-        		this.ds_namo_editor.setColumn(aRow, "MHT_DATA", this.NAMO_DATA);
-        		this.ds_namo_editor.setColumn(aRow, "IMG_DATA", this.NAMO_IMG);
-
         		//상품고시항목상세정보셋팅 사용
         		for (var i = 0 ; i < this.ds_wrs_nfty_hdng_sel.rowcount ; i++) {
         			aRow = this.ds_wrs_nfty_hdng.addRow();
@@ -5108,10 +5104,22 @@
         		var imgSizeS = this.NAMO_IMGSIZE;
         		var arrVal = this.NAMO_IMG.split(",");	
         		var arrSizeVal = this.NAMO_IMGSIZE.split(",");
+        		
         		for(var j=0; j < arrVal.length; j++) {
         			 var num = 16+j;
-        			 var fileNm = "$namo"+arrVal[j].substring(arrVal[j].indexOf("#"));
+        			 var ceNum = j+1;
+        			 //var fileNm = "$namo"+arrVal[j].substring(arrVal[j].indexOf("#"));
+        			 var fileNm = "$namo"+this.edt_gtin.value+"_ceimg0"+ceNum+"."+arrVal[j].substring(arrVal[j].indexOf("#")+1,arrVal[j].length);
+        			 //8801043069700_ceimg01.jpg
         			 var sysNm=arrVal[j].substring(0, arrVal[j].indexOf("#"));
+        			 
+        			 console.log('sysNm: '+sysNm);
+        			 console.log('sysNm:_1 '+this.edt_gtin.value+"_ceimg0"+ceNum+"."+arrVal[j].substring(arrVal[j].indexOf("#")+1,arrVal[j].length));
+        			 this.NAMO_DATA = this.NAMO_DATA.replace(sysNm, this.edt_gtin.value+"_ceimg0"+ceNum+"."+arrVal[j].substring(arrVal[j].indexOf("#")+1,arrVal[j].length));
+        			 
+        			 console.log('imgS : '+imgS);
+        			 console.log('arrVal_'+j+' : '+arrVal[j]);
+        			 console.log('fileNm : '+fileNm);
         			 var pval = num //나모웹 에디터 상세 이미지 시퀀스
         						 +"&"+fileNm //나모에디터에서 넘겨주는 원본파일명 확인
         						 +"&"+arrSizeVal[j] //나모에디터에서 넘겨주는 파일사이즈 확인
@@ -5119,6 +5127,14 @@
         						 +"&"+"ONL0"+(5+j)//파일종류 (상품상세설명)
         			 this.addRowFileDs(pval);
         		}
+        		
+        		//나모웹에디터MIMEValue 데이터 셋팅
+        		this.NAMO_DATA = this.NAMO_DATA.replace(/(\/ce\/image\/)/gm, "/ce/nhmimg/"); // 이미지 경로 변경
+        		this.NAMO_DATA = this.NAMO_DATA.replace(/(\.png#png)/gm, ".png"); // 이미지 경로 변경
+        		
+        		aRow = this.ds_namo_editor.addRow();
+        		this.ds_namo_editor.setColumn(aRow, "MHT_DATA", this.NAMO_DATA);
+        		this.ds_namo_editor.setColumn(aRow, "IMG_DATA", this.NAMO_IMG);		
         	}	
         }
 
