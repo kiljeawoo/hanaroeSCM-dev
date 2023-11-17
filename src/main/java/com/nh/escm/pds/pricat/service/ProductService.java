@@ -478,12 +478,12 @@ public class ProductService {
 //					FileUtil.moveFile(srcDir, dstDir + File.separator + VAN_C_RQ_NO, list3.get(i).getFILE_SYSTEM_NAME());
 					FileUtil.moveFile(srcDir, nor_file_fold_loc, list3.get(i).getFILE_SYSTEM_NAME());
 					//String sys_nm_file = dstDir + File.separator + VAN_C_RQ_NO+ File.separator + list3.get(i).getFILE_SYSTEM_NAME();
-					File sys_nm_file = new File(nor_file_fold_loc + File.separator + list3.get(i).getFILE_SYSTEM_NAME());
-					File nor_file = new File(nor_file_fold_loc +  File.separator + list3.get(i).getFILE_NAME());
-					sys_nm_file.renameTo(nor_file);
 
 					list3.get(i).setVAN_C_RQ_NO(VAN_C_RQ_NO);
 					if(list3.get(i).getFILE_NAME().startsWith("$namo")) {
+						File sys_nm_file = new File(nor_file_fold_loc + File.separator + list3.get(i).getFILE_SYSTEM_NAME());
+						File nor_file = new File(nor_file_fold_loc +  File.separator + list3.get(i).getFILE_NAME().substring(list3.get(i).getFILE_NAME().indexOf("o")+1,list3.get(i).getFILE_NAME().length()));
+						sys_nm_file.renameTo(nor_file);
 						//String[] imgInfo = list3.get(i).getFILE_NAME().split("$namo");
 						String imgInfo = list3.get(i).getFILE_NAME().substring(list3.get(i).getFILE_NAME().indexOf("o")+1,list3.get(i).getFILE_NAME().length());
 						list3.get(i).setFILE_NAME(imgInfo);
