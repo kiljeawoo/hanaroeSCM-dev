@@ -2942,7 +2942,6 @@ public class ProductController extends AbstractController{
 	public void insertNewGoodsbyKornet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			PlatFormRequestHelper requestHelper = PlatFormRequestHelper.newInstance(request);
-
 			// String orgpr = requestHelper.getParameter("orgpr");
 			String CTCPL = requestHelper.getParameter("CTCPL"); // 신청자 연락처
 			String rdo_sep = requestHelper.getParameter("rdo_sep");
@@ -2969,8 +2968,11 @@ public class ProductController extends AbstractController{
 			// List<ProductReqPrgrVO> addlist = ValueObjectSetUtil.dataSetToVO(dsInput_wrs, ProductReqPrgrVO.class);
 
 			// 검색조건, 상품공통정보, 2차상품 상세정보 INSERT,UPDATE
+			//productSev.getseq();
 			String RQ_NA_WRS_C = mainlist.get(0).getRQ_NA_WRS_C(); // 신청상품코드
 			String VAN_C_RQ_NO = sequenceKeyService.getNextHexKey(SequenceKeyName.TB_GD_WRS_RG_REQ);
+
+			//
 			mainlist.get(0).setVAN_C_RQ_NO(VAN_C_RQ_NO);
 			mainlist.get(0).setFSRGMN_ENO(userId);
 			mainlist.get(0).setFSRGMN_NA_BZPLC(gln);

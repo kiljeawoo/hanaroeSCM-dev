@@ -4355,7 +4355,18 @@
 	<select id="retrieveNewGoodsDetailByKornet" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT A.RQ_NA_WRS_C /*신청경제통합상품코드*/
 			 , FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM /*경제통합코드신청대상구분코드*/
-			 , DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */
+<!--			 , DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */-->
+			 ,DECODE((SELECT
+						SA.GTIN
+					 FROM
+						KORNET_PRODUCT SA,
+						KORNET_BARCODE_INSDOC SB
+					 WHERE
+						SA.GLN = SB.GLN(+)
+						AND SA.GTIN = SB.GTIN(+)
+						AND SA.GLN = #{FSRGMN_NA_BZPLC}
+						AND SA.GTIN = A.NA_WRS_C)
+						, NULL, '코리안넷 미등록', '코리안넷 등록') AS GBN
 			 , A.WRS_C_DSC /*상품코드구분코드*/
 			 , FN_CM_SIMP_CNM('WRS_C_DSC', A.WRS_C_DSC) AS WRS_C_DSC_NM /*상품코드구분명*/
 			 , A.NA_WRS_LCLC /*경제통합상품대분류코드*/
@@ -4366,144 +4377,144 @@
 			 , B.WRS_MCLFNM /*경제통합상품중분류명*/
 			 , B.WRS_SCLFNM /*경제통합상품소분류명*/
 			 , B.WRS_DTCFNM /*경제통합상품세분류명*/
-		     , A.WRS_DSC /*상품구분코드*/
-		     , FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM /*상품구분명*/
-		     , A.WRSNM /*상품명*/
-		     , A.WRS_ABR_NM /*상품약어명*/
-		     , A.WRS_ENM /*상품영문명*/
-		     , A.WRS_DTL_EXPL /*상품상세설명*/
-		     , A.WRS_STDNM /*상품규격명*/
-		     , A.TXT_DSC /*과세구분코드*/
-		     , FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM /*과세구분명*/
-		     , A.SMA_APL_TPC /*영세적용유형코드*/
-		     , FN_CM_SIMP_CNM('SMA_APL_TPC', A.SMA_APL_TPC) AS SMA_APL_TPC_NM /*영세적용유형명*/
-		     , A.MFT_NA_TRPL_C /*제조경제통합거래처코드*/
-		     , FN_TRPL_CIF_NM(A.MFT_NA_TRPL_C) AS MFT_NA_TRPL_NM /*제조경제통합거래처명*/
-		     , A.GAP_ATTC_YN /* GAP인증여부 */
-		     , A.LWCRBN_ATTC_YN /* 저탄소인증여부 */
-		     , A.WRS_TPC /*상품유형코드*/
-		     , FN_CM_SIMP_CNM('WRS_TPC', A.WRS_TPC) AS WRS_TPC_NM /*상품유형명*/
-		     , A.LIQ_YN /* 주류상품여부 */
-		     , A.VCBT_NA_WRS_C /*공병경제통합상품코드*/
-		     , A.VCBT_QT /*공병수량*/
-		     , A.VCBX_NA_WRS_C /*공상자경제통합상품코드*/
-		     , A.WHT /*단량*/
-		     , A.NA_WRS_UNT_C /* 경제통합상품단위코드 */
-		     , FN_CM_SIMP_CNM('NA_WRS_UNT_C', A.NA_WRS_UNT_C) AS NA_WRS_UNT_NM /* 경제통합상품단위명 */
-		     , A.NA_WRS_IPO_DSC /* 경제통합상품수입구분코드 */
-		     , A.RFID_UYN /* RFID사용여부 */
-		     , A.NA_WRS_CSTD_METC /* 경제통합상품보관방식코드 */
-		     , FN_CM_SIMP_CNM('NA_WRS_CSTD_METC', A.NA_WRS_CSTD_METC) AS NA_WRS_CSTD_METC_NM /* 경제통합상품보관방식명 */
-		     , FN_CM_SIMP_CNM('NA_WRS_UZC', A.NA_WRS_UZC) AS NA_WRS_UZC /* 경제통합상품용도코드 */
-		     , A.DSTR_TER_YN /* 유통기한관리여부 */
-		     , A.DSTR_TER_MRK_DSC /* 유통기한표기방법구분코드 */
-		     , FN_CM_SIMP_CNM('DSTR_TER_MRK_DSC', A.DSTR_TER_MRK_DSC) AS DSTR_TER_MRK_DSC_NM /* 유통기한표기방법구분코드명 */
-		     , A.NA_WRS_PROENV_DSC /* 친환경인증 */
-		     , FN_CM_SIMP_CNM('NA_WRS_PROENV_DSC', A.NA_WRS_PROENV_DSC) AS NA_WRS_PROENV_DSC_NM /*친환경인증구분명*/
-		     , A.BOXPE_AQZ /*박스당입수*/
-		     , A.LIQ_UZ_DSC /* 주류용도 */
-		     , FN_CM_SIMP_CNM('LIQ_UZ_DSC', A.LIQ_UZ_DSC) AS LIQ_UZ_DSC_NM /* 주류용도명 */
-		     , A.NA_WRS_QLT_GRDC /* 품질(등급) */
-		     , FN_CM_SIMP_CNM('NA_WRS_QLT_GRDC', A.NA_WRS_QLT_GRDC) AS NA_WRS_QLT_GRDC_NM /* 품질(등급)명 */
-		     , A.NA_WRS_SZE_SEX_C /* 크기(성별) */
-		     , FN_CM_SIMP_CNM('NA_WRS_SZE_SEX_C', A.NA_WRS_SZE_SEX_C) AS NA_WRS_SZE_SEX_C_NM /* 크기(성별)명 */
-		     , A.NA_WRS_DSTR_STSC /*경제통합상품유통상태코드*/
-		     , FN_CM_SIMP_CNM('NA_WRS_DSTR_STSC', A.NA_WRS_DSTR_STSC) AS NA_WRS_DSTR_STSC_NM /*경제통합상품유통상태명*/
-		     , A.VLD_PRD_CN /* 유효기간 */
-		     , A.VLD_PRD_DSC /*유효기간구분코드*/
-		     , FN_CM_SIMP_CNM('VLD_PRD_DSC', A.VLD_PRD_DSC) AS VLD_PRD_DSC_NM /*유효기간구분명*/
-		     , A.BSC_UNT_DSC /*기본단위구분코드*/
-		     , FN_CM_SIMP_CNM('BSC_UNT_DSC', A.BSC_UNT_DSC) AS BSC_UNT_DSC_NM /*기본단위구분명*/
-		     , A.PR_MRK_WHT 
-		     , A.PR_MRK_STD_BAS_WHT
-		     , A.PR_MRK_BAS_UNIT
-		     , FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
-		     , A.CUS_AG_LRG_DSC
-		     , FN_CM_SIMP_CNM('CUS_AG_LRG_DSC', A.CUS_AG_LRG_DSC) AS CUS_AG_LRG_DSC_NM
-		     , A.FTS_SET_YN
-		     , A.HACCP_ATTC_YN
-		     , A.KC_ATTC_ESS_YN
-		     , A.MN1_HSH_WRS_YN
-		     , A.NEW_SSN_DSC
-		     , FN_CM_SIMP_CNM('NEW_SSN_DSC', A.NEW_SSN_DSC) AS NEW_SSN_DSC_NM
-		     , A.ONL_OBJ_YN
-		     , A.PAK_METH_DSC
-		     , FN_CM_SIMP_CNM('PAK_METH_DSC', A.PAK_METH_DSC) AS PAK_METH_DSC_NM
-		     , A.PAK_QLT_DSC
-		     , FN_CM_SIMP_CNM('PAK_QLT_DSC', A.PAK_QLT_DSC) AS PAK_QLT_DSC_NM
-		     , A.PLG_WRS_KD
-		     , DECODE(A.PLG_WRS_KD, '0', '해당없음', '1', '농협전용상품', '2', '기획상품', '') AS PLG_WRS_KD_NM
-		     , A.WRS_BIZTP_DSC
-		     , DECODE(A.WRS_BIZTP_DSC, '0', '겸용', '1', '소매', '2', '식자재', '') AS WRS_BIZTP_DSC_NM
-		     , A.WRS_WDTH_LEN
-		     , A.WRS_LEN_LEN
-		     , A.WRS_HGHT
-		     , A.NA_WRS_STD_UNT_C
-		     , FN_CM_SIMP_CNM('BOX_STD_UNT_C', A.NA_WRS_STD_UNT_C) AS NA_WRS_STD_UNT_C_NM
-		     , LG.NA_SPYPL_C
-		     , LG.NA_SPYPL_TEAM_C
-		     , LG.BOX_WRS_YN
-		     , LG.BOX_WT
-		     , LG.BOX_BULK
-		     , LG.BYNG_UPR
-		     , LG.SEL_UPR
-		     , LG.WDTH_LEN
-		     , LG.LEN_LEN
-		     , LG.WRS_HGHT AS LG_WRS_HGHT
-		     , LG.PLTPE_LYNO
-		     , LG.PLTPE_SGNO
-		     , LG.PLTPE_BOX_CN
-		     , '' AS HTML_DATA
-		     , (SELECT WRS.WRSNM FROM TB_GD_WRS WRS WHERE WRS.NA_WRS_C = A.VCBT_NA_WRS_C ) AS VCBT_NA_WRS_NM
-		     , (SELECT WRS.WRSNM FROM TB_GD_WRS WRS WHERE WRS.NA_WRS_C = A.VCBX_NA_WRS_C ) AS VCBX_NA_WRS_NM
-		     , FN_TRPL_CIF_NM(LG.NA_SPYPL_C) AS NA_SPYPL_NM
-		  FROM TB_GD_WRS_RG_REQ A /* 상품등록신청내역 */
-		     , TB_GD_WRS_CLF B
-		     , TB_GD_WRS_RG_REQ_LG LG /* r1상품 관련 테이블 */
-		 WHERE 1 =1
+			 , A.WRS_DSC /*상품구분코드*/
+			 , FN_CM_SIMP_CNM('WRS_DSC', A.WRS_DSC) AS WRS_DSC_NM /*상품구분명*/
+			 , A.WRSNM /*상품명*/
+			 , A.WRS_ABR_NM /*상품약어명*/
+			 , A.WRS_ENM /*상품영문명*/
+			 , A.WRS_DTL_EXPL /*상품상세설명*/
+			 , A.WRS_STDNM /*상품규격명*/
+			 , A.TXT_DSC /*과세구분코드*/
+			 , FN_CM_SIMP_CNM('TXT_DSC', A.TXT_DSC) AS TXT_DSC_NM /*과세구분명*/
+			 , A.SMA_APL_TPC /*영세적용유형코드*/
+			 , FN_CM_SIMP_CNM('SMA_APL_TPC', A.SMA_APL_TPC) AS SMA_APL_TPC_NM /*영세적용유형명*/
+			 , A.MFT_NA_TRPL_C /*제조경제통합거래처코드*/
+			 , FN_TRPL_CIF_NM(A.MFT_NA_TRPL_C) AS MFT_NA_TRPL_NM /*제조경제통합거래처명*/
+			 , A.GAP_ATTC_YN /* GAP인증여부 */
+			 , A.LWCRBN_ATTC_YN /* 저탄소인증여부 */
+			 , A.WRS_TPC /*상품유형코드*/
+			 , FN_CM_SIMP_CNM('WRS_TPC', A.WRS_TPC) AS WRS_TPC_NM /*상품유형명*/
+			 , A.LIQ_YN /* 주류상품여부 */
+			 , A.VCBT_NA_WRS_C /*공병경제통합상품코드*/
+			 , A.VCBT_QT /*공병수량*/
+			 , A.VCBX_NA_WRS_C /*공상자경제통합상품코드*/
+			 , A.WHT /*단량*/
+			 , A.NA_WRS_UNT_C /* 경제통합상품단위코드 */
+			 , FN_CM_SIMP_CNM('NA_WRS_UNT_C', A.NA_WRS_UNT_C) AS NA_WRS_UNT_NM /* 경제통합상품단위명 */
+			 , A.NA_WRS_IPO_DSC /* 경제통합상품수입구분코드 */
+			 , A.RFID_UYN /* RFID사용여부 */
+			 , A.NA_WRS_CSTD_METC /* 경제통합상품보관방식코드 */
+			 , FN_CM_SIMP_CNM('NA_WRS_CSTD_METC', A.NA_WRS_CSTD_METC) AS NA_WRS_CSTD_METC_NM /* 경제통합상품보관방식명 */
+			 , FN_CM_SIMP_CNM('NA_WRS_UZC', A.NA_WRS_UZC) AS NA_WRS_UZC /* 경제통합상품용도코드 */
+			 , A.DSTR_TER_YN /* 유통기한관리여부 */
+			 , A.DSTR_TER_MRK_DSC /* 유통기한표기방법구분코드 */
+			 , FN_CM_SIMP_CNM('DSTR_TER_MRK_DSC', A.DSTR_TER_MRK_DSC) AS DSTR_TER_MRK_DSC_NM /* 유통기한표기방법구분코드명 */
+			 , A.NA_WRS_PROENV_DSC /* 친환경인증 */
+			 , FN_CM_SIMP_CNM('NA_WRS_PROENV_DSC', A.NA_WRS_PROENV_DSC) AS NA_WRS_PROENV_DSC_NM /*친환경인증구분명*/
+			 , A.BOXPE_AQZ /*박스당입수*/
+			 , A.LIQ_UZ_DSC /* 주류용도 */
+			 , FN_CM_SIMP_CNM('LIQ_UZ_DSC', A.LIQ_UZ_DSC) AS LIQ_UZ_DSC_NM /* 주류용도명 */
+			 , A.NA_WRS_QLT_GRDC /* 품질(등급) */
+			 , FN_CM_SIMP_CNM('NA_WRS_QLT_GRDC', A.NA_WRS_QLT_GRDC) AS NA_WRS_QLT_GRDC_NM /* 품질(등급)명 */
+			 , A.NA_WRS_SZE_SEX_C /* 크기(성별) */
+			 , FN_CM_SIMP_CNM('NA_WRS_SZE_SEX_C', A.NA_WRS_SZE_SEX_C) AS NA_WRS_SZE_SEX_C_NM /* 크기(성별)명 */
+			 , A.NA_WRS_DSTR_STSC /*경제통합상품유통상태코드*/
+			 , FN_CM_SIMP_CNM('NA_WRS_DSTR_STSC', A.NA_WRS_DSTR_STSC) AS NA_WRS_DSTR_STSC_NM /*경제통합상품유통상태명*/
+			 , A.VLD_PRD_CN /* 유효기간 */
+			 , A.VLD_PRD_DSC /*유효기간구분코드*/
+			 , FN_CM_SIMP_CNM('VLD_PRD_DSC', A.VLD_PRD_DSC) AS VLD_PRD_DSC_NM /*유효기간구분명*/
+			 , A.BSC_UNT_DSC /*기본단위구분코드*/
+			 , FN_CM_SIMP_CNM('BSC_UNT_DSC', A.BSC_UNT_DSC) AS BSC_UNT_DSC_NM /*기본단위구분명*/
+			 , A.PR_MRK_WHT
+			 , A.PR_MRK_STD_BAS_WHT
+			 , A.PR_MRK_BAS_UNIT
+			 , FN_CM_SIMP_CNM('BAS_PR_UNT_DSC', A.PR_MRK_BAS_UNIT) AS PR_MRK_BAS_UNIT_NM
+			 , A.CUS_AG_LRG_DSC
+			 , FN_CM_SIMP_CNM('CUS_AG_LRG_DSC', A.CUS_AG_LRG_DSC) AS CUS_AG_LRG_DSC_NM
+			 , A.FTS_SET_YN
+			 , A.HACCP_ATTC_YN
+			 , A.KC_ATTC_ESS_YN
+			 , A.MN1_HSH_WRS_YN
+			 , A.NEW_SSN_DSC
+			 , FN_CM_SIMP_CNM('NEW_SSN_DSC', A.NEW_SSN_DSC) AS NEW_SSN_DSC_NM
+			 , A.ONL_OBJ_YN
+			 , A.PAK_METH_DSC
+			 , FN_CM_SIMP_CNM('PAK_METH_DSC', A.PAK_METH_DSC) AS PAK_METH_DSC_NM
+			 , A.PAK_QLT_DSC
+			 , FN_CM_SIMP_CNM('PAK_QLT_DSC', A.PAK_QLT_DSC) AS PAK_QLT_DSC_NM
+			 , A.PLG_WRS_KD
+			 , DECODE(A.PLG_WRS_KD, '0', '해당없음', '1', '농협전용상품', '2', '기획상품', '') AS PLG_WRS_KD_NM
+			 , A.WRS_BIZTP_DSC
+			 , DECODE(A.WRS_BIZTP_DSC, '0', '겸용', '1', '소매', '2', '식자재', '') AS WRS_BIZTP_DSC_NM
+			 , A.WRS_WDTH_LEN
+			 , A.WRS_LEN_LEN
+			 , A.WRS_HGHT
+			 , A.NA_WRS_STD_UNT_C
+			 , FN_CM_SIMP_CNM('BOX_STD_UNT_C', A.NA_WRS_STD_UNT_C) AS NA_WRS_STD_UNT_C_NM
+			 , LG.NA_SPYPL_C
+			 , LG.NA_SPYPL_TEAM_C
+			 , LG.BOX_WRS_YN
+			 , LG.BOX_WT
+			 , LG.BOX_BULK
+			 , LG.BYNG_UPR
+			 , LG.SEL_UPR
+			 , LG.WDTH_LEN
+			 , LG.LEN_LEN
+			 , LG.WRS_HGHT AS LG_WRS_HGHT
+			 , LG.PLTPE_LYNO
+			 , LG.PLTPE_SGNO
+			 , LG.PLTPE_BOX_CN
+			 , '' AS HTML_DATA
+			 , (SELECT WRS.WRSNM FROM TB_GD_WRS WRS WHERE WRS.NA_WRS_C = A.VCBT_NA_WRS_C ) AS VCBT_NA_WRS_NM
+			 , (SELECT WRS.WRSNM FROM TB_GD_WRS WRS WHERE WRS.NA_WRS_C = A.VCBX_NA_WRS_C ) AS VCBX_NA_WRS_NM
+			 , FN_TRPL_CIF_NM(LG.NA_SPYPL_C) AS NA_SPYPL_NM
+		FROM TB_GD_WRS_RG_REQ A /* 상품등록신청내역 */
+			 , TB_GD_WRS_CLF B
+			 , TB_GD_WRS_RG_REQ_LG LG /* r1상품 관련 테이블 */
+		WHERE 1 =1
 		   AND A.NA_WRS_LCLC = B.NA_WRS_LCLC
 		   AND A.NA_WRS_MCLC = B.NA_WRS_MCLC
 		   AND A.NA_WRS_SCLC = B.NA_WRS_SCLC
 		   AND A.NA_WRS_DTCF_C = B.NA_WRS_DTCF_C
-		   AND A.FSRGMN_NA_BZPLC = #{FSRGMN_NA_BZPLC} 
+		   AND A.FSRGMN_NA_BZPLC = #{FSRGMN_NA_BZPLC}
 		   AND A.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
 		   AND A.CUD_DSC != 'D'
 		   AND A.VAN_C_RQ_NO = LG.VAN_C_RQ_NO
 	</select>
-   
-   <select id="retrieveNewGoodsOnlNtfy" parameterType="java.util.Map" resultType="java.util.Map">
-      SELECT DISTINCT A.WRS_NTFY_NM, A.WRS_NTFY_C
-		  FROM TB_AM_ONLINE_NTFY_M A,
-           TB_GD_WRS_ONLINE_NTFY W
-		 WHERE A.UYN    = 'Y'
-		   AND A.DEL_YN = 'N'
-       	   AND A.WRS_NTFY_C = W.WRS_NTFY_C
-           AND W.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
-		  ORDER BY A.WRS_NTFY_C
-   </select>
-   
-   <select id="retrieveNewGoodsOnlNtfyD" parameterType="java.util.Map" resultType="java.util.Map">
-      SELECT ROWNUM   AS SORT_SEQ  /* 정렬순서   */
-		    , B.WRS_NTFY_HDNG_NM    /* 고시항목명  */
-         	, W.WRS_NTFY_HDNG_CNTN
-		    , B.WRS_NTFY_HDNG_EXPL  /* 고시항목설명 */
-		 FROM TB_AM_ONLINE_NTFY_M   A
-		    , TB_AM_ONLINE_NTFY_D   B
-         	, TB_GD_WRS_ONLINE_NTFY W
-		WHERE A.WRS_NTFY_C      = B.WRS_NTFY_C
-		  AND A.DEL_YN          = 'N'
-		  AND A.UYN             = 'Y'
-		  AND B.DEL_YN          = 'N'
-		  AND B.UYN             = 'Y'
-		  AND A.WRS_NTFY_C      = W.WRS_NTFY_C       
-       	  AND W.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
-       	  AND B.WRS_NTFY_HDNG_C = W.WRS_NTFY_HDNG_C
-		ORDER BY B.WRS_NTFY_HDNG_C  
-   </select>
-   
-	<select id="retrieveModGoodsDetailByKornet" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO" resultType="java.util.Map">
-		SELECT
-			<!-- 공통정보 -->
+
+    <select id="retrieveNewGoodsOnlNtfy" parameterType="java.util.Map" resultType="java.util.Map">
+ 	  	SELECT DISTINCT A.WRS_NTFY_NM, A.WRS_NTFY_C
+ 			  FROM TB_AM_ONLINE_NTFY_M A,
+ 			   TB_GD_WRS_ONLINE_NTFY W
+ 			 WHERE A.UYN    = 'Y'
+ 			   AND A.DEL_YN = 'N'
+ 				  AND A.WRS_NTFY_C = W.WRS_NTFY_C
+ 			   AND W.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+ 			  ORDER BY A.WRS_NTFY_C
+    </select>
+
+    <select id="retrieveNewGoodsOnlNtfyD" parameterType="java.util.Map" resultType="java.util.Map">
+            SELECT W.WRS_NTFY_HDNG_C AS SORT_SEQ /* 정렬순서   */ ,
+                B.WRS_NTFY_HDNG_NM /* 고시항목명  */ ,
+                W.WRS_NTFY_HDNG_CNTN,
+                B.WRS_NTFY_HDNG_EXPL /* 고시항목설명 */
+            FROM TB_AM_ONLINE_NTFY_M A,
+                TB_AM_ONLINE_NTFY_D B,
+                TB_GD_WRS_ONLINE_NTFY W
+            WHERE A.WRS_NTFY_C = B.WRS_NTFY_C
+                AND A.DEL_YN = 'N'
+                AND A.UYN = 'Y'
+                AND B.DEL_YN = 'N'
+                AND B.UYN = 'Y'
+                AND A.WRS_NTFY_C = W.WRS_NTFY_C
+                AND W.VAN_C_RQ_NO = #{VAN_C_RQ_NO}
+                AND B.WRS_NTFY_HDNG_C = W.WRS_NTFY_HDNG_C
+            ORDER BY W.WRS_NTFY_HDNG_C
+    </select>
+
+    <select id="retrieveModGoodsDetailByKornet" parameterType="com.nh.escm.pds.pricat.vo.ProductReqVO" resultType="java.util.Map">
+    	SELECT
+                    <!-- 공통정보 -->
 			  A.RQ_NA_WRS_C	/*신청경제통합상품코드*/
 			, FN_CM_SIMP_CNM('NA_C_RQ_OBJ_DSC', A.NA_C_RQ_OBJ_DSC) AS NA_C_RQ_OBJ_DSC_NM	/*경제통합코드신청대상구분코드*/
 			, DECODE(A.NA_WRS_C, NULL, '비표준', '표준') AS GBN /* 신청코드구분(1비표준, 2표준) */

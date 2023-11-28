@@ -363,8 +363,9 @@
             obj = new Static("sta_title05", "absolute", "0", "393", "110", "29", null, null, this);
             obj.set_text("상품약어명");
             obj.set_cssclass("sta_WF_Label");
-            obj.style.set_color("#353e41ff");
+            obj.style.set_color("red");
             obj.style.set_padding("2 7 0 7");
+            obj.style.set_font("bold 9 Gulim");
             obj.set_taborder("22");
             this.addChild(obj.name, obj);
 
@@ -394,7 +395,7 @@
             obj = new Edit("edt_WRS_ABR_NM", "absolute", "113", "397", "264", "21", null, null, this);
             obj.set_cssclass("WF_Essential");
             obj.set_lengthunit("ascii");
-            obj.set_maxlength("30");
+            obj.set_maxlength("100");
             obj.set_taborder("120");
             this.addChild(obj.name, obj);
 
@@ -723,13 +724,13 @@
             obj.set_taborder("37");
             obj.set_tabstop("false");
             this.div_search.addChild(obj.name, obj);
-            obj = new Edit("edt_div_data03", "absolute", "323", "32", "30", "21", null, null, this.div_search);
+            obj = new Edit("edt_div_data03", "absolute", "323", "32", "54", "21", null, null, this.div_search);
             obj.set_maxlength("3");
             obj.set_cssclass("WF_Essential");
             obj.set_inputtype("number");
             obj.set_taborder("38");
             this.div_search.addChild(obj.name, obj);
-            obj = new Static("Static13", "absolute", "358", "32", "20", "21", null, null, this.div_search);
+            obj = new Static("Static13", "absolute", "384", "32", "20", "21", null, null, this.div_search);
             obj.set_text("개");
             obj.set_taborder("39");
             this.div_search.addChild(obj.name, obj);
@@ -3309,6 +3310,7 @@
         			if (!WRS_LCLC) {
         				this.div_search.cbo_div_list00.set_index(0);
         				this.cbo_div_list01.set_index(0);
+        				this.cbo_div_list03.set_index(0);
         				this.div_search.cbo_div_list02.set_index(0);
         				this.div_search.cbo_div_list04.set_index(0);
         			}
@@ -3376,6 +3378,7 @@
         // 				if(this.ds_wrs_rg_req.getColumn(0,"PRC_YN") == 'E'){
         // 					//alert('신규상품등록내역조회 화면에서 전송상태가 오류인지를 확인하시오.');
         // 				}
+        				//this.pakQltFilter("U");
         			}
         			// if CUD_DSC is 'I'. it's not had been register yet.
         			else if(this.ds_gd_wrs.getColumn(0,'REQ_STS_DSC')=='I'){
@@ -3572,13 +3575,13 @@
         			totcnt++;
         		}
         	}
-        	if (totcnt > 200) {
-        		this.alert("상품상세 설명은 200자 이내로 입력하세요\n 현재 입력 수["+totcnt+"]");
-        		// this.txa_contents00.setFocus();
-        		this.move_and_blink_effect(this.txa_contents00, 'white');
-        		return false;
-        	}
-        	
+        // 	if (totcnt > 200) {
+        // 		this.alert("상품상세 설명은 200자 이내로 입력하세요\n 현재 입력 수["+totcnt+"]");
+        // 		// this.txa_contents00.setFocus();
+        // 		this.move_and_blink_effect(this.txa_contents00, 'white');
+        // 		return false;
+        // 	}
+        // 	
         	/* 확인 후 변경
         	if((this.gfn_nullToEmpty(this.edt_data17.value).length > 0) && (this.cbo_list_wrs02.value != '1')){ // 물류센터와 계약구분
         		this.gfn_getMessage("alert",'msg.van_ds_sc_1540.view.simple.text20');
@@ -3811,12 +3814,12 @@
         					this.move_and_blink_effect(this.div_search.rdo_store_code03, 'white');
         					return false;
         				}
-        				if (this.gfn_nullToEmpty(this.div_search.edt_div_data01.value) == "") { // 공병코드
-        					this.alert("공병코드를 입력해주세요.");
-        					// this.div_search.edt_div_data01.setFocus();
-        					this.move_and_blink_effect(this.div_search.edt_div_data01, 'white');
-        					return false;
-        				}
+        // 				if (this.gfn_nullToEmpty(this.div_search.edt_div_data01.value) == "") { // 공병코드
+        // 					this.alert("공병코드를 입력해주세요.");
+        // 					// this.div_search.edt_div_data01.setFocus();
+        // 					this.move_and_blink_effect(this.div_search.edt_div_data01, 'white');
+        // 					return false;
+        // 				}
         			}
         		}
 
@@ -4931,14 +4934,20 @@
 
         /* 1차상품 - 상품명 생성 */
         this.fn_makeWrsName = function()
-        {
+        {	
+        	console.log("/* 1차상품 - 상품명 생성 */");
+        	console.log(this.cbo_div_list01.value);	
+        	
+        	//this.pakQltFilter("I");
+        	
         	if (this.rdo_WRS_DSC.value != "1") {
         		return;
         	}
 
         	var name = AUTO_WRS_NM;
         	var fullname = "";
-
+        	
+        		
         	// 단량
         	if (!this.gfn_isNull(this.div_search.edt_div_data04.value) && !this.gfn_isNull(this.div_search.cbo_div_list00.value)) {
         		name += "/" + this.div_search.edt_div_data04.text + this.div_search.cbo_div_list00.text;
@@ -5115,7 +5124,7 @@
         			 
         			 console.log('sysNm: '+sysNm);
         			 console.log('sysNm:_1 '+this.edt_gtin.value+"_ceimg0"+ceNum+"."+arrVal[j].substring(arrVal[j].indexOf("#")+1,arrVal[j].length));
-        			 this.NAMO_DATA = this.NAMO_DATA.replace(sysNm, this.edt_gtin.value+"_ceimg0"+ceNum+"."+arrVal[j].substring(arrVal[j].indexOf("#")+1,arrVal[j].length));
+        			 this.NAMO_DATA = this.NAMO_DATA.replace(arrVal[j], this.edt_gtin.value+"_ceimg0"+ceNum+"."+arrVal[j].substring(arrVal[j].indexOf("#")+1,arrVal[j].length));
         			 
         			 console.log('imgS : '+imgS);
         			 console.log('arrVal_'+j+' : '+arrVal[j]);
@@ -5130,7 +5139,6 @@
         		
         		//나모웹에디터MIMEValue 데이터 셋팅
         		this.NAMO_DATA = this.NAMO_DATA.replace(/(\/ce\/image\/)/gm, "/ce/nhmimg/"); // 이미지 경로 변경
-        		this.NAMO_DATA = this.NAMO_DATA.replace(/(\.png#png)/gm, ".png"); // 이미지 경로 변경
         		
         		aRow = this.ds_namo_editor.addRow();
         		this.ds_namo_editor.setColumn(aRow, "MHT_DATA", this.NAMO_DATA);
@@ -5311,6 +5319,55 @@
         	document.getElementById(obj.stc_namo_msg03._unique_id).style.zIndex = '3';
 
         }
+
+        // this.pakQltFilter = function(crud)
+        // {
+        // 	if(this.cbo_div_list01.value == "0") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '0'");
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "1") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '1' || SIMP_C == '2' || SIMP_C == '11' || SIMP_C == '12'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "2") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '4' || SIMP_C == '12'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "3") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '4'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "4") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '9'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "5") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '10'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "6") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '12'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "7") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '2'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "8") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '12'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "9") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '6' || SIMP_C == '7'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "10") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '4'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "11") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '12'");		
+        // 	}
+        // 	else if(this.cbo_div_list01.value == "12") {
+        // 		this.ds_pak_qlt_dsc.filter("SIMP_C == '' || SIMP_C == '12'");		
+        // 	}
+        // 	else{
+        // 		this.ds_pak_qlt_dsc.filter("");
+        // 	}
+        // 	if(crud == "I"){
+        // 		this.cbo_div_list03.set_index(0);
+        // 	}	
+        // }
         });
 
 
@@ -5342,7 +5399,6 @@
             this.div_search.Static28.addEventHandler("onclick", this.div_search_Static28_onclick, this);
             this.div_search.sta_title04.addEventHandler("onclick", this.div_search_sta_title04_onclick, this);
             this.div_search.edt_div_data04.addEventHandler("onkillfocus", this.fn_makeWrsName, this);
-            this.div_search.cbo_div_list00.addEventHandler("onitemchanged", this.fn_makeWrsName, this);
             this.div_search.edt_div_data01.addEventHandler("onkeydown", this.div_search_edt_div_data01_onkeydown, this);
             this.div_search.edt_div_data01.addEventHandler("oneditclick", this.div_search_edt_div_data01_oneditclick, this);
             this.div_search.edt_div_data02.addEventHandler("onkeydown", this.div_search_edt_div_data02_onkeydown, this);
@@ -5452,7 +5508,6 @@
             this.Static19.addEventHandler("onclick", this.Static03_onclick, this);
             this.Static20.addEventHandler("onclick", this.Static03_onclick, this);
             this.Static21.addEventHandler("onclick", this.Static03_onclick, this);
-            this.cbo_div_list03.addEventHandler("onitemchanged", this.fn_makeWrsName, this);
             this.sta_title24.addEventHandler("onclick", this.sta_title24_onclick, this);
             this.rdo_store_code06.addEventHandler("onitemchanged", this.rdo_store_code06_onitemchanged, this);
             this.sta_title27.addEventHandler("onclick", this.sta_title21_onclick, this);
